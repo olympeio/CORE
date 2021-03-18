@@ -1,0 +1,9 @@
+node_modules/
+.DS_Store
+.idea/
+build/
+.dc-init/
+build.out/
+build.cache/
+build.out_non-tech/
+package-lock.json

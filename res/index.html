@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html  lang="en">
+<head>
+    <title>Olympe</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <script type="text/javascript" src="main.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    if (document.addEventListener) {
+        document.addEventListener('touchstart', function(event){
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, {passive: false});
+    }
+
+    if (document.addEventListener) {
+        document.addEventListener('mousewheel', function(event){
+            if (event.ctrlKey) {
+                event.preventDefault();
+            }
+        }, {passive: false});
+    }
+
+    if (document.addEventListener) {
+        document.addEventListener('gesturestart', function(event){
+            event.preventDefault();
+        }, {passive: false});
+    }
+
+    if (document.addEventListener) {
+        document.addEventListener('gesturechange', function(event){
+            event.preventDefault();
+        }, {passive: false});
+    }
+
+    if (window.addEventListener) {
+        // Check if a new cache is available on page load.
+        window.addEventListener('load', function() {
+            if (window.applicationCache) {
+                window.applicationCache.addEventListener('updateready', function() {
+                    if (window.applicationCache.status === window.applicationCache.UPDATEREADY) {
+                        // Browser downloaded a new app cache.
+                        // Swap it in and reload the page to get the new hotness.
+                        window.applicationCache.swapCache();
+                        if (confirm('A new version of this site is available. Load it?')) {
+                            window.location.reload();
+                        }
+                    }
+                }, false);
+            }
+        }, false);
+    }
+</script>
+</body>
+</html>

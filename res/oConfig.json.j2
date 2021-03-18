@@ -1,0 +1,16 @@
+{
+  "server": {
+    "host": "{{ inventory_hostname }}",
+    "port": 443,
+    "ssl": true
+  },
+  "hc": {
+    "globalToken": false
+  },
+  "dc": {
+    "subscribeAll": true
+  },
+  "composer": {
+    "suggestedUser": "admin"
+  }
+}
