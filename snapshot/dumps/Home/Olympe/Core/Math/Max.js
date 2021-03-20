@@ -99,7 +99,7 @@ db.newInstance(_instance_of_Runnable_Input____b_01632b4c1938f32f3d26)
         'v'                                     :1
     })
     .done();
-// :_instance_of_Runnable_Output____Max$_40_$a$_44_$b$_41_$_01784483a2f88e3f11a0
+// :_instance_of_Runnable_Output____Max$_40_$a$_44_$b$_41_$_01632b4c1a9646f41476
 db.newInstance(_instance_of_Runnable_Output____Max$_40_$a$_44_$b$_41_$_01632b4c1a9646f41476)
     .setModelTag(_Runnable_Output_0168a431d25001540002) // tag of the model
     // Tag of goos
@@ -115,8 +115,8 @@ db.newInstance(_instance_of_Documentation_Function_Metadata_01784483ab9da5543c68
     .setModelTag(_Documentation_Function_Metadata_0172c6ae82952a74193c) // tag of the model
     .setNameOrProperties({
         [_Documentation_Function_Metadata_errors_0172c6ae82952a74193f]:'',
-        [_Documentation_Function_Metadata_inputs_0172c6ae82952a74193d]:'## Inputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 0178448344a351fa6381-a | Number | First operand. |\n| 017844835b7b47e9b024-b | Number | Second operand. |\n',
-        [_Documentation_Function_Metadata_outputs_0172c6ae82952a74193e]:'## Outputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 01784483a2f88e3f11a0-Max(a,b) | Number | The largest of the 2 operands. |\n',
+        [_Documentation_Function_Metadata_inputs_0172c6ae82952a74193d]:'## Inputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 01632b4c178c4f70711b-a | Number | First operand. |\n| 01632b4c1938f32f3d26-b | Number | Second operand. |\n',
+        [_Documentation_Function_Metadata_outputs_0172c6ae82952a74193e]:'## Outputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 01632b4c1a9646f41476-Max(a,b) | Number | The largest of the 2 operands. |\n',
         [_Documentation_Metadata_description_01703376c4a81c0e9d92]:'## Description\nCompares 2 numbers and returns the largest one.\n',
         [_Documentation_Metadata_toolTip_01703376c4a81c0e9d91]:'Returns the largest of 2 numbers.',
         'v'                                     :1
@@ -133,6 +133,7 @@ db.assign(_instance_of_Coded_Function_model____Max_01632b4c15a86b8a86cc, _Object
 db.assign(_instance_of_Coded_Function_model____Max_01632b4c15a86b8a86cc, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____b_01632b4c1938f32f3d26);
 db.assign(_instance_of_Coded_Function_model____Max_01632b4c15a86b8a86cc, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____Max$_40_$a$_44_$b$_41_$_01632b4c1a9646f41476);
 db.assignOptional(_instance_of_Coded_Function_model____Max_01632b4c15a86b8a86cc, _Object_gooRel_ff022000000000000003, _Math_0178445f8bd56b19894f);
+db.assignOptional(_instance_of_Documentation_Function_Metadata_01784483ab9da5543c68, _Object_gooRel_ff022000000000000003, _instance_of_Coded_Function_model____Max_01632b4c15a86b8a86cc);
 db.assignOptional(_Math_0178445f8bd56b19894f, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Function_model____Max_01632b4c15a86b8a86cc);
 db.assignOptional(_instance_of_Coded_Function_model____Max_01632b4c15a86b8a86cc, _GOO_parentGooRel_ff02200000000000000u, _Math_0178445f8bd56b19894f);
 db.assignOptional(_Math_0178445f8bd56b19894f, _Folder_itemRel_016a697ef00ce7554692, _instance_of_Coded_Function_model____Max_01632b4c15a86b8a86cc);
