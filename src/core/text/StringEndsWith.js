@@ -1,5 +1,4 @@
-
-import { FunctionBrick, registerBrick, Context } from 'olympe';
+import { FunctionBrick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -40,4 +39,3 @@ export default class StringEndsWith extends FunctionBrick {
 }
 
 registerBrick('01717ca51b73ccbd9292', StringEndsWith);
-

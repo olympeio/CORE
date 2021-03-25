@@ -1,5 +1,4 @@
-
-import { FunctionBrick, registerBrick, Context } from 'olympe';
+import { FunctionBrick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -13,7 +12,7 @@ Use string length js property.See: https://developer.mozilla.org/en-US/docs/Web/
 | --- | :---: | --- |
 | s.length | Number | Length of provided string |
 **/
-export default class LengthofString extends FunctionBrick {
+export default class LengthOfString extends FunctionBrick {
 
     /**
      * Executed every time an input gets updated.
@@ -29,5 +28,4 @@ export default class LengthofString extends FunctionBrick {
     }
 }
 
-registerBrick('01717c67d5d487aa3ac4', LengthofString);
-
+registerBrick('01717c67d5d487aa3ac4', LengthOfString);
