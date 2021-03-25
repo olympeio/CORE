@@ -1,9 +1,8 @@
-
-import { FunctionBrick, registerBrick, Context } from 'olympe';
+import { FunctionBrick, registerBrick } from 'olympe';
 
 /**
 ## Description
-Returns `true` if `a` is smaller than `b`. If `strictly` is set to false, then it returns true if `a` is smaller or
+Returns `true` if `a` is bigger than `b`. If `strictly` is set to false, then it returns true if `a` is bigger or
 equal to `b`.
 ## Inputs
 | Name | Type | Description |
@@ -14,10 +13,10 @@ equal to `b`.
 ## Outputs
 | Name | Type | Description |
 | --- | :---: | --- |
-| a < b | Boolean | `true` is `a` is smaller than `b`. |
-
+| a > b | Boolean | `true` is `a` is greater than `b`. |
 **/
-export default class IsSmallerThan extends FunctionBrick {
+
+export default class IsGreaterThan extends FunctionBrick {
 
     /**
      * Executed every time an input gets updated.
@@ -31,9 +30,8 @@ export default class IsSmallerThan extends FunctionBrick {
      * @param {function(boolean)} setResult
      */
     onUpdate(context, [a, b, strictly], [setResult]) {
-        setResult(strictly ? a < b : a <= b);
+        setResult(strictly ? a > b : a >= b);
     }
 }
 
-registerBrick('01633efc7f259c4d2147', IsSmallerThan);
-
+registerBrick('01633eddc42e7ea58ee6', IsGreaterThan);

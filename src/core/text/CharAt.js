@@ -1,5 +1,4 @@
-
-import { FunctionBrick, registerBrick, Context } from 'olympe';
+import { FunctionBrick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -14,8 +13,8 @@ Use chartAt js function. See: https://developer.mozilla.org/en-US/docs/Web/JavaS
 | Name | Type | Description |
 | --- | :---: | --- |
 | s.charAt(index) | String | The char at given position, undefined is no string found |
-
 **/
+
 export default class CharAt extends FunctionBrick {
 
     /**
@@ -34,4 +33,3 @@ export default class CharAt extends FunctionBrick {
 }
 
 registerBrick('01717ca4161bc06ad75e', CharAt);
-
