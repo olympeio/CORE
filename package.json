@@ -1,22 +1,41 @@
 {
   "name": "@olympeio/core",
   "main": "src/main.js",
-  "version": "1.0.0",
+  "version": "1.0.0-dev",
+  "build": {
+    "orchestratorVersion": "5.8.3"
+  },
+  "scripts": {
+    "serve": "npx webpack serve --config-name draw",
+    "serve:web": "npx webpack serve --config-name web",
+    "build:web": "npx webpack build --config-name web",
+    "build:node": "npx webpack build --config-name node",
+    "prebuild:lib": "npx gulp snapshot --confirm && npx gulp patches --project.modules=project",
+    "build:lib": "webpack build --config-name lib",
+    "postbuild:lib": "npx gulp clean",
+    "add": "npm install",
+    "postadd": "npx gulp rewrite && npm run reset",
+    "prereset": "npx gulp snapshot --confirm",
+    "reset": "npx gulp reset --confirm",
+    "snapshot": "npx gulp snapshot",
+    "bundle": "docker run --rm -e DOCKER_REGISTRY_PATH=olympeio/app- -e PUBLIC_FRAMEWORK=true -e NODE_ENV=production -e NO_S3_PUSH=true -v \"$(pwd):/src\" olympeio/bundler:0.1.60"
+  },
   "devDependencies": {
-    "@olympeio/dev-tools": "0.0.1-dev",
-    "@olympeio/draw": ">=1.12.0-dev",
+    "@olympeio/dev-tools": "^1.0.0-dev",
+    "@olympeio/draw": "^1.12.0-dev",
     "clean-webpack-plugin": ">=3.0.0",
     "copy-webpack-plugin": ">=7.0.0",
     "generate-json-webpack-plugin": ">=2.0.0",
-    "webpack": "^5.26.2",
-    "webpack-cli": "^4.5.0",
-    "webpack-dev-server": "^3.11.2",
+    "webpack": ">=5.24.0",
+    "webpack-cli": ">=4.5.0",
+    "webpack-dev-server": ">=3.11.0",
     "webpack-import-glob-loader": ">=1.6.0",
-    "webpack-shell-plugin-next": ">=2.2.0"
+    "webpack-node-externals": ">=2.5.0"
   },
   "dependencies": {
-    "@olympeio/runtime-node": ">=8.1.0-dev",
-    "@olympeio/runtime-web": ">=8.1.0-dev",
+    "@olympeio/runtime-node": "^8.1.0-dev",
+    "@olympeio/runtime-web": "^8.1.0-dev",
+    "gulp": "^4.0.2",
     "rxjs": "^6.6.6"
   }
 }

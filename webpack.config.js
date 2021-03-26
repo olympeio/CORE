@@ -2,13 +2,13 @@ const path = require('path');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
-const ShellPlugin = require('webpack-shell-plugin-next');
+const nodeExternals = require('webpack-node-externals');
 
 const dist = path.join(__dirname, 'dist');
 const drawPath = path.resolve(__dirname, 'node_modules/@olympeio/draw');
 const runtimeWebPath = path.resolve(__dirname, 'node_modules/@olympeio/runtime-web');
 const runtimeNodePath = path.resolve(__dirname, 'node_modules/@olympeio/runtime-node');
-const package = require('./package.json');
+const npmPackage = require('./package.json');
 
 const config = {
     entry: './src/main.js',
@@ -80,7 +80,7 @@ const node = {
     plugins: [
         new CleanWebpackPlugin(),
         new CopyPlugin({patterns: [
-            {from: 'res'}
+            {from: 'res', globOptions: {ignore: ['**/index.html']}}
         ]})
     ]
 };
@@ -88,37 +88,30 @@ const node = {
 const lib = {
     name: 'lib',
     output: {
-        library: package.name,
+        library: npmPackage.name,
         libraryTarget: 'umd',
         filename: 'index.js',
         path: dist,
         globalObject: 'this'
     },
-    externals: {
-        'olympe': 'olympe'
-    },
+    externals: ['olympe', nodeExternals()],
     plugins: [
-        new ShellPlugin({
-            onBuildStart:{scripts: ['npx gulp patches --project.modules=project'],blocking: true},
-            onBuildEnd:{scripts: ['npx gulp clean']}
-        }),
         new CleanWebpackPlugin(),
         new GenerateJsonPlugin(
             'package.json',
             {
-                name: package.name,
-                version: package.version,
+                name: npmPackage.name,
+                version: npmPackage.version,
                 main: 'index.js',
-                dependencies: package.dependencies,
+                dependencies: npmPackage.dependencies,
                 dcInitConfig: 'import/dcInitConfig.json'
             }
         ),
         new CopyPlugin({patterns: [
-                {from: '.dc-init', to: 'import', globOptions: {ignore: ['**/id_rsa']}}
-            ]}),
+            {from: '.dc-init', to: 'import', globOptions: {ignore: ['**/id_rsa']}}
+        ]}),
     ]
 };
-
 
 module.exports = [
     Object.assign(draw, webConfig, config),
