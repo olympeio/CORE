@@ -18,7 +18,8 @@
     "prereset": "npx gulp snapshot --confirm",
     "reset": "npx gulp reset --confirm",
     "snapshot": "npx gulp snapshot",
-    "bundle": "docker run --rm -e DOCKER_REGISTRY_PATH=olympeio/app- -e PUBLIC_FRAMEWORK=true -e NODE_ENV=production -e NO_S3_PUSH=true -v \"$(pwd):/src\" olympeio/bundler:0.1.60"
+    "bundle": "docker run --rm -e DOCKER_REGISTRY_PATH=olympeio/app- -e PUBLIC_FRAMEWORK=true -e NODE_ENV=production -e NO_S3_PUSH=true -v \"$(pwd):/src\" olympeio/bundler:0.1.60",
+    "test": "karma start"
   },
   "devDependencies": {
     "@olympeio/dev-tools": "^1.0.0-dev",
@@ -29,6 +30,9 @@
     "webpack": ">=5.24.0",
     "webpack-cli": ">=4.5.0",
     "webpack-dev-server": ">=3.11.0",
+    "jasmine": "^3.7.0",
+    "karma-jasmine": "^4.0.1",
+    "karma-webpack": "^5.0.0",
     "webpack-import-glob-loader": ">=1.6.0",
     "webpack-node-externals": ">=2.5.0"
   },
@@ -36,6 +40,7 @@
     "@olympeio/runtime-node": "^8.1.0-dev",
     "@olympeio/runtime-web": "^8.1.0-dev",
     "gulp": "^4.0.2",
-    "rxjs": "^6.6.6"
+    "rxjs": "^6.6.6",
+    "webpack-karma-jasmine": "^4.0.0"
   }
 }

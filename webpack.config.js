@@ -22,6 +22,10 @@ const config = {
         rules: [
             {
                 test: /\.js$/,
+                exclude: [
+                    /\.spec\.mjs$/,
+                    /^tests\//
+                ],
                 use: "webpack-import-glob-loader"
             }
         ]
