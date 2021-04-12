@@ -1,4 +1,4 @@
-import Plus from '../../src/Core/Math/Plus.js';
+import Plus from '../../src/core/math/Plus.js';
 import testEqual from '../helpers/testEqual.mjs';
 
 describe('Plus brick', () => {

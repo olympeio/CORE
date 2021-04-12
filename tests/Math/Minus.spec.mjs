@@ -1,4 +1,4 @@
-import Minus from '../../src/Core/Math/Minus.js';
+import Minus from '../../src/core/math/Minus.js';
 import testEqual from '../helpers/testEqual.mjs';
 
 describe('Minus brick', () => {
