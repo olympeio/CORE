@@ -1,0 +1,45 @@
+variables:
+  CHROME_BIN: "/usr/bin/chromium"
+
+.npm:
+  image:
+    name: registry.caas.olympe.cloud/infra/docker/ci-unit-test-front:1.0.3
+    entrypoint: [""]
+  tags:
+    - aws-spot-runner
+  before_script:
+    ##
+    ## Run ssh-agent (inside the build environment)
+    ##
+    - eval $(ssh-agent -s)
+
+    ##
+    ## Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+    ## We're using tr to fix line endings which makes ed25519 keys work
+    ## without extra base64 encoding.
+    ## https://gitlab.com/gitlab-examples/ssh-private-key/issues/1#note_48526556
+    ##
+    - echo "$GITLAB_SSH_KEY" | tr -d '\r' | ssh-add -
+
+    ##
+    ## Create the SSH directory and give it the right permissions
+    ##
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" npm install --cache .npm --prefer-offline
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm/
+
+
+stages:
+  - unit-tests
+
+tests:
+  stage: unit-tests
+  extends: .npm
+  script:
+    - npm test
+
