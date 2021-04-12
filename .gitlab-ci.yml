@@ -27,7 +27,7 @@ variables:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - npm config set @olympeio:registry https://gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/
-    - npm config set '//gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/:_authToken' "$NPM_TOKEN".
+    - npm config set '//gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/:_authToken' "$NPM_TOKEN"
     - GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" npm install --cache .npm --prefer-offline
 
 cache:
