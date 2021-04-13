@@ -3,7 +3,7 @@
     "subscribeAll": true
   },
   "server" : {
-    "autoConnect": true,
+    "autoConnect": false,
     "reconnectionShortDelay": 5000
   },
   "composer": {

@@ -7,6 +7,7 @@
   },
   "scripts": {
     "serve": "npx webpack serve --config-name draw",
+    "build:draw": "npx webpack build --config-name draw",
     "serve:web": "npx webpack serve --config-name web",
     "build:web": "npx webpack build --config-name web",
     "build:node": "npx webpack build --config-name node",
