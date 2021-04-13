@@ -1,6 +1,6 @@
 {
   "dc": {
-    "subscribeAll": true
+    "subscribeAll": false
   },
   "server" : {
     "autoConnect": false,
