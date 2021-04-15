@@ -3,7 +3,7 @@ variables:
 
 .npm:
   image:
-    name: registry.caas.olympe.cloud/infra/docker/ci-unit-test-front:1.0.3
+    name: registry.caas.olympe.cloud/infra/docker/ci-unit-test-front:1.0.4
     entrypoint: [""]
   tags:
     - aws-spot-runner
