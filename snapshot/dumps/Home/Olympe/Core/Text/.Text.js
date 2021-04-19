@@ -30,7 +30,7 @@ const _instance_of_Folder____Text_0178445ee2a56bf00fd6 = db.assignTag('0178445ee
 //==========================================================
 //========= EXTERNAL REFERENCES ============================
 //==========================================================
-const _Core_017840fd586db904fdf1               = '017840fd586db904fdf1';
+const _Core_100000000000000000df               = '100000000000000000df';
 
 
 
@@ -52,7 +52,7 @@ db.newInstance(_instance_of_Folder____Text_0178445ee2a56bf00fd6, _Folder_01612df
     })
 .done();
 db.setRootInstanceTag(_instance_of_Folder____Text_0178445ee2a56bf00fd6);
-db.assignOptional(_instance_of_Folder____Text_0178445ee2a56bf00fd6, _Object_gooRel_ff022000000000000003, _Core_017840fd586db904fdf1);
-db.assignOptional(_instance_of_Folder____Text_0178445ee2a56bf00fd6, _GOO_parentGooRel_ff02200000000000000u, _Core_017840fd586db904fdf1);
-db.assignOptional(_Core_017840fd586db904fdf1, _Object_containsRel_ff02200000000000000f, _instance_of_Folder____Text_0178445ee2a56bf00fd6);
-db.assignOptional(_Core_017840fd586db904fdf1, _Folder_subFolderRel_016a697ef00ce7554691, _instance_of_Folder____Text_0178445ee2a56bf00fd6);
+db.assignOptional(_instance_of_Folder____Text_0178445ee2a56bf00fd6, _Object_gooRel_ff022000000000000003, _Core_100000000000000000df);
+db.assignOptional(_instance_of_Folder____Text_0178445ee2a56bf00fd6, _GOO_parentGooRel_ff02200000000000000u, _Core_100000000000000000df);
+db.assignOptional(_Core_100000000000000000df, _Object_containsRel_ff02200000000000000f, _instance_of_Folder____Text_0178445ee2a56bf00fd6);
+db.assignOptional(_Core_100000000000000000df, _Folder_subFolderRel_016a697ef00ce7554691, _instance_of_Folder____Text_0178445ee2a56bf00fd6);

@@ -27,7 +27,7 @@ module.exports = function (config) {
       }
     },
     proxies: {
-      '/oConfig.json': 'res/oConfig.json',
+      '/oConfig.json': 'res/oConfig-tests.json',
       '/version.json': 'res/version.json'
     },
     //executes the tests whenever one of the watched files changes

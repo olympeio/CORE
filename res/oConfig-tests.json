@@ -1,9 +1,9 @@
 {
   "dc": {
-    "subscribeAll": true
+    "subscribeAll": false
   },
   "server" : {
-    "autoConnect": true,
+    "autoConnect": false,
     "reconnectionShortDelay": 5000
   },
   "composer": {

@@ -24,7 +24,7 @@ const _Object_gooRel_ff022000000000000003           = 'ff022000000000000003';
 
 
 // Definition of tags used for newly created instances 
-const _instance_of_Project____Core_017840fd586db904fdf1 = db.assignTag('100000000000000000df');
+const _instance_of_Project____Core_100000000000000000df = db.assignTag('100000000000000000df');
 
 
 //==========================================================
@@ -46,14 +46,14 @@ const _ROOT_OF_ROOTS_10000000000000000000      = '10000000000000000000';
 
 
 
-// :_instance_of_Project____Core_017840fd586db904fdf1
-db.newInstance(_instance_of_Project____Core_017840fd586db904fdf1, _Project_0163d9594700fcf61e54)
+// :_instance_of_Project____Core_100000000000000000df
+db.newInstance(_instance_of_Project____Core_100000000000000000df, _Project_0163d9594700fcf61e54)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Core',
         'v'                                     :1
     })
 .done();
-db.setRootInstanceTag(_instance_of_Project____Core_017840fd586db904fdf1);
+db.setRootInstanceTag(_instance_of_Project____Core_100000000000000000df);
 db.newInstance(_OLYMPE_FOLDER_10000000000000000001, _Folder_ff021000000000000020)
     .setOptional()
     .setNameOrProperties({
@@ -61,11 +61,11 @@ db.newInstance(_OLYMPE_FOLDER_10000000000000000001, _Folder_ff021000000000000020
         'v'                                     :1
     })
 .done();
-db.assignOptional(_instance_of_Project____Core_017840fd586db904fdf1, _Object_gooRel_ff022000000000000003, _instance_of_Project____Core_017840fd586db904fdf1);
-db.assignOptional(_instance_of_Project____Core_017840fd586db904fdf1, _Object_gooRel_ff022000000000000003, _OLYMPE_FOLDER_10000000000000000001);
-db.assignOptional(_instance_of_Project____Core_017840fd586db904fdf1, _GOO_parentGooRel_ff02200000000000000u, _OLYMPE_FOLDER_10000000000000000001);
-db.assignOptional(_OLYMPE_FOLDER_10000000000000000001, _Object_containsRel_ff02200000000000000f, _instance_of_Project____Core_017840fd586db904fdf1);
-db.assignOptional(_OLYMPE_FOLDER_10000000000000000001, _Folder_subFolderRel_016a697ef00ce7554691, _instance_of_Project____Core_017840fd586db904fdf1);
+db.assignOptional(_instance_of_Project____Core_100000000000000000df, _Object_gooRel_ff022000000000000003, _instance_of_Project____Core_100000000000000000df);
+db.assignOptional(_instance_of_Project____Core_100000000000000000df, _Object_gooRel_ff022000000000000003, _OLYMPE_FOLDER_10000000000000000001);
+db.assignOptional(_instance_of_Project____Core_100000000000000000df, _GOO_parentGooRel_ff02200000000000000u, _OLYMPE_FOLDER_10000000000000000001);
+db.assignOptional(_OLYMPE_FOLDER_10000000000000000001, _Object_containsRel_ff02200000000000000f, _instance_of_Project____Core_100000000000000000df);
+db.assignOptional(_OLYMPE_FOLDER_10000000000000000001, _Folder_subFolderRel_016a697ef00ce7554691, _instance_of_Project____Core_100000000000000000df);
 db.assignOptional(_OLYMPE_FOLDER_10000000000000000001, _Object_gooRel_ff022000000000000003, _ROOT_OF_ROOTS_10000000000000000000);
 db.assignOptional(_OLYMPE_FOLDER_10000000000000000001, _GOO_parentGooRel_ff02200000000000000u, _ROOT_OF_ROOTS_10000000000000000000);
 db.assignOptional(_ROOT_OF_ROOTS_10000000000000000000, _Object_containsRel_ff02200000000000000f, _OLYMPE_FOLDER_10000000000000000001);

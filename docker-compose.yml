@@ -19,11 +19,10 @@ services:
     depends_on:
       - neo4j
     container_name: "orchestrator"
+    ports:
+      - 8080:8080
     environment:
       DB_HOSTNAME: neo4j
       DB_USER: neo4j
       DB_PASSWORD: password1
       WAIT_FOR_NEO4J: 120
-    volumes:
-      - ./backend/orchestrator-file-service:/opt/orchestrator/file-service
-      - ./backend/orchestrator-logs:/opt/orchestrator/logs
