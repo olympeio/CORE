@@ -41,7 +41,7 @@
     "karma-jasmine": "^4.0.1"
   },
   "dependencies": {
-    "@olympeio/runtime-node": "8.1.0-rc1",
-    "@olympeio/runtime-web": "8.1.0-rc1"
+    "@olympeio/runtime-web": "8.1.0-rc1",
+    "@olympeio/runtime-node": "8.1.0-rc1"
   }
 }
