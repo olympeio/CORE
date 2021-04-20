@@ -29,7 +29,7 @@ const commonConfig = {
                 enforce: "pre",
                 use: "webpack-import-glob-loader"
             },
-            
+
         ]
     },
     plugins: [
@@ -59,6 +59,7 @@ const draw = {
                 {from: drawPath + '/images', to: 'images'},
                 {from: drawPath + '/fonts', to: 'fonts'},
                 {from: drawPath + '/css', to: 'css'},
+                {from: drawPath + '/doc', to: 'doc'}
             ]
         })
     ]
