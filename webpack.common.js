@@ -8,6 +8,7 @@ const nodeExternals = require('webpack-node-externals');
 const dist = path.join(__dirname, 'dist');
 const npmPackage = require('./package.json');
 const drawPath = path.resolve(__dirname, 'node_modules/@olympeio/draw');
+const drawExtraPath = path.resolve(__dirname, 'node_modules/@olympeio/draw-extra');
 const runtimeWebPath = path.resolve(__dirname, 'node_modules/@olympeio/runtime-web');
 const runtimeNodePath = path.resolve(__dirname, 'node_modules/@olympeio/runtime-node');
 
@@ -60,6 +61,26 @@ const draw = {
                 {from: drawPath + '/fonts', to: 'fonts'},
                 {from: drawPath + '/css', to: 'css'},
                 {from: drawPath + '/doc', to: 'doc'}
+            ]
+        })
+    ]
+};
+
+const draw_extra = {
+    name: 'draw-extra',
+    resolve: {
+        alias: {
+            olympe: drawExtraPath
+        }
+    },
+    plugins: [
+        new Copy({
+            patterns: [
+                {from: 'res'},
+                {from: drawExtraPath + '/images', to: 'images'},
+                {from: drawExtraPath + '/fonts', to: 'fonts'},
+                {from: drawExtraPath + '/css', to: 'css'},
+                {from: drawExtraPath + '/doc', to: 'doc'}
             ]
         })
     ]
@@ -127,6 +148,7 @@ const lib = {
 
 module.exports = {
     "draw": merge(commonConfig, webConfig, draw),
+    "draw_extra": merge(commonConfig, webConfig, draw_extra),
     "web": merge(commonConfig, webConfig, web),
     "node": merge(commonConfig, node),
     "lib": merge(commonConfig, lib)

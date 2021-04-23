@@ -1,4 +1,4 @@
-const {draw, web, node, lib} = require('./webpack.common.js');
+const {draw, draw_extra, web, node, lib} = require('./webpack.common.js');
 const {merge} = require('webpack-merge');
 
 const config = {
@@ -16,4 +16,4 @@ const config = {
 };
 
 // Config must be set before the rest to ensure "source-map-loader" is applied before other rules coming from "common" config.
-module.exports = [merge(config, draw), merge(config, web), merge(config, node), merge(config, lib)];
+module.exports = [merge(config, draw), merge(config, draw_extra), merge(config, web), merge(config, node), merge(config, lib)];
