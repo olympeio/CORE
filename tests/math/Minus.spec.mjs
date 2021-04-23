@@ -8,4 +8,4 @@ describe('Minus brick', () => {
         testEqual(m, [1, -2], [3]);
         testEqual(m, [1, NaN], [NaN]);
     })
-})
+});

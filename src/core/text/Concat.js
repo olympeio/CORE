@@ -13,7 +13,7 @@ export default class Concat extends FunctionBrick {
      * @param {function(string)} setResult
      */
     onUpdate(context, [s1, s2], [setResult]) {
-        setResult(s1.concat(s2));
+        setResult(String(s1).concat(s2));
     }
 }
 

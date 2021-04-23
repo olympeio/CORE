@@ -29,7 +29,7 @@ export default class ToUppercase extends FunctionBrick {
      * @param {function(string)} setResult
      */
     onUpdate(context, [s], [setResult]) {
-        setResult(s.toLocaleUpperCase());
+        setResult(String(s).toLocaleUpperCase());
     }
 }
 

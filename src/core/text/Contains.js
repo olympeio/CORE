@@ -13,7 +13,7 @@ export default class Contains extends FunctionBrick {
      * @param {function(boolean)} setResult
      */
     onUpdate(context, [s1, s2], [setResult]) {
-        setResult(s1.includes(s2));
+        setResult(String(s1).includes(s2));
     }
 }
 

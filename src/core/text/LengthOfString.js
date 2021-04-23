@@ -24,7 +24,7 @@ export default class LengthOfString extends FunctionBrick {
      * @param {function(number)} setLength
      */
     onUpdate(context, [s], [setLength]) {
-        setLength(s.length);
+        setLength(String(s).length);
     }
 }
 

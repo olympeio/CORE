@@ -27,7 +27,7 @@ export default class TrimString extends FunctionBrick {
      * @param {function(string)} setResult
      */
     onUpdate(context, [s], [setResult]) {
-        setResult(s.trim());
+        setResult(String(s).trim());
     }
 }
 

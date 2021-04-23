@@ -31,9 +31,9 @@ export default class StringEndsWith extends FunctionBrick {
      */
     onUpdate(context, [s1, s2, length], [setResult]) {
         if (length >= 0) {
-            setResult(s1.endsWith(s2, length));
+            setResult(String(s1).endsWith(s2, length));
         } else {
-            setResult(s1.endsWith(s2));
+            setResult(String(s1).endsWith(s2));
         }
     }
 }

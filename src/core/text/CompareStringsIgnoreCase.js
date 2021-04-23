@@ -29,7 +29,7 @@ export default class CompareStringsIgnoreCase extends FunctionBrick {
      * @param {function(number)} setResult
      */
     onUpdate(context, [s1, s2], [setResult]) {
-        setResult(s1.toLocaleLowerCase().localeCompare(s2.toLocaleLowerCase()));
+        setResult(String(s1).toLocaleLowerCase().localeCompare(String(s2).toLocaleLowerCase()));
     }
 }
 

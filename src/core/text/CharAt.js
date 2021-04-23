@@ -28,7 +28,7 @@ export default class CharAt extends FunctionBrick {
      * @param {function(string)} setResult
      */
     onUpdate(context, [s, index], [setResult]) {
-        setResult(s.charAt(index));
+        setResult(String(s).charAt(index));
     }
 }
 

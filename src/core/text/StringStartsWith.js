@@ -30,7 +30,7 @@ export default class StringStartsWith extends FunctionBrick {
      * @param {function(boolean)} setResult
      */
     onUpdate(context, [s1, s2, pos], [setResult]) {
-        setResult(s1.startsWith(s2, pos));
+        setResult(String(s1).startsWith(s2, pos));
     }
 }
 

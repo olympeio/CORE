@@ -14,7 +14,7 @@ export default class Replace extends FunctionBrick {
      * @param {function(string)} setNewString
      */
     onUpdate(context, [s, pattern, replacement], [setNewString]) {
-        setNewString(s.replace(pattern, replacement));
+        setNewString(String(s).replace(pattern, replacement));
     }
 }
 

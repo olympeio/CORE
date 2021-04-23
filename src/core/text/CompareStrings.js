@@ -27,7 +27,7 @@ export default class CompareStrings extends FunctionBrick {
      * @param {function(number)} setResult
      */
     onUpdate(context, [s1, s2], [setResult]) {
-        setResult(s1.localeCompare(s2));
+        setResult(String(s1).localeCompare(s2));
     }
 }
 

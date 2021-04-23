@@ -9,4 +9,4 @@ describe('Or brick', () => {
         testEqual(o, [false, true], [true]);
         testEqual(o, [false, false], [false]);
     })
-})
+});
