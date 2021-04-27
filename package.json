@@ -11,7 +11,7 @@
     "build:draw": "npx webpack build --config-name draw",
     "build:web": "npx webpack build --config webpack.prod.js --config-name web",
     "build:node": "npx webpack build --config webpack.prod.js --config-name node",
-    "prebuild:lib": "npx gulp snapshot --confirm && npx gulp patches --project.modules=project",
+    "prebuild:lib": "npx gulp snapshot --confirm && npx gulp patches --core.modules=project",
     "build:lib": "webpack build --config-name lib",
     "postbuild:lib": "npx gulp clean",
     "add": "npm install",
@@ -23,7 +23,7 @@
     "test": "karma start"
   },
   "devDependencies": {
-    "@olympeio/dev-tools": "^1.0.1-SNAPSHOT",
+    "@olympeio/dev-tools": "^1.0.1",
     "@olympeio/draw": "1.12.0-rc5",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^7.0.0",
