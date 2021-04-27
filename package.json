@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@olympeio/dev-tools": "^1.0.1",
-    "@olympeio/draw": "1.12.0-rc5",
+    "@olympeio/draw": "^1.12.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^7.0.0",
     "generate-json-webpack-plugin": "^2.0.0",
