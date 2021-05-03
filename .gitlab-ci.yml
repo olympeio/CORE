@@ -28,6 +28,7 @@ variables:
     - chmod 700 ~/.ssh
     - npm config set @olympeio:registry https://gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/
     - npm config set '//gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/:_authToken' "$NPM_TOKEN"
+    - apt-get install -y jq
     - GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" npm install
 
 cache:
@@ -72,9 +73,10 @@ publish:
   stage: deploy-app
   extends: .npm
   script:
+    - if [ -z "$CI_COMMIT_TAG" ]; then sh ./bumpVersion.sh; fi
     - npm run build:lib
     - cd dist
     - npm publish
   rules:
-    # - if: '$CI_COMMIT_BRANCH == "develop"'
+    - if: '$CI_COMMIT_BRANCH == "develop"'
     - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+(?:-(?:rc|beta)\.?\d+)?$/'
