@@ -1,7 +1,7 @@
 {
   "name": "@olympeio/core",
   "main": "src/main.js",
-  "version": "1.0.1-dev",
+  "version": "1.0.1-rc1",
   "build": {
     "orchestratorVersion": "5.8.4"
   },
