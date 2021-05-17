@@ -1,9 +1,9 @@
 {
   "name": "@olympeio/core",
   "main": "src/main.js",
-  "version": "1.0.1-rc1",
+  "version": "1.0.2-rc1",
   "build": {
-    "orchestratorVersion": "5.8.4"
+    "orchestratorVersion": "5.9.1"
   },
   "scripts": {
     "serve": "npx webpack serve --config-name draw",
@@ -41,7 +41,7 @@
     "webpack-node-externals": "^2.5.0"
   },
   "dependencies": {
-    "@olympeio/runtime-node": "8.1.1-rc1",
-    "@olympeio/runtime-web": "8.1.1-rc1"
+    "@olympeio/runtime-node": "8.2.0-rc1",
+    "@olympeio/runtime-web": "8.2.0-rc1"
   }
 }
