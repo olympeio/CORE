@@ -7,7 +7,7 @@ variables:
     entrypoint: [""]
   tags:
     - aws-spot-runner
-  before_script:n
+  before_script:
     ##
     ## Run ssh-agent (inside the build environment)
     ##
@@ -27,7 +27,7 @@ variables:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - npm config set @olympeio:registry https://gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/
-    - npm config set '//gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/:_authToken' "$GITLAB_TOKEN"
+    - npm config set '//gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/:_authToken' "$NPM_TOKEN"
     - apt-get install -y jq
     - GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" npm install
 
