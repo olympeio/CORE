@@ -1,4 +1,3 @@
-
 // Variable db typed for auto-completion:
 db = /**@type{olympe.dc.io.OSaveFileBuilder}*/(db);
 
@@ -80,7 +79,7 @@ db.newInstance(_instance_of_Runnable_Input____a_01626cb12ddec0c2e3ab)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Power_01626cb10bc0db70e256)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'a',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();
@@ -91,7 +90,7 @@ db.newInstance(_instance_of_Runnable_Input____b_01626cb15d6a62fddcfe)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Power_01626cb10bc0db70e256)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'b',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();
