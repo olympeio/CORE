@@ -41,8 +41,8 @@
     "webpack-node-externals": "^2.5.0"
   },
   "dependencies": {
-    "@olympeio/runtime-node": "8.2.1-hackathon",
-    "@olympeio/runtime-web": "8.2.1-hackathon",
+    "@olympeio/runtime-node": "^8.2.1-hackathon",
+    "@olympeio/runtime-web": "^8.2.1-hackathon",
     "rxjs": "^7.1.0"
   }
 }
