@@ -1,7 +1,7 @@
 {
   "name": "@olympeio/core",
   "main": "src/main.js",
-  "version": "1.0.2-rc2",
+  "version": "1.0.3-hackathon1",
   "build": {
     "orchestratorVersion": "5.9.1"
   },
@@ -41,7 +41,8 @@
     "webpack-node-externals": "^2.5.0"
   },
   "dependencies": {
-    "@olympeio/runtime-node": "8.2.0-rc2",
-    "@olympeio/runtime-web": "8.2.0-rc2"
+    "@olympeio/runtime-node": "8.2.1-hackathon",
+    "@olympeio/runtime-web": "8.2.1-hackathon",
+    "rxjs": "^7.1.0"
   }
 }
