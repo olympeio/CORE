@@ -1,7 +1,7 @@
 {
   "name": "@olympeio/core",
   "main": "src/main.js",
-  "version": "1.0.2-rc2",
+  "version": "1.0.3-dev",
   "build": {
     "orchestratorVersion": "5.9.1"
   },
@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@olympeio/dev-tools": "^1.0.1",
-    "@olympeio/draw": "^1.13.0-dev",
+    "@olympeio/draw": "1.12.3-dev",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^7.0.0",
     "generate-json-webpack-plugin": "^2.0.0",
@@ -41,7 +41,8 @@
     "webpack-node-externals": "^2.5.0"
   },
   "dependencies": {
-    "@olympeio/runtime-node": "8.2.0-rc2",
-    "@olympeio/runtime-web": "8.2.0-rc2"
+    "@olympeio/runtime-node": "8.2.1-dev",
+    "@olympeio/runtime-web": "8.2.1-dev",
+    "rxjs": "^7.1.0"
   }
 }
