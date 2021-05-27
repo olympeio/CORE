@@ -51,16 +51,6 @@ stages:
   - unit-tests
   - deploy-app
 
-build-draw:
-  stage: build
-  extends: .npm
-  script:
-    - npm run build:draw
-    - (cd dist && zip -r - .) > OLYMPE-DRAW-composer-ci-SNAPSHOT.zip
-  artifacts:
-    paths:
-      - OLYMPE-DRAW-composer-ci-SNAPSHOT.zip
-
 # Build npm package
 build-package:
   stage: build
@@ -77,18 +67,6 @@ tests:
   extends: .npm
   script:
     - npm test
-
-deploy-s3:
-  stage: deploy-app
-  image:
-    name: banst/awscli
-    entrypoint: [""]
-  tags:
-    - aws-spot-runner
-  script:
-    - aws s3 --endpoint-url https://sos-ch-gva-2.exo.io cp OLYMPE-DRAW-composer-ci-SNAPSHOT.zip s3://olympe-repository/releases/OLYMPE-DRAW/OLYMPE-DRAW-composer-ci-SNAPSHOT.zip
-  dependencies:
-    - build-draw
 
 # Publish job
 .publish:
