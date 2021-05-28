@@ -12,6 +12,7 @@ Returns `true` if the value passed is `null` or `undefined` at the time this act
 | Name | Type | Description |
 | --- | :---: | --- |
 | result | Boolean | `true` if the value is either `null` or `undefined`. |
+| forwardEvent | ControlFlow |
 
 **/
 export default class IsNull extends ActionBrick {
@@ -22,8 +23,8 @@ export default class IsNull extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} value
-     * @param {!Array} outputs
+     * @param {Object} value
+     * @param {function(boolean)} setResult
      */
     onUpdate(context, [value], [setResult, forwardEvent]) {
         // Set result to true if current value is undefined
