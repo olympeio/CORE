@@ -84,7 +84,7 @@ publish-internal:
     - npm publish
   rules:
     - if: '$CI_COMMIT_BRANCH == "develop"'
-    - if: '$CI_COMMIT_BRANCH =~ /hackathon([0-9])?/'
+    - if: '$CI_COMMIT_BRANCH =~ /hackathon([0-9])?$/'
     - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+(?:-(?:rc|beta)\.?\d+)?$/'
 
 # Publish to public npm registry (npmjs.org). Publish only if a new version tag vX.Y.Z was pushed.
