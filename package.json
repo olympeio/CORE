@@ -6,14 +6,9 @@
     "orchestratorVersion": "5.9.1"
   },
   "scripts": {
-    "serve": "npx webpack serve --config-name draw",
-    "serve:web": "npx webpack serve --config-name web",
-    "build:draw": "npx webpack build --config-name draw",
-    "build:web": "npx webpack build --config webpack.prod.js --config-name web",
-    "build:node": "npx webpack build --config webpack.prod.js --config-name node",
-    "prebuild:lib": "npx gulp snapshot --confirm && npx gulp patches --core.modules=project",
-    "build:lib": "webpack build --config-name lib",
-    "postbuild:lib": "npx gulp clean",
+    "prebuild": "npx gulp snapshot --confirm && npx gulp patches --core.modules=project",
+    "build": "webpack build",
+    "postbuild": "npx gulp clean",
     "add": "npm install",
     "postadd": "npx gulp rewrite && npm run reset",
     "prereset": "npx gulp snapshot --confirm",
