@@ -57,7 +57,7 @@ build-package:
   extends: .npm
   script:
     - if [ -z "$CI_COMMIT_TAG" ]; then sh ./bumpVersion.sh; fi
-    - npm run build:lib
+    - npm run build
   artifacts:
     paths:
       - dist/
