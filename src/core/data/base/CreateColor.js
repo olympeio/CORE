@@ -12,6 +12,7 @@ Each value has to be in the 0 - 255 range.
 | red | Number | Value for the red channel. |
 | green | Number | Value for the green channel. |
 | blue | Number | Value for the blue channel. |
+| alpha | Number | Value for the alpha channel. |
 ## Outputs
 | Name | Type | Description |
 | --- | :---: | --- |
@@ -29,12 +30,12 @@ export default class CreateColor extends FunctionBrick {
      * @param {!Array} inputs
      * @param {!Array} outputs
      */
-    onUpdate(context, [r, g, b], [setResult]) {
+    onUpdate(context, [r, g, b, a = 1], [setResult]) {
         r = Math.min(255, Math.max(0, r));
         b = Math.min(255, Math.max(0, b));
         g = Math.min(255, Math.max(0, g));
 
-        const c = Color.create(r, g, b);
+        const c = Color.create(r, g, b, a);
         setResult(c);
     }
 }
