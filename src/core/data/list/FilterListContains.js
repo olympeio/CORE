@@ -1,5 +1,7 @@
 
-import { FunctionBrick, registerBrick, Context, ObjectRef, Filter, Contains, StringProperty, Constant  } from 'olympe';
+import { FunctionBrick, registerBrick, Context, ListDef, PropertyDescriptor,
+    DBView, predicates, valuedefs } from "olympe";
+import getValueDefFor from "./getValueDefFor";
 
 /**
 ## Description
@@ -30,27 +32,17 @@ export default class FilterListContains extends FunctionBrick {
      * @param {!Array} inputs
      * @param {!Array} outputs
      */
-    onUpdate(context, inputs, outputs) {
-        // Your code goes here
-        let property = inputs['Property'];
-        let objectsList = inputs['Object list'];
-        let substring = inputs['Substring'];
-        let setFilteredList = outputs['Filtered list'];
+    onUpdate(context, [list, property, value], [setFiltered]) {
+        const valueDef = getValueDefFor(property);
 
+        if (valueDef === null) {
+            const name = DBView.get().name(/** @type {!HasInstanceTag} */ (property));
+            console.warn(`Type of property ${name} is not supported. List will not be filtered.`);
+            setFiltered(list);
+            return;
+        }
 
-        const propertyTag = ObjectRef.getReferredTag(property);
-        const resultContains = objectsList.transform(
-            new Filter(
-                new Contains(
-                    new StringProperty(propertyTag),
-                    new Constant(substring)
-                )
-            )
-        );
-        setFilteredList(resultContains);
-
-
-
+        setFiltered(list.filter(predicates.Contains(valueDef, valuedefs.Constant(value))));
 
     }
 }
