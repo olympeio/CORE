@@ -16,6 +16,8 @@ let _Function_Call_0168c6f020f2a96f0000      = '0168c6f020f2a96f0000';
 let _Runnable_Input_0168a431d25001540001     = '0168a431d25001540001';
 let _Runnable_Output_0168a431d25001540002    = '0168a431d25001540002';
 let _String_ff021000000000000011             = 'ff021000000000000011';
+let _Control_Flow_input = '016ac63229782039429f';
+let _Control_Flow_output = '016ac6322acf67eebfe7';
 
 
 // Definition of tags of defined properties
@@ -79,7 +81,7 @@ db.setRootInstanceTag(_instance_of_Coded_Action_model____IsNull_0168e64dbc1811cf
 
 // :_instance_of_Runnable_Input____0168e64dbc1911cf5823 - Control Flow
 db.newInstance(_instance_of_Runnable_Input____0168e64dbc1911cf5823)
-    .setModelTag(_Runnable_Input_0168a431d25001540001) // tag of the model
+    .setModelTag(_Control_Flow_input) // tag of the model
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____IsNull_0168e64dbc1811cf5823)
     .setNameOrProperties({
@@ -109,7 +111,7 @@ db.assign(_instance_of_Coded_Action_model____IsNull_0168e64dbc1811cf5823, _Objec
 
 // :_instance_of_Runnable_Output____0168e64dbc1a11cf5823 - Control Flow
 db.newInstance(_instance_of_Runnable_Output____0168e64dbc1a11cf5823)
-    .setModelTag(_Runnable_Output_0168a431d25001540002) // tag of the model
+    .setModelTag(_Control_Flow_output) // tag of the model
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____IsNull_0168e64dbc1811cf5823)
     .setNameOrProperties({
