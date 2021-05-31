@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@olympeio/dev-tools": "~1.0.2",
-    "@olympeio/draw": "^1.12.3-dev",
+    "@olympeio/draw": ">=1.12.3-hackathon <1.12.3-hackathon",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^7.0.0",
     "generate-json-webpack-plugin": "^2.0.0",
@@ -36,8 +36,8 @@
     "webpack-node-externals": "^2.5.0"
   },
   "dependencies": {
-    "@olympeio/runtime-node": "^8.2.1-hackathon",
-    "@olympeio/runtime-web": "^8.2.1-hackathon",
+    "@olympeio/runtime-node": ">=8.2.1-hackathon.0 <8.2.1-hackathon.200",
+    "@olympeio/runtime-web": ">=8.2.1-hackathon.0 <8.2.1-hackathon.200",
     "rxjs": "^7.1.0"
   }
 }
