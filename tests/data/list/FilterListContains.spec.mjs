@@ -2,6 +2,6 @@ import FilterListContains from '../../../src/core/data/list/FilterListContains.j
 
 describe('FilterListContains brick', () => {
     it('should do something', () => {
-        new FilterListContains().onUpdate('a', {'Property': '', 'Object list': '', 'Substring': ''},  {'Filtered list' : () => {}});
+        new FilterListContains().onUpdate('a', {'Property': '', 'Object list': ['a', 'b', 'c'], 'Substring': 'a'},  {'Filtered list' : () => {}});
     });
 });
