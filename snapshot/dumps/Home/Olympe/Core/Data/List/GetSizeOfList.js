@@ -72,14 +72,14 @@ let _instance_of_Runnable_Output____016372362df8c2b75160 = db.assignTag('0163723
 let _instance_of_Documentation_Function_Metadata_d0c372362aac07c772f3 = db.assignTag('d0c372362aac07c772f3');
 
 // :_instance_of_Coded_Function_model____GetSizeOfList_016372362aac07c772f3
-db.newModel(_instance_of_Coded_Function_model____GetSizeOfList_016372362aac07c772f3, 'Get Size of List').extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
+db.newModel(_instance_of_Coded_Function_model____GetSizeOfList_016372362aac07c772f3, 'Get Size Of List').extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
     })
     .done();
 db.updateInstance(_instance_of_Coded_Function_model____GetSizeOfList_016372362aac07c772f3, {
-        [db.DEFAULT+_Object_name_ff023000000000000011]:'Get Size of List',
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'Get Size Of List',
         'v'                                     :2
     });
 db.setRootInstanceTag(_instance_of_Coded_Function_model____GetSizeOfList_016372362aac07c772f3);
@@ -122,7 +122,7 @@ db.newInstance(_instance_of_Documentation_Function_Metadata_d0c372362aac07c772f3
         [_Documentation_Function_Metadata_inputs_0172c6ae82952a74193d]: "## Inputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 016372362d0280ad8b80-List | List | The list. |\n",
         [_Documentation_Function_Metadata_outputs_0172c6ae82952a74193e]: "## Outputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 016372362df8c2b75160-Size | Number | The size of the list. |\n",
         [_Documentation_Metadata_description_01703376c4a81c0e9d92]: "## Description\nReturns the size of the provided list. That is the number of elements in that list.\n\n",
-        [_Documentation_Metadata_toolTip_01703376c4a81c0e9d91]: "Gets the size of list.",
+        [_Documentation_Metadata_toolTip_01703376c4a81c0e9d91]: "Gets the size of a list.",
         'v'                                     :1
     })
     .done();
