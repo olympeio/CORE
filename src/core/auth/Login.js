@@ -28,8 +28,11 @@ export default class Login extends FunctionBrick {
    *
    * @protected
    * @param {!Context} context
-   * @param {!Array} inputs
-   * @param {!Array} outputs
+   * @param {string} username
+   * @param {string} password
+   * @param {function()} onSuccess
+   * @param {function(ErrorFlow)} dispatchErrorFlow
+   * @param {function()} onFailure
    */
   onUpdate(context, [username, password], [onSuccess, dispatchErrorFlow, onFailure]) {
 

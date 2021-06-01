@@ -1,4 +1,3 @@
-
 import { FunctionBrick, registerBrick, Context, Sync, Auth } from 'olympe';
 
 /**
@@ -8,7 +7,6 @@ Data flow returning the current user.
 | Name | Type | Description |
 | --- | :---: | --- |
 | Current user | User | The current user. |
-
 **/
 export default class GetCurrentUser extends FunctionBrick {
 
@@ -18,8 +16,7 @@ export default class GetCurrentUser extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} [setUser]
+     * @param {function(Sync)} setUser
      */
     onUpdate(context, _, [setUser]) {
         setUser(Sync.getInstance(Auth.getCurrentUser()));

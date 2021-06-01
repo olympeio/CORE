@@ -1,4 +1,3 @@
-
 import { FunctionBrick, registerBrick, Context, Transaction, CreateInstance, Sync } from 'olympe';
 
 /**
@@ -13,7 +12,6 @@ import { FunctionBrick, registerBrick, Context, Transaction, CreateInstance, Syn
  | Name | Type | Description |
  | --- | :---: | --- |
  | object | Object | The persisted object. |
-
  **/
 export default class PersistObject extends FunctionBrick {
 
@@ -23,8 +21,8 @@ export default class PersistObject extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {InstanceTag} objectIn
+     * @param {function(InstanceTag)} setObjectOut
      */
     onUpdate(context, [objectIn], [setObjectOut]) {
 

@@ -1,4 +1,3 @@
-
 import { FunctionBrick, registerBrick, Sync } from 'olympe';
 
 /**
@@ -13,7 +12,6 @@ Access an object's property value.
 | Name | Type | Description |
 | --- | :---: | --- |
 | Value | Object | The value of the property for that object. |
-
 **/
 export default class GetObjectProperty extends FunctionBrick {
 

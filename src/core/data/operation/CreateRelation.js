@@ -1,4 +1,3 @@
-
 import { FunctionBrick, registerBrick, instanceToTag } from 'olympe';
 
 /**
@@ -14,7 +13,6 @@ Creates a new relation connecting the two provided objects.
 | Name | Type | Description |
 | --- | :---: | --- |
 | origin | Object | The origin object. |
-
 **/
 export default class CreateRelation extends FunctionBrick {
 
@@ -24,8 +22,10 @@ export default class CreateRelation extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {InstanceTag} origin
+     * @param {InstanceTag} relation
+     * @param {InstanceTag} destination
+     * @param {function(InstanceTag)} setObject
      */
     onUpdate(context, [origin, relation, destination], [setObject]) {
         // Validate arguments

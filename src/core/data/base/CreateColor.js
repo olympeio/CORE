@@ -1,4 +1,3 @@
-
 import { FunctionBrick, registerBrick, Context, Color } from 'olympe';
 
 /**
@@ -17,7 +16,6 @@ Each value has to be in the 0 - 255 range.
 | Name | Type | Description |
 | --- | :---: | --- |
 | color | Color | The created color. |
-
 **/
 export default class CreateColor extends FunctionBrick {
 
@@ -27,10 +25,13 @@ export default class CreateColor extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {number} r
+     * @param {number} g
+     * @param {number} b
+     * @param {number} a
+     * @param {function(Color)} setResult
      */
-    onUpdate(context, [r, g, b, a = 1], [setResult]) {
+    onUpdate(context, [r, g, b, a], [setResult]) {
         r = Math.min(255, Math.max(0, r));
         b = Math.min(255, Math.max(0, b));
         g = Math.min(255, Math.max(0, g));

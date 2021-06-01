@@ -1,4 +1,3 @@
-
 import { FunctionBrick, registerBrick, ListDef } from 'olympe';
 
 /**
@@ -12,7 +11,6 @@ Retrieve an object given its tag.
 | Name | Type | Description |
 | --- | :---: | --- |
 | Object | Object | The Object. |
-
 **/
 export default class GetObject extends FunctionBrick {
 
@@ -22,8 +20,8 @@ export default class GetObject extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {string} tag
+     * @param {function(Sync)} setObject
      */
     onUpdate(context, [tag], [setObject]) {
         new ListDef(tag, []).getFirst().subscribe(setObject);

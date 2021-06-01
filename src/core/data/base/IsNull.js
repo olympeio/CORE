@@ -1,4 +1,3 @@
-
 import { ActionBrick, registerBrick, Context } from 'olympe';
 
 /**
@@ -13,7 +12,6 @@ Returns `true` if the value passed is `null` or `undefined` at the time this act
 | --- | :---: | --- |
 | result | Boolean | `true` if the value is either `null` or `undefined`. |
 | forwardEvent | ControlFlow |
-
 **/
 export default class IsNull extends ActionBrick {
 
@@ -25,6 +23,7 @@ export default class IsNull extends ActionBrick {
      * @param {!Context} context
      * @param {Object} value
      * @param {function(boolean)} setResult
+     * @param {function()} forwardEvent
      */
     onUpdate(context, [value], [setResult, forwardEvent]) {
         // Set result to true if current value is undefined

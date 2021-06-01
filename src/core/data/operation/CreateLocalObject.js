@@ -12,7 +12,6 @@ database. See `Persist Object` for how to persist in the database a newly create
 | Name | Type | Description |
 | --- | :---: | --- |
 | object | Object | The created instance. |
-
 **/
 export default class CreateLocalObject extends FunctionBrick {
 
@@ -22,8 +21,8 @@ export default class CreateLocalObject extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {InstanceTag} model
+     * @param {function(Sync)} setObject
      */
     onUpdate(context, [model], [setObject]) {
         // start isolated local transaction

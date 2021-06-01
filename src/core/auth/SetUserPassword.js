@@ -13,7 +13,6 @@ Set the password of a user.
 | Code | Description |
 | --- | --- |
 | 401 | Connected user is not allowed to change password. |
-
 **/
 export default class SetUserPassword extends ActionBrick {
 
@@ -23,8 +22,10 @@ export default class SetUserPassword extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {string} user
+     * @param {string} password
+     * @param {function(ErrorFlow)} dispatchError
+     * @param {function()} forwardEvent
      */
     onUpdate(context, [user, password], [dispatchError, forwardEvent]) {
         const transaction = context.getTransation();

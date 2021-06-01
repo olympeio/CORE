@@ -25,8 +25,10 @@ export default class SetObjectProperty extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {InstanceTag} object
+     * @param {PropertyDescriptor} property
+     * @param {*} value
+     * @param {function(InstanceTag)} setObject
      */
     onUpdate(context, [object, property, value], [setObject]) {
         // Validate arguments

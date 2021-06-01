@@ -1,8 +1,15 @@
-
 import { FunctionBrick, registerBrick, Context, instanceToTag } from 'olympe';
 
 /**
-
+## Description
+Get the tag of an object.
+## Inputs
+| Name | Type | Description |
+| --- | :---: | --- |
+| Object | Object | The object. |
+| Name | Type | Description |
+| --- | :---: | --- |
+| value | string | The object tag. |
 **/
 export default class GetObjectTag extends FunctionBrick {
 
@@ -12,8 +19,8 @@ export default class GetObjectTag extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {InstanceTa} object
+     * @param {function(string)} setValue
      */
     onUpdate(context, [object], [setValue]) {
         setValue(instanceToTag(object));

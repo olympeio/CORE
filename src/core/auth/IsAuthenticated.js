@@ -1,4 +1,3 @@
-
 import { FunctionBrick, registerBrick, Context, Auth, AuthState } from 'olympe';
 
 /**
@@ -8,7 +7,6 @@ This function checks whether the active user is properly authenticated.
 | Name | Type | Description |
 | --- | :---: | --- |
 | result | Boolean | `true` if the user is authenticated. |
-
 **/
 export default class IsAuthenticated extends FunctionBrick {
 
@@ -18,10 +16,9 @@ export default class IsAuthenticated extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {function(boolean)} setResult
      */
-    onUpdate(context, inputs, [setResult]) {
+    onUpdate(context, _, [setResult]) {
         setResult(Auth.getState() === AuthState.AUTHENTICATED);
     }
 }

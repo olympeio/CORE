@@ -1,4 +1,3 @@
-
 import { FunctionBrick, registerBrick, Context, Sync, DBView, RelationPrimitive, Direction, instanceToTag, transformers } from 'olympe';
 
 /**
@@ -14,7 +13,6 @@ Note: The direction of the relation is not taken into account.
 | Name | Type | Description |
 | --- | :---: | --- |
 | object | Object | The related object. |
-
 **/
 export default class GetUniqueRelatedObject extends FunctionBrick {
 
@@ -24,8 +22,9 @@ export default class GetUniqueRelatedObject extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {InstanceTag} object
+     * @param {InstanceTag} relation
+     * @param {function(Sync)} setObject
      */
     onUpdate(context, [object, relation], [setObject]) {
         const objectTag = instanceToTag(object);
