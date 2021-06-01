@@ -67,12 +67,12 @@ export default class Login extends FunctionBrick {
      * @override
      */
     configCoreUpdate(context, runCoreUpdate, clear) {
-        const [incomingFlow, incomingUser, incomingPassword] = this.getDefinition().getCurrentInputsSorted();
+        const [incomingFlow, incomingUser, incomingPassword] = this.getInputs();
 
         // Listen on `user` and 'password' input updates. Null or undefined value will be considered as empty strings.
         let username, password = '';
 
-        this.onInputValue(incomingUser, context, (inputValue) => {
+        this.listenToInput(incomingUser, context).subscribe((inputValue) => {
             if (inputValue === undefined || inputValue === null) {
                 username = '';
             } else {
@@ -80,7 +80,7 @@ export default class Login extends FunctionBrick {
             }
         });
 
-        this.onInputValue(incomingPassword, context, (inputValue) => {
+        this.listenToInput(incomingPassword, context).subscribe((inputValue) => {
             if (inputValue === undefined || inputValue === null) {
                 password = '';
             } else {
@@ -89,7 +89,7 @@ export default class Login extends FunctionBrick {
         });
 
         // Run runCoreUpdate only when incoming flow is triggered.
-        this.onInputValue(incomingFlow, context, (timestamp) => {
+        this.listenToInput(incomingFlow, context).subscribe((timestamp) => {
             if (timestamp) {
                 // Execute the action only if the control flow has a value.
                 runCoreUpdate([username, password]);
