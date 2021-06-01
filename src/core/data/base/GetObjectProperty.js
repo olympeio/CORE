@@ -23,8 +23,9 @@ export default class GetObjectProperty extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {Sync} object
+     * @param {PropertyDescriptor} property
+     * @param {function(*)} setValue
      */
     onUpdate(context, [object, property], [setValue]) {
         const objectSync = Sync.getInstance(object);
