@@ -4,33 +4,33 @@ import {ErrorFlow} from "@olympeio/runtime-web";
 import doHttpRequest from "../httpUtils/helpers";
 
 /**
-## Description
-Sends an HTTP POST request to the specified URL and provide the results.
+ ## Description
+ Sends an HTTP POST request to the specified URL and provide the results.
 
-The HTTP POST method sends data to the server. The type of the body of the request is indicated by the `Content-Type` header.
-The difference between PUT and POST is that PUT is idempotent: calling it once or several times successively has the
-same effect (that is no side effect), where successive identical POST may have additional effects, like passing an
-order several times.
+ The HTTP POST method sends data to the server. The type of the body of the request is indicated by the `Content-Type` header.
+ The difference between PUT and POST is that PUT is idempotent: calling it once or several times successively has the
+ same effect (that is no side effect), where successive identical POST may have additional effects, like passing an
+ order several times.
 
-Additional headers can be provided and returned in a string that has to be in JSON format.
+ Additional headers can be provided and returned in a string that has to be in JSON format.
 
-**Example:** '{"Content-Type": "text/html; charset=UTF-8",  "Content-Length": 1024 }'
+ **Example:** '{"Content-Type": "text/html; charset=UTF-8",  "Content-Length": 1024 }'
 
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| URL | String | The URL to query. |
-| Headers | String | Optional HTTP headers in a JSON parsable string. |
-| Body | String | The body of the request. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Response Status Code | Number | The response status code. |
-| Response Status Text | String | The response status text. |
-| Response Body | String | The body (i.e. the content) of the response. |
-| Response Headers | String | The response headers. |
+ ## Inputs
+ | Name | Type | Description |
+ | --- | :---: | --- |
+ | URL | String | The URL to query. |
+ | Headers | String | Optional HTTP headers in a JSON parsable string. |
+ | Body | String | The body of the request. |
+ ## Outputs
+ | Name | Type | Description |
+ | --- | :---: | --- |
+ | Response Status Code | Number | The response status code. |
+ | Response Status Text | String | The response status text. |
+ | Response Body | String | The body (i.e. the content) of the response. |
+ | Response Headers | String | The response headers. |
 
-**/
+ **/
 export default class HTTPPost extends ActionBrick {
 
     /**
@@ -43,7 +43,7 @@ export default class HTTPPost extends ActionBrick {
      * @param {!Array} outputs
      */
     onUpdate(context, [body, headers, url], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
-        doHttpRequest('POST', url, headers)
+        doHttpRequest('POST', url, headers, body)
             .then(_response => {
                     if (_response.ok) {
 
