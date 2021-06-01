@@ -1,5 +1,5 @@
 
-import {FunctionBrick, registerBrick, Context, ListDef} from 'olympe';
+import { FunctionBrick, registerBrick, Context, ListDef, onDestroy } from 'olympe';
 
 /**
 ## Description
@@ -29,8 +29,12 @@ export default class ListForEachRemovedEntries extends FunctionBrick {
     onUpdate(context, [list], [setObject]) {
         if (list instanceof ListDef) {
             list.forEach(
-                () => {}, //do nothing for onAdd
-                object => setObject(object)
+                (object) => {
+                    const tag = object.getTag();
+                    onDestroy(() => {
+                        setObject(tag);
+                    });
+                }
             );
         } else {
             console.error('TypeError: The list should be of type ListDef');
@@ -38,4 +42,4 @@ export default class ListForEachRemovedEntries extends FunctionBrick {
     }
 }
 
-registerBrick('017188985cc5ec13b200', ListForEachRemovedEntries);
+    registerBrick('017188985cc5ec13b200', ListForEachRemovedEntries);
