@@ -30,7 +30,7 @@ export default class DispatchEvent extends ActionBrick {
         const destInputRel = new transformers.Related('0168a431d91f2578000b', Direction.DESTINATION);
         const eventPropTag = '01619e359987cdf3fc81';
 
-        const eventPipe = DBView.get().findRelated(this, destScopeRel.getInverse(),
+        const eventPipe = DBView.get().findRelated(this, [destScopeRel.getInverse()],
             (pipe) => DBView.get().getUniqueRelated(pipe, destInputRel) === eventPropTag);
         if (eventPipe) {
             const scope = DBView.get().getUniqueRelated(eventPipe, srcScopeRel);

@@ -35,7 +35,7 @@ export default class SetUIProperty extends ActionBrick {
         const destScopeRel = new transformers.Related('0168a431d91f2578000a', Direction.DESTINATION);
         const destInputRel = new transformers.Related('0168a431d91f2578000b', Direction.DESTINATION);
         const UIPropertyInput = '0162d293ab6f65c86c52';
-        const propertyPipe = DBView.get().findRelated(this, destScopeRel.getInverse(),
+        const propertyPipe = DBView.get().findRelated(this, [destScopeRel.getInverse()],
             (pipe) => DBView.get().getUniqueRelated(pipe, destInputRel) === UIPropertyInput);
         if (propertyPipe) {
             const scope = DBView.get().getUniqueRelated(propertyPipe, srcScopeRel);
