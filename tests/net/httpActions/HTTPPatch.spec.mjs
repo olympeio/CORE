@@ -26,7 +26,7 @@ describe('HTTPPatch brick', () => {
         brick.onUpdate(context, ['{"test": "payload"}', '{"Content-Type": "application/json"}', 'https://httpbin.org/patch'], outputs);
     });
 
-    it('should generate a 405 error when posting on a put-only url',  (done) => {
+    it('should generate a 405 error when patching on a put-only url',  (done) => {
         const brick = new HTTPPatch();
 
         const context = new Context();

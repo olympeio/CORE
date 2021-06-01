@@ -23,7 +23,7 @@ describe('HTTPPut brick', () => {
         brick.onUpdate(context, ['{"test": "payload"}', '{"Content-Type": "application/json"}', 'https://httpbin.org/put'], outputs);
     });
 
-    it('should generate a 405 error when posting on a get-only url',  (done) => {
+    it('should generate a 405 error when puting on a get-only url',  (done) => {
         const brick = new HTTPPut();
 
         const context = new Context();
