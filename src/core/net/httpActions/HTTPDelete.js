@@ -39,7 +39,7 @@ export default class HTTPDelete extends ActionBrick {
      * @param {string} url
      * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} setErrorFlow
-     * @param {function()} setStatusCode
+     * @param {function(number)} setStatusCode
      * @param {function(string)} setBody
      * @param {function(string)} setHeaders
      */
