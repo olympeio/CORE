@@ -39,7 +39,7 @@ export default class FilterListRange extends FunctionBrick {
                 setList(list.transform(new Limit(startIndex, count)));
             }
         } else {
-            this.logger.warn('endIndex is smaller than startIndex, list is not filtered');
+            console.warn('endIndex is smaller than startIndex, list is not filtered');
             setList(list);
         }
     }
