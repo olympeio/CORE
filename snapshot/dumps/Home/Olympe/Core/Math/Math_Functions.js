@@ -92,7 +92,7 @@ db.newInstance(_instance_of_Runnable_Input____016326a611223b77b210)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Math_Functions_016326a54b2c1837bdda)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'input',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();
@@ -107,7 +107,7 @@ db.newInstance(_instance_of_Runnable_Input____016326a5960b89c73a86)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Math_Functions_016326a54b2c1837bdda)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'function name',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();
