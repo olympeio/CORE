@@ -26,6 +26,7 @@ let _Documentation_Metadata_description_01703376c4a81c0e9d92 = '01703376c4a81c0e
 let _Documentation_Metadata_toolTip_01703376c4a81c0e9d91 = '01703376c4a81c0e9d91';
 let _Object_name_ff023000000000000011             = 'ff023000000000000011';
 let _Runnable_Definition_hardcoded_01692aa71f3108454479 = '01692aa71f3108454479';
+let _Runnable_Input_Default_Value_01740c5d4ae4b520dd02 = '01740c5d4ae4b520dd02';
 let _Runnable_IO_IO_Rank_01740c5d4ae4b520dd01     = '01740c5d4ae4b520dd01';
 
 
@@ -94,7 +95,8 @@ db.newInstance(_instance_of_Runnable_Input____01717d5ef225972bc053)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____FilterListSmaller_01717d5ebd43cb94b392)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Strict',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        [_Runnable_Input_Default_Value_01740c5d4ae4b520dd02]:true,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:3,
         'v'                                     :1
     })
     .done();
@@ -109,7 +111,7 @@ db.newInstance(_instance_of_Runnable_Input____01717d5ee7e0d5aa6990)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____FilterListSmaller_01717d5ebd43cb94b392)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Value',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
         'v'                                     :1
     })
     .done();
@@ -124,7 +126,7 @@ db.newInstance(_instance_of_Runnable_Input____01717d5ed126dacd2e7a)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____FilterListSmaller_01717d5ebd43cb94b392)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Object list',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();
@@ -139,7 +141,7 @@ db.newInstance(_instance_of_Runnable_Input____01717d5edb326d365225)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____FilterListSmaller_01717d5ebd43cb94b392)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Property',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:3,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();
@@ -183,4 +185,4 @@ let parentFolder = _List_0179b2685e214c57ba47; // Core/Data/List
 db.assignOptional(_instance_of_Coded_Function_model____FilterListSmaller_01717d5ebd43cb94b392, _Object_gooRel_ff022000000000000003, parentFolder);
 db.assignOptional(parentFolder, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Function_model____FilterListSmaller_01717d5ebd43cb94b392);
 db.assignOptional(_instance_of_Coded_Function_model____FilterListSmaller_01717d5ebd43cb94b392, _GOO_parentGooRel_ff02200000000000000u, parentFolder);
-db.assignOptional(parentFolder, _Folder_itemRel_016a697ef00ce7554692, _instance_of_Coded_Function_model____FilterListSmaller_01717d5ebd43cb94b392);                
+db.assignOptional(parentFolder, _Folder_itemRel_016a697ef00ce7554692, _instance_of_Coded_Function_model____FilterListSmaller_01717d5ebd43cb94b392);

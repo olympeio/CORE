@@ -33,9 +33,10 @@ export default class FilterListSmaller extends FunctionBrick {
      * @param {!ListDef} list
      * @param {!PropertyDescriptor} property
      * @param {string | number | Date} value
+     * @param {boolean} strict
      * @param {function(!ListDef)} setFiltered
      */
-    onUpdate(context, [list, property, value], [setFiltered]) {
+    onUpdate(context, [list, property, value, strict], [setFiltered]) {
         let valueDef = getValueDefFor(property);
         if (valueDef === null) {
             const name = DBView.get().name(/** @type {!HasInstanceTag} */ (property));
@@ -44,7 +45,10 @@ export default class FilterListSmaller extends FunctionBrick {
             return;
         }
 
-        setFiltered(list.filter(predicates.Smaller(valueDef, valuedefs.Constant(value))));
+        const vd = valuedefs.Constant(value);
+        const predicate = strict ? predicates.Smaller(valueDef, vd) :
+            predicates.Or(predicates.Smaller(valueDef, vd), predicates.Equals(valueDef, vd));
+        setFiltered(list.filter(predicate));
     }
 }
 

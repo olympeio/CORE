@@ -33,9 +33,10 @@ export default class FilterListBigger extends FunctionBrick {
      * @param {!ListDef} list
      * @param {!PropertyDescriptor} property
      * @param {string | number | Date} value
+     * @param {boolean} strict
      * @param {function(!ListDef)} setFiltered
      */
-    onUpdate(context, [list, property, value], [setFiltered]) {
+    onUpdate(context, [list, property, value, strict], [setFiltered]) {
         const valueDef = getValueDefFor(property);
 
         if (valueDef === null) {
@@ -45,7 +46,10 @@ export default class FilterListBigger extends FunctionBrick {
             return;
         }
 
-        setFiltered(list.filter(predicates.Greater(valueDef, valuedefs.Constant(value))));
+        const vd = valuedefs.Constant(value);
+        const predicate = strict ? predicates.Greater(valueDef, vd) :
+            predicates.Or(predicates.Greater(valueDef, vd), predicates.Equals(valueDef, vd));
+        setFiltered(list.filter(predicate));
     }
 }
 
