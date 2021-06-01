@@ -38,9 +38,9 @@ export default class HTTPGet extends ActionBrick {
      * @param {string} url
      * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} setErrorFlow
-     * @param {function(Number)} setStatusCode
-     * @param {function(String)} setBody
-     * @param {function(String)} setHeaders
+     * @param {function(number)} setStatusCode
+     * @param {function(string)} setBody
+     * @param {function(string)} setHeaders
      */
     onUpdate(context, [headers, url], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
         doHttpRequest('GET', url, headers)
