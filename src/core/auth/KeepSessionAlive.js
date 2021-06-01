@@ -1,9 +1,8 @@
-
 import { ActionBrick, registerBrick, Auth } from 'olympe';
 
 /**
  ## Description
- Notify the DC that the user is active. This resets the time left until automatic logout.
+ Notify the DC to keep the user session alive. This resets the time left until automatic logout.
  **/
 export default class KeepSessionAlive extends ActionBrick {
 

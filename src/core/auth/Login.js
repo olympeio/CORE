@@ -1,9 +1,8 @@
 import {registerBrick, Context, Auth, AuthState, ErrorFlow, FunctionBrick } from 'olympe'
 
-
 /**
 ## Description
-Attempts to log a user in providing its name and password. The authentication is attempted only once when the input control flow is triggered.
+Attempts to log in a user providing its name and password. The authentication is attempted only once when the input control flow is triggered.
 ## Inputs
 | Name | Type | Description |
 | --- | :---: | --- |
@@ -21,7 +20,6 @@ Attempts to log a user in providing its name and password. The authentication is
 | --- | --- |
 | undefined | undefined | Server unreachable. |
 | undefined | undefined | Authentication error. |
-
 **/
 export default class Login extends FunctionBrick {
   /**

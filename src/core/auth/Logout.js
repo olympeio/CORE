@@ -1,8 +1,8 @@
-
 import { ActionBrick, registerBrick, Auth, AuthState } from 'olympe';
 
 /**
-
+ ## Description
+ Log out current user.
 **/
 export default class Logout extends ActionBrick {
 
