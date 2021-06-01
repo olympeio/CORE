@@ -15,13 +15,13 @@ import checkResponseStatus from "../httpUtils/checkResponse";
  ## Inputs
  | Name | Type | Description |
  | --- | :---: | --- |
+ | Body | String | The body of the request. |
  | URL | String | The URL to query. |
  | Headers | String | Optional HTTP headers in a JSON parsable string. |
  ## Outputs
  | Name | Type | Description |
  | --- | :---: | --- |
  | Response Status Code | Number | The response status code. |
- | Response Status Text | String | The response status text. |
  | Response Body | String | The body (i.e. the content) of the response. |
  | Response Headers | String | The response headers. |
 
@@ -34,9 +34,9 @@ export default class HTTPDelete extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!String} body
-     * @param {!String} headers
-     * @param {!String} url
+     * @param {string} body
+     * @param {string} headers
+     * @param {string} url
      * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} setErrorFlow
      * @param {function(Number)} setStatusCode

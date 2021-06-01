@@ -27,7 +27,6 @@ Additional headers can be provided and returned in a string that has to be in JS
 | Name | Type | Description |
 | --- | :---: | --- |
 | Response Status Code | Number | The response status code. |
-| Response Status Text | String | The response status text. |
 | Response Body | String | The body (i.e. the content) of the response. |
 | Response Headers | String | The response headers. |
 
@@ -40,9 +39,9 @@ export default class HTTPPatch extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!String} body
-     * @param {!String} headers
-     * @param {!String} url
+     * @param {string} body
+     * @param {string} headers
+     * @param {string} url
      * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} setErrorFlow
      * @param {function(Number)} setStatusCode

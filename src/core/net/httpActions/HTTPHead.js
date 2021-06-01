@@ -21,7 +21,6 @@ import checkResponseStatus from "../httpUtils/checkResponse";
  | Name | Type | Description |
  | --- | :---: | --- |
  | Response Status Code | Number | The response status code. |
- | Response Status Text | String | The response status text. |
  | Response Headers | String | The response headers. |
 
  **/
@@ -33,8 +32,8 @@ export default class HTTPHead extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!String} headers
-     * @param {!String} url
+     * @param {string} headers
+     * @param {string} url
      * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} setErrorFlow
      * @param {function(Number)} setStatusCode
