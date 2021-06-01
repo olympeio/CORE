@@ -34,8 +34,14 @@ export default class HTTPDelete extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {!String} body
+     * @param {!String} headers
+     * @param {!String} url
+     * @param {function()} forwardEvent
+     * @param {function(ErrorFlow)} setErrorFlow
+     * @param {function(Number)} setStatusCode
+     * @param {function(String)} setBody
+     * @param {function(String)} setHeaders
      */
     onUpdate(context, [body, headers, url], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
         doHttpRequest('DELETE', url, headers, body)

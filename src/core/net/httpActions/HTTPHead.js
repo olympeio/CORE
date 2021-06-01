@@ -33,8 +33,12 @@ export default class HTTPHead extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {!String} headers
+     * @param {!String} url
+     * @param {function()} forwardEvent
+     * @param {function(ErrorFlow)} setErrorFlow
+     * @param {function(Number)} setStatusCode
+     * @param {function(String)} setHeaders
      */
     onUpdate(context, [headers, url], [ forwardEvent, setErrorFlow, setStatusCode, setHeaders]) {
         doHttpRequest('HEAD', url, headers)

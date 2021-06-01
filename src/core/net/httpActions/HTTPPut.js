@@ -40,11 +40,17 @@ export default class HTTPPut extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {!String} body
+     * @param {!String} headers
+     * @param {!String} url
+     * @param {function()} forwardEvent
+     * @param {function(ErrorFlow)} setErrorFlow
+     * @param {function(Number)} setStatusCode
+     * @param {function(String)} setBody
+     * @param {function(String)} setHeaders
      */
     onUpdate(context, [body, headers, url], [ forwardEvent, setErrorFlow, setStatusCode, setHeaders]) {
-        doHttpRequest('PUT', url, headers)
+        doHttpRequest('PUT', url, headers, body)
             .then(_response => {
                     checkResponseStatus(_response, setHeaders, setErrorFlow, setStatusCode);
 
