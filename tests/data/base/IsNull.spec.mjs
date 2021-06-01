@@ -1,7 +1,7 @@
 import IsNull from '../../../src/core/data/base/IsNull.js';
 import testEqual from '../../helpers/testEqual.mjs';
 
-fdescribe('IsNull brick', () => {
+describe('IsNull brick', () => {
     it('should return true when null or undefined is given', () => {
         const a = new IsNull();
         testEqual(a, [undefined], [true]);

@@ -33,7 +33,7 @@ export default class Login extends FunctionBrick {
    * @param {!Array} inputs
    * @param {!Array} outputs
    */
-  onUpdate(context, [username,password], [onSuccess,dispatchErrorFlow, onFailure]) {
+  onUpdate(context, [username, password], [onSuccess, dispatchErrorFlow, onFailure]) {
 
     Auth.loginSRP(username, password)
         .then( () => {
@@ -74,7 +74,7 @@ export default class Login extends FunctionBrick {
         this.onInputValue(incomingUser, context, (inputValue) => {
             if (inputValue === undefined || inputValue === null) {
                 username = '';
-            } else{
+            } else {
                 username = inputValue
             }
         });
@@ -82,7 +82,7 @@ export default class Login extends FunctionBrick {
         this.onInputValue(incomingPassword, context, (inputValue) => {
             if (inputValue === undefined || inputValue === null) {
                 password = '';
-            }else{
+            } else {
                 password = inputValue
             }
         });
@@ -91,7 +91,7 @@ export default class Login extends FunctionBrick {
         this.onInputValue(incomingFlow, context, (timestamp) => {
             if (timestamp) {
                 // Execute the action only if the control flow has a value.
-                runCoreUpdate([username,password]);
+                runCoreUpdate([username, password]);
             } else {
                 clear();
             }
