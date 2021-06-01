@@ -73,7 +73,7 @@ let _instance_of_Runnable_Output____016326a64d625aa6b78c = db.assignTag('016326a
 let _instance_of_Documentation_Function_Metadata_d0c326a54b2c1837bdda = db.assignTag('d0c326a54b2c1837bdda');
 
 // :_instance_of_Coded_Function_model____Math_Functions_016326a54b2c1837bdda
-db.newModel(_instance_of_Coded_Function_model____Math_Functions_016326a54b2c1837bdda, 'Math (single param)').extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
+db.newModel(_instance_of_Coded_Function_model____Math_Functions_016326a54b2c1837bdda, 'Math Functions').extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
