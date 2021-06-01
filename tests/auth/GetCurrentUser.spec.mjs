@@ -1,4 +1,4 @@
-import GetCurrentUser from '../..//Users/jeremy/olympe/core/src/core/auth/GetCurrentUser.js'; // TODO: Fix this path
+import GetCurrentUser from '../../src/core/auth/GetCurrentUser.js';
 
 describe('GetCurrentUser brick', () => {
     it('should do something', () => {
