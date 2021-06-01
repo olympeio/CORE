@@ -1,13 +1,17 @@
 
-import {ActionBrick, registerBrick, Context, ErrorFlow} from 'olympe';
+import { ActionBrick, registerBrick, Context } from 'olympe';
 import doHttpRequest from "../httpUtils/doHttpRequest";
+import {ErrorFlow} from "@olympeio/runtime-web";
 import checkResponseStatus from "../httpUtils/checkResponse";
 
 /**
 ## Description
-Sends an HTTP GET request to the specified URL and provide the results.
+Sends an HTTP PATCH request to the specified URL and provide the results.
 
-The HTTP GET method requests a representation of the specified resource. Requests using GET should only retrieve data.
+The HTTP PATCH request method applies partial modifications to a resource.
+The HTTP PUT method only allows complete replacement of a document. Unlike PUT, PATCH is not idempotent, meaning
+successive identical patch requests may have different effects. However, it is possible to issue PATCH requests in
+such a way as to be idempotent.
 
 Additional headers can be provided and returned in a string that has to be in JSON format.
 
@@ -18,6 +22,7 @@ Additional headers can be provided and returned in a string that has to be in JS
 | --- | :---: | --- |
 | URL | String | The URL to query. |
 | Headers | String | Optional HTTP headers in a JSON parsable string. |
+| Body | String | The body of the request. |
 ## Outputs
 | Name | Type | Description |
 | --- | :---: | --- |
@@ -26,7 +31,7 @@ Additional headers can be provided and returned in a string that has to be in JS
 | Response Headers | String | The response headers. |
 
 **/
-export default class HTTPGet extends ActionBrick {
+export default class HTTPPatch extends ActionBrick {
 
     /**
      * Executed every time an input gets updated.
@@ -34,6 +39,7 @@ export default class HTTPGet extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
+     * @param {string} body
      * @param {string} headers
      * @param {string} url
      * @param {function()} forwardEvent
@@ -42,14 +48,14 @@ export default class HTTPGet extends ActionBrick {
      * @param {function(string)} setBody
      * @param {function(string)} setHeaders
      */
-    onUpdate(context, [headers, url], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
-        doHttpRequest('GET', url, headers)
+    onUpdate(context, [body, headers, url], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
+        doHttpRequest('PATCH', url, headers, body)
             .then(_response => {
-                checkResponseStatus(_response, setHeaders, setErrorFlow, setStatusCode);
+                    checkResponseStatus(_response, setHeaders, setErrorFlow, setStatusCode);
 
-                return _response.text();
-            }
-        )
+                    return _response.text();
+                }
+            )
             .then(_data => {
                 if (_data)
                     setBody(_data);
@@ -58,4 +64,4 @@ export default class HTTPGet extends ActionBrick {
     }
 }
 
-registerBrick('0162e32e14d4a05194e6', HTTPGet);
+registerBrick('016ca9ad1ca77d079004', HTTPPatch);
