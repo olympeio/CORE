@@ -1,7 +1,8 @@
 
 import { ActionBrick, registerBrick, Context } from 'olympe';
-import doHttpRequest from "../httpUtils/helpers";
+import doHttpRequest from "../httpUtils/doHttpRequest";
 import {ErrorFlow} from "@olympeio/runtime-web";
+import checkResponseStatus from "../httpUtils/checkResponse";
 
 /**
  ## Description
@@ -39,18 +40,8 @@ export default class HTTPDelete extends ActionBrick {
     onUpdate(context, [body, headers, url], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
         doHttpRequest('DELETE', url, headers, body)
             .then(_response => {
-                    if (_response.ok) {
+                    checkResponseStatus(_response, setHeaders, setErrorFlow, setStatusCode);
 
-                        let headersResponse = {};
-                        for (const pair of _response.headers.entries()) {
-                            headersResponse[pair[0]] = pair[1];
-                        }
-                        setHeaders(JSON.stringify(headersResponse));
-
-                    } else {
-                        setErrorFlow(ErrorFlow.create('Network error', _response.status));
-                    }
-                    setStatusCode(_response.status);
                     return _response.text();
                 }
             )

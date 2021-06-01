@@ -1,5 +1,7 @@
 
 import {ActionBrick, registerBrick, Context, ErrorFlow} from 'olympe';
+import doHttpRequest from "../httpUtils/doHttpRequest";
+import checkResponseStatus from "../httpUtils/checkResponse";
 
 /**
 ## Description
@@ -42,35 +44,10 @@ export default class HTTPGet extends ActionBrick {
      * @param {!function(string)} setHeaders
      */
     onUpdate(context, [headers, url], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
-        const header = new Headers();
-
-        if (headers) {
-            for (const [key, value] of Object.entries(JSON.parse(headers))) {
-                header.append(key, value);
-            }
-        }
-
-        const init = {
-            method: 'GET',
-            headers: header,
-            mode: 'cors',
-            cache: 'default'
-        };
-
-        fetch(url, init)
+        doHttpRequest('GET', url, headers)
             .then(_response => {
-                if (_response.ok) {
+                checkResponseStatus(_response, setHeaders, setErrorFlow, setStatusCode);
 
-                    let headersResponse = {};
-                    for (const pair of _response.headers.entries()) {
-                        headersResponse[pair[0]] = pair[1];
-                    }
-                    setHeaders(JSON.stringify(headersResponse));
-
-                } else {
-                    setErrorFlow(ErrorFlow.create('Network error', _response.status));
-                }
-                setStatusCode(_response.status);
                 return _response.text();
             }
         )
