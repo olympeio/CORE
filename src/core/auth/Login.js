@@ -33,26 +33,27 @@ export default class Login extends FunctionBrick {
    * @param {!Array} inputs
    * @param {!Array} outputs
    */
-  onUpdate(context, [controlFlow,username,password], [onSuccess,dispatchErrorFlow, onFailure]) {
+  onUpdate(context, [username,password], [onSuccess,dispatchErrorFlow, onFailure]) {
+
     Auth.loginSRP(username, password)
         .then( () => {
           const currentState = Auth.getState()
           switch (currentState) {
             case AuthState.AUTHENTICATED:
-              onSuccess();
-              break;
+                onSuccess();
+                break;
             case AuthState.GUEST:
-              // Invalid credentials
-              onFailure();
-              break;
+                // Invalid credentials
+                onFailure();
+                break;
             case AuthState.ERROR:
-              // Authentication error
+                // Authentication error
                 dispatchErrorFlow(ErrorFlow.create('Authentication error',2));
-              break;
+                break;
             case AuthState.DISCONNECTED:
-              // Server unreachable
+                // Server unreachable
                 dispatchErrorFlow(ErrorFlow.create('The server is unreachable', 1));
-              break;
+                break;
             default:
           }
         })
@@ -60,6 +61,42 @@ export default class Login extends FunctionBrick {
             dispatchErrorFlow(ErrorFlow.create('Authentication error',2));
         })
   }
+
+    /**
+     * @override
+     */
+    configCoreUpdate(context, runCoreUpdate, clear) {
+        const [incomingFlow, incomingUser, incomingPassword] = this.getDefinition().getCurrentInputsSorted();
+
+        // Listen on `user` and 'password' input updates. Null or undefined value will be considered as empty strings.
+        let username, password = '';
+
+        this.onInputValue(incomingUser, context, (inputValue) => {
+            if (inputValue === undefined || inputValue === null) {
+                username = '';
+            } else{
+                username = inputValue
+            }
+        });
+
+        this.onInputValue(incomingPassword, context, (inputValue) => {
+            if (inputValue === undefined || inputValue === null) {
+                password = '';
+            }else{
+                password = inputValue
+            }
+        });
+
+        // Run runCoreUpdate only when incoming flow is triggered.
+        this.onInputValue(incomingFlow, context, (timestamp) => {
+            if (timestamp) {
+                // Execute the action only if the control flow has a value.
+                runCoreUpdate([username,password]);
+            } else {
+                clear();
+            }
+        });
+    }
 }
 
 registerBrick('0163d01778b931d801dd', Login)
