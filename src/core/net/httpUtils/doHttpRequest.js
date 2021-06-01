@@ -17,5 +17,10 @@ export default function doHttpRequest(method, url, headers, body) {
     if (body)
         init.body = body;
 
-    return fetch(url, init);
+    if (typeof window === "undefined") {
+        const fetch = require('node-fetch');
+        return fetch(url, init);
+    } else {
+        return fetch(url, init);
+    }
 }
