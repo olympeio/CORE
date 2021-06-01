@@ -32,7 +32,7 @@ export default class FilterListContains extends FunctionBrick {
      * @param {!Array} inputs
      * @param {!Array} outputs
      */
-    onUpdate(context, [list, property, value], [setFiltered]) {
+    onUpdate(context, [property, list, value], [setFiltered]) {
         const valueDef = getValueDefFor(property);
 
         if (valueDef === null) {
@@ -42,8 +42,22 @@ export default class FilterListContains extends FunctionBrick {
             return;
         }
 
-        setFiltered(list.filter(predicates.Contains(valueDef, valuedefs.Constant(value))));
+        if (!value instanceof String) {
+            console.warn(`The type of value is not supported. It should be of type String.`);
+            setFiltered(list);
+            return;
+        }
 
+        if (list instanceof ListDef) {
+            setFiltered(list.filter(predicates.Contains(valueDef, valuedefs.Constant(value))));
+        } else if (Array.isArray(list)) {
+            setFiltered(list.filter(item => {
+                const itemPropValue = DBView.get().getProperty(item.getTag(), property);
+                return itemPropValue.includes(value);
+            }));
+        } else {
+            console.error(`TypeError: The list should be of type ListDef or Array`);
+        }
     }
 }
 
