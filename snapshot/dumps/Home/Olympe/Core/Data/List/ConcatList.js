@@ -92,7 +92,7 @@ db.newInstance(_instance_of_Runnable_Input____01717d5fd1dcb6f93311)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____ConcatList_01717d5fbc55ea0d361b)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Second list',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();
@@ -107,7 +107,7 @@ db.newInstance(_instance_of_Runnable_Input____01717d5fc85521040181)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____ConcatList_01717d5fbc55ea0d361b)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'First list',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();

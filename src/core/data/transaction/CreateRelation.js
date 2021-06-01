@@ -31,7 +31,7 @@ export default class CreateRelation extends ActionBrick {
      * @param {function()} forwardEvent
      * @param {function(!Sync)} setOrigin
      */
-    onUpdate(context, [origin, relation, destination], [forwardEvent, setOrigin]) {
+    onUpdate(context, [relation, origin, destination], [forwardEvent, setOrigin]) {
         // Guards
         if (instanceToTag(relation) === '') {
             console.error('[CreateRelation] no relation specified');
