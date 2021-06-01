@@ -35,13 +35,13 @@ export default class HTTPGet extends ActionBrick {
      * @param {!Context} context
      * @param {!string} headers
      * @param {!string} url
-     * @param {!function(number)} setStatusCode
      * @param {!function()} forwardEvent
-     * @param {!function(string)} setHeaders
      * @param {!function(ErrorFlow)} setErrorFlow
+     * @param {!function(number)} setStatusCode
      * @param {!function(string)} setBody
+     * @param {!function(string)} setHeaders
      */
-    onUpdate(context, [headers, url], [setStatusCode, forwardEvent, setHeaders, setErrorFlow, setBody]) {
+    onUpdate(context, [headers, url], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
         const header = new Headers();
 
         if (headers) {
@@ -75,7 +75,8 @@ export default class HTTPGet extends ActionBrick {
             }
         )
             .then(_data => {
-                setBody(_data);
+                if (_data)
+                    setBody(_data);
                 forwardEvent();
             });
     }

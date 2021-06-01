@@ -1,5 +1,5 @@
 import HTTPGet from '../../../src/core/net/httpActions/HTTPGet.js';
-import {Context, ErrorFlow} from "@olympeio/runtime-web";
+import {Context, ErrorFlow} from "olympe";
 
 describe('HTTPGet brick', () => {
     it('should get correctly',  (done) => {
@@ -12,16 +12,16 @@ describe('HTTPGet brick', () => {
         const headersSpy = jasmine.createSpy();
         const bodySpy = jasmine.createSpy();
 
-        outputs.push(statusCodeSpy);
-        outputs.push(_timestamp => {
+        outputs.push(() => {
             expect(statusCodeSpy).toHaveBeenCalledOnceWith(200);
             expect(headersSpy).toHaveBeenCalled();
             expect(bodySpy).toHaveBeenCalled();
             done();
         });
-        outputs.push(headersSpy);
         outputs.push(_errorFlow => {});
+        outputs.push(statusCodeSpy);
         outputs.push(bodySpy);
+        outputs.push(headersSpy);
 
         brick.onUpdate(context, ['{"Content-Type": "application/json"}', 'https://httpbin.org/ip'], outputs);
 
@@ -38,7 +38,6 @@ describe('HTTPGet brick', () => {
         const bodySpy = jasmine.createSpy();
         const errorFlowSpy = jasmine.createSpy();
 
-        outputs.push(statusCodeSpy);
         outputs.push(_timestamp => {
             expect(statusCodeSpy).toHaveBeenCalledOnceWith(404);
             expect(headersSpy).toHaveBeenCalledTimes(0);
@@ -46,9 +45,10 @@ describe('HTTPGet brick', () => {
             expect(errorFlowSpy).toHaveBeenCalledOnceWith(ErrorFlow.create('Network error', 404));
             done();
         });
-        outputs.push(headersSpy);
         outputs.push(errorFlowSpy);
+        outputs.push(statusCodeSpy);
         outputs.push(bodySpy);
+        outputs.push(headersSpy);
 
         brick.onUpdate(context, ['', 'abcd'], outputs);
 
