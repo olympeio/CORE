@@ -9,6 +9,7 @@ db.disableChecks();
 
 
 // Definition of tags of models used to construct instances
+const _Boolean_ff021000000000000012            = 'ff021000000000000012';
 const _Coded_Function_01621fb84e320000f011     = '01621fb84e320000f011';
 const _Function_Call_0168c6f020f2a96f0000      = '0168c6f020f2a96f0000';
 const _Runnable_Input_0168a431d25001540001     = '0168a431d25001540001';
@@ -19,6 +20,7 @@ const _String_ff021000000000000011             = 'ff021000000000000011';
 // Definition of tags of defined properties
 const _Object_name_ff023000000000000011             = 'ff023000000000000011';
 const _Runnable_Definition_hardcoded_01692aa71f3108454479 = '01692aa71f3108454479';
+const _Runnable_Input_Default_Value_01740c5d4ae4b520dd02 = '01740c5d4ae4b520dd02';
 const _Runnable_IO_IO_Rank_01740c5d4ae4b520dd01     = '01740c5d4ae4b520dd01';
 
 
@@ -36,6 +38,7 @@ const _Runnable_IO_Type_IO_0168a431d3b9b7438424     = '0168a431d3b9b7438424';
 const _instance_of_Coded_Function_model____Encode_URI_Component_0179c79a51b43860eb60 = db.assignTag('0179c79a51b43860eb60');
 const _instance_of_Runnable_Input____str_0179c79a97d2dc643bd7 = db.assignTag('0179c79a97d2dc643bd7');
 const _instance_of_Runnable_Output____encoded_0179c79ab1824f12ff01 = db.assignTag('0179c79ab1824f12ff01');
+const _instance_of_Runnable_Input____entire_URL_0179c7c77489f8ffccd2 = db.assignTag('0179c7c77489f8ffccd2');
 
 
 //==========================================================
@@ -90,12 +93,27 @@ db.newInstance(_instance_of_Runnable_Output____encoded_0179c79ab1824f12ff01)
         'v'                                     :1
     })
     .done();
+// :_instance_of_Runnable_Input____entire_URL_0179c7c77489f8ffccd2
+db.newInstance(_instance_of_Runnable_Input____entire_URL_0179c7c77489f8ffccd2)
+    .setModelTag(_Runnable_Input_0168a431d25001540001) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Encode_URI_Component_0179c79a51b43860eb60)
+    .setNameOrProperties({
+        [_Object_name_ff023000000000000011]     :'entire URL',
+        [_Runnable_Input_Default_Value_01740c5d4ae4b520dd02]:false,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        'v'                                     :1
+    })
+    .done();
 db.assign(_instance_of_Coded_Function_model____Encode_URI_Component_0179c79a51b43860eb60, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____str_0179c79a97d2dc643bd7);
+db.assign(_instance_of_Coded_Function_model____Encode_URI_Component_0179c79a51b43860eb60, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____entire_URL_0179c7c77489f8ffccd2);
 db.assign(_instance_of_Coded_Function_model____Encode_URI_Component_0179c79a51b43860eb60, _Runnable_Definition_Outputs_01621fb84e320000f00b , _instance_of_Runnable_Output____encoded_0179c79ab1824f12ff01);
 db.assign(_instance_of_Runnable_Input____str_0179c79a97d2dc643bd7, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _String_ff021000000000000011                      );
 db.assign(_instance_of_Runnable_Output____encoded_0179c79ab1824f12ff01, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _String_ff021000000000000011                      );
+db.assign(_instance_of_Runnable_Input____entire_URL_0179c7c77489f8ffccd2, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Boolean_ff021000000000000012                     );
 db.assign(_instance_of_Coded_Function_model____Encode_URI_Component_0179c79a51b43860eb60, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____str_0179c79a97d2dc643bd7);
 db.assign(_instance_of_Coded_Function_model____Encode_URI_Component_0179c79a51b43860eb60, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____encoded_0179c79ab1824f12ff01);
+db.assign(_instance_of_Coded_Function_model____Encode_URI_Component_0179c79a51b43860eb60, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____entire_URL_0179c7c77489f8ffccd2);
 db.assignOptional(_instance_of_Coded_Function_model____Encode_URI_Component_0179c79a51b43860eb60, _Object_gooRel_ff022000000000000003, _Net_0179b26969330c80c58b);
 db.assignOptional(_instance_of_Coded_Function_model____Encode_URI_Component_0179c79a51b43860eb60, _GOO_parentGooRel_ff02200000000000000u, _Net_0179b26969330c80c58b);
 db.assignOptional(_Net_0179b26969330c80c58b, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Function_model____Encode_URI_Component_0179c79a51b43860eb60);
