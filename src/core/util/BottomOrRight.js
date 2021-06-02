@@ -11,11 +11,11 @@ export default class BottomOrRight extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {number} elementWidth
      * @param {number} containerWidth
+     * @param {number} elementWidth
      * @param {function(number)} setResult
      */
-    onUpdate(context, [elementWidth, containerWidth], [setResult]) {
+    onUpdate(context, [containerWidth, elementWidth], [setResult]) {
         setResult(containerWidth - elementWidth);
     }
 }
