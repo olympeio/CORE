@@ -80,7 +80,7 @@ db.newModel(_instance_of_Coded_Function_model____ControlFlowMultiplexer_016ab6f2
     })
     .done();
 db.updateInstance(_instance_of_Coded_Function_model____ControlFlowMultiplexer_016ab6f2396da4eb386f, {
-        [db.DEFAULT+_Object_name_ff023000000000000011]:'Control flow multiplexer',
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'Control Flow Multiplexer',
         'v'                                     :2
     });
 db.setRootInstanceTag(_instance_of_Coded_Function_model____ControlFlowMultiplexer_016ab6f2396da4eb386f);
@@ -91,7 +91,7 @@ db.newInstance(_instance_of_Runnable_Input____016ab6f23ad52c6bc493)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____ControlFlowMultiplexer_016ab6f2396da4eb386f)
     .setNameOrProperties({
-        [_Object_name_ff023000000000000011]     :'control flow 1',
+        [_Object_name_ff023000000000000011]     :'Control Flow 1',
         [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
@@ -106,7 +106,7 @@ db.newInstance(_instance_of_Runnable_Input____016ab6f23f1df63a9432)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____ControlFlowMultiplexer_016ab6f2396da4eb386f)
     .setNameOrProperties({
-        [_Object_name_ff023000000000000011]     :'control flow 2',
+        [_Object_name_ff023000000000000011]     :'Control Flow 2',
         [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
@@ -121,7 +121,7 @@ db.newInstance(_instance_of_Runnable_Output____016ab703d2e58cbe52ba)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____ControlFlowMultiplexer_016ab6f2396da4eb386f)
     .setNameOrProperties({
-        [_Object_name_ff023000000000000011]     :'control flow',
+        [_Object_name_ff023000000000000011]     :'Control Flow',
         [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })

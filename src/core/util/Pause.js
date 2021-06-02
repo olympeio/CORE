@@ -1,4 +1,4 @@
-import { ActionBrick, registerBrick, Context } from 'olympe';
+import { ActionBrick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -12,12 +12,11 @@ Pauses a control flow for a specified amount of time. This helps creating delaye
 export default class Pause extends ActionBrick {
 
     /**
-     * The label used
+     * The label used as key to save the timeout id
+     *
      * @return {string}
      */
-    static get timeout() {
-        return 'TIMEOUT';
-    }
+    static get timeout() { return 'TIMEOUT'; }
 
     /**
      * @override

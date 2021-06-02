@@ -1,5 +1,4 @@
-
-import { FunctionBrick, registerBrick, Context } from 'olympe';
+import { FunctionBrick, registerBrick } from 'olympe';
 
 /**
 NO DOC
@@ -15,7 +14,7 @@ export default class TopOrLeft extends FunctionBrick {
      * @param {!Array} inputs
      * @param {function(number)} setResult
      */
-    onUpdate(context, [], [setResult]) {
+    onUpdate(context, inputs, [setResult]) {
         setResult(0);
     }
 }

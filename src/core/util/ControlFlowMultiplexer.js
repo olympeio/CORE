@@ -1,5 +1,4 @@
-
-import { FunctionBrick, registerBrick, Context } from 'olympe';
+import { FunctionBrick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -16,7 +15,7 @@ one of the two joined flows is triggered.
 | Output control flow | Control Flow | The resulting control flow. |
 
 **/
-export default class Controlflowmultiplexer extends FunctionBrick {
+export default class ControlFlowMultiplexer extends FunctionBrick {
 
     /**
      * @override
@@ -43,4 +42,4 @@ export default class Controlflowmultiplexer extends FunctionBrick {
     }
 }
 
-registerBrick('016ab6f2396da4eb386f', Controlflowmultiplexer);
+registerBrick('016ab6f2396da4eb386f', ControlFlowMultiplexer);
