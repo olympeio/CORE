@@ -1,4 +1,3 @@
-
 import { ActionBrick, registerBrick, Context, ErrorFlow, DBView, Direction, transformers} from "olympe";
 
 /**

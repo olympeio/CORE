@@ -6,5 +6,7 @@ export default function testEqual(brick, inputs, expectedOutputs) {
             expect(out).toEqual(v);
         });
     }
+    // add mock forwardEvent() for actions
+    outputs.push(() => {});
     brick.onUpdate(new Context(), inputs, outputs);
 };

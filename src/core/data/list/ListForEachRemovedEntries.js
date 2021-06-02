@@ -1,4 +1,3 @@
-
 import { FunctionBrick, registerBrick, Context, ListDef, onDestroy } from 'olympe';
 
 /**
@@ -31,9 +30,7 @@ export default class ListForEachRemovedEntries extends FunctionBrick {
             list.forEach(
                 (object) => {
                     const tag = object.getTag();
-                    onDestroy(() => {
-                        setObject(tag);
-                    });
+                    onDestroy(() => { setObject(tag); });
                 }
             );
         } else {
@@ -42,4 +39,4 @@ export default class ListForEachRemovedEntries extends FunctionBrick {
     }
 }
 
-    registerBrick('017188985cc5ec13b200', ListForEachRemovedEntries);
+registerBrick('017188985cc5ec13b200', ListForEachRemovedEntries);

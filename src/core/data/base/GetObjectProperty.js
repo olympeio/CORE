@@ -1,5 +1,4 @@
-
-import { FunctionBrick, registerBrick, Context, Sync, PropertyDescriptor } from 'olympe';
+import { FunctionBrick, registerBrick, Sync } from 'olympe';
 
 /**
 ## Description
@@ -23,12 +22,13 @@ export default class GetObjectProperty extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {Sync} object
-     * @param {PropertyDescriptor} property
+     * @param {!InstanceTag} object
+     * @param {!PropertyDescriptor} property
      * @param {function(*)} setValue
      */
     onUpdate(context, [object, property], [setValue]) {
-       object.observeProperty(property).subscribe(setValue);
+        const objectSync = Sync.getInstance(object);
+        objectSync.observeProperty(property).subscribe(setValue);
     }
 }
 
