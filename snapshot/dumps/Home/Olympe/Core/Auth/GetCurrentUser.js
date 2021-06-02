@@ -66,43 +66,57 @@ let _Util_0179b26a12e03686de9c               = '0179b26a12e03686de9c';
 
 
 // Definition of tags used for newly created instances
-let _instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d = db.assignTag('016f8f7c09e96f326d3d');
-let _instance_of_Runnable_Output____016f8f7c155f88fa65ea = db.assignTag('016f8f7c155f88fa65ea'); // result
-let _instance_of_Documentation_Function_Metadata_null = db.assignTag('null');
+let _instance_of_Coded_Function_model____GetCurrentUser_0163d016ab80564f0d88 = db.assignTag('0163d016ab80564f0d88');
+let _instance_of_Runnable_Output____0163d016c6055cd95777 = db.assignTag('0163d016c6055cd95777'); // user
+let _instance_of_Documentation_Function_Metadata_d0c3d016ab80564f0d88 = db.assignTag('d0c3d016ab80564f0d88');
 
-// :_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d
-db.newModel(_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d, 'TopOrLeft').extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
+// :_instance_of_Coded_Function_model____GetCurrentUser_0163d016ab80564f0d88
+db.newModel(_instance_of_Coded_Function_model____GetCurrentUser_0163d016ab80564f0d88, 'Get Current User').extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
     })
     .done();
-db.updateInstance(_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d, {
-        [db.DEFAULT+_Object_name_ff023000000000000011]:'TopOrLeft',
+db.updateInstance(_instance_of_Coded_Function_model____GetCurrentUser_0163d016ab80564f0d88, {
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'Get Current User',
         'v'                                     :2
     });
-db.setRootInstanceTag(_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d);
+db.setRootInstanceTag(_instance_of_Coded_Function_model____GetCurrentUser_0163d016ab80564f0d88);
 
-// :_instance_of_Runnable_Output____016f8f7c155f88fa65ea - result
-db.newInstance(_instance_of_Runnable_Output____016f8f7c155f88fa65ea)
+// :_instance_of_Runnable_Output____0163d016c6055cd95777 - user
+db.newInstance(_instance_of_Runnable_Output____0163d016c6055cd95777)
     .setModelTag('0168a431d25001540002') // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____GetCurrentUser_0163d016ab80564f0d88)
     .setNameOrProperties({
-        [_Object_name_ff023000000000000011]     :'result',
+        [_Object_name_ff023000000000000011]     :'user',
         [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();
-db.assign(_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d, _Runnable_Definition_Outputs_01621fb84e320000f00b  , _instance_of_Runnable_Output____016f8f7c155f88fa65ea);
-db.assign(_instance_of_Runnable_Output____016f8f7c155f88fa65ea, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , 'ff021000000000000013');
-db.assign(_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____016f8f7c155f88fa65ea);
-// TODO: This brick had NO documentation meta-data
+db.assign(_instance_of_Coded_Function_model____GetCurrentUser_0163d016ab80564f0d88, _Runnable_Definition_Outputs_01621fb84e320000f00b  , _instance_of_Runnable_Output____0163d016c6055cd95777);
+db.assign(_instance_of_Runnable_Output____0163d016c6055cd95777, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , 'ff021000000000000003');
+db.assign(_instance_of_Coded_Function_model____GetCurrentUser_0163d016ab80564f0d88, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____0163d016c6055cd95777);
 
+// :_instance_of_Documentation_Function_Metadata_d0c3d016ab80564f0d88
+db.newInstance(_instance_of_Documentation_Function_Metadata_d0c3d016ab80564f0d88)
+    .setModelTag(_Documentation_Function_Metadata_0172c6ae82952a74193c) // tag of the model
+    .setNameOrProperties({
+        [_Documentation_Function_Metadata_errors_0172c6ae82952a74193f]: "",
+        [_Documentation_Function_Metadata_inputs_0172c6ae82952a74193d]: "",
+        [_Documentation_Function_Metadata_outputs_0172c6ae82952a74193e]: "## Outputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| Current user | User | The current user. |\n",
+        [_Documentation_Metadata_description_01703376c4a81c0e9d92]: "## Description\nData flow returning the current user.\n",
+        [_Documentation_Metadata_toolTip_01703376c4a81c0e9d91]: "Returns the current user.",
+        'v'                                     :1
+    })
+    .done();
+db.assign(_instance_of_Coded_Function_model____GetCurrentUser_0163d016ab80564f0d88, _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93, _instance_of_Documentation_Function_Metadata_d0c3d016ab80564f0d88);
+db.assign(_instance_of_Coded_Function_model____GetCurrentUser_0163d016ab80564f0d88, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_Function_Metadata_d0c3d016ab80564f0d88);
+db.assign(_instance_of_Documentation_Function_Metadata_d0c3d016ab80564f0d88, _Object_gooRel_ff022000000000000003, _instance_of_Coded_Function_model____GetCurrentUser_0163d016ab80564f0d88);
 
 // TODO: Assigning to a Folder. Check this!
-let parentFolder = _Util_0179b26a12e03686de9c; // Core/Util
-db.assignOptional(_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d, _Object_gooRel_ff022000000000000003, parentFolder);
-db.assignOptional(parentFolder, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d);
-db.assignOptional(_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d, _GOO_parentGooRel_ff02200000000000000u, parentFolder);
-db.assignOptional(parentFolder, _Folder_itemRel_016a697ef00ce7554692, _instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d);
+let parentFolder = _Auth_0179b2673490430cc604; // Core/Auth
+db.assignOptional(_instance_of_Coded_Function_model____GetCurrentUser_0163d016ab80564f0d88, _Object_gooRel_ff022000000000000003, parentFolder);
+db.assignOptional(parentFolder, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Function_model____GetCurrentUser_0163d016ab80564f0d88);
+db.assignOptional(_instance_of_Coded_Function_model____GetCurrentUser_0163d016ab80564f0d88, _GOO_parentGooRel_ff02200000000000000u, parentFolder);
+db.assignOptional(parentFolder, _Folder_itemRel_016a697ef00ce7554692, _instance_of_Coded_Function_model____GetCurrentUser_0163d016ab80564f0d88);                

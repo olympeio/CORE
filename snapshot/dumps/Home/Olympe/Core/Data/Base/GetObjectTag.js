@@ -66,43 +66,59 @@ let _Util_0179b26a12e03686de9c               = '0179b26a12e03686de9c';
 
 
 // Definition of tags used for newly created instances
-let _instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d = db.assignTag('016f8f7c09e96f326d3d');
-let _instance_of_Runnable_Output____016f8f7c155f88fa65ea = db.assignTag('016f8f7c155f88fa65ea'); // result
+let _instance_of_Coded_Function_model____GetObjectTag_0164136be50e7c4cd5a8 = db.assignTag('0164136be50e7c4cd5a8');
+let _instance_of_Runnable_Input____0164136be50e7fa4437d = db.assignTag('0164136be50e7fa4437d'); // Object
+let _instance_of_Runnable_Output____0164136be50e6815d144 = db.assignTag('0164136be50e6815d144'); // Value
 let _instance_of_Documentation_Function_Metadata_null = db.assignTag('null');
 
-// :_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d
-db.newModel(_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d, 'TopOrLeft').extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
+// :_instance_of_Coded_Function_model____GetObjectTag_0164136be50e7c4cd5a8
+db.newModel(_instance_of_Coded_Function_model____GetObjectTag_0164136be50e7c4cd5a8, 'Get Object Tag').extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
     })
     .done();
-db.updateInstance(_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d, {
-        [db.DEFAULT+_Object_name_ff023000000000000011]:'TopOrLeft',
+db.updateInstance(_instance_of_Coded_Function_model____GetObjectTag_0164136be50e7c4cd5a8, {
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'Get Object Tag',
         'v'                                     :2
     });
-db.setRootInstanceTag(_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d);
+db.setRootInstanceTag(_instance_of_Coded_Function_model____GetObjectTag_0164136be50e7c4cd5a8);
 
-// :_instance_of_Runnable_Output____016f8f7c155f88fa65ea - result
-db.newInstance(_instance_of_Runnable_Output____016f8f7c155f88fa65ea)
-    .setModelTag('0168a431d25001540002') // tag of the model
+// :_instance_of_Runnable_Input____0164136be50e7fa4437d - Object
+db.newInstance(_instance_of_Runnable_Input____0164136be50e7fa4437d)
+    .setModelTag('0168a431d25001540001') // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____GetObjectTag_0164136be50e7c4cd5a8)
     .setNameOrProperties({
-        [_Object_name_ff023000000000000011]     :'result',
+        [_Object_name_ff023000000000000011]     :'Object',
         [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();
-db.assign(_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d, _Runnable_Definition_Outputs_01621fb84e320000f00b  , _instance_of_Runnable_Output____016f8f7c155f88fa65ea);
-db.assign(_instance_of_Runnable_Output____016f8f7c155f88fa65ea, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , 'ff021000000000000013');
-db.assign(_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____016f8f7c155f88fa65ea);
+db.assign(_instance_of_Coded_Function_model____GetObjectTag_0164136be50e7c4cd5a8, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____0164136be50e7fa4437d);
+db.assign(_instance_of_Runnable_Input____0164136be50e7fa4437d, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , 'ff021000000000000001');
+db.assign(_instance_of_Coded_Function_model____GetObjectTag_0164136be50e7c4cd5a8, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____0164136be50e7fa4437d);
+
+// :_instance_of_Runnable_Output____0164136be50e6815d144 - Value
+db.newInstance(_instance_of_Runnable_Output____0164136be50e6815d144)
+    .setModelTag('0168a431d25001540002') // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____GetObjectTag_0164136be50e7c4cd5a8)
+    .setNameOrProperties({
+        [_Object_name_ff023000000000000011]     :'Value',
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        'v'                                     :1
+    })
+    .done();
+db.assign(_instance_of_Coded_Function_model____GetObjectTag_0164136be50e7c4cd5a8, _Runnable_Definition_Outputs_01621fb84e320000f00b  , _instance_of_Runnable_Output____0164136be50e6815d144);
+db.assign(_instance_of_Runnable_Output____0164136be50e6815d144, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , 'ff021000000000000011');
+db.assign(_instance_of_Coded_Function_model____GetObjectTag_0164136be50e7c4cd5a8, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____0164136be50e6815d144);
 // TODO: This brick had NO documentation meta-data
 
 
 // TODO: Assigning to a Folder. Check this!
-let parentFolder = _Util_0179b26a12e03686de9c; // Core/Util
-db.assignOptional(_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d, _Object_gooRel_ff022000000000000003, parentFolder);
-db.assignOptional(parentFolder, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d);
-db.assignOptional(_instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d, _GOO_parentGooRel_ff02200000000000000u, parentFolder);
-db.assignOptional(parentFolder, _Folder_itemRel_016a697ef00ce7554692, _instance_of_Coded_Function_model____TopOrLeft_016f8f7c09e96f326d3d);
+let parentFolder = _DataBase_0179b26837d01a7c3cdc; // Core/Data/Base
+db.assignOptional(_instance_of_Coded_Function_model____GetObjectTag_0164136be50e7c4cd5a8, _Object_gooRel_ff022000000000000003, parentFolder);
+db.assignOptional(parentFolder, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Function_model____GetObjectTag_0164136be50e7c4cd5a8);
+db.assignOptional(_instance_of_Coded_Function_model____GetObjectTag_0164136be50e7c4cd5a8, _GOO_parentGooRel_ff02200000000000000u, parentFolder);
+db.assignOptional(parentFolder, _Folder_itemRel_016a697ef00ce7554692, _instance_of_Coded_Function_model____GetObjectTag_0164136be50e7c4cd5a8);                
