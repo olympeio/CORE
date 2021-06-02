@@ -1,4 +1,4 @@
-import {ErrorFlow} from "@olympeio/runtime-web";
+import {ErrorFlow} from 'olympe';
 
 export default function checkResponseStatus(_response, setHeaders, setErrorFlow, setStatusCode) {
     if (_response.ok) {

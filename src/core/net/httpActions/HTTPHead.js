@@ -1,7 +1,6 @@
 
-import { ActionBrick, registerBrick, Context } from 'olympe';
+import { ActionBrick, registerBrick, Context, ErrorFlow } from 'olympe';
 import doHttpRequest from "../httpUtils/doHttpRequest";
-import {ErrorFlow} from "@olympeio/runtime-web";
 import checkResponseStatus from "../httpUtils/checkResponse";
 
 /**
