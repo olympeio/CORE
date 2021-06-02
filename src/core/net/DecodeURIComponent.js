@@ -13,7 +13,7 @@ export default class DecodeURIComponent extends FunctionBrick {
      * @param {function(string)} setDecoded
      */
     onUpdate(context, [str, entireURL], [setDecoded]) {
-        setDecoded(entireURL ? decodeURI(String(str)) : decodeURIComponent(String(str)));
+        setDecoded(entireURL ? decodeURIComponent(String(str)) : decodeURI(String(str)));
     }
 }
 

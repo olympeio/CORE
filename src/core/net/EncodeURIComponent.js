@@ -13,7 +13,7 @@ export default class EncodeURIComponent extends FunctionBrick {
      * @param {function(string)} setEncoded
      */
     onUpdate(context, [str, entireURL], [setEncoded]) {
-        setEncoded(entireURL ? encodeURI(String(str)) : encodeURIComponent(String(str)));
+        setEncoded(entireURL ? encodeURIComponent(String(str)) : encodeURI(String(str)));
     }
 }
 
