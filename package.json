@@ -37,6 +37,7 @@
   "dependencies": {
     "@olympeio/runtime-node": ">=8.2.1-hackathon.0 <8.2.1-hackathon.200",
     "@olympeio/runtime-web": ">=8.2.1-hackathon.0 <8.2.1-hackathon.200",
+    "node-fetch": "^2.6.1",
     "rxjs": "^7.1.0"
   }
 }
