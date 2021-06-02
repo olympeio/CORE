@@ -45,9 +45,9 @@ export default class FilterListSmaller extends FunctionBrick {
             return;
         }
 
-        const vd = valuedefs.Constant(value);
-        const predicate = strict ? predicates.Smaller(valueDef, vd) :
-            predicates.Or(predicates.Smaller(valueDef, vd), predicates.Equals(valueDef, vd));
+        const vd = new valuedefs.Constant(value);
+        const predicate = strict ? new predicates.Smaller(valueDef, vd) :
+            new predicates.Or(new predicates.Smaller(valueDef, vd), new predicates.Equals(valueDef, vd));
         setFiltered(list.filter(predicate));
     }
 }

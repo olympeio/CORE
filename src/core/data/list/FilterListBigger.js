@@ -46,9 +46,9 @@ export default class FilterListBigger extends FunctionBrick {
             return;
         }
 
-        const vd = valuedefs.Constant(value);
-        const predicate = strict ? predicates.Greater(valueDef, vd) :
-            predicates.Or(predicates.Greater(valueDef, vd), predicates.Equals(valueDef, vd));
+        const vd = new valuedefs.Constant(value);
+        const predicate = strict ? new predicates.Greater(valueDef, vd) :
+            new predicates.Or(new predicates.Greater(valueDef, vd), new predicates.Equals(valueDef, vd));
         setFiltered(list.filter(predicate));
     }
 }

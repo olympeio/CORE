@@ -49,7 +49,7 @@ export default class FilterListContains extends FunctionBrick {
         }
 
         if (list instanceof ListDef) {
-            setFiltered(list.filter(predicates.Contains(valueDef, valuedefs.Constant(value))));
+            setFiltered(list.filter(new predicates.Contains(valueDef, new valuedefs.Constant(value))));
         } else if (Array.isArray(list)) {
             setFiltered(list.filter(item => {
                 const itemPropValue = DBView.get().getProperty(item.getTag(), property);

@@ -46,7 +46,7 @@ export default class FilterListEquals extends FunctionBrick {
             return;
         }
 
-        setFiltered(list.filter(predicates.Equals(valueDef, valuedefs.Constant(value))));
+        setFiltered(list.filter(new predicates.Equals(valueDef, new valuedefs.Constant(value))));
     }
 }
 
