@@ -6,6 +6,6 @@ describe('CenterOrMiddle brick', () => {
         const elementWidth = 200;
         const containerWidth = 800;
         const expectedValue = (containerWidth - elementWidth) / 2;
-        testEqual(new CenterOrMiddle(), [elementWidth, containerWidth], [expectedValue]);
+        testEqual(new CenterOrMiddle(), [containerWidth, elementWidth], [expectedValue]);
     });
 });

@@ -6,6 +6,6 @@ describe('BottomOrRight brick', () => {
         const elementWidth = 200;
         const containerWidth = 800;
         const expectedResult = containerWidth - elementWidth;
-        testEqual(new BottomOrRight(), [elementWidth, containerWidth], [expectedResult]);
+        testEqual(new BottomOrRight(), [containerWidth, elementWidth], [expectedResult]);
     });
 });
