@@ -1,6 +1,6 @@
 
 import { FunctionBrick, registerBrick, Context, ListDef, PropertyDescriptor,
-         DBView, predicates, valuedefs } from "olympe";
+         DBView, predicates, valuedefs, HasInstanceTag } from "olympe";
 import getValueDefFor from "./getValueDefFor";
 
 /**
@@ -37,6 +37,10 @@ export default class FilterListBigger extends FunctionBrick {
      * @param {function(!ListDef)} setFiltered
      */
     onUpdate(context, [list, property, value, strict], [setFiltered]) {
+        if (!(list instanceof ListDef)) {
+            console.error(`[FilterListBigger] list is not a ListDef. Ignored.`);
+            return;
+        }
         const valueDef = getValueDefFor(property);
 
         if (valueDef === null) {

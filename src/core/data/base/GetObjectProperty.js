@@ -1,4 +1,4 @@
-import { FunctionBrick, registerBrick, Sync } from 'olympe';
+import { FunctionBrick, registerBrick, Sync, InstanceTag, Property } from 'olympe';
 
 /**
 ## Description
@@ -23,7 +23,7 @@ export default class GetObjectProperty extends FunctionBrick {
      * @protected
      * @param {!Context} context
      * @param {!InstanceTag} object
-     * @param {!PropertyDescriptor} property
+     * @param {!Property<*>} property
      * @param {function(*)} setValue
      */
     onUpdate(context, [object, property], [setValue]) {

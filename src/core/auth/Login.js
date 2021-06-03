@@ -18,8 +18,8 @@ Attempts to log in a user providing its name and password. The authentication is
 ## Errors
 | Code | Description |
 | --- | --- |
-| undefined | undefined | Server unreachable. |
-| undefined | undefined | Authentication error. |
+| 1 | Server unreachable. |
+| 2 | Authentication error. |
 **/
 export default class Login extends FunctionBrick {
   /**
@@ -31,7 +31,7 @@ export default class Login extends FunctionBrick {
    * @param {string} username
    * @param {string} password
    * @param {function()} onSuccess
-   * @param {function(ErrorFlow)} dispatchErrorFlow
+   * @param {function(!ErrorFlow)} dispatchErrorFlow
    * @param {function()} onFailure
    */
   onUpdate(context, [username, password], [onSuccess, dispatchErrorFlow, onFailure]) {

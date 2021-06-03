@@ -37,6 +37,10 @@ export default class FilterListSmaller extends FunctionBrick {
      * @param {function(!ListDef)} setFiltered
      */
     onUpdate(context, [list, property, value, strict], [setFiltered]) {
+        if (!(list instanceof ListDef)) {
+            console.error(`[FilterListSmaller] list is not a ListDef. Ignored.`);
+            return;
+        }
         let valueDef = getValueDefFor(property);
         if (valueDef === null) {
             const name = DBView.get().name(/** @type {!HasInstanceTag} */ (property));

@@ -7,7 +7,7 @@ Marks the end of a series of transaction operations. The transaction is then exe
 ## Errors
 | Code | Description |
 | --- | --- |
-| undefined | undefined | The transaction was rejected. |
+| 1 | The transaction was rejected. |
 
 **/
 export default class EndTransaction extends ActionBrick {
@@ -18,16 +18,18 @@ export default class EndTransaction extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {function(ErrorFlow} errorFlow
-     * @param {function} forwardEvent
+     * @param {!Array} _
+     * @param {function(!ErrorFlow)} dispatchError
+     * @param {function()} forwardEvent
      */
-    onUpdate(context, [], [errorFlow,forwardEvent]) {
-        context.releaseTransaction(((executed, success, errMsg) => {
-            if (success)
-                forwardEvent()
-            else
-                errorFlow(ErrorFlow.create(errMsg, undefined))
-        }))
+    onUpdate(context, _, [dispatchError,forwardEvent]) {
+        context.releaseTransaction((executed, success, errMsg) => {
+            if (success) {
+                forwardEvent();
+            } else {
+                dispatchError(ErrorFlow.create(errMsg, 1));
+            }
+        });
     }
 }
 

@@ -1,4 +1,4 @@
-import { FunctionBrick, registerBrick, Context, Sync, DBView, RelationPrimitive, Direction, instanceToTag, transformers } from 'olympe';
+import { FunctionBrick, registerBrick, Context, Sync, DBView, RelationPrimitive, Direction, instanceToTag, transformers, InstanceTag } from 'olympe';
 
 /**
 ## Description
@@ -22,8 +22,8 @@ export default class GetUniqueRelatedObject extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {InstanceTag} object
-     * @param {InstanceTag} relation
+     * @param {!InstanceTag} object
+     * @param {!InstanceTag} relation
      * @param {function(Sync)} setObject
      */
     onUpdate(context, [object, relation], [setObject]) {

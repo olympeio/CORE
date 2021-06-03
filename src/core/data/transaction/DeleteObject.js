@@ -1,4 +1,4 @@
-import { ActionBrick, registerBrick, Context, CreateInstance, UpdateInstance, Sync, Transaction } from 'olympe';
+import { ActionBrick, registerBrick, Context, CreateInstance, UpdateInstance, Transaction, InstanceTag } from 'olympe';
 
 /**
 ## Description
@@ -18,15 +18,16 @@ export default class DeleteObject extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {!(CreateInstance | UpdateInstance | InstanceTag)} inboundObject
+     * @param {function()} forwardEvent
      */
     onUpdate(context, [inboundObject], [forwardEvent]) {
 
         // Check if we can delete the inboundObject
-        if (inboundObject instanceof CreateInstance ||
+        if (typeof inboundObject === 'string' ||
+            inboundObject instanceof CreateInstance ||
             inboundObject instanceof UpdateInstance ||
-            inboundObject instanceof Sync) {
+            typeof inboundObject['getTag'] === 'function') {
 
             const transaction = new Transaction();
 

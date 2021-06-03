@@ -28,7 +28,7 @@ export default class ListFollowRelation extends FunctionBrick {
         }
 
         // Transformer
-        let flattenedList = list;
+        let flattenedList;
         if(Array.isArray(list)) {
             const db = DBView.get();
             flattenedList = list.reduce((acc, cur) => {
