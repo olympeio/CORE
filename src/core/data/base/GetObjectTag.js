@@ -1,4 +1,4 @@
-import { FunctionBrick, registerBrick, Context, instanceToTag } from 'olympe';
+import { FunctionBrick, registerBrick, Context, instanceToTag, InstanceTag } from 'olympe';
 
 /**
 ## Description
@@ -19,7 +19,7 @@ export default class GetObjectTag extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {InstanceTa} object
+     * @param {!InstanceTag} object
      * @param {function(string)} setValue
      */
     onUpdate(context, [object], [setValue]) {

@@ -16,7 +16,8 @@ export default class GetCurrentUser extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {function(Sync)} setUser
+     * @param {!Array} _
+     * @param {function(!Sync)} setUser
      */
     onUpdate(context, _, [setUser]) {
         setUser(Sync.getInstance(Auth.getCurrentUser()));

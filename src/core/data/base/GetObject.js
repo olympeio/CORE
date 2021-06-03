@@ -1,4 +1,4 @@
-import { FunctionBrick, registerBrick, ListDef } from 'olympe';
+import { FunctionBrick, registerBrick, ListDef, Sync } from 'olympe';
 
 /**
 ## Description
@@ -21,7 +21,7 @@ export default class GetObject extends FunctionBrick {
      * @protected
      * @param {!Context} context
      * @param {string} tag
-     * @param {function(Sync)} setObject
+     * @param {function(!Sync)} setObject
      */
     onUpdate(context, [tag], [setObject]) {
         new ListDef(tag, []).getFirst().subscribe(setObject);

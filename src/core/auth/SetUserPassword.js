@@ -1,4 +1,4 @@
-import { ActionBrick, Auth, registerBrick, Context , DBView , User} from 'olympe';
+import { ActionBrick, Auth, registerBrick, Context , DBView , User, ErrorFlow} from 'olympe';
 
 /**
 ## Description
@@ -24,11 +24,11 @@ export default class SetUserPassword extends ActionBrick {
      * @param {!Context} context
      * @param {string} user
      * @param {string} password
-     * @param {function(ErrorFlow)} dispatchError
+     * @param {function(!ErrorFlow)} dispatchError
      * @param {function()} forwardEvent
      */
     onUpdate(context, [user, password], [dispatchError, forwardEvent]) {
-        const transaction = context.getTransation();
+        const transaction = context.getTransaction();
         const login = /** @type {string} */ (DBView.get().getProperty(user, User.loginProp));
         // Generate SRP authentication data from the password
         const authData = Auth.generateSRPData(login, password);

@@ -1,5 +1,5 @@
 
-import { ActionBrick, registerBrick, Context } from 'olympe';
+import { ActionBrick, registerBrick, Context, Sync, Relation } from 'olympe';
 
 /**
 ## Description
@@ -25,8 +25,11 @@ export default class DeleteRelation extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array<function(any)>} outputs
+     * @param {!Sync} origin
+     * @param {!Relation} relation
+     * @param {!Sync} destination
+     * @param {function(!Sync)} setOrigin
+     * @param {function()} dispatchControlFlow
      */
     onUpdate(context, [origin, relation, destination], [setOrigin, dispatchControlFlow]) {
         // Get current transaction

@@ -37,6 +37,10 @@ export default class FilterListEquals extends FunctionBrick {
      * @param {function(!ListDef)} setFiltered
      */
     onUpdate(context, [list, property, value], [setFiltered]) {
+        if (!(list instanceof ListDef)) {
+            console.error(`[FilterListEqual] list is not a ListDef. Ignored.`);
+            return;
+        }
         const valueDef = getValueDefFor(property);
 
         if (valueDef === null) {

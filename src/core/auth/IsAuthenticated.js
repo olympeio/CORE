@@ -16,6 +16,7 @@ export default class IsAuthenticated extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
+     * @param {!Array} _
      * @param {function(boolean)} setResult
      */
     onUpdate(context, _, [setResult]) {

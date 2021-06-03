@@ -29,7 +29,7 @@ export default class CreateColor extends FunctionBrick {
      * @param {number} g
      * @param {number} b
      * @param {number} a
-     * @param {function(Color)} setResult
+     * @param {function(!Color)} setResult
      */
     onUpdate(context, [r, g, b, a], [setResult]) {
         r = Math.min(255, Math.max(0, r));

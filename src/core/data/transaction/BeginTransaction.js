@@ -13,10 +13,10 @@ export default class BeginTransaction extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {!Array} _
+     * @param {function()} dispatchControlFlow
      */
-    onUpdate(context, [], [dipactchControlFlow]) {
+    onUpdate(context, _, [dispatchControlFlow]) {
         context.pushTransaction(new Transaction());
         dispatchControlFlow();
     }
