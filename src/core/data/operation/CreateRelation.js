@@ -25,9 +25,9 @@ export default class CreateRelation extends FunctionBrick {
      * @param {InstanceTag} origin
      * @param {InstanceTag} relation
      * @param {InstanceTag} destination
-     * @param {function(InstanceTag)} setObject
+     * @param {function(InstanceTag)} setOrigin
      */
-    onUpdate(context, [origin, relation, destination], [setObject]) {
+    onUpdate(context, [relation, origin, destination], [setOrigin]) {
         // Validate arguments
         const relationTag = instanceToTag(relation);
         const originTag = instanceToTag(origin);
@@ -61,7 +61,7 @@ export default class CreateRelation extends FunctionBrick {
                     // Set the output to the input object
                     // it is done inside the TransactionCallback to avoid firing potential following
                     // CreateRelation too early, which could cause errors in the orchestrator
-                    setObject(origin);
+                    setOrigin(origin);
                 }
             }
         );
