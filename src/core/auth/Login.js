@@ -30,9 +30,9 @@ export default class Login extends FunctionBrick {
    * @param {!Context} context
    * @param {string} username
    * @param {string} password
-   * @param {function()} onSuccess
+   * @param {function(number)} onSuccess
    * @param {function(!ErrorFlow)} dispatchErrorFlow
-   * @param {function()} onFailure
+   * @param {function(number)} onFailure
    */
   onUpdate(context, [username, password], [onSuccess, dispatchErrorFlow, onFailure]) {
 
@@ -41,11 +41,11 @@ export default class Login extends FunctionBrick {
           const currentState = Auth.getState()
           switch (currentState) {
             case AuthState.AUTHENTICATED:
-                onSuccess();
+                onSuccess(Date.now());
                 break;
             case AuthState.GUEST:
                 // Invalid credentials
-                onFailure();
+                onFailure(Date.now());
                 break;
             case AuthState.ERROR:
                 // Authentication error
