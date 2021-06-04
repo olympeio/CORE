@@ -48,9 +48,12 @@ export default class CreateRelation extends ActionBrick {
         // Transaction
         context.getTransaction().createRelation(relation, origin, destination);
         context.releaseTransaction((executed, success, message) => {
-            if(executed && !success)
+            if(executed && !success) {
                 console.error(`[CreateRelation] transaction error: ${message}`);
-            forwardEvent();
+            } else {
+                setOrigin(origin);
+                forwardEvent();
+            }
         });
     }
 }
