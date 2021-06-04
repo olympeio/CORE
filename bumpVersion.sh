@@ -1,5 +1,6 @@
 #!/bin/sh
 export PACKAGE='@olympeio/core'
+export VERSION=$(jq -rc '.version' ./package.json)
 export COMMIT_REF=$(git log -n 1 --pretty=format:"%h")
 export PUBLISH_VER="${VERSION}-${COMMIT_REF}"
 
