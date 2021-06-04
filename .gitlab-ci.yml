@@ -80,8 +80,13 @@ publish-internal:
     - .npm
     - .publish
   script:
+    # Set the tag to use for the newly published package :
+    # - "dev" is used when commit comes from develop
+    # - "stable" is used when we do a release
+    # - "uat" is used when beta or rc tag is created
+    - if [[ -z "$CI_COMMIT_TAG" ]]; then export TAG="dev"; elif [[ ${CI_COMMIT_TAG} =~ '(-rc|-beta)\.[0-9]+' ]]; then export TAG="uat"; else export TAG="stable"; fi
     - cd dist
-    - npm publish
+    - npm publish --tag $TAG
   rules:
     - if: '$CI_COMMIT_BRANCH == "develop"'
     - if: '$CI_COMMIT_BRANCH =~ /hackathon([0-9])?$/'
