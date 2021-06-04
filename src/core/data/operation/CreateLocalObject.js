@@ -48,7 +48,8 @@ export default class CreateLocalObject extends FunctionBrick {
             // destroy the local object :
             //  - if it was created (if it was not the source should be undefined)
             //  - if it was not persisted (its source is self only)
-            if (DBView.exist(instanceTag) && !DBView.isPersisted(instanceTag)) {
+            const dbView = DBView.get();
+            if (dbView.exist(instanceTag) && !dbView.isPersisted(instanceTag)) {
                 const reverseTransaction = new Transaction();
                 reverseTransaction.delete(instanceTag);
                 reverseTransaction.execute(success => {
