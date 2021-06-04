@@ -24,12 +24,8 @@ export default class Branch extends FunctionBrick {
         const [inputCondition, incomingEvent] = this.getInputs();
 
         let condition = false;
-        this.listenToInput(inputCondition, context).subscribe((value) => {
-            if (value === null || value === undefined) {
-                condition = false;
-            } else {
-                condition = Boolean(value);
-            }
+        this.listenToInput(inputCondition, context).subscribe((inputValue) => {
+            condition = inputValue !== undefined && inputValue !== null ? Boolean(inputValue) : false;
         });
 
         // Run runCoreUpdate only when incoming event is triggered.
