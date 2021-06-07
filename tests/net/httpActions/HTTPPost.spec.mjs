@@ -1,7 +1,7 @@
 import HTTPPost from '../../../src/core/net/httpActions/HTTPPost.js';
-import {Context, ErrorFlow} from "@olympeio/runtime-web";
+import {Context, ErrorFlow} from 'olympe';
 
-describe('HTTPPost brick', () => {
+describe('HTTPPost action brick', () => {
     it('should post correctly', (done) => {
         const brick = new HTTPPost();
 

@@ -1,7 +1,7 @@
 import HTTPPatch from '../../../src/core/net/httpActions/HTTPPatch.js';
-import {Context, ErrorFlow} from "@olympeio/runtime-web";
+import {Context, ErrorFlow} from 'olympe';
 
-describe('HTTPPatch brick', () => {
+describe('HTTPPatch action brick', () => {
     it('should patch correctly', (done) => {
         const brick = new HTTPPatch();
 

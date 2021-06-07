@@ -1,7 +1,7 @@
 import HTTPHead from '../../../src/core/net/httpActions/HTTPHead.js';
-import {Context, ErrorFlow} from "@olympeio/runtime-web";
+import {Context, ErrorFlow} from 'olympe';
 
-describe('HTTPHead brick', () => {
+describe('HTTPHead action brick', () => {
     it('should head correctly', (done) => {
         const brick = new HTTPHead();
 
