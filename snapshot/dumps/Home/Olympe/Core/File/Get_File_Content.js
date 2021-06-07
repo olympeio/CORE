@@ -43,13 +43,13 @@ const _Runnable_Definition_Outputs_01621fb84e320000f00b = '01621fb84e320000f00b'
 const _Runnable_IO_Type_IO_0168a431d3b9b7438424     = '0168a431d3b9b7438424';
 
 
-// Definition of tags used for newly created instances 
-const _instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0177fe2096fc793c08be = db.assignTag('0177fe2096fc793c08be');
-const _instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816 = db.assignTag('0177fe2096fc87616816');
-const _instance_of_Predefined_output_Control_Flow____Control_Flow_0177fe2096fd3a194823 = db.assignTag('0177fe2096fd3a194823');
-const _instance_of_Runnable_Input____file_0177fe214794654b9a9c = db.assignTag('0177fe214794654b9a9c');
-const _instance_of_Runnable_Output____content_0177fe219b2362647ba2 = db.assignTag('0177fe219b2362647ba2');
-const _instance_of_Documentation_Function_Metadata_0179c77999aea8fcae7f = db.assignTag('0179c77999aea8fcae7f');
+// Definition of tags used for newly created instances
+const _instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0179e54f2f4b5630399a = db.assignTag('0179e54f2f4b5630399a');
+const _instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003 = db.assignTag('0179e54f2f4c25c47003');
+const _instance_of_Predefined_output_Control_Flow____Control_Flow_0179e54f2f4d621b7223 = db.assignTag('0179e54f2f4d621b7223');
+const _instance_of_Runnable_Input____file_0179e54f2f4e4037de0f = db.assignTag('0179e54f2f4e4037de0f');
+const _instance_of_Runnable_Output____content_0179e54f2f4fd4e331ed = db.assignTag('0179e54f2f4fd4e331ed');
+const _instance_of_Documentation_Function_Metadata_0179e54f2f507f9c5fd6 = db.assignTag('0179e54f2f507f9c5fd6');
 
 
 //==========================================================
@@ -69,68 +69,68 @@ const _File_0179b2692921b321f99d               = '0179b2692921b321f99d';
 
 
 
-// :_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816
-db.newModel(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816, 'Get File Content') // tag and name of the model 
-    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012) 
+// :_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003
+db.newModel(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003, 'Get File Content') // tag and name of the model
+    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012)
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
     })
-    .done(); 
-db.updateInstance(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816, {
-        [db.DEFAULT+_Object_name_ff023000000000000011]:'Get File Content',
-        'v'                                     :2
-    });
-db.setRootInstanceTag(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816);
-// :_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0177fe2096fc793c08be
-db.newInstance(_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0177fe2096fc793c08be)
+    .done();
+db.updateInstance(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003, {
+    [db.DEFAULT+_Object_name_ff023000000000000011]:'Get File Content',
+    'v'                                     :2
+});
+db.setRootInstanceTag(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003);
+// :_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0179e54f2f4b5630399a
+db.newInstance(_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0179e54f2f4b5630399a)
     .setModelTag(_Predefined_input_Control_Flow_of_Action_016ac63229782039429f) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816)
+    .addToGroupOfObjects(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Control Flow',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();
-// :_instance_of_Predefined_output_Control_Flow____Control_Flow_0177fe2096fd3a194823
-db.newInstance(_instance_of_Predefined_output_Control_Flow____Control_Flow_0177fe2096fd3a194823)
+// :_instance_of_Predefined_output_Control_Flow____Control_Flow_0179e54f2f4d621b7223
+db.newInstance(_instance_of_Predefined_output_Control_Flow____Control_Flow_0179e54f2f4d621b7223)
     .setModelTag(_Predefined_output_Control_Flow_016ac6322acf67eebfe7) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816)
+    .addToGroupOfObjects(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Control Flow',
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Runnable_Input____file_0179e54f2f4e4037de0f
+db.newInstance(_instance_of_Runnable_Input____file_0179e54f2f4e4037de0f)
+    .setModelTag(_Runnable_Input_0168a431d25001540001) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003)
+    .setNameOrProperties({
+        [_Object_name_ff023000000000000011]     :'file',
         [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();
-// :_instance_of_Runnable_Input____file_0177fe214794654b9a9c
-db.newInstance(_instance_of_Runnable_Input____file_0177fe214794654b9a9c)
-    .setModelTag(_Runnable_Input_0168a431d25001540001) // tag of the model
-    // Tag of goos
-    .addToGroupOfObjects(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816)
-    .setNameOrProperties({
-        [_Object_name_ff023000000000000011]     :'file',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
-        'v'                                     :1
-    })
-    .done();
-// :_instance_of_Runnable_Output____content_0177fe219b2362647ba2
-db.newInstance(_instance_of_Runnable_Output____content_0177fe219b2362647ba2)
+// :_instance_of_Runnable_Output____content_0179e54f2f4fd4e331ed
+db.newInstance(_instance_of_Runnable_Output____content_0179e54f2f4fd4e331ed)
     .setModelTag(_Runnable_Output_0168a431d25001540002) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816)
+    .addToGroupOfObjects(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'content',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();
-// :_instance_of_Documentation_Function_Metadata_0179c77999aea8fcae7f
-db.newInstance(_instance_of_Documentation_Function_Metadata_0179c77999aea8fcae7f)
+// :_instance_of_Documentation_Function_Metadata_0179e54f2f507f9c5fd6
+db.newInstance(_instance_of_Documentation_Function_Metadata_0179e54f2f507f9c5fd6)
     .setModelTag(_Documentation_Function_Metadata_0172c6ae82952a74193c) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816)
+    .addToGroupOfObjects(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003)
     .setNameOrProperties({
         [_Documentation_Function_Metadata_errors_0172c6ae82952a74193f]:'',
         [_Documentation_Function_Metadata_inputs_0172c6ae82952a74193d]:'## Inputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 0177fe214794654b9a9c-file | File |  |\n',
@@ -140,21 +140,21 @@ db.newInstance(_instance_of_Documentation_Function_Metadata_0179c77999aea8fcae7f
         'v'                                     :1
     })
     .done();
-db.assign(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0177fe2096fc793c08be);
-db.assign(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____file_0177fe214794654b9a9c);
-db.assign(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816, _Runnable_Definition_Outputs_01621fb84e320000f00b , _instance_of_Predefined_output_Control_Flow____Control_Flow_0177fe2096fd3a194823);
-db.assign(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816, _Runnable_Definition_Outputs_01621fb84e320000f00b , _instance_of_Runnable_Output____content_0177fe219b2362647ba2);
-db.assign(_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0177fe2096fc793c08be, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Control_Flow_01621fb84e320000cf00                );
-db.assign(_instance_of_Predefined_output_Control_Flow____Control_Flow_0177fe2096fd3a194823, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Control_Flow_01621fb84e320000cf00                );
-db.assign(_instance_of_Runnable_Input____file_0177fe214794654b9a9c, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _File_ff021000000000000030                        );
-db.assign(_instance_of_Runnable_Output____content_0177fe219b2362647ba2, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _String_ff021000000000000011                      );
-db.assign(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816, _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93, _instance_of_Documentation_Function_Metadata_0179c77999aea8fcae7f);
-db.assign(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816, _Object_containsRel_ff02200000000000000f          , _instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0177fe2096fc793c08be);
-db.assign(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816, _Object_containsRel_ff02200000000000000f          , _instance_of_Predefined_output_Control_Flow____Control_Flow_0177fe2096fd3a194823);
-db.assign(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____file_0177fe214794654b9a9c);
-db.assign(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____content_0177fe219b2362647ba2);
-db.assign(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_Function_Metadata_0179c77999aea8fcae7f);
-db.assignOptional(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816, _Object_gooRel_ff022000000000000003, _File_0179b2692921b321f99d);
-db.assignOptional(_instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816, _GOO_parentGooRel_ff02200000000000000u, _File_0179b2692921b321f99d);
-db.assignOptional(_File_0179b2692921b321f99d, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816);
-db.assignOptional(_File_0179b2692921b321f99d, _Folder_itemRel_016a697ef00ce7554692, _instance_of_Coded_Action_model____Get_File_Content_0177fe2096fc87616816);
+db.assign(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0179e54f2f4b5630399a);
+db.assign(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____file_0179e54f2f4e4037de0f);
+db.assign(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003, _Runnable_Definition_Outputs_01621fb84e320000f00b , _instance_of_Predefined_output_Control_Flow____Control_Flow_0179e54f2f4d621b7223);
+db.assign(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003, _Runnable_Definition_Outputs_01621fb84e320000f00b , _instance_of_Runnable_Output____content_0179e54f2f4fd4e331ed);
+db.assign(_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0179e54f2f4b5630399a, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Control_Flow_01621fb84e320000cf00                );
+db.assign(_instance_of_Predefined_output_Control_Flow____Control_Flow_0179e54f2f4d621b7223, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Control_Flow_01621fb84e320000cf00                );
+db.assign(_instance_of_Runnable_Input____file_0179e54f2f4e4037de0f, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _File_ff021000000000000030                        );
+db.assign(_instance_of_Runnable_Output____content_0179e54f2f4fd4e331ed, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _String_ff021000000000000011                      );
+db.assign(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003, _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93, _instance_of_Documentation_Function_Metadata_0179e54f2f507f9c5fd6);
+db.assign(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003, _Object_containsRel_ff02200000000000000f          , _instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0179e54f2f4b5630399a);
+db.assign(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003, _Object_containsRel_ff02200000000000000f          , _instance_of_Predefined_output_Control_Flow____Control_Flow_0179e54f2f4d621b7223);
+db.assign(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____file_0179e54f2f4e4037de0f);
+db.assign(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____content_0179e54f2f4fd4e331ed);
+db.assign(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_Function_Metadata_0179e54f2f507f9c5fd6);
+db.assignOptional(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003, _Object_gooRel_ff022000000000000003, _File_0179b2692921b321f99d);
+db.assignOptional(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003, _GOO_parentGooRel_ff02200000000000000u, _File_0179b2692921b321f99d);
+db.assignOptional(_File_0179b2692921b321f99d, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003);
+db.assignOptional(_File_0179b2692921b321f99d, _Folder_itemRel_016a697ef00ce7554692, _instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003);

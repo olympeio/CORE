@@ -56,4 +56,4 @@ export default class GetFileContent extends ActionBrick {
     }
 }
 
-registerBrick('0177fe2096fc87616816', GetFileContent);
+registerBrick('0179e54f2f4c25c47003', GetFileContent);
