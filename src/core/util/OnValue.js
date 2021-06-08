@@ -24,7 +24,7 @@ export default class OnValue extends FunctionBrick {
      * @param {function(*)} setValue
      * @param {function(*)} emitEvent
      */
-    onUpdate(context, [value], [setValue, emitEvent]) {
+    onUpdate(context, [value], [emitEvent, setValue]) {
         // Transfers the value to the output
         setValue(value);
 
