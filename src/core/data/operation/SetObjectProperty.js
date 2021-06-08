@@ -33,7 +33,7 @@ export default class SetObjectProperty extends FunctionBrick {
     onUpdate(context, [object, property, value], [setObject]) {
         // Validate arguments
         if (value instanceof Sync) {
-            console.error('SetObjectProperty: complex properties are not accepted');
+            console.error('SetObjectProperty: complex properties are not supported');
             return;
         }
 

@@ -86,7 +86,7 @@ db.newInstance(_instance_of_Runnable_Input____object_016778aca26c6df893e7)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Set_Object_Property_016778ac9fcc6032ce1d)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'object',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();
@@ -97,7 +97,7 @@ db.newInstance(_instance_of_Runnable_Input____property_016778acaa8ea38f75d3)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Set_Object_Property_016778ac9fcc6032ce1d)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'property',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();
@@ -108,7 +108,7 @@ db.newInstance(_instance_of_Runnable_Input____value_016778acb516521d243d)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Set_Object_Property_016778ac9fcc6032ce1d)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'value',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
         'v'                                     :1
     })
     .done();
