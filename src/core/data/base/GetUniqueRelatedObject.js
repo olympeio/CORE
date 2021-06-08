@@ -1,4 +1,4 @@
-import { FunctionBrick, registerBrick, Context, Sync, DBView, RelationPrimitive, Direction, instanceToTag, transformers, InstanceTag } from 'olympe';
+import { FunctionBrick, registerBrick, Sync, DBView, RelationPrimitive, Direction, ListDef, instanceToTag, transformers } from 'olympe';
 
 /**
 ## Description
@@ -27,32 +27,30 @@ export default class GetUniqueRelatedObject extends FunctionBrick {
      * @param {function(Sync)} setObject
      */
     onUpdate(context, [object, relation], [setObject]) {
-        const objectTag = instanceToTag(object);
-        const relationTag = instanceToTag(relation);
-
         // Prevent errors if an object with an invalid type was provided
-        if (objectTag === '' || relationTag === '') {
+        if (instanceToTag(object) === '' || instanceToTag(relation) === '') {
             console.error('GetUniqueRelatedObject: Invalid type provided as input');
             return;
         }
 
-        const relationSync = Sync.getInstance(relationTag);
-        const objectSync = Sync.getInstance(objectTag);
+        const db = DBView.get();
 
-        const originModelRelation = RelationPrimitive.originModelRel;
-        relationSync.getFirstRelated(
-            new transformers.Related(originModelRelation.getTag(), originModelRelation.getDirection())
-        ).subscribe((origin) => {
-            // Auto detect the direction in which the relation should be followed :
-            // -> assess whether the provided object is an instance of the relation's origin
-            // In case the relation as the same model as origin and destination, the only supported
-            // behaviour is origin -> destination (COM-1042)
-            const direction = DBView.get().getExtendedModels(objectSync.getModelTag()).includes(origin.getTag())
-                ? Direction.DESTINATION // the provided instance corresponds to the origin of the relation, so we follow the relation towards the destination
-                : Direction.ORIGIN; // the provided instance corresponds to the destination of the relation, so we follow the relation towards the origin
+        // NB Relation here is a instance of Relation
+        // Get model at origin of relation
+        const originModel = db.getUniqueRelated(relation, RelationPrimitive.originModelRel);
 
-            objectSync.getFirstRelated(new transformers.Related(relationTag, direction)).subscribe(setObject);
-        });
+        // Auto detect the direction in which the relation should be followed : assess whether the provided object is an instance of the relation's origin
+        // In case the relation as the same model as origin and destination, the only supported behaviour is origin -> destination (COM-1042)
+        const direction = originModel === db.model(object) ? Direction.DESTINATION : Direction.ORIGIN;
+
+        const orientedRelation = new transformers.Related(relation, direction);
+        const relatedObjects = new ListDef(object, orientedRelation);
+        relatedObjects.getSize().subscribe((size) => {
+            if (size.value > 1) {
+                console.warn(`${db.name(db.model(object))} ${instanceToTag(object)} is related to ${size.value} objects through relation ${db.name(relation)}`);
+            }
+        })
+        relatedObjects.getFirst().subscribe(setObject);
     }
 }
 
