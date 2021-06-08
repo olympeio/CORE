@@ -41,7 +41,7 @@ const _Runnable_Definition_Outputs_01621fb84e320000f00b = '01621fb84e320000f00b'
 const _Runnable_IO_Type_IO_0168a431d3b9b7438424     = '0168a431d3b9b7438424';
 
 
-// Definition of tags used for newly created instances
+// Definition of tags used for newly created instances 
 const _instance_of_Coded_Action_model____EndTransaction_0162f2ed1d1ba6349600 = db.assignTag('0162f2ed1d1ba6349600');
 const _instance_of_Runnable_Output____Error_Flow_0162f2ed1d1ba6349601 = db.assignTag('0162f2ed1d1ba6349601');
 const _instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0162f2ed1d1ca6349600 = db.assignTag('0162f2ed1d1ca6349600');
@@ -67,13 +67,13 @@ const _Transaction_0179b26880c1af51a32b        = '0179b26880c1af51a32b';
 
 
 // :_instance_of_Coded_Action_model____EndTransaction_0162f2ed1d1ba6349600
-db.newModel(_instance_of_Coded_Action_model____EndTransaction_0162f2ed1d1ba6349600, 'EndTransaction') // tag and name of the model
-    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012)
+db.newModel(_instance_of_Coded_Action_model____EndTransaction_0162f2ed1d1ba6349600, 'EndTransaction') // tag and name of the model 
+    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
     })
-    .done();
+    .done(); 
 db.updateInstance(_instance_of_Coded_Action_model____EndTransaction_0162f2ed1d1ba6349600, {
         [db.DEFAULT+_Object_name_ff023000000000000011]:'EndTransaction',
         'v'                                     :2

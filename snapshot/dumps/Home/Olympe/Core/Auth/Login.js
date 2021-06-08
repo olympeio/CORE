@@ -41,7 +41,7 @@ const _Runnable_Definition_Outputs_01621fb84e320000f00b = '01621fb84e320000f00b'
 const _Runnable_IO_Type_IO_0168a431d3b9b7438424     = '0168a431d3b9b7438424';
 
 
-// Definition of tags used for newly created instances
+// Definition of tags used for newly created instances 
 const _instance_of_Coded_Function_model____Login_0163d01778b931d801dd = db.assignTag('0163d01778b931d801dd');
 const _instance_of_Runnable_Input____Control_Flow_0163d01778ba31d801dd = db.assignTag('0163d01778ba31d801dd');
 const _instance_of_Runnable_Output____On_success_0163d01778bb31d801dd = db.assignTag('0163d01778bb31d801dd');
@@ -70,13 +70,13 @@ const _Auth_0179b2673490430cc604               = '0179b2673490430cc604';
 
 
 // :_instance_of_Coded_Function_model____Login_0163d01778b931d801dd
-db.newModel(_instance_of_Coded_Function_model____Login_0163d01778b931d801dd, 'Login') // tag and name of the model
-    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
+db.newModel(_instance_of_Coded_Function_model____Login_0163d01778b931d801dd, 'Login') // tag and name of the model 
+    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
     })
-    .done();
+    .done(); 
 db.setRootInstanceTag(_instance_of_Coded_Function_model____Login_0163d01778b931d801dd);
 // :_instance_of_Runnable_Input____Control_Flow_0163d01778ba31d801dd
 db.newInstance(_instance_of_Runnable_Input____Control_Flow_0163d01778ba31d801dd)

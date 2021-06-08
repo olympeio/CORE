@@ -11,7 +11,6 @@ db.disableChecks();
 // Definition of tags of models used to construct instances
 const _Coded_Function_01621fb84e320000f011     = '01621fb84e320000f011';
 const _Date$_47_$Time_ff021000000000000014     = 'ff021000000000000014';
-const _Documentation_Function_Metadata_0172c6ae82952a74193c = '0172c6ae82952a74193c';
 const _Function_Call_0168c6f020f2a96f0000      = '0168c6f020f2a96f0000';
 const _Number_ff021000000000000013             = 'ff021000000000000013';
 const _Runnable_Input_0168a431d25001540001     = '0168a431d25001540001';
@@ -19,18 +18,12 @@ const _Runnable_Output_0168a431d25001540002    = '0168a431d25001540002';
 
 
 // Definition of tags of defined properties
-const _Documentation_Function_Metadata_errors_0172c6ae82952a74193f = '0172c6ae82952a74193f';
-const _Documentation_Function_Metadata_inputs_0172c6ae82952a74193d = '0172c6ae82952a74193d';
-const _Documentation_Function_Metadata_outputs_0172c6ae82952a74193e = '0172c6ae82952a74193e';
-const _Documentation_Metadata_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
-const _Documentation_Metadata_toolTip_01703376c4a81c0e9d91 = '01703376c4a81c0e9d91';
 const _Object_name_ff023000000000000011             = 'ff023000000000000011';
 const _Runnable_Definition_hardcoded_01692aa71f3108454479 = '01692aa71f3108454479';
 const _Runnable_IO_IO_Rank_01740c5d4ae4b520dd01     = '01740c5d4ae4b520dd01';
 
 
 // Definition of tags of defined relations
-const _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93 = '01703376c4a81c0e9d93';
 const _Folder_itemRel_016a697ef00ce7554692          = '016a697ef00ce7554692';
 const _GOO_parentGooRel_ff02200000000000000u        = 'ff02200000000000000u';
 const _Object_containsRel_ff02200000000000000f      = 'ff02200000000000000f';
@@ -46,7 +39,6 @@ const _instance_of_Runnable_Input____date_01783b946b4ba26e7384 = db.assignTag('0
 const _instance_of_Runnable_Output____year_01783b9497dfd45a657e = db.assignTag('01783b9497dfd45a657e');
 const _instance_of_Runnable_Output____month_$_40_$natural$_41_$_01783b951f2ba47ab748 = db.assignTag('01783b951f2ba47ab748');
 const _instance_of_Runnable_Output____day_of_the_month_01783b954d0072a8c7cf = db.assignTag('01783b954d0072a8c7cf');
-const _instance_of_Documentation_Function_Metadata_01783b9c2666ace81970 = db.assignTag('01783b9c2666ace81970');
 const _instance_of_Runnable_Output____hour_$_40_$24$_45_$format$_41_$_01783b9e8228c9cb31e5 = db.assignTag('01783b9e8228c9cb31e5');
 const _instance_of_Runnable_Output____minutes_01783b9e9ce8963ff325 = db.assignTag('01783b9e9ce8963ff325');
 const _instance_of_Runnable_Output____seconds_01783b9ea9d4f270eccf = db.assignTag('01783b9ea9d4f270eccf');
@@ -55,7 +47,7 @@ const _instance_of_Runnable_Output____seconds_01783b9ea9d4f270eccf = db.assignTa
 //==========================================================
 //========= EXTERNAL REFERENCES ============================
 //==========================================================
-const _DateTime_0179b2690f49a1f52652           = '0179b2690f49a1f52652';
+const _Datetime_0179b2690f49a1f52652           = '0179b2690f49a1f52652';
 
 
 
@@ -126,18 +118,6 @@ db.newInstance(_instance_of_Runnable_Output____day_of_the_month_01783b954d0072a8
         'v'                                     :1
     })
     .done();
-// :_instance_of_Documentation_Function_Metadata_01783b9c2666ace81970
-db.newInstance(_instance_of_Documentation_Function_Metadata_01783b9c2666ace81970)
-    .setModelTag(_Documentation_Function_Metadata_0172c6ae82952a74193c) // tag of the model
-    .setNameOrProperties({
-        [_Documentation_Function_Metadata_errors_0172c6ae82952a74193f]:'',
-        [_Documentation_Function_Metadata_inputs_0172c6ae82952a74193d]:'## Inputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 01783b946b4ba26e7384-date | Date Time |  |\n',
-        [_Documentation_Function_Metadata_outputs_0172c6ae82952a74193e]:'## Outputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 01783b9497dfd45a657e-year | Number | Gregorian (currently 2021) |\n| 01783b951f2ba47ab748-month (natural) | Number | "Natural" counting, starts at 1 (January = 1, December = 12) |\n| 01783b954d0072a8c7cf-day of the month | Number | From 1 to 31 |\n| 01783b9e8228c9cb31e5-hour (24-format) | Number | From 0 to 23 |\n| 01783b9e9ce8963ff325-minutes | Number | From 0 to 59 |\n| 01783b9ea9d4f270eccf-seconds | Number | From 0 to 59 |\n',
-        [_Documentation_Metadata_description_01703376c4a81c0e9d92]:'## Description\nUses date-fns lib to describe a date, based on the Gregorian calendar and natural counting (i.e. month starts at January = \'1\' instead of \'0\').\nAll outputs are numbers.\n',
-        [_Documentation_Metadata_toolTip_01703376c4a81c0e9d91]:'Uses date-fns lib to describe a date, based on the Gregorian calendar',
-        'v'                                     :1
-    })
-    .done();
 // :_instance_of_Runnable_Output____hour_$_40_$24$_45_$format$_41_$_01783b9e8228c9cb31e5
 db.newInstance(_instance_of_Runnable_Output____hour_$_40_$24$_45_$format$_41_$_01783b9e8228c9cb31e5)
     .setModelTag(_Runnable_Output_0168a431d25001540002) // tag of the model
@@ -185,7 +165,6 @@ db.assign(_instance_of_Runnable_Output____day_of_the_month_01783b954d0072a8c7cf,
 db.assign(_instance_of_Runnable_Output____hour_$_40_$24$_45_$format$_41_$_01783b9e8228c9cb31e5, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Number_ff021000000000000013                      );
 db.assign(_instance_of_Runnable_Output____minutes_01783b9e9ce8963ff325, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Number_ff021000000000000013                      );
 db.assign(_instance_of_Runnable_Output____seconds_01783b9ea9d4f270eccf, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Number_ff021000000000000013                      );
-db.assign(_instance_of_Coded_Function_model____Get_DateTime_Attributes_01783b83a0faa2f101f3, _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93, _instance_of_Documentation_Function_Metadata_01783b9c2666ace81970);
 db.assign(_instance_of_Coded_Function_model____Get_DateTime_Attributes_01783b83a0faa2f101f3, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____date_01783b946b4ba26e7384);
 db.assign(_instance_of_Coded_Function_model____Get_DateTime_Attributes_01783b83a0faa2f101f3, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____year_01783b9497dfd45a657e);
 db.assign(_instance_of_Coded_Function_model____Get_DateTime_Attributes_01783b83a0faa2f101f3, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____month_$_40_$natural$_41_$_01783b951f2ba47ab748);
@@ -193,10 +172,7 @@ db.assign(_instance_of_Coded_Function_model____Get_DateTime_Attributes_01783b83a
 db.assign(_instance_of_Coded_Function_model____Get_DateTime_Attributes_01783b83a0faa2f101f3, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____hour_$_40_$24$_45_$format$_41_$_01783b9e8228c9cb31e5);
 db.assign(_instance_of_Coded_Function_model____Get_DateTime_Attributes_01783b83a0faa2f101f3, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____minutes_01783b9e9ce8963ff325);
 db.assign(_instance_of_Coded_Function_model____Get_DateTime_Attributes_01783b83a0faa2f101f3, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____seconds_01783b9ea9d4f270eccf);
-
-// TODO: Assigning to a Folder. Check this!
-let parentFolder = _DateTime_0179b2690f49a1f52652; // Core/DateTime
-db.assignOptional(_instance_of_Coded_Function_model____Get_DateTime_Attributes_01783b83a0faa2f101f3, _Object_gooRel_ff022000000000000003, parentFolder);
-db.assignOptional(_instance_of_Coded_Function_model____Get_DateTime_Attributes_01783b83a0faa2f101f3, _GOO_parentGooRel_ff02200000000000000u, parentFolder);
-db.assignOptional(parentFolder, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Function_model____Get_DateTime_Attributes_01783b83a0faa2f101f3);
-db.assignOptional(parentFolder, _Folder_itemRel_016a697ef00ce7554692, _instance_of_Coded_Function_model____Get_DateTime_Attributes_01783b83a0faa2f101f3);
+db.assignOptional(_instance_of_Coded_Function_model____Get_DateTime_Attributes_01783b83a0faa2f101f3, _Object_gooRel_ff022000000000000003, _Datetime_0179b2690f49a1f52652);
+db.assignOptional(_instance_of_Coded_Function_model____Get_DateTime_Attributes_01783b83a0faa2f101f3, _GOO_parentGooRel_ff02200000000000000u, _Datetime_0179b2690f49a1f52652);
+db.assignOptional(_Datetime_0179b2690f49a1f52652, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Function_model____Get_DateTime_Attributes_01783b83a0faa2f101f3);
+db.assignOptional(_Datetime_0179b2690f49a1f52652, _Folder_itemRel_016a697ef00ce7554692, _instance_of_Coded_Function_model____Get_DateTime_Attributes_01783b83a0faa2f101f3);
