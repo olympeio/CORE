@@ -5,7 +5,7 @@
     "orchestratorVersion": "5.9.1"
   },
   "scripts": {
-    "prebuild": "npx gulp snapshot --confirm && npx gulp patches --core.modules=project",
+    "prebuild": "npx gulp patches --core.modules=project",
     "build": "webpack build",
     "postbuild": "npx gulp clean",
     "add": "npm install",
