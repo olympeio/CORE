@@ -16,7 +16,7 @@ Use padEnd js function. See: https://developer.mozilla.org/en-US/docs/Web/JavaSc
 | padded string | String | Padded string. |
 
 **/
-export default class PadEndofString extends FunctionBrick {
+export default class PadEndOfString extends FunctionBrick {
 
     /**
      * Executed every time an input gets updated.
@@ -25,12 +25,12 @@ export default class PadEndofString extends FunctionBrick {
      * @protected
      * @param {!Context} context
      * @param {string} s
-     * @param {number} length
+     * @param {number} targetLength
      * @param {function(string)} setPaddedString
      */
-    onUpdate(context, [s, length], [setPaddedString]) {
-        setPaddedString(s.padEnd(length));
+    onUpdate(context, [s, targetLength, padString], [setPaddedString]) {
+        setPaddedString(s.padEnd(targetLength, padString));
     }
 }
 
-registerBrick('01717ca65ebd013b34ff', PadEndofString);
+registerBrick('01717ca65ebd013b34ff', PadEndOfString);

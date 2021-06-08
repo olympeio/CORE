@@ -16,7 +16,7 @@ Use padStart js function. See: https://developer.mozilla.org/en-US/docs/Web/Java
 | padded string | String | Padded string. |
 
 **/
-export default class PadStartofString extends FunctionBrick {
+export default class PadStartOfString extends FunctionBrick {
 
     /**
      * Executed every time an input gets updated.
@@ -25,12 +25,12 @@ export default class PadStartofString extends FunctionBrick {
      * @protected
      * @param {!Context} context
      * @param {string} s
-     * @param {number} length
+     * @param {number} targetLength
      * @param {function(string)} setPaddedString
      */
-    onUpdate(context, [s, length], [setPaddedString]) {
-        setPaddedString(s.padStart(length));
+    onUpdate(context, [s, targetLength, padString], [setPaddedString]) {
+        setPaddedString(s.padStart(targetLength, padString));
     }
 }
 
-registerBrick('01717ca5c5bc30fde055', PadStartofString);
+registerBrick('01717ca5c5bc30fde055', PadStartOfString);
