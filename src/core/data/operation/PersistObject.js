@@ -1,4 +1,4 @@
-import { FunctionBrick, registerBrick, Context, Transaction, CreateInstance, Sync } from 'olympe';
+import { FunctionBrick, registerBrick, Transaction, CreateInstance, instanceToTag } from 'olympe';
 
 /**
  ## Description
@@ -28,7 +28,7 @@ export default class PersistObject extends FunctionBrick {
 
         const transaction = new Transaction();
 
-        if (objectIn instanceof CreateInstance || objectIn instanceof Sync) {
+        if (objectIn instanceof CreateInstance || instanceToTag(objectIn) !== '') {
             transaction.persistInstance(objectIn);
             transaction.execute( (success, message) => {
                 if (success) {
@@ -39,7 +39,7 @@ export default class PersistObject extends FunctionBrick {
                 }
             })
         } else {
-            console.error('PersistObject cannot persist the object', objectIn);
+            console.error('PersistObject cannot persist object', objectIn);
             setObjectOut(objectIn);
         }
     }
