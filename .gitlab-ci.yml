@@ -1,6 +1,27 @@
 variables:
   CHROME_BIN: "/usr/bin/chromium"
 
+.image-init: &image-init
+  ##
+  ## Run ssh-agent (inside the build environment)
+  ##
+  - eval $(ssh-agent -s)
+
+  ##
+  ## Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+  ## We're using tr to fix line endings which makes ed25519 keys work
+  ## without extra base64 encoding.
+  ## https://gitlab.com/gitlab-examples/ssh-private-key/issues/1#note_48526556
+  ##
+  - echo "$GITLAB_SSH_KEY" | tr -d '\r' | ssh-add -
+
+  ##
+  ## Create the SSH directory and give it the right permissions
+  ##
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - apt-get install -y jq
+
 .npm:
   image:
     name: olympeio/ci-unit-test-front:1.0.4
@@ -8,28 +29,17 @@ variables:
   tags:
     - aws-spot-runner
   before_script:
-    ##
-    ## Run ssh-agent (inside the build environment)
-    ##
-    - eval $(ssh-agent -s)
-
-    ##
-    ## Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
-    ## We're using tr to fix line endings which makes ed25519 keys work
-    ## without extra base64 encoding.
-    ## https://gitlab.com/gitlab-examples/ssh-private-key/issues/1#note_48526556
-    ##
-    - echo "$GITLAB_SSH_KEY" | tr -d '\r' | ssh-add -
-
-    ##
-    ## Create the SSH directory and give it the right permissions
-    ##
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
+    - *image-init
     - npm config set @olympeio:registry https://gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/
     - npm config set '//gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/:_authToken' "$GITLAB_TOKEN"
-    - apt-get install -y jq
     - GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" npm install
+
+# Extra npm configuration to access to public npm registry (npmjs.org)
+.npm-public:
+  extends: .npm
+  before_script:
+    - *image-init
+    - npm config set '//registry.npmjs.org/:_authToken' "$NPM_TOKEN"
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
@@ -41,15 +51,16 @@ stages:
   - unit-tests
   - deploy-app
 
-build-draw:
+# Build npm package
+build-package:
   stage: build
   extends: .npm
   script:
-    - npm run build:draw
-    - (cd dist && zip -r - .) > OLYMPE-DRAW-composer-ci-SNAPSHOT.zip
+    - if [ -z "$CI_COMMIT_TAG" ]; then sh ./bumpVersion.sh; fi
+    - npm run build
   artifacts:
     paths:
-      - OLYMPE-DRAW-composer-ci-SNAPSHOT.zip
+      - dist/
 
 tests:
   stage: unit-tests
@@ -57,26 +68,39 @@ tests:
   script:
     - npm test
 
-deploy-s3:
+# Publish job
+.publish:
   stage: deploy-app
-  image:
-    name: banst/awscli
-    entrypoint: [""]
-  tags:
-    - aws-spot-runner
-  script:
-    - aws s3 --endpoint-url https://sos-ch-gva-2.exo.io cp OLYMPE-DRAW-composer-ci-SNAPSHOT.zip s3://olympe-repository/releases/OLYMPE-DRAW/OLYMPE-DRAW-composer-ci-SNAPSHOT.zip
   dependencies:
-    - build-draw
+    - build-package
 
-publish:
-  stage: deploy-app
-  extends: .npm
+# Publish to internal npm registry on gitlab
+publish-internal:
+  extends:
+    - .npm
+    - .publish
   script:
-    - if [ -z "$CI_COMMIT_TAG" ]; then sh ./bumpVersion.sh; fi
-    - npm run build:lib
+    # Set the tag to use for the newly published package :
+    # - "dev" is used when commit comes from develop
+    # - "stable" is used when we do a release
+    # - "uat" is used when beta or rc tag is created
+    - if [[ -z "$CI_COMMIT_TAG" ]]; then export TAG="dev"; elif [[ ${CI_COMMIT_TAG} =~ '(-rc|-beta)\.[0-9]+' ]]; then export TAG="uat"; else export TAG="stable"; fi
     - cd dist
-    - npm publish
+    - npm publish --tag $TAG
   rules:
     - if: '$CI_COMMIT_BRANCH == "develop"'
     - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+(?:-(?:rc|beta)\.?\d+)?$/'
+
+# Publish to public npm registry (npmjs.org). Publish only if a new version tag vX.Y.Z was pushed.
+publish-public:
+  extends:
+    - .npm-public
+    - .publish
+  script:
+    - cd dist
+    - npm publish --access public
+  only:
+    refs:
+      - tags
+    variables:
+      - $CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/

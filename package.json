@@ -1,19 +1,13 @@
 {
   "name": "@olympeio/core",
-  "main": "src/main.js",
-  "version": "1.0.2",
+  "version": "1.0.3-rc1",
   "build": {
-    "orchestratorVersion": "5.9.1"
+    "orchestratorVersion": "5.9.2"
   },
   "scripts": {
-    "serve": "npx webpack serve --config-name draw",
-    "serve:web": "npx webpack serve --config-name web",
-    "build:draw": "npx webpack build --config-name draw",
-    "build:web": "npx webpack build --config webpack.prod.js --config-name web",
-    "build:node": "npx webpack build --config webpack.prod.js --config-name node",
-    "prebuild:lib": "npx gulp snapshot --confirm && npx gulp patches --core.modules=project",
-    "build:lib": "webpack build --config-name lib",
-    "postbuild:lib": "npx gulp clean",
+    "prebuild": "npx gulp snapshot --confirm && npx gulp patches --core.modules=project",
+    "build": "webpack build",
+    "postbuild": "npx gulp clean",
     "add": "npm install",
     "postadd": "npx gulp rewrite && npm run reset",
     "prereset": "npx gulp snapshot --confirm",
@@ -23,8 +17,7 @@
     "test": "karma start"
   },
   "devDependencies": {
-    "@olympeio/dev-tools": "^1.0.1",
-    "@olympeio/draw": "^1.13.0-dev",
+    "@olympeio/dev-tools": "~1.0.2",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^7.0.0",
     "generate-json-webpack-plugin": "^2.0.0",
@@ -41,7 +34,8 @@
     "webpack-node-externals": "^2.5.0"
   },
   "dependencies": {
-    "@olympeio/runtime-node": "8.2.0",
-    "@olympeio/runtime-web": "8.2.0"
+    "@olympeio/runtime-node": "8.2.1-rc1",
+    "@olympeio/runtime-web": "8.2.1-rc1",
+    "rxjs": "^7.1.0"
   }
 }
