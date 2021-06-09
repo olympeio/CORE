@@ -34,7 +34,7 @@ export default class GetFirstObjectInList extends FunctionBrick {
                 console.warn('OutOfBound: trying to return the first element of an empty array!');
             }
         } else if (list instanceof ListDef) {
-            list.getFirst().subscribe(_object => {
+            list.observeFirst().subscribe(_object => {
                 setObject(_object);
             });
         } else {

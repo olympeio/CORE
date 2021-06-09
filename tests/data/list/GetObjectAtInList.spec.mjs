@@ -2,7 +2,7 @@ import GetObjectAtInList from '../../../src/core/data/list/GetObjectAtInList.js'
 
 // Mocked ListDef
 class ListDef {
-    getAt() {
+    observeAt() {
         return null;
     }
 }

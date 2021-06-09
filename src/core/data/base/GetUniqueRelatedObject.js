@@ -45,12 +45,12 @@ export default class GetUniqueRelatedObject extends FunctionBrick {
 
         const orientedRelation = new transformers.Related(relation, direction);
         const relatedObjects = new ListDef(object, orientedRelation);
-        relatedObjects.getSize().subscribe((size) => {
+        relatedObjects.observeSize().subscribe((size) => {
             if (size.value > 1) {
                 console.warn(`${db.name(db.model(object))} ${instanceToTag(object)} is related to ${size.value} objects through relation ${db.name(relation)}`);
             }
         })
-        relatedObjects.getFirst().subscribe(setObject);
+        relatedObjects.observeFirst().subscribe(setObject);
     }
 }
 
