@@ -6,15 +6,15 @@ import {Context, ListDef} from "olympe";
 describe('GetSizeOfList brick', () => {
     it('should call the getSize method of the list', () => {
         const list = new ListDef();
-        spyOn(list, "getSize").and.returnValue(new BehaviorSubject(0));
+        spyOn(list, "observeSize").and.returnValue(new BehaviorSubject(0));
 
         testEqual(new GetSizeOfList(), [list], [0]);
-        expect(list.getSize).toHaveBeenCalled();
+        expect(list.observeSize).toHaveBeenCalled();
     });
 
     it('should return the size of the list', () => {
         const list = new ListDef();
-        spyOn(list, "getSize").and.returnValue(new BehaviorSubject(4));
+        spyOn(list, "observeSize").and.returnValue(new BehaviorSubject(4));
 
         testEqual(new GetSizeOfList(), [list], [4]);
     });
@@ -24,7 +24,7 @@ describe('GetSizeOfList brick', () => {
         const list = new ListDef();
         const size = new BehaviorSubject(0);
         const brick = new GetSizeOfList();
-        spyOn(list, "getSize").and.returnValue(size);
+        spyOn(list, "observeSize").and.returnValue(size);
 
         let output = null;
         const setter = jasmine.createSpy().and.callFake(value => output = value);
