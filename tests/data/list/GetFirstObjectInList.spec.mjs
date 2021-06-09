@@ -3,7 +3,7 @@ import GetFirstObjectInList from '../../../src/core/data/list/GetFirstObjectInLi
 
 // Mocked ListDef
 class ListDef {
-    getFirst() {
+    observeFirst() {
         return null;
     }
 }

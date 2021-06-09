@@ -24,7 +24,7 @@ export default class GetObject extends FunctionBrick {
      * @param {function(!Sync)} setObject
      */
     onUpdate(context, [tag], [setObject]) {
-        new ListDef(tag, []).getFirst().subscribe(setObject);
+        new ListDef(tag, []).observeFirst().subscribe(setObject);
     }
 }
 

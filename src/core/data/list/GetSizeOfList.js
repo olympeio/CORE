@@ -35,7 +35,7 @@ export default class GetSizeOfList extends FunctionBrick {
         if (Array.isArray(list)) {
             setSize(list.length);
         } else {
-            list.getSize().subscribe(_size => {
+            list.observeSize().subscribe(_size => {
                 setSize(_size);
             });
         }
