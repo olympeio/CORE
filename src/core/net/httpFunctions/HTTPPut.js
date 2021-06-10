@@ -1,5 +1,5 @@
 
-import { FunctionBrick, registerBrick, Context } from 'olympe';
+import { FunctionBrick, registerBrick} from 'olympe';
 import doHttpRequest from "../httpUtils/doHttpRequest";
 import checkResponseStatus from "../httpUtils/checkResponse";
 

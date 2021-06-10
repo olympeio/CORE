@@ -1,4 +1,25 @@
-import {FunctionBrick, registerBrick, Context, ListDef, predicates, Direction, instanceToTag, DBView} from 'olympe';
+import {FunctionBrick, registerBrick, ListDef, predicates, Direction, instanceToTag, DBView} from 'olympe';
+
+/**
+ * @param {Array} list
+ * @param {boolean} inverseFilter
+ * @return {?Array}
+ */
+const filterList = (list, inverseFilter) => {
+    const db = DBView.get();
+    let invalidObject = false;
+    list.filter((object) => {
+        if (instanceToTag(object) === '') {
+            console.error('[Filter Has Related] One object in the list has no valid tag');
+            invalidObject = true;
+            return false;
+        } else {
+            const isRelated = db.isRelated(object, relation, relatedObject);
+            return inverseFilter ? !isRelated : isRelated;
+        }
+    })
+    return invalidObject ? null : list;
+};
 
 export default class FilterHasRelated extends FunctionBrick {
 
@@ -9,54 +30,22 @@ export default class FilterHasRelated extends FunctionBrick {
      * @protected
      * @param {Context} context
      * @param {!ListDef|!Array} list
-     * @param {!Sync} relatedObject
+     * @param {!InstanceTag} relatedObject
      * @param {!Relation} relation
      * @param {boolean} inverseFilter
      * @param {function(ListDef|Array)} setFilteredList
      */
     onUpdate(context, [list, relatedObject, relation, inverseFilter], [setFilteredList]) {
-
-        const relatedObjectTag = instanceToTag(relatedObject);
-
-        if (relatedObjectTag === '') {
-            console.error('[FilterHasRelated] relatedObject is not a valid Sync!');
+        if (instanceToTag(relatedObject) === '') {
+            console.error('Filter Has Related: `related object` has no valid tag');
         } else if(Array.isArray(list)) {
-            let invalidObject = false;
-            const dbView = DBView.get();
-            const newList = list.filter(
-                object => {
-                    const objectTag = instanceToTag(object);
-                    if (objectTag === '') {
-                        console.error('[FilterHasRelated] One object in the list is not a valid Sync!');
-                        invalidObject = true;
-                        return false;
-                    } else {
-                        let isRelated = dbView.isRelated(objectTag, relation, relatedObjectTag);
-                        if (inverseFilter) {
-                            return !isRelated;
-                        } else {
-                            return isRelated;
-                        }
-                    }
-                }
-            );
-
-            if (!invalidObject) {
-                setObject(newList);
+            const filteredList = filterList(list);
+            if (filteredList !== null) {
+                setFilteredList(filteredList);
             }
-        } if (list instanceof ListDef) {
-
-            const relatedFilter = new predicates.HasRelated(
-                [relation],
-                [Direction.DESTINATION],
-                relatedObject
-            );
-
-            setFilteredList(list.filter(
-                inverseFilter
-                    ? new predicates.Not(relatedFilter)
-                    : relatedFilter
-            ));
+        } else if (list instanceof ListDef) {
+            const relatedFilter = new predicates.HasRelated([relation], [Direction.DESTINATION], relatedObject);
+            setFilteredList(list.filter(inverseFilter ? new predicates.Not(relatedFilter) : relatedFilter));
         } else {
             console.error('TypeError: The list should be of type ListDef or Array');
         }

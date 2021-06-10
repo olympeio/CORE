@@ -1,19 +1,4 @@
-import {
-    FunctionBrick,
-    registerBrick,
-    Context,
-    ListDef,
-    Property,
-    PropertyPrimitive,
-    DBView,
-    StringPrimitive,
-    comparators,
-    valuedefs,
-    NumberPrimitive,
-    DatetimePrimitive,
-    BooleanPrimitive,
-    transformers
-} from 'olympe';
+import {FunctionBrick, registerBrick, ListDef, PropertyPrimitive, DBView, StringPrimitive, comparators, valuedefs, NumberPrimitive, DatetimePrimitive, BooleanPrimitive, transformers} from 'olympe';
 
 /**
 ## Description

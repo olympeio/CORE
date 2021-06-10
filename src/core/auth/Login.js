@@ -1,4 +1,4 @@
-import {registerBrick, Context, Auth, AuthState, ErrorFlow, FunctionBrick} from 'olympe'
+import {registerBrick, Auth, AuthState, ErrorFlow, FunctionBrick} from 'olympe'
 
 /**
  ## Description

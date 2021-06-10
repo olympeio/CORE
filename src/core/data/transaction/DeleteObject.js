@@ -1,4 +1,4 @@
-import { ActionBrick, registerBrick, Context, CreateInstance, UpdateInstance, Transaction, InstanceTag } from 'olympe';
+import { ActionBrick, registerBrick, CreateInstance, UpdateInstance, Transaction } from 'olympe';
 
 /**
 ## Description

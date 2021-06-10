@@ -1,5 +1,5 @@
 
-import {FunctionBrick, registerBrick, Context, ListDef, Relation, instanceToTag, transformers, DBView, Sync} from 'olympe';
+import {FunctionBrick, registerBrick, ListDef, instanceToTag, transformers, DBView, Sync} from 'olympe';
 
 /**
 NO DOC

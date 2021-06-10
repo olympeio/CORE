@@ -1,6 +1,4 @@
-
-import { FunctionBrick, registerBrick, Context, ListDef, PropertyDescriptor,
-    DBView, predicates, valuedefs } from "olympe";
+import { FunctionBrick, registerBrick, ListDef, DBView, predicates, valuedefs } from "olympe";
 import getValueDefFor from "./getValueDefFor";
 
 /**
@@ -29,10 +27,12 @@ export default class FilterListContains extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Array} inputs
-     * @param {!Array} outputs
+     * @param {!PropertyDescriptor} property
+     * @param {!ListDef|Array} list
+     * @param {!*} substring
+     * @param {function(ListDef|Array)} setFiltered
      */
-    onUpdate(context, [property, list, value], [setFiltered]) {
+    onUpdate(context, [property, list, substring], [setFiltered]) {
         const valueDef = getValueDefFor(property);
 
         if (valueDef === null) {
@@ -42,18 +42,18 @@ export default class FilterListContains extends FunctionBrick {
             return;
         }
 
-        if (!value instanceof String) {
-            console.warn(`The type of value is not supported. It should be of type String.`);
+        if (typeof(substring) !== 'string') {
+            console.warn('The type of `substring` is not supported, iut should be a string.');
             setFiltered(list);
             return;
         }
 
         if (list instanceof ListDef) {
-            setFiltered(list.filter(new predicates.Contains(valueDef, new valuedefs.Constant(value))));
+            setFiltered(list.filter(new predicates.Contains(valueDef, new valuedefs.Constant(substring))));
         } else if (Array.isArray(list)) {
             setFiltered(list.filter(item => {
                 const itemPropValue = DBView.get().getProperty(item.getTag(), property);
-                return itemPropValue.includes(value);
+                return itemPropValue.includes(substring);
             }));
         } else {
             console.error(`TypeError: The list should be of type ListDef or Array`);

@@ -1,4 +1,4 @@
-import { FunctionBrick, registerBrick, Context, ListDef, onDestroy } from 'olympe';
+import { FunctionBrick, registerBrick, ListDef, onDestroy } from 'olympe';
 
 /**
 ## Description

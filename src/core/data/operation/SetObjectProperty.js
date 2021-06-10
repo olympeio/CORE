@@ -1,5 +1,5 @@
 
-import { FunctionBrick, registerBrick, Context, Transaction, Sync } from 'olympe';
+import { FunctionBrick, registerBrick, Transaction, Sync } from 'olympe';
 
 /**
 ## Description

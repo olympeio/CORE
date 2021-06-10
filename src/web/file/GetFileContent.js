@@ -1,4 +1,4 @@
-import { ActionBrick, registerBrick, Context, File } from 'olympe';
+import { ActionBrick, registerBrick, File } from 'olympe';
 import { toBase64 } from '../_helpers/binaryConverters';
 
 /**

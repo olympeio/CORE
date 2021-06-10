@@ -1,5 +1,5 @@
 
-import {ActionBrick, registerBrick, Context, ErrorFlow} from 'olympe';
+import {ActionBrick, registerBrick} from 'olympe';
 import doHttpRequest from "../httpUtils/doHttpRequest";
 import checkResponseStatus from "../httpUtils/checkResponse";
 

@@ -1,14 +1,4 @@
-import {
-    DatetimePrimitive,
-    DBView,
-    instanceToTag,
-    NumberPrimitive,
-    PropertyPrimitive,
-    StringPrimitive,
-    PropertyDescriptor,
-    ValueDef,
-    valuedefs
-} from "olympe";
+import {DatetimePrimitive, DBView, instanceToTag, NumberPrimitive, PropertyPrimitive, StringPrimitive, valuedefs} from "olympe";
 
 /**
  *

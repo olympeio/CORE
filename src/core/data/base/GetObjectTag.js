@@ -1,4 +1,4 @@
-import { FunctionBrick, registerBrick, Context, instanceToTag, InstanceTag } from 'olympe';
+import { FunctionBrick, registerBrick, instanceToTag } from 'olympe';
 
 /**
 ## Description

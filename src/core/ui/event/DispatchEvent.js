@@ -1,5 +1,5 @@
 
-import { ActionBrick, registerBrick, Context, DBView, Direction, transformers } from 'olympe';
+import { ActionBrick, registerBrick, DBView, Direction, transformers } from 'olympe';
 
 /**
 ## Description

@@ -1,6 +1,5 @@
 
-import { FunctionBrick, registerBrick, Context, ListDef, PropertyDescriptor,
-         DBView, predicates, valuedefs, HasInstanceTag } from "olympe";
+import { FunctionBrick, registerBrick, ListDef, DBView, predicates, valuedefs } from "olympe";
 import getValueDefFor from "./getValueDefFor";
 
 /**

@@ -1,4 +1,4 @@
-import { FunctionBrick, registerBrick, Sync, RelationPrimitive, Direction, ListDef, instanceToTag, transformers } from 'olympe';
+import { FunctionBrick, registerBrick, instanceToTag } from 'olympe';
 import {getRelatedObjects} from "../list/GetRelatedObjects";
 
 /**

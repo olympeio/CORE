@@ -23,16 +23,8 @@ export default class AddElementToListFunction extends FunctionBrick {
             return;
         }
 
-        // Addition
-        let newList = list;
-        if(Array.isArray(list)) {
-            newList = list.concat([object]);
-        } else {
-            newList = list.union(new ListDef(instanceToTag(object), []));
-        }
-
-        // Done
-        setList(newList);
+        // Concat and send
+        setList(Array.isArray(list) ? list.concat([object]) : list.union(new ListDef(instanceToTag(object), [])));
     }
 }
 

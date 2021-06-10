@@ -1,4 +1,4 @@
-import { FunctionBrick, registerBrick, Context, DBView, instanceToTag, Transaction, Sync } from 'olympe';
+import { FunctionBrick, registerBrick, DBView, Transaction, Sync } from 'olympe';
 
 /**
 ## Description

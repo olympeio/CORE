@@ -1,4 +1,4 @@
-import { FunctionBrick, registerBrick, Context, Color } from 'olympe';
+import { FunctionBrick, registerBrick, Color } from 'olympe';
 
 /**
 ## Description

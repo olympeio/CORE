@@ -1,5 +1,5 @@
 
-import { ActionBrick, registerBrick, Context } from 'olympe';
+import { ActionBrick, registerBrick } from 'olympe';
 
 /**
 ## Description

@@ -1,5 +1,5 @@
 
-import {ActionBrick, registerBrick, Context, Sync, instanceToTag} from 'olympe';
+import {ActionBrick, registerBrick, Sync, instanceToTag} from 'olympe';
 
 /**
 ## Description

@@ -1,5 +1,5 @@
 
-import { ActionBrick, registerBrick, Context, Transaction, File, ErrorFlow, Sync } from 'olympe';
+import { ActionBrick, registerBrick, Transaction, File, ErrorFlow, Sync } from 'olympe';
 
 /**
  ## Description

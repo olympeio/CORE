@@ -1,5 +1,5 @@
 
-import { FunctionBrick, registerBrick, Context, ListDef, Sync, InstanceTag } from 'olympe';
+import { FunctionBrick, registerBrick, Sync } from 'olympe';
 
 /**
 ## Description

@@ -1,4 +1,4 @@
-import { ActionBrick, Auth, registerBrick, Context , DBView , User, ErrorFlow} from 'olympe';
+import { ActionBrick, Auth, registerBrick, DBView , User, ErrorFlow} from 'olympe';
 
 /**
 ## Description

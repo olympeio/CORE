@@ -1,4 +1,4 @@
-import { FunctionBrick, registerBrick, ListDef, Sync } from 'olympe';
+import { FunctionBrick, registerBrick, ListDef } from 'olympe';
 
 /**
 ## Description

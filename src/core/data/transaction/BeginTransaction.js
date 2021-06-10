@@ -1,4 +1,4 @@
-import { ActionBrick, registerBrick, Context, Transaction } from 'olympe';
+import { ActionBrick, registerBrick, Transaction } from 'olympe';
 
 /**!
  * %Tooltip: Begins a transaction.
