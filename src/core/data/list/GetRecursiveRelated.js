@@ -1,6 +1,5 @@
-
-
-import {FunctionBrick, registerBrick, Context, ListDef, Relation, instanceToTag, transformers} from 'olympe';
+import {FunctionBrick, registerBrick, ListDef, instanceToTag, transformers} from 'olympe';
+import {getOrientedRelation} from "./GetRelatedObjects";
 
 export default class GetRecursiveRelated extends FunctionBrick {
 
@@ -10,26 +9,26 @@ export default class GetRecursiveRelated extends FunctionBrick {
      *
      * @protected
      * @param {Context} context
-     * @param {!Sync} origin
-     * @param {!Relation} relation
+     * @param {!InstanceTag} object
+     * @param {!InstanceTag} relation
      * @param {boolean} includeSelf
      * @param {function(ListDef)} setList
      */
-    onUpdate(context, [origin, relation, includeSelf], [setList]) {
-        const originTag = instanceToTag(origin);
-        const relationTag = instanceToTag(relationTag);
-
-        if (originTag === '') {
-            console.error('[FilterHasRelated] origin is not a valid Sync!');
-        } else if (relationTag === '') {
-            console.error('[FilterHasRelated] relationTag is not a valid Relation!');
-        } else {
-            setList(new ListDef(origin, new transformers.RecursiveRelated(
-                relation,
-                Direction.DESTINATION,
-                includeSelf ? 0 : 1,
-            )));
+    onUpdate(context, [object, relation, includeSelf], [setList]) {
+        // Prevent errors
+        if (instanceToTag(object) === '') {
+            console.error('Get Related Objects: Invalid `object` provided');
+            return;
+        } else if (instanceToTag(relation) === '') {
+            console.error('Get Related Objects: Invalid `relation` provided');
+            return;
         }
+
+        const orientedRelation = getOrientedRelation(object, relation);
+        setList(new ListDef(
+            object,
+            new transformers.RecursiveRelated(orientedRelation, orientedRelation.getDirection(), includeSelf ? 0 : 1)
+        ));
     }
 }
 
