@@ -1,6 +1,6 @@
 {
   "name": "@olympeio/core",
-  "version": "1.0.3-rc1",
+  "version": "1.0.3",
   "build": {
     "orchestratorVersion": "5.9.2"
   },
@@ -34,8 +34,8 @@
     "webpack-node-externals": "^2.5.0"
   },
   "dependencies": {
-    "@olympeio/runtime-node": "8.2.1-rc1",
-    "@olympeio/runtime-web": "8.2.1-rc1",
+    "@olympeio/runtime-node": "8.2.1",
+    "@olympeio/runtime-web": "8.2.1",
     "rxjs": "^7.1.0"
   }
 }
