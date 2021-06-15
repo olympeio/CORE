@@ -14,9 +14,8 @@ Dispatches a control flow whenever one of the two input gets triggered, after th
 | Name | Type | Description |
 | --- | :---: | --- |
 | Output flow | ControlFlow | Synchronized out put flow. |
-
 **/
-export default class Controlflowsynchronization extends FunctionBrick {
+export default class ControlflowSynchronization extends FunctionBrick {
 
     /**
      * Executed every time an input gets updated.
@@ -33,4 +32,4 @@ export default class Controlflowsynchronization extends FunctionBrick {
     }
 }
 
-registerBrick('016bd5eed74159ea8218', Controlflowsynchronization);
+registerBrick('016bd5eed74159ea8218', ControlflowSynchronization);

@@ -1,4 +1,4 @@
-import ControlFlowSynchronization from '../../src/core/util/ControlFlowSynchronization.js';
+import ControlFlowSynchronization from '../../src/core/util/ControlflowSynchronization.js';
 import {Context} from 'olympe';
 
 describe('ControlFlowSynchronization brick', () => {
