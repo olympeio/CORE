@@ -57,7 +57,7 @@ export default class SortList extends FunctionBrick {
 
         if (comparator !== null) {
             // Array of syncs
-            if(Array.isArray(list)) {
+            if (Array.isArray(list)) {
                 // TODO compare() to be exposed
                 console.warn('[SortList] sorting for type Array is not yet supported');
                 // sortedList = list.sort((a, b) => {

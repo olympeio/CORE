@@ -1,6 +1,6 @@
 const path = require('path');
 const runtimeWebPath = path.resolve(__dirname, 'node_modules/@olympeio/runtime-web');
-const runtimeNodePath = path.resolve(__dirname, 'node_modules/@olympeio/runtime-node');
+const helpersPath = path.resolve(__dirname, 'src/helpers/web');
 
 module.exports = function (config) {
   config.set({
@@ -95,7 +95,8 @@ module.exports = function (config) {
       },
       resolve: {
         alias: {
-          olympe: runtimeWebPath
+          olympe: runtimeWebPath,
+          helpers: helpersPath
         }
       },
     },

@@ -1,7 +1,7 @@
 
 import { FunctionBrick, registerBrick } from 'olympe';
-import doHttpRequest from "../httpUtils/doHttpRequest";
-import checkResponseStatus from "../httpUtils/checkResponse";
+import httpRequest from "helpers/httpRequest";
+import checkResponseStatus from "../utils/checkResponse";
 
 /**
 ## Description
@@ -46,16 +46,15 @@ export default class HTTPPost extends FunctionBrick {
      * @param {function(string)} setHeaders
      */
     onUpdate(context, [url, body, headers], [ setBody, setStatusCode, setHeaders]) {
-        doHttpRequest('POST', url, headers, body)
-            .then(_response => {
-                    checkResponseStatus(_response, setHeaders, undefined, setStatusCode);
-
-                    return _response.text();
+        httpRequest('POST', url, headers, body)
+            .then((response) => {
+                checkResponseStatus(response, setHeaders, undefined, setStatusCode);
+                return response.text();
+            })
+            .then((data) => {
+                if (data) {
+                    setBody(data);
                 }
-            )
-            .then(_data => {
-                if (_data)
-                    setBody(_data);
             });
     }
 }

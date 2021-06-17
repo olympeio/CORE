@@ -91,7 +91,7 @@ db.newInstance(_instance_of_Predefined_input_Control_Flow_of_Action____Control_F
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Delete_Relation_01681960628b0d391ad6)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Control Flow',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:3,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();
@@ -102,7 +102,7 @@ db.newInstance(_instance_of_Predefined_output_Control_Flow____Control_Flow_01681
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Delete_Relation_01681960628b0d391ad6)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Control Flow',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();
@@ -113,7 +113,7 @@ db.newInstance(_instance_of_Runnable_Input____origin_01681960654084d489dd)
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Delete_Relation_01681960628b0d391ad6)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'origin',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();
@@ -124,7 +124,7 @@ db.newInstance(_instance_of_Runnable_Input____relation_0168196066c5612bdb76)
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Delete_Relation_01681960628b0d391ad6)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'relation',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:3,
         'v'                                     :1
     })
     .done();
@@ -135,7 +135,7 @@ db.newInstance(_instance_of_Runnable_Input____destination_016819606811c15a7509)
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Delete_Relation_01681960628b0d391ad6)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'destination',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
         'v'                                     :1
     })
     .done();
@@ -146,7 +146,7 @@ db.newInstance(_instance_of_Runnable_Output____origin_016819606951db926b31)
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Delete_Relation_01681960628b0d391ad6)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'origin',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();

@@ -19,15 +19,22 @@ export default class EndTransaction extends ActionBrick {
      * @protected
      * @param {!Context} context
      * @param {!Array} _
-     * @param {function(!ErrorFlow)} dispatchError
      * @param {function()} forwardEvent
+     * @param {function(!ErrorFlow)} dispatchError
      */
-    onUpdate(context, _, [dispatchError,forwardEvent]) {
-        context.releaseTransaction((executed, success, errMsg) => {
-            if (success) {
-                forwardEvent();
+    onUpdate(context, _, [forwardEvent, dispatchError]) {
+        // Extract the current transaction from the context.
+        const transaction = context.getParent().popTransaction();
+        if (transaction === null) {
+            console.warn('End Transaction: no transaction begun');
+            return;
+        }
+
+        transaction.execute((success, message) => {
+            if (!success) {
+                dispatchError(ErrorFlow.create(message || '', 1));
             } else {
-                dispatchError(ErrorFlow.create(errMsg, 1));
+                forwardEvent();
             }
         });
     }

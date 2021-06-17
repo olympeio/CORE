@@ -1,13 +1,13 @@
 /**
- * @public
  * @param {string} method
  * @param {string} url
  * @param {string} headers
  * @param {string=} body
  * @return {Promise<Response>|Promise}
  */
-export default function doHttpRequest(method, url, headers, body) {
-    const parsedHeaders = new Headers();
+export default function httpRequest(method, url, headers, body) {
+    const fetch = require('node-fetch');
+    const parsedHeaders = new fetch.Headers();
 
     if (headers) {
         for (const [key, value] of Object.entries(JSON.parse(headers))) {
@@ -22,13 +22,9 @@ export default function doHttpRequest(method, url, headers, body) {
         cache: 'default'
     };
 
-    if (body)
+    if (body) {
         init.body = body;
-
-    if (typeof window === "undefined") {
-        const fetch = require('node-fetch');
-        return fetch(url, init);
-    } else {
-        return fetch(url, init);
     }
+
+    return fetch.default(url, init);
 }

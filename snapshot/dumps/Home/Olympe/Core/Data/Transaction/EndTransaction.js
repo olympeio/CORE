@@ -67,7 +67,7 @@ const _Transaction_0179b26880c1af51a32b        = '0179b26880c1af51a32b';
 
 
 // :_instance_of_Coded_Action_model____EndTransaction_0162f2ed1d1ba6349600
-db.newModel(_instance_of_Coded_Action_model____EndTransaction_0162f2ed1d1ba6349600, 'EndTransaction') // tag and name of the model 
+db.newModel(_instance_of_Coded_Action_model____EndTransaction_0162f2ed1d1ba6349600, 'End Transaction') // tag and name of the model
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
@@ -75,7 +75,7 @@ db.newModel(_instance_of_Coded_Action_model____EndTransaction_0162f2ed1d1ba63496
     })
     .done(); 
 db.updateInstance(_instance_of_Coded_Action_model____EndTransaction_0162f2ed1d1ba6349600, {
-        [db.DEFAULT+_Object_name_ff023000000000000011]:'EndTransaction',
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'End Transaction',
         'v'                                     :2
     });
 db.setRootInstanceTag(_instance_of_Coded_Action_model____EndTransaction_0162f2ed1d1ba6349600);
@@ -86,7 +86,7 @@ db.newInstance(_instance_of_Runnable_Output____Error_Flow_0162f2ed1d1ba6349601)
     .addToGroupOfObjects(_instance_of_Coded_Action_model____EndTransaction_0162f2ed1d1ba6349600)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Error Flow',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();
@@ -108,7 +108,7 @@ db.newInstance(_instance_of_Predefined_output_Control_Flow____Control_Flow_0162f
     .addToGroupOfObjects(_instance_of_Coded_Action_model____EndTransaction_0162f2ed1d1ba6349600)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Control Flow',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();

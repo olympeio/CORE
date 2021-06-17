@@ -4,7 +4,7 @@ import {BehaviorSubject} from 'rxjs';
 import {Context, ListDef} from "olympe";
 
 describe('GetSizeOfList brick', () => {
-    it('should call the getSize method of the list', () => {
+    it('should call the observeSize method of the list', () => {
         const list = new ListDef();
         spyOn(list, "observeSize").and.returnValue(new BehaviorSubject(0));
 
