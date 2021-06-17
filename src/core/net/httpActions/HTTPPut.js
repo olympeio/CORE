@@ -1,7 +1,6 @@
-
 import { ActionBrick, registerBrick } from 'olympe';
-import doHttpRequest from "../httpUtils/doHttpRequest";
-import checkResponseStatus from "../httpUtils/checkResponse";
+import httpRequest from "helpers/httpRequest";
+import checkResponseStatus from "../utils/checkResponse";
 
 /**
  ## Description
@@ -48,13 +47,11 @@ export default class HTTPPut extends ActionBrick {
      * @param {function(string)} setHeaders
      */
     onUpdate(context, [body, headers, url], [ forwardEvent, setErrorFlow, setStatusCode, setHeaders]) {
-        doHttpRequest('PUT', url, headers, body)
-            .then(_response => {
-                    checkResponseStatus(_response, setHeaders, setErrorFlow, setStatusCode);
-
-                    forwardEvent();
-                }
-            );
+        httpRequest('PUT', url, headers, body)
+            .then((response) => {
+                checkResponseStatus(response, setHeaders, setErrorFlow, setStatusCode);
+                forwardEvent();
+            });
     }
 }
 

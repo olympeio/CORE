@@ -86,7 +86,7 @@ db.newInstance(_instance_of_Runnable_Input____Error_Flow_1_016eeb5ede9f3094d911)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Error_Flow_Multiplexer_016eeb5ede9f3094d910)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Error Flow 1',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();
@@ -97,7 +97,7 @@ db.newInstance(_instance_of_Runnable_Input____Error_Flow_2_016eeb5ede9f3094d912)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Error_Flow_Multiplexer_016eeb5ede9f3094d910)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Error Flow 2',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();
@@ -108,7 +108,7 @@ db.newInstance(_instance_of_Runnable_Input____Error_Flow_3_016eeb5ede9f3094d913)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Error_Flow_Multiplexer_016eeb5ede9f3094d910)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Error Flow 3',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
         'v'                                     :1
     })
     .done();
@@ -143,7 +143,7 @@ db.newInstance(_instance_of_Documentation_Function_Metadata_d0ceeb5ede9f3094d910
         [_Documentation_Function_Metadata_errors_0172c6ae82952a74193f]:'',
         [_Documentation_Function_Metadata_inputs_0172c6ae82952a74193d]:'## Inputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| Error flow 1 | Error Flow | The first error flow to join. |\n| Error flow 2 | Error Flow | The second error flow to join. |\n| Error flow 3 | Error Flow | The third error flow to join. |\n| Error flow 4 | Error Flow | The fourth error flow to join. |\n',
         [_Documentation_Function_Metadata_outputs_0172c6ae82952a74193e]:'## Outputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 016eeb5ede9f3094d915-Error Flow | Error Flow | The resulting error flow. |\n',
-        [_Documentation_Metadata_description_01703376c4a81c0e9d92]:'## Description\nCreates a new error flow by joining up to 4 error flows. The resulting flow is triggered whenever\none of the two joined flows is triggered.\n',
+        [_Documentation_Metadata_description_01703376c4a81c0e9d92]:'## Description\nCreates a new error flow by joining up to 4 error flows. The resulting flow is triggered whenever\none of the four joined flows is triggered.\n',
         [_Documentation_Metadata_toolTip_01703376c4a81c0e9d91]:'Joins up to 4 error flows into one.',
         'v'                                     :1
     })

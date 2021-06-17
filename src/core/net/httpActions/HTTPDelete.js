@@ -1,7 +1,6 @@
-
 import { ActionBrick, registerBrick } from 'olympe';
-import doHttpRequest from "../httpUtils/doHttpRequest";
-import checkResponseStatus from "../httpUtils/checkResponse";
+import httpRequest from "helpers/httpRequest";
+import checkResponseStatus from "../utils/checkResponse";
 
 /**
  ## Description
@@ -43,16 +42,15 @@ export default class HTTPDelete extends ActionBrick {
      * @param {function(string)} setHeaders
      */
     onUpdate(context, [body, headers, url], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
-        doHttpRequest('DELETE', url, headers, body)
-            .then(_response => {
-                    checkResponseStatus(_response, setHeaders, setErrorFlow, setStatusCode);
-
-                    return _response.text();
+        httpRequest('DELETE', url, headers, body)
+            .then((response) => {
+                checkResponseStatus(response, setHeaders, setErrorFlow, setStatusCode);
+                return response.text();
+            })
+            .then((data) => {
+                if (data) {
+                    setBody(data);
                 }
-            )
-            .then(_data => {
-                if (_data)
-                    setBody(_data);
                 forwardEvent();
             });
     }

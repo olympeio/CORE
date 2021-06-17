@@ -36,11 +36,11 @@ export default class ErrorFlowMultiplexer extends FunctionBrick {
     /**
      * @protected
      * @param {!Context} context
-     * @param {number} incomingEvent
-     * @param {function(number)} forwardEvent
+     * @param {!ErrorFlow} incomingEvent
+     * @param {function(ErrorFlow)} forwardError
      */
-    onUpdate(context, [incomingEvent], [forwardEvent]) {
-        forwardEvent(Date.now());
+    onUpdate(context, [errorFlow], [forwardError]) {
+        forwardError(errorFlow);
     }
 }
 

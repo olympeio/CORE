@@ -1,5 +1,5 @@
 import { ActionBrick, registerBrick, File } from 'olympe';
-import { toBase64 } from '../_helpers/binaryConverters';
+import { toBase64 } from 'helpers/binaryConverters';
 
 /**
  ## Description
@@ -12,7 +12,7 @@ import { toBase64 } from '../_helpers/binaryConverters';
  | Name | Type | Description |
  | --- | :---: | --- |
  | Content | String |  |
- **/
+**/
 export default class GetFileContent extends ActionBrick {
 
     /**

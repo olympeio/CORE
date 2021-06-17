@@ -90,7 +90,7 @@ db.newInstance(_instance_of_Predefined_input_Control_Flow_of_Action____Control_F
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Delete_All_Relations_01681979b58936d73d5f)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Control Flow',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();
@@ -112,7 +112,7 @@ db.newInstance(_instance_of_Runnable_Input____origin_01681979b8886c1cf3e4)
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Delete_All_Relations_01681979b58936d73d5f)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'origin',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();

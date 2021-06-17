@@ -1,4 +1,3 @@
-
 import { FunctionBrick, registerBrick, ListDef } from 'olympe';
 
 /**
@@ -28,14 +27,14 @@ export default class GetObjectAtInList extends FunctionBrick {
      * @param {function(object)} setObject
      */
     onUpdate(context, [rank, list], [setObject]) {
-        if(Array.isArray(list)) {
+        if (Array.isArray(list)) {
             if (list.length > rank) {
                 setObject(list[rank]);
             } else {
                 console.warn(`OutOfBound: trying to return a value outside of the array! (rank=${rank}, arrayLength=${list.length})`);
             }
         } else if (list instanceof ListDef) {
-            list.getAt(rank).subscribe(_object => {
+            list.observeAt(rank).subscribe(_object => {
                 setObject(_object);
             });
         } else {
