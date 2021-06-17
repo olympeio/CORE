@@ -1,6 +1,25 @@
 import { FunctionBrick, registerBrick } from 'olympe';
 import { add } from 'date-fns'
 
+/**
+## Description
+Adds an amount of days, months, years, weeks, hours, minutes and seconds to a datetime object.
+## Inputs
+| Name | Type | Description |
+| --- | :---: | --- |
+| datetime | DateTime | The initial `DateTime`. |
+| years | Number | The years to add. |
+| months | Number | The months to add. |
+| days | Number | The days to add. |
+| weeks | Number | The weeks to add. |
+| hours | Number | The hours to add. |
+| minutes | Number | The minutes to add. |
+| seconds | Number | The seconds to add. |
+## Outputs
+| Name | Type | Description |
+| --- | :---: | --- |
+| new date | DateTime | The resulting `DateTime`. |
+**/
 export default class DateTimeAdd extends FunctionBrick {
 
     /**

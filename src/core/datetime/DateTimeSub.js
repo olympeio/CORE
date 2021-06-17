@@ -1,6 +1,25 @@
 import { FunctionBrick, registerBrick } from 'olympe';
 import { sub } from 'date-fns'
 
+/**
+## Description
+Removes an amount of days, months, years, weeks, hours, minutes and seconds to a datetime object.
+## Inputs
+| Name | Type | Description |
+| --- | :---: | --- |
+| datetime | DateTime | The initial `DateTime`. |
+| years | Number |  |
+| months | Number | The months to remove. |
+| days | Number | The days to remove. |
+| weeks | Number | The weeks to remove. |
+| hours | Number | The hours to remove. |
+| minutes | Number | The minutes to remove. |
+| seconds | Number | The seconds to remove. |
+## Outputs
+| Name | Type | Description |
+| --- | :---: | --- |
+| new date | DateTime | The resulting `DateTime`. |
+**/
 export default class DateTimeSub extends FunctionBrick {
 
     /**
