@@ -1,6 +1,21 @@
 import { FunctionBrick, registerBrick } from 'olympe';
 import { isEqual } from 'date-fns'
 
+/**
+## Description
+Returns true if the datetime object equals another datetime object, false otherwise.
+
+## Inputs
+| Name | Type | Description |
+| --- | :---: | --- |
+| Date to compare | Date/Time | The date we want to know if it is equals to another date. |
+| Comparison date | Date/Time | The reference date. |
+## Outputs
+| Name | Type | Description |
+| --- | :---: | --- |
+| Are equals | Date/Time | The result. |
+
+**/
 export default class IsDateTimeEqual extends FunctionBrick {
 
     /**
