@@ -1,5 +1,18 @@
 import {FunctionBrick, registerBrick, ListDef, Sync, instanceToTag} from 'olympe';
 
+/**
+## Description
+Adds en element to a list.
+## Inputs
+| Name | Type | Description |
+| --- | :---: | --- |
+| List | List | The list in which the element will be added. |
+| Object | Object | The element to add. |
+## Outputs
+| Name | Type | Description |
+| --- | :---: | --- |
+| List | List | The result list, with the added element. |
+**/
 export default class AddElementToListFunction extends FunctionBrick {
 
     /**
