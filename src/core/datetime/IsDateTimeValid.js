@@ -1,6 +1,20 @@
 import { FunctionBrick, registerBrick } from 'olympe';
 import { isValid } from 'date-fns'
 
+/**
+## Description
+Returns true if the datetime object is a valid datetime, false otherwise.
+
+## Inputs
+| Name | Type | Description |
+| --- | :---: | --- |
+| Date | Date/Time | The datetime to verify. |
+## Outputs
+| Name | Type | Description |
+| --- | :---: | --- |
+| Is valid | Date/Time | True if the datetime is valid, false otherwise. |
+
+**/
 export default class IsDateTimeValid extends FunctionBrick {
 
     /**
