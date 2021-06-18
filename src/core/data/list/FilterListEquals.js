@@ -33,9 +33,10 @@ export default class FilterListEquals extends FunctionBrick {
      * @param {!ListDef} list
      * @param {!PropertyDescriptor} property
      * @param {string | number | Date} value
+     * @param {boolean} not
      * @param {function(!ListDef)} setFiltered
      */
-    onUpdate(context, [list, property, value], [setFiltered]) {
+    onUpdate(context, [list, property, value, not], [setFiltered]) {
         if (!(list instanceof ListDef)) {
             console.error(`[FilterListEqual] list is not a ListDef. Ignored.`);
             return;
@@ -49,7 +50,8 @@ export default class FilterListEquals extends FunctionBrick {
             return;
         }
 
-        setFiltered(list.filter(new predicates.Equals(valueDef, new valuedefs.Constant(value))));
+        const equalsFilter = new predicates.Equals(valueDef, new valuedefs.Constant(value));
+        setFiltered(list.filter(not ? new predicates.Not(equalsFilter) : equalsFilter));
     }
 }
 
