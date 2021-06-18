@@ -1,5 +1,5 @@
-
-import { ActionBrick, registerBrick, DBView, Direction, transformers } from 'olympe';
+import { ActionBrick, registerBrick } from 'olympe';
+import getScopeContext from "../util/updateContextProperty";
 
 /**
 ## Description
@@ -24,32 +24,20 @@ export default class DispatchEvent extends ActionBrick {
      * @param {function()} forwardEvent
      */
     onUpdate(context, [_], [forwardEvent]) {
-        const srcScopeRel = new transformers.Related('0168a431d91f25780002', Direction.DESTINATION);
-        const srcPropertyRel = new transformers.Related('0168a431d91f25780004', Direction.DESTINATION);
-        const destScopeRel = new transformers.Related('0168a431d91f2578000a', Direction.DESTINATION);
-        const destInputRel = new transformers.Related('0168a431d91f2578000b', Direction.DESTINATION);
-        const eventPropTag = '01619e359987cdf3fc81';
-
-        const eventPipe = DBView.get().findRelated(this, [destScopeRel.getInverse()],
-            (pipe) => DBView.get().getUniqueRelated(pipe, destInputRel) === eventPropTag);
-        if (eventPipe) {
-            const scope = DBView.get().getUniqueRelated(eventPipe, srcScopeRel);
-            const event = DBView.get().getUniqueRelated(eventPipe, srcPropertyRel);
-            const scopeContext = scope ? context.getOtherContext(scope) : context;
-
+        const [scope, event] = getScopeContext(this, this.getInputs()[1]);
+        if (scope && event) {
+            const scopeContext = context.getOtherContext(scope);
             if (scopeContext === null) {
-                console.error('The scope where to dispatch event has not been found. ' +
-                    'It could be because you try to write on a scope of a model without adding the proper alias:', scope);
+                console.error('The scope where to set the UI Property has not been found.\n',
+                    '\tIt could be because you try to write on a scope of a model without adding the proper alias:', scope,
+                    '\n\tOr because the context was not started at the time of the property was set.');
                 return;
             }
+            scopeContext.set(event, Date.now());
 
-            if (event) {
-                scopeContext.set(event, Date.now());
-            }
         } else {
             console.log('There is no event to dispatch');
         }
-
         forwardEvent();
     }
 }

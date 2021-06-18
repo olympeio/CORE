@@ -1,4 +1,5 @@
-import { ActionBrick, registerBrick, ErrorFlow, DBView, Direction, transformers} from "olympe";
+import { ActionBrick, registerBrick, ErrorFlow } from "olympe";
+import getScopeContext from "./util/updateContextProperty";
 
 /**
 ## Description
@@ -23,24 +24,15 @@ export default class SetUIProperty extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {PropertyPrimitive} _
+     * @param {*} _
      * @param {*} value
-     * @param {function()} dispatchControlFlow
+     * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} dispatchErrorFlow
      */
-    onUpdate(context, [_, value], [dispatchErrorFlow, dispatchControlFlow]) {
-        const srcScopeRel = new transformers.Related('0168a431d91f25780002', Direction.DESTINATION);
-        const srcPropertyRel = new transformers.Related('0168a431d91f25780004', Direction.DESTINATION);
-        const destScopeRel = new transformers.Related('0168a431d91f2578000a', Direction.DESTINATION);
-        const destInputRel = new transformers.Related('0168a431d91f2578000b', Direction.DESTINATION);
-        const UIPropertyInput = '0162d293ab6f65c86c52';
-        const propertyPipe = DBView.get().findRelated(this, [destScopeRel.getInverse()],
-            (pipe) => DBView.get().getUniqueRelated(pipe, destInputRel) === UIPropertyInput);
-        if (propertyPipe) {
-            const scope = DBView.get().getUniqueRelated(propertyPipe, srcScopeRel);
-            const property = DBView.get().getUniqueRelated(propertyPipe, srcPropertyRel);
-            const scopeContext = scope ? context.getOtherContext(scope) : context;
-
+    onUpdate(context, [_, value], [dispatchErrorFlow, forwardEvent]) {
+        const [scope, property] = getScopeContext(this, this.getInputs()[1]);
+        if (scope && property) {
+            const scopeContext = context.getOtherContext(scope);
             if (scopeContext === null) {
                 console.error('The scope where to set the UI Property has not been found.\n',
                     '\tIt could be because you try to write on a scope of a model without adding the proper alias:', scope,
@@ -48,10 +40,9 @@ export default class SetUIProperty extends ActionBrick {
                 dispatchErrorFlow(ErrorFlow.create('Unknown scope', 2));
                 return;
             }
-            if (property) {
-                scopeContext.set(property, value);
-            }
-            dispatchControlFlow();
+            scopeContext.set(property, value);
+            forwardEvent();
+
         } else {
             dispatchErrorFlow(ErrorFlow.create('Unknown Property', 1));
         }
