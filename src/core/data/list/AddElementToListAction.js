@@ -1,5 +1,19 @@
 import {ActionBrick, instanceToTag, ListDef, registerBrick, Sync} from 'olympe';
 
+/**
+## Description
+Adds en element to a list. If no list is provided, it is created.
+
+## Inputs
+| Name | Type | Description |
+| --- | :---: | --- |
+| List | List | The list in which the element will be added. |
+| Object | Object | The element to add. |
+## Outputs
+| Name | Type | Description |
+| --- | :---: | --- |
+| List | List | The result list, with the added element. |
+ **/
 export default class AddElementToListAction extends ActionBrick {
 
     /**
@@ -8,12 +22,14 @@ export default class AddElementToListAction extends ActionBrick {
      * 
      * @protected
      * @param {Context} context
-     * @param {!ListDef|!Array} list
+     * @param {!ListDef|!Array} inputList
      * @param {!Sync|!Object} object
      * @param {function()} forwardEvent
      * @param {function(!ListDef|!Array)} setList
      */
-    onUpdate(context, [list, object], [forwardEvent, setList]) {
+    onUpdate(context, [inputList, object], [forwardEvent, setList]) {
+        const list = inputList || [];
+
         // Guards
         if(!Array.isArray(list) && !(list instanceof ListDef)) {
             console.error('[AddElementToList] TypeError: the list should be of type ListDef or Array');
