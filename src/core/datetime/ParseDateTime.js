@@ -1,16 +1,16 @@
 
 import { FunctionBrick, registerBrick } from 'olympe';
-import { parse, parseISO } from 'date-fns';
+import { parse } from 'date-fns';
 
 /**
 ## Description
 Converts a string to a datetime using provided format
-https://momentjs.com/docs/#/parsing/string-format/
+https://date-fns.org/v2.22.1/docs/parse
 
 **Examples:**
 
-  - "2010-10-20 4:30",       "YYYY-MM-DD HH:mm"
-  - "2010-10-20 4:30 +0000", "YYYY-MM-DD HH:mm Z"
+  - "2010-10-20 4:30",       "yyyy-MM-dd H:mm"
+  - "2010-02-20 4:30 +0000", "yyyy-MM-dd H:mm xx"
 
 ## Inputs
 | Name | Type | Description |
@@ -32,14 +32,15 @@ export default class ParseDateTime extends FunctionBrick {
      * @protected
      * @param {!Context} context
      * @param {string} dateTimeString
-     * @param {string} format
+     * @param {string} formatInput
      * @param {function(Date)} setDate
      */
-    onUpdate(context, [dateTimeString, format], [setDate]) {
-        if (!format) {
-            setDate(parseISO(dateTimeString));
-        } else {
+    onUpdate(context, [dateTimeString, formatInput], [setDate]) {
+        const format = formatInput || "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+        try {
             setDate(parse(dateTimeString, format, new Date()));
+        } catch (e) {
+            console.error(e);
         }
 
     }
