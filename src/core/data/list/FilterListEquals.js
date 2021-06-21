@@ -1,6 +1,6 @@
-
 import { FunctionBrick, registerBrick, ListDef, DBView, predicates, valuedefs } from "olympe";
 import getValueDefFor from "./getValueDefFor";
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -37,15 +37,17 @@ export default class FilterListEquals extends FunctionBrick {
      * @param {function(!ListDef)} setFiltered
      */
     onUpdate(context, [list, property, value, not], [setFiltered]) {
+        const logger = getLogger('Filter List Equals');
+
         if (!(list instanceof ListDef)) {
-            console.error(`[FilterListEqual] list is not a ListDef. Ignored.`);
+            logger.error(`List is not a ListDef. Ignored.`);
             return;
         }
         const valueDef = getValueDefFor(property);
 
         if (valueDef === null) {
             const name = DBView.get().name(/** @type {!HasInstanceTag} */ (property));
-            console.warn(`Type of property ${name} is not supported. List will not be filtered.`);
+            logger.warn(`Type of property ${name} is not supported. List will not be filtered.`);
             setFiltered(list);
             return;
         }

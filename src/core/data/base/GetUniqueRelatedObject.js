@@ -1,5 +1,7 @@
 import { FunctionBrick, registerBrick, instanceToTag } from 'olympe';
 import {getRelatedObjects} from "../list/GetRelatedObjects";
+import {getLogger} from 'logging';
+
 
 /**
 ## Description
@@ -28,19 +30,21 @@ export default class GetUniqueRelatedObject extends FunctionBrick {
      * @param {function(Sync)} setObject
      */
     onUpdate(context, [object, relation], [setObject]) {
+        const logger = getLogger('Get Unique Related Object');
+
         // Prevent errors
         if (instanceToTag(object) === '') {
-            console.error('Get Related Objects: Invalid `object` provided');
+            logger.error('Invalid `object` provided');
             return;
         } else if (instanceToTag(relation) === '') {
-            console.error('Get Related Objects: Invalid `relation` provided');
+            logger.error('Invalid `relation` provided');
             return;
         }
 
         const relatedObjects = getRelatedObjects(object, relation);
         relatedObjects.observeSize().subscribe((size) => {
             if (size.value > 1) {
-                console.warn(`${db.name(db.model(object))} ${instanceToTag(object)} is related to ${size.value} objects through relation ${db.name(relation)}`);
+                logger.warn(`${db.name(db.model(object))} ${instanceToTag(object)} is related to ${size.value} objects through relation ${db.name(relation)}`);
             }
         });
         relatedObjects.observeFirst().subscribe(setObject);

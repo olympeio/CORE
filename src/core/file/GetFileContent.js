@@ -1,5 +1,6 @@
 import { ActionBrick, registerBrick, File } from 'olympe';
 import { toBase64 } from 'helpers/binaryConverters';
+import {getLogger} from 'logging';
 
 /**
  ## Description
@@ -26,15 +27,16 @@ export default class GetFileContent extends ActionBrick {
      * @param {function(Object)} setContent
      */
     onUpdate(context, [file], [forwardEvent, setContent]) {
+        const logger = getLogger('Concat List');
 
         if(file === undefined || file === null || file.getContentAsBinary === undefined) {
             // warning for legacy usage of the brick, where string/ArrayBuffer was provided as input
-            console.warn('GetFileContent:', file, 'is not a valid file');
+            logger.warn(`${file} is not a valid file`);
             return;
         }
 
         const onFailure = (message) => {
-            console.error('GetFileContent: could not retrieve content of', file, '\n', message);
+            logger.error('Could not retrieve content of', file, '\n', message);
         };
 
         const mimeType = file.getProperty(File.mimeTypeProp) || '';

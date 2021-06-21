@@ -1,5 +1,5 @@
-
 import {FunctionBrick, registerBrick, ListDef} from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -29,13 +29,15 @@ export default class ConcatList extends FunctionBrick {
      * @param {function(!ListDef|!Array)} setConcatenatedList
      */
     onUpdate(context, [list1, list2], [setConcatenatedList]) {
+        const logger = getLogger('Concat List');
+
         // Guards
         if(!Array.isArray(list1) && !(list1 instanceof ListDef)) {
-            console.error('[ConcatList] TypeError: the list1 should be of type ListDef or Array');
+            logger.error('TypeError: the list1 should be of type ListDef or Array');
             return;
         }
         if(!Array.isArray(list2) && !(list2 instanceof ListDef)) {
-            console.error('[ConcatList] TypeError: the list2 should be of type ListDef or Array');
+            logger.error('TypeError: the list2 should be of type ListDef or Array');
             return;
         }
 
@@ -44,7 +46,7 @@ export default class ConcatList extends FunctionBrick {
         } else if(!Array.isArray(list1) && !Array.isArray(list2)) {
             setConcatenatedList(list1.union(list2));
         } else {
-            console.error('[ConcatList] TypeError: both list should be of the same type');
+            logger.error('TypeError: both list should be of the same type');
         }
     }
 }

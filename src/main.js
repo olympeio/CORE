@@ -3,6 +3,11 @@
 // ************************************************************************************
 // Import Olympe runtime
 import 'olympe';
+import initLogging from './helpers/logging';
 
 // Import project bricks (we use webpack-import-glob-loader to import all bricks)
 import './core/**/*.js';
+
+initLogging();
+
+export {getLogger} from './helpers/logging';

@@ -1,4 +1,5 @@
 import { FunctionBrick, registerBrick, ListDef } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -27,18 +28,19 @@ export default class GetObjectAtInList extends FunctionBrick {
      * @param {function(object)} setObject
      */
     onUpdate(context, [list, rank], [setObject]) {
+        const logger = getLogger('Get Object At In List');
         if (Array.isArray(list)) {
             if (list.length > rank) {
                 setObject(list[rank]);
             } else {
-                console.warn(`OutOfBound: trying to return a value outside of the array! (rank=${rank}, arrayLength=${list.length})`);
+                logger.warn(`OutOfBound: trying to return a value outside of the array! (rank=${rank}, arrayLength=${list.length})`);
             }
         } else if (list instanceof ListDef) {
             list.observeAt(rank).subscribe(_object => {
                 setObject(_object);
             });
         } else {
-            console.error('TypeError: The list should be of type ListDef or Array');
+            logger.error('TypeError: The list should be of type ListDef or Array');
         }
     }
 }

@@ -1,5 +1,5 @@
-
 import { FunctionBrick, registerBrick } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -19,7 +19,6 @@ Math('log', 10) -> 2.302585092994046
 | Name | Type | Description |
 | --- | :---: | --- |
 | result | Number | The result. |
-
 **/
 export default class MathFunctions extends FunctionBrick {
 
@@ -35,13 +34,14 @@ export default class MathFunctions extends FunctionBrick {
      */
     onUpdate(context, [functionName, input], [setResult]) {
         const func = Math[functionName];
+        const logger = getLogger('Math Functions');
 
         if (!func) {
-            console.error(`[MathFunctions] unknown function ${functionName}!`);
+            logger.error(`Unknown function ${functionName}!`);
         } else if (func.length !== 1) {
-            console.error(`[MathFunctions] ${functionName} is not a single param function!`);
+            logger.error(`${functionName} is not a single param function!`);
         } else if (typeof input !== 'number') {
-            console.error(`[MathFunctions] Input is not a number!`);
+            logger.error(`Input is not a number!`);
         } else {
             setResult(func(input));
         }

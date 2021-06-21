@@ -1,5 +1,6 @@
 import { ActionBrick, registerBrick } from 'olympe';
 import getScopeContext from "../util/updateContextProperty";
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -25,10 +26,11 @@ export default class DispatchEvent extends ActionBrick {
      */
     onUpdate(context, [_], [forwardEvent]) {
         const [scope, event] = getScopeContext(this, this.getInputs()[1]);
+        const logger = getLogger('Dispatch Event');
         if (scope && event) {
             const scopeContext = context.getOtherContext(scope);
             if (scopeContext === null) {
-                console.error('The scope where to set the UI Property has not been found.\n',
+                logger.error('The scope where to set the UI Property has not been found.\n',
                     '\tIt could be because you try to write on a scope of a model without adding the proper alias:', scope,
                     '\n\tOr because the context was not started at the time of the property was set.');
                 return;
@@ -36,7 +38,7 @@ export default class DispatchEvent extends ActionBrick {
             scopeContext.set(event, Date.now());
 
         } else {
-            console.log('There is no event to dispatch');
+            logger.log('There is no event to dispatch');
         }
         forwardEvent();
     }

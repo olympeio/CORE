@@ -1,5 +1,5 @@
-
 import { FunctionBrick, registerBrick, Limit } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -39,7 +39,7 @@ export default class FilterListRange extends FunctionBrick {
                 setList(list.transform(new Limit(startIndex, count)));
             }
         } else {
-            console.warn('endIndex is smaller than startIndex, list is not filtered');
+            getLogger('Filter List Range').warn('endIndex is smaller than startIndex, list is not filtered');
             setList(list);
         }
     }

@@ -1,5 +1,5 @@
-
 import { FunctionBrick, registerBrick, ListDef } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -26,19 +26,21 @@ export default class GetFirstObjectInList extends FunctionBrick {
      * @param {function(object)} setObject
      */
     onUpdate(context, [list], [setObject]) {
+        const logger = getLogger('Get First Object In List');
+
         if(Array.isArray(list)) {
             setObject(list[0]);
             if (list.length > 0) {
                 setObject(list[0]);
             } else {
-                console.warn('OutOfBound: trying to return the first element of an empty array!');
+                logger.warn('OutOfBound: trying to return the first element of an empty array!');
             }
         } else if (list instanceof ListDef) {
             list.observeFirst().subscribe(_object => {
                 setObject(_object);
             });
         } else {
-            console.error('TypeError: The list should be of type ListDef or Array');
+            logger.error('TypeError: The list should be of type ListDef or Array');
         }
     }
 }
