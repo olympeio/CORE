@@ -41,12 +41,16 @@ export default class AddElementToListAction extends ActionBrick {
         }
 
         // Addition
-        setList(Array.isArray(list)
-            ? Array.from(list).push(object) // Generate new array
-            : list.union(new ListDef(instanceToTag(object), [])) // New listdef: union of the previous + 1 instance.
-        );
+        let newList;
+        if (Array.isArray(list)) {
+            newList = Array.from(list); // Generate shallow copy of the array
+            newList.push(object);
+        } else {
+            newList = list.union(new ListDef(instanceToTag(object), [])); // New listdef: union of the previous + 1 instance.
+        }
 
         // Done
+        setList(newList);
         forwardEvent();
     }
 }
