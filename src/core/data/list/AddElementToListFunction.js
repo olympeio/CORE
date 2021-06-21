@@ -27,17 +27,20 @@ export default class AddElementToListFunction extends FunctionBrick {
      */
     onUpdate(context, [list, object], [setList]) {
         // Guards
-        if(!Array.isArray(list) && !(list instanceof ListDef)) {
+        if (!Array.isArray(list) && !(list instanceof ListDef)) {
             console.error('[AddElementToList] TypeError: the list should be of type ListDef or Array');
             return;
         }
-        if(list instanceof ListDef && !(object instanceof Sync)) {
+        if (list instanceof ListDef && !(object instanceof Sync)) {
             console.error('[AddElementToList] TypeError: only a Sync can be added to a ListDef');
             return;
         }
 
         // Concat and send
-        setList(Array.isArray(list) ? list.concat([object]) : list.union(new ListDef(instanceToTag(object), [])));
+        setList(Array.isArray(list)
+            ? Array.from(list).push(object) // Generate new array
+            : list.union(new ListDef(instanceToTag(object), [])) // New listdef: union of the previous + 1 instance.
+        );
     }
 }
 
