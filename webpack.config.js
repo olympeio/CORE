@@ -73,7 +73,8 @@ const plugins = {
 const node = {
     name: 'node',
     output: { filename: 'main-node.js' },
-    resolve: { alias: { helpers: path.resolve(__dirname, 'src/helpers/node') } }
+    resolve: { alias: { helpers: path.resolve(__dirname, 'src/helpers/node') } },
+    externals: ['os']
 };
 
 const web = {
