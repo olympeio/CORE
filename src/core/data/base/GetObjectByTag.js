@@ -12,7 +12,7 @@ Retrieve an object given its tag.
 | --- | :---: | --- |
 | Object | Object | The Object. |
 **/
-export default class GetObject extends FunctionBrick {
+export default class GetObjectByTag extends FunctionBrick {
 
     /**
      * Executed every time an input gets updated.
@@ -28,4 +28,4 @@ export default class GetObject extends FunctionBrick {
     }
 }
 
-registerBrick('016324f5cf507031f6a3', GetObject);
+registerBrick('016324f5cf507031f6a3', GetObjectByTag);

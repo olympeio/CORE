@@ -70,16 +70,16 @@ const _File_0179b2692921b321f99d               = '0179b2692921b321f99d';
 
 // :_instance_of_Coded_Action_model____Download_File_0165a8c453cf0bfb25f3
 db.newModel(_instance_of_Coded_Action_model____Download_File_0165a8c453cf0bfb25f3, 'Download File') // tag and name of the model 
-    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012) 
+    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012)
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
     })
-    .done(); 
+    .done();
 db.updateInstance(_instance_of_Coded_Action_model____Download_File_0165a8c453cf0bfb25f3, {
-        [db.DEFAULT+_Object_name_ff023000000000000011]:'Download File',
-        'v'                                     :2
-    });
+    [db.DEFAULT+_Object_name_ff023000000000000011]:'Download File',
+    'v'                                     :2
+});
 db.setRootInstanceTag(_instance_of_Coded_Action_model____Download_File_0165a8c453cf0bfb25f3);
 // :_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0165a8c453d00bfb25f3
 db.newInstance(_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0165a8c453d00bfb25f3)
@@ -88,7 +88,7 @@ db.newInstance(_instance_of_Predefined_input_Control_Flow_of_Action____Control_F
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Download_File_0165a8c453cf0bfb25f3)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Control Flow',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();
@@ -110,7 +110,7 @@ db.newInstance(_instance_of_Runnable_Input____file_0165a8c473fab898fc88)
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Download_File_0165a8c453cf0bfb25f3)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'file',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
         'v'                                     :1
     })
     .done();
@@ -121,7 +121,7 @@ db.newInstance(_instance_of_Runnable_Input____name_01662eb0e1203ef02b4d)
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Download_File_0165a8c453cf0bfb25f3)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'name',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();

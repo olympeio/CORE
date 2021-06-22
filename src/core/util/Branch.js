@@ -21,7 +21,7 @@ export default class Branch extends FunctionBrick {
      * @override
      */
     configCoreUpdate(context, runUpdate, clear) {
-        const [inputCondition, incomingEvent] = this.getInputs();
+        const [incomingEvent, inputCondition] = this.getInputs();
 
         let condition = false;
         this.listenToInput(inputCondition, context).subscribe((inputValue) => {

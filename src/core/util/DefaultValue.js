@@ -32,7 +32,7 @@ export default class Defaultvalue extends FunctionBrick {
             }
         };
 
-        const [defaultValueInput, valueInput] = this.getInputs();
+        const [valueInput, defaultValueInput] = this.getInputs();
         this.listenToInput(defaultValueInput, context).subscribe((value) => {
             defaultValue = value;
             updated();
@@ -51,7 +51,7 @@ export default class Defaultvalue extends FunctionBrick {
      * @param {!*} value
      * @param {function(!*)} setValue
      */
-    onUpdate(context, [defaultValue, value], [setValue]) {
+    onUpdate(context, [value, defaultValue], [setValue]) {
         setValue(value !== undefined && value !== null ? value : defaultValue);
     }
 }
