@@ -1,4 +1,5 @@
 import {FunctionBrick, registerBrick, ListDef, transformers} from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
