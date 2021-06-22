@@ -1,4 +1,4 @@
-import { FunctionBrick, registerBrick, Limit } from 'olympe';
+import {FunctionBrick, registerBrick, ListDef, transformers} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -28,19 +28,20 @@ export default class FilterListRange extends FunctionBrick {
      * @param {!ListDef|!Array} list the list to be filtered
      * @param {!number} startIndex
      * @param {!number} endIndex
-     * @param {!function(ListDef|Array)} setList
+     * @param {!function(ListDef|Array)} setFiltered
      */
-    onUpdate(context, [list, startIndex, endIndex], [setList]) {
+    onUpdate(context, [list, startIndex, endIndex], [setFiltered]) {
+        const logger = getLogger('Filter List Range');
         const count = endIndex - startIndex + 1;
-        if (count > 0) {
-            if(Array.isArray(list)){
-                list.slice(startIndex, startIndex+count)
-            } else {
-                setList(list.transform(new Limit(startIndex, count)));
-            }
+        if (count <= 0) {
+            logger.warn('`endIndex` is smaller than `startIndex`, list is not filtered');
+            setFiltered(list);
+        } else if(Array.isArray(list)){
+            setFiltered(list.slice(startIndex, startIndex+count))
+        } else if (list instanceof ListDef) {
+            setFiltered(list.transform(new transformers.Limit(startIndex, count)));
         } else {
-            getLogger('Filter List Range').warn('endIndex is smaller than startIndex, list is not filtered');
-            setList(list);
+            logger.error('List is not a ListDef or an Array');
         }
     }
 }

@@ -1,5 +1,5 @@
 import { FunctionBrick, registerBrick, ListDef, DBView, predicates, valuedefs } from "olympe";
-import getValueDefFor from "./getValueDefFor";
+import {getValueDefFor} from "./utils";
 import {getLogger} from 'logging';
 
 /**
@@ -34,31 +34,27 @@ export default class FilterListContains extends FunctionBrick {
      * @param {function(ListDef|Array)} setFiltered
      */
     onUpdate(context, [property, list, substring], [setFiltered]) {
-        const valueDef = getValueDefFor(property);
         const logger = getLogger('Filter List Contains');
-
+        const valueDef = getValueDefFor(property);
         if (valueDef === null) {
             const name = DBView.get().name(/** @type {!HasInstanceTag} */ (property));
             logger.warn(`Type of property ${name} is not supported. List will not be filtered.`);
             setFiltered(list);
-            return;
-        }
-
-        if (typeof(substring) !== 'string') {
+        } else if (typeof(substring) !== 'string') {
             logger.warn('The type of `substring` is not supported, iut should be a string.');
             setFiltered(list);
-            return;
-        }
-
-        if (list instanceof ListDef) {
-            setFiltered(list.filter(new predicates.Contains(valueDef, new valuedefs.Constant(substring))));
         } else if (Array.isArray(list)) {
-            setFiltered(list.filter(item => {
-                const itemPropValue = DBView.get().getProperty(item.getTag(), property);
-                return itemPropValue.includes(substring);
-            }));
+            // TODO
+            logger.warn('Native JS arrays are not yet supported. Ignoring ...');
+            setFiltered(list);
+            // setFiltered(list.filter(item => {
+            //     const itemPropValue = DBView.get().getProperty(item.getTag(), property);
+            //     return itemPropValue.includes(substring);
+            // }));
+        } else if (list instanceof ListDef) {
+            setFiltered(list.filter(new predicates.Contains(valueDef, new valuedefs.Constant(substring))));
         } else {
-            logger.error(`TypeError: The list should be of type ListDef or Array`);
+            logger.error('List is not a ListDef or an Array');
         }
     }
 }
