@@ -1,5 +1,6 @@
 import { FunctionBrick, registerBrick } from 'olympe';
 import { parse } from 'date-fns';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -38,7 +39,7 @@ export default class ParseDateTime extends FunctionBrick {
         try {
             setDate(parse(dateTimeString, format, new Date()));
         } catch (e) {
-            console.error(e);
+            getLogger('Parse Date Time').error(e);
         }
 
     }

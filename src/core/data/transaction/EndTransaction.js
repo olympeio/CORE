@@ -1,5 +1,5 @@
-
 import { ActionBrick, registerBrick, ErrorFlow } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -8,7 +8,6 @@ Marks the end of a series of transaction operations. The transaction is then exe
 | Code | Description |
 | --- | --- |
 | 1 | The transaction was rejected. |
-
 **/
 export default class EndTransaction extends ActionBrick {
 
@@ -26,7 +25,7 @@ export default class EndTransaction extends ActionBrick {
         // Extract the current transaction from the context.
         const transaction = context.getParent().popTransaction();
         if (transaction === null) {
-            console.warn('End Transaction: no transaction begun');
+            getLogger('End Transaction').warn('End Transaction: no transaction begun');
             return;
         }
 

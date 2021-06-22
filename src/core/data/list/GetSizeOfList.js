@@ -1,4 +1,5 @@
 import { FunctionBrick, registerBrick, ListDef } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -28,7 +29,7 @@ export default class GetSizeOfList extends FunctionBrick {
     onUpdate(context, [list], [setSize]) {
         // Guard
         if (!Array.isArray(list) && !(list instanceof ListDef)) {
-            console.error('[GetSizeOfList] TypeError: the list should be of type ListDef or Array');
+            getLogger('Get Size Of List').error('TypeError: the list should be of type ListDef or Array');
             return;
         }
 

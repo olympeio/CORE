@@ -1,4 +1,5 @@
 import { FunctionBrick, registerBrick, instanceToTag, RelationPrimitive, Direction, DBView, transformers, ListDef } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
  * @param {!InstanceTag} object
@@ -54,12 +55,13 @@ export default class GetRelatedObjects extends FunctionBrick {
      * @param {!Array} outputs
      */
     onUpdate(context, [object, relation], [setList]) {
+        const logger = getLogger('Get Related Objects');
         // Prevent errors
         if (instanceToTag(object) === '') {
-            console.error('Get Related Objects: Invalid `object` provided');
+            logger.error('Get Related Objects: Invalid `object` provided');
             return;
         } else if (instanceToTag(relation) === '') {
-            console.error('Get Related Objects: Invalid `relation` provided');
+            logger.error('Get Related Objects: Invalid `relation` provided');
             return;
         }
 

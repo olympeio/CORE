@@ -1,4 +1,5 @@
 import { FunctionBrick, registerBrick, Transaction, CreateInstance, instanceToTag } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
  ## Description
@@ -25,8 +26,8 @@ export default class PersistObject extends FunctionBrick {
      * @param {function(InstanceTag)} setObjectOut
      */
     onUpdate(context, [objectIn], [setObjectOut]) {
-
         const transaction = new Transaction();
+        const logger = getLogger('Persist Object');
 
         if (objectIn instanceof CreateInstance || instanceToTag(objectIn) !== '') {
             transaction.persistInstance(objectIn);
@@ -34,12 +35,12 @@ export default class PersistObject extends FunctionBrick {
                 if (success) {
                     setObjectOut(objectIn);
                 } else {
-                    console.error(message);
+                    logger.error(message);
                     setObjectOut(objectIn);
                 }
             })
         } else {
-            console.error('PersistObject cannot persist object', objectIn);
+            logger.error('Cannot persist object', objectIn);
             setObjectOut(objectIn);
         }
     }

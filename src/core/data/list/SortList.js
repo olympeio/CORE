@@ -1,4 +1,5 @@
 import {FunctionBrick, registerBrick, ListDef, PropertyPrimitive, DBView, StringPrimitive, comparators, valuedefs, NumberPrimitive, DatetimePrimitive, BooleanPrimitive, transformers} from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -31,9 +32,11 @@ export default class SortList extends FunctionBrick {
      * @param {function(ListDef|Array)} setSortedList
      */
     onUpdate(context, [list, property, ascending], [setSortedList]) {
+        const logger = getLogger('Sort List');
+
         // Guard
         if(!Array.isArray(list) && !(list instanceof ListDef)) {
-            console.error('[SortList] TypeError: the list should be of type ListDef or Array');
+            logger.error('TypeError: the list should be of type ListDef or Array');
             return;
         }
 
@@ -59,7 +62,7 @@ export default class SortList extends FunctionBrick {
             // Array of syncs
             if (Array.isArray(list)) {
                 // TODO compare() to be exposed
-                console.warn('[SortList] sorting for type Array is not yet supported');
+                logger.warn('Sorting for type Array is not yet supported');
                 // sortedList = list.sort((a, b) => {
                 //     const a_value = a.getProperty(property);
                 //     const b_value = b.getProperty(property);

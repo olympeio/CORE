@@ -1,4 +1,5 @@
 import { FunctionBrick, registerBrick, DBView, Transaction, Sync } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -25,6 +26,8 @@ export default class CreateLocalObject extends FunctionBrick {
      * @param {function(Sync)} setObject
      */
     onUpdate(context, [model], [setObject]) {
+        const logger = getLogger('Create Local Object');
+
         // start isolated local transaction
         const transaction = new Transaction();
         transaction.persist(false);
@@ -35,7 +38,7 @@ export default class CreateLocalObject extends FunctionBrick {
         // Execute the transaction
         transaction.execute((success) => {
             if (!success) {
-                console.error('CreateLocalObject: isolated transaction (local) failed');
+                logger.error('Isolated transaction (local) failed');
             } else {
                 setObject(Sync.getInstance(instanceTag));
             }
@@ -54,7 +57,7 @@ export default class CreateLocalObject extends FunctionBrick {
                 reverseTransaction.delete(instanceTag);
                 reverseTransaction.execute(success => {
                     if (!success) {
-                        console.error('CreateLocalObject: failed to delete local object. Investigate.');
+                        logger.error('Failed to delete local object. Investigate.');
                     }
                 });
             }

@@ -1,5 +1,5 @@
-
 import {ActionBrick, registerBrick, Sync, instanceToTag} from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -13,7 +13,6 @@ Creates a local instance (not yet persisted in the database) of a model.
 | Name | Type | Description |
 | --- | :---: | --- |
 | object | Object | The created object or its tag if used inside a Begin/End. |
-
 **/
 export default class CreateLocalObject extends ActionBrick {
 
@@ -28,9 +27,11 @@ export default class CreateLocalObject extends ActionBrick {
      * @param {function(!Sync)} setObject
      */
     onUpdate(context, [model], [forwardEvent, setObject]) {
+        const logger = getLogger('Create Local Object');
+
         // Guards
         if (!instanceToTag(model)) {
-            console.warn('[CreateLocalObject] no model specified');
+            logger.warn('no model specified');
             return;
         }
 
@@ -38,7 +39,7 @@ export default class CreateLocalObject extends ActionBrick {
         const instance = context.getTransaction().create(model).persist(false);
         context.releaseTransaction((executed, success, message) => {
             if(executed && !success)
-                console.error(`[CreateLocalObject] transaction error: ${message}`);
+                logger.error(`transaction error: ${message}`);
             setObject(executed ? Sync.getInstance(instance) : instance);
             forwardEvent();
         });

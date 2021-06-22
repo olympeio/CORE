@@ -1,5 +1,5 @@
-
 import {ActionBrick, registerBrick, Context, Sync} from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -32,10 +32,11 @@ export default class SetObjectProperty extends ActionBrick {
      * @param {function(InstanceTag)} setObject
      */
     onUpdate(context, [object, property, value], [forwardEvent, setObject]) {
+        const logger = getLogger('Set Object Property');
 
         // Validate arguments
         if (value instanceof Sync) {
-            console.error('SetObjectProperty: complex properties are not supported');
+            logger.error('Complex properties are not supported');
             return;
         }
 
@@ -46,7 +47,7 @@ export default class SetObjectProperty extends ActionBrick {
 
         context.releaseTransaction((executed, success, message) => {
             if (!success) {
-                console.error(`[SetObjectProperty]: transaction error: ${message}`);
+                logger.error(`Transaction error: ${message}`);
             }
             setObject(object);
             forwardEvent();

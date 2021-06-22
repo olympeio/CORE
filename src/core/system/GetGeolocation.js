@@ -1,4 +1,5 @@
 import { FunctionBrick, registerBrick } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -26,17 +27,18 @@ export default class GetGeolocation extends FunctionBrick {
      * @param {function(number)} setAltitude
      */
     onUpdate(context, _, [setLongitude, setLatitude, setAltitude]) {
+        const logger = getLogger('Geolocation');
 
         // Check if the geolocation is accessible
         if(!navigator.geolocation) {
-            console.error('Cannot access geolocation data. Please make sure you allowed the geolocation feature for this page.');
+            logger.error('Cannot access geolocation data. Please make sure you allowed the geolocation feature for this page.');
         } else {
             navigator.geolocation.getCurrentPosition((position) => {
                 setLongitude(position.coords.longitude);
                 setLatitude(position.coords.latitude);
                 setAltitude(position.coords.altitude);
             }, (error) => {
-                console.error(error);
+                logger.error(error);
             });
         }
     }

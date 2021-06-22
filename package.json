@@ -38,6 +38,7 @@
     "@olympeio/runtime-web": "hackathon",
     "date-fns": "^2.22.1",
     "fast-xml-parser": "^3.19.0",
+    "loglevel": "^1.7.1",
     "node-fetch": "^2.6.1",
     "rxjs": "^7.1.0"
   }

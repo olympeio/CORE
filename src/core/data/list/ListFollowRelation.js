@@ -1,5 +1,5 @@
-
 import {FunctionBrick, registerBrick, ListDef, instanceToTag, transformers, DBView, Sync} from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 NO DOC
@@ -17,13 +17,15 @@ export default class ListFollowRelation extends FunctionBrick {
      * @param {function(!ListDef|!Array)} setFlattenedList
      */
     onUpdate(context, [list, relation], [setFlattenedList]) {
+        const logger = getLogger('List Follow Relation');
+
         // Guards
         if(!Array.isArray(list) && !(list instanceof ListDef)) {
-            console.error('[ListFollowRelation] TypeError: the list should be of type ListDef or Array');
+            logger.error('[ListFollowRelation] TypeError: the list should be of type ListDef or Array');
             return;
         }
         if(!instanceToTag(relation)) {
-            console.error('[ListFollowRelation] relation is not specified');
+            logger.error('[ListFollowRelation] relation is not specified');
             return;
         }
 

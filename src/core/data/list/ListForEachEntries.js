@@ -13,7 +13,6 @@ get all new entries added to the watched list.
 | Name | Type | Description |
 | --- | :---: | --- |
 | Entry | Object | A single list entry. |
-
 **/
 export default class ListForEachEntries extends FunctionBrick {
 
@@ -30,7 +29,7 @@ export default class ListForEachEntries extends FunctionBrick {
         if(Array.isArray(list) || list instanceof ListDef) {
             list.forEach(object => setObject(object));
         } else {
-            console.error('TypeError: The list should be of type ListDef or Array');
+            getLogger('List For Each Entries').error('TypeError: The list should be of type ListDef or Array');
         }
     }
 }

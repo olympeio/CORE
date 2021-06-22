@@ -1,4 +1,5 @@
 import { FunctionBrick, registerBrick, instanceToTag } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -28,20 +29,22 @@ export default class CreateRelation extends FunctionBrick {
      * @param {function(InstanceTag)} setOrigin
      */
     onUpdate(context, [relation, origin, destination], [setOrigin]) {
+        const logger = getLogger('Create Relation');
+
         // Validate arguments
         const relationTag = instanceToTag(relation);
         const originTag = instanceToTag(origin);
         if (relationTag === '') {
-            console.error('CreateRelation: no relation specified');
+            logger.error('No relation specified');
             return;
         }
         if (originTag === '') {
-            console.error('CreateRelation: no origin specified');
+            logger.error('No origin specified');
             return;
         }
 
         if (!(destination && destination.getTag())) {
-            console.error('CreateRelation: cannot update relation, destination is not an object');
+            logger.error('Cannot update relation, destination is not an object');
             return;
         }
 
@@ -56,7 +59,7 @@ export default class CreateRelation extends FunctionBrick {
         transaction.execute(
             success => {
                 if (!success) {
-                    console.error('CreateRelation: isolated transaction (local) failed');
+                    logger.error('Isolated transaction (local) failed');
                 } else {
                     // Set the output to the input object
                     // it is done inside the TransactionCallback to avoid firing potential following

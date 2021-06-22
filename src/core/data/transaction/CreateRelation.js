@@ -1,4 +1,5 @@
 import {ActionBrick, registerBrick, instanceToTag} from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -31,17 +32,19 @@ export default class CreateRelation extends ActionBrick {
      * @param {function(!Sync)} setOrigin
      */
     onUpdate(context, [relation, origin, destination], [forwardEvent, setOrigin]) {
+        const logger = getLogger('Create Relation');
+
         // Guards
         if (instanceToTag(relation) === '') {
-            console.error('[CreateRelation] no relation specified');
+            logger.error('No relation specified');
             return;
         }
         if (instanceToTag(origin) === '') {
-            console.error('[CreateRelation] no origin object specified');
+            logger.error('No origin object specified');
             return;
         }
         if (instanceToTag(destination) === '') {
-            console.error('[CreateRelation] no destination object specified');
+            logger.error('No destination object specified');
             return;
         }
 
@@ -49,7 +52,7 @@ export default class CreateRelation extends ActionBrick {
         context.getTransaction().createRelation(relation, origin, destination);
         context.releaseTransaction((executed, success, message) => {
             if(executed && !success) {
-                console.error(`[CreateRelation] transaction error: ${message}`);
+                logger.error(`Transaction error: ${message}`);
             } else {
                 setOrigin(origin);
                 forwardEvent();
