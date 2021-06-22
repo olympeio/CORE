@@ -63,7 +63,7 @@ export default class Login extends FunctionBrick {
      * @param {function(!ErrorFlow)} dispatchErrorFlow
      * @param {function(number)} onFailure
      */
-    onUpdate(context, [username, password], [onSuccess, dispatchErrorFlow, onFailure]) {
+    onUpdate(context, [username, password], [onSuccess, onFailure, dispatchErrorFlow]) {
         Auth.loginSRP(username, password).then(() => {
             const currentState = Auth.getState()
             switch (currentState) {
