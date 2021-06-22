@@ -42,7 +42,7 @@ const _Runnable_Definition_Outputs_01621fb84e320000f00b = '01621fb84e320000f00b'
 const _Runnable_IO_Type_IO_0168a431d3b9b7438424     = '0168a431d3b9b7438424';
 
 
-// Definition of tags used for newly created instances
+// Definition of tags used for newly created instances 
 const _instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa = db.assignTag('016eeb5ede9f3094d8fa');
 const _instance_of_Runnable_Input____Message_016eeb5ede9f3094d8fb = db.assignTag('016eeb5ede9f3094d8fb');
 const _instance_of_Runnable_Input____Code_016eeb5ede9f3094d8fc = db.assignTag('016eeb5ede9f3094d8fc');
@@ -69,17 +69,17 @@ const _Util_0179b26a12e03686de9c               = '0179b26a12e03686de9c';
 
 
 // :_instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa
-db.newModel(_instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa, 'Throw Error') // tag and name of the model
-    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
+db.newModel(_instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa, 'Throw Error') // tag and name of the model 
+    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
     })
-    .done();
+    .done(); 
 db.updateInstance(_instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa, {
-    [db.DEFAULT+_Object_name_ff023000000000000011]:'Throw Error',
-    'v'                                     :2
-});
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'Throw Error',
+        'v'                                     :2
+    });
 db.setRootInstanceTag(_instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa);
 // :_instance_of_Runnable_Input____Message_016eeb5ede9f3094d8fb
 db.newInstance(_instance_of_Runnable_Input____Message_016eeb5ede9f3094d8fb)

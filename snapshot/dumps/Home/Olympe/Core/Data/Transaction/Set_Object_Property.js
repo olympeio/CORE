@@ -43,7 +43,7 @@ const _Runnable_Definition_Outputs_01621fb84e320000f00b = '01621fb84e320000f00b'
 const _Runnable_IO_Type_IO_0168a431d3b9b7438424     = '0168a431d3b9b7438424';
 
 
-// Definition of tags used for newly created instances
+// Definition of tags used for newly created instances 
 const _instance_of_Runnable_Input____value_01632a7cbe8710c66bc3 = db.assignTag('01632a7cbe8710c66bc3');
 const _instance_of_Runnable_Output____object_01632a7cbe871e21e4d3 = db.assignTag('01632a7cbe871e21e4d3');
 const _instance_of_Runnable_Input____object_01632a7cbe8797167e44 = db.assignTag('01632a7cbe8797167e44');
@@ -72,17 +72,17 @@ const _Transaction_0179b26880c1af51a32b        = '0179b26880c1af51a32b';
 
 
 // :_instance_of_Coded_Action_model____Set_Object_Property_01632a7cbe87ca19c5f1
-db.newModel(_instance_of_Coded_Action_model____Set_Object_Property_01632a7cbe87ca19c5f1, 'Set Object Property') // tag and name of the model
-    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012)
+db.newModel(_instance_of_Coded_Action_model____Set_Object_Property_01632a7cbe87ca19c5f1, 'Set Object Property') // tag and name of the model 
+    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
     })
-    .done();
+    .done(); 
 db.updateInstance(_instance_of_Coded_Action_model____Set_Object_Property_01632a7cbe87ca19c5f1, {
-    [db.DEFAULT+_Object_name_ff023000000000000011]:'Set Object Property',
-    'v'                                     :2
-});
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'Set Object Property',
+        'v'                                     :2
+    });
 db.setRootInstanceTag(_instance_of_Coded_Action_model____Set_Object_Property_01632a7cbe87ca19c5f1);
 // :_instance_of_Runnable_Input____value_01632a7cbe8710c66bc3
 db.newInstance(_instance_of_Runnable_Input____value_01632a7cbe8710c66bc3)

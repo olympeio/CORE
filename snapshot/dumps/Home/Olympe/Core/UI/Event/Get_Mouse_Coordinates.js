@@ -37,7 +37,7 @@ const _Runnable_Definition_Outputs_01621fb84e320000f00b = '01621fb84e320000f00b'
 const _Runnable_IO_Type_IO_0168a431d3b9b7438424     = '0168a431d3b9b7438424';
 
 
-// Definition of tags used for newly created instances
+// Definition of tags used for newly created instances 
 const _instance_of_Coded_Function_model____Get_Mouse_Coordinates_0169ed4b78d2b7e1faa5 = db.assignTag('0169ed4b78d2b7e1faa5');
 const _instance_of_Runnable_Output____x_0169ed4b7b81faa006c2 = db.assignTag('0169ed4b7b81faa006c2');
 const _instance_of_Runnable_Output____y_0169ed4b7db1ff3808dd = db.assignTag('0169ed4b7db1ff3808dd');
@@ -62,17 +62,17 @@ const _Event_0179b269e44e8b51bce0              = '0179b269e44e8b51bce0';
 
 
 // :_instance_of_Coded_Function_model____Get_Mouse_Coordinates_0169ed4b78d2b7e1faa5
-db.newModel(_instance_of_Coded_Function_model____Get_Mouse_Coordinates_0169ed4b78d2b7e1faa5, 'Get Mouse Coordinates') // tag and name of the model
-    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
+db.newModel(_instance_of_Coded_Function_model____Get_Mouse_Coordinates_0169ed4b78d2b7e1faa5, 'Get Mouse Coordinates') // tag and name of the model 
+    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
     })
-    .done();
+    .done(); 
 db.updateInstance(_instance_of_Coded_Function_model____Get_Mouse_Coordinates_0169ed4b78d2b7e1faa5, {
-    [db.DEFAULT+_Object_name_ff023000000000000011]:'Get Mouse Coordinates',
-    'v'                                     :2
-});
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'Get Mouse Coordinates',
+        'v'                                     :2
+    });
 db.setRootInstanceTag(_instance_of_Coded_Function_model____Get_Mouse_Coordinates_0169ed4b78d2b7e1faa5);
 // :_instance_of_Runnable_Output____x_0169ed4b7b81faa006c2
 db.newInstance(_instance_of_Runnable_Output____x_0169ed4b7b81faa006c2)

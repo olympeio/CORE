@@ -1,4 +1,4 @@
-import {FunctionBrick, registerBrick, ListDef, PropertyPrimitive, DBView, comparators, transformers, valuedefs, StringPrimitive, NumberPrimitive, DatetimePrimitive, BooleanPrimitive} from 'olympe';
+import {FunctionBrick, registerBrick, ListDef, PropertyPrimitive, DBView, comparators, transformers, valuedefs, instanceToTag, StringPrimitive, NumberPrimitive, DatetimePrimitive, BooleanPrimitive} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -34,20 +34,20 @@ export default class SortList extends FunctionBrick {
     onUpdate(context, [list, property, ascending], [setSortedList]) {
         const logger = getLogger('Sort List');
 
-        const type = DBView.get().getUniqueRelated(property.getTag(), PropertyPrimitive.typeRel);
+        const type = DBView.get().getUniqueRelated(property, PropertyPrimitive.typeRel);
         let comparator = null;
 
         // String
-        if (type === StringPrimitive.valueProp.getTag()) {
+        if (type === instanceToTag(StringPrimitive)) {
             comparator = new comparators.String(new valuedefs.StringProperty(property));
         // Number
-        } else if (type === NumberPrimitive.valueProp.getTag()) {
+        } else if (type === instanceToTag(NumberPrimitive)) {
             comparator = new comparators.Number(new valuedefs.NumberProperty(property));
         // Datetime
-        } else if (type === DatetimePrimitive.valueProp.getTag()) {
+        } else if (type === instanceToTag(DatetimePrimitive)) {
             comparator = new comparators.DateTime(new valuedefs.DateTimeProperty(property));
         // Boolean
-        } else if (type === BooleanPrimitive.valueProp.getTag()) {
+        } else if (type === instanceToTag(BooleanPrimitive)) {
             comparator = new comparators.Number(new valuedefs.BooleanProperty(property));
         }
 

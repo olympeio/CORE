@@ -65,17 +65,17 @@ const _Base_0179b26837d01a7c3cdc               = '0179b26837d01a7c3cdc';
 
 
 // :_instance_of_Coded_Function_model____Get_Object_By_Tag_016324f5cf507031f6a3
-db.newModel(_instance_of_Coded_Function_model____Get_Object_By_Tag_016324f5cf507031f6a3, 'Get Object By Tag') // tag and name of the model
-    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
+db.newModel(_instance_of_Coded_Function_model____Get_Object_By_Tag_016324f5cf507031f6a3, 'Get Object By Tag') // tag and name of the model 
+    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
     })
-    .done();
+    .done(); 
 db.updateInstance(_instance_of_Coded_Function_model____Get_Object_By_Tag_016324f5cf507031f6a3, {
-    [db.DEFAULT+_Object_name_ff023000000000000011]:'Get Object By Tag',
-    'v'                                     :2
-});
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'Get Object By Tag',
+        'v'                                     :2
+    });
 db.setRootInstanceTag(_instance_of_Coded_Function_model____Get_Object_By_Tag_016324f5cf507031f6a3);
 // :_instance_of_Runnable_Input____Tag_016324f5d04f06a4860a
 db.newInstance(_instance_of_Runnable_Input____Tag_016324f5d04f06a4860a)
