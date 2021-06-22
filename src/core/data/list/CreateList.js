@@ -20,11 +20,11 @@ export default class CreateList extends ActionBrick {
      * 
      * @protected
      * @param {Context} context
-     * @param {!Array} inputs
+     * @param {!Array} _
      * @param {function()} forwardEvent
      * @param {function(Array)} setList
      */
-    onUpdate(context, inputs, [forwardEvent, setList]) {
+    onUpdate(context, _, [forwardEvent, setList]) {
         setList([]);
         forwardEvent();
     }

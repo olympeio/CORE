@@ -1,4 +1,3 @@
-
 import { FunctionBrick, registerBrick } from 'olympe';
 import { parse } from 'date-fns';
 
@@ -21,7 +20,6 @@ https://date-fns.org/v2.22.1/docs/parse
 | Name | Type | Description |
 | --- | :---: | --- |
 | date | DateTime | The result of the conversion. |
-
 **/
 export default class ParseDateTime extends FunctionBrick {
 
