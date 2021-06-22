@@ -1,4 +1,3 @@
-
 import { FunctionBrick, registerBrick } from 'olympe';
 
 /**
@@ -19,18 +18,34 @@ This function switches between 2 data-flows based on the provided condition.
 export default class If extends FunctionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
-     * @protected
+     * @override
+     */
+    setupUpdate(context, runUpdate, clear) {
+        const values = [null, null, null];
+        this.getInputs().forEach((input, index) => {
+            context.observe(input, true).subscribe((value) => {
+                values[index] = value;
+
+                if (value !== null) {
+                    runUpdate(values);
+                } else {
+                    clear();
+                }
+            });
+        });
+    }
+
+    /**
      * @param {!Context} context
-     * @param {boolean} cond
-     * @param {any} a
-     * @param {any} b
-     * @param {fonction(any)} setResult
+     * @param {?boolean} cond
+     * @param {*} a
+     * @param {*} b
+     * @param {function(*)} setResult
      */
     onUpdate(context, [cond, a, b], [setResult]) {
-        setResult(cond ? a : b);
+        if (cond !== null) {
+            setResult(cond ? a : b);
+        }
     }
 }
 
