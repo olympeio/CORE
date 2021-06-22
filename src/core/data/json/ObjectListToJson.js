@@ -24,9 +24,9 @@ export default class ObjectListToJson extends ActionBrick {
      * @param {!Context} context
      * @param {!ListDef|!Array} list
      * @param {function(string)} setJson
-     * @param {function()} dispatchControlFlow
+     * @param {function()} forwardEvent
      */
-    onUpdate(context, [list], [setJson, dispatchControlFlow]) {
+    onUpdate(context, [list], [forwardEvent, setJson]) {
         const db = DBView.get();
         const json = [];
 
@@ -41,7 +41,7 @@ export default class ObjectListToJson extends ActionBrick {
         }
 
         setJson(JSON.stringify(json));
-        dispatchControlFlow();
+        forwardEvent();
     }
 }
 

@@ -1,5 +1,5 @@
 
-import {registerBrick, Context, DBView, BusinessObject} from 'olympe';
+import {registerBrick, Context, DBView, BusinessObject, InstanceTag} from 'olympe';
 import JsonToObject from './JsonToObject.js';
 
 /**
@@ -26,13 +26,12 @@ export default class JsonToObjectList extends JsonToObject {
      * @protected
      * @param {!Context} context
      * @param {string} json
-     * @param {Sync} businessModel
+     * @param {InstanceTag} businessModel
      * @param {boolean} persist
-     * @param {string} identifierField
      * @param {function(array)} setList
-     * @param {function()} dispatchControlFlow
+     * @param {function()} forwardEvent
      */
-    onUpdate(context, [json, businessModel, persist, identifierField], [setList, dispatchControlFlow]) {
+    onUpdate(context, [json, businessModel, persist], [forwardEvent, setList]) {
         const transaction = context.getTransaction();
         transaction.persist(persist);
 
@@ -56,12 +55,9 @@ export default class JsonToObjectList extends JsonToObject {
 
         dataArray.forEach((data) => {
             // Check if the instance exists already in db or if it has been processed before to avoid duplication
-            const instance = this.checkExisitingInstances(db, transaction, businessModel.getTag(), identifierField, data[identifierField], instanceTags);
-            this.parseProperties(db, transaction, instance, businessModel.getTag(), data, mappingModels, identifierField, instanceTags);
-            this.parseRelations(db, transaction, instance, businessModel.getTag(), data, mappingModels, identifierField, instanceTags);
-            if (data[identifierField] && result.includes(instance)) {
-                return;
-            }
+            const instance = transaction.create((businessModel));
+            this.parseProperties(db, transaction, instance, businessModel, data, mappingModels, instanceTags);
+            this.parseRelations(db, transaction, instance, businessModel, data, mappingModels, instanceTags);
             result.push(instance);
         });
 
@@ -69,7 +65,7 @@ export default class JsonToObjectList extends JsonToObject {
             if (success) {
                 setList(result);
             }
-            dispatchControlFlow();
+            forwardEvent();
         });
 
     }
