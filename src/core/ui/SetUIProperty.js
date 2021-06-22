@@ -29,7 +29,7 @@ export default class SetUIProperty extends ActionBrick {
      * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} dispatchErrorFlow
      */
-    onUpdate(context, [_, value], [dispatchErrorFlow, forwardEvent]) {
+    onUpdate(context, [_, value], [forwardEvent, dispatchErrorFlow]) {
         const [scope, property] = getScopeContext(this, this.getInputs()[1]);
         if (scope && property) {
             const scopeContext = context.getOtherContext(scope);
