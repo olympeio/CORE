@@ -1,4 +1,3 @@
-
 import { FunctionBrick, registerBrick } from 'olympe';
 
 /**
@@ -13,7 +12,7 @@ This is updated in real time, but can require a permission check with the user.
 | altitude | Number | The altitude. |
 
 **/
-export default class Geolocation extends FunctionBrick {
+export default class GetGeolocation extends FunctionBrick {
 
     /**
      * Executed every time an input gets updated.
@@ -21,6 +20,7 @@ export default class Geolocation extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
+     * @param {Array} _
      * @param {function(number)} setLongitude
      * @param {function(number)} setLatitude
      * @param {function(number)} setAltitude
@@ -31,15 +31,15 @@ export default class Geolocation extends FunctionBrick {
         if(!navigator.geolocation) {
             console.error('Cannot access geolocation data. Please make sure you allowed the geolocation feature for this page.');
         } else {
-            navigator.geolocation.getCurrentPosition(position=> {
+            navigator.geolocation.getCurrentPosition((position) => {
                 setLongitude(position.coords.longitude);
                 setLatitude(position.coords.latitude);
                 setAltitude(position.coords.altitude);
-            }, error => {
+            }, (error) => {
                 console.error(error);
             });
         }
     }
 }
 
-registerBrick('0162d8ec885fdf7a6b69', Geolocation);
+registerBrick('0162d8ec885fdf7a6b69', GetGeolocation);

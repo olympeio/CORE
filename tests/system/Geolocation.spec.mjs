@@ -1,4 +1,4 @@
-import Geolocation from '../../src/core/system/Geolocation.js';
+import GetGeolocation from '../../src/core/system/GetGeolocation.js';
 import {Context} from "olympe";
 
 describe("Geolocation brick", function() {
@@ -14,7 +14,7 @@ describe("Geolocation brick", function() {
         const setLatitude = jasmine.createSpy();
         const setAltitude = jasmine.createSpy();
 
-        const geo = new Geolocation();
+        const geo = new GetGeolocation();
         geo.onUpdate(new Context(),[],[setLongitude,setLatitude,setAltitude]);
 
         expect(setLongitude).toHaveBeenCalledOnceWith(-96);

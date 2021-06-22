@@ -63,7 +63,7 @@ const _System_0179b269b5c75228d70f             = '0179b269b5c75228d70f';
 
 
 // :_instance_of_Coded_Function_model____Geolocation_0162d8ec885fdf7a6b69
-db.newModel(_instance_of_Coded_Function_model____Geolocation_0162d8ec885fdf7a6b69, 'Geolocation') // tag and name of the model 
+db.newModel(_instance_of_Coded_Function_model____Geolocation_0162d8ec885fdf7a6b69, 'Get Geolocation') // tag and name of the model
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
@@ -71,7 +71,7 @@ db.newModel(_instance_of_Coded_Function_model____Geolocation_0162d8ec885fdf7a6b6
     })
     .done(); 
 db.updateInstance(_instance_of_Coded_Function_model____Geolocation_0162d8ec885fdf7a6b69, {
-        [db.DEFAULT+_Object_name_ff023000000000000011]:'Geolocation',
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'Get Geolocation',
         'v'                                     :2
     });
 db.setRootInstanceTag(_instance_of_Coded_Function_model____Geolocation_0162d8ec885fdf7a6b69);
