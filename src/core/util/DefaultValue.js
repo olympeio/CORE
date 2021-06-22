@@ -19,7 +19,7 @@ export default class Defaultvalue extends FunctionBrick {
     /**
      * @override
      */
-    configCoreUpdate(context, runUpdate, clear) {
+    setupUpdate(context, runUpdate, clear) {
         let defaultValue = null;
         let otherValue = null;
 
@@ -33,12 +33,12 @@ export default class Defaultvalue extends FunctionBrick {
         };
 
         const [valueInput, defaultValueInput] = this.getInputs();
-        this.listenToInput(defaultValueInput, context).subscribe((value) => {
+        context.observe(defaultValueInput, true).subscribe((value) => {
             defaultValue = value;
             updated();
         });
 
-        this.listenToInput(valueInput, context).subscribe((value) => {
+        context.observe(valueInput, true).subscribe((value) => {
             otherValue = value;
             updated();
         });
