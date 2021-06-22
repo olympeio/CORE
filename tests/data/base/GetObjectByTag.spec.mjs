@@ -1,4 +1,4 @@
-import GetObject from '../../../src/core/data/base/GetObject.js';
+import GetObjectByTag from '../../../src/core/data/base/GetObjectByTag.js';
 import testEqual from '../../helpers/testEqual.mjs';
 
 describe('GetObject brick', () => {
@@ -7,7 +7,7 @@ describe('GetObject brick', () => {
     });
 
     it('should return undefined if the object with the given tag does not exist', () => {
-        const getObject = new GetObject();
+        const getObject = new GetObjectByTag();
         testEqual(getObject, ['this tag does not exist'], [undefined]);
     })
 });

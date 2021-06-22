@@ -34,7 +34,7 @@ export default class CreateFile extends ActionBrick {
      * @param {function(ErrorFlow)} setErrorFlow
      * @param {function()} forwardEvent
      */
-    onUpdate(context, [fileName, mimeType, content], [setFile, setErrorFlow, forwardEvent]) {
+    onUpdate(context, [fileName, mimeType, content], [forwardEvent, setFile, setErrorFlow]) {
         const transaction = new Transaction();
         const fileTag = File.createFile(
             File,

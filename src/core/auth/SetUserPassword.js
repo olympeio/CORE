@@ -27,7 +27,7 @@ export default class SetUserPassword extends ActionBrick {
      * @param {function(!ErrorFlow)} dispatchError
      * @param {function()} forwardEvent
      */
-    onUpdate(context, [user, password], [dispatchError, forwardEvent]) {
+    onUpdate(context, [user, password], [forwardEvent, dispatchError]) {
         const transaction = context.getTransaction();
         const login = /** @type {string} */ (DBView.get().getProperty(user, User.loginProp));
         // Generate SRP authentication data from the password

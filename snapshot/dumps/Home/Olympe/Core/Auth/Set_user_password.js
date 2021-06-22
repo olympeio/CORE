@@ -55,7 +55,7 @@ const _instance_of_Documentation_Function_Metadata_d0c5892cf0b8df7ebce5 = db.ass
 //==========================================================
 //========= EXTERNAL REFERENCES ============================
 //==========================================================
-const _Logic_0178445f8bd56b198950              = '0178445f8bd56b198950';
+const _Auth_0179b2673490430cc604               = '0179b2673490430cc604';
 
 
 
@@ -70,17 +70,17 @@ const _Logic_0178445f8bd56b198950              = '0178445f8bd56b198950';
 
 
 // :_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5
-db.newModel(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, 'Set user password') // tag and name of the model 
-    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012) 
+db.newModel(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, 'Set user password') // tag and name of the model
+    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012)
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
     })
-    .done(); 
+    .done();
 db.updateInstance(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, {
-        [db.DEFAULT+_Object_name_ff023000000000000011]:'Set user password',
-        'v'                                     :2
-    });
+    [db.DEFAULT+_Object_name_ff023000000000000011]:'Set user password',
+    'v'                                     :2
+});
 db.setRootInstanceTag(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5);
 // :_instance_of_Runnable_Input____Control_Flow_0175892cf0b9df7ebce5
 db.newInstance(_instance_of_Runnable_Input____Control_Flow_0175892cf0b9df7ebce5)
@@ -89,7 +89,7 @@ db.newInstance(_instance_of_Runnable_Input____Control_Flow_0175892cf0b9df7ebce5)
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Control Flow',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();
@@ -111,7 +111,7 @@ db.newInstance(_instance_of_Runnable_Input____user_0175892d2b6d15085220)
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'user',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();
@@ -168,7 +168,7 @@ db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7eb
 db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____new_password_0175892d78fc71a2f7fe);
 db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____Error_Flow_017589308be1b8afa68e);
 db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_Function_Metadata_d0c5892cf0b8df7ebce5);
-db.assignOptional(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Object_gooRel_ff022000000000000003, _Logic_0178445f8bd56b198950);
-db.assignOptional(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _GOO_parentGooRel_ff02200000000000000u, _Logic_0178445f8bd56b198950);
-db.assignOptional(_Logic_0178445f8bd56b198950, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5);
-db.assignOptional(_Logic_0178445f8bd56b198950, _Folder_itemRel_016a697ef00ce7554692, _instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5);
+db.assignOptional(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Object_gooRel_ff022000000000000003, _Auth_0179b2673490430cc604);
+db.assignOptional(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _GOO_parentGooRel_ff02200000000000000u, _Auth_0179b2673490430cc604);
+db.assignOptional(_Auth_0179b2673490430cc604, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5);
+db.assignOptional(_Auth_0179b2673490430cc604, _Folder_itemRel_016a697ef00ce7554692, _instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5);
