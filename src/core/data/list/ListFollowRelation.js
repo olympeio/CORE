@@ -14,10 +14,10 @@ export default class ListFollowRelation extends FunctionBrick {
      * @param {!Context} context
      * @param {!ListDef|!Array} list
      * @param {!RelationPrimitive} relation
-     * @param {boolean} isOrigin
+     * @param {boolean} toOrigin
      * @param {function(!ListDef|!Array)} setFlattenedList
      */
-    onUpdate(context, [list, relation, isOrigin], [setFlattenedList]) {
+    onUpdate(context, [list, relation, toOrigin], [setFlattenedList]) {
         const logger = getLogger('List Follow Relation');
 
         // Guards
@@ -37,7 +37,7 @@ export default class ListFollowRelation extends FunctionBrick {
             setFlattenedList(list);
         } else {
             flattenedList = list.transform(
-                new transformers.Related(relation, isOrigin ? Direction.ORIGIN : Direction.DESTINATION)
+                new transformers.Related(relation, toOrigin ? Direction.ORIGIN : Direction.DESTINATION)
             );
         }
 
