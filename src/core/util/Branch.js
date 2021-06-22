@@ -20,7 +20,7 @@ export default class Branch extends FunctionBrick {
     /**
      * @override
      */
-    configCoreUpdate(context, runUpdate, clear) {
+    setupUpdate(context, runUpdate, clear) {
         const [incomingEvent, inputCondition] = this.getInputs();
 
         let condition = false;

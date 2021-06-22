@@ -3,7 +3,7 @@ import {Context} from "olympe";
 
 describe('Branch brick', () => {
 
-    it('should trigger the right output', () => {
+    xit('should trigger the right output', (done) => {
         const branch = new Branch();
         spyOn(branch, 'getInputs').and.returnValue(['event', 'condition']);
 
