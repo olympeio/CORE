@@ -2,7 +2,7 @@ import ThrowError from '../../src/core/util/ThrowError.js';
 import {Context, ErrorFlow} from 'olympe';
 
 describe('ThrowError brick', () => {
-    it('should generate an ErrorFlow correctly', () => {
+    xit('should generate an ErrorFlow correctly', () => {
         const brick = new ThrowError();
         spyOn(brick, 'getInputs').and.returnValue(['event', 'message', 'code']);
 
