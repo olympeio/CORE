@@ -1,5 +1,5 @@
+import {FunctionBrick, registerBrick, ListDef, instanceToTag, transformers, Direction} from 'olympe';
 
-import {FunctionBrick, registerBrick, ListDef, instanceToTag, transformers, DBView, Sync} from 'olympe';
 
 /**
 NO DOC
@@ -13,31 +13,32 @@ export default class ListFollowRelation extends FunctionBrick {
      * @protected
      * @param {!Context} context
      * @param {!ListDef|!Array} list
-     * @param {!Relation} relation
+     * @param {!RelationPrimitive} relation
+     * @param {boolean} isOrigin
      * @param {function(!ListDef|!Array)} setFlattenedList
      */
-    onUpdate(context, [list, relation], [setFlattenedList]) {
+    onUpdate(context, [list, relation, isOrigin], [setFlattenedList]) {
+        const logger = getLogger('List Follow Relation');
+
         // Guards
-        if(!Array.isArray(list) && !(list instanceof ListDef)) {
-            console.error('[ListFollowRelation] TypeError: the list should be of type ListDef or Array');
+        if (!Array.isArray(list) && !(list instanceof ListDef)) {
+            logger.error('[ListFollowRelation] TypeError: the list should be of type ListDef or Array');
             return;
         }
-        if(!instanceToTag(relation)) {
-            console.error('[ListFollowRelation] relation is not specified');
+        if (!instanceToTag(relation)) {
+            logger.error('[ListFollowRelation] relation is not specified');
             return;
         }
 
         // Transformer
         let flattenedList;
-        if(Array.isArray(list)) {
-            const db = DBView.get();
-            flattenedList = list.reduce((acc, cur) => {
-                for(let tag of db.getRelated(cur, relation))
-                    acc.push(Sync.getInstance(tag));
-                return acc;
-            }, []);
+        if (Array.isArray(list)) {
+            logger.warn('Native JS arrays are not yet supported. Ignoring ...');
+            setFlattenedList(list);
         } else {
-            flattenedList = list.transform(new transformers.Related(relation, relation.getDirection()));
+            flattenedList = list.transform(
+                new transformers.Related(relation, isOrigin ? Direction.ORIGIN : Direction.DESTINATION)
+            );
         }
 
         // Done
