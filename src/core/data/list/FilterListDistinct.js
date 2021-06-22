@@ -1,5 +1,5 @@
 
-import { FunctionBrick, registerBrick, Distinct } from 'olympe';
+import {FunctionBrick, registerBrick, transformers} from 'olympe';
 
 /**
 ## Description
@@ -27,7 +27,7 @@ export default class FilterListDistinct extends FunctionBrick {
         if(Array.isArray(list)){
             setList(Array.from(new Set(list)));
         } else {
-            setList(list.transform(new Distinct()));
+            setList(list.transform(new transformers.Distinct));
         }
     }
 }
