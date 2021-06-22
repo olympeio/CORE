@@ -44,7 +44,7 @@ export default class HTTPPut extends FunctionBrick {
      * @param {function(string)} setBody
      * @param {function(string)} setHeaders
      */
-    onUpdate(context, [headers, body, url], [ setHeaders, setStatusCode]) {
+    onUpdate(context, [ url, body, headers], [ setStatusCode, setHeaders ]) {
         httpRequest('PUT', url, headers, body)
             .then(_response => {
                     checkResponseStatus(_response, setHeaders, undefined, setStatusCode);

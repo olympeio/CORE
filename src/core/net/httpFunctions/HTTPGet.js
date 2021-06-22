@@ -41,7 +41,7 @@ export default class HTTPGet extends FunctionBrick {
      * @param {function(number)} setStatusCode
      * @param {function(string)} setStatusText
      */
-    onUpdate(context, [url, headers], [setBody, setHeaders, setStatusCode]) {
+    onUpdate(context, [url, headers], [setStatusCode, setBody, setHeaders]) {
         httpRequest('GET', url, headers)
             .then((response) => {
                 checkResponseStatus(response, setHeaders, undefined, setStatusCode);

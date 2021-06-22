@@ -37,7 +37,7 @@ export default class HTTPHead extends ActionBrick {
      * @param {function(number)} setStatusCode
      * @param {function(string)} setHeaders
      */
-    onUpdate(context, [headers, url], [ forwardEvent, setErrorFlow, setStatusCode, setHeaders]) {
+    onUpdate(context, [ url, headers], [ forwardEvent, setErrorFlow, setStatusCode, setHeaders]) {
         httpRequest('HEAD', url, headers)
             .then((response) => {
                 checkResponseStatus(response, setHeaders, setErrorFlow, setStatusCode);

@@ -23,7 +23,7 @@ describe('HTTPPost action brick', () => {
         outputs.push(bodySpy);
         outputs.push(headersSpy);
 
-        brick.onUpdate(context, ['{"test": "payload"}', '{"Content-Type": "application/json"}', 'https://httpbin.org/post'], outputs);
+        brick.onUpdate(context, ['https://httpbin.org/post', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
     });
 
     it('should generate a 405 error when posting on a put-only url',  (done) => {
@@ -49,6 +49,6 @@ describe('HTTPPost action brick', () => {
         outputs.push(bodySpy);
         outputs.push(headersSpy);
 
-        brick.onUpdate(context, ['{"test": "payload"}', '{"Content-Type": "application/json"}', 'https://httpbin.org/put'], outputs);
+        brick.onUpdate(context, ['https://httpbin.org/put', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
     });
 });
