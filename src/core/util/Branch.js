@@ -24,13 +24,13 @@ export default class Branch extends FunctionBrick {
         const [incomingEvent, inputCondition] = this.getInputs();
 
         let condition = false;
-        this.listenToInput(inputCondition, context).subscribe((inputValue) => {
-            condition = inputValue !== undefined && inputValue !== null ? Boolean(inputValue) : false;
+        context.observe(inputCondition, true).subscribe((inputValue) => {
+            condition = inputValue !== null ? Boolean(inputValue) : false;
         });
 
         // Run runCoreUpdate only when incoming event is triggered.
-        this.listenToInput(incomingEvent, context).subscribe((timestamp) => {
-            if (timestamp) {
+        context.observe(incomingEvent, true).subscribe((timestamp) => {
+            if (timestamp !== null) {
                 // Execute the action only if the control flow has a value.
                 runUpdate([condition]);
             } else {

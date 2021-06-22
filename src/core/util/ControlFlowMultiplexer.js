@@ -20,14 +20,16 @@ export default class ControlFlowMultiplexer extends FunctionBrick {
     /**
      * @override
      */
-    configCoreUpdate(context, runUpdate, clear) {
-        this.listenToAnyInput(context).subscribe(([_, value]) => {
-            if (value) {
-                // Run function each time one of the 2 input is triggered
-                runUpdate([value]);
-            } else {
-                clear();
-            }
+    setupUpdate(context, runUpdate, clear) {
+        this.getInputs().forEach((input) => {
+            context.observe(input, true).subscribe((value) => {
+                if (value !== null) {
+                    // Run function each time one of the 2 input is triggered
+                    runUpdate([value]);
+                } else {
+                    clear();
+                }
+            });
         });
     }
 

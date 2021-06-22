@@ -1,42 +1,39 @@
 import Branch from '../../src/core/util/Branch.js';
 import {Context} from "olympe";
-import {BehaviorSubject} from "rxjs";
 
 describe('Branch brick', () => {
 
     it('should trigger the right output', () => {
         const branch = new Branch();
-        const conditionInput = new BehaviorSubject(null);
-        const incomingEventInput = new BehaviorSubject(null);
+        spyOn(branch, 'getInputs').and.returnValue(['event', 'condition']);
 
-        spyOn(branch, 'listenToInput').and.returnValues(conditionInput, incomingEventInput);
-        const context = new Context();
+        const context = new Context('branch');
 
-        const trueDispatcher = jasmine.createSpy();
-        const falseDispatcher = jasmine.createSpy();
+        const trueDispatcher = jasmine.createSpy('true');
+        const falseDispatcher = jasmine.createSpy('false');
         const clearer = jasmine.createSpy();
 
-        branch.configCoreUpdate(
+        branch.setupUpdate(
             context,
             (inputs) => branch.onUpdate(context, inputs, [trueDispatcher, falseDispatcher]),
             clearer
         );
 
-        incomingEventInput.next(Date.now());
+        context.set('event', Date.now());
         expect(falseDispatcher).toHaveBeenCalled();
         expect(trueDispatcher).not.toHaveBeenCalled();
         trueDispatcher.calls.reset(); falseDispatcher.calls.reset();
 
-        conditionInput.next(true);
+        context.set('condition', true);
         expect(falseDispatcher).not.toHaveBeenCalled();
         expect(trueDispatcher).not.toHaveBeenCalled();
-        incomingEventInput.next(Date.now());
+        context.set('event', Date.now());
         expect(falseDispatcher).not.toHaveBeenCalled();
         expect(trueDispatcher).toHaveBeenCalled();
         trueDispatcher.calls.reset(); falseDispatcher.calls.reset();
 
-        conditionInput.next(false);
-        incomingEventInput.next(Date.now());
+        context.set('condition', false);
+        context.set('event', Date.now());
         expect(falseDispatcher).toHaveBeenCalled();
         expect(trueDispatcher).not.toHaveBeenCalled();
     });
