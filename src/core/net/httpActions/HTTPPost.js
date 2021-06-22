@@ -46,7 +46,7 @@ export default class HTTPPost extends ActionBrick {
      * @param {function(string)} setBody
      * @param {function(string)} setHeaders
      */
-    onUpdate(context, [body, headers, url], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
+    onUpdate(context, [ url, body, headers], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
         httpRequest('POST', url, headers, body)
             .then((response) => {
                 checkResponseStatus(response, setHeaders, setErrorFlow, setStatusCode);

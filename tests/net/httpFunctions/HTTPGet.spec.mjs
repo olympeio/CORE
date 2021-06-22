@@ -8,9 +8,9 @@ describe('HTTPGet function brick', () => {
         const context = new Context();
         const outputs = [];
 
+        outputs.push(_statusCode => expect(_statusCode).toEqual(200));
         outputs.push(_setBody => expect(_setBody).not.toBeNull());
         outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
-        outputs.push(_statusCode => expect(_statusCode).toEqual(200));
 
         brick.onUpdate(context, ['https://httpbin.org/get', '{"Content-Type": "application/json"}'], outputs);
 
@@ -22,9 +22,9 @@ describe('HTTPGet function brick', () => {
         const context = new Context();
         const outputs = [];
 
+        outputs.push(_statusCode => expect(_statusCode).toEqual(405));
         outputs.push(_setBody => expect(_setBody).not.toBeNull());
         outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
-        outputs.push(_statusCode => expect(_statusCode).toEqual(405));
 
         brick.onUpdate(context, ['https://httpbin.org/put', '{"Content-Type": "application/json"}'], outputs);
     });
@@ -35,9 +35,9 @@ describe('HTTPGet function brick', () => {
         const context = new Context();
         const outputs = [];
 
+        outputs.push(_statusCode => expect(_statusCode).toEqual(404));
         outputs.push(_setBody => expect(_setBody).not.toBeNull());
         outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
-        outputs.push(_statusCode => expect(_statusCode).toEqual(404));
 
         brick.onUpdate(context, ['abcd', '{"Content-Type": "application/json"}'], outputs);
     });

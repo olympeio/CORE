@@ -38,7 +38,7 @@ export default class HTTPDelete extends FunctionBrick {
      * @param {function(number)} setStatusCode
      * @param {function(string)} setHeaders
      */
-    onUpdate(context, [headers, body, url], [ setBody, setStatusCode, setHeaders]) {
+    onUpdate(context, [url, body, headers], [ setStatusCode, setBody, setHeaders]) {
         httpRequest('DELETE', url, headers, body)
             .then((response) => {
                 checkResponseStatus(response, setHeaders, undefined, setStatusCode);

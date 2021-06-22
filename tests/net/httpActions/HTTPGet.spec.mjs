@@ -23,7 +23,7 @@ describe('HTTPGet action brick', () => {
         outputs.push(bodySpy);
         outputs.push(headersSpy);
 
-        brick.onUpdate(context, ['{"Content-Type": "application/json"}', 'https://httpbin.org/ip'], outputs);
+        brick.onUpdate(context, ['https://httpbin.org/get', '{"Content-Type": "application/json"}'], outputs);
 
     });
 
@@ -50,7 +50,7 @@ describe('HTTPGet action brick', () => {
         outputs.push(bodySpy);
         outputs.push(headersSpy);
 
-        brick.onUpdate(context, ['', 'abcd'], outputs);
+        brick.onUpdate(context, ['abcd', ''], outputs);
 
     });
 });

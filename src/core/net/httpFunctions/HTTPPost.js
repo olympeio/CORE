@@ -45,7 +45,7 @@ export default class HTTPPost extends FunctionBrick {
      * @param {function(number)} setStatusCode
      * @param {function(string)} setHeaders
      */
-    onUpdate(context, [url, body, headers], [ setBody, setStatusCode, setHeaders]) {
+    onUpdate(context, [url, body, headers], [ setStatusCode, setBody, setHeaders]) {
         httpRequest('POST', url, headers, body)
             .then((response) => {
                 checkResponseStatus(response, setHeaders, undefined, setStatusCode);

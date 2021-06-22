@@ -45,7 +45,7 @@ export default class HTTPPatch extends FunctionBrick {
      * @param {function(string)} setBody
      * @param {function(string)} setHeaders
      */
-    onUpdate(context, [body, url, headers], [ setStatusCode, setBody, setHeaders]) {
+    onUpdate(context, [url, body, headers], [ setStatusCode, setBody, setHeaders]) {
         httpRequest('PATCH', url, headers, body)
             .then((response) => {
                 checkResponseStatus(response, setHeaders, undefined, setStatusCode);

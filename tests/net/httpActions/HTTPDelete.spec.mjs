@@ -23,7 +23,7 @@ describe('HTTPDelete action brick', () => {
         outputs.push(bodySpy);
         outputs.push(headersSpy);
 
-        brick.onUpdate(context, ['{"test": "payload"}', '{"Content-Type": "application/json"}', 'https://httpbin.org/delete'], outputs);
+        brick.onUpdate(context, ['https://httpbin.org/delete', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
     });
 
     it('should generate a 405 error when deleting on a put-only url',  (done) => {
@@ -49,6 +49,6 @@ describe('HTTPDelete action brick', () => {
         outputs.push(bodySpy);
         outputs.push(headersSpy);
 
-        brick.onUpdate(context, ['{"test": "payload"}', '{"Content-Type": "application/json"}', 'https://httpbin.org/put'], outputs);
+        brick.onUpdate(context, ['https://httpbin.org/put', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
     });
 });

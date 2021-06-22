@@ -41,7 +41,7 @@ export default class HTTPGet extends ActionBrick {
      * @param {function(string)} setBody
      * @param {function(string)} setHeaders
      */
-    onUpdate(context, [headers, url], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
+    onUpdate(context, [url, headers], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
         httpRequest('GET', url, headers)
             .then((response) => {
                 checkResponseStatus(response, setHeaders, setErrorFlow, setStatusCode);
