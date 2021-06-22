@@ -14,6 +14,8 @@ const _Control_Flow_01621fb84e320000cf00       = '01621fb84e320000cf00';
 const _Documentation_Function_Metadata_0172c6ae82952a74193c = '0172c6ae82952a74193c';
 const _Error_Flow_016eeb5ede9f3094d8f0         = '016eeb5ede9f3094d8f0';
 const _Function_Call_0168c6f020f2a96f0000      = '0168c6f020f2a96f0000';
+const _Predefined_input_Control_Flow_of_Action_016ac63229782039429f = '016ac63229782039429f';
+const _Predefined_output_Control_Flow_016ac6322acf67eebfe7 = '016ac6322acf67eebfe7';
 const _Runnable_Input_0168a431d25001540001     = '0168a431d25001540001';
 const _Runnable_Output_0168a431d25001540002    = '0168a431d25001540002';
 const _String_ff021000000000000011             = 'ff021000000000000011';
@@ -44,8 +46,8 @@ const _Runnable_IO_Type_IO_0168a431d3b9b7438424     = '0168a431d3b9b7438424';
 
 // Definition of tags used for newly created instances 
 const _instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5 = db.assignTag('0175892cf0b8df7ebce5');
-const _instance_of_Runnable_Input____Control_Flow_0175892cf0b9df7ebce5 = db.assignTag('0175892cf0b9df7ebce5');
-const _instance_of_Runnable_Output____Control_Flow_0175892cf0badf7ebce5 = db.assignTag('0175892cf0badf7ebce5');
+const _instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0175892cf0b9df7ebce5 = db.assignTag('0175892cf0b9df7ebce5');
+const _instance_of_Predefined_output_Control_Flow____Control_Flow_0175892cf0badf7ebce5 = db.assignTag('0175892cf0badf7ebce5');
 const _instance_of_Runnable_Input____user_0175892d2b6d15085220 = db.assignTag('0175892d2b6d15085220');
 const _instance_of_Runnable_Input____new_password_0175892d78fc71a2f7fe = db.assignTag('0175892d78fc71a2f7fe');
 const _instance_of_Runnable_Output____Error_Flow_017589308be1b8afa68e = db.assignTag('017589308be1b8afa68e');
@@ -70,21 +72,21 @@ const _Auth_0179b2673490430cc604               = '0179b2673490430cc604';
 
 
 // :_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5
-db.newModel(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, 'Set user password') // tag and name of the model
-    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012)
+db.newModel(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, 'Set user password') // tag and name of the model 
+    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
     })
-    .done();
+    .done(); 
 db.updateInstance(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, {
-    [db.DEFAULT+_Object_name_ff023000000000000011]:'Set user password',
-    'v'                                     :2
-});
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'Set user password',
+        'v'                                     :2
+    });
 db.setRootInstanceTag(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5);
-// :_instance_of_Runnable_Input____Control_Flow_0175892cf0b9df7ebce5
-db.newInstance(_instance_of_Runnable_Input____Control_Flow_0175892cf0b9df7ebce5)
-    .setModelTag(_Runnable_Input_0168a431d25001540001) // tag of the model
+// :_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0175892cf0b9df7ebce5
+db.newInstance(_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0175892cf0b9df7ebce5)
+    .setModelTag(_Predefined_input_Control_Flow_of_Action_016ac63229782039429f) // tag of the model
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5)
     .setNameOrProperties({
@@ -93,9 +95,9 @@ db.newInstance(_instance_of_Runnable_Input____Control_Flow_0175892cf0b9df7ebce5)
         'v'                                     :1
     })
     .done();
-// :_instance_of_Runnable_Output____Control_Flow_0175892cf0badf7ebce5
-db.newInstance(_instance_of_Runnable_Output____Control_Flow_0175892cf0badf7ebce5)
-    .setModelTag(_Runnable_Output_0168a431d25001540002) // tag of the model
+// :_instance_of_Predefined_output_Control_Flow____Control_Flow_0175892cf0badf7ebce5
+db.newInstance(_instance_of_Predefined_output_Control_Flow____Control_Flow_0175892cf0badf7ebce5)
+    .setModelTag(_Predefined_output_Control_Flow_016ac6322acf67eebfe7) // tag of the model
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5)
     .setNameOrProperties({
@@ -151,19 +153,19 @@ db.newInstance(_instance_of_Documentation_Function_Metadata_d0c5892cf0b8df7ebce5
         'v'                                     :1
     })
     .done();
-db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____Control_Flow_0175892cf0b9df7ebce5);
+db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0175892cf0b9df7ebce5);
 db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____user_0175892d2b6d15085220);
 db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____new_password_0175892d78fc71a2f7fe);
-db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Runnable_Definition_Outputs_01621fb84e320000f00b , _instance_of_Runnable_Output____Control_Flow_0175892cf0badf7ebce5);
+db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Runnable_Definition_Outputs_01621fb84e320000f00b , _instance_of_Predefined_output_Control_Flow____Control_Flow_0175892cf0badf7ebce5);
 db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Runnable_Definition_Outputs_01621fb84e320000f00b , _instance_of_Runnable_Output____Error_Flow_017589308be1b8afa68e);
-db.assign(_instance_of_Runnable_Input____Control_Flow_0175892cf0b9df7ebce5, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Control_Flow_01621fb84e320000cf00                );
-db.assign(_instance_of_Runnable_Output____Control_Flow_0175892cf0badf7ebce5, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Control_Flow_01621fb84e320000cf00                );
+db.assign(_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0175892cf0b9df7ebce5, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Control_Flow_01621fb84e320000cf00                );
+db.assign(_instance_of_Predefined_output_Control_Flow____Control_Flow_0175892cf0badf7ebce5, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Control_Flow_01621fb84e320000cf00                );
 db.assign(_instance_of_Runnable_Input____user_0175892d2b6d15085220, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _User_ff021000000000000003                        );
 db.assign(_instance_of_Runnable_Input____new_password_0175892d78fc71a2f7fe, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _String_ff021000000000000011                      );
 db.assign(_instance_of_Runnable_Output____Error_Flow_017589308be1b8afa68e, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Error_Flow_016eeb5ede9f3094d8f0                  );
 db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93, _instance_of_Documentation_Function_Metadata_d0c5892cf0b8df7ebce5);
-db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____Control_Flow_0175892cf0b9df7ebce5);
-db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____Control_Flow_0175892cf0badf7ebce5);
+db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Object_containsRel_ff02200000000000000f          , _instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0175892cf0b9df7ebce5);
+db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Object_containsRel_ff02200000000000000f          , _instance_of_Predefined_output_Control_Flow____Control_Flow_0175892cf0badf7ebce5);
 db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____user_0175892d2b6d15085220);
 db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____new_password_0175892d78fc71a2f7fe);
 db.assign(_instance_of_Coded_Action_model____Set_user_password_0175892cf0b8df7ebce5, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____Error_Flow_017589308be1b8afa68e);

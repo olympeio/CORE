@@ -37,7 +37,7 @@ const _Runnable_Definition_Outputs_01621fb84e320000f00b = '01621fb84e320000f00b'
 const _Runnable_IO_Type_IO_0168a431d3b9b7438424     = '0168a431d3b9b7438424';
 
 
-// Definition of tags used for newly created instances
+// Definition of tags used for newly created instances 
 const _instance_of_Coded_Function_model____Get_Platform_Info_01633f7ff010b741b715 = db.assignTag('01633f7ff010b741b715');
 const _instance_of_Runnable_Output____Browser_01633f7ff30c46b6bfe9 = db.assignTag('01633f7ff30c46b6bfe9');
 const _instance_of_Runnable_Output____Browser_Version_01633f7ff47534c95bcc = db.assignTag('01633f7ff47534c95bcc');
@@ -64,17 +64,17 @@ const _System_0179b269b5c75228d70f             = '0179b269b5c75228d70f';
 
 
 // :_instance_of_Coded_Function_model____Get_Platform_Info_01633f7ff010b741b715
-db.newModel(_instance_of_Coded_Function_model____Get_Platform_Info_01633f7ff010b741b715, 'Get Platform Info') // tag and name of the model
-    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
+db.newModel(_instance_of_Coded_Function_model____Get_Platform_Info_01633f7ff010b741b715, 'Get Platform Info') // tag and name of the model 
+    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
     })
-    .done();
+    .done(); 
 db.updateInstance(_instance_of_Coded_Function_model____Get_Platform_Info_01633f7ff010b741b715, {
-    [db.DEFAULT+_Object_name_ff023000000000000011]:'Get Platform Info',
-    'v'                                     :2
-});
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'Get Platform Info',
+        'v'                                     :2
+    });
 db.setRootInstanceTag(_instance_of_Coded_Function_model____Get_Platform_Info_01633f7ff010b741b715);
 // :_instance_of_Runnable_Output____Browser_01633f7ff30c46b6bfe9
 db.newInstance(_instance_of_Runnable_Output____Browser_01633f7ff30c46b6bfe9)

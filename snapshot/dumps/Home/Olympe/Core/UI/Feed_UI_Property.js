@@ -38,7 +38,7 @@ const _Runnable_Definition_Inputs_01621fb84e320000f00a = '01621fb84e320000f00a';
 const _Runnable_IO_Type_IO_0168a431d3b9b7438424     = '0168a431d3b9b7438424';
 
 
-// Definition of tags used for newly created instances
+// Definition of tags used for newly created instances 
 const _instance_of_Coded_Function_model____Feed_UI_Property_0179f157cb4687706403 = db.assignTag('0179f157cb4687706403');
 const _instance_of_Runnable_Input____UI_Property_0179f15976d145ff3123 = db.assignTag('0179f15976d145ff3123');
 const _instance_of_Runnable_Input____Value_0179f159bdacf96316c8 = db.assignTag('0179f159bdacf96316c8');
@@ -63,17 +63,17 @@ const _UI_0179b269c9b393d21bab                 = '0179b269c9b393d21bab';
 
 
 // :_instance_of_Coded_Function_model____Feed_UI_Property_0179f157cb4687706403
-db.newModel(_instance_of_Coded_Function_model____Feed_UI_Property_0179f157cb4687706403, 'Feed UI Property') // tag and name of the model
-    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
+db.newModel(_instance_of_Coded_Function_model____Feed_UI_Property_0179f157cb4687706403, 'Feed UI Property') // tag and name of the model 
+    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
     })
-    .done();
+    .done(); 
 db.updateInstance(_instance_of_Coded_Function_model____Feed_UI_Property_0179f157cb4687706403, {
-    [db.DEFAULT+_Object_name_ff023000000000000011]:'Feed UI Property',
-    'v'                                     :2
-});
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'Feed UI Property',
+        'v'                                     :2
+    });
 db.setRootInstanceTag(_instance_of_Coded_Function_model____Feed_UI_Property_0179f157cb4687706403);
 // :_instance_of_Runnable_Input____UI_Property_0179f15976d145ff3123
 db.newInstance(_instance_of_Runnable_Input____UI_Property_0179f15976d145ff3123)

@@ -35,4 +35,4 @@ export default class GetRecursiveRelated extends FunctionBrick {
     }
 }
 
-registerBrick('0179c7bf780d10b211e8', GetRecursiveRelated);
+registerBrick('0178265fcf5008c4d726', GetRecursiveRelated);
