@@ -1,5 +1,5 @@
-import { FunctionBrick, registerBrick, ListDef, DBView, predicates, valuedefs } from "olympe";
-import getValueDefFor from "./getValueDefFor";
+import {FunctionBrick, registerBrick, ListDef, DBView, predicates, valuedefs} from "olympe";
+import {getValueDefFor} from "./utils";
 import {getLogger} from 'logging';
 
 /**
@@ -37,22 +37,21 @@ export default class FilterListSmaller extends FunctionBrick {
      */
     onUpdate(context, [list, property, value, strict], [setFiltered]) {
         const logger = getLogger('Filter List Smaller');
-        if (!(list instanceof ListDef)) {
-            logger.error(`[FilterListSmaller] list is not a ListDef. Ignored.`);
-            return;
-        }
-        let valueDef = getValueDefFor(property);
+        const valueDef = getValueDefFor(property);
         if (valueDef === null) {
             const name = DBView.get().name(/** @type {!HasInstanceTag} */ (property));
             logger.warn(`Type of property ${name} is not supported. List will not be filtered.`);
             setFiltered(list);
-            return;
+        } else if (Array.isArray(list)) {
+            logger.warn('Native JS arrays are not yet supported. Ignoring ...');
+            setFiltered(list);
+        }  else if (list instanceof ListDef) {
+            const vd = new valuedefs.Constant(value);
+            const predicate = strict ? new predicates.Smaller(valueDef, vd) : new predicates.Or(new predicates.Smaller(valueDef, vd), new predicates.Equals(valueDef, vd));
+            setFiltered(list.filter(predicate));
+        } else {
+            logger.error('List is not a ListDef or an Array');
         }
-
-        const vd = new valuedefs.Constant(value);
-        const predicate = strict ? new predicates.Smaller(valueDef, vd) :
-            new predicates.Or(new predicates.Smaller(valueDef, vd), new predicates.Equals(valueDef, vd));
-        setFiltered(list.filter(predicate));
     }
 }
 
