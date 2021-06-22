@@ -1,4 +1,3 @@
-
 import {ActionBrick, registerBrick, Context, DBView, BusinessObject, RelationPrimitive} from 'olympe';
 
 /**

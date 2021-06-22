@@ -1,5 +1,5 @@
-
-import { ActionBrick, registerBrick, Context, DBView, ListDef } from 'olympe';
+import { registerBrick, DBView, ListDef } from 'olympe';
+import ObjectToJson from "./ObjectToJson";
 
 /**
 ## Description
@@ -14,7 +14,7 @@ Parses a list of object into a json.
 | Object | String | stringified Json |
 
 **/
-export default class ObjectListToJson extends ActionBrick {
+export default class ObjectListToJson extends ObjectToJson {
 
     /**
      * Executed every time an input gets updated.

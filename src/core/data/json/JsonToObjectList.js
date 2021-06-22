@@ -1,5 +1,4 @@
-
-import {registerBrick, Context, DBView, BusinessObject, InstanceTag} from 'olympe';
+import {registerBrick, DBView, BusinessObject} from 'olympe';
 import JsonToObject from './JsonToObject.js';
 
 /**
@@ -38,11 +37,11 @@ export default class JsonToObjectList extends JsonToObject {
         const parsedJson = JSON.parse(json);
         const dataArray = parsedJson instanceof Array ? parsedJson : [parsedJson];
 
-        const db = DBView.get();
         // TODO should add BusinessModel in public api?
-        const existingDataModels = db.getRelated('016324fde11a836f76c2', BusinessObject.modelRel.getInverse());
+        const businessModelTag = '016324fde11a836f76c2';
+        const db = DBView.get();
+        const existingDataModels = db.getRelated(businessModelTag, BusinessObject.modelRel.getInverse());
         const mappingModels = new Map();
-
 
         existingDataModels.forEach((dm) => {
             const name = db.name(dm);
