@@ -1,5 +1,6 @@
 import {FunctionBrick, registerBrick, ListDef, instanceToTag, transformers} from 'olympe';
 import {getOrientedRelation} from "./GetRelatedObjects";
+import {getLogger} from 'logging';
 
 export default class GetRecursiveRelated extends FunctionBrick {
 
@@ -15,12 +16,14 @@ export default class GetRecursiveRelated extends FunctionBrick {
      * @param {function(ListDef)} setList
      */
     onUpdate(context, [object, relation, includeSelf], [setList]) {
+        const logger = getLogger('Get Recursive Related');
+
         // Prevent errors
         if (instanceToTag(object) === '') {
-            console.error('Get Related Objects: Invalid `object` provided');
+            logger.error('Invalid `object` provided');
             return;
         } else if (instanceToTag(relation) === '') {
-            console.error('Get Related Objects: Invalid `relation` provided');
+            logger.error('Invalid `relation` provided');
             return;
         }
 

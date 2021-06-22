@@ -1,5 +1,5 @@
-
 import { ActionBrick, registerBrick, Context, InstanceTag, CreateInstance, instanceToTag } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -37,7 +37,7 @@ export default class PersistObject extends ActionBrick {
                 forwardEvent();
             });
         } else {
-            console.error('PersistObject cannot persist object', objectIn);
+            getLogger('Persist Object').error('Cannot persist object', objectIn);
             setObjectOut(objectIn);
             forwardEvent();
         }

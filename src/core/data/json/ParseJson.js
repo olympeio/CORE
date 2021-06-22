@@ -1,5 +1,5 @@
-
 import { FunctionBrick, registerBrick, Context } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -50,7 +50,7 @@ export default class ParseJson extends FunctionBrick {
                 }
             }
         } catch(e) {
-            console.error(e.message);
+            getLogger('Parse JSON').error(e.message);
         }
 
     }

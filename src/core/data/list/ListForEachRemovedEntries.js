@@ -1,4 +1,5 @@
 import { FunctionBrick, registerBrick, ListDef, onDestroy } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -12,7 +13,6 @@ before the first execution of the function will not be returned.
 | Name | Type | Description |
 | --- | :---: | --- |
 | Tag | String | Tag of the last entry removed (if any was removed after the brick has started executing). |
-
 **/
 export default class ListForEachRemovedEntries extends FunctionBrick {
 
@@ -34,7 +34,7 @@ export default class ListForEachRemovedEntries extends FunctionBrick {
                 }
             );
         } else {
-            console.error('TypeError: The list should be of type ListDef');
+            getLogger('List For Each Removed Entries').error('TypeError: The list should be of type ListDef');
         }
     }
 }

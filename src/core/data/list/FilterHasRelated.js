@@ -1,8 +1,9 @@
 import {FunctionBrick, registerBrick, ListDef, predicates, Direction, instanceToTag, DBView} from 'olympe';
+import {getLogger} from 'logging';
 
 /**
  * @param {Array} list
- * @param {boolean} inverseFilter
+ * @param {boolean=} inverseFilter
  * @return {?Array}
  */
 const filterList = (list, inverseFilter) => {
@@ -10,7 +11,7 @@ const filterList = (list, inverseFilter) => {
     let invalidObject = false;
     list.filter((object) => {
         if (instanceToTag(object) === '') {
-            console.error('[Filter Has Related] One object in the list has no valid tag');
+            getLogger('Filter Has Related').error('One object in the list has no valid tag');
             invalidObject = true;
             return false;
         } else {
@@ -36,8 +37,10 @@ export default class FilterHasRelated extends FunctionBrick {
      * @param {function(ListDef|Array)} setFilteredList
      */
     onUpdate(context, [list, relatedObject, relation, inverseFilter], [setFilteredList]) {
+        const logger = getLogger('Filter Has Related');
+
         if (instanceToTag(relatedObject) === '') {
-            console.error('Filter Has Related: `related object` has no valid tag');
+            logger.error('`related object` has no valid tag');
         } else if(Array.isArray(list)) {
             const filteredList = filterList(list);
             if (filteredList !== null) {
@@ -47,7 +50,7 @@ export default class FilterHasRelated extends FunctionBrick {
             const relatedFilter = new predicates.HasRelated([relation], [Direction.DESTINATION], relatedObject);
             setFilteredList(list.filter(inverseFilter ? new predicates.Not(relatedFilter) : relatedFilter));
         } else {
-            console.error('TypeError: The list should be of type ListDef or Array');
+            logger.error('TypeError: The list should be of type ListDef or Array');
         }
     }
 }

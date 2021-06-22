@@ -1,4 +1,3 @@
-
 import { FunctionBrick, registerBrick, ErrorFlow } from 'olympe';
 
 /**
@@ -23,21 +22,21 @@ export default class ThrowError extends FunctionBrick {
     /**
      * @override
      */
-    configCoreUpdate(context, runUpdate, clear) {
+    setupUpdate(context, runUpdate, clear) {
         const [incomingEvent, inputMessage, inputCode] = this.getInputs();
 
         let message = '';
-        this.listenToInput(inputMessage, context).subscribe((inputValue) => {
-             message = inputValue !== undefined && inputValue !== null ? String(inputValue) : '';
+        context.observe(inputMessage, true).subscribe((inputValue) => {
+             message = inputValue !== null ? String(inputValue) : '';
         });
 
         let code = '';
-        this.listenToInput(inputCode, context).subscribe((inputValue) => {
-            code = inputValue !== undefined && inputValue !== null ? Number(inputValue) : 0;
+        context.observe(inputCode, true).subscribe((inputValue) => {
+            code = inputValue !== null ? Number(inputValue) : 0;
         });
 
         // Run runCoreUpdate only when incoming event is triggered.
-        this.listenToInput(incomingEvent, context).subscribe((timestamp) => {
+        context.observe(incomingEvent, true).subscribe((timestamp) => {
             if (timestamp) {
                 // Execute the action only if the control flow has a value.
                 runUpdate([message, code]);

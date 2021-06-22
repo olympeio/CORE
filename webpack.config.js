@@ -21,7 +21,8 @@ const commonConfig = {
     devtool: 'source-map',
     resolve: {
         alias: {
-            olympe: runtimeWebPath
+            olympe: runtimeWebPath,
+            logging: path.resolve(__dirname, 'src/helpers/logging.js')
         }
     },
     module: {

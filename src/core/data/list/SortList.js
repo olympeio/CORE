@@ -1,4 +1,5 @@
-import {FunctionBrick, registerBrick, ListDef, PropertyPrimitive, DBView, StringPrimitive, comparators, valuedefs, NumberPrimitive, DatetimePrimitive, BooleanPrimitive, transformers} from 'olympe';
+import {FunctionBrick, registerBrick, ListDef, PropertyPrimitive, DBView, comparators, transformers, valuedefs, StringPrimitive, NumberPrimitive, DatetimePrimitive, BooleanPrimitive} from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -31,14 +32,9 @@ export default class SortList extends FunctionBrick {
      * @param {function(ListDef|Array)} setSortedList
      */
     onUpdate(context, [list, property, ascending], [setSortedList]) {
-        // Guard
-        if(!Array.isArray(list) && !(list instanceof ListDef)) {
-            console.error('[SortList] TypeError: the list should be of type ListDef or Array');
-            return;
-        }
+        const logger = getLogger('Sort List');
 
         const type = DBView.get().getUniqueRelated(property.getTag(), PropertyPrimitive.typeRel);
-        let sortedList = list;
         let comparator = null;
 
         // String
@@ -55,22 +51,22 @@ export default class SortList extends FunctionBrick {
             comparator = new comparators.Number(new valuedefs.BooleanProperty(property));
         }
 
-        if (comparator !== null) {
-            // Array of syncs
-            if (Array.isArray(list)) {
-                // TODO compare() to be exposed
-                console.warn('[SortList] sorting for type Array is not yet supported');
-                // sortedList = list.sort((a, b) => {
-                //     const a_value = a.getProperty(property);
-                //     const b_value = b.getProperty(property);
-                //     return ascending ? comparator.compare(a_value, b_value) : comparator.compare(b_value, a_value);
-                // });
-            // ListDef
-            } else {
-                sortedList = list.transform(new transformers.Sort(comparator, ascending));
-            }
+        if (comparator === null) {
+            logger.error('Property type is not supported');
+        } else if (Array.isArray(list)) {
+            // TODO compare() to be exposed
+            logger.warn('Native JS arrays are not yet supported. Ignoring ...');
+            setSortedList(list);
+            // sortedList = list.sort((a, b) => {
+            //     const a_value = a.getProperty(property);
+            //     const b_value = b.getProperty(property);
+            //     return ascending ? comparator.compare(a_value, b_value) : comparator.compare(b_value, a_value);
+            // });
+        } else if (list instanceof ListDef) {
+            setSortedList(list.transform(new transformers.Sort(comparator, ascending)));
+        } else {
+            logger.error('List is not a ListDef or an Array');
         }
-        setSortedList(sortedList);
     }
 }
 

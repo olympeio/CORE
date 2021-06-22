@@ -1,5 +1,5 @@
-
 import { ActionBrick, registerBrick } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -9,7 +9,6 @@ Outputs a message on the console.
 | --- | :---: | --- |
 | prefix | String | A label to put in front of the message. |
 | message | String | The message to display. |
-
 **/
 export default class Log extends ActionBrick {
 
@@ -24,7 +23,7 @@ export default class Log extends ActionBrick {
      * @param {function()} forwardEvent
      */
     onUpdate(context, [prefix, message], [forwardEvent]) {
-        console.log((prefix ? prefix + ': ' : '') + message);
+        getLogger('Log').info((prefix ? prefix + ': ' : '') + message);
         forwardEvent();
     }
 }

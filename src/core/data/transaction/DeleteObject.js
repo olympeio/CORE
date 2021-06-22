@@ -1,4 +1,5 @@
 import { ActionBrick, registerBrick, CreateInstance, UpdateInstance, Transaction } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -22,6 +23,7 @@ export default class DeleteObject extends ActionBrick {
      * @param {function()} forwardEvent
      */
     onUpdate(context, [inboundObject], [forwardEvent]) {
+        const logger = getLogger('Delete Object');
 
         // Check if we can delete the inboundObject
         if (typeof inboundObject === 'string' ||
@@ -36,11 +38,11 @@ export default class DeleteObject extends ActionBrick {
                 if (success) {
                     forwardEvent();
                 } else {
-                    console.error(`Cannot delete object : ${message}`);
+                    logger.error(`Cannot delete object : ${message}`);
                 }
             })
         } else {
-            console.error('Cannot delete object. The object is not of type Sync, CreateInstance or UpdateInstance', inboundObject )
+            logger.error('Cannot delete object. The object is not of type Sync, CreateInstance or UpdateInstance', inboundObject )
         }
     }
 }

@@ -1,5 +1,5 @@
-
 import { FunctionBrick, registerBrick, Transaction, Sync } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -31,9 +31,11 @@ export default class SetObjectProperty extends FunctionBrick {
      * @param {function(InstanceTag)} setObject
      */
     onUpdate(context, [object, property, value], [setObject]) {
+        const logger = getLogger('Set Object Property');
+
         // Validate arguments
         if (value instanceof Sync) {
-            console.error('SetObjectProperty: complex properties are not supported');
+            logger.error('Complex properties are not supported');
             return;
         }
 
@@ -44,7 +46,7 @@ export default class SetObjectProperty extends FunctionBrick {
         // Execute the transaction
         transaction.execute(success => {
             if (!success) {
-                console.error('SetObjectProperty: update transaction failed');
+                logger.error('Update transaction failed');
             } else {
                 // Set the output to the input object
                 // it is done inside the TransactionCallback to avoid firing potential following

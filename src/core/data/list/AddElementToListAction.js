@@ -1,4 +1,5 @@
 import {ActionBrick, instanceToTag, ListDef, registerBrick, Sync} from 'olympe';
+import {addElementToList} from "./AddElementToListFunction";
 
 /**
 ## Description
@@ -28,29 +29,7 @@ export default class AddElementToListAction extends ActionBrick {
      * @param {function(!ListDef|!Array)} setList
      */
     onUpdate(context, [inputList, object], [forwardEvent, setList]) {
-        const list = inputList || [];
-
-        // Guards
-        if (!Array.isArray(list) && !(list instanceof ListDef)) {
-            console.error('[AddElementToList] TypeError: the list should be of type ListDef or Array');
-            return;
-        }
-        if (list instanceof ListDef && !(object instanceof Sync)) {
-            console.error('[AddElementToList] TypeError: only a Sync can be added to a ListDef');
-            return;
-        }
-
-        // Addition
-        let newList;
-        if (Array.isArray(list)) {
-            newList = Array.from(list); // Generate shallow copy of the array
-            newList.push(object);
-        } else {
-            newList = list.union(new ListDef(instanceToTag(object), [])); // New listdef: union of the previous + 1 instance.
-        }
-
-        // Done
-        setList(newList);
+        setList(addElementToList(inputList || [], object));
         forwardEvent();
     }
 }

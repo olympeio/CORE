@@ -1,5 +1,5 @@
-
 import { FunctionBrick, registerBrick } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -28,7 +28,7 @@ export default class DebugLog extends FunctionBrick {
      * @param {function(*)} setValue
      */
     onUpdate(context, [prefix, value], [setValue]) {
-        console.log((prefix ? prefix + ': ' : '') + String(value));
+        getLogger('Log').debug((prefix ? prefix + ': ' : '') + String(value));
         setValue(value);
     }
 }
