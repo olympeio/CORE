@@ -22,11 +22,11 @@ export default class GetObjectAtInList extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {number} rank
      * @param {!ListDef|!Array} list
+     * @param {number} rank
      * @param {function(object)} setObject
      */
-    onUpdate(context, [rank, list], [setObject]) {
+    onUpdate(context, [list, rank], [setObject]) {
         if (Array.isArray(list)) {
             if (list.length > rank) {
                 setObject(list[rank]);
