@@ -1,10 +1,6 @@
+import {FunctionBrick, registerBrick} from 'olympe';
+import {toBase64, stringToBase64} from 'helpers/binaryConverters';
 
-import { FunctionBrick, registerBrick, Context } from 'olympe';
-import {fromBase64, binaryToString, toBase64, stringToBase64} from 'helpers/binaryConverters';
-
-/**
-
-**/
 export default class Base64Encoder extends FunctionBrick {
 
     /**
@@ -24,7 +20,9 @@ export default class Base64Encoder extends FunctionBrick {
             case 'binary' :
             case 'bin' :
                 const bufferView = new Uint8Array(new ArrayBuffer(input.length));
-                for (let i = 0, l = input.length; i < l; i++) bufferView[i] = input.charCodeAt(i);
+                for (let i = 0, l = input.length; i < l; i++) {
+                    bufferView[i] = input.charCodeAt(i);
+                }
                 encoded = toBase64(bufferView.buffer);
                 break;
             case 'utf-8' :
@@ -34,7 +32,6 @@ export default class Base64Encoder extends FunctionBrick {
         }
         output(encoded);
     }
-
 }
 
 registerBrick('016cb9162263a22bcaba', Base64Encoder);
