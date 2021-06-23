@@ -1,20 +1,17 @@
 const path = require('path');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const Copy = require('copy-webpack-plugin');
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
+const {merge} = require('webpack-merge');
 
 const dist = path.join(__dirname, 'dist');
 const npmPackage = require('./package.json');
 const runtimeWebPath = path.resolve(__dirname, 'node_modules/@olympeio/runtime-web');
 
-module.exports = {
-    entry: {
-        web: './src/main-web.js',
-        node: './src/main-node.js'
-    },
+const commonConfig = {
+    entry: './src/main.js',
     output: {
-        filename: 'main-[name].js',
         path: dist,
         globalObject: 'this',
         library: npmPackage.name,
@@ -24,7 +21,8 @@ module.exports = {
     devtool: 'source-map',
     resolve: {
         alias: {
-            olympe: runtimeWebPath
+            olympe: runtimeWebPath,
+            logging: path.resolve(__dirname, 'src/helpers/logging.js')
         }
     },
     module: {
@@ -46,9 +44,14 @@ module.exports = {
 
         ]
     },
-    externals: ['olympe', nodeExternals()],
+    externals: ['olympe', nodeExternals()]
+};
+
+const plugins = {
     plugins: [
-        new CleanWebpackPlugin(),
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: ['**/*', '!main*']
+        }),
         new GenerateJsonPlugin(
             'package.json',
             {
@@ -67,3 +70,18 @@ module.exports = {
         }),
     ]
 };
+
+const node = {
+    name: 'node',
+    output: { filename: 'main-node.js' },
+    resolve: { alias: { helpers: path.resolve(__dirname, 'src/helpers/node') } },
+    externals: ['os']
+};
+
+const web = {
+    name: 'web',
+    output: { filename: 'main-web.js' },
+    resolve: { alias: { helpers: path.resolve(__dirname, 'src/helpers/web') } },
+}
+
+module.exports = [merge(commonConfig, node, plugins), merge(commonConfig, web)];
