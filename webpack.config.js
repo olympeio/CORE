@@ -59,6 +59,7 @@ const plugins = {
                 version: npmPackage.version,
                 main: 'main-node.js',
                 browser: 'main-web.js',
+                types: 'index.d.ts',
                 dependencies: npmPackage.dependencies,
                 dcInitConfig: 'import/dcInitConfig.json'
             }
