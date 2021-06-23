@@ -11,3 +11,4 @@ import './core/**/*.js';
 initLogging();
 
 export {getLogger} from './helpers/logging';
+export * from 'helpers/binaryConverters';
