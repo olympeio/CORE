@@ -2,9 +2,9 @@ import {FunctionBrick, registerBrick, ListDef, instanceToTag, transformers, Dire
 import {getLogger} from 'logging';
 
 /**
-NO DOC
-**/
-export default class ListFollowRelation extends FunctionBrick {
+ NO DOC
+ **/
+export default class ListFollowRelationRecursively extends FunctionBrick {
 
     /**
      * Executed every time an input gets updated.
@@ -15,10 +15,11 @@ export default class ListFollowRelation extends FunctionBrick {
      * @param {!ListDef} list
      * @param {!RelationPrimitive} relation
      * @param {boolean} toOrigin
+     * @param {boolean} includeSelf
      * @param {function(!ListDef)} setFlattenedList
      */
-    onUpdate(context, [list, relation, toOrigin], [setFlattenedList]) {
-        const logger = getLogger('List Follow Relation');
+    onUpdate(context, [list, relation, toOrigin, includeSelf], [setFlattenedList]) {
+        const logger = getLogger('List Follow Relation Recursively');
 
         // Guards
         if (!(list instanceof ListDef)) {
@@ -32,9 +33,9 @@ export default class ListFollowRelation extends FunctionBrick {
 
         // Transformer
         setFlattenedList(list.transform(
-            new transformers.Related(relation, toOrigin ? Direction.ORIGIN : Direction.DESTINATION)
+            new transformers.RecursiveRelated(relation, toOrigin ? Direction.ORIGIN : Direction.DESTINATION, includeSelf ? 0 : 1, -1)
         ));
     }
 }
 
-registerBrick('016b74da62846557a6f3', ListFollowRelation);
+registerBrick('017a37f44a27161712a6', ListFollowRelationRecursively);

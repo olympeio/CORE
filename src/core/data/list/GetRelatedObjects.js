@@ -58,10 +58,10 @@ export default class GetRelatedObjects extends FunctionBrick {
         const logger = getLogger('Get Related Objects');
         // Prevent errors
         if (instanceToTag(object) === '') {
-            logger.error('Get Related Objects: Invalid `object` provided');
+            logger.error('Invalid `object` provided, must be a business object, or a tag');
             return;
         } else if (instanceToTag(relation) === '') {
-            logger.error('Get Related Objects: Invalid `relation` provided');
+            logger.error('Invalid `relation` provided');
             return;
         }
 

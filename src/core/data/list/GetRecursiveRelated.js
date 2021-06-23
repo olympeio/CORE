@@ -20,7 +20,7 @@ export default class GetRecursiveRelated extends FunctionBrick {
 
         // Prevent errors
         if (instanceToTag(object) === '') {
-            logger.error('Invalid `object` provided');
+            logger.error('Invalid `object` provided, must be a business object, or a tag');
             return;
         } else if (instanceToTag(relation) === '') {
             logger.error('Invalid `relation` provided');
@@ -30,7 +30,7 @@ export default class GetRecursiveRelated extends FunctionBrick {
         const orientedRelation = getOrientedRelation(object, relation);
         setList(new ListDef(
             object,
-            new transformers.RecursiveRelated(orientedRelation, orientedRelation.getDirection(), includeSelf ? 0 : 1)
+            new transformers.RecursiveRelated(orientedRelation, orientedRelation.getDirection(), includeSelf ? 0 : 1, -1)
         ));
     }
 }
