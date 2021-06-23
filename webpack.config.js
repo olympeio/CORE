@@ -66,7 +66,8 @@ const plugins = {
         ),
         new Copy({
             patterns: [
-                {from: '.dc-init', to: 'import', globOptions: {ignore: ['**/id_rsa']}}
+                {from: '.dc-init', to: 'import', globOptions: {ignore: ['**/id_rsa']}},
+                {from: 'index.d.ts', to: 'index.d.ts'}
             ]
         }),
     ]
@@ -83,6 +84,6 @@ const web = {
     name: 'web',
     output: { filename: 'main-web.js' },
     resolve: { alias: { helpers: path.resolve(__dirname, 'src/helpers/web') } },
-}
+};
 
 module.exports = [merge(commonConfig, node, plugins), merge(commonConfig, web)];

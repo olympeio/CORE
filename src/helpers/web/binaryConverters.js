@@ -51,7 +51,6 @@ export function toBase64(value) {
 /**
  * Read a blob and return the ArrayBuffer containing the blob content.
  *
- * @abstract
  * @param {!Blob} blob
  * @param {function(!ArrayBuffer)} done
  */
@@ -66,7 +65,6 @@ export function readBlob(blob, done) {
 /**
  * Generates a unique Object URL to access the Blob later on. Format is "blob:...".
  *
- * @abstract
  * @param {!Blob} blob
  * @return {string}
  */
@@ -77,7 +75,6 @@ export function createObjectUrl(blob) {
 /**
  * Fetch the blob from the specified object url. Call onSuccess if it succeeds, onFailure ontherwise.
  *
- * @abstract
  * @param {string} url
  * @param {function(!Blob)} onSuccess
  * @param {function(string)=} onFailure
@@ -95,7 +92,6 @@ export function fetchFromObjectUrl(url, onSuccess, onFailure) {
  * An object URL must be revoked when won't be used anymore.
  * It releases memory used to store the binary pointed by the URL and make the URL not usable anymore.
  *
- * @abstract
  * @param {string} url
  */
 export function revokeObjectUrl(url) {
