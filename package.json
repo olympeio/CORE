@@ -1,6 +1,11 @@
 {
   "name": "@olympeio/core",
   "version": "1.0.4-dev",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olympeio/CORE"
+  },
   "build": {
     "orchestratorVersion": "5.9.2"
   },
