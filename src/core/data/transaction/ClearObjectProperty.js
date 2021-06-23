@@ -1,4 +1,4 @@
-import {ActionBrick, registerBrick, Context, Sync} from 'olympe';
+import {ActionBrick, registerBrick} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
