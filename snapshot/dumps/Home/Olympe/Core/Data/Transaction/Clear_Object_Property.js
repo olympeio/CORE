@@ -82,17 +82,17 @@ const _Transaction_0179b26880c1af51a32b        = '0179b26880c1af51a32b';
 
 
 // :_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a
-db.newModel(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a, 'Clear Object Property') // tag and name of the model
-    .extends(_Action_Call_0168c6f020f2a96a0000).setModelTag(_Coded_Action_01621fb84e320000f012)
+db.newModel(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a, 'Clear Object Property') // tag and name of the model 
+    .extends(_Action_Call_0168c6f020f2a96a0000).setModelTag(_Coded_Action_01621fb84e320000f012) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         'v'                                     :1
     })
-    .done();
+    .done(); 
 db.updateInstance(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a, {
-    [db.DEFAULT+_Object_name_ff023000000000000011]:'Clear Object Property',
-    'v'                                     :2
-});
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'Clear Object Property',
+        'v'                                     :2
+    });
 db.setRootInstanceTag(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a);
 // :_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_017a382f3df94a54c4b0
 db.newInstance(_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_017a382f3df94a54c4b0)
