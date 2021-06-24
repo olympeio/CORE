@@ -1,4 +1,3 @@
-
 // Variable db typed for auto-completion:
 db = /**@type{olympe.dc.io.OSaveFileBuilder}*/(db);
 
@@ -107,7 +106,7 @@ db.newInstance(_instance_of_Runnable_Input____duration_0162ce5052318229fcef)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Pause_0162ce4b6d50ec186157)
     .setNameOrProperties({
-        [_Object_name_ff023000000000000011]     :'duration',
+        [_Object_name_ff023000000000000011]     :'duration [s]',
         [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
