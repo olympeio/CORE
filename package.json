@@ -39,8 +39,8 @@
     "webpack-node-externals": "^2.5.0"
   },
   "dependencies": {
-    "@olympeio/runtime-node": "8.3.0-rc1",
-    "@olympeio/runtime-web": "8.3.0-rc1",
+    "@olympeio/runtime-node": "8.3.0-rc2",
+    "@olympeio/runtime-web": "8.3.0-rc2",
     "date-fns": "^2.22.1",
     "fast-xml-parser": "^3.19.0",
     "loglevel": "^1.7.1",
