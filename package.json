@@ -1,6 +1,6 @@
 {
   "name": "@olympeio/core",
-  "version": "1.0.4-rc2",
+  "version": "1.0.4-rc3",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -39,8 +39,8 @@
     "webpack-node-externals": "^2.5.0"
   },
   "dependencies": {
-    "@olympeio/runtime-node": "8.3.0-rc2",
-    "@olympeio/runtime-web": "8.3.0-rc2",
+    "@olympeio/runtime-node": "8.3.0-rc3",
+    "@olympeio/runtime-web": "8.3.0-rc3",
     "date-fns": "^2.22.1",
     "fast-xml-parser": "^3.19.0",
     "loglevel": "^1.7.1",
