@@ -1,7 +1,7 @@
 {
   "name": "@olympeio/core",
   "version": "1.0.4-rc3",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/olympeio/CORE"
