@@ -1,0 +1,12 @@
+repos:
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.1.10
+    hooks:
+      - id: insert-license
+        files: (src/|tests/)
+        args:
+          - --license-filepath
+          - LICENSE
+          - --comment-style
+          - /**| *| */
+          - --detect-license-in-X-top-lines=21 # the license is 21 lines long with multiline comments
