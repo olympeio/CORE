@@ -6,7 +6,7 @@ repos:
         files: (src/|tests/)
         args:
           - --license-filepath
-          - LICENSE
+          - LICENSE_notice
           - --comment-style
           - /**| *| */
-          - --detect-license-in-X-top-lines=21 # the license is 21 lines long with multiline comments
+          - --detect-license-in-X-top-lines=15 # the license is 15 lines long with multiline comments
