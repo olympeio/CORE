@@ -37,25 +37,25 @@ export default class Defaultvalue extends FunctionBrick {
      */
     setupUpdate(context, runUpdate, clear) {
         let defaultValue = null;
-        let otherValue = null;
+        let value = null;
 
         const updated = () => {
             if (defaultValue !== undefined && defaultValue !== null) {
                 // When the default value is cleared, no need to run the function.
-                runUpdate([defaultValue, otherValue]);
+                runUpdate([value, defaultValue]);
             } else {
                 clear();
             }
         };
 
         const [valueInput, defaultValueInput] = this.getInputs();
-        context.observe(defaultValueInput, true).subscribe((value) => {
-            defaultValue = value;
+        context.observe(valueInput, true).subscribe((v) => {
+            value = v;
             updated();
         });
 
-        context.observe(valueInput, true).subscribe((value) => {
-            otherValue = value;
+        context.observe(defaultValueInput, true).subscribe((v) => {
+            defaultValue = v;
             updated();
         });
     }
