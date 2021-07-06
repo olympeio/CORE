@@ -44,7 +44,7 @@ export default class DebugLog extends FunctionBrick {
      * @param {function(*)} setValue
      */
     onUpdate(context, [prefix, value], [setValue]) {
-        getLogger('Log').debug((prefix ? prefix + ': ' : '') + String(value));
+        getLogger('Log').info((prefix ? prefix + ': ' : '') + String(value));
         setValue(value);
     }
 }
