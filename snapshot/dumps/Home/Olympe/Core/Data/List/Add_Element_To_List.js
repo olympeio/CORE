@@ -86,6 +86,7 @@ db.newModel(_instance_of_Coded_Action_model____Add_Element_To_List_0179c7fea6038
     .extends(_Action_Call_0168c6f020f2a96a0000).setModelTag(_Coded_Action_01621fb84e320000f012) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
+        ['01621fb84e320000f001']:'public',
         'v'                                     :1
     })
     .done(); 

@@ -71,6 +71,7 @@ db.newModel(_instance_of_Coded_Function_model____Ticker_01632af2ee63ea368184, 'T
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
+        ['01621fb84e320000f001']:'public',
         'v'                                     :1
     })
     .done(); 

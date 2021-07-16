@@ -76,6 +76,7 @@ db.newModel(_instance_of_Coded_Action_model____Create_Relation_01694800e25a7c39f
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
+        ['01621fb84e320000f001']:'public',
         'v'                                     :1
     })
     .done(); 
