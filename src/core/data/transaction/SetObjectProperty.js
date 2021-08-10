@@ -55,6 +55,13 @@ export default class SetObjectProperty extends ActionBrick {
             logger.error('Complex properties are not supported');
             return;
         }
+        if (value === undefined || value === null) {
+            logger.info('Ignoring null value');
+            setObject(object);
+            forwardEvent();
+            return;
+        }
+
 
         // Transaction
         const transaction = context.getTransaction();

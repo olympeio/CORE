@@ -54,6 +54,11 @@ export default class SetObjectProperty extends FunctionBrick {
             logger.error('Complex properties are not supported');
             return;
         }
+        if (value === undefined || value === null) {
+            logger.info('Ignoring null value');
+            setObject(object);
+            return;
+        }
 
         // Start isolated local transaction
         const transaction = new Transaction();
