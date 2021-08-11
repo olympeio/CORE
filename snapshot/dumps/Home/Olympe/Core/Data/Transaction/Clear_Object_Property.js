@@ -14,7 +14,7 @@ const _Ascender_01621fb84e32000000a0           = '01621fb84e32000000a0';
 const _Coded_Action_01621fb84e320000f012       = '01621fb84e320000f012';
 const _Control_Flow_01621fb84e320000cf00       = '01621fb84e320000cf00';
 const _Descender_01621fb84e32000000d0          = '01621fb84e32000000d0';
-const _Documentation_Function_Metadata_0172c6ae82952a74193c = '0172c6ae82952a74193c';
+const _Documentation_01703376c4a81c0e9d90      = '01703376c4a81c0e9d90';
 const _Object_ff021000000000000001             = 'ff021000000000000001';
 const _Predefined_input_Control_Flow_of_Action_016ac63229782039429f = '016ac63229782039429f';
 const _Predefined_output_Control_Flow_016ac6322acf67eebfe7 = '016ac6322acf67eebfe7';
@@ -24,11 +24,9 @@ const _Runnable_Output_0168a431d25001540002    = '0168a431d25001540002';
 
 
 // Definition of tags of defined properties
-const _Documentation_Function_Metadata_errors_0172c6ae82952a74193f = '0172c6ae82952a74193f';
-const _Documentation_Function_Metadata_inputs_0172c6ae82952a74193d = '0172c6ae82952a74193d';
-const _Documentation_Function_Metadata_outputs_0172c6ae82952a74193e = '0172c6ae82952a74193e';
-const _Documentation_Metadata_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
-const _Documentation_Metadata_toolTip_01703376c4a81c0e9d91 = '01703376c4a81c0e9d91';
+const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
+const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
+const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
 const _Object_name_ff023000000000000011             = 'ff023000000000000011';
 const _Runnable_Definition_hardcoded_01692aa71f3108454479 = '01692aa71f3108454479';
 const _Runnable_IO_IO_Rank_01740c5d4ae4b520dd01     = '01740c5d4ae4b520dd01';
@@ -39,7 +37,7 @@ const _Ascender_Input_01621fb84e32000000a1          = '01621fb84e32000000a1';
 const _Ascender_Upward_01621fb84e32000000a2         = '01621fb84e32000000a2';
 const _Descender_Downward_01621fb84e32000000d1      = '01621fb84e32000000d1';
 const _Descender_Output_01621fb84e32000000d2        = '01621fb84e32000000d2';
-const _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93 = '01703376c4a81c0e9d93';
+const _Documentation_documentation_01703376c4a81c0e9d93 = '01703376c4a81c0e9d93';
 const _Folder_itemRel_016a697ef00ce7554692          = '016a697ef00ce7554692';
 const _GOO_parentGooRel_ff02200000000000000u        = 'ff02200000000000000u';
 const _Object_containsRel_ff02200000000000000f      = 'ff02200000000000000f';
@@ -61,7 +59,10 @@ const _instance_of_Descender_017a382f3dfaf933faa3   = db.assignTag('017a382f3dfa
 const _instance_of_Runnable_Input____object_017a382f9cbe02a1fb64 = db.assignTag('017a382f9cbe02a1fb64');
 const _instance_of_Runnable_Input____property_017a38331ad650b0704b = db.assignTag('017a38331ad650b0704b');
 const _instance_of_Runnable_Output____object_017a38348618543799d5 = db.assignTag('017a38348618543799d5');
-const _instance_of_Documentation_Function_Metadata_017a383523d590aa6a3f = db.assignTag('017a383523d590aa6a3f');
+const _instance_of_Documentation_017b35893b6fe3fcfde8 = db.assignTag('017b35893b6fe3fcfde8');
+const _instance_of_Documentation_017b35893f6f51d688d5 = db.assignTag('017b35893f6f51d688d5');
+const _instance_of_Documentation_017b35893f6feb4124bd = db.assignTag('017b35893f6feb4124bd');
+const _instance_of_Documentation_017b3589427947ee32e5 = db.assignTag('017b3589427947ee32e5');
 
 
 //==========================================================
@@ -86,7 +87,7 @@ db.newModel(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df
     .extends(_Action_Call_0168c6f020f2a96a0000).setModelTag(_Coded_Action_01621fb84e320000f012) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
-        ['01621fb84e320000f001']:'public',
+        [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
     })
     .done(); 
@@ -190,17 +191,44 @@ db.newInstance(_instance_of_Runnable_Output____object_017a38348618543799d5)
         'v'                                     :1
     })
     .done();
-// :_instance_of_Documentation_Function_Metadata_017a383523d590aa6a3f
-db.newInstance(_instance_of_Documentation_Function_Metadata_017a383523d590aa6a3f)
-    .setModelTag(_Documentation_Function_Metadata_0172c6ae82952a74193c) // tag of the model
+// :_instance_of_Documentation_017b35893b6fe3fcfde8
+db.newInstance(_instance_of_Documentation_017b35893b6fe3fcfde8)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a)
     .setNameOrProperties({
-        [_Documentation_Function_Metadata_errors_0172c6ae82952a74193f]:'',
-        [_Documentation_Function_Metadata_inputs_0172c6ae82952a74193d]:'## Inputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 017a382f9cbe02a1fb64-object | Object | The object. |\n| 017a38331ad650b0704b-property | Property | The property to clear. |\n',
-        [_Documentation_Function_Metadata_outputs_0172c6ae82952a74193e]:'## Outputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 017a38348618543799d5-object | Object | The result object. |\n',
-        [_Documentation_Metadata_description_01703376c4a81c0e9d92]:'## Description\nClear a specific property of an object.\n\n',
-        [_Documentation_Metadata_toolTip_01703376c4a81c0e9d91]:'Clear an Object property.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Clear a specific property of an object.',
+        [_Documentation_summary_01703376c4a81c0e9d91]:'Clear an Object property.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35893f6f51d688d5
+db.newInstance(_instance_of_Documentation_017b35893f6f51d688d5)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'The object.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35893f6feb4124bd
+db.newInstance(_instance_of_Documentation_017b35893f6feb4124bd)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'The property to clear.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b3589427947ee32e5
+db.newInstance(_instance_of_Documentation_017b3589427947ee32e5)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'The result object.',
         'v'                                     :1
     })
     .done();
@@ -222,17 +250,23 @@ db.assign(_instance_of_Runnable_Input____property_017a38331ad650b0704b, _Runnabl
 db.assign(_instance_of_Runnable_Output____object_017a38348618543799d5, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Object_ff021000000000000001                      );
 db.assign(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a, _Runnable_Definition_Calls_Runnable_01692a4af82e8984742c, _instance_of_Ascender_017a382f3dfa89e96aa9        );
 db.assign(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a, _Runnable_Definition_Calls_Runnable_01692a4af82e8984742c, _instance_of_Descender_017a382f3dfaf933faa3       );
-db.assign(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a, _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93, _instance_of_Documentation_Function_Metadata_017a383523d590aa6a3f);
+db.assign(_instance_of_Documentation_017b35893b6fe3fcfde8   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a);
+db.assign(_instance_of_Documentation_017b35893f6f51d688d5   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____object_017a382f9cbe02a1fb64);
+db.assign(_instance_of_Documentation_017b35893f6feb4124bd   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____property_017a38331ad650b0704b);
+db.assign(_instance_of_Documentation_017b3589427947ee32e5   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Output____object_017a38348618543799d5);
 db.assign(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a, _Object_containsRel_ff02200000000000000f          , _instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_017a382f3df94a54c4b0);
 db.assign(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a, _Object_containsRel_ff02200000000000000f          , _instance_of_Predefined_output_Control_Flow____Control_Flow_017a382f3dfac5e70848);
 db.assign(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____object_017a382f9cbe02a1fb64);
 db.assign(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____property_017a38331ad650b0704b);
 db.assign(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____object_017a38348618543799d5);
-db.assign(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_Function_Metadata_017a383523d590aa6a3f);
+db.assign(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893b6fe3fcfde8   );
 db.assign(_instance_of_Ascender_017a382f3dfa89e96aa9        , _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____New_input_017a382f3dfa32a856fd);
 db.assign(_instance_of_Ascender_017a382f3dfa89e96aa9        , _Object_containsRel_ff02200000000000000f          , _instance_of_Predefined_output_Control_Flow____Control_Flow_017a382f3dfac5e70848);
 db.assign(_instance_of_Descender_017a382f3dfaf933faa3       , _Object_containsRel_ff02200000000000000f          , _instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_017a382f3df94a54c4b0);
 db.assign(_instance_of_Descender_017a382f3dfaf933faa3       , _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____New_output_017a382f3dfa18c7e757);
+db.assign(_instance_of_Runnable_Input____object_017a382f9cbe02a1fb64, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893f6f51d688d5   );
+db.assign(_instance_of_Runnable_Input____property_017a38331ad650b0704b, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893f6feb4124bd   );
+db.assign(_instance_of_Runnable_Output____object_017a38348618543799d5, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b3589427947ee32e5   );
 db.assignOptional(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a, _Object_gooRel_ff022000000000000003, _Transaction_0179b26880c1af51a32b);
 db.assignOptional(_instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a, _GOO_parentGooRel_ff02200000000000000u, _Transaction_0179b26880c1af51a32b);
 db.assignOptional(_Transaction_0179b26880c1af51a32b, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Action_model____Clear_Object_Property_017a382f3df9e2dcb12a);
