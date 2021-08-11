@@ -17,6 +17,7 @@ const _Runnable_Output_0168a431d25001540002    = '0168a431d25001540002';
 
 
 // Definition of tags of defined properties
+const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
 const _Object_name_ff023000000000000011             = 'ff023000000000000011';
 const _Runnable_Definition_hardcoded_01692aa71f3108454479 = '01692aa71f3108454479';
 const _Runnable_IO_IO_Rank_01740c5d4ae4b520dd01     = '01740c5d4ae4b520dd01';
@@ -61,7 +62,7 @@ db.newModel(_instance_of_Coded_Function_model____Length_In_Percent_016f8f8416f00
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
-        ['01621fb84e320000f001']:'public',
+        [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
     })
     .done(); 

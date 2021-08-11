@@ -10,7 +10,7 @@ db.disableChecks();
 
 // Definition of tags of models used to construct instances
 const _Coded_Function_01621fb84e320000f011     = '01621fb84e320000f011';
-const _Documentation_Function_Metadata_0172c6ae82952a74193c = '0172c6ae82952a74193c';
+const _Documentation_01703376c4a81c0e9d90      = '01703376c4a81c0e9d90';
 const _Error_Flow_016eeb5ede9f3094d8f0         = '016eeb5ede9f3094d8f0';
 const _Function_Call_0168c6f020f2a96f0000      = '0168c6f020f2a96f0000';
 const _Runnable_Input_0168a431d25001540001     = '0168a431d25001540001';
@@ -19,18 +19,16 @@ const _String_ff021000000000000011             = 'ff021000000000000011';
 
 
 // Definition of tags of defined properties
-const _Documentation_Function_Metadata_errors_0172c6ae82952a74193f = '0172c6ae82952a74193f';
-const _Documentation_Function_Metadata_inputs_0172c6ae82952a74193d = '0172c6ae82952a74193d';
-const _Documentation_Function_Metadata_outputs_0172c6ae82952a74193e = '0172c6ae82952a74193e';
-const _Documentation_Metadata_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
-const _Documentation_Metadata_toolTip_01703376c4a81c0e9d91 = '01703376c4a81c0e9d91';
+const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
+const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
+const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
 const _Object_name_ff023000000000000011             = 'ff023000000000000011';
 const _Runnable_Definition_hardcoded_01692aa71f3108454479 = '01692aa71f3108454479';
 const _Runnable_IO_IO_Rank_01740c5d4ae4b520dd01     = '01740c5d4ae4b520dd01';
 
 
 // Definition of tags of defined relations
-const _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93 = '01703376c4a81c0e9d93';
+const _Documentation_documentation_01703376c4a81c0e9d93 = '01703376c4a81c0e9d93';
 const _Folder_itemRel_016a697ef00ce7554692          = '016a697ef00ce7554692';
 const _GOO_parentGooRel_ff02200000000000000u        = 'ff02200000000000000u';
 const _Object_containsRel_ff02200000000000000f      = 'ff02200000000000000f';
@@ -46,7 +44,11 @@ const _instance_of_Runnable_Input____xml_017802c5cea89b1fb550 = db.assignTag('01
 const _instance_of_Runnable_Output____json_017802c5f2f0a0c1473b = db.assignTag('017802c5f2f0a0c1473b');
 const _instance_of_Runnable_Input____wrappersPath_01783a555ce395a9ae70 = db.assignTag('01783a555ce395a9ae70');
 const _instance_of_Runnable_Output____Error_Flow_01783a58e9e2d4f1837b = db.assignTag('01783a58e9e2d4f1837b');
-const _instance_of_Documentation_Function_Metadata_d0c802c59d239537f597 = db.assignTag('d0c802c59d239537f597');
+const _instance_of_Documentation_017b35893b71b299599e = db.assignTag('017b35893b71b299599e');
+const _instance_of_Documentation_017b35893f7098f4f464 = db.assignTag('017b35893f7098f4f464');
+const _instance_of_Documentation_017b35893f70ea19f461 = db.assignTag('017b35893f70ea19f461');
+const _instance_of_Documentation_017b3589427ac01a6e1b = db.assignTag('017b3589427ac01a6e1b');
+const _instance_of_Documentation_017b3589440e774a4dfa = db.assignTag('017b3589440e774a4dfa');
 
 
 //==========================================================
@@ -71,7 +73,7 @@ db.newModel(_instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f59
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
-        ['01621fb84e320000f001']:'public',
+        [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
     })
     .done(); 
@@ -124,17 +126,54 @@ db.newInstance(_instance_of_Runnable_Output____Error_Flow_01783a58e9e2d4f1837b)
         'v'                                     :1
     })
     .done();
-// :_instance_of_Documentation_Function_Metadata_d0c802c59d239537f597
-db.newInstance(_instance_of_Documentation_Function_Metadata_d0c802c59d239537f597)
-    .setModelTag(_Documentation_Function_Metadata_0172c6ae82952a74193c) // tag of the model
+// :_instance_of_Documentation_017b35893b71b299599e
+db.newInstance(_instance_of_Documentation_017b35893b71b299599e)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f597)
     .setNameOrProperties({
-        [_Documentation_Function_Metadata_errors_0172c6ae82952a74193f]:'## Errors\n| Code | Description |\n| --- | --- |\n| undefined | undefined | The Xml is not valid. |\n',
-        [_Documentation_Function_Metadata_inputs_0172c6ae82952a74193d]:'## Inputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 017802c5cea89b1fb550-xml | string | Xml to parse |\n| 01783a555ce395a9ae70-wrappersPath | string | the path, specified in dotted form, default: \'\' |\n',
-        [_Documentation_Function_Metadata_outputs_0172c6ae82952a74193e]:'## Outputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 017802c5f2f0a0c1473b-json | string | the equivalent Json. |\n',
-        [_Documentation_Metadata_description_01703376c4a81c0e9d92]:'## Description\nParses a Xml string into a json, extracting the object or array specified by the path (if any).\n',
-        [_Documentation_Metadata_toolTip_01703376c4a81c0e9d91]:'Parse a Xml string into a Json',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Parses a Xml string into a json, extracting the object or array specified by the path (if any).',
+        [_Documentation_summary_01703376c4a81c0e9d91]:'Parse a Xml string into a Json',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35893f7098f4f464
+db.newInstance(_instance_of_Documentation_017b35893f7098f4f464)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f597)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'the path, specified in dotted form, default: \'\'',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35893f70ea19f461
+db.newInstance(_instance_of_Documentation_017b35893f70ea19f461)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f597)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'Xml to parse',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b3589427ac01a6e1b
+db.newInstance(_instance_of_Documentation_017b3589427ac01a6e1b)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f597)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'the equivalent Json.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b3589440e774a4dfa
+db.newInstance(_instance_of_Documentation_017b3589440e774a4dfa)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f597)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'| undefined | undefined | The Xml is not valid. |',
         'v'                                     :1
     })
     .done();
@@ -146,12 +185,20 @@ db.assign(_instance_of_Runnable_Input____xml_017802c5cea89b1fb550, _Runnable_IO_
 db.assign(_instance_of_Runnable_Output____json_017802c5f2f0a0c1473b, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _String_ff021000000000000011                      );
 db.assign(_instance_of_Runnable_Input____wrappersPath_01783a555ce395a9ae70, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _String_ff021000000000000011                      );
 db.assign(_instance_of_Runnable_Output____Error_Flow_01783a58e9e2d4f1837b, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Error_Flow_016eeb5ede9f3094d8f0                  );
-db.assign(_instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f597, _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93, _instance_of_Documentation_Function_Metadata_d0c802c59d239537f597);
+db.assign(_instance_of_Documentation_017b35893b71b299599e   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f597);
+db.assign(_instance_of_Documentation_017b35893f7098f4f464   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____wrappersPath_01783a555ce395a9ae70);
+db.assign(_instance_of_Documentation_017b35893f70ea19f461   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____xml_017802c5cea89b1fb550);
+db.assign(_instance_of_Documentation_017b3589427ac01a6e1b   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Output____json_017802c5f2f0a0c1473b);
+db.assign(_instance_of_Documentation_017b3589440e774a4dfa   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Output____Error_Flow_01783a58e9e2d4f1837b);
 db.assign(_instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f597, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____xml_017802c5cea89b1fb550);
 db.assign(_instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f597, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____json_017802c5f2f0a0c1473b);
 db.assign(_instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f597, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____wrappersPath_01783a555ce395a9ae70);
 db.assign(_instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f597, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____Error_Flow_01783a58e9e2d4f1837b);
-db.assign(_instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f597, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_Function_Metadata_d0c802c59d239537f597);
+db.assign(_instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f597, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893b71b299599e   );
+db.assign(_instance_of_Runnable_Input____xml_017802c5cea89b1fb550, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893f70ea19f461   );
+db.assign(_instance_of_Runnable_Output____json_017802c5f2f0a0c1473b, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b3589427ac01a6e1b   );
+db.assign(_instance_of_Runnable_Input____wrappersPath_01783a555ce395a9ae70, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893f7098f4f464   );
+db.assign(_instance_of_Runnable_Output____Error_Flow_01783a58e9e2d4f1837b, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b3589440e774a4dfa   );
 db.assignOptional(_instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f597, _Object_gooRel_ff022000000000000003, _JSON_0179b2684a901d133726);
 db.assignOptional(_instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f597, _GOO_parentGooRel_ff02200000000000000u, _JSON_0179b2684a901d133726);
 db.assignOptional(_JSON_0179b2684a901d133726, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Function_model____Xml_to_Json_017802c59d239537f597);

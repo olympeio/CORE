@@ -11,7 +11,7 @@ db.disableChecks();
 // Definition of tags of models used to construct instances
 const _Boolean_ff021000000000000012            = 'ff021000000000000012';
 const _Coded_Function_01621fb84e320000f011     = '01621fb84e320000f011';
-const _Documentation_Function_Metadata_0172c6ae82952a74193c = '0172c6ae82952a74193c';
+const _Documentation_01703376c4a81c0e9d90      = '01703376c4a81c0e9d90';
 const _Function_Call_0168c6f020f2a96f0000      = '0168c6f020f2a96f0000';
 const _List_01631aacd8276ea98490               = '01631aacd8276ea98490';
 const _Property_ff021000000000000005           = 'ff021000000000000005';
@@ -20,18 +20,16 @@ const _Runnable_Output_0168a431d25001540002    = '0168a431d25001540002';
 
 
 // Definition of tags of defined properties
-const _Documentation_Function_Metadata_errors_0172c6ae82952a74193f = '0172c6ae82952a74193f';
-const _Documentation_Function_Metadata_inputs_0172c6ae82952a74193d = '0172c6ae82952a74193d';
-const _Documentation_Function_Metadata_outputs_0172c6ae82952a74193e = '0172c6ae82952a74193e';
-const _Documentation_Metadata_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
-const _Documentation_Metadata_toolTip_01703376c4a81c0e9d91 = '01703376c4a81c0e9d91';
+const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
+const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
+const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
 const _Object_name_ff023000000000000011             = 'ff023000000000000011';
 const _Runnable_Definition_hardcoded_01692aa71f3108454479 = '01692aa71f3108454479';
 const _Runnable_IO_IO_Rank_01740c5d4ae4b520dd01     = '01740c5d4ae4b520dd01';
 
 
 // Definition of tags of defined relations
-const _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93 = '01703376c4a81c0e9d93';
+const _Documentation_documentation_01703376c4a81c0e9d93 = '01703376c4a81c0e9d93';
 const _Folder_itemRel_016a697ef00ce7554692          = '016a697ef00ce7554692';
 const _GOO_parentGooRel_ff02200000000000000u        = 'ff02200000000000000u';
 const _Object_containsRel_ff02200000000000000f      = 'ff02200000000000000f';
@@ -47,7 +45,11 @@ const _instance_of_Runnable_Input____Object_list_01673ff7dc5b1708770a = db.assig
 const _instance_of_Runnable_Input____Property_01673ffc1d79db0f3fba = db.assignTag('01673ffc1d79db0f3fba');
 const _instance_of_Runnable_Output____Sorted_list_01673ffc1f8945219762 = db.assignTag('01673ffc1f8945219762');
 const _instance_of_Runnable_Input____ASC_01673ffc52d8471e5d32 = db.assignTag('01673ffc52d8471e5d32');
-const _instance_of_Documentation_Function_Metadata_d0c73ff7da4292e70fc2 = db.assignTag('d0c73ff7da4292e70fc2');
+const _instance_of_Documentation_017b35893b4faab4b037 = db.assignTag('017b35893b4faab4b037');
+const _instance_of_Documentation_017b35893f242c2946bb = db.assignTag('017b35893f242c2946bb');
+const _instance_of_Documentation_017b35893f24a98dda37 = db.assignTag('017b35893f24a98dda37');
+const _instance_of_Documentation_017b35893f259d34cbde = db.assignTag('017b35893f259d34cbde');
+const _instance_of_Documentation_017b35894272054faaf3 = db.assignTag('017b35894272054faaf3');
 
 
 //==========================================================
@@ -72,7 +74,7 @@ db.newModel(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2,
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
-        ['01621fb84e320000f001']:'public',
+        [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
     })
     .done(); 
@@ -125,17 +127,54 @@ db.newInstance(_instance_of_Runnable_Input____ASC_01673ffc52d8471e5d32)
         'v'                                     :1
     })
     .done();
-// :_instance_of_Documentation_Function_Metadata_d0c73ff7da4292e70fc2
-db.newInstance(_instance_of_Documentation_Function_Metadata_d0c73ff7da4292e70fc2)
-    .setModelTag(_Documentation_Function_Metadata_0172c6ae82952a74193c) // tag of the model
+// :_instance_of_Documentation_017b35893b4faab4b037
+db.newInstance(_instance_of_Documentation_017b35893b4faab4b037)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2)
     .setNameOrProperties({
-        [_Documentation_Function_Metadata_errors_0172c6ae82952a74193f]:'',
-        [_Documentation_Function_Metadata_inputs_0172c6ae82952a74193d]:'## Inputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 01673ff7dc5b1708770a-Object list | List | The list to sort. |\n| 01673ffc1d79db0f3fba-Property | Property | The property of the elements to base the sort on. |\n| 01673ffc52d8471e5d32-ASC | Boolean | `true` to sort in ascending order, `false` for descending. |\n',
-        [_Documentation_Function_Metadata_outputs_0172c6ae82952a74193e]:'## Outputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 01673ffc1f8945219762-Sorted list | List | The resulting list. |\n',
-        [_Documentation_Metadata_description_01703376c4a81c0e9d92]:'## Description\nGenerate a new list containing the elements of the provided list sorted in ascending or descending order\ndepending on the `asc` parameter.\n\n',
-        [_Documentation_Metadata_toolTip_01703376c4a81c0e9d91]:'Sorts a list.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Generate a new list containing the elements of the provided list sorted in ascending or descending order',
+        [_Documentation_summary_01703376c4a81c0e9d91]:'Sorts a list.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35893f242c2946bb
+db.newInstance(_instance_of_Documentation_017b35893f242c2946bb)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'The list to sort.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35893f24a98dda37
+db.newInstance(_instance_of_Documentation_017b35893f24a98dda37)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'The property of the elements to base the sort on.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35893f259d34cbde
+db.newInstance(_instance_of_Documentation_017b35893f259d34cbde)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'`true` to sort in ascending order, `false` for descending.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35894272054faaf3
+db.newInstance(_instance_of_Documentation_017b35894272054faaf3)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'The resulting list.',
         'v'                                     :1
     })
     .done();
@@ -147,12 +186,20 @@ db.assign(_instance_of_Runnable_Input____Object_list_01673ff7dc5b1708770a, _Runn
 db.assign(_instance_of_Runnable_Input____Property_01673ffc1d79db0f3fba, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Property_ff021000000000000005                    );
 db.assign(_instance_of_Runnable_Output____Sorted_list_01673ffc1f8945219762, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _List_01631aacd8276ea98490                        );
 db.assign(_instance_of_Runnable_Input____ASC_01673ffc52d8471e5d32, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Boolean_ff021000000000000012                     );
-db.assign(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2, _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93, _instance_of_Documentation_Function_Metadata_d0c73ff7da4292e70fc2);
+db.assign(_instance_of_Documentation_017b35893b4faab4b037   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2);
+db.assign(_instance_of_Documentation_017b35893f242c2946bb   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____Object_list_01673ff7dc5b1708770a);
+db.assign(_instance_of_Documentation_017b35893f24a98dda37   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____Property_01673ffc1d79db0f3fba);
+db.assign(_instance_of_Documentation_017b35893f259d34cbde   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____ASC_01673ffc52d8471e5d32);
+db.assign(_instance_of_Documentation_017b35894272054faaf3   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Output____Sorted_list_01673ffc1f8945219762);
 db.assign(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____Object_list_01673ff7dc5b1708770a);
 db.assign(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____Property_01673ffc1d79db0f3fba);
 db.assign(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____Sorted_list_01673ffc1f8945219762);
 db.assign(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____ASC_01673ffc52d8471e5d32);
-db.assign(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_Function_Metadata_d0c73ff7da4292e70fc2);
+db.assign(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893b4faab4b037   );
+db.assign(_instance_of_Runnable_Input____Object_list_01673ff7dc5b1708770a, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893f242c2946bb   );
+db.assign(_instance_of_Runnable_Input____Property_01673ffc1d79db0f3fba, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893f24a98dda37   );
+db.assign(_instance_of_Runnable_Output____Sorted_list_01673ffc1f8945219762, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35894272054faaf3   );
+db.assign(_instance_of_Runnable_Input____ASC_01673ffc52d8471e5d32, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893f259d34cbde   );
 db.assignOptional(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2, _Object_gooRel_ff022000000000000003, _List_0179b2685e214c57ba47);
 db.assignOptional(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2, _GOO_parentGooRel_ff02200000000000000u, _List_0179b2685e214c57ba47);
 db.assignOptional(_List_0179b2685e214c57ba47, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2);
