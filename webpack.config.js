@@ -10,7 +10,6 @@ const npmPackage = require('./package.json');
 const runtimeWebPath = path.resolve(__dirname, 'node_modules/@olympeio/runtime-web');
 
 const commonConfig = {
-    entry: './src/main.js',
     output: {
         path: dist,
         globalObject: 'this',
@@ -75,6 +74,7 @@ const plugins = {
 
 const node = {
     name: 'node',
+    entry: './src/main-node.js',
     output: { filename: 'main-node.js' },
     resolve: { alias: { helpers: path.resolve(__dirname, 'src/helpers/node') } },
     externals: ['os']
@@ -82,6 +82,7 @@ const node = {
 
 const web = {
     name: 'web',
+    entry: './src/main-web.js',
     output: { filename: 'main-web.js' },
     resolve: { alias: { helpers: path.resolve(__dirname, 'src/helpers/web') } },
 };
