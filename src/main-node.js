@@ -22,7 +22,8 @@ import 'olympe';
 import initLogging from './helpers/logging';
 
 // Import project bricks (we use webpack-import-glob-loader to import all bricks)
-import './core/[^ui]**/*.js';
+// Import all bricks (js files inside all core sub-folders) except the one in the ui folder.
+import './core/[^ui]*/**/*.js';
 
 initLogging();
 
