@@ -18,6 +18,7 @@ const _UI_Property_0162d3ede786c89fb31b        = '0162d3ede786c89fb31b';
 
 
 // Definition of tags of defined properties
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
 const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
 const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
@@ -66,6 +67,7 @@ const _UI_0179b269c9b393d21bab                 = '0179b269c9b393d21bab';
 db.newModel(_instance_of_Coded_Function_model____Feed_UI_Property_0179f157cb4687706403, 'Feed UI Property') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
@@ -115,7 +117,7 @@ db.newInstance(_instance_of_Documentation_017b35893f11611ab12d)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Feed_UI_Property_0179f157cb4687706403)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'',
+        [_Documentation_description_01703376c4a81c0e9d92]:'The UI property to be updated.',
         'v'                                     :1
     })
     .done();
@@ -125,7 +127,7 @@ db.newInstance(_instance_of_Documentation_017b35893f11da276b7e)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Feed_UI_Property_0179f157cb4687706403)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'',
+        [_Documentation_description_01703376c4a81c0e9d92]:'The value that the property should take.',
         'v'                                     :1
     })
     .done();

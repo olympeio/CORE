@@ -19,6 +19,7 @@ const _Runnable_Output_0168a431d25001540002    = '0168a431d25001540002';
 
 
 // Definition of tags of defined properties
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
 const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
 const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
@@ -70,6 +71,7 @@ const _Logic_0178445f8bd56b198950              = '0178445f8bd56b198950';
 db.newModel(_instance_of_Coded_Function_model____Equals_01633f061f44e5e36b06, 'Equals') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
@@ -115,7 +117,7 @@ db.newInstance(_instance_of_Documentation_017b35893baf718527b9)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Equals_01633f061f44e5e36b06)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Compares two objects (e.g. numbers) and returns `true` if they are equals. returns `false` otherwise.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Compares two objects (e.g. numbers) and returns `true` if they are equal. Returns `false` otherwise.\n\nNote: if the two objects are not comparable (e.g. a number and a color) the result will be `false`.',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Checks if two objects are equal.',
         'v'                                     :1
     })
@@ -146,7 +148,7 @@ db.newInstance(_instance_of_Documentation_017b358942f180d0068c)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Equals_01633f061f44e5e36b06)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'`true` if a & b are equal.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'`true` if `a` and `b` are equal.',
         'v'                                     :1
     })
     .done();

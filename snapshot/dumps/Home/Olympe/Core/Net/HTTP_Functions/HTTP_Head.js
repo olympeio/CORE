@@ -19,6 +19,7 @@ const _String_ff021000000000000011             = 'ff021000000000000011';
 
 
 // Definition of tags of defined properties
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
 const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
 const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
@@ -73,6 +74,7 @@ const _HTTP_Functions_0179b2697a2590496bea     = '0179b2697a2590496bea';
 db.newModel(_instance_of_Coded_Function_model____HTTP_Head_016ca9938e98ca1760d5, 'HTTP Head') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
@@ -134,7 +136,7 @@ db.newInstance(_instance_of_Documentation_017b35893ba72257b74d)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____HTTP_Head_016ca9938e98ca1760d5)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Sends an HTTP HEAD request to the specified URL and provide the results.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Sends an HTTP HEAD request to the specified URL and provide the results.\n\nAdditional headers can be provided and returned in a string that has to be in JSON format.\n\n**Example:** \'{"Content-Type": "text/html; charset=UTF-8", "Content-Length": 1024 }\'\n',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Perform an HTTP HEAD request.',
         'v'                                     :1
     })

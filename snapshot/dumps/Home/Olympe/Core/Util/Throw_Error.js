@@ -21,6 +21,7 @@ const _String_ff021000000000000011             = 'ff021000000000000011';
 
 
 // Definition of tags of defined properties
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
 const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
 const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
@@ -50,6 +51,7 @@ const _instance_of_Documentation_017b35893b9e6dc3f753 = db.assignTag('017b35893b
 const _instance_of_Documentation_017b35893fafbd7a0ab2 = db.assignTag('017b35893fafbd7a0ab2');
 const _instance_of_Documentation_017b35893faff0d2baa3 = db.assignTag('017b35893faff0d2baa3');
 const _instance_of_Documentation_017b35894297ccb7ea2b = db.assignTag('017b35894297ccb7ea2b');
+const _instance_of_Documentation_017b5b8c797c4d51fc3e = db.assignTag('017b5b8c797c4d51fc3e');
 
 
 //==========================================================
@@ -73,6 +75,7 @@ const _Util_0179b26a12e03686de9c               = '0179b26a12e03686de9c';
 db.newModel(_instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa, 'Throw Error') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
@@ -133,7 +136,7 @@ db.newInstance(_instance_of_Documentation_017b35893b9e6dc3f753)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Throwing an error creates an error-flow which can be either caught or passed on to the output error-flow of the',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Throwing an error creates an error-flow which can be either caught or passed on to the output error-flow of the action.',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Throws an error.',
         'v'                                     :1
     })
@@ -164,7 +167,17 @@ db.newInstance(_instance_of_Documentation_017b35894297ccb7ea2b)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'| 016eeb5ede9f3094d8fe-Error Flow | The created error flow. |',
+        [_Documentation_description_01703376c4a81c0e9d92]:'The created error flow.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b5b8c797c4d51fc3e
+db.newInstance(_instance_of_Documentation_017b5b8c797c4d51fc3e)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Runnable_Input____Control_Flow_016eeb5ede9f3094d8fd)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'Triggers the execution of the brick.',
         'v'                                     :1
     })
     .done();
@@ -180,6 +193,7 @@ db.assign(_instance_of_Documentation_017b35893b9e6dc3f753   , _Documentation_doc
 db.assign(_instance_of_Documentation_017b35893fafbd7a0ab2   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____Message_016eeb5ede9f3094d8fb);
 db.assign(_instance_of_Documentation_017b35893faff0d2baa3   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____Code_016eeb5ede9f3094d8fc);
 db.assign(_instance_of_Documentation_017b35894297ccb7ea2b   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Output____Error_Flow_016eeb5ede9f3094d8fe);
+db.assign(_instance_of_Documentation_017b5b8c797c4d51fc3e   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____Control_Flow_016eeb5ede9f3094d8fd);
 db.assign(_instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____Message_016eeb5ede9f3094d8fb);
 db.assign(_instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____Code_016eeb5ede9f3094d8fc);
 db.assign(_instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____Control_Flow_016eeb5ede9f3094d8fd);
@@ -187,6 +201,7 @@ db.assign(_instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa,
 db.assign(_instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893b9e6dc3f753   );
 db.assign(_instance_of_Runnable_Input____Message_016eeb5ede9f3094d8fb, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893fafbd7a0ab2   );
 db.assign(_instance_of_Runnable_Input____Code_016eeb5ede9f3094d8fc, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893faff0d2baa3   );
+db.assign(_instance_of_Runnable_Input____Control_Flow_016eeb5ede9f3094d8fd, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b5b8c797c4d51fc3e   );
 db.assign(_instance_of_Runnable_Output____Error_Flow_016eeb5ede9f3094d8fe, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35894297ccb7ea2b   );
 db.assignOptional(_instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa, _Object_gooRel_ff022000000000000003, _Util_0179b26a12e03686de9c);
 db.assignOptional(_instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa, _GOO_parentGooRel_ff02200000000000000u, _Util_0179b26a12e03686de9c);

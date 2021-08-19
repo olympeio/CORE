@@ -20,6 +20,7 @@ const _String_ff021000000000000011             = 'ff021000000000000011';
 
 
 // Definition of tags of defined properties
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
 const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
 const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
@@ -73,6 +74,7 @@ const _List_0179b2685e214c57ba47               = '0179b2685e214c57ba47';
 db.newModel(_instance_of_Coded_Function_model____Filter_List_Contains_01673ff7ce3169f42a81, 'Filter List Contains') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
@@ -133,7 +135,7 @@ db.newInstance(_instance_of_Documentation_017b35893b5eece74348)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Filter_List_Contains_01673ff7ce3169f42a81)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'This function filters out a list to generate a list that will contain objects from the original only when their',
+        [_Documentation_description_01703376c4a81c0e9d92]:'This function filters out a list to generate a list that will contain objects from the original only when their the value of the specified string property contains the specified string.\n\n**Example:** All the customers who\'s first name contains \'John\'.',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Filter on a specific string property containing a specific string.',
         'v'                                     :1
     })

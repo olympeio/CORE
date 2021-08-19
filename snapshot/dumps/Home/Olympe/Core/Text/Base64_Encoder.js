@@ -18,11 +18,13 @@ const _String_ff021000000000000011             = 'ff021000000000000011';
 
 
 // Definition of tags of defined properties
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
 const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
 const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
 const _Object_name_ff023000000000000011             = 'ff023000000000000011';
 const _Runnable_Definition_hardcoded_01692aa71f3108454479 = '01692aa71f3108454479';
+const _Runnable_Input_Default_Value_01740c5d4ae4b520dd02 = '01740c5d4ae4b520dd02';
 const _Runnable_IO_IO_Rank_01740c5d4ae4b520dd01     = '01740c5d4ae4b520dd01';
 
 
@@ -69,6 +71,7 @@ const _Text_0178445ee2a56bf00fd6               = '0178445ee2a56bf00fd6';
 db.newModel(_instance_of_Coded_Function_model____Base64_Encoder_016cb9162263a22bcaba, 'Base64 Encoder') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
@@ -97,6 +100,7 @@ db.newInstance(_instance_of_Runnable_Input____encoding_016cb9162263a22bcabc)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Base64_Encoder_016cb9162263a22bcaba)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'encoding',
+        [_Runnable_Input_Default_Value_01740c5d4ae4b520dd02]:'UTF-8',
         [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
@@ -118,8 +122,8 @@ db.newInstance(_instance_of_Documentation_017b35893b9b2d5e3375)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Base64_Encoder_016cb9162263a22bcaba)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Encode a string or binary into base64',
-        [_Documentation_summary_01703376c4a81c0e9d91]:'Encode to base64',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Encode a UTF-8 or binary string into Base64',
+        [_Documentation_summary_01703376c4a81c0e9d91]:'Encode to Base64',
         'v'                                     :1
     })
     .done();
@@ -129,7 +133,7 @@ db.newInstance(_instance_of_Documentation_017b35893f9e3092c47d)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Base64_Encoder_016cb9162263a22bcaba)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'',
+        [_Documentation_description_01703376c4a81c0e9d92]:'The string to encode',
         'v'                                     :1
     })
     .done();
@@ -139,7 +143,7 @@ db.newInstance(_instance_of_Documentation_017b35893f9e8ee7541a)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Base64_Encoder_016cb9162263a22bcaba)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Input encoding',
+        [_Documentation_description_01703376c4a81c0e9d92]:'The encoding of the input (`UTF-8`or `binary`)',
         'v'                                     :1
     })
     .done();

@@ -19,6 +19,7 @@ const _String_ff021000000000000011             = 'ff021000000000000011';
 
 
 // Definition of tags of defined properties
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
 const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
 const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
@@ -71,6 +72,7 @@ const _System_0179b269b5c75228d70f             = '0179b269b5c75228d70f';
 db.newModel(_instance_of_Coded_Function_model____Debug_Log_016324e7338307c3ed94, 'Debug Log') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
@@ -121,7 +123,7 @@ db.newInstance(_instance_of_Documentation_017b35893b87635b85ce)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Debug_Log_016324e7338307c3ed94)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Outputs the provided value on the console, it can be any JS object that has a string representation.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Outputs the provided value on the console, it can be any JavaScript object that has a string representation.',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Logs a message on the console.',
         'v'                                     :1
     })

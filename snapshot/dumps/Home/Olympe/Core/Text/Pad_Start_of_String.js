@@ -19,6 +19,7 @@ const _String_ff021000000000000011             = 'ff021000000000000011';
 
 
 // Definition of tags of defined properties
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
 const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
 const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
@@ -48,6 +49,7 @@ const _instance_of_Documentation_017b35893b9469df7ec9 = db.assignTag('017b35893b
 const _instance_of_Documentation_017b35893f9a2b98c1ab = db.assignTag('017b35893f9a2b98c1ab');
 const _instance_of_Documentation_017b35893f9a9d7ea540 = db.assignTag('017b35893f9a9d7ea540');
 const _instance_of_Documentation_017b35894290dcb605fc = db.assignTag('017b35894290dcb605fc');
+const _instance_of_Documentation_017b5b9535556bd51634 = db.assignTag('017b5b9535556bd51634');
 
 
 //==========================================================
@@ -71,6 +73,7 @@ const _Text_0178445ee2a56bf00fd6               = '0178445ee2a56bf00fd6';
 db.newModel(_instance_of_Coded_Function_model____Pad_Start_of_String_01717ca5c5bc30fde055, 'Pad Start of String') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
@@ -131,7 +134,7 @@ db.newInstance(_instance_of_Documentation_017b35893b9469df7ec9)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Pad_Start_of_String_01717ca5c5bc30fde055)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Method pads the current string with another string (multiple times, if needed) until the resulting string reaches the given length. The padding is applied from the start of the current string.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Method pads the current string with another string (multiple times, if needed) until the resulting string reaches the given length. The padding is applied from the start of the current string.\n\nUses the `padStart` JavaScript function. See: [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)\n',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Pads the current string from the start with a given string and returns a new string of the provided length',
         'v'                                     :1
     })
@@ -166,6 +169,16 @@ db.newInstance(_instance_of_Documentation_017b35894290dcb605fc)
         'v'                                     :1
     })
     .done();
+// :_instance_of_Documentation_017b5b9535556bd51634
+db.newInstance(_instance_of_Documentation_017b5b9535556bd51634)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Runnable_Input____pad_string_01717ca65ba687c6eeff)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'The string used as padding',
+        'v'                                     :1
+    })
+    .done();
 db.assign(_instance_of_Coded_Function_model____Pad_Start_of_String_01717ca5c5bc30fde055, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____s_01717ca5c81f2932427a);
 db.assign(_instance_of_Coded_Function_model____Pad_Start_of_String_01717ca5c5bc30fde055, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____length_01717ca65a0797881748);
 db.assign(_instance_of_Coded_Function_model____Pad_Start_of_String_01717ca5c5bc30fde055, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____pad_string_01717ca65ba687c6eeff);
@@ -178,6 +191,7 @@ db.assign(_instance_of_Documentation_017b35893b9469df7ec9   , _Documentation_doc
 db.assign(_instance_of_Documentation_017b35893f9a2b98c1ab   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____length_01717ca65a0797881748);
 db.assign(_instance_of_Documentation_017b35893f9a9d7ea540   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____s_01717ca5c81f2932427a);
 db.assign(_instance_of_Documentation_017b35894290dcb605fc   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Output____padded_string_01717ca65d2e4cdc1339);
+db.assign(_instance_of_Documentation_017b5b9535556bd51634   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____pad_string_01717ca65ba687c6eeff);
 db.assign(_instance_of_Coded_Function_model____Pad_Start_of_String_01717ca5c5bc30fde055, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____s_01717ca5c81f2932427a);
 db.assign(_instance_of_Coded_Function_model____Pad_Start_of_String_01717ca5c5bc30fde055, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____length_01717ca65a0797881748);
 db.assign(_instance_of_Coded_Function_model____Pad_Start_of_String_01717ca5c5bc30fde055, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____pad_string_01717ca65ba687c6eeff);
@@ -185,6 +199,7 @@ db.assign(_instance_of_Coded_Function_model____Pad_Start_of_String_01717ca5c5bc3
 db.assign(_instance_of_Coded_Function_model____Pad_Start_of_String_01717ca5c5bc30fde055, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893b9469df7ec9   );
 db.assign(_instance_of_Runnable_Input____s_01717ca5c81f2932427a, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893f9a9d7ea540   );
 db.assign(_instance_of_Runnable_Input____length_01717ca65a0797881748, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893f9a2b98c1ab   );
+db.assign(_instance_of_Runnable_Input____pad_string_01717ca65ba687c6eeff, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b5b9535556bd51634   );
 db.assign(_instance_of_Runnable_Output____padded_string_01717ca65d2e4cdc1339, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35894290dcb605fc   );
 db.assignOptional(_instance_of_Coded_Function_model____Pad_Start_of_String_01717ca5c5bc30fde055, _Object_gooRel_ff022000000000000003, _Text_0178445ee2a56bf00fd6);
 db.assignOptional(_instance_of_Coded_Function_model____Pad_Start_of_String_01717ca5c5bc30fde055, _GOO_parentGooRel_ff02200000000000000u, _Text_0178445ee2a56bf00fd6);

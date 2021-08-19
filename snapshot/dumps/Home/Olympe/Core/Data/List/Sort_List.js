@@ -20,11 +20,13 @@ const _Runnable_Output_0168a431d25001540002    = '0168a431d25001540002';
 
 
 // Definition of tags of defined properties
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
 const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
 const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
 const _Object_name_ff023000000000000011             = 'ff023000000000000011';
 const _Runnable_Definition_hardcoded_01692aa71f3108454479 = '01692aa71f3108454479';
+const _Runnable_Input_Default_Value_01740c5d4ae4b520dd02 = '01740c5d4ae4b520dd02';
 const _Runnable_IO_IO_Rank_01740c5d4ae4b520dd01     = '01740c5d4ae4b520dd01';
 
 
@@ -73,6 +75,7 @@ const _List_0179b2685e214c57ba47               = '0179b2685e214c57ba47';
 db.newModel(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2, 'Sort List') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
@@ -123,6 +126,7 @@ db.newInstance(_instance_of_Runnable_Input____ASC_01673ffc52d8471e5d32)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'ASC',
+        [_Runnable_Input_Default_Value_01740c5d4ae4b520dd02]:true,
         [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
         'v'                                     :1
     })
@@ -133,7 +137,7 @@ db.newInstance(_instance_of_Documentation_017b35893b4faab4b037)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Sort_List_01673ff7da4292e70fc2)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Generate a new list containing the elements of the provided list sorted in ascending or descending order',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Generate a new list containing the elements of the provided list sorted in ascending or descending order depending on the `asc` parameter.',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Sorts a list.',
         'v'                                     :1
     })

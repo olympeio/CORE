@@ -22,6 +22,7 @@ const _String_ff021000000000000011             = 'ff021000000000000011';
 
 
 // Definition of tags of defined properties
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
 const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
 const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
@@ -73,6 +74,7 @@ const _File_0179b2692921b321f99d               = '0179b2692921b321f99d';
 db.newModel(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003, 'Get File Content') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
@@ -133,7 +135,7 @@ db.newInstance(_instance_of_Documentation_017b35893b331432e499)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Get the file content, as a plain string for mime types text/* and application/json. For other mimetypes, a string encoded in base64 is returned.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Get the file content, as a plain string for MIME types text/* and application/json. For other MIME types, a string encoded in Base64 is returned.',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Get the text or Base64 content of a file',
         'v'                                     :1
     })
@@ -144,7 +146,7 @@ db.newInstance(_instance_of_Documentation_017b35893f1407ccb273)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'',
+        [_Documentation_description_01703376c4a81c0e9d92]:'The file to be read.',
         'v'                                     :1
     })
     .done();
@@ -154,7 +156,7 @@ db.newInstance(_instance_of_Documentation_017b3589426f62cfaf08)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Get_File_Content_0179e54f2f4c25c47003)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'',
+        [_Documentation_description_01703376c4a81c0e9d92]:'The text or Base64 content of the file.',
         'v'                                     :1
     })
     .done();

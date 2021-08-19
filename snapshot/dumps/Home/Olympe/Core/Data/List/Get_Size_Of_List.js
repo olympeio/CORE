@@ -19,6 +19,7 @@ const _Runnable_Output_0168a431d25001540002    = '0168a431d25001540002';
 
 
 // Definition of tags of defined properties
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
 const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
 const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
@@ -68,6 +69,7 @@ const _List_0179b2685e214c57ba47               = '0179b2685e214c57ba47';
 db.newModel(_instance_of_Coded_Function_model____Get_Size_Of_List_016372362aac07c772f3, 'Get Size Of List') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
@@ -107,7 +109,7 @@ db.newInstance(_instance_of_Documentation_017b35893b56917c3a7d)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Get_Size_Of_List_016372362aac07c772f3)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'Returns the size of the provided list. That is the number of elements in that list.',
-        [_Documentation_summary_01703376c4a81c0e9d91]:'Gets the size of a list.',
+        [_Documentation_summary_01703376c4a81c0e9d91]:'Gets the number of elements in a list.',
         'v'                                     :1
     })
     .done();

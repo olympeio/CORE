@@ -19,6 +19,7 @@ const _String_ff021000000000000011             = 'ff021000000000000011';
 
 
 // Definition of tags of defined properties
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
 const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
 const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
@@ -70,6 +71,7 @@ const _Datetime_0179b2690f49a1f52652           = '0179b2690f49a1f52652';
 db.newModel(_instance_of_Coded_Function_model____Format_DateTime_0166f483d61cf87db282, 'Format DateTime') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
@@ -119,7 +121,7 @@ db.newInstance(_instance_of_Documentation_017b35893b2f59fe2a7b)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Format_DateTime_0166f483d61cf87db282)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Converts a `DateTime` into a string by applying a format.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Converts a `DateTime` into a string by applying a format.\nThe format string follows the Unicode technical standard and is very flexible as it takes a string of tokens and replaces them with their corresponding values.\n\nExamples:\n| Format | Result |\n| ------ | ------ |\n| "MM/dd/yyyy" | "02/11/2014" |\n| "h \'o\'\'clock\'" | "3 o\'clock" |\n\nSee [https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table) for the full list of tokens.\n',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Transforms a `DateTime` into a string with a format.',
         'v'                                     :1
     })

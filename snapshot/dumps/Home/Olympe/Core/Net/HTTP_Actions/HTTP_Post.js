@@ -23,6 +23,7 @@ const _String_ff021000000000000011             = 'ff021000000000000011';
 
 
 // Definition of tags of defined properties
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
 const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
 const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
@@ -87,6 +88,7 @@ const _HTTP_Actions_0179b269940cee14a13d       = '0179b269940cee14a13d';
 db.newModel(_instance_of_Coded_Action_model____HTTP_Post_0163d09d43e8431f9663, 'HTTP Post') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
@@ -203,7 +205,7 @@ db.newInstance(_instance_of_Documentation_017b35893bab46e5baf2)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____HTTP_Post_0163d09d43e8431f9663)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Sends an HTTP POST request to the specified URL and provide the results.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Sends an HTTP POST request to the specified URL and provide the results.\n\nThe HTTP POST method sends data to the server. The type of the body of the request is indicated by the `Content-Type` header.\nThe difference between PUT and POST is that PUT is idempotent: calling it once or several times successively has the\nsame effect (that is no side effect), where successive identical POST may have additional effects, like passing an\norder several times.\n\nAdditional headers can be provided and returned in a string that has to be in JSON format.\n\n**Example:** \'{"Content-Type": "text/html; charset=UTF-8", "Content-Length": 1024 }\'\n',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Perform an HTTP POST request.',
         'v'                                     :1
     })
@@ -262,6 +264,7 @@ db.newInstance(_instance_of_Documentation_017b35a772182b0fa938)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____HTTP_Post_0163d09d43e8431f9663)
     .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'Triggered if an error occurs.',
         'v'                                     :1
     })
     .done();

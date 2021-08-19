@@ -18,6 +18,7 @@ const _String_ff021000000000000011             = 'ff021000000000000011';
 
 
 // Definition of tags of defined properties
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
 const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
 const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
@@ -69,6 +70,7 @@ const _Text_0178445ee2a56bf00fd6               = '0178445ee2a56bf00fd6';
 db.newModel(_instance_of_Coded_Function_model____Concat_01626be2f8325144b551, 'Concat') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
@@ -114,7 +116,7 @@ db.newInstance(_instance_of_Documentation_017b35893b9b4a3b28e8)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Concat_01626be2f8325144b551)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Produces a new string that is the result of concatenating the two provided strings.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Produces a new string that is the result of concatenating the two provided strings.\n\n**Example**\n```\n+------------------+\n"Hello" ---+ s1 |\n| Concat s1+s2 + --- "Hello World"\n" World" ---+ s1 |\n+------------------+\n```\n',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Concatenates two strings.',
         'v'                                     :1
     })
