@@ -39,12 +39,29 @@ export default class OpenURL extends ActionBrick {
      * @protected
      * @param {!Context} context
      * @param {string} url
+     * @param {boolean} openInSameTab
      * @param {function()} forwardEvent
      * @param {function(boolean)} setResult
      */
-    onUpdate(context, [url], [forwardEvent, setResult]) {
-        window.open(url) ? setResult(true) : setResult(false);
-        forwardEvent()
+    onUpdate(context, [url, openInSameTab], [forwardEvent, setResult]) {
+        // Use empty URL and target to open a blank page in a new window/tab
+        let selfWindow = window.open('', openInSameTab === true ? '_self' : undefined);
+
+        if (selfWindow) {
+            // Set the referer and opener window to null to prevent access to this window from the URL
+            selfWindow.referer = null;
+            selfWindow.opener = null;
+
+            // Update the URL
+            selfWindow.location = url;
+            setResult(true)
+        } else {
+            setResult(false)
+        }
+        // Free reference to target window (prevent cross-reference)
+        selfWindow = null;
+
+        forwardEvent();
     }
 }
 
