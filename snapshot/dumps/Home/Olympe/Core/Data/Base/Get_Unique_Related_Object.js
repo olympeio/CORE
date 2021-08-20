@@ -10,7 +10,7 @@ db.disableChecks();
 
 // Definition of tags of models used to construct instances
 const _Coded_Function_01621fb84e320000f011     = '01621fb84e320000f011';
-const _Documentation_Function_Metadata_0172c6ae82952a74193c = '0172c6ae82952a74193c';
+const _Documentation_01703376c4a81c0e9d90      = '01703376c4a81c0e9d90';
 const _Function_Call_0168c6f020f2a96f0000      = '0168c6f020f2a96f0000';
 const _Object_ff021000000000000001             = 'ff021000000000000001';
 const _Relation_ff021000000000000006           = 'ff021000000000000006';
@@ -19,18 +19,17 @@ const _Runnable_Output_0168a431d25001540002    = '0168a431d25001540002';
 
 
 // Definition of tags of defined properties
-const _Documentation_Function_Metadata_errors_0172c6ae82952a74193f = '0172c6ae82952a74193f';
-const _Documentation_Function_Metadata_inputs_0172c6ae82952a74193d = '0172c6ae82952a74193d';
-const _Documentation_Function_Metadata_outputs_0172c6ae82952a74193e = '0172c6ae82952a74193e';
-const _Documentation_Metadata_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
-const _Documentation_Metadata_toolTip_01703376c4a81c0e9d91 = '01703376c4a81c0e9d91';
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
+const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
+const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
+const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
 const _Object_name_ff023000000000000011             = 'ff023000000000000011';
 const _Runnable_Definition_hardcoded_01692aa71f3108454479 = '01692aa71f3108454479';
 const _Runnable_IO_IO_Rank_01740c5d4ae4b520dd01     = '01740c5d4ae4b520dd01';
 
 
 // Definition of tags of defined relations
-const _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93 = '01703376c4a81c0e9d93';
+const _Documentation_documentation_01703376c4a81c0e9d93 = '01703376c4a81c0e9d93';
 const _Folder_itemRel_016a697ef00ce7554692          = '016a697ef00ce7554692';
 const _GOO_parentGooRel_ff02200000000000000u        = 'ff02200000000000000u';
 const _Object_containsRel_ff02200000000000000f      = 'ff02200000000000000f';
@@ -45,7 +44,10 @@ const _instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09126e
 const _instance_of_Runnable_Input____Object_0167c09126e618b2e712 = db.assignTag('0167c09126e618b2e712');
 const _instance_of_Runnable_Input____Relation_0167c09126e6773d2351 = db.assignTag('0167c09126e6773d2351');
 const _instance_of_Runnable_Output____Value_0167c09126e6cb0613e2 = db.assignTag('0167c09126e6cb0613e2');
-const _instance_of_Documentation_Function_Metadata_d0c7c09126e60d1955fe = db.assignTag('d0c7c09126e60d1955fe');
+const _instance_of_Documentation_017b35893b4e290377f6 = db.assignTag('017b35893b4e290377f6');
+const _instance_of_Documentation_017b35893f2212aeb91a = db.assignTag('017b35893f2212aeb91a');
+const _instance_of_Documentation_017b35893f239f726210 = db.assignTag('017b35893f239f726210');
+const _instance_of_Documentation_017b35a17a774574ddbf = db.assignTag('017b35a17a774574ddbf');
 
 
 //==========================================================
@@ -69,7 +71,9 @@ const _Base_0179b26837d01a7c3cdc               = '0179b26837d01a7c3cdc';
 db.newModel(_instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09126e60d1955fe, 'Get Unique Related Object') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
+        [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
     })
     .done(); 
@@ -111,17 +115,44 @@ db.newInstance(_instance_of_Runnable_Output____Value_0167c09126e6cb0613e2)
         'v'                                     :1
     })
     .done();
-// :_instance_of_Documentation_Function_Metadata_d0c7c09126e60d1955fe
-db.newInstance(_instance_of_Documentation_Function_Metadata_d0c7c09126e60d1955fe)
-    .setModelTag(_Documentation_Function_Metadata_0172c6ae82952a74193c) // tag of the model
+// :_instance_of_Documentation_017b35893b4e290377f6
+db.newInstance(_instance_of_Documentation_017b35893b4e290377f6)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09126e60d1955fe)
     .setNameOrProperties({
-        [_Documentation_Function_Metadata_errors_0172c6ae82952a74193f]:'',
-        [_Documentation_Function_Metadata_inputs_0172c6ae82952a74193d]:'## Inputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 0167c09126e618b2e712-Object | Object | The origin object. |\n| 0167c09126e6773d2351-Relation | Relation | The relation. |\n',
-        [_Documentation_Function_Metadata_outputs_0172c6ae82952a74193e]:'## Outputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| object | Object | The related object. |\n',
-        [_Documentation_Metadata_description_01703376c4a81c0e9d92]:'## Description\nRetrieves the first object connected to the specified object via a relation.\nNote: The direction of the relation is not taken into account.\n',
-        [_Documentation_Metadata_toolTip_01703376c4a81c0e9d91]:'Get the first object connected to the specified object by a relation.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Retrieves the first object connected to the specified object via the specified relation (see `Get Related Objects`).\n\nThis is a shortcut for `Get Related Objects` -> `Get First Object In List`.\n\nNote: The relation can be followed in any direction, so if we have A -> B we can retrieve the first instance of A linked to a given instance of B, or the first instance of B linked to a given instance of A.\n',
+        [_Documentation_summary_01703376c4a81c0e9d91]:'Get the first object connected to the specified object by a relation.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35893f2212aeb91a
+db.newInstance(_instance_of_Documentation_017b35893f2212aeb91a)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09126e60d1955fe)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'The origin object.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35893f239f726210
+db.newInstance(_instance_of_Documentation_017b35893f239f726210)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09126e60d1955fe)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'The relation to follow.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35a17a774574ddbf
+db.newInstance(_instance_of_Documentation_017b35a17a774574ddbf)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09126e60d1955fe)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'The object at the other side of the relation.',
         'v'                                     :1
     })
     .done();
@@ -131,11 +162,17 @@ db.assign(_instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09
 db.assign(_instance_of_Runnable_Input____Object_0167c09126e618b2e712, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Object_ff021000000000000001                      );
 db.assign(_instance_of_Runnable_Input____Relation_0167c09126e6773d2351, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Relation_ff021000000000000006                    );
 db.assign(_instance_of_Runnable_Output____Value_0167c09126e6cb0613e2, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Object_ff021000000000000001                      );
-db.assign(_instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09126e60d1955fe, _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93, _instance_of_Documentation_Function_Metadata_d0c7c09126e60d1955fe);
+db.assign(_instance_of_Documentation_017b35893b4e290377f6   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09126e60d1955fe);
+db.assign(_instance_of_Documentation_017b35893f2212aeb91a   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____Object_0167c09126e618b2e712);
+db.assign(_instance_of_Documentation_017b35893f239f726210   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____Relation_0167c09126e6773d2351);
+db.assign(_instance_of_Documentation_017b35a17a774574ddbf   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Output____Value_0167c09126e6cb0613e2);
 db.assign(_instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09126e60d1955fe, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____Object_0167c09126e618b2e712);
 db.assign(_instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09126e60d1955fe, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____Relation_0167c09126e6773d2351);
 db.assign(_instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09126e60d1955fe, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____Value_0167c09126e6cb0613e2);
-db.assign(_instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09126e60d1955fe, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_Function_Metadata_d0c7c09126e60d1955fe);
+db.assign(_instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09126e60d1955fe, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893b4e290377f6   );
+db.assign(_instance_of_Runnable_Input____Object_0167c09126e618b2e712, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893f2212aeb91a   );
+db.assign(_instance_of_Runnable_Input____Relation_0167c09126e6773d2351, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893f239f726210   );
+db.assign(_instance_of_Runnable_Output____Value_0167c09126e6cb0613e2, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35a17a774574ddbf   );
 db.assignOptional(_instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09126e60d1955fe, _Object_gooRel_ff022000000000000003, _Base_0179b26837d01a7c3cdc);
 db.assignOptional(_instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09126e60d1955fe, _GOO_parentGooRel_ff02200000000000000u, _Base_0179b26837d01a7c3cdc);
 db.assignOptional(_Base_0179b26837d01a7c3cdc, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Function_model____Get_Unique_Related_Object_0167c09126e60d1955fe);

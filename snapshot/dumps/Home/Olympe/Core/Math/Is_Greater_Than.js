@@ -11,7 +11,7 @@ db.disableChecks();
 // Definition of tags of models used to construct instances
 const _Boolean_ff021000000000000012            = 'ff021000000000000012';
 const _Coded_Function_01621fb84e320000f011     = '01621fb84e320000f011';
-const _Documentation_Function_Metadata_0172c6ae82952a74193c = '0172c6ae82952a74193c';
+const _Documentation_01703376c4a81c0e9d90      = '01703376c4a81c0e9d90';
 const _Function_Call_0168c6f020f2a96f0000      = '0168c6f020f2a96f0000';
 const _Number_ff021000000000000013             = 'ff021000000000000013';
 const _Runnable_Input_0168a431d25001540001     = '0168a431d25001540001';
@@ -19,11 +19,10 @@ const _Runnable_Output_0168a431d25001540002    = '0168a431d25001540002';
 
 
 // Definition of tags of defined properties
-const _Documentation_Function_Metadata_errors_0172c6ae82952a74193f = '0172c6ae82952a74193f';
-const _Documentation_Function_Metadata_inputs_0172c6ae82952a74193d = '0172c6ae82952a74193d';
-const _Documentation_Function_Metadata_outputs_0172c6ae82952a74193e = '0172c6ae82952a74193e';
-const _Documentation_Metadata_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
-const _Documentation_Metadata_toolTip_01703376c4a81c0e9d91 = '01703376c4a81c0e9d91';
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
+const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
+const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
+const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
 const _Object_name_ff023000000000000011             = 'ff023000000000000011';
 const _Runnable_Definition_hardcoded_01692aa71f3108454479 = '01692aa71f3108454479';
 const _Runnable_Input_Default_Value_01740c5d4ae4b520dd02 = '01740c5d4ae4b520dd02';
@@ -31,7 +30,7 @@ const _Runnable_IO_IO_Rank_01740c5d4ae4b520dd01     = '01740c5d4ae4b520dd01';
 
 
 // Definition of tags of defined relations
-const _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93 = '01703376c4a81c0e9d93';
+const _Documentation_documentation_01703376c4a81c0e9d93 = '01703376c4a81c0e9d93';
 const _Folder_itemRel_016a697ef00ce7554692          = '016a697ef00ce7554692';
 const _GOO_parentGooRel_ff02200000000000000u        = 'ff02200000000000000u';
 const _Object_containsRel_ff02200000000000000f      = 'ff02200000000000000f';
@@ -47,7 +46,11 @@ const _instance_of_Runnable_Input____a_01633eddc5f1c31462a9 = db.assignTag('0163
 const _instance_of_Runnable_Input____b_01633eddc72c178e7751 = db.assignTag('01633eddc72c178e7751');
 const _instance_of_Runnable_Input____Strictly_01633eddc8760f3f0c6c = db.assignTag('01633eddc8760f3f0c6c');
 const _instance_of_Runnable_Output____a_$_62_$_b_01633eddcb37df6ec5af = db.assignTag('01633eddcb37df6ec5af');
-const _instance_of_Documentation_Function_Metadata_d0c33eddc42e7ea58ee6 = db.assignTag('d0c33eddc42e7ea58ee6');
+const _instance_of_Documentation_017b35893b904aa0229d = db.assignTag('017b35893b904aa0229d');
+const _instance_of_Documentation_017b35893f9658fd8821 = db.assignTag('017b35893f9658fd8821');
+const _instance_of_Documentation_017b35893f9792b2f0e7 = db.assignTag('017b35893f9792b2f0e7');
+const _instance_of_Documentation_017b35893f97f30e3812 = db.assignTag('017b35893f97f30e3812');
+const _instance_of_Documentation_017b35894280596183f3 = db.assignTag('017b35894280596183f3');
 
 
 //==========================================================
@@ -71,7 +74,9 @@ const _Math_0178445f8bd56b19894f               = '0178445f8bd56b19894f';
 db.newModel(_instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6, 'Is Greater Than') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
+        [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
     })
     .done(); 
@@ -121,17 +126,54 @@ db.newInstance(_instance_of_Runnable_Output____a_$_62_$_b_01633eddcb37df6ec5af)
         'v'                                     :1
     })
     .done();
-// :_instance_of_Documentation_Function_Metadata_d0c33eddc42e7ea58ee6
-db.newInstance(_instance_of_Documentation_Function_Metadata_d0c33eddc42e7ea58ee6)
-    .setModelTag(_Documentation_Function_Metadata_0172c6ae82952a74193c) // tag of the model
+// :_instance_of_Documentation_017b35893b904aa0229d
+db.newInstance(_instance_of_Documentation_017b35893b904aa0229d)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6)
     .setNameOrProperties({
-        [_Documentation_Function_Metadata_errors_0172c6ae82952a74193f]:'',
-        [_Documentation_Function_Metadata_inputs_0172c6ae82952a74193d]:'## Inputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 01633eddc5f1c31462a9-a | Number | First operand. |\n| 01633eddc72c178e7751-b | Number | Second operand. |\n| strictly | Boolean | `true` to make a strict comparison. |\n',
-        [_Documentation_Function_Metadata_outputs_0172c6ae82952a74193e]:'## Outputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 01633eddcb37df6ec5af-a > b | Boolean | `true` is `a` is greater than `b`. |\n',
-        [_Documentation_Metadata_description_01703376c4a81c0e9d92]:'## Description\nReturns `true` if `a` is bigger than `b`. If `strictly` is set to false, then it returns true if `a` is bigger or\nequal to `b`.\n',
-        [_Documentation_Metadata_toolTip_01703376c4a81c0e9d91]:'Checks if a number is greater than another one.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Returns `true` if `a` is bigger than `b`. If `strictly` is set to `false`, then it returns `true` if `a` is bigger or equal to `b`.',
+        [_Documentation_summary_01703376c4a81c0e9d91]:'Checks if a number is greater than another one.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35893f9658fd8821
+db.newInstance(_instance_of_Documentation_017b35893f9658fd8821)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'First operand.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35893f9792b2f0e7
+db.newInstance(_instance_of_Documentation_017b35893f9792b2f0e7)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'Second operand.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35893f97f30e3812
+db.newInstance(_instance_of_Documentation_017b35893f97f30e3812)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'`true` to make a strict comparison.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35894280596183f3
+db.newInstance(_instance_of_Documentation_017b35894280596183f3)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'`true` is `a` is greater than `b`.',
         'v'                                     :1
     })
     .done();
@@ -143,12 +185,20 @@ db.assign(_instance_of_Runnable_Input____a_01633eddc5f1c31462a9, _Runnable_IO_Ty
 db.assign(_instance_of_Runnable_Input____b_01633eddc72c178e7751, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Number_ff021000000000000013                      );
 db.assign(_instance_of_Runnable_Input____Strictly_01633eddc8760f3f0c6c, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Boolean_ff021000000000000012                     );
 db.assign(_instance_of_Runnable_Output____a_$_62_$_b_01633eddcb37df6ec5af, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Boolean_ff021000000000000012                     );
-db.assign(_instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6, _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93, _instance_of_Documentation_Function_Metadata_d0c33eddc42e7ea58ee6);
+db.assign(_instance_of_Documentation_017b35893b904aa0229d   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6);
+db.assign(_instance_of_Documentation_017b35893f9658fd8821   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____a_01633eddc5f1c31462a9);
+db.assign(_instance_of_Documentation_017b35893f9792b2f0e7   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____b_01633eddc72c178e7751);
+db.assign(_instance_of_Documentation_017b35893f97f30e3812   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____Strictly_01633eddc8760f3f0c6c);
+db.assign(_instance_of_Documentation_017b35894280596183f3   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Output____a_$_62_$_b_01633eddcb37df6ec5af);
 db.assign(_instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____a_01633eddc5f1c31462a9);
 db.assign(_instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____b_01633eddc72c178e7751);
 db.assign(_instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____Strictly_01633eddc8760f3f0c6c);
 db.assign(_instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____a_$_62_$_b_01633eddcb37df6ec5af);
-db.assign(_instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_Function_Metadata_d0c33eddc42e7ea58ee6);
+db.assign(_instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893b904aa0229d   );
+db.assign(_instance_of_Runnable_Input____a_01633eddc5f1c31462a9, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893f9658fd8821   );
+db.assign(_instance_of_Runnable_Input____b_01633eddc72c178e7751, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893f9792b2f0e7   );
+db.assign(_instance_of_Runnable_Input____Strictly_01633eddc8760f3f0c6c, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893f97f30e3812   );
+db.assign(_instance_of_Runnable_Output____a_$_62_$_b_01633eddcb37df6ec5af, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35894280596183f3   );
 db.assignOptional(_instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6, _Object_gooRel_ff022000000000000003, _Math_0178445f8bd56b19894f);
 db.assignOptional(_instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6, _GOO_parentGooRel_ff02200000000000000u, _Math_0178445f8bd56b19894f);
 db.assignOptional(_Math_0178445f8bd56b19894f, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Function_model____Is_Greater_Than_01633eddc42e7ea58ee6);

@@ -29,16 +29,47 @@ describe('OpenURL brick', () => {
         outputs.push(() => {
             expect(resultSpy).toHaveBeenCalledWith(true);
             expect(window.open).toHaveBeenCalled();
-            expect(window.open).toHaveBeenCalledWith('https://google.com');
+            expect(window.open).toHaveBeenCalledWith('', undefined);
             done()
         });
         outputs.push(resultSpy);
 
+        let fakeObject = {};
+
         spyOn(window, 'open').and.callFake( () => {
-            return true;
+            return fakeObject;
         });
 
-        brick.onUpdate(context, ['https://google.com'], outputs);
+        brick.onUpdate(context, ['https://google.com', false], outputs);
+
+        expect(fakeObject.location).toEqual('https://google.com');
+    });
+
+    it('should open a the url in the same tab if the corresponding param is true', (done) => {
+        const brick = new OpenURL();
+
+        const context = new Context();
+
+        const resultSpy = jasmine.createSpy();
+
+        const outputs = [];
+        outputs.push(() => {
+            expect(resultSpy).toHaveBeenCalledWith(true);
+            expect(window.open).toHaveBeenCalled();
+            expect(window.open).toHaveBeenCalledWith('', '_self');
+            done()
+        });
+        outputs.push(resultSpy);
+
+        let fakeObject = {};
+
+        spyOn(window, 'open').and.callFake( () => {
+            return fakeObject;
+        });
+
+        brick.onUpdate(context, ['https://google.com', true], outputs);
+
+        expect(fakeObject.location).toEqual('https://google.com');
     });
 
     it('should return a false result if tab opening fail', (done) => {
@@ -52,13 +83,13 @@ describe('OpenURL brick', () => {
         outputs.push(() => {
             expect(resultSpy).toHaveBeenCalledWith(false);
             expect(window.open).toHaveBeenCalled();
-            expect(window.open).toHaveBeenCalledWith(undefined);
+            expect(window.open).toHaveBeenCalledWith('', undefined);
             done()
         });
         outputs.push(resultSpy);
 
         spyOn(window, 'open').and.callFake( () => {
-            return false;
+            return null;
         });
 
         brick.onUpdate(context, [undefined], outputs);

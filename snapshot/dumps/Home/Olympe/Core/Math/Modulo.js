@@ -10,7 +10,7 @@ db.disableChecks();
 
 // Definition of tags of models used to construct instances
 const _Coded_Function_01621fb84e320000f011     = '01621fb84e320000f011';
-const _Documentation_Function_Metadata_0172c6ae82952a74193c = '0172c6ae82952a74193c';
+const _Documentation_01703376c4a81c0e9d90      = '01703376c4a81c0e9d90';
 const _Function_Call_0168c6f020f2a96f0000      = '0168c6f020f2a96f0000';
 const _Number_ff021000000000000013             = 'ff021000000000000013';
 const _Runnable_Input_0168a431d25001540001     = '0168a431d25001540001';
@@ -18,18 +18,17 @@ const _Runnable_Output_0168a431d25001540002    = '0168a431d25001540002';
 
 
 // Definition of tags of defined properties
-const _Documentation_Function_Metadata_errors_0172c6ae82952a74193f = '0172c6ae82952a74193f';
-const _Documentation_Function_Metadata_inputs_0172c6ae82952a74193d = '0172c6ae82952a74193d';
-const _Documentation_Function_Metadata_outputs_0172c6ae82952a74193e = '0172c6ae82952a74193e';
-const _Documentation_Metadata_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
-const _Documentation_Metadata_toolTip_01703376c4a81c0e9d91 = '01703376c4a81c0e9d91';
+const _Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94 = '01703376c4a81c0e9d94';
+const _Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001 = '01621fb84e320000f001';
+const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
+const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
 const _Object_name_ff023000000000000011             = 'ff023000000000000011';
 const _Runnable_Definition_hardcoded_01692aa71f3108454479 = '01692aa71f3108454479';
 const _Runnable_IO_IO_Rank_01740c5d4ae4b520dd01     = '01740c5d4ae4b520dd01';
 
 
 // Definition of tags of defined relations
-const _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93 = '01703376c4a81c0e9d93';
+const _Documentation_documentation_01703376c4a81c0e9d93 = '01703376c4a81c0e9d93';
 const _Folder_itemRel_016a697ef00ce7554692          = '016a697ef00ce7554692';
 const _GOO_parentGooRel_ff02200000000000000u        = 'ff02200000000000000u';
 const _Object_containsRel_ff02200000000000000f      = 'ff02200000000000000f';
@@ -44,7 +43,10 @@ const _instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9 = db.assi
 const _instance_of_Runnable_Input____a_01626cae3c7dedba26fb = db.assignTag('01626cae3c7dedba26fb');
 const _instance_of_Runnable_Input____b_01626cae56fc0bf930fe = db.assignTag('01626cae56fc0bf930fe');
 const _instance_of_Runnable_Output____a_mod_b_01626cae7e620f886e5c = db.assignTag('01626cae7e620f886e5c');
-const _instance_of_Documentation_Function_Metadata_d0c26cae1b9d62b5eec9 = db.assignTag('d0c26cae1b9d62b5eec9');
+const _instance_of_Documentation_017b35893b903b76d8ff = db.assignTag('017b35893b903b76d8ff');
+const _instance_of_Documentation_017b35893f973274cb33 = db.assignTag('017b35893f973274cb33');
+const _instance_of_Documentation_017b35893f9782b96a41 = db.assignTag('017b35893f9782b96a41');
+const _instance_of_Documentation_017b3589428f0c9a0886 = db.assignTag('017b3589428f0c9a0886');
 
 
 //==========================================================
@@ -68,7 +70,9 @@ const _Math_0178445f8bd56b19894f               = '0178445f8bd56b19894f';
 db.newModel(_instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9, 'Modulo') // tag and name of the model 
     .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
     .setProperties({
+        [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
+        [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
     })
     .done(); 
@@ -106,17 +110,44 @@ db.newInstance(_instance_of_Runnable_Output____a_mod_b_01626cae7e620f886e5c)
         'v'                                     :1
     })
     .done();
-// :_instance_of_Documentation_Function_Metadata_d0c26cae1b9d62b5eec9
-db.newInstance(_instance_of_Documentation_Function_Metadata_d0c26cae1b9d62b5eec9)
-    .setModelTag(_Documentation_Function_Metadata_0172c6ae82952a74193c) // tag of the model
+// :_instance_of_Documentation_017b35893b903b76d8ff
+db.newInstance(_instance_of_Documentation_017b35893b903b76d8ff)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9)
     .setNameOrProperties({
-        [_Documentation_Function_Metadata_errors_0172c6ae82952a74193f]:'',
-        [_Documentation_Function_Metadata_inputs_0172c6ae82952a74193d]:'## Inputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 01626cae3c7dedba26fb-a | Number | First operand. |\n| 01626cae56fc0bf930fe-b | Number | Second operand. |\n',
-        [_Documentation_Function_Metadata_outputs_0172c6ae82952a74193e]:'## Outputs\n| Name | Type | Description |\n| --- | :---: | --- |\n| 01626cae7e620f886e5c-a mod b | Number | The result of the modulo operation. |\n',
-        [_Documentation_Metadata_description_01703376c4a81c0e9d92]:'## Description\nPerforms a modulo (remainder) operation between the 2 numbers passed as arguments.\nIt always takes the sign of the dividend.\n\n**Examples**\n```\n12 % 5 == 2\n5.5 % 2 == 1.5\n```\n',
-        [_Documentation_Metadata_toolTip_01703376c4a81c0e9d91]:'Returns the remainder left over when one operand is divided by a second operand.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Performs a modulo (remainder) operation between the 2 numbers passed as arguments.\nIt always takes the sign of the dividend.\n\n**Examples**\n```\n12 % 5 == 2\n5.5 % 2 == 1.5\n```\n',
+        [_Documentation_summary_01703376c4a81c0e9d91]:'Returns the remainder left over when one operand is divided by a second operand.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35893f973274cb33
+db.newInstance(_instance_of_Documentation_017b35893f973274cb33)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'First operand.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b35893f9782b96a41
+db.newInstance(_instance_of_Documentation_017b35893f9782b96a41)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'Second operand.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017b3589428f0c9a0886
+db.newInstance(_instance_of_Documentation_017b3589428f0c9a0886)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'The result of the modulo operation.',
         'v'                                     :1
     })
     .done();
@@ -126,11 +157,17 @@ db.assign(_instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9, _Run
 db.assign(_instance_of_Runnable_Input____a_01626cae3c7dedba26fb, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Number_ff021000000000000013                      );
 db.assign(_instance_of_Runnable_Input____b_01626cae56fc0bf930fe, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Number_ff021000000000000013                      );
 db.assign(_instance_of_Runnable_Output____a_mod_b_01626cae7e620f886e5c, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Number_ff021000000000000013                      );
-db.assign(_instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9, _Display_Metadata_$_40_$Runtime$_41_$_documentation_01703376c4a81c0e9d93, _instance_of_Documentation_Function_Metadata_d0c26cae1b9d62b5eec9);
+db.assign(_instance_of_Documentation_017b35893b903b76d8ff   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9);
+db.assign(_instance_of_Documentation_017b35893f973274cb33   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____a_01626cae3c7dedba26fb);
+db.assign(_instance_of_Documentation_017b35893f9782b96a41   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____b_01626cae56fc0bf930fe);
+db.assign(_instance_of_Documentation_017b3589428f0c9a0886   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Output____a_mod_b_01626cae7e620f886e5c);
 db.assign(_instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____a_01626cae3c7dedba26fb);
 db.assign(_instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____b_01626cae56fc0bf930fe);
 db.assign(_instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____a_mod_b_01626cae7e620f886e5c);
-db.assign(_instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_Function_Metadata_d0c26cae1b9d62b5eec9);
+db.assign(_instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893b903b76d8ff   );
+db.assign(_instance_of_Runnable_Input____a_01626cae3c7dedba26fb, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893f973274cb33   );
+db.assign(_instance_of_Runnable_Input____b_01626cae56fc0bf930fe, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893f9782b96a41   );
+db.assign(_instance_of_Runnable_Output____a_mod_b_01626cae7e620f886e5c, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b3589428f0c9a0886   );
 db.assignOptional(_instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9, _Object_gooRel_ff022000000000000003, _Math_0178445f8bd56b19894f);
 db.assignOptional(_instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9, _GOO_parentGooRel_ff02200000000000000u, _Math_0178445f8bd56b19894f);
 db.assignOptional(_Math_0178445f8bd56b19894f, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Function_model____Modulo_01626cae1b9d62b5eec9);
