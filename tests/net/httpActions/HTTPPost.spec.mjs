@@ -17,7 +17,7 @@
 import HTTPPost from '../../../src/core/net/httpActions/HTTPPost.js';
 import {Context, ErrorFlow} from 'olympe';
 
-describe('HTTPPost action brick', () => {
+xdescribe('HTTPPost action brick', () => {
     it('should post correctly', (done) => {
         const brick = new HTTPPost();
 

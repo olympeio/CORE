@@ -17,7 +17,7 @@
 import HTTPPut from '../../../src/core/net/httpFunctions/HTTPPut.js';
 import {Context} from 'olympe';
 
-describe('HTTPPut function brick', () => {
+xdescribe('HTTPPut function brick', () => {
     it('should put correctly',  () => {
         const brick = new HTTPPut();
 

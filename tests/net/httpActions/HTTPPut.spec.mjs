@@ -17,7 +17,7 @@
 import HTTPPut from '../../../src/core/net/httpActions/HTTPPut.js';
 import {Context, ErrorFlow} from 'olympe';
 
-describe('HTTPPut action brick', () => {
+xdescribe('HTTPPut action brick', () => {
     it('should put correctly', (done) => {
         const brick = new HTTPPut();
 

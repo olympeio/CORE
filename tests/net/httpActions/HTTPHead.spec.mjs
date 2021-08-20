@@ -17,7 +17,7 @@
 import HTTPHead from '../../../src/core/net/httpActions/HTTPHead.js';
 import {Context, ErrorFlow} from 'olympe';
 
-describe('HTTPHead action brick', () => {
+xdescribe('HTTPHead action brick', () => {
     it('should head correctly', (done) => {
         const brick = new HTTPHead();
 

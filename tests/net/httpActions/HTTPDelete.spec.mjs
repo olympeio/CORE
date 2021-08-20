@@ -17,7 +17,7 @@
 import HTTPDelete from '../../../src/core/net/httpActions/HTTPDelete.js';
 import {Context, ErrorFlow} from 'olympe';
 
-describe('HTTPDelete action brick', () => {
+xdescribe('HTTPDelete action brick', () => {
     it('should delete correctly', (done) => {
         const brick = new HTTPDelete();
 

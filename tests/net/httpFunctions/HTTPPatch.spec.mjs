@@ -17,7 +17,7 @@
 import HTTPPatch from '../../../src/core/net/httpFunctions/HTTPPatch.js';
 import {Context} from 'olympe';
 
-describe('HTTPPatch function brick', () => {
+xdescribe('HTTPPatch function brick', () => {
     it('should patch correctly',  () => {
         const brick = new HTTPPatch();
 

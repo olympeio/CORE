@@ -17,7 +17,7 @@
 import HTTPGet from '../../../src/core/net/httpActions/HTTPGet.js';
 import {Context, ErrorFlow} from 'olympe';
 
-describe('HTTPGet action brick', () => {
+xdescribe('HTTPGet action brick', () => {
     it('should get correctly',  (done) => {
         const brick = new HTTPGet();
 

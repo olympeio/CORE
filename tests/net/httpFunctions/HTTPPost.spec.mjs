@@ -17,7 +17,7 @@
 import HTTPPost from '../../../src/core/net/httpFunctions/HTTPPost.js';
 import {Context} from 'olympe';
 
-describe('HTTPPost function brick', () => {
+xdescribe('HTTPPost function brick', () => {
     it('should post correctly',  () => {
         const brick = new HTTPPost();
 
