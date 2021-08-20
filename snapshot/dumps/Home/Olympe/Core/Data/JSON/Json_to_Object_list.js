@@ -62,7 +62,6 @@ const _instance_of_Documentation_017b35893f7821a9730b = db.assignTag('017b35893f
 const _instance_of_Documentation_017b35a2a53e9b6a74da = db.assignTag('017b35a2a53e9b6a74da');
 const _instance_of_Documentation_017b35a2a55ae7b6056b = db.assignTag('017b35a2a55ae7b6056b');
 const _instance_of_Documentation_017b35a2a560ae35aab6 = db.assignTag('017b35a2a560ae35aab6');
-const _instance_of_ObjectRef_017b5addf35c4b64b6cb   = db.assignTag('017b5addf35c4b64b6cb');
 
 
 //==========================================================
@@ -104,6 +103,7 @@ db.newInstance(_instance_of_Runnable_Input____persist_017598dba19b54126f00)
     .addToGroupOfObjects(_instance_of_Coded_Action_model____JSON_to_Object_list_0175b6a2f27ee65c01bd)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'persist',
+        [_Runnable_Input_Default_Value_01740c5d4ae4b520dd02]:false,
         [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:3,
         'v'                                     :1
     })
@@ -232,17 +232,6 @@ db.newInstance(_instance_of_Documentation_017b35a2a560ae35aab6)
         'v'                                     :1
     })
     .done();
-// :_instance_of_ObjectRef_017b5addf35c4b64b6cb
-db.newInstance(_instance_of_ObjectRef_017b5addf35c4b64b6cb)
-    .setModelTag(_ObjectRef_0163c9ae01f2d6e9ca49) // tag of the model
-    .setNameOrProperties({
-        'v'                                     :1
-    })
-    .done();
-db.updateInstance(_instance_of_Runnable_Input____businessModel_0175b6a2f27ee65c01bb, {
-        [_Runnable_Input_Default_Value_01740c5d4ae4b520dd02]:db.createReference(_instance_of_ObjectRef_017b5addf35c4b64b6cb),
-        'v'                                     :3
-    });
 db.assign(_instance_of_Coded_Action_model____JSON_to_Object_list_0175b6a2f27ee65c01bd, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____persist_017598dba19b54126f00);
 db.assign(_instance_of_Coded_Action_model____JSON_to_Object_list_0175b6a2f27ee65c01bd, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____json_0175b6a2f27ee65c01ba);
 db.assign(_instance_of_Coded_Action_model____JSON_to_Object_list_0175b6a2f27ee65c01bd, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____businessModel_0175b6a2f27ee65c01bb);
@@ -255,7 +244,6 @@ db.assign(_instance_of_Runnable_Input____businessModel_0175b6a2f27ee65c01bb, _Ru
 db.assign(_instance_of_Runnable_Output____list_0175b6a2f27ee65c01bc, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _List_01631aacd8276ea98490                        );
 db.assign(_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0175b6a2f27fe65c01bd, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Control_Flow_01621fb84e320000cf00                );
 db.assign(_instance_of_Predefined_output_Control_Flow____Control_Flow_0175b6a2f280e65c01bd, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Control_Flow_01621fb84e320000cf00                );
-db.assign(_instance_of_ObjectRef_017b5addf35c4b64b6cb       , _ObjectRef_reference_0169b5a8a33144fb0b49         , _String_ff021000000000000011                      );
 db.assign(_instance_of_Documentation_017b35893b746f63120f   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Coded_Action_model____JSON_to_Object_list_0175b6a2f27ee65c01bd);
 db.assign(_instance_of_Documentation_017b35893f71aeef0951   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____json_0175b6a2f27ee65c01ba);
 db.assign(_instance_of_Documentation_017b35893f77795e5d62   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____persist_017598dba19b54126f00);
