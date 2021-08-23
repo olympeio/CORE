@@ -16,9 +16,15 @@
 
 import HTTPPost from '../../../src/core/net/httpFunctions/HTTPPost.js';
 import {Context} from 'olympe';
+import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 describe('HTTPPost function brick', () => {
     it('should post correctly',  () => {
+        mockFetch(
+            mockRequest('https://httpbin.org/post', 'POST', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
+            mockResponse(true, 200, {}, 'test body')
+        );
+
         const brick = new HTTPPost();
 
         const context = new Context();
@@ -33,6 +39,11 @@ describe('HTTPPost function brick', () => {
     });
 
     it('should generate a 405 error when posting on a put-only url',  () => {
+        mockFetch(
+            mockRequest('https://httpbin.org/put', 'POST', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
+            mockResponse(false, 405, {}, 'test body')
+        );
+
         const brick = new HTTPPost();
 
         const context = new Context();
@@ -46,6 +57,11 @@ describe('HTTPPost function brick', () => {
     });
 
     it('should generate a 404 error when posting on a wrong url',  () => {
+        mockFetch(
+            mockRequest('abcd', 'POST', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
+            mockResponse(false, 404, {}, 'test body')
+        );
+
         const brick = new HTTPPost();
 
         const context = new Context();
