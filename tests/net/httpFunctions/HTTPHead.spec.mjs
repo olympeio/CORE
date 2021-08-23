@@ -16,9 +16,15 @@
 
 import HTTPHead from '../../../src/core/net/httpFunctions/HTTPHead.js';
 import {Context} from 'olympe';
+import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 describe('HTTPHead function brick', () => {
     it('should head correctly',  () => {
+        mockFetch(
+            mockRequest('https://httpbin.org/get', 'HEAD', '{"Content-Type": "application/json"}'),
+            mockResponse(true, 200, {})
+        );
+
         const brick = new HTTPHead();
 
         const context = new Context();
@@ -28,10 +34,14 @@ describe('HTTPHead function brick', () => {
         outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
 
         brick.onUpdate(context, ['https://httpbin.org/get', '{"Content-Type": "application/json"}'], outputs);
-
     });
 
     it('should generate a 405 error when heading on a put-only url',  () => {
+        mockFetch(
+            mockRequest('https://httpbin.org/put', 'HEAD', '{"Content-Type": "application/json"}'),
+            mockResponse(false, 405, {})
+        );
+
         const brick = new HTTPHead();
 
         const context = new Context();
@@ -44,6 +54,11 @@ describe('HTTPHead function brick', () => {
     });
 
     it('should generate a 404 error when heading on a wrong url',  () => {
+        mockFetch(
+            mockRequest('abcd', 'HEAD', '{"Content-Type": "application/json"}'),
+            mockResponse(false, 404, {})
+        );
+
         const brick = new HTTPHead();
 
         const context = new Context();
