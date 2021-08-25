@@ -25,6 +25,7 @@ const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
 const _Object_name_ff023000000000000011             = 'ff023000000000000011';
 const _Runnable_Definition_hardcoded_01692aa71f3108454479 = '01692aa71f3108454479';
+const _Runnable_Input_Default_Value_01740c5d4ae4b520dd02 = '01740c5d4ae4b520dd02';
 const _Runnable_IO_IO_Rank_01740c5d4ae4b520dd01     = '01740c5d4ae4b520dd01';
 
 
@@ -113,6 +114,7 @@ db.newInstance(_instance_of_Runnable_Input____wrappersPath_01783a54f96c4c9aaa09)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____JSON_to_XML_017802c8cd51d09059d6)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'wrappersPath',
+        [_Runnable_Input_Default_Value_01740c5d4ae4b520dd02]:'',
         [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
