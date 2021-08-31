@@ -1,13 +1,13 @@
 {
   "name": "@olympeio/core",
-  "version": "1.1.0-dev",
+  "version": "1.1.2-rc1",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/olympeio/CORE"
   },
   "build": {
-    "orchestratorVersion": "5.9.2"
+    "orchestratorVersion": "6.0.1"
   },
   "scripts": {
     "prebuild": "npx gulp patches --core.modules=project",
@@ -39,8 +39,8 @@
     "webpack-node-externals": "~2.5.0"
   },
   "dependencies": {
-    "@olympeio/runtime-node": "dev",
-    "@olympeio/runtime-web": "dev",
+    "@olympeio/runtime-node": "8.4.1-rc1",
+    "@olympeio/runtime-web": "8.4.1-rc1",
     "date-fns": "~2.22.1",
     "fast-xml-parser": "~3.19.0",
     "loglevel": "~1.7.1",
