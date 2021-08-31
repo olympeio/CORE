@@ -16,6 +16,7 @@
 
 import { FunctionBrick, registerBrick, Context } from 'olympe';
 import {getLogger} from 'logging';
+import {JSONPath} from 'jsonpath';
 
 /**
 ## Description
@@ -49,26 +50,56 @@ export default class ParseJson extends FunctionBrick {
      * @param {function(Object)} setResult
      */
     onUpdate(context, [source, path], [setResult]) {
-        try {
-            const obj = JSON.parse(source);
-
-            // If the path specifies an entry in an array, we should not add the "dot" for the return statement.
-            const isArray = path.substr(0, 1) === '[';
-
-            // eslint-disable-next-line no-new-func
-            const fn = new Function('obj', 'return obj' + (isArray ? '' : '.') + path + ';');
-            const outputObj = fn(obj);
-            if (outputObj !== undefined) {
-                if (outputObj instanceof Object) {
-                    setResult(JSON.stringify(outputObj));
-                } else {
-                    setResult(outputObj);
-                }
-            }
-        } catch(e) {
-            getLogger('Parse JSON').error(e.message);
+        // Guards
+        if(typeof source !== 'string') {
+            getLogger('Parse JSON').error("Provided source is not a string");
+            return;
+        }
+        if(typeof path !== 'string') {
+            getLogger('Parse JSON').error("Provided path is not a string");
+            return;
         }
 
+        let obj, resArray;
+        try {
+            obj = JSON.parse(source);
+        } catch(e) {
+            getLogger('Parse JSON').error("Error when parsing source: "+e.message);
+            return;
+        }
+
+        // prevent empty path from rising an error in jsonpath
+        if(path.length === 0) {
+            return;
+        }
+        // support access of array using syntax [i] (legacy spec)
+        if(path.startsWith('[')) {
+            path = '$'+path;
+        }
+
+        try {
+            const jp = new JSONPath();
+            resArray = jp.query(obj, path);
+        } catch (e) {
+            getLogger('Parse JSON').error("Error with provided path: "+e.message);
+            return;
+        }
+
+        if (resArray.length > 0) {
+            let outputObj = resArray;
+            // unwrap array if there is a single result (legacy spec)
+            if (resArray.length === 1) {
+                outputObj = resArray[0];
+            }
+            if (outputObj instanceof Object) {
+                setResult(JSON.stringify(outputObj));
+            } else {
+                setResult(outputObj);
+            }
+        } else {
+            getLogger('Parse JSON').warn("No result found matching provided path");
+            setResult(null);
+        }
     }
 }
 
