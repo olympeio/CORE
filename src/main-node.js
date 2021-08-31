@@ -23,7 +23,17 @@ import initLogging from './helpers/logging';
 
 // Import project bricks (we use webpack-import-glob-loader to import all bricks)
 // Import all bricks (js files inside all core sub-folders) except the one in the ui folder.
-import './core/[^ui]*/**/*.js';
+// TODO : Build a regex that includes all folders except /core/ui.
+import './core/auth/**/*.js';
+import './core/data/**/*.js';
+import './core/datetime/**/*.js';
+import './core/file/**/*.js';
+import './core/logic/**/*.js';
+import './core/math/**/*.js';
+import './core/net/**/*.js';
+import './core/system/**/*.js';
+import './core/text/**/*.js';
+import './core/util/**/*.js';
 
 initLogging();
 
