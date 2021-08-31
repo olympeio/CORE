@@ -19,7 +19,6 @@ const _Predefined_input_Control_Flow_of_Action_016ac63229782039429f = '016ac6322
 const _Predefined_output_Control_Flow_016ac6322acf67eebfe7 = '016ac6322acf67eebfe7';
 const _Runnable_Input_0168a431d25001540001     = '0168a431d25001540001';
 const _Runnable_Output_0168a431d25001540002    = '0168a431d25001540002';
-const _String_ff021000000000000011             = 'ff021000000000000011';
 
 
 // Definition of tags of defined properties
@@ -29,7 +28,6 @@ const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
 const _Object_name_ff023000000000000011             = 'ff023000000000000011';
 const _Runnable_Definition_hardcoded_01692aa71f3108454479 = '01692aa71f3108454479';
-const _Runnable_Input_Default_Value_01740c5d4ae4b520dd02 = '01740c5d4ae4b520dd02';
 const _Runnable_IO_IO_Rank_01740c5d4ae4b520dd01     = '01740c5d4ae4b520dd01';
 
 

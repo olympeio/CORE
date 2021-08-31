@@ -75,19 +75,19 @@ const _Navigation_0179b269f70efbab6b8d         = '0179b269f70efbab6b8d';
 
 
 // :_instance_of_Coded_Action_model____Open_URL_016755c484eeed3da5e5
-db.newModel(_instance_of_Coded_Action_model____Open_URL_016755c484eeed3da5e5, 'Open URL') // tag and name of the model
-    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012)
+db.newModel(_instance_of_Coded_Action_model____Open_URL_016755c484eeed3da5e5, 'Open URL') // tag and name of the model 
+    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Action_01621fb84e320000f012) 
     .setProperties({
         [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
     })
-    .done();
+    .done(); 
 db.updateInstance(_instance_of_Coded_Action_model____Open_URL_016755c484eeed3da5e5, {
-    [db.DEFAULT+_Object_name_ff023000000000000011]:'Open URL',
-    'v'                                     :2
-});
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'Open URL',
+        'v'                                     :2
+    });
 db.setRootInstanceTag(_instance_of_Coded_Action_model____Open_URL_016755c484eeed3da5e5);
 // :_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_016755c484efed3da5e5
 db.newInstance(_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_016755c484efed3da5e5)
