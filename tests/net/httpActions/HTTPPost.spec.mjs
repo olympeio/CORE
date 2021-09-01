@@ -16,9 +16,15 @@
 
 import HTTPPost from '../../../src/core/net/httpActions/HTTPPost.js';
 import {Context, ErrorFlow} from 'olympe';
+import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 xdescribe('HTTPPost action brick', () => {
     it('should post correctly', (done) => {
+        mockFetch(
+            mockRequest('https://httpbin.org/post', 'POST', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
+            mockResponse(true, 200, {}, 'test body')
+        );
+
         const brick = new HTTPPost();
 
         const context = new Context();
@@ -43,6 +49,11 @@ xdescribe('HTTPPost action brick', () => {
     });
 
     it('should generate a 405 error when posting on a put-only url',  (done) => {
+        mockFetch(
+            mockRequest('https://httpbin.org/put', 'POST', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
+            mockResponse(false, 405, {}, 'test body')
+        );
+
         const brick = new HTTPPost();
 
         const context = new Context();

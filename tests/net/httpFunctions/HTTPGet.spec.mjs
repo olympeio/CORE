@@ -16,9 +16,15 @@
 
 import HTTPGet from '../../../src/core/net/httpFunctions/HTTPGet.js';
 import {Context} from 'olympe';
+import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 xdescribe('HTTPGet function brick', () => {
     it('should get correctly',  () => {
+        mockFetch(
+            mockRequest('https://httpbin.org/get', 'GET', '{"Content-Type": "application/json"}'),
+            mockResponse(true, 200, {}, 'test body')
+        );
+
         const brick = new HTTPGet();
 
         const context = new Context();
@@ -33,6 +39,11 @@ xdescribe('HTTPGet function brick', () => {
     });
 
     it('should generate a 405 error when getting on a put-only url',  () => {
+        mockFetch(
+            mockRequest('https://httpbin.org/put', 'GET', '{"Content-Type": "application/json"}'),
+            mockResponse(false, 405, {}, 'test body')
+        );
+
         const brick = new HTTPGet();
 
         const context = new Context();
@@ -46,6 +57,11 @@ xdescribe('HTTPGet function brick', () => {
     });
 
     it('should generate a 404 error when getting on a wrong url',  () => {
+        mockFetch(
+            mockRequest('abcd', 'GET', '{"Content-Type": "application/json"}'),
+            mockResponse(false, 404, {}, 'test body')
+        );
+
         const brick = new HTTPGet();
 
         const context = new Context();

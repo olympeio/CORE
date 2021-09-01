@@ -16,9 +16,15 @@
 
 import HTTPPatch from '../../../src/core/net/httpActions/HTTPPatch.js';
 import {Context, ErrorFlow} from 'olympe';
+import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 xdescribe('HTTPPatch action brick', () => {
     it('should patch correctly', (done) => {
+        mockFetch(
+            mockRequest('https://httpbin.org/patch', 'PATCH', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
+            mockResponse(true, 200, {}, 'test body')
+        );
+
         const brick = new HTTPPatch();
 
         const context = new Context();
@@ -43,6 +49,11 @@ xdescribe('HTTPPatch action brick', () => {
     });
 
     it('should generate a 405 error when patching on a put-only url',  (done) => {
+        mockFetch(
+            mockRequest('https://httpbin.org/put', 'PATCH', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
+            mockResponse(false, 405, {}, 'test body')
+        );
+
         const brick = new HTTPPatch();
 
         const context = new Context();

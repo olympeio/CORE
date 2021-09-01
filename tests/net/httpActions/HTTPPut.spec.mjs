@@ -16,9 +16,15 @@
 
 import HTTPPut from '../../../src/core/net/httpActions/HTTPPut.js';
 import {Context, ErrorFlow} from 'olympe';
+import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 xdescribe('HTTPPut action brick', () => {
     it('should put correctly', (done) => {
+        mockFetch(
+            mockRequest('https://httpbin.org/put', 'PUT', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
+            mockResponse(true, 200, {}, 'test body')
+        );
+
         const brick = new HTTPPut();
 
         const context = new Context();
@@ -40,6 +46,11 @@ xdescribe('HTTPPut action brick', () => {
     });
 
     it('should generate a 405 error when puting on a get-only url',  (done) => {
+        mockFetch(
+            mockRequest('https://httpbin.org/get', 'PUT', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
+            mockResponse(false, 405, {}, 'test body')
+        );
+
         const brick = new HTTPPut();
 
         const context = new Context();

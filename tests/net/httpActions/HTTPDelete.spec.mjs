@@ -16,9 +16,15 @@
 
 import HTTPDelete from '../../../src/core/net/httpActions/HTTPDelete.js';
 import {Context, ErrorFlow} from 'olympe';
+import {mockRequest, mockResponse, mockFetch} from "../fetchMock.js";
 
 xdescribe('HTTPDelete action brick', () => {
     it('should delete correctly', (done) => {
+        mockFetch(
+            mockRequest('https://httpbin.org/delete', 'DELETE', {"Content-Type": "application/json"}, '{"test": "payload"}'),
+            mockResponse(true, 200, {}, '{"test": "payload"}')
+        );
+
         const brick = new HTTPDelete();
 
         const context = new Context();
@@ -43,6 +49,11 @@ xdescribe('HTTPDelete action brick', () => {
     });
 
     it('should generate a 405 error when deleting on a put-only url',  (done) => {
+        mockFetch(
+            mockRequest('https://httpbin.org/put', 'DELETE', {"Content-Type": "application/json"}, '{"test": "payload"}'),
+            mockResponse(false, 405, {}, '{"test": "payload"}')
+        );
+
         const brick = new HTTPDelete();
 
         const context = new Context();

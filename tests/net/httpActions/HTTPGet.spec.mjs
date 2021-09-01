@@ -16,9 +16,15 @@
 
 import HTTPGet from '../../../src/core/net/httpActions/HTTPGet.js';
 import {Context, ErrorFlow} from 'olympe';
+import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 xdescribe('HTTPGet action brick', () => {
     it('should get correctly',  (done) => {
+        mockFetch(
+            mockRequest('https://httpbin.org/get', 'GET', {"Content-Type": "application/json"}),
+            mockResponse(true, 200, {}, '{"test": "response"}')
+        );
+
         const brick = new HTTPGet();
 
         const context = new Context();
@@ -30,8 +36,8 @@ xdescribe('HTTPGet action brick', () => {
 
         outputs.push(() => {
             expect(statusCodeSpy).toHaveBeenCalledOnceWith(200);
-            expect(headersSpy).toHaveBeenCalled();
-            expect(bodySpy).toHaveBeenCalled();
+            expect(headersSpy).toHaveBeenCalledWith('{}');
+            expect(bodySpy).toHaveBeenCalledWith('{"test": "response"}');
             done();
         });
         outputs.push(_errorFlow => {});
@@ -40,10 +46,14 @@ xdescribe('HTTPGet action brick', () => {
         outputs.push(headersSpy);
 
         brick.onUpdate(context, ['https://httpbin.org/get', '{"Content-Type": "application/json"}'], outputs);
-
     });
 
     it('should get an error correctly',  (done) => {
+        mockFetch(
+            mockRequest('abcd', 'GET', {}),
+            mockResponse(false, 404, {}, 'NOT FOUND')
+        );
+
         const brick = new HTTPGet();
 
         const context = new Context();

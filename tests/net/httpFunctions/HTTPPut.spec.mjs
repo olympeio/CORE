@@ -16,9 +16,15 @@
 
 import HTTPPut from '../../../src/core/net/httpFunctions/HTTPPut.js';
 import {Context} from 'olympe';
+import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 xdescribe('HTTPPut function brick', () => {
     it('should put correctly',  () => {
+        mockFetch(
+            mockRequest('https://httpbin.org/put', 'PUT', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
+            mockResponse(true, 200, {})
+        );
+
         const brick = new HTTPPut();
 
         const context = new Context();
@@ -32,6 +38,11 @@ xdescribe('HTTPPut function brick', () => {
     });
 
     it('should generate a 405 error when putting on a post-only url',  () => {
+        mockFetch(
+            mockRequest('https://httpbin.org/post', 'PUT', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
+            mockResponse(false, 405, {})
+        );
+
         const brick = new HTTPPut();
 
         const context = new Context();
@@ -44,6 +55,11 @@ xdescribe('HTTPPut function brick', () => {
     });
 
     it('should generate a 404 error when putting on a wrong url',  () => {
+        mockFetch(
+            mockRequest('abcd', 'PUT', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
+            mockResponse(false, 404, {})
+        );
+
         const brick = new HTTPPut();
 
         const context = new Context();

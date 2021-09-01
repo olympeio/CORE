@@ -16,9 +16,15 @@
 
 import HTTPHead from '../../../src/core/net/httpActions/HTTPHead.js';
 import {Context, ErrorFlow} from 'olympe';
+import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 xdescribe('HTTPHead action brick', () => {
     it('should head correctly', (done) => {
+        mockFetch(
+            mockRequest('https://httpbin.org/get', 'HEAD', '{"Content-Type": "application/json"}'),
+            mockResponse(true, 200)
+        );
+
         const brick = new HTTPHead();
 
         const context = new Context();
@@ -40,6 +46,11 @@ xdescribe('HTTPHead action brick', () => {
     });
 
     it('should generate a 405 error when heading on a put-only url',  (done) => {
+        mockFetch(
+            mockRequest('https://httpbin.org/put', 'HEAD', '{"Content-Type": "application/json"}'),
+            mockResponse(false, 405)
+        );
+
         const brick = new HTTPHead();
 
         const context = new Context();
