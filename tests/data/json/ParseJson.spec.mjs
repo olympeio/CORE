@@ -69,17 +69,6 @@ describe('ParseJson brick', () => {
         expect(outputValue).not.toHaveBeenCalled();
     });
 
-    it('should not set the output when given an incorrect path', () => {
-        // When
-        const outputValue = jasmine.createSpy();
-
-        // Then
-        const run = () => new ParseJson().onUpdate(new Context(), ['{ "a": { "b": "hello"}}', '///'], [outputValue]);
-
-        expect(run).not.toThrowError();
-        expect(outputValue).not.toHaveBeenCalled();
-    });
-
     it('should return a stringified object if the result found is an object', () => {
         testEqual(new ParseJson(), ['{ "a": { "b": "hello"}}', 'a'], ['{"b":"hello"}']);
     });

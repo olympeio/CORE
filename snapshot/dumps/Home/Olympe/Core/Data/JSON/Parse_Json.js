@@ -121,7 +121,7 @@ db.newInstance(_instance_of_Documentation_017b35893b73ed20429e)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Parse_JSON_0162e331fae562c33ef7)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Parses a JSON string and extracts the object specified by the path.\n\nThe path is specified in dotted form.\n\n\n**Examples**:\n```\nParseJson({ "a": { "b": "hello"}}, \'a.b\') -> "hello"\nParseJson([\'a\', \'b\', \'c\'], 1) -> \'b\'\nParseJson({ "03. my key": true}, \'["03. my key"]\') -> true\n```\nFull doc of the syntax supported: [jsonpath](https://www.npmjs.com/package/jsonpath). A list is returned when multiple results are found.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Parses a JSON string and extracts the object specified by the path.\n\nThe path is specified in dotted form.\n\n\n**Examples**:\n```\nParseJson({ "a": { "b": "hello"}}, \'a.b\') -> "hello"\nParseJson([\'a\', \'b\', \'c\'], 1) -> \'b\'\nParseJson({ "03. my key": true}, \'["03. my key"]\') -> true\n```\nFull doc of the syntax supported: [jsonpath-plus](https://www.npmjs.com/package/jsonpath-plus). A list is returned when multiple results are found.',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Parse a JSON string.',
         'v'                                     :1
     })
