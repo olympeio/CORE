@@ -16,7 +16,7 @@
 
 import { FunctionBrick, registerBrick, Context } from 'olympe';
 import {getLogger} from 'logging';
-import {JSONPath} from 'jsonpath';
+import {JSONPath} from 'jsonpath-plus';
 
 /**
 ## Description
@@ -78,8 +78,7 @@ export default class ParseJson extends FunctionBrick {
         }
 
         try {
-            const jp = new JSONPath();
-            resArray = jp.query(obj, path);
+            resArray = JSONPath(path, obj);
         } catch (e) {
             getLogger('Parse JSON').error("Error with provided path: "+e.message);
             return;
