@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, instanceToTag } from 'olympe';
+import {FunctionBrick, registerBrick, instanceToTag, DBView, RelationPrimitive} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -64,6 +64,16 @@ export default class CreateRelation extends FunctionBrick {
             return;
         }
 
+        const db = DBView.get();
+        if (!db.instanceOf(origin, db.getUniqueRelated(relationTag, RelationPrimitive.originModelRel))) {
+            logger.error(`Cannot update relation, the relation ${db.name(instanceToTag(relation))} is not valid for the origin object (${db.name(db.model(origin))}).`);
+            return;
+        }
+
+        if (!db.instanceOf(destination, db.getUniqueRelated(relationTag, RelationPrimitive.destinationModelRel))) {
+            logger.error(`Cannot update relation, the relation ${db.name(instanceToTag(relation))} is not valid for the destination object (${db.name(db.model(destination))}).`);
+            return;
+        }
         // start isolated local transaction
         const transaction = context.getTransaction();
 
