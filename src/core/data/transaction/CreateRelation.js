@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {ActionBrick, registerBrick, instanceToTag} from 'olympe';
+import {ActionBrick, registerBrick, instanceToTag, ErrorFlow, DBView, RelationPrimitive} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -46,21 +46,39 @@ export default class CreateRelation extends ActionBrick {
      * @param {!Sync} destination
      * @param {function()} forwardEvent
      * @param {function(!Sync)} setOrigin
+     * @param {function(ErrorFlow)} setErrorFlow
      */
-    onUpdate(context, [relation, origin, destination], [forwardEvent, setOrigin]) {
+    onUpdate(context, [relation, origin, destination], [forwardEvent, setOrigin, setErrorFlow]) {
         const logger = getLogger('Create Relation');
 
+        const returnError = (message, code) => {
+            logger.error(message);
+            setErrorFlow(ErrorFlow.create(message, code));
+        };
+
+        const relationTag = instanceToTag(relation);
         // Guards
-        if (instanceToTag(relation) === '') {
-            logger.error('No relation specified');
+        if (relationTag === '') {
+            returnError('No relation specified',1);
             return;
         }
         if (instanceToTag(origin) === '') {
-            logger.error('No origin object specified');
+            returnError('No origin object specified', 2);
             return;
         }
         if (instanceToTag(destination) === '') {
-            logger.error('No destination object specified');
+            returnError('No destination object specified', 3);
+            return;
+        }
+
+        const db = DBView.get();
+        if (!db.instanceOf(origin, db.getUniqueRelated(relationTag, RelationPrimitive.originModelRel))) {
+            returnError(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the origin object (${db.name(db.model(origin))}).`,4);
+            return;
+        }
+
+        if (!db.instanceOf(destination, db.getUniqueRelated(relationTag, RelationPrimitive.destinationModelRel))) {
+            returnError(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the destination object (${db.name(db.model(destination))}).`,5);
             return;
         }
 
@@ -68,7 +86,7 @@ export default class CreateRelation extends ActionBrick {
         context.getTransaction().createRelation(relation, origin, destination);
         context.releaseTransaction((executed, success, message) => {
             if(executed && !success) {
-                logger.error(`Transaction error: ${message}`);
+                returnError(`Transaction error: ${message}`, 6);
             } else {
                 setOrigin(origin);
                 forwardEvent();

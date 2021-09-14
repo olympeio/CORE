@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {ActionBrick, registerBrick, Sync} from 'olympe';
+import {ActionBrick, DBView, ErrorFlow, registerBrick, PropertyPrimitive, Sync, instanceToTag} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -46,13 +46,19 @@ export default class SetObjectProperty extends ActionBrick {
      * @param {*} value
      * @param {function()} forwardEvent
      * @param {function(InstanceTag)} setObject
+     * @param {function(ErrorFlow)} setErrorFlow
      */
-    onUpdate(context, [object, property, value], [forwardEvent, setObject]) {
+    onUpdate(context, [object, property, value], [forwardEvent, setObject, setErrorFlow]) {
         const logger = getLogger('Set Object Property');
+
+        const returnError = (message, code) => {
+            logger.error(message);
+            setErrorFlow(ErrorFlow.create(message, code));
+        };
 
         // Validate arguments
         if (value instanceof Sync) {
-            logger.error('Complex properties are not supported');
+            returnError('Complex properties are not supported', 1);
             return;
         }
         if (value === undefined || value === null) {
@@ -62,6 +68,16 @@ export default class SetObjectProperty extends ActionBrick {
             return;
         }
 
+        if (instanceToTag(property) === '') {
+            returnError('No property object specified', 2);
+            return;
+        }
+
+        const db = DBView.get();
+        if (!db.instanceOf(origin, db.getUniqueRelated(instanceToTag(property), PropertyPrimitive.definingModelRel))) {
+            returnError(`Cannot update property, the property ${db.name(instanceToTag(property))} is not valid for this object (${db.name(db.model(object))}).`,3);
+            return;
+        }
 
         // Transaction
         const transaction = context.getTransaction();
@@ -70,7 +86,7 @@ export default class SetObjectProperty extends ActionBrick {
 
         context.releaseTransaction((executed, success, message) => {
             if (!success) {
-                logger.error(`Transaction error: ${message}`);
+                returnError(`Transaction error: ${message}`, 4);
             }
             setObject(object);
             forwardEvent();
