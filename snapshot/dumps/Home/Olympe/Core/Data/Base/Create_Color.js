@@ -40,7 +40,7 @@ const _Runnable_Definition_Outputs_01621fb84e320000f00b = '01621fb84e320000f00b'
 const _Runnable_IO_Type_IO_0168a431d3b9b7438424     = '0168a431d3b9b7438424';
 
 
-// Definition of tags used for newly created instances 
+// Definition of tags used for newly created instances
 const _instance_of_Coded_Function_model____Create_Color_01633eb5bdb4e94f82d1 = db.assignTag('01633eb5bdb4e94f82d1');
 const _instance_of_Runnable_Input____red_01633eb5c81dd71a9847 = db.assignTag('01633eb5c81dd71a9847');
 const _instance_of_Runnable_Input____blue_01633eb5cb3bd31e8bcb = db.assignTag('01633eb5cb3bd31e8bcb');
@@ -73,15 +73,15 @@ const _Base_0179b26837d01a7c3cdc               = '0179b26837d01a7c3cdc';
 
 
 // :_instance_of_Coded_Function_model____Create_Color_01633eb5bdb4e94f82d1
-db.newModel(_instance_of_Coded_Function_model____Create_Color_01633eb5bdb4e94f82d1, 'Create Color') // tag and name of the model 
-    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
+db.newModel(_instance_of_Coded_Function_model____Create_Color_01633eb5bdb4e94f82d1, 'Create Color') // tag and name of the model
+    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
     .setProperties({
         [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
     })
-    .done(); 
+    .done();
 db.updateInstance(_instance_of_Coded_Function_model____Create_Color_01633eb5bdb4e94f82d1, {
         [db.DEFAULT+_Object_name_ff023000000000000011]:'Create Color',
         'v'                                     :2
@@ -94,18 +94,7 @@ db.newInstance(_instance_of_Runnable_Input____red_01633eb5c81dd71a9847)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Create_Color_01633eb5bdb4e94f82d1)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'red',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
-        'v'                                     :1
-    })
-    .done();
-// :_instance_of_Runnable_Input____blue_01633eb5cb3bd31e8bcb
-db.newInstance(_instance_of_Runnable_Input____blue_01633eb5cb3bd31e8bcb)
-    .setModelTag(_Runnable_Input_0168a431d25001540001) // tag of the model
-    // Tag of goos
-    .addToGroupOfObjects(_instance_of_Coded_Function_model____Create_Color_01633eb5bdb4e94f82d1)
-    .setNameOrProperties({
-        [_Object_name_ff023000000000000011]     :'blue',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();
@@ -116,18 +105,18 @@ db.newInstance(_instance_of_Runnable_Input____green_01633eb5cd14554598b8)
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Create_Color_01633eb5bdb4e94f82d1)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'green',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();
-// :_instance_of_Runnable_Output____color_01633eb5da2cfac26ee7
-db.newInstance(_instance_of_Runnable_Output____color_01633eb5da2cfac26ee7)
-    .setModelTag(_Runnable_Output_0168a431d25001540002) // tag of the model
+// :_instance_of_Runnable_Input____blue_01633eb5cb3bd31e8bcb
+db.newInstance(_instance_of_Runnable_Input____blue_01633eb5cb3bd31e8bcb)
+    .setModelTag(_Runnable_Input_0168a431d25001540001) // tag of the model
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Create_Color_01633eb5bdb4e94f82d1)
     .setNameOrProperties({
-        [_Object_name_ff023000000000000011]     :'color',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        [_Object_name_ff023000000000000011]     :'blue',
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
         'v'                                     :1
     })
     .done();
@@ -140,6 +129,17 @@ db.newInstance(_instance_of_Runnable_Input____alpha_0179c67070f8ed2946fb)
         [_Object_name_ff023000000000000011]     :'alpha',
         [_Runnable_Input_Default_Value_01740c5d4ae4b520dd02]:1,
         [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:3,
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Runnable_Output____color_01633eb5da2cfac26ee7
+db.newInstance(_instance_of_Runnable_Output____color_01633eb5da2cfac26ee7)
+    .setModelTag(_Runnable_Output_0168a431d25001540002) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Create_Color_01633eb5bdb4e94f82d1)
+    .setNameOrProperties({
+        [_Object_name_ff023000000000000011]     :'color',
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();
