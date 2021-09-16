@@ -175,7 +175,7 @@ db.newInstance(_instance_of_Documentation_017b35893b38f34abe05)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Create_File_0177920f48b23cd01af7)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Create a file from a text content.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Create a file instance in the local database from a text content.\n\nThe newly created file is not persisted. Use the brick `Persist Object` to do it.',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Create a file from a text content',
         'v'                                     :1
     })

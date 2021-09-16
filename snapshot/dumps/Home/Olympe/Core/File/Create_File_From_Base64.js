@@ -177,7 +177,7 @@ db.newInstance(_instance_of_Documentation_017b35893b33d8586f9c)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Create_File_From_Base64_017821d939590a41cc82)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'This is a shorthand function which is equivalent to (and more efficient than) plugging `Base64 Decoder` into `Create File`.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Create a new file instance in the local database based on a content base64-encoded. The MIME-type value specifies the content-type of the file. \nThe content must either be a base64 string or a DataURL (base64 string starting with `data:[<mediatype>][;base64],`).\n\nThe newly created file is not persisted. Use the brick `Persist Object` to do it.\n\nThis brick is a shorthand function which is equivalent to (and more efficient than) plugging `Base64 Decoder` into `Create File`.',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Creates a file based from a Base64 content.',
         'v'                                     :1
     })
@@ -188,7 +188,7 @@ db.newInstance(_instance_of_Documentation_017b35893f1255cc84dd)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Create_File_From_Base64_017821d939590a41cc82)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Content to put in the file, in Base64 format.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Content to put in the file, in Base64 format (or DataURL).',
         'v'                                     :1
     })
     .done();
