@@ -14,7 +14,16 @@
  * limitations under the License.
  */
 
-import {ActionBrick, DBView, ErrorFlow, registerBrick, PropertyPrimitive, Sync, instanceToTag} from 'olympe';
+import {
+    ActionBrick,
+    DBView,
+    ErrorFlow,
+    registerBrick,
+    PropertyPrimitive,
+    Sync,
+    instanceToTag,
+    CreateInstance
+} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -74,8 +83,9 @@ export default class SetObjectProperty extends ActionBrick {
         }
 
         const db = DBView.get();
-        if (!db.instanceOf(origin, db.getUniqueRelated(instanceToTag(property), PropertyPrimitive.definingModelRel))) {
-            returnError(`Cannot update property, the property ${db.name(instanceToTag(property))} is not valid for this object (${db.name(db.model(object))}).`,3);
+        const objectModel = object instanceof CreateInstance ? object.getModelTag() : db.model(object);
+        if (!db.isExtending(objectModel, db.getUniqueRelated(instanceToTag(property), PropertyPrimitive.definingModelRel))) {
+            returnError(`Cannot update property, the property ${db.name(instanceToTag(property))} is not valid for this object (${db.name(objectModel)}).`,3);
             return;
         }
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {ActionBrick, registerBrick, instanceToTag, ErrorFlow, DBView, RelationPrimitive} from 'olympe';
+import {ActionBrick, registerBrick, instanceToTag, ErrorFlow, DBView, RelationPrimitive, CreateInstance} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -57,28 +57,33 @@ export default class CreateRelation extends ActionBrick {
         };
 
         const relationTag = instanceToTag(relation);
+        const originTag = instanceToTag(origin);
+        const destinationTag = instanceToTag(destination);
         // Guards
         if (relationTag === '') {
             returnError('No relation specified',1);
             return;
         }
-        if (instanceToTag(origin) === '') {
+        if (originTag === '') {
             returnError('No origin object specified', 2);
             return;
         }
-        if (instanceToTag(destination) === '') {
+        if (destinationTag === '') {
             returnError('No destination object specified', 3);
             return;
         }
 
         const db = DBView.get();
-        if (!db.instanceOf(origin, db.getUniqueRelated(relationTag, RelationPrimitive.originModelRel))) {
-            returnError(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the origin object (${db.name(db.model(origin))}).`,4);
+        const originModel = origin instanceof CreateInstance ? origin.getModelTag() : db.model(origin);
+        const destinationModel = destination instanceof CreateInstance ? destination.getModelTag() : db.model(destination);
+
+        if (!db.isExtending(originModel, db.getUniqueRelated(relationTag, RelationPrimitive.originModelRel))) {
+            returnError(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the origin object (${db.name(originModel)}).`,4);
             return;
         }
 
-        if (!db.instanceOf(destination, db.getUniqueRelated(relationTag, RelationPrimitive.destinationModelRel))) {
-            returnError(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the destination object (${db.name(db.model(destination))}).`,5);
+        if (!db.isExtending(destinationModel, db.getUniqueRelated(relationTag, RelationPrimitive.destinationModelRel))) {
+            returnError(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the destination object (${db.name(destinationModel)}).`,5);
             return;
         }
 
