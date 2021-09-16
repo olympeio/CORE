@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, instanceToTag, DBView, RelationPrimitive} from 'olympe';
+import {
+    FunctionBrick,
+    registerBrick,
+    instanceToTag,
+    DBView,
+    RelationPrimitive,
+    CreateInstance,
+} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -50,6 +57,7 @@ export default class CreateRelation extends FunctionBrick {
         // Validate arguments
         const relationTag = instanceToTag(relation);
         const originTag = instanceToTag(origin);
+        const destinationTag = instanceToTag(destination);
         if (relationTag === '') {
             logger.error('No relation specified');
             return;
@@ -59,19 +67,21 @@ export default class CreateRelation extends FunctionBrick {
             return;
         }
 
-        if (!(destination && destination.getTag())) {
-            logger.error('Cannot update relation, destination is not an object');
+        if (destinationTag === '') {
+            logger.error('No destination specified');
             return;
         }
 
         const db = DBView.get();
-        if (!db.instanceOf(origin, db.getUniqueRelated(relationTag, RelationPrimitive.originModelRel))) {
-            logger.error(`Cannot update relation, the relation ${db.name(instanceToTag(relation))} is not valid for the origin object (${db.name(db.model(origin))}).`);
+        const originModel = origin instanceof CreateInstance ? origin.getModelTag() : db.model(origin);
+        const destinationModel = destination instanceof CreateInstance ? destination.getModelTag() : db.model(destination);
+
+        if (!db.isExtending(originModel, db.getUniqueRelated(relationTag, RelationPrimitive.originModelRel))) {
+            logger.error(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the origin object (${db.name(originModel)}).`);
             return;
         }
-
-        if (!db.instanceOf(destination, db.getUniqueRelated(relationTag, RelationPrimitive.destinationModelRel))) {
-            logger.error(`Cannot update relation, the relation ${db.name(instanceToTag(relation))} is not valid for the destination object (${db.name(db.model(destination))}).`);
+        if (!db.isExtending(destinationModel, db.getUniqueRelated(relationTag, RelationPrimitive.destinationModelRel))) {
+            logger.error(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the destination object (${db.name(destinationModel)}).`);
             return;
         }
         // start isolated local transaction
