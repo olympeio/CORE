@@ -1,4 +1,3 @@
-
 /**
  * Copyright 2021 Olympe S.A.
  *
@@ -14,34 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { ActionBrick, registerBrick, ErrorFlow, File, Sync, Transaction } from 'olympe';
+import { dataUrlToBinary, fromBase64 } from 'helpers/binaryConverters';
 
-/**
-## Description
-Used e.g. with KSI files, in order to save a binary file in its base64 format.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| file name | String |  |
-| mime type | String |  |
-| base64 content | String |  |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| file | File |  |
-## Errors
-| Name | Description |
-| --- | --- |
-| Error Flow |  |
-
-**/
 export default class CreateFileFromBase64 extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {!Context} context
      * @param {string=} fileName
@@ -53,13 +30,23 @@ export default class CreateFileFromBase64 extends ActionBrick {
      */
     onUpdate(context, [fileName, mimeType, base64Content], [setFile, setErrorFlow, forwardEvent]) {
         const transaction = new Transaction();
-        const fileTag = File.createFileFromURL(
+        const isDataURL = base64Content.startsWith('data:');
+
+        let finalMimeType = mimeType;
+        if (!finalMimeType) {
+            // Try to guess the mimetype from the data url.
+            const regExpRes = isDataURL ? /^data:(.*);base64.*/.exec(base64Content) : null;
+            finalMimeType = regExpRes !== null && regExpRes.length === 2 ? regExpRes[1] : 'text/plain';
+        }
+
+        const fileTag = File.createFile(
             File,
             transaction,
             fileName || 'new_File_from_CreateFileFromBase64_brick',
-            'data:' + mimeType + ';base64,' + base64Content,
-            mimeType || 'text/plain'
+            isDataURL ? dataUrlToBinary(base64Content) : fromBase64(base64Content),
+            finalMimeType
         );
+        transaction.persistInstance(fileTag, false);
         transaction.execute((success, message) => {
             if (success) {
                 setFile(Sync.getInstance(fileTag));
