@@ -51,7 +51,7 @@ export default class FilterListContains extends FunctionBrick {
      */
     onUpdate(context, [property, list, substring], [setFiltered]) {
         const logger = getLogger('Filter List Contains');
-        const valueDef = getValueDefFor(property);
+        const valueDef = getValueDefFor(property, true);
         if (valueDef === null) {
             const name = DBView.get().name(/** @type {!HasInstanceTag} */ (property));
             logger.warn(`Type of property ${name} is not supported. List will not be filtered.`);
