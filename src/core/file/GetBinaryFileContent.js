@@ -13,21 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, File } from 'olympe';
-import { toBase64 } from 'helpers/binaryConverters';
+import { ActionBrick, registerBrick } from 'olympe';
 import {getLogger} from 'logging';
 
-export default class GetFileContent extends ActionBrick {
+export default class GetBinaryFileContent extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {Context} context
      * @param {File} file
      * @param {function()} forwardEvent
-     * @param {function(string)} setContent
+     * @param {function(ArrayBuffer)} setContent
      */
     onUpdate(context, [file], [forwardEvent, setContent]) {
-        const logger = getLogger('Get File Content');
+        const logger = getLogger('Get Binary File Content');
 
         if (file === undefined || file === null || file.getContentAsBinary === undefined) {
             // warning for legacy usage of the brick, where string/ArrayBuffer was provided as input
@@ -35,27 +34,16 @@ export default class GetFileContent extends ActionBrick {
             return;
         }
 
-        const onFailure = (message) => {
-            logger.error(`Could not retrieve content of ${file}\n${message}`);
-        };
-
-        const mimeType = file.getProperty(File.mimeTypeProp) || '';
-        const asText = (mimeType.startsWith('text') || mimeType === 'application/json')
-        if (asText) {
-            file.getContentAsString((content) => {
+        file.getContentAsBinary(
+            (content) => {
                 setContent(content);
                 forwardEvent();
-            }, onFailure);
-        } else {
-            file.getContentAsBinary(
-                (content) => {
-                    setContent(toBase64(content));
-                    forwardEvent();
-                },
-                onFailure
-            );
-        }
+            },
+            (message) => {
+                logger.error(`Could not retrieve content of ${file}\n${message}`);
+            }
+        );
     }
 }
 
-registerBrick('0179e54f2f4c25c47003', GetFileContent);
+registerBrick('017bc1f1e7a4ea79e31d', GetBinaryFileContent);

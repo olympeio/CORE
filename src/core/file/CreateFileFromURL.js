@@ -1,4 +1,3 @@
-
 /**
  * Copyright 2021 Olympe S.A.
  *
@@ -14,37 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, Transaction, File, ErrorFlow, Sync } from 'olympe';
-import {stringToBinary} from 'helpers/binaryConverters';
+import { ActionBrick, registerBrick, File, Transaction, ErrorFlow, Sync } from 'olympe';
 
-export default class CreateFile extends ActionBrick {
+export default class CreateFileFromURL extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {!Context} context
      * @param {string=} fileName
      * @param {string=} mimeType
-     * @param {string} content
+     * @param {string} url
      * @param {function(File)} setFile
      * @param {function(ErrorFlow)} setErrorFlow
      * @param {function()} forwardEvent
      */
-    onUpdate(context, [fileName, mimeType, content], [forwardEvent, setFile, setErrorFlow]) {
+    onUpdate(context, [fileName, mimeType, url], [setFile, setErrorFlow, forwardEvent]) {
         const transaction = new Transaction();
-
-        if (typeof content !== 'string' && !(content instanceof ArrayBuffer)) {
-            setErrorFlow(ErrorFlow.create('Only support String or ArrayBuffer content types', 2));
-            return;
-        }
-
-        const fileTag = File.createFile(
+        const fileTag = File.createFileFromURL(
             File,
             transaction,
-            fileName || 'new_File_from_CreateFile_brick',
-            content instanceof ArrayBuffer ? content : stringToBinary(content),
+            fileName || 'new_File_from_CreateFileFromURL_brick',
+            url,
             mimeType || 'text/plain'
         );
         transaction.persistInstance(fileTag, false);
@@ -59,4 +48,4 @@ export default class CreateFile extends ActionBrick {
     }
 }
 
-registerBrick('0177920f48b23cd01af7', CreateFile);
+registerBrick('017bc1ea3fad868319fc', CreateFileFromURL);

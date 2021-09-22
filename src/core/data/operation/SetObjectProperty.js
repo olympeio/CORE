@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, Transaction, Sync } from 'olympe';
+import {FunctionBrick, registerBrick, Transaction, Sync, instanceToTag, DBView, PropertyPrimitive, CreateInstance} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -59,6 +59,21 @@ export default class SetObjectProperty extends FunctionBrick {
             setObject(object);
             return;
         }
+
+        if (instanceToTag(property) === '') {
+            logger.error('No property object specified');
+            return;
+        }
+
+        const db = DBView.get();
+
+        const objectModel = object instanceof CreateInstance ? object.getModelTag() : db.model(object);
+
+        if (!db.isExtending(objectModel, db.getUniqueRelated(instanceToTag(property), PropertyPrimitive.definingModelRel))) {
+            logger.error(`Cannot update property, the property ${db.name(instanceToTag(property))} is not valid for this object (${db.name(objectModel)}).`);
+            return;
+        }
+
 
         // Start isolated local transaction
         const transaction = new Transaction();
