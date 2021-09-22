@@ -51,7 +51,7 @@ export default class CreateRelation extends FunctionBrick {
      * @param {InstanceTag} destination
      * @param {function(InstanceTag)} setOrigin
      */
-    onUpdate(context, [relation, origin, destination], [setOrigin]) {
+    onUpdate(context, [origin, relation, destination], [setOrigin]) {
         const logger = getLogger('Create Relation');
 
         // Validate arguments
