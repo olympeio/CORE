@@ -92,20 +92,20 @@ db.updateInstance(_instance_of_Coded_Action_model____Create_Relation_01694800e25
     'v'                                     :2
 });
 db.setRootInstanceTag(_instance_of_Coded_Action_model____Create_Relation_01694800e25a7c39f7b0);
-// :_instance_of_Runnable_Input____destination_01694800e25a1bfe24a3
-db.newInstance(_instance_of_Runnable_Input____destination_01694800e25a1bfe24a3)
-    .setModelTag(_Runnable_Input_0168a431d25001540001) // tag of the model
+// :_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_01694800e25b7c39f7b0
+db.newInstance(_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_01694800e25b7c39f7b0)
+    .setModelTag(_Predefined_input_Control_Flow_of_Action_016ac63229782039429f) // tag of the model
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Create_Relation_01694800e25a7c39f7b0)
     .setNameOrProperties({
-        [_Object_name_ff023000000000000011]     :'destination',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:3,
+        [_Object_name_ff023000000000000011]     :'Control Flow',
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
     .done();
-// :_instance_of_Runnable_Output____origin_01694800e25a5172b9c6
-db.newInstance(_instance_of_Runnable_Output____origin_01694800e25a5172b9c6)
-    .setModelTag(_Runnable_Output_0168a431d25001540002) // tag of the model
+// :_instance_of_Runnable_Input____origin_01694800e25aafcecf7c
+db.newInstance(_instance_of_Runnable_Input____origin_01694800e25aafcecf7c)
+    .setModelTag(_Runnable_Input_0168a431d25001540001) // tag of the model
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Create_Relation_01694800e25a7c39f7b0)
     .setNameOrProperties({
@@ -121,29 +121,18 @@ db.newInstance(_instance_of_Runnable_Input____relation_01694800e25aa267755e)
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Create_Relation_01694800e25a7c39f7b0)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'relation',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
-        'v'                                     :1
-    })
-    .done();
-// :_instance_of_Runnable_Input____origin_01694800e25aafcecf7c
-db.newInstance(_instance_of_Runnable_Input____origin_01694800e25aafcecf7c)
-    .setModelTag(_Runnable_Input_0168a431d25001540001) // tag of the model
-    // Tag of goos
-    .addToGroupOfObjects(_instance_of_Coded_Action_model____Create_Relation_01694800e25a7c39f7b0)
-    .setNameOrProperties({
-        [_Object_name_ff023000000000000011]     :'origin',
         [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
         'v'                                     :1
     })
     .done();
-// :_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_01694800e25b7c39f7b0
-db.newInstance(_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_01694800e25b7c39f7b0)
-    .setModelTag(_Predefined_input_Control_Flow_of_Action_016ac63229782039429f) // tag of the model
+// :_instance_of_Runnable_Input____destination_01694800e25a1bfe24a3
+db.newInstance(_instance_of_Runnable_Input____destination_01694800e25a1bfe24a3)
+    .setModelTag(_Runnable_Input_0168a431d25001540001) // tag of the model
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Create_Relation_01694800e25a7c39f7b0)
     .setNameOrProperties({
-        [_Object_name_ff023000000000000011]     :'Control Flow',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        [_Object_name_ff023000000000000011]     :'destination',
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:3,
         'v'                                     :1
     })
     .done();
@@ -155,6 +144,17 @@ db.newInstance(_instance_of_Predefined_output_Control_Flow____Control_Flow_01694
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'Control Flow',
         [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Runnable_Output____origin_01694800e25a5172b9c6
+db.newInstance(_instance_of_Runnable_Output____origin_01694800e25a5172b9c6)
+    .setModelTag(_Runnable_Output_0168a431d25001540002) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Action_model____Create_Relation_01694800e25a7c39f7b0)
+    .setNameOrProperties({
+        [_Object_name_ff023000000000000011]     :'origin',
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();

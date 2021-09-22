@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-import {DatetimePrimitive, DBView, instanceToTag, NumberPrimitive, PropertyPrimitive, StringPrimitive, valuedefs} from "olympe";
+import {DatetimePrimitive, DBView, instanceToTag, NumberPrimitive, PropertyPrimitive, StringPrimitive, BooleanPrimitive, valuedefs} from "olympe";
 
 /**
  * @param {PropertyDescriptor} property
+ * @param {boolean?} allowBoolean if true the property may be a boolean, otherwise only string, number and datetime are allowed
  * @return {?ValueDef}
  */
-export const getValueDefFor = (property) => {
+export const getValueDefFor = (property, allowBoolean=false) => {
     const propertyTypeTag = DBView.get().getUniqueRelated(/** @type {!HasInstanceTag} */ (property), PropertyPrimitive.typeRel);  // Property type cannot be edited in Draw
 
     // String
@@ -34,6 +35,10 @@ export const getValueDefFor = (property) => {
     // DateTime
     if (propertyTypeTag === instanceToTag(DatetimePrimitive)) {
         return new valuedefs.DateTimeProperty(property);
+    }
+    // Boolean
+    if (allowBoolean === true && propertyTypeTag === instanceToTag(BooleanPrimitive)) {
+        return new valuedefs.BooleanProperty(property);
     }
     return null;
 };

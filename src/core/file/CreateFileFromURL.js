@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, File, Transaction, ErrorFlow } from 'olympe';
+import { ActionBrick, registerBrick, File, Transaction, ErrorFlow, Sync } from 'olympe';
 
 export default class CreateFileFromURL extends ActionBrick {
 
