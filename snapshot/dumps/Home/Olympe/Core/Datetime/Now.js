@@ -25,6 +25,7 @@ const _Documentation_description_01703376c4a81c0e9d92 = '01703376c4a81c0e9d92';
 const _Documentation_summary_01703376c4a81c0e9d91   = '01703376c4a81c0e9d91';
 const _Object_name_ff023000000000000011             = 'ff023000000000000011';
 const _Runnable_Definition_hardcoded_01692aa71f3108454479 = '01692aa71f3108454479';
+const _Runnable_Input_Default_Value_01740c5d4ae4b520dd02 = '01740c5d4ae4b520dd02';
 const _Runnable_IO_IO_Rank_01740c5d4ae4b520dd01     = '01740c5d4ae4b520dd01';
 
 
@@ -39,7 +40,7 @@ const _Runnable_Definition_Outputs_01621fb84e320000f00b = '01621fb84e320000f00b'
 const _Runnable_IO_Type_IO_0168a431d3b9b7438424     = '0168a431d3b9b7438424';
 
 
-// Definition of tags used for newly created instances 
+// Definition of tags used for newly created instances
 const _instance_of_Coded_Function_model____Now_0166edbb9f8ab36de44c = db.assignTag('0166edbb9f8ab36de44c');
 const _instance_of_Runnable_Input____interval_in_ms_0166edbba7901eb4f024 = db.assignTag('0166edbba7901eb4f024');
 const _instance_of_Runnable_Output____datetime_flow_0166edbba93011e55afa = db.assignTag('0166edbba93011e55afa');
@@ -66,15 +67,15 @@ const _Datetime_0179b2690f49a1f52652           = '0179b2690f49a1f52652';
 
 
 // :_instance_of_Coded_Function_model____Now_0166edbb9f8ab36de44c
-db.newModel(_instance_of_Coded_Function_model____Now_0166edbb9f8ab36de44c, 'Now') // tag and name of the model 
-    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
+db.newModel(_instance_of_Coded_Function_model____Now_0166edbb9f8ab36de44c, 'Now') // tag and name of the model
+    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
     .setProperties({
         [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
     })
-    .done(); 
+    .done();
 db.updateInstance(_instance_of_Coded_Function_model____Now_0166edbb9f8ab36de44c, {
         [db.DEFAULT+_Object_name_ff023000000000000011]:'Now',
         'v'                                     :2
@@ -86,7 +87,8 @@ db.newInstance(_instance_of_Runnable_Input____interval_in_ms_0166edbba7901eb4f02
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Now_0166edbb9f8ab36de44c)
     .setNameOrProperties({
-        [_Object_name_ff023000000000000011]     :'interval in ms',
+        [_Object_name_ff023000000000000011]     :'interval [ms]',
+        [_Runnable_Input_Default_Value_01740c5d4ae4b520dd02]:-1,
         [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:0,
         'v'                                     :1
     })
@@ -129,7 +131,7 @@ db.newInstance(_instance_of_Documentation_017b358fcf090b48fdf9)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Now_0166edbb9f8ab36de44c)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'The interval, in milliseconds between updates.',
+        [_Documentation_description_01703376c4a81c0e9d92]:'The interval, in milliseconds between updates. If the interval is zero or negative, the brick sends a single value and never updates again.',
         'v'                                     :1
     })
     .done();

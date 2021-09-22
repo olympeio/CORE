@@ -56,8 +56,12 @@ export default class Now extends FunctionBrick {
         intervalID && clearTimeout(intervalID);
 
         // Create a new timeout function
-        intervalID = setInterval(() => setDate(new Date()), interval);
-        context.set(Now.interval, intervalID);
+        if (interval > 0) {
+            intervalID = setInterval(() => setDate(new Date()), interval);
+            context.set(Now.interval, intervalID);
+        } else {
+            setDate(new Date());
+        }
     }
 
     /**
