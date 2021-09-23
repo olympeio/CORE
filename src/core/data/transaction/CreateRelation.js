@@ -48,7 +48,7 @@ export default class CreateRelation extends ActionBrick {
      * @param {function(!Sync)} setOrigin
      * @param {function(ErrorFlow)} setErrorFlow
      */
-    onUpdate(context, [relation, origin, destination], [forwardEvent, setOrigin, setErrorFlow]) {
+    onUpdate(context, [origin, relation, destination], [forwardEvent, setOrigin, setErrorFlow]) {
         const logger = getLogger('Create Relation');
 
         const returnError = (message, code) => {
