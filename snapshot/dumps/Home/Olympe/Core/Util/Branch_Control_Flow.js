@@ -1,6 +1,6 @@
 
 // Variable db typed for auto-completion:
-db = /**@type{olympe.dc.io.OSaveFileBuilder}*/(db);
+db = /**@type {olympe.dc.io.OSaveFileBuilder}*/(db);
 
 
 // Checks are disabled since this is a automatically generated script issued by the InitScriptBuilder
