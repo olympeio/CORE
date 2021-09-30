@@ -1,6 +1,6 @@
 
 // Variable db typed for auto-completion:
-db = /**@type{olympe.dc.io.OSaveFileBuilder}*/(db);
+db = /**@type {olympe.dc.io.OSaveFileBuilder}*/(db);
 
 
 // Checks are disabled since this is a automatically generated script issued by the InitScriptBuilder
@@ -12,7 +12,7 @@ db.disableChecks();
 const _Coded_Function_01621fb84e320000f011     = '01621fb84e320000f011';
 const _Documentation_01703376c4a81c0e9d90      = '01703376c4a81c0e9d90';
 const _Function_Call_0168c6f020f2a96f0000      = '0168c6f020f2a96f0000';
-const _Model_type_0162f672366be5ca7a86         = '0162f672366be5ca7a86';
+const _Model_0162f672366be5ca7a86              = '0162f672366be5ca7a86';
 const _Object_ff021000000000000001             = 'ff021000000000000001';
 const _Runnable_Input_0168a431d25001540001     = '0168a431d25001540001';
 const _Runnable_Output_0168a431d25001540002    = '0168a431d25001540002';
@@ -136,7 +136,7 @@ db.newInstance(_instance_of_Documentation_017b35894270e9f488b0)
 db.assign(_instance_of_Coded_Function_model____Create_Local_Object_016778ac951d2b536b23, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____model_016778b236638293bbc2);
 db.assign(_instance_of_Coded_Function_model____Create_Local_Object_016778ac951d2b536b23, _Runnable_Definition_Outputs_01621fb84e320000f00b , _instance_of_Runnable_Output____object_016778ac9e05c7adc095);
 db.assign(_instance_of_Runnable_Output____object_016778ac9e05c7adc095, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Object_ff021000000000000001                      );
-db.assign(_instance_of_Runnable_Input____model_016778b236638293bbc2, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Model_type_0162f672366be5ca7a86                  );
+db.assign(_instance_of_Runnable_Input____model_016778b236638293bbc2, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Model_0162f672366be5ca7a86                       );
 db.assign(_instance_of_Documentation_017b35893b39c55eedb4   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Coded_Function_model____Create_Local_Object_016778ac951d2b536b23);
 db.assign(_instance_of_Documentation_017b35893f18640a0130   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____model_016778b236638293bbc2);
 db.assign(_instance_of_Documentation_017b35894270e9f488b0   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Output____object_016778ac9e05c7adc095);

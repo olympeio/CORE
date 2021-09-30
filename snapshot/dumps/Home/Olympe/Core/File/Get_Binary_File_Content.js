@@ -1,6 +1,6 @@
 
 // Variable db typed for auto-completion:
-db = /**@type{olympe.dc.io.OSaveFileBuilder}*/(db);
+db = /**@type {olympe.dc.io.OSaveFileBuilder}*/(db);
 
 
 // Checks are disabled since this is a automatically generated script issued by the InitScriptBuilder
@@ -184,7 +184,7 @@ db.newInstance(_instance_of_Runnable_Input____file_017bc1f3acbacbd9a95a)
 db.newInstance(_instance_of_Documentation_017bc1f3ace645f2bc77)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____file_017bc1f3acbacbd9a95a)
+    .addToGroupOfObjects(_instance_of_Coded_Action_model____Get_Binary_File_Content_017bc1f1e7a4ea79e31d)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The file to be read.',
         'v'                                     :1
@@ -205,7 +205,7 @@ db.newInstance(_instance_of_Runnable_Output____content_017bc1f3efd966bd175a)
 db.newInstance(_instance_of_Documentation_017bc1f3eff8fec8fcca)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Output____content_017bc1f3efd966bd175a)
+    .addToGroupOfObjects(_instance_of_Coded_Action_model____Get_Binary_File_Content_017bc1f1e7a4ea79e31d)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The file content as ArrayBuffer',
         'v'                                     :1

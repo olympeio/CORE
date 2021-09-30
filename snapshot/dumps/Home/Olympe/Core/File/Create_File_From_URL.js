@@ -1,6 +1,6 @@
 
 // Variable db typed for auto-completion:
-db = /**@type{olympe.dc.io.OSaveFileBuilder}*/(db);
+db = /**@type {olympe.dc.io.OSaveFileBuilder}*/(db);
 
 
 // Checks are disabled since this is a automatically generated script issued by the InitScriptBuilder
@@ -50,7 +50,7 @@ const _Runnable_Definition_Outputs_01621fb84e320000f00b = '01621fb84e320000f00b'
 const _Runnable_IO_Type_IO_0168a431d3b9b7438424     = '0168a431d3b9b7438424';
 
 
-// Definition of tags used for newly created instances
+// Definition of tags used for newly created instances 
 const _instance_of_Control_Flow____Control_Flow_017bc1ea3fad1a963bb1 = db.assignTag('017bc1ea3fad1a963bb1');
 const _instance_of_Descender_017bc1ea3fad64b271f1   = db.assignTag('017bc1ea3fad64b271f1');
 const _instance_of_Coded_Action_model____Create_File_From_URL_017bc1ea3fad868319fc = db.assignTag('017bc1ea3fad868319fc');
@@ -89,15 +89,15 @@ const _File_0179b2692921b321f99d               = '0179b2692921b321f99d';
 
 
 // :_instance_of_Coded_Action_model____Create_File_From_URL_017bc1ea3fad868319fc
-db.newModel(_instance_of_Coded_Action_model____Create_File_From_URL_017bc1ea3fad868319fc, 'Create File From URL') // tag and name of the model
-    .extends(_Action_Call_0168c6f020f2a96a0000).setModelTag(_Coded_Action_01621fb84e320000f012)
+db.newModel(_instance_of_Coded_Action_model____Create_File_From_URL_017bc1ea3fad868319fc, 'Create File From URL') // tag and name of the model 
+    .extends(_Action_Call_0168c6f020f2a96a0000).setModelTag(_Coded_Action_01621fb84e320000f012) 
     .setProperties({
         [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
     })
-    .done();
+    .done(); 
 db.updateInstance(_instance_of_Coded_Action_model____Create_File_From_URL_017bc1ea3fad868319fc, {
         [db.DEFAULT+_Object_name_ff023000000000000011]:'Create File From URL',
         'v'                                     :2
@@ -191,7 +191,7 @@ db.newInstance(_instance_of_Runnable_Input____file_name_017bc1ec149076f34b00)
 db.newInstance(_instance_of_Documentation_017bc1ec14c405788b82)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____file_name_017bc1ec149076f34b00)
+    .addToGroupOfObjects(_instance_of_Coded_Action_model____Create_File_From_URL_017bc1ea3fad868319fc)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The name for the created file.',
         'v'                                     :1
@@ -212,7 +212,7 @@ db.newInstance(_instance_of_Runnable_Input____mime_type_017bc1ec6516981ee454)
 db.newInstance(_instance_of_Documentation_017bc1ec6540e87ec3cf)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____mime_type_017bc1ec6516981ee454)
+    .addToGroupOfObjects(_instance_of_Coded_Action_model____Create_File_From_URL_017bc1ea3fad868319fc)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The MIME type of the file.',
         'v'                                     :1
@@ -233,7 +233,7 @@ db.newInstance(_instance_of_Runnable_Input____url_017bc1eca9f22374bf45)
 db.newInstance(_instance_of_Documentation_017bc1ecaa1c19e50f13)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____url_017bc1eca9f22374bf45)
+    .addToGroupOfObjects(_instance_of_Coded_Action_model____Create_File_From_URL_017bc1ea3fad868319fc)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The URL where the file is located (max 2058 characters).',
         'v'                                     :1
@@ -254,7 +254,7 @@ db.newInstance(_instance_of_Runnable_Output____file_017bc1eda4a83c69668b)
 db.newInstance(_instance_of_Documentation_017bc1eda4cc8f871f50)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Output____file_017bc1eda4a83c69668b)
+    .addToGroupOfObjects(_instance_of_Coded_Action_model____Create_File_From_URL_017bc1ea3fad868319fc)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The newly created file',
         'v'                                     :1
@@ -275,7 +275,7 @@ db.newInstance(_instance_of_Runnable_Output____error_flow_017bc1eec62a3cd0002e)
 db.newInstance(_instance_of_Documentation_017bc1eec64dc728c79b)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Output____error_flow_017bc1eec62a3cd0002e)
+    .addToGroupOfObjects(_instance_of_Coded_Action_model____Create_File_From_URL_017bc1ea3fad868319fc)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'Triggered if an error occurs upon creating the file.',
         'v'                                     :1
@@ -299,7 +299,7 @@ db.assign(_instance_of_Control_Flow____Control_Flow_017bc1ea3fae7a2aa376, _Runna
 db.assign(_instance_of_Runnable_Input____file_name_017bc1ec149076f34b00, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _String_ff021000000000000011                      );
 db.assign(_instance_of_Runnable_Input____mime_type_017bc1ec6516981ee454, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _String_ff021000000000000011                      );
 db.assign(_instance_of_Runnable_Input____url_017bc1eca9f22374bf45, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _String_ff021000000000000011                      );
-db.assign(_instance_of_Runnable_Output____file_017bc1eda4a83c69668b, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _File_ff021000000000000030                      );
+db.assign(_instance_of_Runnable_Output____file_017bc1eda4a83c69668b, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _File_ff021000000000000030                        );
 db.assign(_instance_of_Runnable_Output____error_flow_017bc1eec62a3cd0002e, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Error_Flow_016eeb5ede9f3094d8f0                  );
 db.assign(_instance_of_Coded_Action_model____Create_File_From_URL_017bc1ea3fad868319fc, _Runnable_Definition_Calls_Runnable_01692a4af82e8984742c, _instance_of_Descender_017bc1ea3fad64b271f1       );
 db.assign(_instance_of_Coded_Action_model____Create_File_From_URL_017bc1ea3fad868319fc, _Runnable_Definition_Calls_Runnable_01692a4af82e8984742c, _instance_of_Ascender_017bc1ea3fae90fd429e        );

@@ -1,6 +1,6 @@
 
 // Variable db typed for auto-completion:
-db = /**@type{olympe.dc.io.OSaveFileBuilder}*/(db);
+db = /**@type {olympe.dc.io.OSaveFileBuilder}*/(db);
 
 
 // Checks are disabled since this is a automatically generated script issued by the InitScriptBuilder
@@ -12,11 +12,11 @@ db.disableChecks();
 const _Boolean_ff021000000000000012            = 'ff021000000000000012';
 const _Coded_Action_01621fb84e320000f012       = '01621fb84e320000f012';
 const _Control_Flow_01621fb84e320000cf00       = '01621fb84e320000cf00';
+const _Control_Flow_016ac63229782039429f       = '016ac63229782039429f';
+const _Control_Flow_016ac6322acf67eebfe7       = '016ac6322acf67eebfe7';
 const _Documentation_01703376c4a81c0e9d90      = '01703376c4a81c0e9d90';
 const _Function_Call_0168c6f020f2a96f0000      = '0168c6f020f2a96f0000';
 const _Object_ff021000000000000001             = 'ff021000000000000001';
-const _Predefined_input_Control_Flow_of_Action_016ac63229782039429f = '016ac63229782039429f';
-const _Predefined_output_Control_Flow_016ac6322acf67eebfe7 = '016ac6322acf67eebfe7';
 const _Runnable_Input_0168a431d25001540001     = '0168a431d25001540001';
 const _Runnable_Output_0168a431d25001540002    = '0168a431d25001540002';
 
@@ -44,8 +44,8 @@ const _Runnable_IO_Type_IO_0168a431d3b9b7438424     = '0168a431d3b9b7438424';
 
 // Definition of tags used for newly created instances 
 const _instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823 = db.assignTag('0168e64dbc1811cf5823');
-const _instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0168e64dbc1911cf5823 = db.assignTag('0168e64dbc1911cf5823');
-const _instance_of_Predefined_output_Control_Flow____Control_Flow_0168e64dbc1a11cf5823 = db.assignTag('0168e64dbc1a11cf5823');
+const _instance_of_Control_Flow____Control_Flow_0168e64dbc1911cf5823 = db.assignTag('0168e64dbc1911cf5823');
+const _instance_of_Control_Flow____Control_Flow_0168e64dbc1a11cf5823 = db.assignTag('0168e64dbc1a11cf5823');
 const _instance_of_Runnable_Input____Value_0168e64ec44ad9b4dbe1 = db.assignTag('0168e64ec44ad9b4dbe1');
 const _instance_of_Runnable_Output____Result_0168e651de85ed2c16ad = db.assignTag('0168e651de85ed2c16ad');
 const _instance_of_Documentation_017b35893b4790cf9834 = db.assignTag('017b35893b4790cf9834');
@@ -81,9 +81,9 @@ db.newModel(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823, 'Is
     })
     .done(); 
 db.setRootInstanceTag(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823);
-// :_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0168e64dbc1911cf5823
-db.newInstance(_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0168e64dbc1911cf5823)
-    .setModelTag(_Predefined_input_Control_Flow_of_Action_016ac63229782039429f) // tag of the model
+// :_instance_of_Control_Flow____Control_Flow_0168e64dbc1911cf5823
+db.newInstance(_instance_of_Control_Flow____Control_Flow_0168e64dbc1911cf5823)
+    .setModelTag(_Control_Flow_016ac63229782039429f) // tag of the model
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823)
     .setNameOrProperties({
@@ -92,9 +92,9 @@ db.newInstance(_instance_of_Predefined_input_Control_Flow_of_Action____Control_F
         'v'                                     :1
     })
     .done();
-// :_instance_of_Predefined_output_Control_Flow____Control_Flow_0168e64dbc1a11cf5823
-db.newInstance(_instance_of_Predefined_output_Control_Flow____Control_Flow_0168e64dbc1a11cf5823)
-    .setModelTag(_Predefined_output_Control_Flow_016ac6322acf67eebfe7) // tag of the model
+// :_instance_of_Control_Flow____Control_Flow_0168e64dbc1a11cf5823
+db.newInstance(_instance_of_Control_Flow____Control_Flow_0168e64dbc1a11cf5823)
+    .setModelTag(_Control_Flow_016ac6322acf67eebfe7) // tag of the model
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823)
     .setNameOrProperties({
@@ -156,19 +156,19 @@ db.newInstance(_instance_of_Documentation_017b35894270135423d1)
         'v'                                     :1
     })
     .done();
-db.assign(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0168e64dbc1911cf5823);
+db.assign(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Control_Flow____Control_Flow_0168e64dbc1911cf5823);
 db.assign(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____Value_0168e64ec44ad9b4dbe1);
-db.assign(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823, _Runnable_Definition_Outputs_01621fb84e320000f00b , _instance_of_Predefined_output_Control_Flow____Control_Flow_0168e64dbc1a11cf5823);
+db.assign(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823, _Runnable_Definition_Outputs_01621fb84e320000f00b , _instance_of_Control_Flow____Control_Flow_0168e64dbc1a11cf5823);
 db.assign(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823, _Runnable_Definition_Outputs_01621fb84e320000f00b , _instance_of_Runnable_Output____Result_0168e651de85ed2c16ad);
-db.assign(_instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0168e64dbc1911cf5823, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Control_Flow_01621fb84e320000cf00                );
-db.assign(_instance_of_Predefined_output_Control_Flow____Control_Flow_0168e64dbc1a11cf5823, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Control_Flow_01621fb84e320000cf00                );
+db.assign(_instance_of_Control_Flow____Control_Flow_0168e64dbc1911cf5823, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Control_Flow_01621fb84e320000cf00                );
+db.assign(_instance_of_Control_Flow____Control_Flow_0168e64dbc1a11cf5823, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Control_Flow_01621fb84e320000cf00                );
 db.assign(_instance_of_Runnable_Input____Value_0168e64ec44ad9b4dbe1, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Object_ff021000000000000001                      );
 db.assign(_instance_of_Runnable_Output____Result_0168e651de85ed2c16ad, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Boolean_ff021000000000000012                     );
 db.assign(_instance_of_Documentation_017b35893b4790cf9834   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823);
 db.assign(_instance_of_Documentation_017b35893f1f64492f5e   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____Value_0168e64ec44ad9b4dbe1);
 db.assign(_instance_of_Documentation_017b35894270135423d1   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Output____Result_0168e651de85ed2c16ad);
-db.assign(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823, _Object_containsRel_ff02200000000000000f          , _instance_of_Predefined_input_Control_Flow_of_Action____Control_Flow_0168e64dbc1911cf5823);
-db.assign(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823, _Object_containsRel_ff02200000000000000f          , _instance_of_Predefined_output_Control_Flow____Control_Flow_0168e64dbc1a11cf5823);
+db.assign(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823, _Object_containsRel_ff02200000000000000f          , _instance_of_Control_Flow____Control_Flow_0168e64dbc1911cf5823);
+db.assign(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823, _Object_containsRel_ff02200000000000000f          , _instance_of_Control_Flow____Control_Flow_0168e64dbc1a11cf5823);
 db.assign(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Input____Value_0168e64ec44ad9b4dbe1);
 db.assign(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823, _Object_containsRel_ff02200000000000000f          , _instance_of_Runnable_Output____Result_0168e651de85ed2c16ad);
 db.assign(_instance_of_Coded_Action_model____Is_Null_0168e64dbc1811cf5823, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017b35893b4790cf9834   );

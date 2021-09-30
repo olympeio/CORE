@@ -1,6 +1,6 @@
 
 // Variable db typed for auto-completion:
-db = /**@type{olympe.dc.io.OSaveFileBuilder}*/(db);
+db = /**@type {olympe.dc.io.OSaveFileBuilder}*/(db);
 
 
 // Checks are disabled since this is a automatically generated script issued by the InitScriptBuilder
@@ -144,7 +144,7 @@ db.newInstance(_instance_of_Documentation_017b5b96af040786ae1d)
 db.newInstance(_instance_of_Documentation_017b5b96af641e597843)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____text_016cb429d2e316b6478b)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Regex_016cb429d2e316b6478a)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The text to be searched.',
         'v'                                     :1
@@ -154,7 +154,7 @@ db.newInstance(_instance_of_Documentation_017b5b96af641e597843)
 db.newInstance(_instance_of_Documentation_017b5b96af8a0ef227ac)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____regex_016cb429d2e316b6478c)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Regex_016cb429d2e316b6478a)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The pattern that we are looking for.',
         'v'                                     :1
@@ -164,7 +164,7 @@ db.newInstance(_instance_of_Documentation_017b5b96af8a0ef227ac)
 db.newInstance(_instance_of_Documentation_017b5b96afcf6a7c62a5)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Output____matched_016cb429d2e316b6478d)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Regex_016cb429d2e316b6478a)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'`true` if the pattern was matched within the `text` input',
         'v'                                     :1
@@ -174,7 +174,7 @@ db.newInstance(_instance_of_Documentation_017b5b96afcf6a7c62a5)
 db.newInstance(_instance_of_Documentation_017b5b96aff050d00f19)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Output____match_elements_016cb429d2e316b6478e)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Regex_016cb429d2e316b6478a)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The list of elements matching the pattern.',
         'v'                                     :1

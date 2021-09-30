@@ -1,6 +1,6 @@
 
 // Variable db typed for auto-completion:
-db = /**@type{olympe.dc.io.OSaveFileBuilder}*/(db);
+db = /**@type {olympe.dc.io.OSaveFileBuilder}*/(db);
 
 
 // Checks are disabled since this is a automatically generated script issued by the InitScriptBuilder
@@ -13,7 +13,7 @@ const _Coded_Function_01621fb84e320000f011     = '01621fb84e320000f011';
 const _Documentation_01703376c4a81c0e9d90      = '01703376c4a81c0e9d90';
 const _Function_Call_0168c6f020f2a96f0000      = '0168c6f020f2a96f0000';
 const _List_01631aacd8276ea98490               = '01631aacd8276ea98490';
-const _Model_type_0162f672366be5ca7a86         = '0162f672366be5ca7a86';
+const _Model_0162f672366be5ca7a86              = '0162f672366be5ca7a86';
 const _Runnable_Input_0168a431d25001540001     = '0168a431d25001540001';
 const _Runnable_Output_0168a431d25001540002    = '0168a431d25001540002';
 
@@ -135,7 +135,7 @@ db.newInstance(_instance_of_Documentation_017b35a276c3e6d4797d)
     .done();
 db.assign(_instance_of_Coded_Function_model____Get_Object_List_016324f41f20cc166cab, _Runnable_Definition_Inputs_01621fb84e320000f00a  , _instance_of_Runnable_Input____model_016324f4209c39571930);
 db.assign(_instance_of_Coded_Function_model____Get_Object_List_016324f41f20cc166cab, _Runnable_Definition_Outputs_01621fb84e320000f00b , _instance_of_Runnable_Output____object_list_016324f42192417f1643);
-db.assign(_instance_of_Runnable_Input____model_016324f4209c39571930, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Model_type_0162f672366be5ca7a86                  );
+db.assign(_instance_of_Runnable_Input____model_016324f4209c39571930, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _Model_0162f672366be5ca7a86                       );
 db.assign(_instance_of_Runnable_Output____object_list_016324f42192417f1643, _Runnable_IO_Type_IO_0168a431d3b9b7438424         , _List_01631aacd8276ea98490                        );
 db.assign(_instance_of_Documentation_017b35893b680b22bcfe   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Coded_Function_model____Get_Object_List_016324f41f20cc166cab);
 db.assign(_instance_of_Documentation_017b35893f65a7c61d8a   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Runnable_Input____model_016324f4209c39571930);

@@ -1,6 +1,6 @@
 
 // Variable db typed for auto-completion:
-db = /**@type{olympe.dc.io.OSaveFileBuilder}*/(db);
+db = /**@type {olympe.dc.io.OSaveFileBuilder}*/(db);
 
 
 // Checks are disabled since this is a automatically generated script issued by the InitScriptBuilder
@@ -117,7 +117,7 @@ db.newInstance(_instance_of_Documentation_017b5ac8c72435388021)
 db.newInstance(_instance_of_Documentation_017b5ac8c785f63f30de)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____Object_0164136be50e7fa4437d)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Get_Object_Tag_0164136be50e7c4cd5a8)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The object whose tag to retrieve.',
         'v'                                     :1
@@ -127,7 +127,7 @@ db.newInstance(_instance_of_Documentation_017b5ac8c785f63f30de)
 db.newInstance(_instance_of_Documentation_017b5ac8c7cb3473ec88)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Output____Value_0164136be50e6815d144)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Get_Object_Tag_0164136be50e7c4cd5a8)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The tag of the object.',
         'v'                                     :1
