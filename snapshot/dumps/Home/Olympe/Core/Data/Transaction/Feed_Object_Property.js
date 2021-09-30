@@ -1,6 +1,6 @@
 
 // Variable db typed for auto-completion:
-db = /**@type{olympe.dc.io.OSaveFileBuilder}*/(db);
+db = /**@type {olympe.dc.io.OSaveFileBuilder}*/(db);
 
 
 // Checks are disabled since this is a automatically generated script issued by the InitScriptBuilder
@@ -115,7 +115,7 @@ db.newInstance(_instance_of_Runnable_Input____object_017b9bbfedb9da410abc)
 db.newInstance(_instance_of_Documentation_017b9bbfede96aa39207)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____object_017b9bbfedb9da410abc)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Feed_Object_Property_017b9bbd4e0b670170ad)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The object to update.',
         'v'                                     :1
@@ -136,7 +136,7 @@ db.newInstance(_instance_of_Runnable_Input____property_017b9bc048306cae842b)
 db.newInstance(_instance_of_Documentation_017b9bc04871dade0f00)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____property_017b9bc048306cae842b)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Feed_Object_Property_017b9bbd4e0b670170ad)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The property of the object to update.',
         'v'                                     :1
@@ -157,7 +157,7 @@ db.newInstance(_instance_of_Runnable_Input____value_017b9bc19197b4d3500e)
 db.newInstance(_instance_of_Documentation_017b9bc191c5c836d9b8)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____value_017b9bc19197b4d3500e)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Feed_Object_Property_017b9bbd4e0b670170ad)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The value to set.',
         'v'                                     :1
@@ -178,7 +178,7 @@ db.newInstance(_instance_of_Runnable_Output____object_017b9bc5ac2098a9f91c)
 db.newInstance(_instance_of_Documentation_017b9bc5ac40eca5b04f)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Output____object_017b9bc5ac2098a9f91c)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Feed_Object_Property_017b9bbd4e0b670170ad)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The updated object.',
         'v'                                     :1
@@ -199,7 +199,7 @@ db.newInstance(_instance_of_Runnable_Input____control_flow_017b9c2a230c465001af)
 db.newInstance(_instance_of_Documentation_017b9c2a23375a5626c5)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____control_flow_017b9c2a230c465001af)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Feed_Object_Property_017b9bbd4e0b670170ad)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'Trigger the update.',
         'v'                                     :1
@@ -220,7 +220,7 @@ db.newInstance(_instance_of_Runnable_Output____control_flow_017b9c2d221a718f2278
 db.newInstance(_instance_of_Documentation_017b9c2d223c2d6ce799)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Output____control_flow_017b9c2d221a718f2278)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Feed_Object_Property_017b9bbd4e0b670170ad)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'Triggered after the update has been sent.',
         'v'                                     :1

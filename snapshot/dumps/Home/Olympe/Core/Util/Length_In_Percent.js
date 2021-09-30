@@ -1,6 +1,6 @@
 
 // Variable db typed for auto-completion:
-db = /**@type{olympe.dc.io.OSaveFileBuilder}*/(db);
+db = /**@type {olympe.dc.io.OSaveFileBuilder}*/(db);
 
 
 // Checks are disabled since this is a automatically generated script issued by the InitScriptBuilder
@@ -129,7 +129,7 @@ db.newInstance(_instance_of_Documentation_017b5b8b46946ec45755)
 db.newInstance(_instance_of_Documentation_017b5b8b47182d1c6e98)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____$_37_$_016f8f86914e30ad366c)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Length_In_Percent_016f8f8416f002ae2b00)
     .setNameOrProperties({
         'v'                                     :1
     })
@@ -138,7 +138,7 @@ db.newInstance(_instance_of_Documentation_017b5b8b47182d1c6e98)
 db.newInstance(_instance_of_Documentation_017b5b8b474d843f8acc)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____containerLength_016f8f84669b9b268701)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Length_In_Percent_016f8f8416f002ae2b00)
     .setNameOrProperties({
         'v'                                     :1
     })
@@ -147,7 +147,7 @@ db.newInstance(_instance_of_Documentation_017b5b8b474d843f8acc)
 db.newInstance(_instance_of_Documentation_017b5b8b47995cad1a7c)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Output____result_016f8f8474fbb8fb0fe8)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Length_In_Percent_016f8f8416f002ae2b00)
     .setNameOrProperties({
         'v'                                     :1
     })
