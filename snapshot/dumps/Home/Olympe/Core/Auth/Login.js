@@ -40,7 +40,7 @@ const _Runnable_Definition_Outputs_01621fb84e320000f00b = '01621fb84e320000f00b'
 const _Runnable_IO_Type_IO_0168a431d3b9b7438424     = '0168a431d3b9b7438424';
 
 
-// Definition of tags used for newly created instances 
+// Definition of tags used for newly created instances
 const _instance_of_Coded_Function_model____Login_0163d01778b931d801dd = db.assignTag('0163d01778b931d801dd');
 const _instance_of_Runnable_Input____Control_Flow_0163d01778ba31d801dd = db.assignTag('0163d01778ba31d801dd');
 const _instance_of_Runnable_Output____on_success_0163d01778bb31d801dd = db.assignTag('0163d01778bb31d801dd');
@@ -75,15 +75,15 @@ const _Auth_0179b2673490430cc604               = '0179b2673490430cc604';
 
 
 // :_instance_of_Coded_Function_model____Login_0163d01778b931d801dd
-db.newModel(_instance_of_Coded_Function_model____Login_0163d01778b931d801dd, 'Login') // tag and name of the model 
-    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011) 
+db.newModel(_instance_of_Coded_Function_model____Login_0163d01778b931d801dd, 'Login') // tag and name of the model
+    .extends(_Function_Call_0168c6f020f2a96f0000).setModelTag(_Coded_Function_01621fb84e320000f011)
     .setProperties({
         [_Brick_Metadata_$_40_$Runtime$_41_$_status_01703376c4a81c0e9d94]:'stable',
         [_Runnable_Definition_hardcoded_01692aa71f3108454479]:true,
         [_Brick_Metadata_$_40_$Runtime$_41_$_visibility_01621fb84e320000f001]:'public',
         'v'                                     :1
     })
-    .done(); 
+    .done();
 db.setRootInstanceTag(_instance_of_Coded_Function_model____Login_0163d01778b931d801dd);
 // :_instance_of_Runnable_Input____Control_Flow_0163d01778ba31d801dd
 db.newInstance(_instance_of_Runnable_Input____Control_Flow_0163d01778ba31d801dd)
@@ -188,7 +188,7 @@ db.newInstance(_instance_of_Documentation_017b3589427cef9463e1)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Login_0163d01778b931d801dd)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'| 1 | The server is unreachable || 2 | Authentication error |',
+        [_Documentation_description_01703376c4a81c0e9d92]:'1  The server is unreachable\n2  Authentication error',
         'v'                                     :1
     })
     .done();
@@ -196,7 +196,7 @@ db.newInstance(_instance_of_Documentation_017b3589427cef9463e1)
 db.newInstance(_instance_of_Documentation_017b5abed57194c17dd9)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____Control_Flow_0163d01778ba31d801dd)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Login_0163d01778b931d801dd)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'Triggers the execution of the brick',
         'v'                                     :1
@@ -206,7 +206,7 @@ db.newInstance(_instance_of_Documentation_017b5abed57194c17dd9)
 db.newInstance(_instance_of_Documentation_017b5abed614f2f43a58)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Output____on_success_0163d01778bb31d801dd)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Login_0163d01778b931d801dd)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'Triggered if the authentication is successful',
         'v'                                     :1
@@ -216,7 +216,7 @@ db.newInstance(_instance_of_Documentation_017b5abed614f2f43a58)
 db.newInstance(_instance_of_Documentation_017b5abed63866e606c3)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Output____on_failure_01783bc1d91dd3c19fa4)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Login_0163d01778b931d801dd)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'Triggered if the authentication fails',
         'v'                                     :1

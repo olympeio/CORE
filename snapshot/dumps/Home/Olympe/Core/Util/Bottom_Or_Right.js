@@ -129,7 +129,7 @@ db.newInstance(_instance_of_Documentation_017b5b83d58afa6f5cc1)
 db.newInstance(_instance_of_Documentation_017b5b83d5eed974888b)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____containerLength_016f8f83b2a779a4d366)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Bottom_Or_Right_016f8faecb7baf694d81)
     .setNameOrProperties({
         'v'                                     :1
     })
@@ -138,7 +138,7 @@ db.newInstance(_instance_of_Documentation_017b5b83d5eed974888b)
 db.newInstance(_instance_of_Documentation_017b5b83d618aca1512b)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____elementLength_016f8f83aaa8df392d5d)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Bottom_Or_Right_016f8faecb7baf694d81)
     .setNameOrProperties({
         'v'                                     :1
     })
@@ -147,7 +147,7 @@ db.newInstance(_instance_of_Documentation_017b5b83d618aca1512b)
 db.newInstance(_instance_of_Documentation_017b5b83d65e9565aad5)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Output____result_016f8f847c3a2375ab8b)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Bottom_Or_Right_016f8faecb7baf694d81)
     .setNameOrProperties({
         'v'                                     :1
     })

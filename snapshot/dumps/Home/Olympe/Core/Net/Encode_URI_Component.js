@@ -132,7 +132,7 @@ db.newInstance(_instance_of_Documentation_017b5b1a3d21153b555e)
 db.newInstance(_instance_of_Documentation_017b5b1a3d83cb716ca2)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____str_0179c79a97d2dc643bd7)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Encode_URI_Component_0179c79a51b43860eb60)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The string to be URI encoded.',
         'v'                                     :1
@@ -142,7 +142,7 @@ db.newInstance(_instance_of_Documentation_017b5b1a3d83cb716ca2)
 db.newInstance(_instance_of_Documentation_017b5b1a3db7a41f6dea)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____entire_URL_0179c7c77489f8ffccd2)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Encode_URI_Component_0179c79a51b43860eb60)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'if `true`, `encodeURI` is used.',
         'v'                                     :1
@@ -152,7 +152,7 @@ db.newInstance(_instance_of_Documentation_017b5b1a3db7a41f6dea)
 db.newInstance(_instance_of_Documentation_017b5b1a3e033b274d5b)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Output____encoded_0179c79ab1824f12ff01)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Encode_URI_Component_0179c79a51b43860eb60)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The URI encoded string.',
         'v'                                     :1

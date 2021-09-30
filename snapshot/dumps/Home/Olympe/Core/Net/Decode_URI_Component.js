@@ -132,7 +132,7 @@ db.newInstance(_instance_of_Documentation_017b5b1759c032ec7e4f)
 db.newInstance(_instance_of_Documentation_017b5b175a1e0860ca44)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____str_0179c79af682bb9dc031)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Decode_URI_Component_0179c79a6fb65e17624d)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The URI to be decoded.',
         'v'                                     :1
@@ -142,7 +142,7 @@ db.newInstance(_instance_of_Documentation_017b5b175a1e0860ca44)
 db.newInstance(_instance_of_Documentation_017b5b175a4c51869499)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____entire_URL_0179c7c7dabd55cdd2a5)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Decode_URI_Component_0179c79a6fb65e17624d)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'If `true`, `decodeURI` is called.',
         'v'                                     :1
@@ -152,7 +152,7 @@ db.newInstance(_instance_of_Documentation_017b5b175a4c51869499)
 db.newInstance(_instance_of_Documentation_017b5b175a8b5ecf764e)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Output____decoded_0179c79b074bfd81208a)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Decode_URI_Component_0179c79a6fb65e17624d)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The decoded URI.',
         'v'                                     :1

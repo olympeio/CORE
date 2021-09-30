@@ -157,7 +157,7 @@ db.newInstance(_instance_of_Documentation_017b5aed1d875730805f)
 db.newInstance(_instance_of_Documentation_017b5aed1debeb573675)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____List_016c703f123abb8565f8)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Filter_List_Has_Related_016c703cb5ba00f37159)
     .setNameOrProperties({
         'v'                                     :1
     })
@@ -166,7 +166,7 @@ db.newInstance(_instance_of_Documentation_017b5aed1debeb573675)
 db.newInstance(_instance_of_Documentation_017b5aed1e18f00ae091)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____Related_Object_016c703f175aeade384a)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Filter_List_Has_Related_016c703cb5ba00f37159)
     .setNameOrProperties({
         'v'                                     :1
     })
@@ -175,7 +175,7 @@ db.newInstance(_instance_of_Documentation_017b5aed1e18f00ae091)
 db.newInstance(_instance_of_Documentation_017b5aed1e4380c2f1b7)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____Relation_016c703f1c34815d41c6)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Filter_List_Has_Related_016c703cb5ba00f37159)
     .setNameOrProperties({
         'v'                                     :1
     })
@@ -184,7 +184,7 @@ db.newInstance(_instance_of_Documentation_017b5aed1e4380c2f1b7)
 db.newInstance(_instance_of_Documentation_017b5aed1e6fa70344cf)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____Inverse_Filter_016c9497066358190057)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Filter_List_Has_Related_016c703cb5ba00f37159)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'If `true`, acts as `Filter List Has Not Related`',
         'v'                                     :1
@@ -194,7 +194,7 @@ db.newInstance(_instance_of_Documentation_017b5aed1e6fa70344cf)
 db.newInstance(_instance_of_Documentation_017b5aed1eb9c9d36eeb)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Output____FilteredList_016c703f20dc9942e475)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Filter_List_Has_Related_016c703cb5ba00f37159)
     .setNameOrProperties({
         'v'                                     :1
     })

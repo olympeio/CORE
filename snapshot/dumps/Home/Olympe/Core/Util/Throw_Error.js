@@ -175,7 +175,7 @@ db.newInstance(_instance_of_Documentation_017b35894297ccb7ea2b)
 db.newInstance(_instance_of_Documentation_017b5b8c797c4d51fc3e)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____Control_Flow_016eeb5ede9f3094d8fd)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Throw_Error_016eeb5ede9f3094d8fa)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'Triggers the execution of the brick.',
         'v'                                     :1

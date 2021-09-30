@@ -173,7 +173,7 @@ db.newInstance(_instance_of_Documentation_017b35894290dcb605fc)
 db.newInstance(_instance_of_Documentation_017b5b9535556bd51634)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Input____pad_string_01717ca65ba687c6eeff)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Pad_Start_of_String_01717ca5c5bc30fde055)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The string used as padding',
         'v'                                     :1

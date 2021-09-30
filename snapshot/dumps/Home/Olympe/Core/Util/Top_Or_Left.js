@@ -101,7 +101,7 @@ db.newInstance(_instance_of_Documentation_017b5b84f7dde6bc7bba)
 db.newInstance(_instance_of_Documentation_017b5b84f8553bc3607e)
     .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
     // Tag of goos
-    .addToGroupOfObjects(_instance_of_Runnable_Output____result_016f8f7c155f88fa65ea)
+    .addToGroupOfObjects(_instance_of_Coded_Function_model____Top_Or_Left_016f8f7c09e96f326d3d)
     .setNameOrProperties({
         'v'                                     :1
     })
