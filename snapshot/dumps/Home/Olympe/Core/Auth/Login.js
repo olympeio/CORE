@@ -188,7 +188,7 @@ db.newInstance(_instance_of_Documentation_017b3589427cef9463e1)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____Login_0163d01778b931d801dd)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'1  The server is unreachable\n2  Authentication error',
+        [_Documentation_description_01703376c4a81c0e9d92]:'1: The server is unreachable<br />2: Authentication error',
         'v'                                     :1
     })
     .done();
