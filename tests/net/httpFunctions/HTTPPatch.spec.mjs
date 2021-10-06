@@ -22,7 +22,7 @@ describe('HTTPPatch function brick', () => {
     it('should patch correctly',  () => {
         mockFetch(
             mockRequest('https://httpbin.org/patch', 'PATCH', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
-            mockResponse(true, 200, {}, 'test body')
+            mockResponse(true, 200, {"Content-Type": "text/plain"}, 'test body')
         );
 
         const brick = new HTTPPatch();
@@ -41,7 +41,7 @@ describe('HTTPPatch function brick', () => {
     it('should generate a 405 error when patching on a put-only url',  () => {
         mockFetch(
             mockRequest('https://httpbin.org/put', 'PATCH', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
-            mockResponse(false, 405, {}, 'test body')
+            mockResponse(false, 405, {"Content-Type": "text/plain"}, 'test body')
         );
 
         const brick = new HTTPPatch();
@@ -59,7 +59,7 @@ describe('HTTPPatch function brick', () => {
     it('should generate a 404 error when patching on a wrong url',  () => {
         mockFetch(
             mockRequest('abcd', 'PATCH', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
-            mockResponse(false, 404, {}, 'test body')
+            mockResponse(false, 404, {"Content-Type": "text/plain"}, 'test body')
         );
 
         const brick = new HTTPPatch();

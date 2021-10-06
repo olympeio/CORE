@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick } from 'olympe';
+import { ActionBrick, registerBrick, ErrorFlow } from 'olympe';
 import httpRequest from "helpers/httpRequest";
-import checkResponseStatus from "../utils/checkResponse";
+import {forwardEventOrErrorFlow, handleStatusAndHeaders} from "../utils/httpResponseHandlers";
 
 /**
  ## Description
@@ -62,12 +62,10 @@ export default class HTTPPut extends ActionBrick {
      * @param {function(string)} setBody
      * @param {function(string)} setHeaders
      */
-    onUpdate(context, [ url, body, headers], [ forwardEvent, setErrorFlow, setStatusCode, setHeaders]) {
-        httpRequest('PUT', url, headers, body)
-            .then((response) => {
-                checkResponseStatus(response, setHeaders, setErrorFlow, setStatusCode);
-                forwardEvent();
-            });
+    async onUpdate(context, [ url, body, headers], [ forwardEvent, setErrorFlow, setStatusCode, setHeaders]) {
+        const response = await httpRequest('PUT', url, headers, body);
+        handleStatusAndHeaders(response, setStatusCode, setHeaders);
+        forwardEventOrErrorFlow(response, forwardEvent, setErrorFlow);
     }
 }
 
