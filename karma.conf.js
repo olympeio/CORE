@@ -89,7 +89,16 @@ module.exports = function (config) {
             exclude: /(node_modules)/,
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env']
+              presets: [
+                [
+                  "@babel/preset-env",
+                  {
+                    "targets": {
+                      "esmodules": true // needed for transpiling async/await syntax, not supported within karma runner
+                    }
+                  }
+                ]
+              ]
             }
           }
         ]

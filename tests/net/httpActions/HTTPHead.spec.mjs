@@ -58,15 +58,15 @@ describe('HTTPHead action brick', () => {
 
         const statusCodeSpy = jasmine.createSpy();
         const headersSpy = jasmine.createSpy();
-        const errorFlowSpy = jasmine.createSpy();
+        const forwardEventSpy = jasmine.createSpy();
 
-        outputs.push(_timestamp => {
+        outputs.push(forwardEventSpy);
+        outputs.push(errorFlow => {
             expect(statusCodeSpy).toHaveBeenCalledOnceWith(405);
-            expect(headersSpy).toHaveBeenCalledTimes(0);
-            expect(errorFlowSpy).toHaveBeenCalledOnceWith(ErrorFlow.create('Network error', 405));
+            expect(headersSpy).toHaveBeenCalledOnceWith('{}');
+            expect(errorFlow.getCode()).toEqual(405);
             done();
         });
-        outputs.push(errorFlowSpy);
         outputs.push(statusCodeSpy);
         outputs.push(headersSpy);
 

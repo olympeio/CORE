@@ -16,6 +16,7 @@
 import { ActionBrick, registerBrick, File } from 'olympe';
 import { toBase64 } from 'helpers/binaryConverters';
 import {getLogger} from 'logging';
+import {isMimeTypeText} from '../net/utils/httpResponseHandlers';
 
 export default class GetFileContent extends ActionBrick {
 
@@ -40,7 +41,7 @@ export default class GetFileContent extends ActionBrick {
         };
 
         const mimeType = file.getProperty(File.mimeTypeProp) || '';
-        const asText = (mimeType.startsWith('text') || mimeType === 'application/json')
+        const asText = isMimeTypeText(mimeType);
         if (asText) {
             file.getContentAsString((content) => {
                 setContent(content);
