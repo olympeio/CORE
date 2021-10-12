@@ -75,7 +75,7 @@ describe('ParseJson brick', () => {
 
     it('should return the typed object itself if the result found is not an object', () => {
         // array
-        testEqual(new ParseJson(), ['{"a": [1, 2, 3]}', 'a'], ['[1,2,3]']);
+        testEqual(new ParseJson(), ['{"a": [1, 2, 3]}', 'a'], [[1,2,3]]);
         // number
         testEqual(new ParseJson(), ['{"a": 5}', 'a'], [5]);
         // boolean
@@ -121,15 +121,15 @@ describe('ParseJson brick', () => {
         });
 
         // recursive access
-        testEqual(brick, [data, '$..author'], ['["Nigel Rees","Evelyn Waugh","Herman Melville","J. R. R. Tolkien"]']);
+        testEqual(brick, [data, '$..author'], [["Nigel Rees","Evelyn Waugh","Herman Melville","J. R. R. Tolkien"]]);
 
         // last object
         testEqual(brick, [data, '$..book[-1:].title'], ["The Lord of the Rings"]);
 
         // multiple objects
-        testEqual(brick, [data, '$..book[0:2].title'], ['["Sayings of the Century","Sword of Honour"]']);
+        testEqual(brick, [data, '$..book[0:2].title'], [["Sayings of the Century","Sword of Honour"]]);
 
         // filtering
-        testEqual(brick, [data, '$..book[?(@.price<20 && @.category=="fiction")].title'], ['["Sword of Honour","Moby Dick"]']);
+        testEqual(brick, [data, '$..book[?(@.price<20 && @.category=="fiction")].title'], [["Sword of Honour","Moby Dick"]]);
     });
 });
