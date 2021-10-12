@@ -28,6 +28,7 @@ import {
     NumberPrimitive,
     InstanceTag
 } from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description
@@ -81,9 +82,13 @@ export default class JsonToObject extends ActionBrick {
         this.parseProperties(db, transaction, instance, businessModel, /**@type {!Object}*/(data), mappingModels);
         this.parseRelations(db, transaction, instance, businessModel, /**@type {!Object}*/(data), mappingModels);
 
-        transaction.execute(() => {
-            setObject(/**@type{BusinessObject}*/Sync.getInstance(instance));
-            forwardEvent();
+        transaction.execute((success, msg) => {
+            if (success) {
+                setObject(/**@type{BusinessObject}*/Sync.getInstance(instance));
+                forwardEvent();
+            } else {
+                getLogger('JSON To Object').error(`Transaction failed: ${msg}`);
+            }
         });
 
     }
@@ -92,7 +97,7 @@ export default class JsonToObject extends ActionBrick {
      * @protected
      * @param {!DBView} db
      * @param {!Transaction} transaction
-     * @param {!string} instance
+     * @param {InstanceTag} instance
      * @param {!string} businessModel
      * @param {!Object} data
      * @param {!Map} mappingModels
@@ -118,7 +123,7 @@ export default class JsonToObject extends ActionBrick {
      * @protected
      * @param {!DBView} db
      * @param {!Transaction} transaction
-     * @param {!string} instance
+     * @param {InstanceTag} instance
      * @param {!string} businessModel
      * @param {!Object} data
      * @param {!Map<string, string>} mappingModels
