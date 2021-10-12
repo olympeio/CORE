@@ -205,7 +205,7 @@ db.newInstance(_instance_of_Documentation_017b35893bac39509f77)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____HTTP_Delete_016ca99aa88a43410c21)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Sends an HTTP DELETE request to the specified URL and provide the results.\n\nAdditional headers can be provided and returned in a string that has to be in JSON format.\n\n**Example:** \'{"Content-Type": "text/html; charset=UTF-8", "Content-Length": 1024 }\'',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Sends an HTTP DELETE request to the specified URL and provide the results.\n\nAdditional headers can be provided and returned in a string that has to be in JSON format.\n\n**Example:** \'{"Content-Type": "text/html; charset=UTF-8", "Content-Length": 1024 }\'\n\nThe returned body is formatted depending on the mimeType received in the headers : as an UTF-8 string for common text content (text/html, application/json, ...), and as a base64 string for all other contents.',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Perform an HTTP DELETE request.',
         'v'                                     :1
     })

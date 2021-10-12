@@ -149,7 +149,7 @@ db.newInstance(_instance_of_Documentation_017b35893ba5237a91fc)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Function_model____HTTP_Get_016ca8c47eac1f7f797e)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Sends an HTTP GET request to the specified URL and provide the results.\n\nThe HTTP GET method requests a representation of the specified resource. Requests using GET should only retrieve data.\n\nAdditional headers can be provided and returned in a string that has to be in JSON format.\n\n**Example:** \'{"Content-Type": "text/html; charset=UTF-8", "Content-Length": 1024 }\'\n',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Sends an HTTP GET request to the specified URL and provide the results.\n\nThe HTTP GET method requests a representation of the specified resource. Requests using GET should only retrieve data.\n\nAdditional headers can be provided and returned in a string that has to be in JSON format.\n\n**Example:** \'{"Content-Type": "text/html; charset=UTF-8", "Content-Length": 1024 }\'\n\nThe returned body is formatted depending on the mimeType received in the headers : as an UTF-8 string for common text content (text/html, application/json, ...), and as a base64 string for all other contents.',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Perform an HTTP GET request.',
         'v'                                     :1
     })

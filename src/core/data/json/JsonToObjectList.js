@@ -40,7 +40,7 @@ export default class JsonToObjectList extends JsonToObject {
      *
      * @protected
      * @param {!Context} context
-     * @param {string} json
+     * @param {string|Object} json
      * @param {InstanceTag} businessModel
      * @param {boolean} persist
      * @param {function(array)} setList
@@ -50,8 +50,14 @@ export default class JsonToObjectList extends JsonToObject {
         const transaction = context.getTransaction();
         transaction.persist(persist);
 
-        const parsedJson = JSON.parse(json);
-        const dataArray = parsedJson instanceof Array ? parsedJson : [parsedJson];
+        // Try to parse the input JSON (parsing may fail if input is e.g. an array or an object). Return the result as is if its an array or wrapped in an array.
+        let dataArray;
+        if (typeof(json) === 'string') {
+            const parsedJson = JSON.parse(json);
+            dataArray = Array.isArray(parsedJson) ? parsedJson : [parsedJson];
+        } else {
+            dataArray = Array.isArray(json) ? json : [json]
+        }
 
         // TODO should add BusinessModel in public api?
         const businessModelTag = '016324fde11a836f76c2';

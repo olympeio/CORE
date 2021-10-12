@@ -16,6 +16,7 @@
  */
 
 import {FunctionBrick, registerBrick, ListDef} from 'olympe';
+import {getLogger} from 'logging';
 
 /**
 ## Description

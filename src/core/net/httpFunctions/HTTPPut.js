@@ -17,7 +17,7 @@
 
 import { FunctionBrick, registerBrick} from 'olympe';
 import httpRequest from "helpers/httpRequest";
-import checkResponseStatus from "../utils/checkResponse";
+import {handleStatusAndHeaders} from "../utils/httpResponseHandlers";
 
 /**
  ## Description
@@ -60,12 +60,9 @@ export default class HTTPPut extends FunctionBrick {
      * @param {function(string)} setBody
      * @param {function(string)} setHeaders
      */
-    onUpdate(context, [ url, body, headers], [ setStatusCode, setHeaders ]) {
-        httpRequest('PUT', url, headers, body)
-            .then(_response => {
-                    checkResponseStatus(_response, setHeaders, undefined, setStatusCode);
-                }
-            );
+    async onUpdate(context, [ url, body, headers], [ setStatusCode, setHeaders ]) {
+        const response = await httpRequest('PUT', url, headers, body);
+        handleStatusAndHeaders(response, setStatusCode, setHeaders);
     }
 }
 
