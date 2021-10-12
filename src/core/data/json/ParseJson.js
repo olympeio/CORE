@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, Context } from 'olympe';
+import { FunctionBrick, registerBrick } from 'olympe';
 import {getLogger} from 'logging';
 import {JSONPath} from 'jsonpath-plus';
 
@@ -52,11 +52,11 @@ export default class ParseJson extends FunctionBrick {
     onUpdate(context, [source, path], [setResult]) {
         // Guards
         if(typeof source !== 'string') {
-            getLogger('Parse JSON').error("Provided source is not a string");
+            getLogger('Parse JSON').error('Provided source is not a string');
             return;
         }
         if(typeof path !== 'string') {
-            getLogger('Parse JSON').error("Provided path is not a string");
+            getLogger('Parse JSON').error('Provided path is not a string');
             return;
         }
 
@@ -64,7 +64,7 @@ export default class ParseJson extends FunctionBrick {
         try {
             obj = JSON.parse(source);
         } catch(e) {
-            getLogger('Parse JSON').error("Error when parsing source: "+e.message);
+            getLogger('Parse JSON').error('Error when parsing source: '+e.message);
             return;
         }
 
@@ -80,23 +80,18 @@ export default class ParseJson extends FunctionBrick {
         try {
             resArray = JSONPath(path, obj);
         } catch (e) {
-            getLogger('Parse JSON').error("Error with provided path: "+e.message);
+            getLogger('Parse JSON').error('Error with provided path: '+e.message);
             return;
         }
 
-        if (resArray.length > 0) {
-            let outputObj = resArray;
-            // unwrap array if there is a single result (legacy spec)
-            if (resArray.length === 1) {
-                outputObj = resArray[0];
-            }
-            if (outputObj instanceof Object) {
-                setResult(JSON.stringify(outputObj));
-            } else {
-                setResult(outputObj);
-            }
+        if (resArray.length === 1) {
+            // If only one result, unwrap it and return it (stringified if it is an object). Take care of not stringifying arrays.
+            const resObj = resArray[0];
+            setResult(resObj instanceof Object && !Array.isArray(resObj) ? JSON.stringify(resObj) : resObj);
+        } else if (resArray.length > 1) {
+            setResult(resArray);
         } else {
-            getLogger('Parse JSON').warn("No result found matching provided path");
+            getLogger('Parse JSON').warn('No result found matching provided path');
             setResult(null);
         }
     }
