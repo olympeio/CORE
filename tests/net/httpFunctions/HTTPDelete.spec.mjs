@@ -22,7 +22,7 @@ xdescribe('HTTPDelete function brick', () => {
     it('should delete correctly',  () => {
         mockFetch(
             mockRequest('https://httpbin.org/delete', 'DELETE', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
-            mockResponse(true, 200, {}, 'test body')
+            mockResponse(true, 200, {"Content-Type": "text/plain"}, 'test body')
         );
 
         const brick = new HTTPDelete();
@@ -40,7 +40,7 @@ xdescribe('HTTPDelete function brick', () => {
     it('should generate a 405 error when deleting on a put-only url',  () => {
         mockFetch(
             mockRequest('https://httpbin.org/put', 'DELETE', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
-            mockResponse(false, 405, {}, 'test body')
+            mockResponse(false, 405, {"Content-Type": "text/plain"}, 'test body')
         );
 
         const brick = new HTTPDelete();
@@ -58,7 +58,7 @@ xdescribe('HTTPDelete function brick', () => {
     it('should generate a 404 error when deleting on a wrong url',  () => {
         mockFetch(
             mockRequest('abcd', 'DELETE', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
-            mockResponse(false, 404, {}, 'test body')
+            mockResponse(false, 404, {"Content-Type": "text/plain"}, 'test body')
         );
 
         const brick = new HTTPDelete();

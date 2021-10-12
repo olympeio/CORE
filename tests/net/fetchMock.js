@@ -42,8 +42,10 @@ export const mockResponse = (ok, status, headers, body) => {
     return Promise.resolve({
         ok: ok,
         status: status,
+        statusText: '',
         headers: parsedHeaders,
-        text: () => Promise.resolve(body || '')
+        text: () => Promise.resolve(body || ''),
+        arrayBuffer: () => Promise.resolve(body)
     });
 }
 
@@ -61,3 +63,10 @@ export const mockFetch = (request, response) => {
         return response;
     });
 }
+
+/**
+ * 1x1 pixel gif
+ *
+ * @type {string}
+ */
+export const SMALL_GIF = 'R0lGODlhAQABAIAAAP7//wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==';

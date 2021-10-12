@@ -16,13 +16,14 @@
 
 import HTTPGet from '../../../src/core/net/httpActions/HTTPGet.js';
 import {Context, ErrorFlow} from 'olympe';
-import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
+import {mockFetch, mockRequest, mockResponse, SMALL_GIF} from "../fetchMock.js";
+import {fromBase64} from 'helpers/binaryConverters';
 
 xdescribe('HTTPGet action brick', () => {
     it('should get correctly',  (done) => {
         mockFetch(
             mockRequest('https://httpbin.org/get', 'GET', {"Content-Type": "application/json"}),
-            mockResponse(true, 200, {}, '{"test": "response"}')
+            mockResponse(true, 200, {"Content-Type": "application/json"}, '{"test": "response"}')
         );
 
         const brick = new HTTPGet();
@@ -36,7 +37,7 @@ xdescribe('HTTPGet action brick', () => {
 
         outputs.push(() => {
             expect(statusCodeSpy).toHaveBeenCalledOnceWith(200);
-            expect(headersSpy).toHaveBeenCalledWith('{}');
+            expect(headersSpy).toHaveBeenCalledWith('{"content-type":"application/json"}');
             expect(bodySpy).toHaveBeenCalledWith('{"test": "response"}');
             done();
         });
@@ -51,7 +52,39 @@ xdescribe('HTTPGet action brick', () => {
     it('should get an error correctly',  (done) => {
         mockFetch(
             mockRequest('abcd', 'GET', {}),
-            mockResponse(false, 404, {}, 'NOT FOUND')
+            mockResponse(false, 404, {"content-type": "text/plain"}, 'NOT FOUND')
+        );
+
+        const brick = new HTTPGet();
+
+        const context = new Context();
+        const outputs = [];
+
+        const statusCodeSpy = jasmine.createSpy();
+        const headersSpy = jasmine.createSpy();
+        const bodySpy = jasmine.createSpy();
+        const forwardEventSpy = jasmine.createSpy();
+
+        outputs.push(forwardEventSpy);
+        outputs.push(errorFlow => {
+            expect(statusCodeSpy).toHaveBeenCalledOnceWith(404);
+            expect(headersSpy).toHaveBeenCalledOnceWith('{"content-type":"text/plain"}');
+            expect(bodySpy).toHaveBeenCalledOnceWith('NOT FOUND');
+            expect(errorFlow.getCode()).toBe(404);
+            done();
+        });
+        outputs.push(statusCodeSpy);
+        outputs.push(bodySpy);
+        outputs.push(headersSpy);
+
+        brick.onUpdate(context, ['abcd', ''], outputs);
+
+    });
+
+    it('should get a non-text file as a dataUrl',  (done) => {
+        mockFetch(
+            mockRequest('https://httpbin.org/image', 'GET', {}),
+            mockResponse(true, 200, {"content-type": "image/gif"}, fromBase64(SMALL_GIF))
         );
 
         const brick = new HTTPGet();
@@ -64,11 +97,11 @@ xdescribe('HTTPGet action brick', () => {
         const bodySpy = jasmine.createSpy();
         const errorFlowSpy = jasmine.createSpy();
 
-        outputs.push(_timestamp => {
-            expect(statusCodeSpy).toHaveBeenCalledOnceWith(404);
-            expect(headersSpy).toHaveBeenCalledTimes(0);
-            expect(bodySpy).toHaveBeenCalledOnceWith('NOT FOUND');
-            expect(errorFlowSpy).toHaveBeenCalledOnceWith(ErrorFlow.create('Network error', 404));
+        outputs.push(timestamp => {
+            expect(statusCodeSpy).toHaveBeenCalledOnceWith(200);
+            expect(headersSpy).toHaveBeenCalledOnceWith('{"content-type":"image/gif"}');
+            expect(bodySpy).toHaveBeenCalledOnceWith(SMALL_GIF);
+            expect(errorFlowSpy).not.toHaveBeenCalled();
             done();
         });
         outputs.push(errorFlowSpy);
@@ -76,7 +109,7 @@ xdescribe('HTTPGet action brick', () => {
         outputs.push(bodySpy);
         outputs.push(headersSpy);
 
-        brick.onUpdate(context, ['abcd', ''], outputs);
+        brick.onUpdate(context, ['https://httpbin.org/image', ''], outputs);
 
     });
 });

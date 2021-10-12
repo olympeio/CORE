@@ -22,7 +22,7 @@ xdescribe('HTTPPost function brick', () => {
     it('should post correctly',  () => {
         mockFetch(
             mockRequest('https://httpbin.org/post', 'POST', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
-            mockResponse(true, 200, {}, 'test body')
+            mockResponse(true, 200, {"Content-Type": "text/plain"}, 'test body')
         );
 
         const brick = new HTTPPost();
@@ -41,7 +41,7 @@ xdescribe('HTTPPost function brick', () => {
     it('should generate a 405 error when posting on a put-only url',  () => {
         mockFetch(
             mockRequest('https://httpbin.org/put', 'POST', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
-            mockResponse(false, 405, {}, 'test body')
+            mockResponse(false, 405, {"Content-Type": "text/plain"}, 'test body')
         );
 
         const brick = new HTTPPost();
@@ -59,7 +59,7 @@ xdescribe('HTTPPost function brick', () => {
     it('should generate a 404 error when posting on a wrong url',  () => {
         mockFetch(
             mockRequest('abcd', 'POST', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
-            mockResponse(false, 404, {}, 'test body')
+            mockResponse(false, 404, {"Content-Type": "text/plain"}, 'test body')
         );
 
         const brick = new HTTPPost();

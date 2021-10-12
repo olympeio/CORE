@@ -22,7 +22,7 @@ xdescribe('HTTPPut action brick', () => {
     it('should put correctly', (done) => {
         mockFetch(
             mockRequest('https://httpbin.org/put', 'PUT', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
-            mockResponse(true, 200, {}, 'test body')
+            mockResponse(true, 200, {"Content-Type": "text/plain"}, 'test body')
         );
 
         const brick = new HTTPPut();
@@ -48,7 +48,7 @@ xdescribe('HTTPPut action brick', () => {
     it('should generate a 405 error when puting on a get-only url',  (done) => {
         mockFetch(
             mockRequest('https://httpbin.org/get', 'PUT', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
-            mockResponse(false, 405, {}, 'test body')
+            mockResponse(false, 405, {})
         );
 
         const brick = new HTTPPut();
@@ -58,15 +58,15 @@ xdescribe('HTTPPut action brick', () => {
 
         const statusCodeSpy = jasmine.createSpy();
         const headersSpy = jasmine.createSpy();
-        const errorFlowSpy = jasmine.createSpy();
+        const forwardEventSpy = jasmine.createSpy();
 
-        outputs.push(_timestamp => {
+        outputs.push(forwardEventSpy);
+        outputs.push(errorFlow => {
             expect(statusCodeSpy).toHaveBeenCalledOnceWith(405);
-            expect(headersSpy).toHaveBeenCalledTimes(0);
-            expect(errorFlowSpy).toHaveBeenCalledOnceWith(ErrorFlow.create('Network error', 405));
+            expect(headersSpy).toHaveBeenCalledOnceWith('{}');
+            expect(errorFlow.getCode()).toEqual(405);
             done();
         });
-        outputs.push(errorFlowSpy);
         outputs.push(statusCodeSpy);
         outputs.push(headersSpy);
 

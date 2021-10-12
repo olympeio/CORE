@@ -22,7 +22,7 @@ xdescribe('HTTPPatch action brick', () => {
     it('should patch correctly', (done) => {
         mockFetch(
             mockRequest('https://httpbin.org/patch', 'PATCH', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
-            mockResponse(true, 200, {}, 'test body')
+            mockResponse(true, 200, {"Content-Type": "text/plain"}, 'test body')
         );
 
         const brick = new HTTPPatch();
@@ -51,7 +51,7 @@ xdescribe('HTTPPatch action brick', () => {
     it('should generate a 405 error when patching on a put-only url',  (done) => {
         mockFetch(
             mockRequest('https://httpbin.org/put', 'PATCH', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
-            mockResponse(false, 405, {}, 'test body')
+            mockResponse(false, 405, {"Content-Type": "text/plain"}, 'An error occurred')
         );
 
         const brick = new HTTPPatch();
@@ -62,16 +62,16 @@ xdescribe('HTTPPatch action brick', () => {
         const statusCodeSpy = jasmine.createSpy();
         const headersSpy = jasmine.createSpy();
         const bodySpy = jasmine.createSpy();
-        const errorFlowSpy = jasmine.createSpy();
+        const forwardEventSpy = jasmine.createSpy();
 
-        outputs.push(_timestamp => {
+        outputs.push(forwardEventSpy);
+        outputs.push(errorFlow => {
             expect(statusCodeSpy).toHaveBeenCalledOnceWith(405);
-            expect(headersSpy).toHaveBeenCalledTimes(0);
-            expect(bodySpy).toHaveBeenCalledTimes(1);
-            expect(errorFlowSpy).toHaveBeenCalledOnceWith(ErrorFlow.create('Network error', 405));
+            expect(headersSpy).toHaveBeenCalledOnceWith('{"content-type":"text/plain"}');
+            expect(bodySpy).toHaveBeenCalledOnceWith('An error occurred');
+            expect(errorFlow.getCode()).toEqual(405);
             done();
         });
-        outputs.push(errorFlowSpy);
         outputs.push(statusCodeSpy);
         outputs.push(bodySpy);
         outputs.push(headersSpy);
