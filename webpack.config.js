@@ -27,6 +27,11 @@ const commonConfig = {
     module: {
         rules: [
             {
+                test: /\.(jsx)$/,
+                exclude: /node_modules/,
+                use: ['babel-loader']
+            },
+            {
                 test: /\.js$/,
                 enforce: "pre",
                 use: "source-map-loader"
@@ -39,8 +44,7 @@ const commonConfig = {
                 ],
                 enforce: "pre",
                 use: "webpack-import-glob-loader"
-            },
-
+            }
         ]
     },
     externals: ['olympe', nodeExternals()]
