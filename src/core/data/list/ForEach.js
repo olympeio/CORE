@@ -21,7 +21,7 @@ export default class ForEach extends FunctionBrick {
     /**
      * @protected
      * @param {!Context} brickContext
-     * @param {!ListDef} list
+     * @param {!ListDef | !Array} list
      * @param {!FunctionBrick} iterator
      * @param {!Array} outputs
      */

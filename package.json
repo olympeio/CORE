@@ -19,7 +19,8 @@
     "reset": "npx gulp reset --confirm",
     "snapshot": "npx gulp snapshot",
     "bundle": "docker run --rm -e DOCKER_REGISTRY_PATH=olympeio/app- -e PUBLIC_FRAMEWORK=true -e NODE_ENV=production -e NO_S3_PUSH=true -v \"$(pwd):/src\" olympeio/bundler:0.1.60",
-    "test": "npx karma start"
+    "test": "npx karma start",
+    "test:debug": "npx karma start karma.conf.js --browsers=Chrome --single-run=false --debug"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
