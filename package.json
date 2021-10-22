@@ -1,13 +1,13 @@
 {
   "name": "@olympeio/core",
-  "version": "1.1.9-dev",
+  "version": "1.2.1-dev",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/olympeio/CORE"
   },
   "build": {
-    "orchestratorVersion": "5.9.4"
+    "orchestratorVersion": "5.9.6"
   },
   "scripts": {
     "prebuild": "npx gulp patches --core.modules=project",
