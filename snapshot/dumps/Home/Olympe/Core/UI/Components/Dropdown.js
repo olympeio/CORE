@@ -255,24 +255,24 @@ db.newModel(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c
     .done(); 
 db.updateInstance(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, {
         [db.DEFAULT+_instance_of_Property__Dropdown____Required_017c9dc1efb66f7af0e4]:false,
-        [db.DEFAULT+_instance_of_Property__Dropdown____Font_Family_017ca2a83dd9650b9d42]:'Roboto',
-        [db.DEFAULT+_instance_of_Property__Dropdown____Helper_Text_017c9dc1efa73f85cfbb]:'',
-        [db.DEFAULT+_instance_of_Property__Dropdown____Error_017c9dc1efa437a1a3ab]:false,
-        [db.DEFAULT+_instance_of_Property__Dropdown____Options_Label_017c9dc3f425c9c49400]:'',
-        [db.DEFAULT+_instance_of_Property__Dropdown____Options_Value_017c9dc3f215fb21042b]:'',
-        [db.DEFAULT+_instance_of_Property__Dropdown____Min_Size_017c9dc1efc305447b3c]:'small',
-        [db.DEFAULT+_instance_of_Property__Dropdown____Disabled_017c9dc1efa247807e45]:false,
-        [db.DEFAULT+_instance_of_Property__Dropdown____Variant_017c9dc1efbf8ead2867]:'outlined',
-        [db.DEFAULT+_instance_of_Property__Dropdown____Empty_Text_017c9de32a48b053d65d]:'',
         [db.DEFAULT+_Renderable_Width_01611d99ec0553b5926e]:200,
+        [db.DEFAULT+_instance_of_Property__Dropdown____Helper_Text_017c9dc1efa73f85cfbb]:'',
+        [db.DEFAULT+_instance_of_Property__Dropdown____Font_Family_017ca2a83dd9650b9d42]:'Roboto',
         [db.DEFAULT+_instance_of_Property__Dropdown____Options_Separator_017c9dc3f60397da8732]:',',
         [db.DEFAULT+_instance_of_Property__Dropdown____Color_017c9dc1ef9e49123a7b]:'primary',
         [db.DEFAULT+_Object_name_ff023000000000000011]:'Text Field',
+        [db.DEFAULT+_instance_of_Property__Dropdown____Error_017c9dc1efa437a1a3ab]:false,
+        [db.DEFAULT+_instance_of_Property__Dropdown____Options_Label_017c9dc3f425c9c49400]:'',
+        [db.DEFAULT+_instance_of_Property__Dropdown____Options_Value_017c9dc3f215fb21042b]:'',
         [db.DEFAULT+_instance_of_Property__Dropdown____Value_017c9dc1efbdb54d6ff0]:'',
         [db.DEFAULT+_instance_of_Property__Dropdown____MUI_sx_$_91_$json$_93_$_017ca2e7923c3356ab32]:'{}',
+        [db.DEFAULT+_instance_of_Property__Dropdown____Min_Size_017c9dc1efc305447b3c]:'small',
+        [db.DEFAULT+_instance_of_Property__Dropdown____Disabled_017c9dc1efa247807e45]:false,
         [db.DEFAULT+_instance_of_Property__Dropdown____Multiple_017c9dc3f8699cfd03ab]:false,
         [db.DEFAULT+_Renderable_Height_01611d9a0452a179c68f]:40,
+        [db.DEFAULT+_instance_of_Property__Dropdown____Variant_017c9dc1efbf8ead2867]:'outlined',
         [db.DEFAULT+_instance_of_Property__Dropdown____Label_017c9dc1efab1bae4aab]:'',
+        [db.DEFAULT+_instance_of_Property__Dropdown____Empty_Text_017c9de32a48b053d65d]:'',
         'v'                                     :2
     });
 db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Object_propertyRel_ff02200000000000000c          , _instance_of_Property__Dropdown____Color_017c9dc1ef9e49123a7b);

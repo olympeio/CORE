@@ -18,6 +18,7 @@ const _Number_ff021000000000000013             = 'ff021000000000000013';
 const _Property_ff021000000000000005           = 'ff021000000000000005';
 const _Property_Metadata_016d1bb681929c2cc3f0  = '016d1bb681929c2cc3f0';
 const _String_ff021000000000000011             = 'ff021000000000000011';
+const _Text_016cfca73e63f9ab5ba4               = '016cfca73e63f9ab5ba4';
 const _Text_Field_Size_017c9d7d3fe7368823c9    = '017c9d7d3fe7368823c9';
 const _Text_Field_Type_017c9d0cd6eab1da2bfe    = '017c9d0cd6eab1da2bfe';
 const _Text_Field_Variant_017c9d10839273f0e9b7 = '017c9d10839273f0e9b7';
@@ -265,8 +266,8 @@ db.updateInstance(_instance_of_Coded_Visual_Component_model____Text_Field_017c9c
         [db.DEFAULT+_instance_of_Property__Text_Field____Error_017c9d062b2d2b8c92c2]:false,
         [db.DEFAULT+_instance_of_Property__Text_Field____Min_Rows_017c9d86d6c7f8cde51f]:3,
         [db.DEFAULT+_instance_of_Property__Text_Field____Min_Size_017c9d7db0c5f58cb595]:'small',
-        [db.DEFAULT+_Renderable_Width_01611d99ec0553b5926e]:200,
         [db.DEFAULT+_instance_of_Property__Text_Field____Helper_Text_017c9d068df331c97360]:'',
+        [db.DEFAULT+_Renderable_Width_01611d99ec0553b5926e]:200,
         [db.DEFAULT+_instance_of_Property__Text_Field____Value_017c9d1070cdab547492]:'',
         [db.DEFAULT+_instance_of_Property__Text_Field____Rows_017c9d86d623a200d40e]:-1,
         [db.DEFAULT+_instance_of_Property__Text_Field____Multiline_017c9d092eecb4b73529]:false,
@@ -774,10 +775,10 @@ db.assign(_instance_of_Property__Text_Field____Helper_Text_017c9d068df331c97360,
 db.assign(_instance_of_Property__Text_Field____Label_017c9d079bc145a574f3, _Property_typeRel_ff02200000000000000d            , _String_ff021000000000000011                      );
 db.assign(_instance_of_Property__Text_Field____Multiline_017c9d092eecb4b73529, _Property_typeRel_ff02200000000000000d            , _Boolean_ff021000000000000012                     );
 db.assign(_instance_of_Property__Text_Field____On_Change_017c9d0985c6431c2d69, _Property_typeRel_ff02200000000000000d            , _UI_Event_0163fe51d83dad2a0f4b                    );
-db.assign(_instance_of_Property__Text_Field____Placeholder_017c9d09da0e29c463a5, _Property_typeRel_ff02200000000000000d            , _String_ff021000000000000011                      );
+db.assign(_instance_of_Property__Text_Field____Placeholder_017c9d09da0e29c463a5, _Property_typeRel_ff02200000000000000d            , _Text_016cfca73e63f9ab5ba4                        );
 db.assign(_instance_of_Property__Text_Field____Required_017c9d0a57c99ef3ac74, _Property_typeRel_ff02200000000000000d            , _Boolean_ff021000000000000012                     );
 db.assign(_instance_of_Property__Text_Field____Type_017c9d106f97b95801bb, _Property_typeRel_ff02200000000000000d            , _Text_Field_Type_017c9d0cd6eab1da2bfe             );
-db.assign(_instance_of_Property__Text_Field____Value_017c9d1070cdab547492, _Property_typeRel_ff02200000000000000d            , _String_ff021000000000000011                      );
+db.assign(_instance_of_Property__Text_Field____Value_017c9d1070cdab547492, _Property_typeRel_ff02200000000000000d            , _Text_016cfca73e63f9ab5ba4                        );
 db.assign(_instance_of_Property__Text_Field____Variant_017c9d1072a515f0e200, _Property_typeRel_ff02200000000000000d            , _Text_Field_Variant_017c9d10839273f0e9b7          );
 db.assign(_instance_of_Property__Text_Field____Min_Size_017c9d7db0c5f58cb595, _Property_typeRel_ff02200000000000000d            , _Text_Field_Size_017c9d7d3fe7368823c9             );
 db.assign(_instance_of_Property__Text_Field____Rows_017c9d86d623a200d40e, _Property_typeRel_ff02200000000000000d            , _Number_ff021000000000000013                      );
