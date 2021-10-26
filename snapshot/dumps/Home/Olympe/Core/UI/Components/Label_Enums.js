@@ -50,6 +50,10 @@ const _instance_of_Label_Text_Variant____Caption_017c78d2ff6d2ac8889e = db.assig
 const _instance_of_Label_Text_Variant____Button_017c78d300160c174135 = db.assignTag('017c78d300160c174135');
 const _instance_of_Label_Text_Variant____Body_1_017c78d300baf1d953c8 = db.assignTag('017c78d300baf1d953c8');
 const _instance_of_Label_Text_Variant____Body_2_017c78d301558e11b400 = db.assignTag('017c78d301558e11b400');
+const _instance_of_EnumDef_model____Label_Vertical_Align_017cbca5a0f3e532731a = db.assignTag('017cbca5a0f3e532731a');
+const _instance_of_Label_Vertical_Align____Top_017cbca5db50c50f029b = db.assignTag('017cbca5db50c50f029b');
+const _instance_of_Label_Vertical_Align____Center_017cbca5dbd928e7c0d5 = db.assignTag('017cbca5dbd928e7c0d5');
+const _instance_of_Label_Vertical_Align____Bottom_017cbca5dca0c967823b = db.assignTag('017cbca5dca0c967823b');
 
 
 //==========================================================
@@ -308,10 +312,61 @@ db.newInstance(_instance_of_Label_Text_Variant____Body_2_017c78d301558e11b400)
         'v'                                     :1
     })
     .done();
+// :_instance_of_EnumDef_model____Label_Vertical_Align_017cbca5a0f3e532731a
+db.newModel(_instance_of_EnumDef_model____Label_Vertical_Align_017cbca5a0f3e532731a)
+    .setModelTag(_EnumDef_017a768f966fc08ebb98) // tag of the model
+    .setParentTag(_Enum_016cdd861b32d56c81f7) // tag of model's parent (if any; null else)
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Enums____Label_Enums_017c78ce9684bd3e4748)
+    // Tag of parent goos
+    .addParentGoo(_instance_of_Enums____Label_Enums_017c78ce9684bd3e4748)
+    .setNameOrProperties({
+        [_Object_name_ff023000000000000011]     :'Label Vertical Align',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Label_Vertical_Align____Top_017cbca5db50c50f029b
+db.newInstance(_instance_of_Label_Vertical_Align____Top_017cbca5db50c50f029b)
+    .setModelTag(_instance_of_EnumDef_model____Label_Vertical_Align_017cbca5a0f3e532731a) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_EnumDef_model____Label_Vertical_Align_017cbca5a0f3e532731a)
+    .setNameOrProperties({
+        [_Enum_Rank_017a7690c915975ea995]       :0,
+        [_Object_name_ff023000000000000011]     :'Top',
+        [_String_Value_$_40_$String$_41_$_ff023000000000000026]:'flex-start',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Label_Vertical_Align____Center_017cbca5dbd928e7c0d5
+db.newInstance(_instance_of_Label_Vertical_Align____Center_017cbca5dbd928e7c0d5)
+    .setModelTag(_instance_of_EnumDef_model____Label_Vertical_Align_017cbca5a0f3e532731a) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_EnumDef_model____Label_Vertical_Align_017cbca5a0f3e532731a)
+    .setNameOrProperties({
+        [_Enum_Rank_017a7690c915975ea995]       :1,
+        [_Object_name_ff023000000000000011]     :'Center',
+        [_String_Value_$_40_$String$_41_$_ff023000000000000026]:'center',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Label_Vertical_Align____Bottom_017cbca5dca0c967823b
+db.newInstance(_instance_of_Label_Vertical_Align____Bottom_017cbca5dca0c967823b)
+    .setModelTag(_instance_of_EnumDef_model____Label_Vertical_Align_017cbca5a0f3e532731a) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_EnumDef_model____Label_Vertical_Align_017cbca5a0f3e532731a)
+    .setNameOrProperties({
+        [_Enum_Rank_017a7690c915975ea995]       :2,
+        [_Object_name_ff023000000000000011]     :'Bottom',
+        [_String_Value_$_40_$String$_41_$_ff023000000000000026]:'flex-end',
+        'v'                                     :1
+    })
+    .done();
 db.assign(_instance_of_Enums____Label_Enums_017c78ce9684bd3e4748, _Folder_itemRel_016a697ef00ce7554692              , _instance_of_EnumDef_model____Label_Horizontal_Align_017c78cf4764e4107e17);
 db.assign(_instance_of_Enums____Label_Enums_017c78ce9684bd3e4748, _Folder_itemRel_016a697ef00ce7554692              , _instance_of_EnumDef_model____Label_Text_Variant_017c78cf49003551c935);
+db.assign(_instance_of_Enums____Label_Enums_017c78ce9684bd3e4748, _Folder_itemRel_016a697ef00ce7554692              , _instance_of_EnumDef_model____Label_Vertical_Align_017cbca5a0f3e532731a);
 db.assign(_instance_of_Enums____Label_Enums_017c78ce9684bd3e4748, _Object_containsRel_ff02200000000000000f          , _instance_of_EnumDef_model____Label_Horizontal_Align_017c78cf4764e4107e17);
 db.assign(_instance_of_Enums____Label_Enums_017c78ce9684bd3e4748, _Object_containsRel_ff02200000000000000f          , _instance_of_EnumDef_model____Label_Text_Variant_017c78cf49003551c935);
+db.assign(_instance_of_Enums____Label_Enums_017c78ce9684bd3e4748, _Object_containsRel_ff02200000000000000f          , _instance_of_EnumDef_model____Label_Vertical_Align_017cbca5a0f3e532731a);
 db.assign(_instance_of_EnumDef_model____Label_Horizontal_Align_017c78cf4764e4107e17, _Object_containsRel_ff02200000000000000f          , _instance_of_Label_Horizontal_Align____Left_017c78d0b0932d8a3c8e);
 db.assign(_instance_of_EnumDef_model____Label_Horizontal_Align_017c78cf4764e4107e17, _Object_containsRel_ff02200000000000000f          , _instance_of_Label_Horizontal_Align____Center_017c78d0b168357be187);
 db.assign(_instance_of_EnumDef_model____Label_Horizontal_Align_017c78cf4764e4107e17, _Object_containsRel_ff02200000000000000f          , _instance_of_Label_Horizontal_Align____Right_017c78d0b36cac5f9d87);
@@ -329,6 +384,9 @@ db.assign(_instance_of_EnumDef_model____Label_Text_Variant_017c78cf49003551c935,
 db.assign(_instance_of_EnumDef_model____Label_Text_Variant_017c78cf49003551c935, _Object_containsRel_ff02200000000000000f          , _instance_of_Label_Text_Variant____Button_017c78d300160c174135);
 db.assign(_instance_of_EnumDef_model____Label_Text_Variant_017c78cf49003551c935, _Object_containsRel_ff02200000000000000f          , _instance_of_Label_Text_Variant____Body_1_017c78d300baf1d953c8);
 db.assign(_instance_of_EnumDef_model____Label_Text_Variant_017c78cf49003551c935, _Object_containsRel_ff02200000000000000f          , _instance_of_Label_Text_Variant____Body_2_017c78d301558e11b400);
+db.assign(_instance_of_EnumDef_model____Label_Vertical_Align_017cbca5a0f3e532731a, _Object_containsRel_ff02200000000000000f          , _instance_of_Label_Vertical_Align____Top_017cbca5db50c50f029b);
+db.assign(_instance_of_EnumDef_model____Label_Vertical_Align_017cbca5a0f3e532731a, _Object_containsRel_ff02200000000000000f          , _instance_of_Label_Vertical_Align____Center_017cbca5dbd928e7c0d5);
+db.assign(_instance_of_EnumDef_model____Label_Vertical_Align_017cbca5a0f3e532731a, _Object_containsRel_ff02200000000000000f          , _instance_of_Label_Vertical_Align____Bottom_017cbca5dca0c967823b);
 db.assign(_Core_100000000000000000df                        , _Project_primordialItemRel_ff02200000000000002a   , _instance_of_EnumDef_model____Label_Horizontal_Align_017c78cf4764e4107e17);
 db.assign(_Core_100000000000000000df                        , _Project_primordialItemRel_ff02200000000000002a   , _instance_of_EnumDef_model____Label_Text_Variant_017c78cf49003551c935);
 db.assign(_Core_100000000000000000df                        , _Project_primordialItemRel_ff02200000000000002a   , _instance_of_Label_Horizontal_Align____Left_017c78d0b0932d8a3c8e);
@@ -348,6 +406,10 @@ db.assign(_Core_100000000000000000df                        , _Project_primordia
 db.assign(_Core_100000000000000000df                        , _Project_primordialItemRel_ff02200000000000002a   , _instance_of_Label_Text_Variant____Button_017c78d300160c174135);
 db.assign(_Core_100000000000000000df                        , _Project_primordialItemRel_ff02200000000000002a   , _instance_of_Label_Text_Variant____Body_1_017c78d300baf1d953c8);
 db.assign(_Core_100000000000000000df                        , _Project_primordialItemRel_ff02200000000000002a   , _instance_of_Label_Text_Variant____Body_2_017c78d301558e11b400);
+db.assign(_Core_100000000000000000df                        , _Project_primordialItemRel_ff02200000000000002a   , _instance_of_EnumDef_model____Label_Vertical_Align_017cbca5a0f3e532731a);
+db.assign(_Core_100000000000000000df                        , _Project_primordialItemRel_ff02200000000000002a   , _instance_of_Label_Vertical_Align____Top_017cbca5db50c50f029b);
+db.assign(_Core_100000000000000000df                        , _Project_primordialItemRel_ff02200000000000002a   , _instance_of_Label_Vertical_Align____Center_017cbca5dbd928e7c0d5);
+db.assign(_Core_100000000000000000df                        , _Project_primordialItemRel_ff02200000000000002a   , _instance_of_Label_Vertical_Align____Bottom_017cbca5dca0c967823b);
 db.assignOptional(_instance_of_Enums____Label_Enums_017c78ce9684bd3e4748, _Object_gooRel_ff022000000000000003, _Components_017c78c7a7b6795d5151);
 db.assignOptional(_instance_of_Enums____Label_Enums_017c78ce9684bd3e4748, _GOO_parentGooRel_ff02200000000000000u, _Components_017c78c7a7b6795d5151);
 db.assignOptional(_Components_017c78c7a7b6795d5151, _Object_containsRel_ff02200000000000000f, _instance_of_Enums____Label_Enums_017c78ce9684bd3e4748);
