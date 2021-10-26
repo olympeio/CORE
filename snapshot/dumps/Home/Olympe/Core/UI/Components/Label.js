@@ -12,14 +12,15 @@ db.disableChecks();
 const _Boolean_ff021000000000000012            = 'ff021000000000000012';
 const _Coded_Visual_Component_017a8a97979d7c51ab6a = '017a8a97979d7c51ab6a';
 const _Color_ff021000000000000017              = 'ff021000000000000017';
-const _Common_Flexbox_Align_017c793ba3b6f21778b8 = '017c793ba3b6f21778b8';
 const _Common_Font_Family_017c793a0bcc0ef475ee = '017c793a0bcc0ef475ee';
 const _Documentation_01703376c4a81c0e9d90      = '01703376c4a81c0e9d90';
 const _Label_Horizontal_Align_017c78cf4764e4107e17 = '017c78cf4764e4107e17';
 const _Label_Text_Variant_017c78cf49003551c935 = '017c78cf49003551c935';
+const _Label_Vertical_Align_017cbca5a0f3e532731a = '017cbca5a0f3e532731a';
 const _Property_ff021000000000000005           = 'ff021000000000000005';
 const _Property_Metadata_016d1bb681929c2cc3f0  = '016d1bb681929c2cc3f0';
 const _String_ff021000000000000011             = 'ff021000000000000011';
+const _Text_016cfca73e63f9ab5ba4               = '016cfca73e63f9ab5ba4';
 const _Visual_Component_01664466071746f5e167   = '01664466071746f5e167';
 
 
@@ -86,8 +87,6 @@ const _instance_of_Documentation_017ca2e83d583077d0a4 = db.assignTag('017ca2e83d
 //==========================================================
 const _Components_017c78c7a7b6795d5151         = '017c78c7a7b6795d5151';
 const _Custom_properties_0164188f5cc0c205bc06  = '0164188f5cc0c205bc06';
-const _Font_properties_016362a33e99ca8f8ade    = '016362a33e99ca8f8ade';
-const _Value_0161bd31111c6b32e43d              = '0161bd31111c6b32e43d';
 
 
 
@@ -419,11 +418,11 @@ db.newInstance(_instance_of_Documentation_017ca2e83d583077d0a4)
 db.assign(_instance_of_Property__Label____Horizontal_Align_017c79ac35f16efcc04e, _Property_typeRel_ff02200000000000000d            , _Label_Horizontal_Align_017c78cf4764e4107e17      );
 db.assign(_instance_of_Property__Label____Text_Variant_017c79ac3cdbea85dae7, _Property_typeRel_ff02200000000000000d            , _Label_Text_Variant_017c78cf49003551c935          );
 db.assign(_instance_of_Property__Label____No_Wrap_017c79ac3f64dbd14bee, _Property_typeRel_ff02200000000000000d            , _Boolean_ff021000000000000012                     );
-db.assign(_instance_of_Property__Label____Text_017c79ac41677479d327, _Property_typeRel_ff02200000000000000d            , _String_ff021000000000000011                      );
+db.assign(_instance_of_Property__Label____Text_017c79ac41677479d327, _Property_typeRel_ff02200000000000000d            , _Text_016cfca73e63f9ab5ba4                        );
 db.assign(_instance_of_Property__Label____Font_Family_017c79ac439fa5a4f69e, _Property_typeRel_ff02200000000000000d            , _Common_Font_Family_017c793a0bcc0ef475ee          );
 db.assign(_instance_of_Property__Label____With_Format_017c79ac45c70be23d93, _Property_typeRel_ff02200000000000000d            , _Boolean_ff021000000000000012                     );
 db.assign(_instance_of_Property__Label____Text_Color_017c79ac4959054de336, _Property_typeRel_ff02200000000000000d            , _Color_ff021000000000000017                       );
-db.assign(_instance_of_Property__Label____Vertical_Align_017c7ef54d5acbbdca49, _Property_typeRel_ff02200000000000000d            , _Common_Flexbox_Align_017c793ba3b6f21778b8        );
+db.assign(_instance_of_Property__Label____Vertical_Align_017c7ef54d5acbbdca49, _Property_typeRel_ff02200000000000000d            , _Label_Vertical_Align_017cbca5a0f3e532731a        );
 db.assign(_instance_of_Property__Label____MUI_sx_$_91_$json$_93_$_017ca2e83d2afc4283e7, _Property_typeRel_ff02200000000000000d            , _String_ff021000000000000011                      );
 db.assign(_instance_of_Coded_Visual_Component_model____Label_017c79a94cb2090c4d7d, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Label____Horizontal_Align_017c79ac35f16efcc04e);
 db.assign(_instance_of_Coded_Visual_Component_model____Label_017c79a94cb2090c4d7d, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Label____Text_Variant_017c79ac3cdbea85dae7);
@@ -433,14 +432,14 @@ db.assign(_instance_of_Coded_Visual_Component_model____Label_017c79a94cb2090c4d7
 db.assign(_instance_of_Coded_Visual_Component_model____Label_017c79a94cb2090c4d7d, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Label____Text_Color_017c79ac4959054de336);
 db.assign(_instance_of_Coded_Visual_Component_model____Label_017c79a94cb2090c4d7d, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Label____Vertical_Align_017c7ef54d5acbbdca49);
 db.assign(_instance_of_Coded_Visual_Component_model____Label_017c79a94cb2090c4d7d, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Label____MUI_sx_$_91_$json$_93_$_017ca2e83d2afc4283e7);
-db.assign(_instance_of_Property_Metadata_017c79ac35f19df21da4, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Font_properties_016362a33e99ca8f8ade             );
-db.assign(_instance_of_Property_Metadata_017c79ac3cdb8c8843c9, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Value_0161bd31111c6b32e43d                       );
-db.assign(_instance_of_Property_Metadata_017c79ac3f64bcebc701, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Value_0161bd31111c6b32e43d                       );
-db.assign(_instance_of_Property_Metadata_017c79ac416730020672, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Value_0161bd31111c6b32e43d                       );
-db.assign(_instance_of_Property_Metadata_017c79ac439f82ab5c6e, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Font_properties_016362a33e99ca8f8ade             );
-db.assign(_instance_of_Property_Metadata_017c79ac45c7631d40ff, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Value_0161bd31111c6b32e43d                       );
-db.assign(_instance_of_Property_Metadata_017c79ac4959ae939161, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Font_properties_016362a33e99ca8f8ade             );
-db.assign(_instance_of_Property_Metadata_017c7ef54d5a9bcf1c85, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Font_properties_016362a33e99ca8f8ade             );
+db.assign(_instance_of_Property_Metadata_017c79ac35f19df21da4, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017c79ac3cdb8c8843c9, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017c79ac3f64bcebc701, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017c79ac416730020672, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017c79ac439f82ab5c6e, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017c79ac45c7631d40ff, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017c79ac4959ae939161, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017c7ef54d5a9bcf1c85, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017ca2e83d2a6f1d78b7, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017c79ac35f19df21da4, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Label____Horizontal_Align_017c79ac35f16efcc04e);
 db.assign(_instance_of_Property_Metadata_017c79ac3cdb8c8843c9, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Label____Text_Variant_017c79ac3cdbea85dae7);

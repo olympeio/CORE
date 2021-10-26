@@ -76,8 +76,6 @@ const _instance_of_Documentation_017ca2e885efe71c62fd = db.assignTag('017ca2e885
 const _Components_017c78c7a7b6795d5151         = '017c78c7a7b6795d5151';
 const _Custom_events_0165335122d2ea44dd92      = '0165335122d2ea44dd92';
 const _Custom_properties_0164188f5cc0c205bc06  = '0164188f5cc0c205bc06';
-const _Font_properties_016362a33e99ca8f8ade    = '016362a33e99ca8f8ade';
-const _Value_0161bd31111c6b32e43d              = '0161bd31111c6b32e43d';
 
 
 
@@ -138,9 +136,9 @@ db.newModel(_instance_of_Coded_Visual_Component_model____Switch_017c9e0e9f6f81f2
     .done(); 
 db.updateInstance(_instance_of_Coded_Visual_Component_model____Switch_017c9e0e9f6f81f21a93, {
         [db.DEFAULT+_Renderable_Width_01611d99ec0553b5926e]:64,
-        [db.DEFAULT+_Object_name_ff023000000000000011]:'Checkbox',
         [db.DEFAULT+_instance_of_Property__Switch____MUI_sx_$_91_$json$_93_$_017ca2e8859ca35b3d42]:'{}',
         [db.DEFAULT+_instance_of_Property__Switch____Color_017c9e0e9f78c3147d37]:'primary',
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'Checkbox',
         [db.DEFAULT+_instance_of_Property__Switch____Disabled_017c9e0e9f7bec54aaee]:false,
         [db.DEFAULT+_Renderable_Height_01611d9a0452a179c68f]:42,
         [db.DEFAULT+_instance_of_Property__Switch____Checked_017c9e0e9f719c35839d]:false,
@@ -319,11 +317,11 @@ db.assign(_instance_of_Coded_Visual_Component_model____Switch_017c9e0e9f6f81f21a
 db.assign(_instance_of_Coded_Visual_Component_model____Switch_017c9e0e9f6f81f21a93, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Switch____Disabled_017c9e0e9f7bec54aaee);
 db.assign(_instance_of_Coded_Visual_Component_model____Switch_017c9e0e9f6f81f21a93, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Switch____Size_017c9e2adcb889ea129c);
 db.assign(_instance_of_Coded_Visual_Component_model____Switch_017c9e0e9f6f81f21a93, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Switch____MUI_sx_$_91_$json$_93_$_017ca2e8859ca35b3d42);
-db.assign(_instance_of_Property_Metadata_017c9e0e9f722cf6f0c7, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Value_0161bd31111c6b32e43d                       );
-db.assign(_instance_of_Property_Metadata_017c9e0e9f77f92ffc6c, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Font_properties_016362a33e99ca8f8ade             );
-db.assign(_instance_of_Property_Metadata_017c9e0e9f7a2e7afeb0, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Value_0161bd31111c6b32e43d                       );
+db.assign(_instance_of_Property_Metadata_017c9e0e9f722cf6f0c7, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017c9e0e9f77f92ffc6c, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017c9e0e9f7a2e7afeb0, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017c9e0e9f862a5e55a2, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_events_0165335122d2ea44dd92               );
-db.assign(_instance_of_Property_Metadata_017c9e2adcb8dad0baf2, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Font_properties_016362a33e99ca8f8ade             );
+db.assign(_instance_of_Property_Metadata_017c9e2adcb8dad0baf2, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017ca2e8859c9f2ca83c, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017c9e0e9f722cf6f0c7, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Switch____Checked_017c9e0e9f719c35839d);
 db.assign(_instance_of_Property_Metadata_017c9e0e9f77f92ffc6c, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Switch____Color_017c9e0e9f78c3147d37);

@@ -84,8 +84,6 @@ const _instance_of_Documentation_017ca2e7468ab520a725 = db.assignTag('017ca2e746
 const _Components_017c78c7a7b6795d5151         = '017c78c7a7b6795d5151';
 const _Custom_events_0165335122d2ea44dd92      = '0165335122d2ea44dd92';
 const _Custom_properties_0164188f5cc0c205bc06  = '0164188f5cc0c205bc06';
-const _Font_properties_016362a33e99ca8f8ade    = '016362a33e99ca8f8ade';
-const _Value_0161bd31111c6b32e43d              = '0161bd31111c6b32e43d';
 
 
 
@@ -164,16 +162,16 @@ db.newModel(_instance_of_Coded_Visual_Component_model____Checkbox_017c9c9b5f604f
     .done(); 
 db.updateInstance(_instance_of_Coded_Visual_Component_model____Checkbox_017c9c9b5f604f5f79ac, {
         [db.DEFAULT+_Renderable_Width_01611d99ec0553b5926e]:42,
-        [db.DEFAULT+_Object_name_ff023000000000000011]:'Checkbox',
         [db.DEFAULT+_instance_of_Property__Checkbox____Checked_017c9caf3a3c135faaeb]:false,
+        [db.DEFAULT+_Object_name_ff023000000000000011]:'Checkbox',
         [db.DEFAULT+_instance_of_Property__Checkbox____Indeterminate_017c9cb68cf402f29a38]:false,
         [db.DEFAULT+_instance_of_Property__Checkbox____Checked_Icon_017c9cb0157687823a96]:'check_box',
         [db.DEFAULT+_instance_of_Property__Checkbox____Unchecked_Icon_017c9cb5c9011bf8dddd]:'check_box_outline_blank',
         [db.DEFAULT+_instance_of_Property__Checkbox____Color_017c9cb46bfbf66d3621]:'primary',
         [db.DEFAULT+_instance_of_Property__Checkbox____Indeterminate_Icon_017c9cb7df199e5142ff]:'indeterminate_check_box',
         [db.DEFAULT+_instance_of_Property__Checkbox____MUI_sx_$_91_$json$_93_$_017ca2e7465db13cdb2d]:'{}',
-        [db.DEFAULT+_Renderable_Height_01611d9a0452a179c68f]:42,
         [db.DEFAULT+_instance_of_Property__Checkbox____Disabled_017c9cb5375fe5d42027]:false,
+        [db.DEFAULT+_Renderable_Height_01611d9a0452a179c68f]:42,
         'v'                                     :2
     });
 db.assign(_instance_of_Coded_Visual_Component_model____Checkbox_017c9c9b5f604f5f79ac, _Object_propertyRel_ff02200000000000000c          , _instance_of_Property__Checkbox____Checked_017c9caf3a3c135faaeb);
@@ -429,13 +427,13 @@ db.assign(_instance_of_Coded_Visual_Component_model____Checkbox_017c9c9b5f604f5f
 db.assign(_instance_of_Coded_Visual_Component_model____Checkbox_017c9c9b5f604f5f79ac, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Checkbox____Indeterminate_017c9cb68cf402f29a38);
 db.assign(_instance_of_Coded_Visual_Component_model____Checkbox_017c9c9b5f604f5f79ac, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Checkbox____Indeterminate_Icon_017c9cb7df199e5142ff);
 db.assign(_instance_of_Coded_Visual_Component_model____Checkbox_017c9c9b5f604f5f79ac, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Checkbox____MUI_sx_$_91_$json$_93_$_017ca2e7465db13cdb2d);
-db.assign(_instance_of_Property_Metadata_017c9caf3a3c5c1feb65, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Value_0161bd31111c6b32e43d                       );
-db.assign(_instance_of_Property_Metadata_017c9cb015769406068f, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Font_properties_016362a33e99ca8f8ade             );
-db.assign(_instance_of_Property_Metadata_017c9cb46bfbe07c7137, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Font_properties_016362a33e99ca8f8ade             );
-db.assign(_instance_of_Property_Metadata_017c9cb5375fd5805f49, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Value_0161bd31111c6b32e43d                       );
-db.assign(_instance_of_Property_Metadata_017c9cb5c901b556e01f, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Font_properties_016362a33e99ca8f8ade             );
-db.assign(_instance_of_Property_Metadata_017c9cb68cf4cf24bd08, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Value_0161bd31111c6b32e43d                       );
-db.assign(_instance_of_Property_Metadata_017c9cb7df195d9f6c30, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Font_properties_016362a33e99ca8f8ade             );
+db.assign(_instance_of_Property_Metadata_017c9caf3a3c5c1feb65, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017c9cb015769406068f, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017c9cb46bfbe07c7137, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017c9cb5375fd5805f49, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017c9cb5c901b556e01f, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017c9cb68cf4cf24bd08, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017c9cb7df195d9f6c30, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017c9cb8c3d8265fee4a, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_events_0165335122d2ea44dd92               );
 db.assign(_instance_of_Property_Metadata_017ca2e7465e4c2cfd2e, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017c9caf3a3c5c1feb65, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Checkbox____Checked_017c9caf3a3c135faaeb);

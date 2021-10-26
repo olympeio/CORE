@@ -91,7 +91,7 @@ export default class Dropdown extends UIBrick {
                             }
                         }}
                         InputLabelProps={{
-                            shrink: emptyText !== '',
+                            shrink: value !== '' || emptyText !== '',
                             sx: {
                                 fontFamily: fontFamily
                             }
