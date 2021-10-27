@@ -41,35 +41,34 @@ export default class CreateRelation extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Sync} origin
+     * @param {!InstanceTag} origin
      * @param {!Relation} relation
-     * @param {!Sync} destination
+     * @param {!InstanceTag} destination
      * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} setErrorFlow
-     * @param {function(!Sync)} setOrigin
+     * @param {function(!InstanceTag)} setOrigin
+     * @param {function(!InstanceTag)} setDestination
      */
-    onUpdate(context, [origin, relation, destination], [forwardEvent, setErrorFlow, setOrigin]) {
+    onUpdate(context, [origin, relation, destination], [forwardEvent, setErrorFlow, setOrigin, setDestination]) {
         const logger = getLogger('Create Relation');
+        const relationTag = instanceToTag(relation);
 
         const returnError = (message, code) => {
             logger.error(message);
             setErrorFlow(ErrorFlow.create(message, code));
         };
 
-        const relationTag = instanceToTag(relation);
-        const originTag = instanceToTag(origin);
-        const destinationTag = instanceToTag(destination);
         // Guards
+        if (!Boolean(origin) || !Boolean(destination)) {
+            !Boolean(origin) && logger.info('Ignoring null value for origin object');
+            setOrigin(origin);
+            !Boolean(destination) && logger.info('Ignoring null value for destination object');
+            setDestination(destination);
+            forwardEvent();
+            return;
+        }
         if (relationTag === '') {
             returnError('No relation specified',1);
-            return;
-        }
-        if (originTag === '') {
-            returnError('No origin object specified', 2);
-            return;
-        }
-        if (destinationTag === '') {
-            returnError('No destination object specified', 3);
             return;
         }
 
@@ -90,7 +89,7 @@ export default class CreateRelation extends ActionBrick {
         // Transaction
         context.getTransaction().createRelation(relation, origin, destination);
         context.releaseTransaction((executed, success, message) => {
-            if(executed && !success) {
+            if (executed && !success) {
                 returnError(`Transaction error: ${message}`, 6);
             } else {
                 setOrigin(origin);
