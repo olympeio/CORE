@@ -16,16 +16,17 @@
 import { ActionBrick, registerBrick, ListDef } from 'olympe';
 import {getLogger} from 'logging';
 
-export default class ForEach extends ActionBrick {
+export default class MapBrick extends ActionBrick {
 
     /**
      * @protected
      * @param {!Context} brickContext
      * @param {!ListDef | !Array} list
-     * @param {!FunctionBrick} iterator
+     * @param {!FunctionBrick} mapper
      * @param {!function()} forwardEvent
+     * @param {!*} setList
      */
-    onUpdate(brickContext, [list, iterator], [forwardEvent]) {
+    onUpdate(brickContext, [list, mapper], [forwardEvent, setList]) {
         if (!Array.isArray(list) && !(list instanceof ListDef)) {
             getLogger('For Each').error('The provided list is neither an array nor a listdef');
         }
@@ -35,37 +36,43 @@ export default class ForEach extends ActionBrick {
             list.forEachCurrentValue((item) => array.push(item));
         }
 
-        this.process(brickContext, array, iterator).then(forwardEvent);
+        this.process(brickContext, array, mapper).then((outputList) => {
+            setList(outputList);
+            forwardEvent();
+        });
     }
 
     /**
      * @private
      * @param {Context} brickContext
      * @param {!Array} array
-     * @param {FunctionBrick} iterator
-     * @return {Promise<void>}
+     * @param {FunctionBrick} mapper
+     * @return {Promise<!Array>}
      */
-    async process(brickContext, array, iterator) {
-        const [startInput, itemInput, rankInput, listInput] = iterator.getInputs();
-        const [endOutput] = iterator.getOutputs();
+    async process(brickContext, array, mapper) {
+        const [startInput, itemInput, rankInput, listInput] = mapper.getInputs();
+        const [endOutput, itemOutput] = mapper.getOutputs();
 
-        const iterate = (item, rank, arr) => new Promise((done) => {
-            const iteratorCtx = brickContext.createChild('iterator');
-            iterator.run(iteratorCtx);
-            iteratorCtx.set(itemInput, item);
-            iteratorCtx.set(rankInput, rank);
-            iteratorCtx.set(listInput, arr);
-            iteratorCtx.set(startInput, Date.now()); // Trigger the control flow
-            iteratorCtx.observe(endOutput).subscribe(() => {
-                iteratorCtx.destroy(); // Destroy the context
-                done();
+        const map = (item, rank, arr) => new Promise((done) => {
+            const mapperCtx = brickContext.createChild('mapper');
+            mapper.run(mapperCtx);
+            mapperCtx.set(itemInput, item);
+            mapperCtx.set(rankInput, rank);
+            mapperCtx.set(listInput, arr);
+            mapperCtx.set(startInput, Date.now()); // Trigger the control flow
+            mapperCtx.observe(endOutput).subscribe(() => {
+                const processedItem = mapperCtx.get(itemOutput);
+                mapperCtx.destroy(); // Destroy the context
+                done(processedItem); // Return the new processed item
             });
         });
 
+        const result = [];
         for (let i = 0, l = array.length; i < l; i++) {
-            await iterate(array[i], i, array);
+            result.push(await map(array[i], i, array));
         }
+        return result;
     }
 }
 
-registerBrick('017cbcf45a5b7c4fb9a8', ForEach);
+registerBrick('017cbcf3e6a262751981', MapBrick);
