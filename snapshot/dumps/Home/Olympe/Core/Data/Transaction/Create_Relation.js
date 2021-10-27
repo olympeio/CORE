@@ -110,7 +110,7 @@ db.newInstance(_instance_of_Runnable_Output____origin_01694800e25a5172b9c6)
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Create_Relation_01694800e25a7c39f7b0)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'origin',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
         'v'                                     :1
     })
     .done();
@@ -215,8 +215,8 @@ db.newInstance(_instance_of_Runnable_Output____error_017bb7ae5638c6d3c25f)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Create_Relation_01694800e25a7c39f7b0)
     .setNameOrProperties({
-        [_Object_name_ff023000000000000011]     :'error',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
+        [_Object_name_ff023000000000000011]     :'Error Flow',
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();

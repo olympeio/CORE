@@ -23,11 +23,11 @@ export default class CreateFileFromURL extends ActionBrick {
      * @param {string=} fileName
      * @param {string=} mimeType
      * @param {string} url
-     * @param {function(File)} setFile
-     * @param {function(ErrorFlow)} setErrorFlow
      * @param {function()} forwardEvent
+     * @param {function(ErrorFlow)} setErrorFlow
+     * @param {function(File)} setFile
      */
-    onUpdate(context, [fileName, mimeType, url], [setFile, setErrorFlow, forwardEvent]) {
+    onUpdate(context, [fileName, mimeType, url], [forwardEvent, setErrorFlow, setFile]) {
         const transaction = new Transaction();
         const fileTag = File.createFileFromURL(
             File,
