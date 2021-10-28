@@ -11,6 +11,7 @@ db.disableChecks();
 // Definition of tags of models used to construct instances
 const _Boolean_ff021000000000000012            = 'ff021000000000000012';
 const _Coded_Visual_Component_017a8a97979d7c51ab6a = '017a8a97979d7c51ab6a';
+const _Color_ff021000000000000017              = 'ff021000000000000017';
 const _Common_Color_017c9d04399c327dba4b       = '017c9d04399c327dba4b';
 const _Common_Font_Family_017c793a0bcc0ef475ee = '017c793a0bcc0ef475ee';
 const _Documentation_01703376c4a81c0e9d90      = '01703376c4a81c0e9d90';
@@ -112,6 +113,9 @@ const _instance_of_Documentation_017ca2a9157736a2e797 = db.assignTag('017ca2a915
 const _instance_of_Property__Text_Field____MUI_sx_$_91_$json$_93_$_017ca2e8d64a087d9b5d = db.assignTag('017ca2e8d64a087d9b5d');
 const _instance_of_Property_Metadata_017ca2e8d64afb8f3eca = db.assignTag('017ca2e8d64afb8f3eca');
 const _instance_of_Documentation_017ca2e8d66fcbe35822 = db.assignTag('017ca2e8d66fcbe35822');
+const _instance_of_Property__Text_Field____Text_Color_Override_017cc09a0629307e7bde = db.assignTag('017cc09a0629307e7bde');
+const _instance_of_Property_Metadata_017cc09a062961faf835 = db.assignTag('017cc09a062961faf835');
+const _instance_of_Documentation_017cc09a06537d3d6ab6 = db.assignTag('017cc09a06537d3d6ab6');
 
 
 //==========================================================
@@ -247,6 +251,12 @@ db.newInstance(_instance_of_Property__Text_Field____MUI_sx_$_91_$json$_93_$_017c
         'v'                                     :1
     })
 .done();
+db.newInstance(_instance_of_Property__Text_Field____Text_Color_Override_017cc09a0629307e7bde, _Property_ff021000000000000005)
+    .setNameOrProperties({
+        [_Object_name_ff023000000000000011]     :'Text Color Override',
+        'v'                                     :1
+    })
+.done();
 // :_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918
 db.newModel(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, 'Text Field') // tag and name of the model 
     .extends(_Visual_Component_01664466071746f5e167).setModelTag(_Coded_Visual_Component_017a8a97979d7c51ab6a) 
@@ -257,6 +267,7 @@ db.newModel(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde390
     })
     .done(); 
 db.updateInstance(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, {
+        [db.DEFAULT+_instance_of_Property__Text_Field____Text_Color_Override_017cc09a0629307e7bde]:db.createColor(0,0,0,0),
         [db.DEFAULT+_instance_of_Property__Text_Field____Auto_Focus_017c9d035c9f917350a4]:false,
         [db.DEFAULT+_instance_of_Property__Text_Field____Font_Family_017ca2a9154e8f5c6bcb]:'Roboto',
         [db.DEFAULT+_instance_of_Property__Text_Field____MUI_sx_$_91_$json$_93_$_017ca2e8d64a087d9b5d]:'{}',
@@ -299,6 +310,7 @@ db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047
 db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Object_propertyRel_ff02200000000000000c          , _instance_of_Property__Text_Field____Max_Rows_017c9d86d77090e7e2ba);
 db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Object_propertyRel_ff02200000000000000c          , _instance_of_Property__Text_Field____Font_Family_017ca2a9154e8f5c6bcb);
 db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Object_propertyRel_ff02200000000000000c          , _instance_of_Property__Text_Field____MUI_sx_$_91_$json$_93_$_017ca2e8d64a087d9b5d);
+db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Object_propertyRel_ff02200000000000000c          , _instance_of_Property__Text_Field____Text_Color_Override_017cc09a0629307e7bde);
 db.setRootInstanceTag(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918);
 // :_instance_of_Documentation_017c9cfe75c3c934c1eb
 db.newInstance(_instance_of_Documentation_017c9cfe75c3c934c1eb)
@@ -306,7 +318,7 @@ db.newInstance(_instance_of_Documentation_017c9cfe75c3c934c1eb)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Text Field lets users enter and edit text.\n<br><br>\nThe Text Field wrapper component is a complete form control including a label, input, and help text. It comes with three variants: outlined (default), filled, and standard.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more [here](https://mui.com/system/the-sx-prop/).',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Text Field lets users enter and edit text.\n<br><br>\nThe Text Field wrapper component is a complete form control including a label, input, and help text. It comes with three variants: outlined (default), filled, and standard.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more [here](https://mui.com/system/the-sx-prop/).\n<br><br>\nUsing `Border ...` properties may not work as expected with some `Variant` and other combination of properties. In this case use the `MUI sx [json]` property or CODE directly.',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Text Field lets users enter and edit text.',
         'v'                                     :1
     })
@@ -729,7 +741,7 @@ db.newInstance(_instance_of_Property_Metadata_017ca2a9154f90f519af)
     .setNameOrProperties({
         [_Property_Metadata_computable_016d1bb681929c2cc3f3]:true,
         [_Property_Metadata_editableInDefinition_0170beccaac4129d72a9]:true,
-        [_Property_Metadata_rank_016d1bb681929c2cc3f1]:16,
+        [_Property_Metadata_rank_016d1bb681929c2cc3f1]:17,
         'v'                                     :1
     })
     .done();
@@ -753,7 +765,7 @@ db.newInstance(_instance_of_Property_Metadata_017ca2e8d64afb8f3eca)
     .setNameOrProperties({
         [_Property_Metadata_computable_016d1bb681929c2cc3f3]:true,
         [_Property_Metadata_editableInDefinition_0170beccaac4129d72a9]:true,
-        [_Property_Metadata_rank_016d1bb681929c2cc3f1]:17,
+        [_Property_Metadata_rank_016d1bb681929c2cc3f1]:18,
         'v'                                     :1
     })
     .done();
@@ -764,6 +776,30 @@ db.newInstance(_instance_of_Documentation_017ca2e8d66fcbe35822)
     .addToGroupOfObjects(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The system prop that allows defining MUI system overrides as well as additional CSS styles.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Property_Metadata_017cc09a062961faf835
+db.newInstance(_instance_of_Property_Metadata_017cc09a062961faf835)
+    .setModelTag(_Property_Metadata_016d1bb681929c2cc3f0) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918)
+    // Tag of parent goos
+    .addParentGoo(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918)
+    .setNameOrProperties({
+        [_Property_Metadata_computable_016d1bb681929c2cc3f3]:true,
+        [_Property_Metadata_editableInDefinition_0170beccaac4129d72a9]:true,
+        [_Property_Metadata_rank_016d1bb681929c2cc3f1]:16,
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017cc09a06537d3d6ab6
+db.newInstance(_instance_of_Documentation_017cc09a06537d3d6ab6)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'If different than transparent, overrides the `Color` property',
         'v'                                     :1
     })
     .done();
@@ -786,6 +822,7 @@ db.assign(_instance_of_Property__Text_Field____Min_Rows_017c9d86d6c7f8cde51f, _P
 db.assign(_instance_of_Property__Text_Field____Max_Rows_017c9d86d77090e7e2ba, _Property_typeRel_ff02200000000000000d            , _Number_ff021000000000000013                      );
 db.assign(_instance_of_Property__Text_Field____Font_Family_017ca2a9154e8f5c6bcb, _Property_typeRel_ff02200000000000000d            , _Common_Font_Family_017c793a0bcc0ef475ee          );
 db.assign(_instance_of_Property__Text_Field____MUI_sx_$_91_$json$_93_$_017ca2e8d64a087d9b5d, _Property_typeRel_ff02200000000000000d            , _String_ff021000000000000011                      );
+db.assign(_instance_of_Property__Text_Field____Text_Color_Override_017cc09a0629307e7bde, _Property_typeRel_ff02200000000000000d            , _Color_ff021000000000000017                       );
 db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Text_Field____Auto_Focus_017c9d035c9f917350a4);
 db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Text_Field____Color_017c9d053bbc55b148c3);
 db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Text_Field____Disabled_017c9d05b15a59138ee0);
@@ -803,6 +840,7 @@ db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047
 db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Text_Field____Max_Rows_017c9d86d77090e7e2ba);
 db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Text_Field____Font_Family_017ca2a9154e8f5c6bcb);
 db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Text_Field____MUI_sx_$_91_$json$_93_$_017ca2e8d64a087d9b5d);
+db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Text_Field____Text_Color_Override_017cc09a0629307e7bde);
 db.assign(_instance_of_Property_Metadata_017c9d035c9fa5724156, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017c9d053bbc5d104fa9, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017c9d05b15a401b1725, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
@@ -822,6 +860,7 @@ db.assign(_instance_of_Property_Metadata_017c9d86d6c76b3fc137, _Property_Metadat
 db.assign(_instance_of_Property_Metadata_017c9d86d770d2a57d06, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017ca2a9154f90f519af, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017ca2e8d64afb8f3eca, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017cc09a062961faf835, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017c9d035c9fa5724156, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Text_Field____Auto_Focus_017c9d035c9f917350a4);
 db.assign(_instance_of_Property_Metadata_017c9d053bbc5d104fa9, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Text_Field____Color_017c9d053bbc55b148c3);
 db.assign(_instance_of_Property_Metadata_017c9d05b15a401b1725, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Text_Field____Disabled_017c9d05b15a59138ee0);
@@ -841,6 +880,7 @@ db.assign(_instance_of_Property_Metadata_017c9d86d6c76b3fc137, _Property_Metadat
 db.assign(_instance_of_Property_Metadata_017c9d86d770d2a57d06, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Text_Field____Max_Rows_017c9d86d77090e7e2ba);
 db.assign(_instance_of_Property_Metadata_017ca2a9154f90f519af, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Text_Field____Font_Family_017ca2a9154e8f5c6bcb);
 db.assign(_instance_of_Property_Metadata_017ca2e8d64afb8f3eca, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Text_Field____MUI_sx_$_91_$json$_93_$_017ca2e8d64a087d9b5d);
+db.assign(_instance_of_Property_Metadata_017cc09a062961faf835, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Text_Field____Text_Color_Override_017cc09a0629307e7bde);
 db.assign(_instance_of_Documentation_017c9cfe75c3c934c1eb   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918);
 db.assign(_instance_of_Documentation_017c9d035ce36b7dcd70   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Text_Field____Auto_Focus_017c9d035c9f917350a4);
 db.assign(_instance_of_Documentation_017c9d053be6736b1bb3   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Text_Field____Color_017c9d053bbc55b148c3);
@@ -861,6 +901,7 @@ db.assign(_instance_of_Documentation_017c9d86d7174282ab1f   , _Documentation_doc
 db.assign(_instance_of_Documentation_017c9d86d7e3cbd29ef6   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Text_Field____Max_Rows_017c9d86d77090e7e2ba);
 db.assign(_instance_of_Documentation_017ca2a9157736a2e797   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Text_Field____Font_Family_017ca2a9154e8f5c6bcb);
 db.assign(_instance_of_Documentation_017ca2e8d66fcbe35822   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Text_Field____MUI_sx_$_91_$json$_93_$_017ca2e8d64a087d9b5d);
+db.assign(_instance_of_Documentation_017cc09a06537d3d6ab6   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Text_Field____Text_Color_Override_017cc09a0629307e7bde);
 db.assign(_instance_of_Property__Text_Field____Auto_Focus_017c9d035c9f917350a4, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918);
 db.assign(_instance_of_Property__Text_Field____Color_017c9d053bbc55b148c3, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918);
 db.assign(_instance_of_Property__Text_Field____Disabled_017c9d05b15a59138ee0, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918);
@@ -880,6 +921,7 @@ db.assign(_instance_of_Property__Text_Field____Min_Rows_017c9d86d6c7f8cde51f, _O
 db.assign(_instance_of_Property__Text_Field____Max_Rows_017c9d86d77090e7e2ba, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918);
 db.assign(_instance_of_Property__Text_Field____Font_Family_017ca2a9154e8f5c6bcb, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918);
 db.assign(_instance_of_Property__Text_Field____MUI_sx_$_91_$json$_93_$_017ca2e8d64a087d9b5d, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918);
+db.assign(_instance_of_Property__Text_Field____Text_Color_Override_017cc09a0629307e7bde, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918);
 db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017c9cfe75c3c934c1eb   );
 db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Text_Field____Auto_Focus_017c9d035c9f917350a4);
 db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Text_Field____Color_017c9d053bbc55b148c3);
@@ -900,6 +942,7 @@ db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047
 db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Text_Field____Max_Rows_017c9d86d77090e7e2ba);
 db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Text_Field____Font_Family_017ca2a9154e8f5c6bcb);
 db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Text_Field____MUI_sx_$_91_$json$_93_$_017ca2e8d64a087d9b5d);
+db.assign(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Text_Field____Text_Color_Override_017cc09a0629307e7bde);
 db.assign(_instance_of_Property__Text_Field____Auto_Focus_017c9d035c9f917350a4, _Object_containsRel_ff02200000000000000f          , _instance_of_Property_Metadata_017c9d035c9fa5724156);
 db.assign(_instance_of_Property__Text_Field____Auto_Focus_017c9d035c9f917350a4, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017c9d035ce36b7dcd70   );
 db.assign(_instance_of_Property__Text_Field____Color_017c9d053bbc55b148c3, _Object_containsRel_ff02200000000000000f          , _instance_of_Property_Metadata_017c9d053bbc5d104fa9);
@@ -938,6 +981,8 @@ db.assign(_instance_of_Property__Text_Field____Font_Family_017ca2a9154e8f5c6bcb,
 db.assign(_instance_of_Property__Text_Field____Font_Family_017ca2a9154e8f5c6bcb, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017ca2a9157736a2e797   );
 db.assign(_instance_of_Property__Text_Field____MUI_sx_$_91_$json$_93_$_017ca2e8d64a087d9b5d, _Object_containsRel_ff02200000000000000f          , _instance_of_Property_Metadata_017ca2e8d64afb8f3eca);
 db.assign(_instance_of_Property__Text_Field____MUI_sx_$_91_$json$_93_$_017ca2e8d64a087d9b5d, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017ca2e8d66fcbe35822   );
+db.assign(_instance_of_Property__Text_Field____Text_Color_Override_017cc09a0629307e7bde, _Object_containsRel_ff02200000000000000f          , _instance_of_Property_Metadata_017cc09a062961faf835);
+db.assign(_instance_of_Property__Text_Field____Text_Color_Override_017cc09a0629307e7bde, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017cc09a06537d3d6ab6   );
 db.assignOptional(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _Object_gooRel_ff022000000000000003, _Components_017c78c7a7b6795d5151);
 db.assignOptional(_instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918, _GOO_parentGooRel_ff02200000000000000u, _Components_017c78c7a7b6795d5151);
 db.assignOptional(_Components_017c78c7a7b6795d5151, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Visual_Component_model____Text_Field_017c9cfde39047e5f918);

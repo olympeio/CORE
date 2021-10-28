@@ -22,7 +22,7 @@ import ReactDOM from 'react-dom';
 import MUICheckbox from '@mui/material/Checkbox';
 import Icon from '@mui/material/Icon';
 
-import { jsonToSxProps } from '../../../helpers/web/mui';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from '../../../helpers/web/mui';
 
 /**
  * Provide a Checkbox visual component using MUI Checkbox
@@ -41,41 +41,62 @@ export default class Checkbox extends UIBrick {
         elementDom.style.alignItems = 'center';
         elementDom.style.justifyContent = 'center';
 
+        // Allow overflow
+        elementDom.style.overflow = 'visible';
+
         // Observe all properties
-        context.observeMany('Checked', 'Indeterminate', 'Disabled', 'Color', 'Checked Icon', 'Unchecked Icon', 'Indeterminate Icon', 'Width', 'Height', 'MUI sx [json]')
-            .subscribe(([checked, indeterminate, disabled, color, checkedIcon, uncheckedIcon, indeterminateIcon, width, height, muiSxJson]) => {
-                // Compute components size
-                const checkboxSize = Math.min(width, height);
-                const iconSize = checkboxSize / 1.75;
+        context.observeMany(
+            'Checked', 'Indeterminate', 'Disabled', 'Color', 'Checked Icon', 'Unchecked Icon', 'Indeterminate Icon', 'MUI sx [json]',
+            'Border Color', 'Border Radius', 'CSS Property', 'Default Color', 'Height', 'Hidden', 'Tab Index', 'Width'
+        )
+        .subscribe(([
+            checked, indeterminate, disabled, color, checkedIcon, uncheckedIcon, indeterminateIcon, muiSxJson,
+            borderColor, borderRadius, cssProperty, defaultColor, height, hidden, tabIndex, width
+        ]) => {
+            // Compute components size
+            const checkboxSize = Math.min(width, height);
+            const iconSize = checkboxSize / 1.75;
 
-                // Rendering
-                ReactDOM.render((
-                    <MUICheckbox
-                        // Properties
-                        checked={checked}
-                        indeterminate={indeterminate}
-                        disabled={disabled}
-                        color={color}
-                        checkedIcon={(<Icon sx={{fontSize: iconSize}}>{checkedIcon}</Icon>)}
-                        icon={(<Icon sx={{fontSize: iconSize}}>{uncheckedIcon}</Icon>)}
-                        indeterminateIcon={(<Icon sx={{fontSize: iconSize}}>{indeterminateIcon}</Icon>)}
+            // Icon props
+            const iconSxProps = {
+                fontSize: iconSize,
+                ...ifNotTransparent('backgroundColor', defaultColor),
+                ...ifNotTransparent('color', borderColor),
+                ...ifNotNull('borderRadius', borderRadius)
+            };
 
-                        // Events
-                        onChange={(event) => {
-                            // Set the Checked property before triggering the event
-                            context.getProperty('Checked').set(event.target.checked);
-                            context.getEvent('On Change').trigger();
-                        }}
+            // Rendering
+            ReactDOM.render((
+                <MUICheckbox
+                    // Properties
+                    checked={checked}
+                    indeterminate={indeterminate}
+                    disabled={disabled}
+                    color={color}
+                    checkedIcon={(<Icon sx={{...iconSxProps}}>{checkedIcon}</Icon>)}
+                    icon={(<Icon sx={{...iconSxProps}}>{uncheckedIcon}</Icon>)}
+                    indeterminateIcon={(<Icon sx={{...iconSxProps}}>{indeterminateIcon}</Icon>)}
 
-                        // UI
-                        sx={{
-                            width: checkboxSize,
-                            height: checkboxSize,
-                            ...jsonToSxProps(muiSxJson)
-                        }}
-                    ></MUICheckbox>
-                ), elementDom);
-            });
+                    // Events
+                    onChange={(event) => {
+                        // Set the Checked property before triggering the event
+                        context.getProperty('Checked').set(event.target.checked);
+                        context.getEvent('On Change').trigger();
+                        context.getEvent('On Click').trigger();
+                    }}
+
+                    // UI
+                    sx={{
+                        width: checkboxSize,
+                        height: checkboxSize,
+                        ...ifNotNull('display', 'none', hidden),
+                        tabIndex: tabIndex,
+                        ...cssToSxProps(cssProperty),
+                        ...jsonToSxProps(muiSxJson)
+                    }}
+                ></MUICheckbox>
+            ), elementDom);
+        });
     }
 }
 

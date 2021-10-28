@@ -19,15 +19,14 @@ import { UIBrick, registerBrick } from 'olympe';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
-import { markdownTextToReactElement } from '../../../helpers/web/remarkable';
 import { jsonToSxProps, cssToSxProps, ifNotNull } from '../../../helpers/web/mui';
 
 /**
- * Provide a Label visual component using MUI Typography
+ * Provide a Rectangle visual component (empty div) using MUI Box
  */
-export default class Label extends UIBrick {
+export default class Rectangle extends UIBrick {
 
     /**
      * This method runs when the brick is ready in the HTML DOM.
@@ -36,35 +35,25 @@ export default class Label extends UIBrick {
      * @param {!Element} elementDom
      */
     draw(context, elementDom) {
-        // Change draw div display to flex for vertical alignment
-        elementDom.style.display = 'flex';
-
         // Allow overflow
         elementDom.style.overflow = 'visible';
 
         // Observe all properties
         context.observeMany(
-            'Text', 'Text Variant', 'No Wrap', 'With Format', 'Text Color', 'Font Family', 'Horizontal Align', 'Vertical Align', 'MUI sx [json]',
+            'MUI sx [json]',
             'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Hidden'
         ).subscribe(([
-            text, textVariant, noWrap, withFormat, textColor, fontFamily, horizontalAlign, verticalAlign, muiSxJson,
+            muiSxJson,
             borderColor, borderRadius, borderWidth, cssProperty, defaultColor, hidden
         ]) => {
             // Rendering
             ReactDOM.render((
-                <Typography
-                    // Properties
-                    component={'p'}
-                    variant={textVariant}
-                    noWrap={noWrap}
-                    align={horizontalAlign}
-
-                    // UI
+                <Box
+                    // Properties + UI
+                    component={'div'}
                     sx={{
                         width: 1,
-                        color: textColor.toString(),
-                        fontFamily: fontFamily,
-                        alignSelf: verticalAlign,
+                        height: 1,
                         borderColor: borderColor.toHexString(),
                         borderRadius: borderRadius,
                         borderWidth: borderWidth,
@@ -78,12 +67,10 @@ export default class Label extends UIBrick {
 
                     // Events
                     onClick={() => context.getEvent('On Click').trigger()}
-                >
-                    {withFormat ? markdownTextToReactElement(text, 'span') : text}
-                </Typography>
+                ></Box>
             ), elementDom);
         });
     }
 }
 
-registerBrick('017c79a94cb2090c4d7d', Label);
+registerBrick('017cc0cf86f2a650141a', Rectangle);

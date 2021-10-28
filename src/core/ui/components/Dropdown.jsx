@@ -22,7 +22,7 @@ import ReactDOM from 'react-dom';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 
-import { jsonToSxProps } from '../../../helpers/web/mui';
+import { jsonToSxProps, computeTextColorOverride, cssToSxProps, ifNotNull, ifNotTransparent } from '../../../helpers/web/mui';
 
 /**
  * Provide a Dropdown visual component using MUI TextField
@@ -36,102 +36,129 @@ export default class Dropdown extends UIBrick {
      * @param {!Element} elementDom
      */
     draw(context, elementDom) {
+        // Allow overflow
+        elementDom.style.overflow = 'visible';
+
         // Observe all properties
-        context.observeMany('Value', 'Options Value', 'Options Label', 'Options Separator', 'Label', 'Helper Text', 'Empty Text', 'Variant', 'Color', 'Min Size', 'Multiple', 'Disabled', 'Required', 'Error', 'Font Family', 'MUI sx [json]')
-            .subscribe(([value, optionsValue, optionsLabel, optionsSeparator, label, helperText, emptyText, variant, color, minSize, multiple, disabled, required, error, fontFamily, muiSxJson]) => {
-                // Compute all options
-                const values = optionsValue.split(optionsSeparator).map(v => v.trim());
-                const labels = optionsLabel.split(optionsSeparator).map(l => l.trim());
-                const options = Array.from({length: Math.max(values.length, labels.length)})
-                    .map((_, i) => ({
-                        value: values[i] ? values[i] : labels[i],
-                        label: labels[i] ? labels[i] : values[i]
-                    }));
+        context.observeMany(
+            'Value', 'Options Value', 'Options Label', 'Options Separator', 'Label', 'Helper Text', 'Empty Text', 'Variant', 'Color', 'Min Size', 'Multiple', 'Disabled', 'Required', 'Error', 'Text Color Override', 'Font Family', 'MUI sx [json]',
+            'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Hidden', 'Tab Index'
+        ).subscribe(([
+            value, optionsValue, optionsLabel, optionsSeparator, label, helperText, emptyText, variant, color, minSize, multiple, disabled, required, error, textColorOverride, fontFamily, muiSxJson,
+            borderColor, borderRadius, borderWidth, cssProperty, defaultColor, hidden, tabIndex
+        ]) => {
+            // Compute all options
+            const values = optionsValue.split(optionsSeparator).map(v => v.trim());
+            const labels = optionsLabel.split(optionsSeparator).map(l => l.trim());
+            const options = Array.from({length: Math.max(values.length, labels.length)})
+                .map((_, i) => ({
+                    value: values[i] ? values[i] : labels[i],
+                    label: labels[i] ? labels[i] : values[i]
+                }));
 
-                // Handle multiple selection
-                const muiValue = multiple
-                    ? value.split(optionsSeparator).map(v => v.trim()).filter(v => v !== '')
-                    : value.trim();
+            // Handle multiple selection
+            const muiValue = multiple
+                ? value.split(optionsSeparator).map(v => v.trim()).filter(v => v !== '')
+                : value.trim();
 
-                // Rendering
-                ReactDOM.render((
-                    <TextField
+            // Rendering
+            ReactDOM.render((
+                <TextField
+                    // Properties
+                    value={muiValue}
+                    label={label}
+                    helperText={helperText}
+                    variant={variant}
+                    color={color}
+                    size={minSize}
+                    disabled={disabled}
+                    required={required}
+                    error={error}
+
+                    // Events
+                    onClick={() => context.getEvent('On Click').trigger()}
+                    onChange={(event) => {
+                        // Set the Value property before triggering the event
+                        context.getProperty('Value').set(
+                            multiple
+                                ? /** @type {Array} */(event.target.value).join(optionsSeparator)
+                                : event.target.value
+                        );
+                        context.getEvent('On Change').trigger();
+                    }}
+
+                    // UI
+                    InputProps={{
+                        sx: {
+                            flex: 'auto',
+                            fontFamily: fontFamily,
+                            tabIndex: tabIndex,
+                            ...ifNotTransparent('backgroundColor', defaultColor),
+                            ...ifNotNull('borderRadius', borderRadius),
+                            ...ifNotNull('borderWidth', borderWidth),
+                            ...ifNotTransparent('borderStyle', 'solid', borderColor),
+                            ...ifNotNull('boxSizing', 'border-box', borderWidth),
+                            ...ifNotTransparent('borderColor', borderColor),
+                            ...computeTextColorOverride(textColorOverride, error)
+                        }
+                    }}
+                    FormHelperTextProps={{
+                        sx: {
+                            fontFamily: fontFamily,
+                            ...ifNotTransparent('color', borderColor)
+                        }
+                    }}
+                    InputLabelProps={{
+                        shrink: value !== '' || emptyText !== '',
+                        sx: {
+                            fontFamily: fontFamily,
+                            ...ifNotTransparent('color', borderColor)
+                        }
+                    }}
+                    sx={{
+                        width: 1,
+                        height: 1,
+                        ...ifNotNull('display', 'none', hidden),
+                        ...cssToSxProps(cssProperty),
+                        ...jsonToSxProps(muiSxJson)
+                    }}
+
+                    // Select properties
+                    select={true}
+                    SelectProps={{
                         // Properties
-                        value={muiValue}
-                        label={label}
-                        helperText={helperText}
-                        variant={variant}
-                        color={color}
-                        size={minSize}
-                        disabled={disabled}
-                        required={required}
-                        error={error}
+                        multiple: multiple,
+                        displayEmpty: true,
 
-                        // Events
-                        onChange={(event) => {
-                            // Set the Value property before triggering the event
-                            context.getProperty('Value').set(
-                                multiple
-                                    ? /** @type {Array} */(event.target.value).join(optionsSeparator)
-                                    : event.target.value
-                            );
-                            context.getEvent('On Change').trigger();
-                        }}
+                        // Event
+                        onClose: () => context.getEvent('On Close').trigger(),
+                        onOpen: () => context.getEvent('On Open').trigger(),
 
                         // UI
-                        InputProps={{
-                            sx: {
-                                flex: 'auto',
+                        renderValue: val => {
+                            if(!val || (multiple && val.length === 0))
+                                return emptyText;
+                            if(multiple)
+                                return /** @type {Array} */(val).join(optionsSeparator);
+                            return val;
+                        }
+                    }}
+                >
+                    {/* Options */}
+                    {options.map((option, index) => (
+                        <MenuItem
+                            key={index}
+                            value={option.value}
+                            sx={{
                                 fontFamily: fontFamily
-                            }
-                        }}
-                        FormHelperTextProps={{
-                            sx: {
-                                fontFamily: fontFamily
-                            }
-                        }}
-                        InputLabelProps={{
-                            shrink: value !== '' || emptyText !== '',
-                            sx: {
-                                fontFamily: fontFamily
-                            }
-                        }}
-                        sx={{
-                            width: 1,
-                            height: 1,
-                            ...jsonToSxProps(muiSxJson)
-                        }}
-
-                        // Select properties
-                        select={true}
-                        SelectProps={{
-                            // Properties
-                            multiple: multiple,
-                            displayEmpty: true,
-
-                            // Event
-                            onClose: () => context.getEvent('On Close').trigger(),
-                            onOpen: () => context.getEvent('On Open').trigger(),
-
-                            // UI
-                            renderValue: val => {
-                                if(!val || (multiple && val.length === 0))
-                                    return emptyText;
-                                if(multiple)
-                                    return /** @type {Array} */(val).join(optionsSeparator);
-                                return val;
-                            },
-                        }}
-                    >
-                        {/* Options */}
-                        {options.map((option, index) => (
-                            <MenuItem key={index} value={option.value} sx={{ fontFamily: fontFamily }}>
-                                {option.label}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                ), elementDom);
-            });
+                            }}
+                        >
+                            {option.label}
+                        </MenuItem>
+                    ))}
+                </TextField>
+            ), elementDom);
+        });
     }
 }
 
