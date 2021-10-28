@@ -16,7 +16,9 @@
 
 import { FunctionBrick, registerBrick, BurstTransaction, instanceToTag } from 'olympe';
 import {getLogger} from 'logging';
-import {BehaviorSubject, combineLatest} from "rxjs";
+import {BehaviorSubject} from "rxjs";
+import {combineLatestWith} from "rxjs/operators"
+import {castPrimitiveValue} from "./_helpers";
 
 export default class FeedObjectProperty extends FunctionBrick {
 
@@ -58,11 +60,11 @@ export default class FeedObjectProperty extends FunctionBrick {
             currentObject = object;
         });
 
-        combineLatest(context.observe(propertyInput, true), context.observe(valueInput, true))
-            .subscribe(([property, value]) => {
-                flow.next(new Map().set(instanceToTag(property), value.valueOf()));
-            }
-        );
+        context.observe(propertyInput, true).pipe(combineLatestWith(
+            context.observe(valueInput, true)
+        )).subscribe(([property, value]) => {
+            flow.next(new Map().set(instanceToTag(property), castPrimitiveValue(value)));
+        });
     }
 
     /**

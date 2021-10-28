@@ -110,7 +110,7 @@ db.newInstance(_instance_of_Runnable_Output____object_01632a7cbe871e21e4d3)
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Set_Object_Property_01632a7cbe87ca19c5f1)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'object',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
         'v'                                     :1
     })
     .done();
@@ -216,7 +216,7 @@ db.newInstance(_instance_of_Runnable_Output____error_017bb7a0588ce160ac52)
     .addToGroupOfObjects(_instance_of_Coded_Action_model____Set_Object_Property_01632a7cbe87ca19c5f1)
     .setNameOrProperties({
         [_Object_name_ff023000000000000011]     :'error',
-        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:2,
+        [_Runnable_IO_IO_Rank_01740c5d4ae4b520dd01]:1,
         'v'                                     :1
     })
     .done();
