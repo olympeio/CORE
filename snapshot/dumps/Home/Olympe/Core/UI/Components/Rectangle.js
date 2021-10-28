@@ -87,8 +87,8 @@ db.newModel(_instance_of_Coded_Visual_Component_model____Rectangle_017cc0cf86f2a
 db.updateInstance(_instance_of_Coded_Visual_Component_model____Rectangle_017cc0cf86f2a650141a, {
         [db.DEFAULT+_instance_of_Property__Rectangle____MUI_sx_$_91_$json$_93_$_017cc0db6cae7827c401]:'{}',
         [db.DEFAULT+_Object_name_ff023000000000000011]:'Rectangle',
-        [db.DEFAULT+_Renderable_Default_Color_01611d9c686bbed5fdba]:db.createColor(234,234,234,1),
         [db.DEFAULT+_Renderable_Height_01611d9a0452a179c68f]:100,
+        [db.DEFAULT+_Renderable_Default_Color_01611d9c686bbed5fdba]:db.createColor(234,234,234,1),
         'v'                                     :2
     });
 db.assign(_instance_of_Coded_Visual_Component_model____Rectangle_017cc0cf86f2a650141a, _Object_propertyRel_ff02200000000000000c          , _instance_of_Property__Rectangle____MUI_sx_$_91_$json$_93_$_017cc0db6cae7827c401);
