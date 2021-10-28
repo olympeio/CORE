@@ -17,6 +17,7 @@
 import { ActionBrick, registerBrick, ErrorFlow } from "olympe";
 import getScopeContext from "./util/updateContextProperty";
 import {getLogger} from 'logging';
+import {castPrimitiveValue} from "../data/transaction/_helpers";
 
 /**
 ## Description
@@ -57,7 +58,7 @@ export default class SetUIProperty extends ActionBrick {
                 dispatchErrorFlow(ErrorFlow.create('Unknown scope', 2));
                 return;
             }
-            scopeContext.set(property, value);
+            scopeContext.set(property, castPrimitiveValue(value));
             forwardEvent();
 
         } else {

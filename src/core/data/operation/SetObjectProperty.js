@@ -16,23 +16,8 @@
 
 import {FunctionBrick, registerBrick, Transaction, Sync, instanceToTag, DBView, PropertyPrimitive, CreateInstance} from 'olympe';
 import {getLogger} from 'logging';
+import {castPrimitiveValue} from "../transaction/_helpers";
 
-/**
-## Description
-Sets the value of a specific property for the provided object.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| object | Object | The object to update. |
-| property | Property | The property to update. |
-| value | Object | The value to set the property with. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| object | Object | The object. |
-
-**/
 export default class SetObjectProperty extends FunctionBrick {
 
     /**
@@ -49,12 +34,14 @@ export default class SetObjectProperty extends FunctionBrick {
     onUpdate(context, [object, property, value], [setObject]) {
         const logger = getLogger('Set Object Property');
 
+        const castedValue = castPrimitiveValue(value);
+
         // Validate arguments
-        if (value instanceof Sync) {
+        if (castedValue instanceof Sync) {
             logger.error('Complex properties are not supported');
             return;
         }
-        if (value === undefined || value === null) {
+        if (castedValue === undefined || castedValue === null) {
             logger.info('Ignoring null value');
             setObject(object);
             return;
@@ -77,10 +64,10 @@ export default class SetObjectProperty extends FunctionBrick {
 
         // Start isolated local transaction
         const transaction = new Transaction();
-        transaction.update(object, property, value);
+        transaction.update(object, property, castedValue);
 
         // Execute the transaction
-        transaction.execute(success => {
+        transaction.execute((success) => {
             if (!success) {
                 logger.error('Update transaction failed');
             } else {
