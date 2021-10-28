@@ -158,7 +158,7 @@ db.newInstance(_instance_of_Documentation_017c9e0e9f70d344d595)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Visual_Component_model____Switch_017c9e0e9f6f81f21a93)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Switches are the preferred way to adjust settings on mobile. The option that the switch controls, as well as the state it\'s in, should be made clear from the corresponding inline label.\n<br><br>\nIf you have multiple options appearing in a list, you can preserve space by using checkboxes instead of on/off switches. If you have a single option, avoid using a checkbox and use an on/off switch instead.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more [here](https://mui.com/system/the-sx-prop/).',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Switches are the preferred way to adjust settings on mobile. The option that the switch controls, as well as the state it\'s in, should be made clear from the corresponding inline label.\n<br><br>\nIf you have multiple options appearing in a list, you can preserve space by using checkboxes instead of on/off switches. If you have a single option, avoid using a checkbox and use an on/off switch instead.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more [here](https://mui.com/system/the-sx-prop/).\n<br><br>\n`Border Color` and `Border Width` have no effect on this component.',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Switch toggles the state of a single setting on or off.',
         'v'                                     :1
     })

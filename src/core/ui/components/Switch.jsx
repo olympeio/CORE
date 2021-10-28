@@ -14,57 +14,73 @@
  * limitations under the License.
  */
 
- import { UIBrick, registerBrick } from 'olympe';
+import { UIBrick, registerBrick } from 'olympe';
 
- import React from 'react';
- import ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
- import MUISwitch from '@mui/material/Switch';
+import MUISwitch from '@mui/material/Switch';
 
- import { jsonToSxProps } from '../../../helpers/web/mui';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from '../../../helpers/web/mui';
 
- /**
-  * Provide a Switch visual component using MUI Switch
-  */
- export default class Switch extends UIBrick {
+/**
+ * Provide a Switch visual component using MUI Switch
+ */
+export default class Switch extends UIBrick {
 
-     /**
-      * This method runs when the brick is ready in the HTML DOM.
-      * @override
-      * @param {!UIContext} context
-      * @param {!Element} elementDom
-      */
-     draw(context, elementDom) {
-         // Change draw div display to center the switch
-         elementDom.style.display = 'flex';
-         elementDom.style.alignItems = 'center';
-         elementDom.style.justifyContent = 'center';
+    /**
+     * This method runs when the brick is ready in the HTML DOM.
+     * @override
+     * @param {!UIContext} context
+     * @param {!Element} elementDom
+     */
+    draw(context, elementDom) {
+        // Change draw div display to center the switch
+        elementDom.style.display = 'flex';
+        elementDom.style.alignItems = 'center';
+        elementDom.style.justifyContent = 'center';
 
-         // Observe all properties
-         context.observeMany('Checked', 'Disabled', 'Color', 'Size', 'MUI sx [json]')
-             .subscribe(([checked, disabled, color, size, muiSxJson]) => {
-                // Rendering
-                ReactDOM.render((
-                    <MUISwitch
-                        // Properties
-                        checked={checked}
-                        disabled={disabled}
-                        color={color}
-                        size={size}
+        // Allow overflow
+        elementDom.style.overflow = 'visible';
 
-                        // UI
-                        sx={jsonToSxProps(muiSxJson)}
+        // Observe all properties
+        context.observeMany(
+            'Checked', 'Disabled', 'Color', 'Size', 'MUI sx [json]',
+            'Border Radius', 'CSS Property', 'Default Color', 'Hidden', 'Tab Index'
+        ).subscribe(([
+            checked, disabled, color, size, muiSxJson,
+            borderRadius, cssProperty, defaultColor, hidden, tabIndex
+        ]) => {
+            // Rendering
+            ReactDOM.render((
+                <MUISwitch
+                    // Properties
+                    checked={checked}
+                    disabled={disabled}
+                    color={color}
+                    size={size}
 
-                        // Events
-                        onChange={(event) => {
-                            // Set the Checked property before triggering the event
-                            context.getProperty('Checked').set(event.target.checked);
-                            context.getEvent('On Change').trigger();
-                        }}
-                    ></MUISwitch>
-                ), elementDom);
-             });
-     }
- }
+                    // UI
+                    sx={{
+                        ...ifNotTransparent('backgroundColor', defaultColor),
+                        ...ifNotNull('borderRadius', borderRadius),
+                        ...ifNotNull('display', 'none', hidden),
+                        tabIndex: tabIndex,
+                        ...cssToSxProps(cssProperty),
+                        ...jsonToSxProps(muiSxJson)
+                    }}
 
- registerBrick('017c9e0e9f6f81f21a93', Switch);
+                    // Events
+                    onChange={(event) => {
+                        // Set the Checked property before triggering the event
+                        context.getProperty('Checked').set(event.target.checked);
+                        context.getEvent('On Change').trigger();
+                        context.getEvent('On Click').trigger();
+                    }}
+                ></MUISwitch>
+            ), elementDom);
+        });
+    }
+}
+
+registerBrick('017c9e0e9f6f81f21a93', Switch);
