@@ -13,6 +13,7 @@ const _Boolean_ff021000000000000012            = 'ff021000000000000012';
 const _Button_Size_017ca275d74f92ebe3f3        = '017ca275d74f92ebe3f3';
 const _Button_Variant_017c9e4064a3bb9c90b5     = '017c9e4064a3bb9c90b5';
 const _Coded_Visual_Component_017a8a97979d7c51ab6a = '017a8a97979d7c51ab6a';
+const _Color_ff021000000000000017              = 'ff021000000000000017';
 const _Common_Color_017c9d04399c327dba4b       = '017c9d04399c327dba4b';
 const _Common_Font_Family_017c793a0bcc0ef475ee = '017c793a0bcc0ef475ee';
 const _Documentation_01703376c4a81c0e9d90      = '01703376c4a81c0e9d90';
@@ -78,6 +79,9 @@ const _instance_of_Documentation_017ca276646392a49e9f = db.assignTag('017ca27664
 const _instance_of_Property_Metadata_017ca2e63995395f71cc = db.assignTag('017ca2e63995395f71cc');
 const _instance_of_Property__Button____MUI_sx_$_91_$json$_93_$_017ca2e63995e9f61c31 = db.assignTag('017ca2e63995e9f61c31');
 const _instance_of_Documentation_017ca2e639c462877aa7 = db.assignTag('017ca2e639c462877aa7');
+const _instance_of_Property__Button____Text_Color_Override_017cc096b977d7476396 = db.assignTag('017cc096b977d7476396');
+const _instance_of_Property_Metadata_017cc096b978e1cf10af = db.assignTag('017cc096b978e1cf10af');
+const _instance_of_Documentation_017cc096b9a72347263a = db.assignTag('017cc096b9a72347263a');
 
 
 //==========================================================
@@ -152,6 +156,12 @@ db.newInstance(_instance_of_Property__Button____MUI_sx_$_91_$json$_93_$_017ca2e6
         'v'                                     :1
     })
 .done();
+db.newInstance(_instance_of_Property__Button____Text_Color_Override_017cc096b977d7476396, _Property_ff021000000000000005)
+    .setNameOrProperties({
+        [_Object_name_ff023000000000000011]     :'Text Color Override',
+        'v'                                     :1
+    })
+.done();
 // :_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e
 db.newModel(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, 'Button') // tag and name of the model 
     .extends(_Visual_Component_01664466071746f5e167).setModelTag(_Coded_Visual_Component_017a8a97979d7c51ab6a) 
@@ -171,6 +181,7 @@ db.updateInstance(_instance_of_Coded_Visual_Component_model____Button_017c9cd311
         [db.DEFAULT+_instance_of_Property__Button____Font_Family_017c9cf4821151b8a130]:'Roboto',
         [db.DEFAULT+_instance_of_Property__Button____Color_017c9cf43c24470d39fa]:'primary',
         [db.DEFAULT+_instance_of_Property__Button____MUI_sx_$_91_$json$_93_$_017ca2e63995e9f61c31]:'{}',
+        [db.DEFAULT+_instance_of_Property__Button____Text_Color_Override_017cc096b977d7476396]:db.createColor(0,0,0,0),
         [db.DEFAULT+_Renderable_Height_01611d9a0452a179c68f]:40,
         [db.DEFAULT+_instance_of_Property__Button____Start_Icon_017c9ce61ba529f2e32d]:'',
         [db.DEFAULT+_instance_of_Property__Button____End_Icon_017ca23ae97642b87e4a]:'',
@@ -185,6 +196,7 @@ db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f9
 db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Object_propertyRel_ff02200000000000000c          , _instance_of_Property__Button____End_Icon_017ca23ae97642b87e4a);
 db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Object_propertyRel_ff02200000000000000c          , _instance_of_Property__Button____Font_Size_017ca276643a1bbe8e92);
 db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Object_propertyRel_ff02200000000000000c          , _instance_of_Property__Button____MUI_sx_$_91_$json$_93_$_017ca2e63995e9f61c31);
+db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Object_propertyRel_ff02200000000000000c          , _instance_of_Property__Button____Text_Color_Override_017cc096b977d7476396);
 db.setRootInstanceTag(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e);
 // :_instance_of_Documentation_017c9cdd2caf8fd9f7fb
 db.newInstance(_instance_of_Documentation_017c9cdd2caf8fd9f7fb)
@@ -279,7 +291,7 @@ db.newInstance(_instance_of_Property_Metadata_017c9cf482113b7e89ae)
     .setNameOrProperties({
         [_Property_Metadata_computable_016d1bb681929c2cc3f3]:true,
         [_Property_Metadata_editableInDefinition_0170beccaac4129d72a9]:true,
-        [_Property_Metadata_rank_016d1bb681929c2cc3f1]:7,
+        [_Property_Metadata_rank_016d1bb681929c2cc3f1]:8,
         'v'                                     :1
     })
     .done();
@@ -399,7 +411,7 @@ db.newInstance(_instance_of_Property_Metadata_017ca2e63995395f71cc)
     .setNameOrProperties({
         [_Property_Metadata_computable_016d1bb681929c2cc3f3]:true,
         [_Property_Metadata_editableInDefinition_0170beccaac4129d72a9]:true,
-        [_Property_Metadata_rank_016d1bb681929c2cc3f1]:8,
+        [_Property_Metadata_rank_016d1bb681929c2cc3f1]:9,
         'v'                                     :1
     })
     .done();
@@ -413,6 +425,30 @@ db.newInstance(_instance_of_Documentation_017ca2e639c462877aa7)
         'v'                                     :1
     })
     .done();
+// :_instance_of_Property_Metadata_017cc096b978e1cf10af
+db.newInstance(_instance_of_Property_Metadata_017cc096b978e1cf10af)
+    .setModelTag(_Property_Metadata_016d1bb681929c2cc3f0) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e)
+    // Tag of parent goos
+    .addParentGoo(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e)
+    .setNameOrProperties({
+        [_Property_Metadata_computable_016d1bb681929c2cc3f3]:true,
+        [_Property_Metadata_editableInDefinition_0170beccaac4129d72a9]:true,
+        [_Property_Metadata_rank_016d1bb681929c2cc3f1]:7,
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017cc096b9a72347263a
+db.newInstance(_instance_of_Documentation_017cc096b9a72347263a)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'If different than transparent, overrides the `Color` property',
+        'v'                                     :1
+    })
+    .done();
 db.assign(_instance_of_Property__Button____Text_017c9ce59a0b4c8cdf87, _Property_typeRel_ff02200000000000000d            , _String_ff021000000000000011                      );
 db.assign(_instance_of_Property__Button____Start_Icon_017c9ce61ba529f2e32d, _Property_typeRel_ff02200000000000000d            , _String_ff021000000000000011                      );
 db.assign(_instance_of_Property__Button____Color_017c9cf43c24470d39fa, _Property_typeRel_ff02200000000000000d            , _Common_Color_017c9d04399c327dba4b                );
@@ -422,6 +458,7 @@ db.assign(_instance_of_Property__Button____Disabled_017ca239d0ccc45b4596, _Prope
 db.assign(_instance_of_Property__Button____End_Icon_017ca23ae97642b87e4a, _Property_typeRel_ff02200000000000000d            , _String_ff021000000000000011                      );
 db.assign(_instance_of_Property__Button____Font_Size_017ca276643a1bbe8e92, _Property_typeRel_ff02200000000000000d            , _Button_Size_017ca275d74f92ebe3f3                 );
 db.assign(_instance_of_Property__Button____MUI_sx_$_91_$json$_93_$_017ca2e63995e9f61c31, _Property_typeRel_ff02200000000000000d            , _String_ff021000000000000011                      );
+db.assign(_instance_of_Property__Button____Text_Color_Override_017cc096b977d7476396, _Property_typeRel_ff02200000000000000d            , _Color_ff021000000000000017                       );
 db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Button____Start_Icon_017c9ce61ba529f2e32d);
 db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Button____Color_017c9cf43c24470d39fa);
 db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Button____Font_Family_017c9cf4821151b8a130);
@@ -430,6 +467,7 @@ db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f9
 db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Button____End_Icon_017ca23ae97642b87e4a);
 db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Button____Font_Size_017ca276643a1bbe8e92);
 db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Button____MUI_sx_$_91_$json$_93_$_017ca2e63995e9f61c31);
+db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Button____Text_Color_Override_017cc096b977d7476396);
 db.assign(_instance_of_Property_Metadata_017c9ce59a0b6154b06a, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017c9ce61ba5907c9026, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017c9cf43c245212e13a, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
@@ -439,6 +477,7 @@ db.assign(_instance_of_Property_Metadata_017ca239d0cd4be71779, _Property_Metadat
 db.assign(_instance_of_Property_Metadata_017ca23ae9770020e466, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017ca276643a7ddf1030, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017ca2e63995395f71cc, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017cc096b978e1cf10af, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017c9ce59a0b6154b06a, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Button____Text_017c9ce59a0b4c8cdf87);
 db.assign(_instance_of_Property_Metadata_017c9ce61ba5907c9026, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Button____Start_Icon_017c9ce61ba529f2e32d);
 db.assign(_instance_of_Property_Metadata_017c9cf43c245212e13a, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Button____Color_017c9cf43c24470d39fa);
@@ -448,6 +487,7 @@ db.assign(_instance_of_Property_Metadata_017ca239d0cd4be71779, _Property_Metadat
 db.assign(_instance_of_Property_Metadata_017ca23ae9770020e466, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Button____End_Icon_017ca23ae97642b87e4a);
 db.assign(_instance_of_Property_Metadata_017ca276643a7ddf1030, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Button____Font_Size_017ca276643a1bbe8e92);
 db.assign(_instance_of_Property_Metadata_017ca2e63995395f71cc, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Button____MUI_sx_$_91_$json$_93_$_017ca2e63995e9f61c31);
+db.assign(_instance_of_Property_Metadata_017cc096b978e1cf10af, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Button____Text_Color_Override_017cc096b977d7476396);
 db.assign(_instance_of_Documentation_017c9cdd2caf8fd9f7fb   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e);
 db.assign(_instance_of_Documentation_017c9ce59a300e63bcbd   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Button____Text_017c9ce59a0b4c8cdf87);
 db.assign(_instance_of_Documentation_017c9ce61be2b0ac5ba2   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Button____Start_Icon_017c9ce61ba529f2e32d);
@@ -458,6 +498,7 @@ db.assign(_instance_of_Documentation_017ca239d12e24aeb401   , _Documentation_doc
 db.assign(_instance_of_Documentation_017ca23ae9a0f4b094b9   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Button____End_Icon_017ca23ae97642b87e4a);
 db.assign(_instance_of_Documentation_017ca276646392a49e9f   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Button____Font_Size_017ca276643a1bbe8e92);
 db.assign(_instance_of_Documentation_017ca2e639c462877aa7   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Button____MUI_sx_$_91_$json$_93_$_017ca2e63995e9f61c31);
+db.assign(_instance_of_Documentation_017cc096b9a72347263a   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Button____Text_Color_Override_017cc096b977d7476396);
 db.assign(_instance_of_Property__Button____Text_017c9ce59a0b4c8cdf87, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e);
 db.assign(_instance_of_Property__Button____Start_Icon_017c9ce61ba529f2e32d, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e);
 db.assign(_instance_of_Property__Button____Color_017c9cf43c24470d39fa, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e);
@@ -467,6 +508,7 @@ db.assign(_instance_of_Property__Button____Disabled_017ca239d0ccc45b4596, _Objec
 db.assign(_instance_of_Property__Button____End_Icon_017ca23ae97642b87e4a, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e);
 db.assign(_instance_of_Property__Button____Font_Size_017ca276643a1bbe8e92, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e);
 db.assign(_instance_of_Property__Button____MUI_sx_$_91_$json$_93_$_017ca2e63995e9f61c31, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e);
+db.assign(_instance_of_Property__Button____Text_Color_Override_017cc096b977d7476396, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e);
 db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017c9cdd2caf8fd9f7fb   );
 db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Button____Text_017c9ce59a0b4c8cdf87);
 db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Button____Start_Icon_017c9ce61ba529f2e32d);
@@ -477,6 +519,7 @@ db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f9
 db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Button____End_Icon_017ca23ae97642b87e4a);
 db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Button____Font_Size_017ca276643a1bbe8e92);
 db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Button____MUI_sx_$_91_$json$_93_$_017ca2e63995e9f61c31);
+db.assign(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Button____Text_Color_Override_017cc096b977d7476396);
 db.assign(_instance_of_Property__Button____Text_017c9ce59a0b4c8cdf87, _Object_containsRel_ff02200000000000000f          , _instance_of_Property_Metadata_017c9ce59a0b6154b06a);
 db.assign(_instance_of_Property__Button____Text_017c9ce59a0b4c8cdf87, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017c9ce59a300e63bcbd   );
 db.assign(_instance_of_Property__Button____Start_Icon_017c9ce61ba529f2e32d, _Object_containsRel_ff02200000000000000f          , _instance_of_Property_Metadata_017c9ce61ba5907c9026);
@@ -495,6 +538,8 @@ db.assign(_instance_of_Property__Button____Font_Size_017ca276643a1bbe8e92, _Obje
 db.assign(_instance_of_Property__Button____Font_Size_017ca276643a1bbe8e92, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017ca276646392a49e9f   );
 db.assign(_instance_of_Property__Button____MUI_sx_$_91_$json$_93_$_017ca2e63995e9f61c31, _Object_containsRel_ff02200000000000000f          , _instance_of_Property_Metadata_017ca2e63995395f71cc);
 db.assign(_instance_of_Property__Button____MUI_sx_$_91_$json$_93_$_017ca2e63995e9f61c31, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017ca2e639c462877aa7   );
+db.assign(_instance_of_Property__Button____Text_Color_Override_017cc096b977d7476396, _Object_containsRel_ff02200000000000000f          , _instance_of_Property_Metadata_017cc096b978e1cf10af);
+db.assign(_instance_of_Property__Button____Text_Color_Override_017cc096b977d7476396, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017cc096b9a72347263a   );
 db.assignOptional(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _Object_gooRel_ff022000000000000003, _Components_017c78c7a7b6795d5151);
 db.assignOptional(_instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e, _GOO_parentGooRel_ff02200000000000000u, _Components_017c78c7a7b6795d5151);
 db.assignOptional(_Components_017c78c7a7b6795d5151, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Visual_Component_model____Button_017c9cd311170bc1f95e);

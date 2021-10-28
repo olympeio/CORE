@@ -11,6 +11,7 @@ db.disableChecks();
 // Definition of tags of models used to construct instances
 const _Boolean_ff021000000000000012            = 'ff021000000000000012';
 const _Coded_Visual_Component_017a8a97979d7c51ab6a = '017a8a97979d7c51ab6a';
+const _Color_ff021000000000000017              = 'ff021000000000000017';
 const _Common_Color_017c9d04399c327dba4b       = '017c9d04399c327dba4b';
 const _Common_Font_Family_017c793a0bcc0ef475ee = '017c793a0bcc0ef475ee';
 const _Documentation_01703376c4a81c0e9d90      = '01703376c4a81c0e9d90';
@@ -109,6 +110,9 @@ const _instance_of_Documentation_017ca2a83e08edf22018 = db.assignTag('017ca2a83e
 const _instance_of_Property__Dropdown____MUI_sx_$_91_$json$_93_$_017ca2e7923c3356ab32 = db.assignTag('017ca2e7923c3356ab32');
 const _instance_of_Property_Metadata_017ca2e7923c80c76b97 = db.assignTag('017ca2e7923c80c76b97');
 const _instance_of_Documentation_017ca2e79268e3c0ef7d = db.assignTag('017ca2e79268e3c0ef7d');
+const _instance_of_Property_Metadata_017cc098fdf66fa386eb = db.assignTag('017cc098fdf66fa386eb');
+const _instance_of_Property__Dropdown____Text_Color_Override_017cc098fdf6f81c45e1 = db.assignTag('017cc098fdf6f81c45e1');
+const _instance_of_Documentation_017cc098fe2338156759 = db.assignTag('017cc098fe2338156759');
 
 
 //==========================================================
@@ -244,6 +248,12 @@ db.newInstance(_instance_of_Property__Dropdown____MUI_sx_$_91_$json$_93_$_017ca2
         'v'                                     :1
     })
 .done();
+db.newInstance(_instance_of_Property__Dropdown____Text_Color_Override_017cc098fdf6f81c45e1, _Property_ff021000000000000005)
+    .setNameOrProperties({
+        [_Object_name_ff023000000000000011]     :'Text Color Override',
+        'v'                                     :1
+    })
+.done();
 // :_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b
 db.newModel(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, 'Dropdown') // tag and name of the model 
     .extends(_Visual_Component_01664466071746f5e167).setModelTag(_Coded_Visual_Component_017a8a97979d7c51ab6a) 
@@ -272,6 +282,7 @@ db.updateInstance(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1
         [db.DEFAULT+_Renderable_Height_01611d9a0452a179c68f]:40,
         [db.DEFAULT+_instance_of_Property__Dropdown____Variant_017c9dc1efbf8ead2867]:'outlined',
         [db.DEFAULT+_instance_of_Property__Dropdown____Label_017c9dc1efab1bae4aab]:'',
+        [db.DEFAULT+_instance_of_Property__Dropdown____Text_Color_Override_017cc098fdf6f81c45e1]:db.createColor(0,0,0,0),
         [db.DEFAULT+_instance_of_Property__Dropdown____Empty_Text_017c9de32a48b053d65d]:'',
         'v'                                     :2
     });
@@ -294,6 +305,7 @@ db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55
 db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Object_propertyRel_ff02200000000000000c          , _instance_of_Property__Dropdown____Empty_Text_017c9de32a48b053d65d);
 db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Object_propertyRel_ff02200000000000000c          , _instance_of_Property__Dropdown____Font_Family_017ca2a83dd9650b9d42);
 db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Object_propertyRel_ff02200000000000000c          , _instance_of_Property__Dropdown____MUI_sx_$_91_$json$_93_$_017ca2e7923c3356ab32);
+db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Object_propertyRel_ff02200000000000000c          , _instance_of_Property__Dropdown____Text_Color_Override_017cc098fdf6f81c45e1);
 db.setRootInstanceTag(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b);
 // :_instance_of_Documentation_017c9dc1ef9ad716dc6f
 db.newInstance(_instance_of_Documentation_017c9dc1ef9ad716dc6f)
@@ -301,7 +313,7 @@ db.newInstance(_instance_of_Documentation_017c9dc1ef9ad716dc6f)
     // Tag of goos
     .addToGroupOfObjects(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b)
     .setNameOrProperties({
-        [_Documentation_description_01703376c4a81c0e9d92]:'Dropdown components are used for collecting user provided information from a list of options. Support also multiple selection, see property `Multiple` below.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more [here](https://mui.com/system/the-sx-prop/).',
+        [_Documentation_description_01703376c4a81c0e9d92]:'Dropdown components are used for collecting user provided information from a list of options. Support also multiple selection, see property `Multiple` below.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more [here](https://mui.com/system/the-sx-prop/).\n<br><br>\nUsing `Border ...` properties may not work as expected with some `Variant` and other combination of properties. In this case use the `MUI sx [json]` property or CODE directly.',
         [_Documentation_summary_01703376c4a81c0e9d91]:'Dropdown is used for collecting value from a list of options.',
         'v'                                     :1
     })
@@ -724,7 +736,7 @@ db.newInstance(_instance_of_Property_Metadata_017ca2a83dd90afaf3f6)
     .setNameOrProperties({
         [_Property_Metadata_computable_016d1bb681929c2cc3f3]:true,
         [_Property_Metadata_editableInDefinition_0170beccaac4129d72a9]:true,
-        [_Property_Metadata_rank_016d1bb681929c2cc3f1]:14,
+        [_Property_Metadata_rank_016d1bb681929c2cc3f1]:15,
         'v'                                     :1
     })
     .done();
@@ -748,7 +760,7 @@ db.newInstance(_instance_of_Property_Metadata_017ca2e7923c80c76b97)
     .setNameOrProperties({
         [_Property_Metadata_computable_016d1bb681929c2cc3f3]:true,
         [_Property_Metadata_editableInDefinition_0170beccaac4129d72a9]:true,
-        [_Property_Metadata_rank_016d1bb681929c2cc3f1]:15,
+        [_Property_Metadata_rank_016d1bb681929c2cc3f1]:16,
         'v'                                     :1
     })
     .done();
@@ -759,6 +771,30 @@ db.newInstance(_instance_of_Documentation_017ca2e79268e3c0ef7d)
     .addToGroupOfObjects(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b)
     .setNameOrProperties({
         [_Documentation_description_01703376c4a81c0e9d92]:'The system prop that allows defining MUI system overrides as well as additional CSS styles.',
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Property_Metadata_017cc098fdf66fa386eb
+db.newInstance(_instance_of_Property_Metadata_017cc098fdf66fa386eb)
+    .setModelTag(_Property_Metadata_016d1bb681929c2cc3f0) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b)
+    // Tag of parent goos
+    .addParentGoo(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b)
+    .setNameOrProperties({
+        [_Property_Metadata_computable_016d1bb681929c2cc3f3]:true,
+        [_Property_Metadata_editableInDefinition_0170beccaac4129d72a9]:true,
+        [_Property_Metadata_rank_016d1bb681929c2cc3f1]:14,
+        'v'                                     :1
+    })
+    .done();
+// :_instance_of_Documentation_017cc098fe2338156759
+db.newInstance(_instance_of_Documentation_017cc098fe2338156759)
+    .setModelTag(_Documentation_01703376c4a81c0e9d90) // tag of the model
+    // Tag of goos
+    .addToGroupOfObjects(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b)
+    .setNameOrProperties({
+        [_Documentation_description_01703376c4a81c0e9d92]:'If different than transparent, overrides the `Color` property',
         'v'                                     :1
     })
     .done();
@@ -781,6 +817,7 @@ db.assign(_instance_of_Property__Dropdown____On_Open_017c9dc75acbaa3fa3cc, _Prop
 db.assign(_instance_of_Property__Dropdown____Empty_Text_017c9de32a48b053d65d, _Property_typeRel_ff02200000000000000d            , _String_ff021000000000000011                      );
 db.assign(_instance_of_Property__Dropdown____Font_Family_017ca2a83dd9650b9d42, _Property_typeRel_ff02200000000000000d            , _Common_Font_Family_017c793a0bcc0ef475ee          );
 db.assign(_instance_of_Property__Dropdown____MUI_sx_$_91_$json$_93_$_017ca2e7923c3356ab32, _Property_typeRel_ff02200000000000000d            , _String_ff021000000000000011                      );
+db.assign(_instance_of_Property__Dropdown____Text_Color_Override_017cc098fdf6f81c45e1, _Property_typeRel_ff02200000000000000d            , _Color_ff021000000000000017                       );
 db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Dropdown____Color_017c9dc1ef9e49123a7b);
 db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Dropdown____Disabled_017c9dc1efa247807e45);
 db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Dropdown____Error_017c9dc1efa437a1a3ab);
@@ -794,6 +831,7 @@ db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55
 db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Dropdown____Empty_Text_017c9de32a48b053d65d);
 db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Dropdown____Font_Family_017ca2a83dd9650b9d42);
 db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Dropdown____MUI_sx_$_91_$json$_93_$_017ca2e7923c3356ab32);
+db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Abstract_Visual_Component_themable_property_016951f802614c4350bf, _instance_of_Property__Dropdown____Text_Color_Override_017cc098fdf6f81c45e1);
 db.assign(_instance_of_Property_Metadata_017c9dc1ef9f7c9aaeeb, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017c9dc1efa100657e33, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017c9dc1efa5007daf24, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
@@ -813,6 +851,7 @@ db.assign(_instance_of_Property_Metadata_017c9dc75acbd6d3ffc7, _Property_Metadat
 db.assign(_instance_of_Property_Metadata_017c9de32a4815920c82, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017ca2a83dd90afaf3f6, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017ca2e7923c80c76b97, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
+db.assign(_instance_of_Property_Metadata_017cc098fdf66fa386eb, _Property_Metadata_PropertyCategory_016d1bb681929c2cc3f4, _Custom_properties_0164188f5cc0c205bc06           );
 db.assign(_instance_of_Property_Metadata_017c9dc1ef9f7c9aaeeb, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Dropdown____Color_017c9dc1ef9e49123a7b);
 db.assign(_instance_of_Property_Metadata_017c9dc1efa100657e33, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Dropdown____Disabled_017c9dc1efa247807e45);
 db.assign(_instance_of_Property_Metadata_017c9dc1efa5007daf24, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Dropdown____Error_017c9dc1efa437a1a3ab);
@@ -832,6 +871,7 @@ db.assign(_instance_of_Property_Metadata_017c9dc75acbd6d3ffc7, _Property_Metadat
 db.assign(_instance_of_Property_Metadata_017c9de32a4815920c82, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Dropdown____Empty_Text_017c9de32a48b053d65d);
 db.assign(_instance_of_Property_Metadata_017ca2a83dd90afaf3f6, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Dropdown____Font_Family_017ca2a83dd9650b9d42);
 db.assign(_instance_of_Property_Metadata_017ca2e7923c80c76b97, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Dropdown____MUI_sx_$_91_$json$_93_$_017ca2e7923c3356ab32);
+db.assign(_instance_of_Property_Metadata_017cc098fdf66fa386eb, _Property_Metadata_Property_016d1bb681929c2cc3f5  , _instance_of_Property__Dropdown____Text_Color_Override_017cc098fdf6f81c45e1);
 db.assign(_instance_of_Documentation_017c9dc1ef9ad716dc6f   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b);
 db.assign(_instance_of_Documentation_017c9dc1efa0650f86a1   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Dropdown____Color_017c9dc1ef9e49123a7b);
 db.assign(_instance_of_Documentation_017c9dc1efa3a5aea7c4   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Dropdown____Disabled_017c9dc1efa247807e45);
@@ -852,6 +892,7 @@ db.assign(_instance_of_Documentation_017c9dc75ae6ca4045dc   , _Documentation_doc
 db.assign(_instance_of_Documentation_017c9de32a74ef2a0e85   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Dropdown____Empty_Text_017c9de32a48b053d65d);
 db.assign(_instance_of_Documentation_017ca2a83e08edf22018   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Dropdown____Font_Family_017ca2a83dd9650b9d42);
 db.assign(_instance_of_Documentation_017ca2e79268e3c0ef7d   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Dropdown____MUI_sx_$_91_$json$_93_$_017ca2e7923c3356ab32);
+db.assign(_instance_of_Documentation_017cc098fe2338156759   , _Documentation_documentation_01703376c4a81c0e9d93 , _instance_of_Property__Dropdown____Text_Color_Override_017cc098fdf6f81c45e1);
 db.assign(_instance_of_Property__Dropdown____Color_017c9dc1ef9e49123a7b, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b);
 db.assign(_instance_of_Property__Dropdown____Disabled_017c9dc1efa247807e45, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b);
 db.assign(_instance_of_Property__Dropdown____Error_017c9dc1efa437a1a3ab, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b);
@@ -871,6 +912,7 @@ db.assign(_instance_of_Property__Dropdown____On_Open_017c9dc75acbaa3fa3cc, _Obje
 db.assign(_instance_of_Property__Dropdown____Empty_Text_017c9de32a48b053d65d, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b);
 db.assign(_instance_of_Property__Dropdown____Font_Family_017ca2a83dd9650b9d42, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b);
 db.assign(_instance_of_Property__Dropdown____MUI_sx_$_91_$json$_93_$_017ca2e7923c3356ab32, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b);
+db.assign(_instance_of_Property__Dropdown____Text_Color_Override_017cc098fdf6f81c45e1, _Object_gooRel_ff022000000000000003               , _instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b);
 db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017c9dc1ef9ad716dc6f   );
 db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Dropdown____Color_017c9dc1ef9e49123a7b);
 db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Dropdown____Disabled_017c9dc1efa247807e45);
@@ -891,6 +933,7 @@ db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55
 db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Dropdown____Empty_Text_017c9de32a48b053d65d);
 db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Dropdown____Font_Family_017ca2a83dd9650b9d42);
 db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Dropdown____MUI_sx_$_91_$json$_93_$_017ca2e7923c3356ab32);
+db.assign(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Object_containsRel_ff02200000000000000f          , _instance_of_Property__Dropdown____Text_Color_Override_017cc098fdf6f81c45e1);
 db.assign(_instance_of_Property__Dropdown____Color_017c9dc1ef9e49123a7b, _Object_containsRel_ff02200000000000000f          , _instance_of_Property_Metadata_017c9dc1ef9f7c9aaeeb);
 db.assign(_instance_of_Property__Dropdown____Color_017c9dc1ef9e49123a7b, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017c9dc1efa0650f86a1   );
 db.assign(_instance_of_Property__Dropdown____Disabled_017c9dc1efa247807e45, _Object_containsRel_ff02200000000000000f          , _instance_of_Property_Metadata_017c9dc1efa100657e33);
@@ -929,6 +972,8 @@ db.assign(_instance_of_Property__Dropdown____Font_Family_017ca2a83dd9650b9d42, _
 db.assign(_instance_of_Property__Dropdown____Font_Family_017ca2a83dd9650b9d42, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017ca2a83e08edf22018   );
 db.assign(_instance_of_Property__Dropdown____MUI_sx_$_91_$json$_93_$_017ca2e7923c3356ab32, _Object_containsRel_ff02200000000000000f          , _instance_of_Property_Metadata_017ca2e7923c80c76b97);
 db.assign(_instance_of_Property__Dropdown____MUI_sx_$_91_$json$_93_$_017ca2e7923c3356ab32, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017ca2e79268e3c0ef7d   );
+db.assign(_instance_of_Property__Dropdown____Text_Color_Override_017cc098fdf6f81c45e1, _Object_containsRel_ff02200000000000000f          , _instance_of_Property_Metadata_017cc098fdf66fa386eb);
+db.assign(_instance_of_Property__Dropdown____Text_Color_Override_017cc098fdf6f81c45e1, _Object_containsRel_ff02200000000000000f          , _instance_of_Documentation_017cc098fe2338156759   );
 db.assignOptional(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _Object_gooRel_ff022000000000000003, _Components_017c78c7a7b6795d5151);
 db.assignOptional(_instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b, _GOO_parentGooRel_ff02200000000000000u, _Components_017c78c7a7b6795d5151);
 db.assignOptional(_Components_017c78c7a7b6795d5151, _Object_containsRel_ff02200000000000000f, _instance_of_Coded_Visual_Component_model____Dropdown_017c9dc1ef990c55b61b);
