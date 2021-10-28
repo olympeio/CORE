@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { UIBrick, registerBrick } from 'olympe';
+import { UIBrick, registerBrick, EnumValue } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -23,6 +23,7 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 
 import { jsonToSxProps, computeTextColorOverride, cssToSxProps, ifNotNull, ifNotTransparent } from '../../../helpers/web/mui';
+import { combineLatestWith, map, startWith, switchMap } from 'rxjs/operators';
 
 /**
  * Provide a Dropdown visual component using MUI TextField
@@ -39,26 +40,55 @@ export default class Dropdown extends UIBrick {
         // Allow overflow
         elementDom.style.overflow = 'visible';
 
-        // Observe all properties
-        context.observeMany(
-            'Value', 'Options Value', 'Options Label', 'Options Separator', 'Label', 'Helper Text', 'Empty Text', 'Variant', 'Color', 'Min Size', 'Multiple', 'Disabled', 'Required', 'Error', 'Text Color Override', 'Font Family', 'MUI sx [json]',
-            'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Hidden', 'Tab Index'
-        ).subscribe(([
-            value, optionsValue, optionsLabel, optionsSeparator, label, helperText, emptyText, variant, color, minSize, multiple, disabled, required, error, textColorOverride, fontFamily, muiSxJson,
-            borderColor, borderRadius, borderWidth, cssProperty, defaultColor, hidden, tabIndex
-        ]) => {
-            // Compute all options
-            const values = optionsValue.split(optionsSeparator).map(v => v.trim());
-            const labels = optionsLabel.split(optionsSeparator).map(l => l.trim());
-            const options = Array.from({length: Math.max(values.length, labels.length)})
-                .map((_, i) => ({
-                    value: values[i] ? values[i] : labels[i],
-                    label: labels[i] ? labels[i] : values[i]
-                }));
+        // Observe all Enum values (options)
+        const observeSize = context.getProperty('Values').observe().pipe(
+            map(enumModel => enumModel.getValues()),
+            switchMap(ld => ld.observeSize()),
+            startWith(0)
+        );
+        const observeOptions = context.getProperty('Values').observe().pipe(
+            map(enumModel => enumModel.getValues()),
+            combineLatestWith(observeSize),
+            map(([ld, size]) => {
+                const values = [];
+                if(size > 0) {
+                    ld.forEachCurrentValue(enumValue => values.push(
+                        enumValue.observeProperty(EnumValue.valueProp).pipe(
+                            combineLatestWith(
+                                enumValue.observeProperty(EnumValue.nameProp),
+                                enumValue.observeProperty(EnumValue.rankProp)
+                            )
+                        )
+                    ));
+                }
+                return values;
+            }),
+            switchMap(values => values.length > 0
+                ? values[0].pipe(combineLatestWith(...values.slice(1)))
+                : values
+            ),
+            map(values => values.map(value => ({
+                value: value[0],
+                label: value[1],
+                rank: value[2]
+            }))),
+            startWith([])
+        );
 
+        // Observe all others properties
+        context.observeMany(
+            'Value', 'Label', 'Helper Text', 'Empty Text', 'Variant', 'Color', 'Min Size', 'Multiple', 'Disabled', 'Required', 'Error', 'Show Names', 'Text Color Override', 'Font Family', 'MUI sx [json]',
+            'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Hidden', 'Tab Index'
+        )
+        .pipe(combineLatestWith(observeOptions))
+        .subscribe(([
+            [value, label, helperText, emptyText, variant, color, minSize, multiple, disabled, required, error, showNames, textColorOverride, fontFamily, muiSxJson,
+            borderColor, borderRadius, borderWidth, cssProperty, defaultColor, hidden, tabIndex],
+            options
+        ]) => {
             // Handle multiple selection
             const muiValue = multiple
-                ? value.split(optionsSeparator).map(v => v.trim()).filter(v => v !== '')
+                ? value.split(Dropdown.SEPARATOR).map(v => v.trim()).filter(v => v !== '')
                 : value.trim();
 
             // Rendering
@@ -81,7 +111,7 @@ export default class Dropdown extends UIBrick {
                         // Set the Value property before triggering the event
                         context.getProperty('Value').set(
                             multiple
-                                ? /** @type {Array} */(event.target.value).join(optionsSeparator)
+                                ? /** @type {Array} */(event.target.value).join(Dropdown.SEPARATOR)
                                 : event.target.value
                         );
                         context.getEvent('On Change').trigger();
@@ -139,13 +169,13 @@ export default class Dropdown extends UIBrick {
                             if(!val || (multiple && val.length === 0))
                                 return emptyText;
                             if(multiple)
-                                return /** @type {Array} */(val).join(optionsSeparator);
-                            return val;
+                                return /** @type {Array} */(showNames ? val.map(v => Dropdown.getNameFromValue(v, options)) : val).join(Dropdown.SEPARATOR);
+                            return showNames ? Dropdown.getNameFromValue(val, options) : val;
                         }
                     }}
                 >
                     {/* Options */}
-                    {options.map((option, index) => (
+                    {options.sort((a, b) => a.rank - b.rank).map((option, index) => (
                         <MenuItem
                             key={index}
                             value={option.value}
@@ -163,3 +193,16 @@ export default class Dropdown extends UIBrick {
 }
 
 registerBrick('017c9dc1ef990c55b61b', Dropdown);
+
+// Default separator for multiple selection
+Dropdown.SEPARATOR = ',';
+
+/**
+ * @param {string} value
+ * @param {Array} options
+ * @return {string}
+ */
+Dropdown.getNameFromValue = (value, options) => {
+    const option = options.filter(o => o.value === value);
+    return option.length === 1 ? option[0].label : value;
+};
