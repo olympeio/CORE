@@ -25,6 +25,7 @@ import {
     CreateInstance
 } from 'olympe';
 import {getLogger} from 'logging';
+import {castPrimitiveValue} from "./_helpers";
 
 /**
 ## Description
@@ -54,11 +55,13 @@ export default class SetObjectProperty extends ActionBrick {
      * @param {PropertyDescriptor} property
      * @param {*} value
      * @param {function()} forwardEvent
-     * @param {function(InstanceTag)} setObject
      * @param {function(ErrorFlow)} setErrorFlow
+     * @param {function(InstanceTag)} setObject
      */
-    onUpdate(context, [object, property, value], [forwardEvent, setObject, setErrorFlow]) {
+    onUpdate(context, [object, property, value], [forwardEvent, setErrorFlow, setObject]) {
         const logger = getLogger('Set Object Property');
+
+        const castedValue = castPrimitiveValue(value);
 
         const returnError = (message, code) => {
             logger.error(message);
@@ -66,11 +69,11 @@ export default class SetObjectProperty extends ActionBrick {
         };
 
         // Validate arguments
-        if (value instanceof Sync) {
+        if (castedValue instanceof Sync) {
             returnError('Complex properties are not supported', 1);
             return;
         }
-        if (value === undefined || value === null) {
+        if (castedValue === undefined || castedValue === null) {
             logger.info('Ignoring null value');
             setObject(object);
             forwardEvent();
@@ -92,7 +95,7 @@ export default class SetObjectProperty extends ActionBrick {
         // Transaction
         const transaction = context.getTransaction();
 
-        transaction.update(object, property, value);
+        transaction.update(object, property, castedValue);
 
         context.releaseTransaction((executed, success, message) => {
             if (!success) {

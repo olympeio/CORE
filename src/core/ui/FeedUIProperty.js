@@ -16,6 +16,7 @@
 
 import { FunctionBrick, registerBrick } from 'olympe';
 import getScopeContext from "./util/updateContextProperty";
+import {castPrimitiveValue} from "../data/transaction/_helpers";
 
 export default class FeedUIProperty extends FunctionBrick {
 
@@ -35,7 +36,7 @@ export default class FeedUIProperty extends FunctionBrick {
             let offContext;
             offContext = context.onContext(scope, (scopeContext) => {
                 offContext && offContext();
-                scopeContext.set(property, value);
+                scopeContext.set(property, castPrimitiveValue(value));
             });
         }
     }
