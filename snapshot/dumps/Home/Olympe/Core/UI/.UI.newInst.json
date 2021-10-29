@@ -1,14 +1,1 @@
-{
-  "rootTag": "0179b269c9b393d21bab",
-  "operations": [
-    {
-      "o": 1,
-      "t": "0179b269c9b393d21bab",
-      "p": {
-        "ff023000000000000011": "UI"
-      },
-      "i": -1
-    }
-  ],
-  "optionalOperations": []
-}
+{"operations":[{"i":-1,"o":1,"p":{"ff023000000000000011":"UI"},"t":"0179b269c9b393d21bab"}],"optionalOperations":[],"rootTag":"0179b269c9b393d21bab"}

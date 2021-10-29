@@ -1,14 +1,1 @@
-{
-  "rootTag": "0179b2673490430cc604",
-  "operations": [
-    {
-      "o": 1,
-      "t": "0179b2673490430cc604",
-      "p": {
-        "ff023000000000000011": "Auth"
-      },
-      "i": -1
-    }
-  ],
-  "optionalOperations": []
-}
+{"operations":[{"i":-1,"o":1,"p":{"ff023000000000000011":"Auth"},"t":"0179b2673490430cc604"}],"optionalOperations":[],"rootTag":"0179b2673490430cc604"}

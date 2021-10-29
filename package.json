@@ -1,6 +1,6 @@
 {
   "name": "@olympeio/core",
-  "version": "1.2.0-rc2",
+  "version": "1.2.0-rc3",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -26,7 +26,7 @@
     "@babel/core": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
     "@babel/preset-react": "^7.14.5",
-    "@olympeio/dev-tools": "1.2.0-rc2",
+    "@olympeio/dev-tools": "1.2.0-rc4",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^9.0.0",

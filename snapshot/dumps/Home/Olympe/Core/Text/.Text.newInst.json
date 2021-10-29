@@ -1,14 +1,1 @@
-{
-  "rootTag": "0178445ee2a56bf00fd6",
-  "operations": [
-    {
-      "o": 1,
-      "t": "0178445ee2a56bf00fd6",
-      "p": {
-        "ff023000000000000011": "Text"
-      },
-      "i": -1
-    }
-  ],
-  "optionalOperations": []
-}
+{"operations":[{"i":-1,"o":1,"p":{"ff023000000000000011":"Text"},"t":"0178445ee2a56bf00fd6"}],"optionalOperations":[],"rootTag":"0178445ee2a56bf00fd6"}

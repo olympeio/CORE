@@ -1,14 +1,1 @@
-{
-  "rootTag": "0179b26837d01a7c3cdc",
-  "operations": [
-    {
-      "o": 1,
-      "t": "0179b26837d01a7c3cdc",
-      "p": {
-        "ff023000000000000011": "Base"
-      },
-      "i": -1
-    }
-  ],
-  "optionalOperations": []
-}
+{"operations":[{"i":-1,"o":1,"p":{"ff023000000000000011":"Base"},"t":"0179b26837d01a7c3cdc"}],"optionalOperations":[],"rootTag":"0179b26837d01a7c3cdc"}

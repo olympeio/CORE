@@ -1,14 +1,1 @@
-{
-  "rootTag": "0179b269940cee14a13d",
-  "operations": [
-    {
-      "o": 1,
-      "t": "0179b269940cee14a13d",
-      "p": {
-        "ff023000000000000011": "HTTP Actions"
-      },
-      "i": -1
-    }
-  ],
-  "optionalOperations": []
-}
+{"operations":[{"i":-1,"o":1,"p":{"ff023000000000000011":"HTTP Actions"},"t":"0179b269940cee14a13d"}],"optionalOperations":[],"rootTag":"0179b269940cee14a13d"}
