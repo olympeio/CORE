@@ -1,0 +1,142 @@
+{
+  "rootTag": "0163d01778b931d801dd",
+  "operations": [
+    {
+      "o": 1,
+      "t": "0163d01778b931d801dd",
+      "p": {
+        "01703376c4a81c0e9d94": "stable",
+        "v": 1,
+        "01692aa71f3108454479": true,
+        "01621fb84e320000f001": "public",
+        "ff023000000000000011": "Login"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "01783bc16f72a6a3214d",
+      "p": {
+        "01740c5d4ae4b520dd01": 2,
+        "v": 1,
+        "ff023000000000000011": "Error Flow"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "01783bc1d91dd3c19fa4",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "on failure"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0163d01778bb31d801dd",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "on success"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0163d01778ba31d801dd",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "Control Flow"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893b80b4d3d6f4",
+      "p": {
+        "01703376c4a81c0e9d92": "User authentication, based on username and password. The authentication is attempted only once when the input control flow is triggered.",
+        "01703376c4a81c0e9d91": "Log in a specific user with password.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0163d01798a931804d48",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "username"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0163d017ad3222b9683c",
+      "p": {
+        "01740c5d4ae4b520dd01": 2,
+        "v": 1,
+        "ff023000000000000011": "password"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b3589427cef9463e1",
+      "p": {
+        "01703376c4a81c0e9d92": "1: The server is unreachable<br />2: Authentication error",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b5abed63866e606c3",
+      "p": {
+        "01703376c4a81c0e9d92": "Triggered if the authentication fails",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b5abed614f2f43a58",
+      "p": {
+        "01703376c4a81c0e9d92": "Triggered if the authentication is successful",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b5abed57194c17dd9",
+      "p": {
+        "01703376c4a81c0e9d92": "Triggers the execution of the brick",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893f7baca69ebd",
+      "p": {
+        "01703376c4a81c0e9d92": "The username to login with",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893f7b0989c628",
+      "p": {
+        "01703376c4a81c0e9d92": "The matching password",
+        "v": 1
+      },
+      "i": -1
+    }
+  ],
+  "optionalOperations": []
+}

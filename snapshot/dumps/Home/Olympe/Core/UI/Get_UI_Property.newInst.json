@@ -1,0 +1,67 @@
+{
+  "rootTag": "0162de7dd5abdc9dec7f",
+  "operations": [
+    {
+      "o": 1,
+      "t": "0162de7dd5abdc9dec7f",
+      "p": {
+        "01703376c4a81c0e9d94": "stable",
+        "v": 2,
+        "fdff023000000000000011": "Get UI Property",
+        "01692aa71f3108454479": true,
+        "01621fb84e320000f001": "public",
+        "ff023000000000000011": "Get UI Property"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893b3255ccf1bd",
+      "p": {
+        "01703376c4a81c0e9d92": "Retrieves the value of the specified property from the selected UI element. For example the text of a label, the width of the screen, or the state of a checkbox.",
+        "01703376c4a81c0e9d91": "Get a property value from a UI element.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0162de8176947619c15f",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "Value"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0162de7e041b00292ccd",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "UI Property"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b3589426da0a548dd",
+      "p": {
+        "01703376c4a81c0e9d92": "The value of the property.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893f0ea1913ae6",
+      "p": {
+        "01703376c4a81c0e9d92": "The selected property.",
+        "v": 1
+      },
+      "i": -1
+    }
+  ],
+  "optionalOperations": []
+}

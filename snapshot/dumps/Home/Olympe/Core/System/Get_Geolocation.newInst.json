@@ -1,0 +1,86 @@
+{
+  "rootTag": "0162d8ec885fdf7a6b69",
+  "operations": [
+    {
+      "o": 1,
+      "t": "0162d8ec885fdf7a6b69",
+      "p": {
+        "01703376c4a81c0e9d94": "stable",
+        "v": 2,
+        "fdff023000000000000011": "Get Geolocation",
+        "01692aa71f3108454479": true,
+        "01621fb84e320000f001": "public",
+        "ff023000000000000011": "Get Geolocation"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0162d8ec8d7ecc432126",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "Latitude"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0162d8ec8f79ccbdc487",
+      "p": {
+        "01740c5d4ae4b520dd01": 2,
+        "v": 1,
+        "ff023000000000000011": "Altitude"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0162d8ec8b4c40c47989",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "Longitude"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893b8670fe7fef",
+      "p": {
+        "01703376c4a81c0e9d92": "This function creates 3 data-flows from the geo-location of the device.\n\nThis is updated in real time, but can require a permission check with the user.",
+        "01703376c4a81c0e9d91": "Obtain the current geo-location.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893f85607047e6",
+      "p": {
+        "01703376c4a81c0e9d92": "The latitude.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893f851e023b53",
+      "p": {
+        "01703376c4a81c0e9d92": "The altitude.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893f851dd7bb4a",
+      "p": {
+        "01703376c4a81c0e9d92": "The longitude.",
+        "v": 1
+      },
+      "i": -1
+    }
+  ],
+  "optionalOperations": []
+}

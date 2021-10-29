@@ -1,0 +1,140 @@
+{
+  "rootTag": "017cbcf4ca0f68e43d91",
+  "operations": [
+    {
+      "o": 1,
+      "t": "017cbcf4ca0f68e43d91",
+      "p": {
+        "v": 2,
+        "fdff023000000000000011": "Reduce",
+        "01692aa71f3108454479": true,
+        "01621fb84e320000f001": "public",
+        "ff023000000000000011": "Reduce"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf96e866467527d",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "result"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf4ca348aa21f3e",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "Control Flow"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf933f9de53cfb8",
+      "p": {
+        "01740c5d4ae4b520dd01": 2,
+        "v": 1,
+        "ff023000000000000011": "reducer"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf4ca0f7d2eb4fc",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "Control Flow"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf931e708e962cd",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "list"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf9279af340c30d",
+      "p": {
+        "01703376c4a81c0e9d92": "The reduce brick executes the user-provided function (reducer) on each item of the provided list, passing in the return value from the calculation on the preceding element.\nThe final result of running the reducer across all elements or the list is the single `result` output value of the brick.\n\nAn initial value can be provided to process the first element of the list.\n\n## Example:\n- inputs\n  1. list = `[1, 2, 3]`\n  2. reducer = `(sum, item) => sum + item`\n  3. initial value = 0\n- outputs\n  1. result = 6",
+        "01703376c4a81c0e9d91": "Executes a function on each item of a list to create a unique \"reduced\" value from it.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbd285f152c11f040",
+      "p": {
+        "01740c5d4ae4b520dd01": 3,
+        "v": 1,
+        "ff023000000000000011": "initial value"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf96ea2780e8b1f",
+      "p": {
+        "01703376c4a81c0e9d92": "The return value after calling the reducer on all items of the list.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf927ff4aa15a54",
+      "p": {
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf93419e84333bc",
+      "p": {
+        "01703376c4a81c0e9d92": "The function to execute for each item of the list which returns the next resulting value.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf927d2af6931ae",
+      "p": {
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf93218912a0954",
+      "p": {
+        "01703376c4a81c0e9d92": "The original list to iterate on.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbd285f3d058c2b52",
+      "p": {
+        "01703376c4a81c0e9d92": "The initial `resulting value`",
+        "v": 1
+      },
+      "i": -1
+    }
+  ],
+  "optionalOperations": []
+}
