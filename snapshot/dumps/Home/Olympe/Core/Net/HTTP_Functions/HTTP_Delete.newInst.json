@@ -1,0 +1,144 @@
+{
+  "rootTag": "016ca99aa59aa7df5e04",
+  "operations": [
+    {
+      "o": 1,
+      "t": "016ca99aa59aa7df5e04",
+      "p": {
+        "01703376c4a81c0e9d94": "stable",
+        "v": 2,
+        "fdff023000000000000011": "HTTP Delete",
+        "01692aa71f3108454479": true,
+        "01621fb84e320000f001": "public",
+        "ff023000000000000011": "HTTP Delete"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "016ca99aa59aa7df5e06",
+      "p": {
+        "01740c5d4ae4b520dd02": "{}",
+        "01740c5d4ae4b520dd01": 2,
+        "v": 1,
+        "ff023000000000000011": "headers"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "016ca99aa59aa7df5e09",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "body"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "016ca99aa59aa7df5e05",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "url"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893ba8002d15d8",
+      "p": {
+        "01703376c4a81c0e9d92": "Sends an HTTP DELETE request to the specified URL and provide the results.\n\nAdditional headers can be provided and returned in a string that has to be in JSON format.\n\n**Example:** '{\"Content-Type\": \"text/html; charset=UTF-8\", \"Content-Length\": 1024 }'\n\nThe returned body is formatted depending on the mimeType received in the headers : as an UTF-8 string for common text content (text/html, application/json, ...), and as a base64 string for all other contents.\n",
+        "01703376c4a81c0e9d91": "Perform an HTTP DELETE request.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "016ca99aa59aa7df5e0a",
+      "p": {
+        "01740c5d4ae4b520dd01": 2,
+        "v": 1,
+        "ff023000000000000011": "headers"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "016ca99aa59aa7df5e07",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "body"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "016ca99aa59aa7df5e08",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "status code"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893fc1df0acbfa",
+      "p": {
+        "01703376c4a81c0e9d92": "Optional HTTP headers in a JSON parsable string.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35a66a9ea2bc23c1",
+      "p": {
+        "01703376c4a81c0e9d92": "The body (i.e. the content) of the response.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893fc1bc641024",
+      "p": {
+        "01703376c4a81c0e9d92": "The URL to query.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35a66aa54ba4e94b",
+      "p": {
+        "01703376c4a81c0e9d92": "The response headers.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35a66a892756d1a4",
+      "p": {
+        "01703376c4a81c0e9d92": "The body of the query.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35a66a98b7b4266c",
+      "p": {
+        "01703376c4a81c0e9d92": "The response status code.",
+        "v": 1
+      },
+      "i": -1
+    }
+  ],
+  "optionalOperations": []
+}

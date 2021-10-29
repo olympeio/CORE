@@ -1,0 +1,102 @@
+{
+  "rootTag": "017cbcf45a5b7c4fb9a8",
+  "operations": [
+    {
+      "o": 1,
+      "t": "017cbcf45a5b7c4fb9a8",
+      "p": {
+        "v": 2,
+        "fdff023000000000000011": "For Each",
+        "01692aa71f3108454479": true,
+        "01621fb84e320000f001": "public",
+        "ff023000000000000011": "For Each"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf45a5bc4679b62",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "Control Flow"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf7d28c61973e41",
+      "p": {
+        "01703376c4a81c0e9d92": "Executes the provided iterator function once for each item of the provided list.\n\nThe output control flow is triggered when all items have been processed.",
+        "01703376c4a81c0e9d91": "Execute a provided function once for each list item.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf7d8a35f0b5356",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "list"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf7d936b522fd77",
+      "p": {
+        "01740c5d4ae4b520dd01": 2,
+        "v": 1,
+        "ff023000000000000011": "iterator"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf45a5b092f7c12",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "Control Flow"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf7d2f6f0a77334",
+      "p": {
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf7d8d7ea738949",
+      "p": {
+        "01703376c4a81c0e9d92": "The original list to iterate on.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf7d95d5ec98729",
+      "p": {
+        "01703376c4a81c0e9d92": "The function to execute on every item.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017cbcf7d2cbc5b919b9",
+      "p": {
+        "v": 1
+      },
+      "i": -1
+    }
+  ],
+  "optionalOperations": []
+}

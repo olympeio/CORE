@@ -1,0 +1,87 @@
+{
+  "rootTag": "0162f2e963b6c9ed85b7",
+  "operations": [
+    {
+      "o": 1,
+      "t": "0162f2e963b6c9ed85b7",
+      "p": {
+        "01703376c4a81c0e9d94": "stable",
+        "v": 2,
+        "fdff023000000000000011": "Create Local Object",
+        "01692aa71f3108454479": true,
+        "01621fb84e320000f001": "public",
+        "ff023000000000000011": "Create Local Object"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0162f2eaea705e367590",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "object"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0162f2e963b8c9ed85b7",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "Control Flow"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0162f2e963b7c9ed85b7",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "Control Flow"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893b6906f58632",
+      "p": {
+        "01703376c4a81c0e9d92": "Creates a local instance (not yet persisted in the database) of a model. See `Persist Object` for how to persist in the database a newly created local object.",
+        "01703376c4a81c0e9d91": "Creates an instance of a model.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0162f2eab3eadc7dff16",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "model"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35894278d9ba0e38",
+      "p": {
+        "01703376c4a81c0e9d92": "The created object or its tag if used inside a Begin/End.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893f661288be44",
+      "p": {
+        "01703376c4a81c0e9d92": "The model.",
+        "v": 1
+      },
+      "i": -1
+    }
+  ],
+  "optionalOperations": []
+}

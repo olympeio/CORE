@@ -1,0 +1,105 @@
+{
+  "rootTag": "017802c59d239537f597",
+  "operations": [
+    {
+      "o": 1,
+      "t": "017802c59d239537f597",
+      "p": {
+        "01703376c4a81c0e9d94": "stable",
+        "v": 2,
+        "fdff023000000000000011": "Xml to Json",
+        "01692aa71f3108454479": true,
+        "01621fb84e320000f001": "public",
+        "ff023000000000000011": "XML to JSON"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893b71b299599e",
+      "p": {
+        "01703376c4a81c0e9d92": "Parses a XML string into a JSON, extracting the object or array specified by the path (if any).",
+        "01703376c4a81c0e9d91": "Parse a XML string into a JSON",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "01783a58e9e2d4f1837b",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "Error Flow"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017802c5f2f0a0c1473b",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "json"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017802c5cea89b1fb550",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "xml"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "01783a555ce395a9ae70",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "wrappersPath"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b3589440e774a4dfa",
+      "p": {
+        "01703376c4a81c0e9d92": "Triggered if the XML is not valid.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b3589427ac01a6e1b",
+      "p": {
+        "01703376c4a81c0e9d92": "The equivalent JSON.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893f70ea19f461",
+      "p": {
+        "01703376c4a81c0e9d92": "XML to parse",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893f7098f4f464",
+      "p": {
+        "01703376c4a81c0e9d92": "The path, specified in dotted form, default: ''",
+        "v": 1
+      },
+      "i": -1
+    }
+  ],
+  "optionalOperations": []
+}

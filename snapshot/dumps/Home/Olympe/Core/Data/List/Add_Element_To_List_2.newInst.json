@@ -1,0 +1,106 @@
+{
+  "rootTag": "0179c7fea60380c20ff4",
+  "operations": [
+    {
+      "o": 1,
+      "t": "0179c7fea60380c20ff4",
+      "p": {
+        "01703376c4a81c0e9d94": "stable",
+        "v": 2,
+        "fdff023000000000000011": "Add Element To List",
+        "01692aa71f3108454479": true,
+        "01621fb84e320000f001": "public",
+        "ff023000000000000011": "Add Element To List"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0179c7fea6047302c492",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "Control Flow"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0179c7ff2942c8e19464",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "list"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893b60f071c778",
+      "p": {
+        "01703376c4a81c0e9d92": "Adds en element to a list. If no list is provided, it is created.",
+        "01703376c4a81c0e9d91": "Adds an element to a list.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0179c7fea60372504adc",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "Control Flow"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0179c7fedd654611ff60",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "list"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "0179c7feffa67e2c9863",
+      "p": {
+        "01740c5d4ae4b520dd01": 2,
+        "v": 1,
+        "ff023000000000000011": "object"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b358942758802549a",
+      "p": {
+        "01703376c4a81c0e9d92": "The result list, with the added element.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893f5b6e4dea44",
+      "p": {
+        "01703376c4a81c0e9d92": "The list in which the element will be added.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893f5af69fc5e3",
+      "p": {
+        "01703376c4a81c0e9d92": "The element to add.",
+        "v": 1
+      },
+      "i": -1
+    }
+  ],
+  "optionalOperations": []
+}

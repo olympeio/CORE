@@ -1,0 +1,105 @@
+{
+  "rootTag": "01717ca41e60689c2e50",
+  "operations": [
+    {
+      "o": 1,
+      "t": "01717ca41e60689c2e50",
+      "p": {
+        "01703376c4a81c0e9d94": "stable",
+        "v": 1,
+        "01692aa71f3108454479": true,
+        "01621fb84e320000f001": "public",
+        "ff023000000000000011": "String Starts With"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "01717ca4fbfe8eeb46a7",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "s1.startsWith(s2)"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893b9a3c823c48",
+      "p": {
+        "01703376c4a81c0e9d92": "Determines whether a string begins with the characters of a specified string, returning `true` or `false` as appropriate.\n\nUses the `startsWith` JavaScript function. See: [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)\n",
+        "01703376c4a81c0e9d91": "Determines whether the s1 begins with the characters of string s2",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "01717ca4d4728e47189a",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "s2"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "01717ccd2509ad06df92",
+      "p": {
+        "01740c5d4ae4b520dd02": 0,
+        "01740c5d4ae4b520dd01": 2,
+        "v": 1,
+        "ff023000000000000011": "pos"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "01717ca4205799342b7f",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "s1"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35894294d1d357cc",
+      "p": {
+        "01703376c4a81c0e9d92": "`true` if s1 starts with s2",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893f9e6d616f7c",
+      "p": {
+        "01703376c4a81c0e9d92": "The string to be searched for at the start of s1.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893f9ead28065e",
+      "p": {
+        "01703376c4a81c0e9d92": "offset into the string where start the compare. default = 0",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893f9d17ce2bf4",
+      "p": {
+        "01703376c4a81c0e9d92": "The string to search.",
+        "v": 1
+      },
+      "i": -1
+    }
+  ],
+  "optionalOperations": []
+}
