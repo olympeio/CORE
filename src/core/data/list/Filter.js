@@ -27,8 +27,15 @@ export default class Filter extends ActionBrick {
      * @param {!*} setList
      */
     onUpdate(brickContext, [list, predicate], [forwardEvent, setList]) {
+        if (!list || !predicate) {
+            getLogger('Filter').warn('Nothing to do: list or predicate is null or undefined.');
+            forwardEvent();
+            return;
+        }
+
         if (!Array.isArray(list) && !(list instanceof ListDef)) {
-            getLogger('For Each').error('The provided list is neither an array nor a listdef');
+            getLogger('Filter').error('The provided list is neither an array nor a listdef');
+            return;
         }
 
         const array = Array.isArray(list) ? list : [];
@@ -69,7 +76,7 @@ export default class Filter extends ActionBrick {
 
         const resultList = [];
         for (let i = 0, l = array.length; i < l; i++) {
-            if (await Boolean(filter(array[i], i, array))) {
+            if (Boolean(await filter(array[i], i, array))) {
                 resultList.push(array[i]);
             }
         }

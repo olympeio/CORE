@@ -26,8 +26,15 @@ export default class ForEach extends ActionBrick {
      * @param {!function()} forwardEvent
      */
     onUpdate(brickContext, [list, iterator], [forwardEvent]) {
+        if (!list || !iterator) {
+            getLogger('For Each').warn('Nothing to do: list or iterator is null or undefined.');
+            forwardEvent();
+            return;
+        }
+
         if (!Array.isArray(list) && !(list instanceof ListDef)) {
             getLogger('For Each').error('The provided list is neither an array nor a listdef');
+            return;
         }
 
         const array = Array.isArray(list) ? list : [];
