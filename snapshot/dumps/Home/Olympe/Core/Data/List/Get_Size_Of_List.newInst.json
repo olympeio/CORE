@@ -1,0 +1,67 @@
+{
+  "rootTag": "016372362aac07c772f3",
+  "operations": [
+    {
+      "o": 1,
+      "t": "016372362aac07c772f3",
+      "p": {
+        "01703376c4a81c0e9d94": "stable",
+        "v": 2,
+        "fdff023000000000000011": "Get Size Of List",
+        "01692aa71f3108454479": true,
+        "01621fb84e320000f001": "public",
+        "ff023000000000000011": "Get Size Of List"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "016372362d0280ad8b80",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "List"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "016372362df8c2b75160",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "Size"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893b56917c3a7d",
+      "p": {
+        "01703376c4a81c0e9d92": "Returns the size of the provided list. That is the number of elements in that list.",
+        "01703376c4a81c0e9d91": "Gets the number of elements in a list.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893f2b94f4aa8a",
+      "p": {
+        "01703376c4a81c0e9d92": "The list.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b3589427385bc838f",
+      "p": {
+        "01703376c4a81c0e9d92": "The size of the list.",
+        "v": 1
+      },
+      "i": -1
+    }
+  ],
+  "optionalOperations": []
+}

@@ -1,0 +1,85 @@
+{
+  "rootTag": "01717c85b2ba886e5047",
+  "operations": [
+    {
+      "o": 1,
+      "t": "01717c85b2ba886e5047",
+      "p": {
+        "01703376c4a81c0e9d94": "stable",
+        "v": 1,
+        "01692aa71f3108454479": true,
+        "01621fb84e320000f001": "public",
+        "ff023000000000000011": "Compare Strings"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "01717c85b4b1db6dd737",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "s1"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "01717c85b62789063178",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "s2"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "01717c85b82ead71668c",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "s1.localeCompare(s2)"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893bb2b525d9dc",
+      "p": {
+        "01703376c4a81c0e9d92": "Returns a number indicating whether the reference string s2 comes before, after, or is equivalent to s1 string in sort order.\n\nUses the `localeCompare` JavaScript` function. See: [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)",
+        "01703376c4a81c0e9d91": "Compare a string with another one.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893fcf512966aa",
+      "p": {
+        "01703376c4a81c0e9d92": "First string",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893fd03e9b2283",
+      "p": {
+        "01703376c4a81c0e9d92": "Second string",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b358942f4b3302140",
+      "p": {
+        "01703376c4a81c0e9d92": "-1 if s1 < s2, 0 if s1 == s2, 1 if s1 > s2.",
+        "v": 1
+      },
+      "i": -1
+    }
+  ],
+  "optionalOperations": []
+}

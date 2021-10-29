@@ -1,0 +1,86 @@
+{
+  "rootTag": "016ab6f231b7803c429a",
+  "operations": [
+    {
+      "o": 1,
+      "t": "016ab6f231b7803c429a",
+      "p": {
+        "01703376c4a81c0e9d94": "stable",
+        "v": 2,
+        "fdff023000000000000011": "Default value",
+        "01692aa71f3108454479": true,
+        "01621fb84e320000f001": "public",
+        "ff023000000000000011": "Default value"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "016ab6f23805171badaa",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "Output value"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "016ab6f2368df444d454",
+      "p": {
+        "01740c5d4ae4b520dd01": 0,
+        "v": 1,
+        "ff023000000000000011": "Value"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893b9fc3aae26f",
+      "p": {
+        "01703376c4a81c0e9d92": "Sets a value to be used when the main data-flow is unresolved.",
+        "01703376c4a81c0e9d91": "Provides a default value to a data-flow.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "016ab6f234cc9ab55fa4",
+      "p": {
+        "01740c5d4ae4b520dd01": 1,
+        "v": 1,
+        "ff023000000000000011": "Default value"
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35894298e6bb5fd7",
+      "p": {
+        "01703376c4a81c0e9d92": "the out-going data flow.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893fb08fc05928",
+      "p": {
+        "01703376c4a81c0e9d92": "The data-flow.",
+        "v": 1
+      },
+      "i": -1
+    },
+    {
+      "o": 1,
+      "t": "017b35893fb0d5611ede",
+      "p": {
+        "01703376c4a81c0e9d92": "The value to use by default.",
+        "v": 1
+      },
+      "i": -1
+    }
+  ],
+  "optionalOperations": []
+}
