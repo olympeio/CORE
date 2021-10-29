@@ -27,8 +27,15 @@ export default class MapBrick extends ActionBrick {
      * @param {!*} setList
      */
     onUpdate(brickContext, [list, mapper], [forwardEvent, setList]) {
+        if (!list || !mapper) {
+            getLogger('Map').warn('Nothing to do: list or map function is null or undefined.');
+            forwardEvent();
+            return;
+        }
+
         if (!Array.isArray(list) && !(list instanceof ListDef)) {
-            getLogger('For Each').error('The provided list is neither an array nor a listdef');
+            getLogger('Map').error('The provided list is neither an array nor a listdef');
+            return;
         }
 
         const array = Array.isArray(list) ? list : [];

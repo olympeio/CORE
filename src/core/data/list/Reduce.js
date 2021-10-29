@@ -28,8 +28,15 @@ export default class Reduce extends ActionBrick {
      * @param {!*} setResult
      */
     onUpdate(brickContext, [list, reducer, initialValue], [forwardEvent, setResult]) {
+        if (!list || !reducer) {
+            getLogger('Reduce').warn('Nothing to do: list or reducer is null or undefined.');
+            forwardEvent();
+            return;
+        }
+
         if (!Array.isArray(list) && !(list instanceof ListDef)) {
-            getLogger('For Each').error('The provided list is neither an array nor a listdef');
+            getLogger('Reduce').error('The provided list is neither an array nor a listdef');
+            return;
         }
 
         const array = Array.isArray(list) ? list : [];
