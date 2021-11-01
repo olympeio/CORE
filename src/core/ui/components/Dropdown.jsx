@@ -69,7 +69,7 @@ export default class Dropdown extends UIBrick {
             ),
             map(values => values.map(value => ({
                 value: value[0],
-                label: value[1],
+                label: value[1] || value[0], // EnumItem may not have a name
                 rank: value[2]
             }))),
             startWith([])
