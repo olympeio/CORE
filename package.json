@@ -1,6 +1,6 @@
 {
   "name": "@olympeio/core",
-  "version": "1.2.0-rc3",
+  "version": "1.2.1-dev",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -26,7 +26,7 @@
     "@babel/core": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
     "@babel/preset-react": "^7.14.5",
-    "@olympeio/dev-tools": "1.2.0-rc5",
+    "@olympeio/dev-tools": "latest",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^9.0.0",
@@ -47,8 +47,8 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@mui/material": "^5.0.3",
-    "@olympeio/runtime-node": "8.6.0-rc2",
-    "@olympeio/runtime-web": "8.6.0-rc2",
+    "@olympeio/runtime-node": "dev",
+    "@olympeio/runtime-web": "dev",
     "date-fns": "~2.22.1",
     "fast-xml-parser": "~3.19.0",
     "html-react-parser": "^1.4.0",
