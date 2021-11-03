@@ -22,7 +22,7 @@ import ReactDOM from 'react-dom';
 import MUICheckbox from '@mui/material/Checkbox';
 import Icon from '@mui/material/Icon';
 
-import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from '../../../helpers/web/mui';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
 
 /**
  * Provide a Checkbox visual component using MUI Checkbox

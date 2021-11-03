@@ -22,7 +22,7 @@ import ReactDOM from 'react-dom';
 import MUIButton from '@mui/material/Button';
 import Icon from '@mui/material/Icon';
 
-import { jsonToSxProps, cssToSxProps, computeTextColorOverride, ifNotTransparent, ifNotNull } from '../../../helpers/web/mui';
+import { jsonToSxProps, cssToSxProps, computeTextColorOverride, ifNotTransparent, ifNotNull } from 'helpers/mui';
 
 /**
  * Provide a Button visual component using MUI Button
