@@ -53,6 +53,7 @@ export default class Switch extends UIBrick {
         ]) => {
             // Rendering
             ReactDOM.render((
+                !hidden &&
                 <MUISwitch
                     // Properties
                     checked={checked}
@@ -64,7 +65,6 @@ export default class Switch extends UIBrick {
                     sx={{
                         ...ifNotTransparent('backgroundColor', defaultColor),
                         ...ifNotNull('borderRadius', borderRadius),
-                        ...ifNotNull('display', 'none', hidden),
                         tabIndex: tabIndex,
                         ...cssToSxProps(cssProperty),
                         ...jsonToSxProps(muiSxJson)

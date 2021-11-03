@@ -52,6 +52,7 @@ export default class Label extends UIBrick {
         ]) => {
             // Rendering
             ReactDOM.render((
+                !hidden &&
                 <Typography
                     // Properties
                     component={'p'}
@@ -71,7 +72,6 @@ export default class Label extends UIBrick {
                         borderStyle: 'solid',
                         boxSizing: 'border-box',
                         backgroundColor: defaultColor.toHexString(),
-                        ...ifNotNull('display', 'none', hidden),
                         ...cssToSxProps(cssProperty),
                         ...jsonToSxProps(muiSxJson)
                     }}

@@ -71,6 +71,7 @@ export default class Image extends UIBrick {
                 // SVG + Fill fit case
                 if(isSvg && isFillFit) {
                     element = (
+                        !hidden &&
                         <svg
                             style={{
                                 width: width,
@@ -81,7 +82,6 @@ export default class Image extends UIBrick {
                                 borderStyle: 'solid',
                                 boxSizing: 'border-box',
                                 backgroundColor: defaultColor.toHexString(),
-                                ...ifNotNull('display', 'none', hidden),
                                 ...cssToSxProps(cssProperty),
                                 ...jsonToSxProps(muiSxJson)
                             }}
@@ -103,6 +103,7 @@ export default class Image extends UIBrick {
                 // Normal case
                 else {
                     element = (
+                        !hidden &&
                         <CardMedia
                             component={'img'}
                             alt={alternativeText}
@@ -118,7 +119,6 @@ export default class Image extends UIBrick {
                                 borderStyle: 'solid',
                                 boxSizing: 'border-box',
                                 backgroundColor: defaultColor.toHexString(),
-                                ...ifNotNull('display', 'none', hidden),
                                 ...cssToSxProps(cssProperty),
                                 ...jsonToSxProps(muiSxJson)
                             }}
