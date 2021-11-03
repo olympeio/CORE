@@ -48,6 +48,7 @@ export default class Rectangle extends UIBrick {
         ]) => {
             // Rendering
             ReactDOM.render((
+                !hidden &&
                 <Box
                     // Properties + UI
                     component={'div'}
@@ -60,7 +61,6 @@ export default class Rectangle extends UIBrick {
                         borderStyle: 'solid',
                         boxSizing: 'border-box',
                         backgroundColor: defaultColor.toHexString(),
-                        ...ifNotNull('display', 'none', hidden),
                         ...cssToSxProps(cssProperty),
                         ...jsonToSxProps(muiSxJson)
                     }}

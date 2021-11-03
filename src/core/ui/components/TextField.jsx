@@ -48,6 +48,7 @@ export default class TextField extends UIBrick {
         ]) => {
             // Rendering
             ReactDOM.render((
+                !hidden &&
                 <MUITextField
                     // Properties
                     value={value}
@@ -105,7 +106,6 @@ export default class TextField extends UIBrick {
                     sx={{
                         width: 1,
                         height: 1,
-                        ...ifNotNull('display', 'none', hidden),
                         ...cssToSxProps(cssProperty),
                         ...jsonToSxProps(muiSxJson)
                     }}
