@@ -21,7 +21,7 @@ import ReactDOM from 'react-dom';
 
 import MUISwitch from '@mui/material/Switch';
 
-import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from '../../../helpers/web/mui';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
 
 /**
  * Provide a Switch visual component using MUI Switch
