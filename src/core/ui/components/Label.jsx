@@ -21,8 +21,8 @@ import ReactDOM from 'react-dom';
 
 import Typography from '@mui/material/Typography';
 
-import { markdownTextToReactElement } from 'helpers/remarkable';
-import { jsonToSxProps, cssToSxProps, ifNotNull } from 'helpers/mui';
+import { markdownTextToReactElement } from '../../../helpers/web/remarkable';
+import { jsonToSxProps, cssToSxProps, ifNotNull } from '../../../helpers/web/mui';
 
 /**
  * Provide a Label visual component using MUI Typography

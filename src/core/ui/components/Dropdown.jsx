@@ -22,7 +22,7 @@ import ReactDOM from 'react-dom';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 
-import { jsonToSxProps, computeTextColorOverride, cssToSxProps, ifNotNull, ifNotTransparent } from 'helpers/mui';
+import { jsonToSxProps, computeTextColorOverride, cssToSxProps, ifNotNull, ifNotTransparent } from '../../../helpers/web/mui';
 import { combineLatestWith, map, startWith, switchMap } from 'rxjs/operators';
 
 /**

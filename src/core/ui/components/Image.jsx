@@ -23,7 +23,7 @@ import CardMedia from '@mui/material/CardMedia';
 
 import { startWith, combineLatestWith } from 'rxjs/operators';
 
-import { jsonToSxProps, cssToSxProps, ifNotNull } from 'helpers/mui';
+import { jsonToSxProps, cssToSxProps, ifNotNull } from '../../../helpers/web/mui';
 
 /**
  * Provide a Image visual component using MUI CardMedia

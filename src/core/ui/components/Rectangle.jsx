@@ -21,7 +21,7 @@ import ReactDOM from 'react-dom';
 
 import Box from '@mui/material/Box';
 
-import { jsonToSxProps, cssToSxProps, ifNotNull } from 'helpers/mui';
+import { jsonToSxProps, cssToSxProps, ifNotNull } from '../../../helpers/web/mui';
 
 /**
  * Provide a Rectangle visual component (empty div) using MUI Box
