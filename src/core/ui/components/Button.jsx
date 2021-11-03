@@ -49,6 +49,7 @@ export default class Button extends UIBrick {
         ]) => {
             // Rendering
             ReactDOM.render((
+                !hidden &&
                 <MUIButton
                     // Properties
                     variant={variant}
@@ -80,7 +81,6 @@ export default class Button extends UIBrick {
                             ...ifNotTransparent('backgroundColor', defaultColor)
                         },
                         boxSizing: 'border-box',
-                        ...ifNotNull('display', 'none', hidden),
                         tabIndex: tabIndex,
                         ...cssToSxProps(cssProperty),
                         ...jsonToSxProps(muiSxJson)

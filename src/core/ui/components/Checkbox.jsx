@@ -67,6 +67,7 @@ export default class Checkbox extends UIBrick {
 
             // Rendering
             ReactDOM.render((
+                !hidden &&
                 <MUICheckbox
                     // Properties
                     checked={checked}
@@ -89,7 +90,6 @@ export default class Checkbox extends UIBrick {
                     sx={{
                         width: checkboxSize,
                         height: checkboxSize,
-                        ...ifNotNull('display', 'none', hidden),
                         tabIndex: tabIndex,
                         ...cssToSxProps(cssProperty),
                         ...jsonToSxProps(muiSxJson)
