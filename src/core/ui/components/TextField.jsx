@@ -21,7 +21,7 @@ import ReactDOM from 'react-dom';
 
 import MUITextField from '@mui/material/TextField';
 
-import { jsonToSxProps, computeTextColorOverride, ifNotNull, ifNotTransparent, cssToSxProps } from '../../../helpers/web/mui';
+import { jsonToSxProps, computeTextColorOverride, ifNotNull, ifNotTransparent, cssToSxProps } from 'helpers/mui';
 
 /**
  * Provide a Text Field visual component using MUI TextField
