@@ -1,4 +1,5 @@
 const path = require('path');
+require('karma-jasmine-html-reporter');
 const runtimeWebPath = path.resolve(__dirname, 'node_modules/@olympeio/runtime-web');
 const helpersPath = path.resolve(__dirname, 'src/helpers/web');
 const loggingPath = path.resolve(__dirname, 'src/helpers/logging.js');

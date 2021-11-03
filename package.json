@@ -33,6 +33,7 @@
     "generate-json-webpack-plugin": "^2.0.0",
     "jasmine": "^3.7.0",
     "karma-jasmine": "^4.0.1",
+    "karma-jasmine-html-reporter": "^1.7.0",
     "karma-webpack": "^5.0.0",
     "react-audio-player": "^0.17.0",
     "source-map-loader": "^3.0.0",
