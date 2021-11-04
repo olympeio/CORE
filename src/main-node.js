@@ -39,3 +39,5 @@ initLogging();
 
 export {getLogger} from './helpers/logging';
 export * from 'helpers/binaryConverters';
+export * from 'helpers/httpRequest';
+export * from 'helpers/platformInfo';
