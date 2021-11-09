@@ -50,10 +50,6 @@ export default class Camera extends UIBrick {
             const cssProps = cssToSxProps(cssProperty);
             const bw = parseInt(cssProps.borderWidth) || borderWidth;
 
-            const capture = () => {
-                context.getProperty('Screenshot').set(webcamRef.current.getScreenshot());
-            }
-
             navigator.mediaDevices.enumerateDevices()
                 .then((devices) => {
                     return devices.filter(device => device.kind === 'videoinput').length > 1;
