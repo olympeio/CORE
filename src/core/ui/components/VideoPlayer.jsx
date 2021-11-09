@@ -49,71 +49,71 @@ export default class VideoPlayer extends UIBrick {
             playsInline, pip, stopOnUnmount, playIcon, previewTabIndex, playedFraction, loadedFraction,
             playedSeconds, loadedSeconds, duration, cssProperty, hidden, width, height, borderColor, borderRadius,
             borderWidth
-            ]) => {
-                // 0 <= volume <= 100
-                const clampedVolume = Math.min(Math.max(0, volume), 100);
+        ]) => {
+            // 0 <= volume <= 100
+            const clampedVolume = Math.min(Math.max(0, volume), 100);
 
-                const cssProps = cssToSxProps(cssProperty);
-                const bw = parseInt(cssProps.borderWidth) || borderWidth;
+            const cssProps = cssToSxProps(cssProperty);
+            const bw = parseInt(cssProps.borderWidth) || borderWidth;
 
-                // Rendering
-                ReactDOM.render((
-                    !hidden &&
-                    <ReactPlayer
-                        // Properties + UI
-                        url={url}
-                        playing={playing}
-                        loop={loop}
-                        controls={showControls}
-                        light={light}
-                        volume={clampedVolume / 100}
-                        muted={muted}
-                        playbackRate={playbackRate}
-                        width={width - bw * 2}
-                        height={height - bw * 2}
-                        progressInterval={progressInterval}
-                        playsinline={playsInline}
-                        pip={pip}
-                        stopOnUnmount={stopOnUnmount}
-                        playIcon={playIcon && (<Icon>{playIcon}</Icon>)}
-                        previewTabIndex={previewTabIndex}
-                        style={{
-                            borderStyle: bw > 0 ? 'solid' : 'none',
-                            borderWidth: bw + 'px',
-                            borderColor: borderColor.toHexString(),
-                            borderRadius: borderRadius + 'px',
-                            ...cssProps
-                        }}
+            // Rendering
+            ReactDOM.render((
+                !hidden &&
+                <ReactPlayer
+                    // Properties + UI
+                    url={url}
+                    playing={playing}
+                    loop={loop}
+                    controls={showControls}
+                    light={light}
+                    volume={clampedVolume / 100}
+                    muted={muted}
+                    playbackRate={playbackRate}
+                    width={width - bw * 2}
+                    height={height - bw * 2}
+                    progressInterval={progressInterval}
+                    playsinline={playsInline}
+                    pip={pip}
+                    stopOnUnmount={stopOnUnmount}
+                    playIcon={playIcon && (<Icon>{playIcon}</Icon>)}
+                    previewTabIndex={previewTabIndex}
+                    style={{
+                        borderStyle: bw > 0 ? 'solid' : 'none',
+                        borderWidth: bw + 'px',
+                        borderColor: borderColor.toHexString(),
+                        borderRadius: borderRadius + 'px',
+                        ...cssProps
+                    }}
 
-                        // Events
-                        onReady={() => context.getEvent('On Ready').trigger()}
-                        onStart={() => context.getEvent('On Start').trigger()}
-                        onPlay={() => context.getEvent('On Play').trigger()}
-                        onPause={() => context.getEvent('On Pause').trigger()}
-                        onBuffer={() => context.getEvent('On Buffer').trigger()}
-                        onBufferEnd={() => context.getEvent('On Buffer End').trigger()}
-                        onSeek={() => context.getEvent('On Seek').trigger()}
-                        onEnded={() => context.getEvent('On Ended').trigger()}
-                        onError={() => context.getEvent('On Error').trigger()}
-                        onClickPreview={() => context.getEvent('On Click Preview').trigger()}
-                        onEnablePIP={() => context.getEvent('On Enable PiP').trigger()}
-                        onDisablePIP={() => context.getEvent('On Disable PiP').trigger()}
+                    // Events
+                    onReady={() => context.getEvent('On Ready').trigger()}
+                    onStart={() => context.getEvent('On Start').trigger()}
+                    onPlay={() => context.getEvent('On Play').trigger()}
+                    onPause={() => context.getEvent('On Pause').trigger()}
+                    onBuffer={() => context.getEvent('On Buffer').trigger()}
+                    onBufferEnd={() => context.getEvent('On Buffer End').trigger()}
+                    onSeek={() => context.getEvent('On Seek').trigger()}
+                    onEnded={() => context.getEvent('On Ended').trigger()}
+                    onError={() => context.getEvent('On Error').trigger()}
+                    onClickPreview={() => context.getEvent('On Click Preview').trigger()}
+                    onEnablePIP={() => context.getEvent('On Enable PiP').trigger()}
+                    onDisablePIP={() => context.getEvent('On Disable PiP').trigger()}
 
-                        // Callbacks
-                        onProgress={(state) => {
-                            context.getProperty('Played [fraction]').set(state.played);
-                            context.getProperty('Played [seconds]').set(state.playedSeconds);
-                            context.getProperty('Loaded [fraction]').set(state.loaded);
-                            context.getProperty('Loaded [seconds]').set(state.loadedSeconds);
-                            context.getEvent('On Progress').trigger();
-                        }}
-                        onDuration={(duration) => {
-                            context.getProperty('Duration [seconds]').set(duration);
-                            context.getEvent('On Duration').trigger();
-                        }}
+                    // Callbacks
+                    onProgress={(state) => {
+                        context.getProperty('Played [fraction]').set(state.played);
+                        context.getProperty('Played [seconds]').set(state.playedSeconds);
+                        context.getProperty('Loaded [fraction]').set(state.loaded);
+                        context.getProperty('Loaded [seconds]').set(state.loadedSeconds);
+                        context.getEvent('On Progress').trigger();
+                    }}
+                    onDuration={(duration) => {
+                        context.getProperty('Duration [seconds]').set(duration);
+                        context.getEvent('On Duration').trigger();
+                    }}
 
-                    />
-                ), elementDom);
+                />
+            ), elementDom);
         });
     }
 }
