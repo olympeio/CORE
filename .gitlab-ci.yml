@@ -20,11 +20,10 @@ variables:
   ##
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
-  - apt-get install -y jq
 
 .npm:
   image:
-    name: olympeio/ci-unit-test-front:1.0.4
+    name: registry.caas.olympe.cloud/infra/docker/node-tools:14-bullseye-slim
     entrypoint: [""]
   tags:
     - aws-spot-runner
