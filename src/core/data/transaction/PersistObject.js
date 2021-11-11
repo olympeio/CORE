@@ -17,20 +17,6 @@
 import { ActionBrick, registerBrick, Context, InstanceTag, CreateInstance, instanceToTag } from 'olympe';
 import {getLogger} from 'logging';
 
-/**
-## Description
-Persists a local object into the server's database.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| object | Object | The object to persist. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| object | Object | The persisted object. |
-
-**/
 export default class PersistObject extends ActionBrick {
 
     /**
@@ -48,15 +34,13 @@ export default class PersistObject extends ActionBrick {
 
         if (objectIn instanceof CreateInstance || instanceToTag(objectIn) !== '') {
             transaction.persistInstance(objectIn);
-            context.releaseTransaction( () => {
-                setObjectOut(objectIn);
-                forwardEvent();
-            });
         } else {
             getLogger('Persist Object').error('Cannot persist object', objectIn);
+        }
+        context.releaseTransaction( () => {
             setObjectOut(objectIn);
             forwardEvent();
-        }
+        });
     }
 }
 

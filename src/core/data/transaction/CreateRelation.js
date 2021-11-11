@@ -93,6 +93,7 @@ export default class CreateRelation extends ActionBrick {
                 returnError(`Transaction error: ${message}`, 6);
             } else {
                 setOrigin(origin);
+                setDestination(destination);
                 forwardEvent();
             }
         });
