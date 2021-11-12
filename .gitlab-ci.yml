@@ -31,7 +31,6 @@ variables:
     - *image-init
     - npm config set @olympeio:registry https://gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/
     - npm config set '//gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/:_authToken' "$GITLAB_TOKEN"
-    - GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" npm install
 
 # Extra npm configuration to access to public npm registry (npmjs.org)
 .npm-public:
@@ -46,10 +45,21 @@ cache:
     - .npm/
 
 stages:
+  - setup
   - build
   - unit-tests
   - deploy-app
 
+setup:
+  stage: setup
+  extends: .npm
+  script:
+    - GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" npm install
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - node_modules/
+    
 # Build npm package
 build-package:
   stage: build
@@ -57,6 +67,8 @@ build-package:
   script:
     - if [ -z "$CI_COMMIT_TAG" ]; then sh ./bumpVersion.sh; fi
     - npm run build
+  dependencies:
+    - setup
   artifacts:
     paths:
       - dist/
@@ -71,6 +83,7 @@ tests:
 .publish:
   stage: deploy-app
   dependencies:
+    - setup
     - build-package
 
 # Publish to internal npm registry on gitlab

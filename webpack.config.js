@@ -64,8 +64,9 @@ const plugins = {
                 browser: 'main-web.js',
                 types: 'index.d.ts',
                 dependencies: npmPackage.dependencies,
+                files: npmPackage.files,
                 dcInitConfig: 'import/dcInitConfig.json',
-                homepage: 'https://github.com/olympeio/CORE'
+                homepage: 'https://github.com/olympeio/CORE',
             }
         ),
         new Copy({
