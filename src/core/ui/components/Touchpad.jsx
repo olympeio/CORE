@@ -14,19 +14,13 @@
  * limitations under the License.
  */
 
-import { UIBrick, registerBrick } from 'olympe';
-
+import {UIBrick, registerBrick} from 'olympe';
+import {cssToSxProps, jsonToSxProps} from 'helpers/mui';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Box from "@mui/material/Box";
 
-import Box from '@mui/material/Box';
-
-import { jsonToSxProps, cssToSxProps, ifNotNull } from '../../../helpers/web/mui';
-
-/**
- * Provide a Rectangle visual component (empty div) using MUI Box
- */
-export default class Rectangle extends UIBrick {
+export default class Touchpad extends UIBrick {
 
     /**
      * This method runs when the brick is ready in the HTML DOM.
@@ -40,37 +34,42 @@ export default class Rectangle extends UIBrick {
 
         // Observe all properties
         context.observeMany(
-            'MUI sx [json]',
-            'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Hidden'
+            'Hidden', 'Default Color', 'Border Color', 'Border Radius', 'Border Width', 'CSS Property',
+            'MUI sx [json]'
         ).subscribe(([
-            muiSxJson,
-            borderColor, borderRadius, borderWidth, cssProperty, defaultColor, hidden
+            hidden, defaultColor, borderColor, borderRadius, borderWidth, cssProperty, muiSxJson
         ]) => {
             // Rendering
             ReactDOM.render((
                 !hidden &&
                 <Box
-                    // Properties + UI
                     component={'div'}
                     sx={{
-                        width: 1,
-                        height: 1,
-                        borderColor: borderColor.toHexString(),
-                        borderRadius: borderRadius,
-                        borderWidth: borderWidth,
-                        borderStyle: 'solid',
-                        boxSizing: 'border-box',
+                        height: '100%',
+                        width: '100%',
                         backgroundColor: defaultColor.toHexString(),
+                        borderWidth: borderWidth,
+                        borderRadius: borderRadius,
+                        boxSizing: 'border-box',
+                        borderStyle: 'solid',
+                        borderColor: borderColor.toHexString(),
                         ...cssToSxProps(cssProperty),
                         ...jsonToSxProps(muiSxJson)
                     }}
 
-                    // Events
-                    onClick={() => context.getEvent('On Click').trigger()}
-                ></Box>
+                    onTouchMove={(event) => {
+                        context.getProperty('Touch Move').set(event.nativeEvent);
+                        context.getEvent('On Touch Move').trigger();
+                    }}
+
+                    onMouseMove={(event) => {
+                        context.getProperty('Mouse Move').set(event.nativeEvent);
+                        context.getEvent('On Mouse Move').trigger();
+                    }}
+                />
             ), elementDom);
         });
     }
 }
 
-registerBrick('017cc0cf86f2a650141a', Rectangle);
+registerBrick('017ce5f49f79fff777aa', Touchpad);

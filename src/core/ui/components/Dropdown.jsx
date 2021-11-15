@@ -93,6 +93,7 @@ export default class Dropdown extends UIBrick {
 
             // Rendering
             ReactDOM.render((
+                !hidden &&
                 <TextField
                     // Properties
                     value={muiValue}
@@ -148,7 +149,6 @@ export default class Dropdown extends UIBrick {
                     sx={{
                         width: 1,
                         height: 1,
-                        ...ifNotNull('display', 'none', hidden),
                         ...cssToSxProps(cssProperty),
                         ...jsonToSxProps(muiSxJson)
                     }}
