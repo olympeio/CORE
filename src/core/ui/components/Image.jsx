@@ -23,7 +23,7 @@ import CardMedia from '@mui/material/CardMedia';
 
 import { startWith, combineLatestWith } from 'rxjs/operators';
 
-import { jsonToSxProps, cssToSxProps, ifNotNull } from 'helpers/mui';
+import { jsonToSxProps, cssToSxProps } from 'helpers/mui';
 
 /**
  * Provide a Image visual component using MUI CardMedia
@@ -41,96 +41,119 @@ export default class Image extends UIBrick {
         elementDom.style.overflow = 'visible';
 
         // Observe all properties + image with a default value
-        const defaultImage = /** @type {ImageFile} */(Sync.getInstance('016eb13ba1388f7bdd71'));
         const observeProperties = context.observeMany(
-            'Alternative Text', 'Image Fit', 'Horizontal Align', 'Vertical Align', 'MUI sx [json]',
+            'Image URL', 'Alternative Text', 'Image Fit', 'Horizontal Align', 'Vertical Align', 'MUI sx [json]',
             'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Height', 'Hidden', 'Width'
         );
-        const observeImage = context.getProperty('Image').observe().pipe(startWith(defaultImage));
+        const observeImage = context.getProperty('Image').observe().pipe(startWith(null));
 
         // Subscribe to changes
-        observeImage.pipe(combineLatestWith(observeProperties)).subscribe(([
-            image, [
-                alternativeText, imageFit, horizontalAlign, verticalAlign, muiSxJson,
-                borderColor, borderRadius, borderWidth, cssProperty, defaultColor, height, hidden, width
-            ]
-        ]) => {
-            // Guard: not an image
-            if(!image || !(image instanceof File))
-                return;
+        observeImage.pipe(combineLatestWith(observeProperties)).subscribe(([image, properties]) => {
+            // Image file
+            if(image && image instanceof File) {
+                image.getContentUrl(url => {
+                    properties[0] = url;
+                    this.drawImage(context, elementDom, properties);
+                });
+            }
 
-            // Get image URL
-            image.getContentUrl(url => {
-                // Detect if it's a SVG file + fill fit
-                const isSvg = url.indexOf('.svg') !== -1 || url.indexOf('image/svg') !== -1;
-                const isFillFit = imageFit === 'fill';
+            // URL
+            else if(properties[0].trim()) {
+                this.drawImage(context, elementDom, properties);
+            }
 
-                // Create element
-                let element = null;
-
-                // SVG + Fill fit case
-                if(isSvg && isFillFit) {
-                    element = (
-                        !hidden &&
-                        <svg
-                            style={{
-                                width: width,
-                                height: height,
-                                borderColor: borderColor.toHexString(),
-                                borderRadius: borderRadius,
-                                borderWidth: borderWidth,
-                                borderStyle: 'solid',
-                                boxSizing: 'border-box',
-                                backgroundColor: defaultColor.toHexString(),
-                                ...cssToSxProps(cssProperty),
-                                ...jsonToSxProps(muiSxJson)
-                            }}
-                            onClick={() => context.getEvent('On Click').trigger()}
-                        >
-                            <image
-                                alt={alternativeText}
-                                href={url}
-                                style={{
-                                    width: width,
-                                    height: height
-                                }}
-                                preserveAspectRatio={'none'} // Fill fit hack for SVG
-                            ></image>
-                        </svg>
-                    );
-                }
-
-                // Normal case
-                else {
-                    element = (
-                        !hidden &&
-                        <CardMedia
-                            component={'img'}
-                            alt={alternativeText}
-                            image={url}
-                            sx={{
-                                width: 1,
-                                height: 1,
-                                objectFit: imageFit,
-                                objectPosition: `${horizontalAlign} ${verticalAlign}`,
-                                borderColor: borderColor.toHexString(),
-                                borderRadius: borderRadius,
-                                borderWidth: borderWidth,
-                                borderStyle: 'solid',
-                                boxSizing: 'border-box',
-                                backgroundColor: defaultColor.toHexString(),
-                                ...cssToSxProps(cssProperty),
-                                ...jsonToSxProps(muiSxJson)
-                            }}
-                            onClick={() => context.getEvent('On Click').trigger()}
-                        ></CardMedia>
-                    );
-                }
-
-                // Rendering
-                ReactDOM.render(element, elementDom);
-            });
+            // Default image
+            else {
+                const defaultImage = /** @type {ImageFile} */(Sync.getInstance('016eb13ba1388f7bdd71'));
+                defaultImage.getContentUrl(url => {
+                    properties[0] = url;
+                    this.drawImage(context, elementDom, properties);
+                });
+            }
         });
+    }
+
+    /**
+     * @private
+     * @param {!UIContext} context
+     * @param {!Element} elementDom
+     * @param {!Array} properties
+     */
+    drawImage(context, elementDom, properties) {
+        // Extract properties
+        const [
+            imageUrl, alternativeText, imageFit, horizontalAlign, verticalAlign, muiSxJson,
+            borderColor, borderRadius, borderWidth, cssProperty, defaultColor, height, hidden, width
+        ] = properties;
+
+        // Detect if it's a SVG file + fill fit
+        const isSvg = imageUrl.indexOf('.svg') !== -1 || imageUrl.indexOf('image/svg') !== -1;
+        const isFillFit = imageFit === 'fill';
+
+        // Create element
+        let element = null;
+
+        // SVG + Fill fit case
+        if(isSvg && isFillFit) {
+            element = (
+                !hidden &&
+                <svg
+                    style={{
+                        width: width,
+                        height: height,
+                        borderColor: borderColor.toHexString(),
+                        borderRadius: borderRadius,
+                        borderWidth: borderWidth,
+                        borderStyle: 'solid',
+                        boxSizing: 'border-box',
+                        backgroundColor: defaultColor.toHexString(),
+                        ...cssToSxProps(cssProperty),
+                        ...jsonToSxProps(muiSxJson)
+                    }}
+                    onClick={() => context.getEvent('On Click').trigger()}
+                >
+                    <image
+                        alt={alternativeText}
+                        href={imageUrl}
+                        style={{
+                            width: width,
+                            height: height
+                        }}
+                        preserveAspectRatio={'none'} // Fill fit hack for SVG
+                    ></image>
+                </svg>
+            );
+        }
+
+        // Normal case
+        else {
+            element = (
+                !hidden &&
+                <CardMedia
+                    component={'img'}
+                    alt={alternativeText}
+                    image={imageUrl}
+                    sx={{
+                        width: 1,
+                        height: 1,
+                        objectFit: imageFit,
+                        objectPosition: `${horizontalAlign} ${verticalAlign}`,
+                        borderColor: borderColor.toHexString(),
+                        borderRadius: borderRadius,
+                        borderWidth: borderWidth,
+                        borderStyle: 'solid',
+                        boxSizing: 'border-box',
+                        backgroundColor: defaultColor.toHexString(),
+                        ...cssToSxProps(cssProperty),
+                        ...jsonToSxProps(muiSxJson)
+                    }}
+                    onClick={() => context.getEvent('On Click').trigger()}
+                ></CardMedia>
+            );
+        }
+
+        // Rendering
+        ReactDOM.render(element, elementDom);
     }
 }
 
