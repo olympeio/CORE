@@ -1,48 +1,16 @@
-variables:
-  CHROME_BIN: "/usr/bin/chromium"
-
-.image-init: &image-init
-  ##
-  ## Run ssh-agent (inside the build environment)
-  ##
-  - eval $(ssh-agent -s)
-
-  ##
-  ## Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
-  ## We're using tr to fix line endings which makes ed25519 keys work
-  ## without extra base64 encoding.
-  ## https://gitlab.com/gitlab-examples/ssh-private-key/issues/1#note_48526556
-  ##
-  - echo "$GITLAB_SSH_KEY" | tr -d '\r' | ssh-add -
-
-  ##
-  ## Create the SSH directory and give it the right permissions
-  ##
-  - mkdir -p ~/.ssh
-  - chmod 700 ~/.ssh
-
-.npm:
+.init:
   image:
-    name: registry.caas.olympe.cloud/infra/docker/node-tools:14-bullseye-slim
-    entrypoint: [""]
+    name: registry.caas.olympe.cloud/infra/docker/node-tools-light:14-bullseye-slim
   tags:
-    - aws-spot-runner
+    - eks
+
+# Initialize the npm environment with gitlab registry
+.npm-config:
+  extends: .init
   before_script:
-    - *image-init
+    - export GITLAB_TOKEN=$(vault kv get -field token kv/devops/npm/token)
     - npm config set @olympeio:registry https://gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/
     - npm config set '//gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/:_authToken' "$GITLAB_TOKEN"
-
-# Extra npm configuration to access to public npm registry (npmjs.org)
-.npm-public:
-  extends: .npm
-  before_script:
-    - *image-init
-    - npm config set '//registry.npmjs.org/:_authToken' "$NPM_TOKEN"
-
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - .npm/
 
 stages:
   - setup
@@ -50,11 +18,12 @@ stages:
   - unit-tests
   - deploy-app
 
+# Initialize the npm environment and install packages
 setup:
   stage: setup
-  extends: .npm
+  extends: .npm-config
   script:
-    - GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" npm install
+    - npm install
   artifacts:
     expire_in: 1 day
     paths:
@@ -63,9 +32,9 @@ setup:
 # Build npm package
 build-package:
   stage: build
-  extends: .npm
+  extends: .init
   script:
-    - if [ -z "$CI_COMMIT_TAG" ]; then sh ./bumpVersion.sh; fi
+    - if [ -z "$CI_COMMIT_TAG" ]; then apt-get install -y jq; sh ./bumpVersion.sh; fi
     - npm run build
   dependencies:
     - setup
@@ -73,23 +42,27 @@ build-package:
     paths:
       - dist/
 
+# Run unit tests
 tests:
   stage: unit-tests
-  extends: .npm
+  extends: .init
+  image: # Use an image that includes chromium and jre for test
+    name: registry.caas.olympe.cloud/infra/docker/node-tools:14-bullseye-slim
   script:
     - npm test
+  dependencies:
+    - setup
 
 # Publish job
 .publish:
   stage: deploy-app
   dependencies:
-    - setup
     - build-package
 
 # Publish to internal npm registry on gitlab
 publish-internal:
   extends:
-    - .npm
+    - .npm-config
     - .publish
   script:
     # Set the tag to use for the newly published package :
@@ -105,10 +78,13 @@ publish-internal:
 
 # Publish to public npm registry (npmjs.org). Publish only if a new version tag vX.Y.Z was pushed.
 publish-public:
-  extends:
-    - .npm-public
-    - .publish
+  image:
+    name: node:14-bullseye-slim # Original node image to keep the public registry npmjs.org
+  extends: .publish
+  tags:
+    - eks
   script:
+    - npm config set '//registry.npmjs.org/:_authToken' "$NPM_TOKEN"
     - cd dist
     - npm publish --access public
   only:
