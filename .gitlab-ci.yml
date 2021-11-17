@@ -7,6 +7,8 @@
 # Initialize the npm environment with gitlab registry
 .npm-config:
   extends: .init
+  variables:
+    VAULT_ADDR: https://vault.olympe.io
   before_script:
     - export GITLAB_TOKEN=$(vault kv get -field token kv/devops/npm/token)
     - npm config set @olympeio:registry https://gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/
