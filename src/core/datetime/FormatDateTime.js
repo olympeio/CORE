@@ -16,6 +16,7 @@
  */
 
 import { FunctionBrick, registerBrick } from 'olympe';
+import {getLogger} from 'logging';
 import { format } from 'date-fns';
 
 /**
@@ -46,10 +47,18 @@ export default class FormatDateTime extends FunctionBrick {
      * @param {!Context} context
      * @param {Date} datetime
      * @param {string} formatString
-     * @param {function(string)} setFormatedDatetime
+     * @param {function(string)} setFormattedDatetime
      */
-    onUpdate(context, [datetime, formatString], [setFormatedDatetime]) {
-        setFormatedDatetime(format(datetime, formatString));
+    onUpdate(context, [datetime, formatString], [setFormattedDatetime]) {
+        if (!(datetime instanceof Date)) {
+            getLogger('Format Datetime').error('datetime input is not a DateTime');
+            return;
+        }
+        try {
+            setFormattedDatetime(format(datetime, formatString));
+        } catch (e) {
+            getLogger('Format Datetime').error(e);
+        }
     }
 }
 
