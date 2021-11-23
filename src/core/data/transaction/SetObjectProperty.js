@@ -27,22 +27,6 @@ import {
 import {getLogger} from 'logging';
 import {castPrimitiveValue} from "./_helpers";
 
-/**
-## Description
-Assigns a value to a specific property of an object.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| object | Object | The object. |
-| property | Property | The property. |
-| value | Object | The value. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| object | Object | The Object. |
-
-**/
 export default class SetObjectProperty extends ActionBrick {
 
     /**
