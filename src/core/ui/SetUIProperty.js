@@ -19,21 +19,6 @@ import getScopeContext from "./util/updateContextProperty";
 import {getLogger} from 'logging';
 import {castPrimitiveValue} from "../data/transaction/_helpers";
 
-/**
-## Description
-Sets the specified UI Property to the provided value.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| UI Property | Property | The UI property. |
-| Value | Object | The value. |
-## Errors
-| Code | Description |
-| --- | --- |
-| undefined | undefined | The property doesn't exist for that component. |
-| undefined | undefined | The scope (or context) couldn't be found. |
-
-**/
 export default class SetUIProperty extends ActionBrick {
 
     /**
