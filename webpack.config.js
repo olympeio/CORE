@@ -60,6 +60,7 @@ const plugins = {
             {
                 name: npmPackage.name,
                 version: npmPackage.version,
+                files: npmPackage.files,
                 main: 'main-node.js',
                 browser: 'main-web.js',
                 types: 'index.d.ts',
