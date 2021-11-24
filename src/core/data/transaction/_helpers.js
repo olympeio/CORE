@@ -20,7 +20,7 @@ const primitiveTypes = [
  */
 export const castPrimitiveValue = (value) => {
     if (!(value instanceof Sync)) {
-        return value.valueOf();
+        return value;
     }
     const primitiveType = primitiveTypes.find((p) => value instanceof p);
     return primitiveType ? DBView.get().getProperty(value, primitiveType.valueProp, true) : value;
