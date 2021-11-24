@@ -1,6 +1,6 @@
 {
   "name": "@olympeio/core",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "main-node.js",
     "main-node.js.map",
     "main-web.js",
-    "main-node.js.map",
+    "main-web.js.map",
     "package.json"
   ],
   "scripts": {
@@ -56,7 +56,10 @@
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
-    "@mui/material": "^5.0.3",
+    "@mui/utils": "~5.1.1",
+    "@mui/system": "~5.1.1",
+    "@mui/private-theming": "~5.1.1",
+    "@mui/material": "~5.1.1",
     "@olympeio/runtime-node": "8.6.2",
     "@olympeio/runtime-web": "8.6.2",
     "date-fns": "~2.22.1",
