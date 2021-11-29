@@ -11,7 +11,7 @@
   },
   "files": [
     "import",
-    "README.md", 
+    "README.md",
     "index.d.ts",
     "main-node.js",
     "main-node.js.map",
@@ -57,10 +57,7 @@
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
-    "@mui/utils": "~5.1.1",
-    "@mui/system": "~5.1.1",
-    "@mui/private-theming": "~5.1.1",
-    "@mui/material": "~5.1.1",
+    "@mui/material": "~5.2.1",
     "@olympeio/runtime-node": "dev",
     "@olympeio/runtime-web": "dev",
     "date-fns": "~2.22.1",
