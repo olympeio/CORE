@@ -36,7 +36,6 @@ export default class Slider extends UIBrick {
      */
     draw(context, elementDom) {
         // Change draw div display to center the slider
-        elementDom.style.display = 'flex';
         elementDom.style.alignItems = 'center';
         elementDom.style.justifyContent = 'center';
 
@@ -51,6 +50,9 @@ export default class Slider extends UIBrick {
             value1, value2, min, max, step, disabled, useRange, rangeBehavior, rangeMinDistance, enableMarks, orientation, color, colorOverride, size, track, labelDisplay, muiSxJson,
             borderColor, borderRadius, borderWidth, cssProperty, defaultColor, hidden, tabIndex
         ]) => {
+            // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
+            elementDom.style.display = 'flex';
+
             // Handle range slider
             const muiValue = useRange ? [value1, value2] : value1;
 

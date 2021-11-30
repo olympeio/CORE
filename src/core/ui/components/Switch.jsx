@@ -36,7 +36,6 @@ export default class Switch extends UIBrick {
      */
     draw(context, elementDom) {
         // Change draw div display to center the switch
-        elementDom.style.display = 'flex';
         elementDom.style.alignItems = 'center';
         elementDom.style.justifyContent = 'center';
 
@@ -51,6 +50,9 @@ export default class Switch extends UIBrick {
             checked, disabled, color, size, muiSxJson,
             borderRadius, cssProperty, defaultColor, hidden, tabIndex
         ]) => {
+            // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
+            elementDom.style.display = 'flex';
+
             // Rendering
             ReactDOM.render((
                 !hidden &&

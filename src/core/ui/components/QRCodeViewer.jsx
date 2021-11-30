@@ -38,7 +38,6 @@ export default class QRCodeViewer extends UIBrick {
     draw(context, elementDom) {
         // Allow overflow
         elementDom.style.overflow = 'visible';
-        elementDom.style.display = 'flex';
         elementDom.style.alignItems = 'center';
         elementDom.style.justifyContent = 'center';
 
@@ -50,6 +49,9 @@ export default class QRCodeViewer extends UIBrick {
             value, renderAs, level, includeMargin, hidden, height, width, defaultColor, foregroundColor,
             borderColor, borderRadius, borderWidth, cssProperty
         ]) => {
+            // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
+            elementDom.style.display = 'flex';
+
             const cssProps = cssToSxProps(cssProperty);
             const bw = parseInt(cssProps.borderWidth) || borderWidth;
 
