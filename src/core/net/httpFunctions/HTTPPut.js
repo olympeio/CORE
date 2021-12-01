@@ -16,7 +16,7 @@
  */
 
 import { FunctionBrick, registerBrick} from 'olympe';
-import httpRequest from "helpers/httpRequest";
+import {httpRequest} from "helpers/httpRequest";
 import {handleStatusAndHeaders} from "../utils/httpResponseHandlers";
 
 /**
