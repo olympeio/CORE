@@ -37,7 +37,6 @@ export default class Checkbox extends UIBrick {
      */
     draw(context, elementDom) {
         // Change draw div display to center the checkbox
-        elementDom.style.display = 'flex';
         elementDom.style.alignItems = 'center';
         elementDom.style.justifyContent = 'center';
 
@@ -53,6 +52,9 @@ export default class Checkbox extends UIBrick {
             checked, indeterminate, disabled, color, checkedIcon, uncheckedIcon, indeterminateIcon, muiSxJson,
             borderColor, borderRadius, cssProperty, defaultColor, height, hidden, tabIndex, width
         ]) => {
+            // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
+            elementDom.style.display = 'flex';
+
             // Compute components size
             const checkboxSize = Math.min(width, height);
             const iconSize = checkboxSize / 1.75;
