@@ -36,9 +36,6 @@ export default class Label extends UIBrick {
      * @param {!Element} elementDom
      */
     draw(context, elementDom) {
-        // Change draw div display to flex for vertical alignment
-        elementDom.style.display = 'flex';
-
         // Allow overflow
         elementDom.style.overflow = 'visible';
 
@@ -50,6 +47,9 @@ export default class Label extends UIBrick {
             text, textVariant, noWrap, withFormat, textColor, fontFamily, horizontalAlign, verticalAlign, muiSxJson,
             borderColor, borderRadius, borderWidth, cssProperty, defaultColor, hidden
         ]) => {
+            // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
+            elementDom.style.display = 'flex';
+
             // Rendering
             ReactDOM.render((
                 !hidden &&

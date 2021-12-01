@@ -31,7 +31,6 @@ export default class Camera extends UIBrick {
     draw(context, elementDom) {
         // Allow overflow and center the audio player
         elementDom.style.overflow = 'visible';
-        elementDom.style.display = 'flex';
         elementDom.style.alignItems = 'center';
         elementDom.style.justifyContent = 'center';
 
@@ -44,6 +43,9 @@ export default class Camera extends UIBrick {
             src, disableVideo, disableAudio, imageSmoothing, mirrored, screenshotFormat, screenshotQuality,
             hidden, borderColor, borderRadius, borderWidth, cssProperty, width, height
         ]) => {
+            // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
+            elementDom.style.display = 'flex';
+
             // 0 <= screenshot quality <= 100
             const clampedQuality = Math.min(Math.max(0, screenshotQuality), 100);
 

@@ -34,7 +34,6 @@ export default class AudioPlayer extends UIBrick {
     draw(context, elementDom) {
         // Allow overflow and center the audio player
         elementDom.style.overflow = 'visible';
-        elementDom.style.display = 'flex';
         elementDom.style.alignItems = 'center';
         elementDom.style.justifyContent = 'center';
 
@@ -46,6 +45,9 @@ export default class AudioPlayer extends UIBrick {
             src, autoPlay, showControls, loop, muted, volume, hidden, borderColor, borderRadius,
             borderWidth, cssProperty, width, listenInterval
         ]) => {
+            // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
+            elementDom.style.display = 'flex';
+
             // 0 <= volume <= 100
             const clampedVolume = Math.min(Math.max(0, volume), 100);
 
