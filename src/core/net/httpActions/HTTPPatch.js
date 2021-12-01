@@ -15,7 +15,7 @@
  */
 
 import { ActionBrick, registerBrick, ErrorFlow } from 'olympe';
-import httpRequest from "helpers/httpRequest";
+import {httpRequest} from "helpers/httpRequest";
 import {forwardEventOrErrorFlow, handleData, handleStatusAndHeaders} from "../utils/httpResponseHandlers";
 
 /**

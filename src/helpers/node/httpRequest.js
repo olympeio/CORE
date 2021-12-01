@@ -21,7 +21,7 @@
  * @param {string=} body
  * @return {Promise<Response>|Promise}
  */
-export default function httpRequest(method, url, headers, body) {
+export const httpRequest = (method, url, headers, body) => {
     const fetch = require('node-fetch');
     const parsedHeaders = new fetch.Headers();
 
