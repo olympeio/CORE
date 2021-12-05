@@ -27,7 +27,7 @@ export default class CreateFileFromURL extends ActionBrick {
      * @param {function(ErrorFlow)} setErrorFlow
      * @param {function(File)} setFile
      */
-    onUpdate(context, [fileName, mimeType, url], [forwardEvent, setErrorFlow, setFile]) {
+    update(context, [fileName, mimeType, url], [forwardEvent, setErrorFlow, setFile]) {
         const transaction = new Transaction();
         const fileTag = File.createFileFromURL(
             File,

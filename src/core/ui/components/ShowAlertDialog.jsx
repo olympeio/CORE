@@ -52,7 +52,7 @@ export default class ShowAlertDialog extends ActionBrick {
      * @param {function()} onCancel
      * @param {function(string)} setTextFieldValue
      */
-     onUpdate(context, [textContent, title, confirmText, cancelText, textFieldType, customization], [forwardEvent, onConfirm, onCancel, setTextFieldValue]) {
+     update(context, [textContent, title, confirmText, cancelText, textFieldType, customization], [forwardEvent, onConfirm, onCancel, setTextFieldValue]) {
         // Dialog closing
         const handleClose = (confirm) => {
             context.set('open', false);
@@ -134,7 +134,7 @@ export default class ShowAlertDialog extends ActionBrick {
      * @protected
      * @param {!Context} context
      */
-    onInit(context) {
+    init(context) {
         // Add a custom div to the body
         const elementDom = document.createElement('div');
         elementDom.setAttribute('id', `show_alert_dialog_${Date.now()}`);
@@ -148,7 +148,7 @@ export default class ShowAlertDialog extends ActionBrick {
      * @protected
      * @param {!Context} context
      */
-    onDestroy(context) {
+    destroy(context) {
         // Remove the custom div from the body
         const elementDom = context.get('elementDom');
         ReactDOM.unmountComponentAtNode(elementDom);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { UIBrick, registerBrick, File, Sync } from 'olympe';
+import { VisualBrick, registerBrick, File, Sync } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -28,7 +28,7 @@ import { jsonToSxProps, cssToSxProps } from 'helpers/mui';
 /**
  * Provide a Image visual component using MUI CardMedia
  */
-export default class Image extends UIBrick {
+export default class Image extends VisualBrick {
 
     /**
      * This method runs when the brick is ready in the HTML DOM.

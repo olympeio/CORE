@@ -46,7 +46,7 @@ export default class CustomizeAlertDialog extends FunctionBrick {
      * @param {String} transitionExitTimeout
      * @param {function(Object)} setCustomization
      */
-     onUpdate(context, [fullWidth, maxWidth, scroll, transitionType, transitionDirection, transitionEasing, transitionTimeout, transitionExitEasing, transitionExitTimeout], [setCustomization]) {
+     update(context, [fullWidth, maxWidth, scroll, transitionType, transitionDirection, transitionEasing, transitionTimeout, transitionExitEasing, transitionExitTimeout], [setCustomization]) {
         // Customization object
         const customization = {
             fullWidth: fullWidth,

@@ -43,7 +43,7 @@ export default class Power extends FunctionBrick {
      * @param {number} b
      * @param {function(number)} setAb
      */
-    onUpdate(context, [a, b], [setAb]) {
+    update(context, [a, b], [setAb]) {
         setAb(a ** b);
     }
 }

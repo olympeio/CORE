@@ -40,7 +40,7 @@ describe('OpenURL brick', () => {
             return fakeObject;
         });
 
-        brick.onUpdate(context, ['https://google.com', false], outputs);
+        brick.update(context, ['https://google.com', false], outputs);
 
         expect(fakeObject.location).toEqual('https://google.com');
     });
@@ -67,7 +67,7 @@ describe('OpenURL brick', () => {
             return fakeObject;
         });
 
-        brick.onUpdate(context, ['https://google.com', true], outputs);
+        brick.update(context, ['https://google.com', true], outputs);
 
         expect(fakeObject.location).toEqual('https://google.com');
     });
@@ -92,6 +92,6 @@ describe('OpenURL brick', () => {
             return null;
         });
 
-        brick.onUpdate(context, [undefined], outputs);
+        brick.update(context, [undefined], outputs);
     });
 });

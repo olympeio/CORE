@@ -49,7 +49,7 @@ export default class FormatDateTime extends FunctionBrick {
      * @param {string} formatString
      * @param {function(string)} setFormattedDatetime
      */
-    onUpdate(context, [datetime, formatString], [setFormattedDatetime]) {
+    update(context, [datetime, formatString], [setFormattedDatetime]) {
         if (!(datetime instanceof Date)) {
             getLogger('Format Datetime').error('datetime input is not a DateTime');
             return;

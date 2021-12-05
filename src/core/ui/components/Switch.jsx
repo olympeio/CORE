@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { UIBrick, registerBrick } from 'olympe';
+import { VisualBrick, registerBrick } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -26,7 +26,7 @@ import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helper
 /**
  * Provide a Switch visual component using MUI Switch
  */
-export default class Switch extends UIBrick {
+export default class Switch extends VisualBrick {
 
     /**
      * This method runs when the brick is ready in the HTML DOM.

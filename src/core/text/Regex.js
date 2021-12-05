@@ -33,7 +33,7 @@ export default class Regex extends FunctionBrick {
      * @param {function(boolean)} setMatched
      * @param {function(Array)} setMatchElements
      */
-    onUpdate(context, [text, regex], [setMatched, setMatchElements]) {
+    update(context, [text, regex], [setMatched, setMatchElements]) {
         const result = new RegExp(regex).exec(text);
         if (result === null) {
             setMatched(false);

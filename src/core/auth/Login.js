@@ -15,57 +15,25 @@
  */
 
 import {registerBrick, Auth, AuthState, ErrorFlow, FunctionBrick} from 'olympe'
+import {map} from "rxjs/operators";
 
-/**
- ## Description
- Attempts to log in a user providing its name and password. The authentication is attempted only once when the input control flow is triggered.
- ## Inputs
- | Name | Type | Description |
- | --- | :---: | --- |
- | controlFlow | Control Flow | Control flow to trigger the login process |
- | username | String | The username. |
- | password | String | The password for that user. |
- ## Outputs
- | Name | Type | Description |
- | --- | :---: | --- |
- | On failure | Control Flow | Control flow triggered on failed authentication because of invalid credentials. |
- | On success | Control Flow | Control flow triggered on successful authentication. |
- | Error Flow | Error Flow | Error flow triggered when the server is unreachable or the authentication fails for unknown reasons. |
- ## Errors
- | Code | Description |
- | --- | --- |
- | 1 | Server unreachable. |
- | 2 | Authentication error. |
- **/
 export default class Login extends FunctionBrick {
 
     /**
      * @override
      */
-    setupUpdate(context, runCoreUpdate, clear) {
-        const [incomingFlow, incomingUser, incomingPassword] = this.getInputs();
-
-        // Listen on `user` and 'password' input updates. Null or undefined value will be considered as empty strings.
-        let username = '';
-        let password = '';
-
-        context.observe(incomingUser, true).subscribe((inputValue) => {
-            username = inputValue !== null ? inputValue : '';
-        });
-
-        context.observe(incomingPassword, true).subscribe((inputValue) => {
-            password = inputValue !== null ? inputValue : '';
-        });
-
-        // Run runCoreUpdate only when incoming flow is triggered.
-        context.observe(incomingFlow, true).subscribe((timestamp) => {
-            if (timestamp) {
-                // Execute the action only if the control flow has a value.
-                runCoreUpdate([username, password]);
-            } else {
-                clear();
+    setupExecution(context) {
+        const [inputFlow, inputUser, inputPassword] = this.getInputs();
+        return context.observe(inputFlow, true).pipe(map((timestamp) => {
+            if (timestamp === null) {
+                // Clear the action only if the control flow has no value.
+                return null;
             }
-        });
+
+            const username = context.has(inputUser) ? context.get(inputUser) : '';
+            const password = context.has(inputPassword) ? context.get(inputPassword) : '';
+            return [username, password];
+        }));
     }
 
     /**
@@ -79,7 +47,7 @@ export default class Login extends FunctionBrick {
      * @param {function(!ErrorFlow)} dispatchErrorFlow
      * @param {function(number)} onFailure
      */
-    onUpdate(context, [username, password], [onSuccess, onFailure, dispatchErrorFlow]) {
+    update(context, [username, password], [onSuccess, onFailure, dispatchErrorFlow]) {
         Auth.loginSRP(username, password).then(() => {
             const currentState = Auth.getState()
             switch (currentState) {

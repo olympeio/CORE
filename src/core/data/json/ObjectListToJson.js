@@ -42,7 +42,7 @@ export default class ObjectListToJson extends ObjectToJson {
      * @param {function(string)} setJson
      * @param {function()} forwardEvent
      */
-    onUpdate(context, [list], [forwardEvent, setJson]) {
+    update(context, [list], [forwardEvent, setJson]) {
         const db = DBView.get();
         const json = [];
 

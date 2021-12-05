@@ -61,7 +61,7 @@ export default class HTTPPatch extends FunctionBrick {
      * @param {function(string)} setBody
      * @param {function(string)} setHeaders
      */
-    async onUpdate(context, [url, body, headers], [ setStatusCode, setBody, setHeaders]) {
+    async update(context, [url, body, headers], [ setStatusCode, setBody, setHeaders]) {
         const response = await httpRequest('PATCH', url, headers, body)
         const responseHeaders = handleStatusAndHeaders(response, setStatusCode, setHeaders);
         if(response.ok) {

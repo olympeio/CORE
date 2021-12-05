@@ -30,7 +30,7 @@ export default class Base64Decoder extends FunctionBrick {
      * @param {string} encoding
      * @param {function(string)} output
      */
-    onUpdate(context, [input, encoding], [output]) {
+    update(context, [input, encoding], [output]) {
         const logger = getLogger('Base 64 Decoder');
         try {
             let decoded = '';

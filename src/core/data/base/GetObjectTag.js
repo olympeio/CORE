@@ -38,7 +38,7 @@ export default class GetObjectTag extends FunctionBrick {
      * @param {!InstanceTag} object
      * @param {function(string)} setValue
      */
-    onUpdate(context, [object], [setValue]) {
+    update(context, [object], [setValue]) {
         setValue(instanceToTag(object));
     }
 }

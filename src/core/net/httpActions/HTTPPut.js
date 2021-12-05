@@ -62,7 +62,7 @@ export default class HTTPPut extends ActionBrick {
      * @param {function(string)} setBody
      * @param {function(string)} setHeaders
      */
-    async onUpdate(context, [ url, body, headers], [ forwardEvent, setErrorFlow, setStatusCode, setHeaders]) {
+    async update(context, [ url, body, headers], [ forwardEvent, setErrorFlow, setStatusCode, setHeaders]) {
         const response = await httpRequest('PUT', url, headers, body);
         handleStatusAndHeaders(response, setStatusCode, setHeaders);
         forwardEventOrErrorFlow(response, forwardEvent, setErrorFlow);

@@ -102,7 +102,7 @@ describe('JsonToXml brick', () => {
         const xmlSetter = jasmine.createSpy().and.callFake(() => {});
 
         // Then
-        new JsonToXml().onUpdate(new Context(), [json, wrappersPath], [errorSetter, xmlSetter]);
+        new JsonToXml().update(new Context(), [json, wrappersPath], [errorSetter, xmlSetter]);
         expect(errorSetter).toHaveBeenCalled();
         expect(xmlSetter).not.toHaveBeenCalled();
     });

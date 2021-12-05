@@ -42,7 +42,7 @@ export default class IsDateTimeValid extends FunctionBrick {
      * @param {Date} date
      * @param {function(boolean)} setIsValid
      */
-    onUpdate(context, [date], [setIsValid]) {
+    update(context, [date], [setIsValid]) {
         setIsValid(isValid(date));
     }
 }

@@ -33,7 +33,7 @@ export default class ListFollowRelation extends FunctionBrick {
      * @param {boolean} toOrigin
      * @param {function(!ListDef)} setFlattenedList
      */
-    onUpdate(context, [list, relation, toOrigin], [setFlattenedList]) {
+    update(context, [list, relation, toOrigin], [setFlattenedList]) {
         const logger = getLogger('List Follow Relation');
 
         // Guards

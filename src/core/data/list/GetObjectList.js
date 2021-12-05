@@ -41,7 +41,7 @@ export default class GetObjectList extends FunctionBrick {
      * @param {InstanceTag} model
      * @param {function(!ListDef)} setList
      */
-    onUpdate(context, [model], [setList]) {
+    update(context, [model], [setList]) {
         setList(Sync.getInstancesOf(model));
     }
 }

@@ -41,7 +41,7 @@ export default class ObjectToJson extends ActionBrick {
      * @param {function(string)} setJson
      * @param {function()} forwardEvent
      */
-    onUpdate(context, [object], [forwardEvent, setJson]) {
+    update(context, [object], [forwardEvent, setJson]) {
         const db = DBView.get();
         const json = this.parseProperties(db, object.getTag());
 

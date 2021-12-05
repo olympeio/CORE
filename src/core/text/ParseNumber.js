@@ -42,7 +42,7 @@ export default class ParseNumber extends FunctionBrick {
      * @param {string} s
      * @param {function(number)} setNumber
      */
-    onUpdate(context, [s], [setNumber]) {
+    update(context, [s], [setNumber]) {
         setNumber(Number.parseFloat(String(s)));
     }
 }

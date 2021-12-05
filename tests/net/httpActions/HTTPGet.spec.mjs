@@ -46,7 +46,7 @@ describe('HTTPGet action brick', () => {
         outputs.push(bodySpy);
         outputs.push(headersSpy);
 
-        brick.onUpdate(context, ['https://httpbin.org/get', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['https://httpbin.org/get', '{"Content-Type": "application/json"}'], outputs);
     });
 
     it('should get an error correctly',  (done) => {
@@ -77,7 +77,7 @@ describe('HTTPGet action brick', () => {
         outputs.push(bodySpy);
         outputs.push(headersSpy);
 
-        brick.onUpdate(context, ['abcd', ''], outputs);
+        brick.update(context, ['abcd', ''], outputs);
 
     });
 
@@ -109,7 +109,7 @@ describe('HTTPGet action brick', () => {
         outputs.push(bodySpy);
         outputs.push(headersSpy);
 
-        brick.onUpdate(context, ['https://httpbin.org/image', ''], outputs);
+        brick.update(context, ['https://httpbin.org/image', ''], outputs);
 
     });
 });

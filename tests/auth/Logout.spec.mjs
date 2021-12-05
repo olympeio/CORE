@@ -22,7 +22,7 @@ describe('Logout brick', () => {
         const brick = new Logout();
         const cb = jasmine.createSpy();
 
-        brick.onUpdate(new Context(), [], [cb]);
+        brick.update(new Context(), [], [cb]);
 
         expect(cb).toHaveBeenCalledTimes(0);
     });
@@ -38,7 +38,7 @@ describe('Logout brick', () => {
             });
         });
 
-        brick.onUpdate(new Context(), [], [cb]);
+        brick.update(new Context(), [], [cb]);
 
         expect(cb).toHaveBeenCalledTimes(1);
     });

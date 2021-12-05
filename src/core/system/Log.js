@@ -38,7 +38,7 @@ export default class Log extends ActionBrick {
      * @param {string} message
      * @param {function()} forwardEvent
      */
-    onUpdate(context, [prefix, message], [forwardEvent]) {
+    update(context, [prefix, message], [forwardEvent]) {
         getLogger('Log').info((prefix ? prefix + ': ' : '') + message);
         forwardEvent();
     }

@@ -16,8 +16,8 @@
 
 import { FunctionBrick, registerBrick, BurstTransaction, instanceToTag } from 'olympe';
 import {getLogger} from 'logging';
-import {BehaviorSubject} from "rxjs";
-import {combineLatestWith} from "rxjs/operators"
+import {Subject} from "rxjs";
+import {combineLatestWith, map} from "rxjs/operators"
 import {castPrimitiveValue} from "./_helpers";
 
 export default class FeedObjectProperty extends FunctionBrick {
@@ -32,45 +32,41 @@ export default class FeedObjectProperty extends FunctionBrick {
     /**
      * @override
      */
-    onInit(context) {
+    init(context) {
         context.set(FeedObjectProperty.burstTransaction, new BurstTransaction());
     }
 
     /**
      * @override
      */
-    setupUpdate(context, runUpdate, clean) {
+    setupExecution(context) {
         const logger = getLogger('Update property');
         const transaction = /** @type {!BurstTransaction} */ (context.get(FeedObjectProperty.burstTransaction));
         const [eventInput, objectInput, propertyInput, valueInput] = this.getInputs();
 
-        const flow = new BehaviorSubject(new Map());
-        let currentObject = null;
+        const flow = new Subject();
+        context.observe(propertyInput).pipe(combineLatestWith(context.observe(valueInput)))
+            .subscribe(([property, value]) => {
+                flow.next(new Map().set(instanceToTag(property), castPrimitiveValue(value)));
+            });
 
-        context.observe(eventInput, true).subscribe((_) => {
-            if (currentObject !== null) {
-                transaction.push(currentObject, flow);
-                runUpdate([currentObject]);
-            } else {
-                logger.warn('Try to feed new property value to a null object');
+        return context.observe(eventInput).pipe(map((event) => {
+            const object = context.get(objectInput);
+
+            if (event == null || object === null) {
+                object === null && logger.warn('Try to feed new property value to a null object');
+                return null;
             }
-        });
 
-        context.observe(objectInput, true).subscribe((object) => {
-            currentObject = object;
-        });
-
-        context.observe(propertyInput, true).pipe(combineLatestWith(
-            context.observe(valueInput, true)
-        )).subscribe(([property, value]) => {
-            flow.next(new Map().set(instanceToTag(property), castPrimitiveValue(value)));
-        });
+            transaction.push(object, flow);
+            return object;
+        }));
     }
 
     /**
      * @override
      */
-    onUpdate(context, [object], [forwardEvent, setObject]) {
+    update(context, [object], [forwardEvent, setObject]) {
         setObject(object);
         forwardEvent(Date.now());
     }
@@ -78,7 +74,7 @@ export default class FeedObjectProperty extends FunctionBrick {
     /**
      * @override
      */
-    onDestroy(context) {
+    destroy(context) {
         /** @type {!BurstTransaction} */ (context.get(FeedObjectProperty.burstTransaction))
             .complete()
             .catch((errorMsg) => {

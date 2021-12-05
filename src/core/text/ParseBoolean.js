@@ -43,7 +43,7 @@ export default class ParseBoolean extends FunctionBrick {
      * @param {string} s
      * @param {function(boolean)} setBoolean
      */
-    onUpdate(context, [s], [setBoolean]) {
+    update(context, [s], [setBoolean]) {
         setBoolean(String(s).toLowerCase() === "true");
     }
 }

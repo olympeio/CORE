@@ -50,7 +50,7 @@ export default class ParseDateTime extends FunctionBrick {
      * @param {string} formatInput
      * @param {function(Date)} setDate
      */
-    onUpdate(context, [dateTimeString, formatInput], [setDate]) {
+    update(context, [dateTimeString, formatInput], [setDate]) {
         const format = formatInput || "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
         try {
             setDate(parse(dateTimeString, format, new Date()));

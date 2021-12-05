@@ -28,7 +28,7 @@ export default class GetTouchEventAttributes extends FunctionBrick {
      * @param {function(*)} setTouches
      * @param {function(*)} setFirstTouch
      */
-    onUpdate(context, [touchEvent], [setTimestamp, setTouches, setFirstTouch]) {
+    update(context, [touchEvent], [setTimestamp, setTouches, setFirstTouch]) {
         setTimestamp(touchEvent.timeStamp);
         setTouches(touchEvent.touches);
         if (touchEvent.touches) {

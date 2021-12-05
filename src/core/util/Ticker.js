@@ -16,21 +16,6 @@
 
 import { FunctionBrick, registerBrick } from 'olympe';
 
-/**
-## Description
-Triggers the output control-flow at every specified interval.
-It is also controlled by an on/off switch.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Interval | Number | The interval in milliseconds. |
-| On/Off | Boolean | `true` to activate the ticker, `false` to turn it off. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Control Flow | Control Flow | The output control-flow. |
-**/
 export default class Ticker extends FunctionBrick {
 
     /**
@@ -47,7 +32,7 @@ export default class Ticker extends FunctionBrick {
      * @param {boolean} onOff
      * @param {function(number)} triggerEvent
      */
-    onUpdate(context, [interval, onOff], [triggerEvent]) {
+    update(context, [interval, onOff], [triggerEvent]) {
         // Clear potential previous timeout
         let intervalID = context.get(Ticker.interval);
         intervalID && clearInterval(intervalID);
@@ -61,7 +46,7 @@ export default class Ticker extends FunctionBrick {
     /**
      * @override
      */
-    onDestroy(context) {
+    destroy(context) {
         const intervalID = context.get(Ticker.interval);
         intervalID && clearInterval(intervalID);
     }

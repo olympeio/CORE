@@ -31,7 +31,7 @@ export default class GetRecursiveRelated extends FunctionBrick {
      * @param {boolean} includeSelf
      * @param {function(ListDef)} setList
      */
-    onUpdate(context, [object, relation, includeSelf], [setList]) {
+    update(context, [object, relation, includeSelf], [setList]) {
         const logger = getLogger('Get Recursive Related');
 
         // Prevent errors

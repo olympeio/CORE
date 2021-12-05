@@ -34,7 +34,7 @@ describe('HTTPPatch function brick', () => {
         outputs.push(_body => expect(_body).not.toBeNull());
         outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
 
-        brick.onUpdate(context, ['https://httpbin.org/patch', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['https://httpbin.org/patch', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
 
     });
 
@@ -53,7 +53,7 @@ describe('HTTPPatch function brick', () => {
         outputs.push(_body => expect(_body).not.toBeNull());
         outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
 
-        brick.onUpdate(context, ['https://httpbin.org/put', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['https://httpbin.org/put', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
     });
 
     it('should generate a 404 error when patching on a wrong url',  () => {
@@ -71,6 +71,6 @@ describe('HTTPPatch function brick', () => {
         outputs.push(_body => expect(_body).not.toBeNull());
         outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
 
-        brick.onUpdate(context, ['abcd', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['abcd', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
     });
 });

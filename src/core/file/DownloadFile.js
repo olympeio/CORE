@@ -39,7 +39,7 @@ export default class DownloadFile extends ActionBrick {
      * @param {File} file
      * @param {function()} forwardEvent
      */
-    onUpdate(context, [name, file], [forwardEvent]) {
+    update(context, [name, file], [forwardEvent]) {
         file.saveAs(name || file.getProperty(File.nameProp));
         forwardEvent();
     }

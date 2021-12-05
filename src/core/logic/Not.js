@@ -41,7 +41,7 @@ export default class Not extends FunctionBrick {
      * @param {boolean} a
      * @param {function(boolean)} setResult
      */
-    onUpdate(context, [a], [setResult]) {
+    update(context, [a], [setResult]) {
         setResult(!a);
     }
 }

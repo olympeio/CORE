@@ -41,7 +41,7 @@ export default class GetFirstObjectInList extends FunctionBrick {
      * @param {!ListDef|!Array} list
      * @param {function(object)} setObject
      */
-    onUpdate(context, [list], [setObject]) {
+    update(context, [list], [setObject]) {
         const logger = getLogger('Get First Object In List');
 
         if(Array.isArray(list)) {

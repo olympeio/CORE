@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { UIBrick, registerBrick } from 'olympe';
+import { VisualBrick, registerBrick } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -26,7 +26,7 @@ import { jsonToSxProps, computeTextColorOverride, ifNotNull, ifNotTransparent, c
 /**
  * Provide a Text Field visual component using MUI TextField
  */
-export default class TextField extends UIBrick {
+export default class TextField extends VisualBrick {
 
     /**
      * This method runs when the brick is ready in the HTML DOM.

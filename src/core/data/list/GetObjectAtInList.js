@@ -43,7 +43,7 @@ export default class GetObjectAtInList extends FunctionBrick {
      * @param {number} rank
      * @param {function(object)} setObject
      */
-    onUpdate(context, [list, rank], [setObject]) {
+    update(context, [list, rank], [setObject]) {
         const logger = getLogger('Get Object At In List');
         if (Array.isArray(list)) {
             if (list.length > rank) {

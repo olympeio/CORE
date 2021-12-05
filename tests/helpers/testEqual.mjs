@@ -39,7 +39,7 @@ export const testEqual = (brick, inputs, expectedOutputs, controlFlowIndex) => {
         });
     }
 
-    brick.onUpdate(new Context(), inputs, outputs);
+    brick.update(new Context(), inputs, outputs);
 };
 
 export default testEqual;

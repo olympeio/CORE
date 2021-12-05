@@ -37,7 +37,7 @@ export default class EndTransaction extends ActionBrick {
      * @param {function()} forwardEvent
      * @param {function(!ErrorFlow)} dispatchError
      */
-    onUpdate(context, _, [forwardEvent, dispatchError]) {
+    update(context, _, [forwardEvent, dispatchError]) {
         // Extract the current transaction from the context.
         const transaction = context.getParent().popTransaction();
         if (transaction === null) {

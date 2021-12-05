@@ -22,7 +22,7 @@ export default class GetNavigationState extends FunctionBrick {
      * @param {!Array} inputs
      * @param {function(string)} setState
      */
-    onUpdate(context, inputs, [setState]) {
+    update(context, inputs, [setState]) {
         setState(parseCurrentHash());
         const callbackId = NavigationManager.generateUniqueCallbackId();
         NavigationManager.get().onOnHashChange(() => {
@@ -34,7 +34,7 @@ export default class GetNavigationState extends FunctionBrick {
     /**
      * @override
      */
-    onDestroy(context) {
+    destroy(context) {
         // unregister the callback
         NavigationManager.get().offOnHashChange(context.get('NavigationManager_callbackId'));
     }

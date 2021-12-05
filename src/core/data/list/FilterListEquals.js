@@ -52,7 +52,7 @@ export default class FilterListEquals extends FunctionBrick {
      * @param {boolean} not
      * @param {function(!ListDef)} setFiltered
      */
-    onUpdate(context, [list, property, value, not], [setFiltered]) {
+    update(context, [list, property, value, not], [setFiltered]) {
         const logger = getLogger('Filter List Equals');
         const valueDef = getValueDefFor(property, true);
         if (valueDef === null) {

@@ -43,7 +43,7 @@ export default class IndexOf extends FunctionBrick {
      * @param {string} s2
      * @param {function(number)} setIndex
      */
-    onUpdate(context, [s1,s2], [setIndex]) {
+    update(context, [s1,s2], [setIndex]) {
         setIndex(s1.indexOf(s2));
     }
 }

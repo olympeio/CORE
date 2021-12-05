@@ -17,7 +17,7 @@
 /**
  * Provide a visual component that generates QR codes using qrcode.react
  */
-import {UIBrick, registerBrick} from 'olympe';
+import {VisualBrick, registerBrick} from 'olympe';
 import {cssToSxProps} from 'helpers/mui';
 import ReactDOM from 'react-dom';
 import React from 'react';
@@ -27,7 +27,7 @@ import {css} from "@emotion/react";
 /**
  * Provide a visual component that generates a QR code using qrcode.react
  */
-export default class QRCodeViewer extends UIBrick {
+export default class QRCodeViewer extends VisualBrick {
 
     /**
      * This method runs when the brick is ready in the HTML DOM.

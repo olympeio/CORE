@@ -47,7 +47,7 @@ export default class SortList extends FunctionBrick {
      * @param {boolean} ascending
      * @param {function(ListDef|Array)} setSortedList
      */
-    onUpdate(context, [list, property, ascending], [setSortedList]) {
+    update(context, [list, property, ascending], [setSortedList]) {
         const logger = getLogger('Sort List');
 
         const type = DBView.get().getUniqueRelated(property, PropertyPrimitive.typeRel);

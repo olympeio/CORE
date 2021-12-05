@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { UIBrick, registerBrick } from 'olympe';
+import { VisualBrick, registerBrick } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -26,7 +26,7 @@ import { jsonToSxProps, cssToSxProps, ifNotNull } from 'helpers/mui';
 /**
  * Provide a Divider visual component using MUI Divider
  */
-export default class Divider extends UIBrick {
+export default class Divider extends VisualBrick {
 
     /**
      * This method runs when the brick is ready in the HTML DOM.

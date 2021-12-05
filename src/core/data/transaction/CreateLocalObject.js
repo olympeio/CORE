@@ -42,7 +42,7 @@ export default class CreateLocalObject extends ActionBrick {
      * @param {function()} forwardEvent
      * @param {function(!Sync)} setObject
      */
-    onUpdate(context, [model], [forwardEvent, setObject]) {
+    update(context, [model], [forwardEvent, setObject]) {
         const logger = getLogger('Create Local Object');
 
         // Guards

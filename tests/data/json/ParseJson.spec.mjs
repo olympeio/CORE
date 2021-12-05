@@ -52,7 +52,7 @@ describe('ParseJson brick', () => {
         const setter = jasmine.createSpy().and.callFake(() => {});
 
         // Then
-        const run = () => new ParseJson().onUpdate(new Context(), ['{ "a": { "b": "hello"}', 'a.b'], [setter]);
+        const run = () => new ParseJson().update(new Context(), ['{ "a": { "b": "hello"}', 'a.b'], [setter]);
 
         expect(run).not.toThrowError();
         expect(setter).not.toHaveBeenCalled();
@@ -63,7 +63,7 @@ describe('ParseJson brick', () => {
         const outputValue = jasmine.createSpy();
 
         // Then
-        const run = () => new ParseJson().onUpdate(new Context(), ['{ "a": { "b": "hello"}}', ''], [outputValue]);
+        const run = () => new ParseJson().update(new Context(), ['{ "a": { "b": "hello"}}', ''], [outputValue]);
 
         expect(run).not.toThrowError();
         expect(outputValue).not.toHaveBeenCalled();

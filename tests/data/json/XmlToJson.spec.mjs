@@ -99,7 +99,7 @@ describe('XmlToJson brick', () => {
         const jsonSetter = jasmine.createSpy().and.callFake(() => {});
 
         // Then
-        new XmlToJson().onUpdate(new Context(), [xml, wrappersPath], [errorSetter, jsonSetter]);
+        new XmlToJson().update(new Context(), [xml, wrappersPath], [errorSetter, jsonSetter]);
         expect(errorSetter).toHaveBeenCalled();
         expect(jsonSetter).not.toHaveBeenCalled();
     });

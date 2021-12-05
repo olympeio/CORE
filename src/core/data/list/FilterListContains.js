@@ -49,7 +49,7 @@ export default class FilterListContains extends FunctionBrick {
      * @param {!*} substring
      * @param {function(ListDef|Array)} setFiltered
      */
-    onUpdate(context, [list, property, substring], [setFiltered]) {
+    update(context, [list, property, substring], [setFiltered]) {
         const logger = getLogger('Filter List Contains');
         const valueDef = getValueDefFor(property);
         if (valueDef === null) {

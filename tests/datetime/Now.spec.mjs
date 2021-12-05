@@ -31,7 +31,7 @@ describe('Now brick', () => {
 
         const setter = jasmine.createSpy().and.callFake(() => {});
 
-        new Now().onUpdate(new Context(), [interval], [setter]);
+        new Now().update(new Context(), [interval], [setter]);
 
         expect(setInterval).toHaveBeenCalled();
         expect(setter).toHaveBeenCalled();
@@ -43,11 +43,11 @@ describe('Now brick', () => {
 
         spyOn(window, 'clearInterval');
 
-        now.onUpdate(context, [500], [() => {}]);
+        now.update(context, [500], [() => {}]);
 
         expect(clearInterval).not.toHaveBeenCalled();
 
-        now.onDestroy(context);
+        now.destroy(context);
 
         expect(clearInterval).toHaveBeenCalled();
     });
