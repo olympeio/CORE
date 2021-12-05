@@ -41,7 +41,7 @@ export default class ListForEachRemovedEntries extends FunctionBrick {
      * @param {!ListDef} list
      * @param {function(object)} setObject
      */
-    onUpdate(context, [list], [setObject]) {
+    update(context, [list], [setObject]) {
         if (list instanceof ListDef) {
             list.forEach(
                 (object) => {

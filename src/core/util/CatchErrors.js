@@ -47,7 +47,7 @@ export default class CatchErrors extends FunctionBrick {
      * @param {function(string)} setMessage
      * @param {function(number)} setCode
      */
-    onUpdate(context, [ errorFlow], [ forwardEvent, setMessage, setCode ]) {
+    update(context, [ errorFlow], [ forwardEvent, setMessage, setCode ]) {
         setMessage(errorFlow.getMessage());
         setCode(errorFlow.getCode());
         forwardEvent(Date.now());

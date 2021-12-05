@@ -49,7 +49,7 @@ export default class Xor extends FunctionBrick {
      * @param {boolean} b
      * @param {function(boolean)} setResult
      */
-    onUpdate(context, [a, b], [setResult]) {
+    update(context, [a, b], [setResult]) {
         setResult(( a || b ) && !( a && b ));
     }
 }

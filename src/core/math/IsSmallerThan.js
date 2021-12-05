@@ -45,7 +45,7 @@ export default class IsSmallerThan extends FunctionBrick {
      * @param {boolean} strictly
      * @param {function(boolean)} setResult
      */
-    onUpdate(context, [a, b, strictly], [setResult]) {
+    update(context, [a, b, strictly], [setResult]) {
         setResult(strictly ? a < b : a <= b);
     }
 }

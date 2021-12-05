@@ -49,7 +49,7 @@ export default class CreateRelation extends ActionBrick {
      * @param {function(!InstanceTag)} setOrigin
      * @param {function(!InstanceTag)} setDestination
      */
-    onUpdate(context, [origin, relation, destination], [forwardEvent, setErrorFlow, setOrigin, setDestination]) {
+    update(context, [origin, relation, destination], [forwardEvent, setErrorFlow, setOrigin, setDestination]) {
         const logger = getLogger('Create Relation');
         const relationTag = instanceToTag(relation);
 

@@ -39,7 +39,7 @@ export default class GetMouseCoordinates extends FunctionBrick {
      * @param {function(number)} setX
      * @param {function(number)} setY
      */
-    onUpdate(context, inputs, [setX, setY]) {
+    update(context, inputs, [setX, setY]) {
         const mouseTracking = event => {
             setX(event.clientX);
             setY(event.clientY);
@@ -53,8 +53,8 @@ export default class GetMouseCoordinates extends FunctionBrick {
      * @protected
      * @param {!Context} context
      */
-    onDestroy(context) {
-        super.onDestroy(context);
+    destroy(context) {
+        super.destroy(context);
         document.removeEventListener('mousemove', context.get('mouseTrackingFunction'));
     }
 }

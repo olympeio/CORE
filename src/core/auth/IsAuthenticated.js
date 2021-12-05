@@ -35,7 +35,7 @@ export default class IsAuthenticated extends FunctionBrick {
      * @param {!Array} _
      * @param {function(boolean)} setResult
      */
-    onUpdate(context, _, [setResult]) {
+    update(context, _, [setResult]) {
         setResult(Auth.getState() === AuthState.AUTHENTICATED);
     }
 }

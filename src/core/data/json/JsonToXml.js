@@ -49,7 +49,7 @@ export default class JsonToXml extends FunctionBrick {
      * @param {function(ErrorFlow)} dispatchErrorFlow
      * @param {function(string)} setXML
      */
-    onUpdate(context, [json, wrappersPath], [dispatchErrorFlow, setXML]) {
+    update(context, [json, wrappersPath], [dispatchErrorFlow, setXML]) {
         try {
             const parser = new j2xParser();
             const jsonObj = JSON.parse(json);

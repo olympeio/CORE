@@ -30,7 +30,7 @@ export default class TopOrLeft extends FunctionBrick {
      * @param {!Array} inputs
      * @param {function(number)} setResult
      */
-    onUpdate(context, inputs, [setResult]) {
+    update(context, inputs, [setResult]) {
         setResult(0);
     }
 }

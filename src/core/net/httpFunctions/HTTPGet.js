@@ -57,7 +57,7 @@ export default class HTTPGet extends FunctionBrick {
      * @param {function(number)} setStatusCode
      * @param {function(string)} setStatusText
      */
-    async onUpdate(context, [url, headers], [setStatusCode, setBody, setHeaders]) {
+    async update(context, [url, headers], [setStatusCode, setBody, setHeaders]) {
         const response = await httpRequest('GET', url, headers);
         const responseHeaders = handleStatusAndHeaders(response, setStatusCode, setHeaders);
         await handleData(response, responseHeaders, setBody);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { UIBrick, registerBrick } from 'olympe';
+import { VisualBrick, registerBrick } from 'olympe';
 import ReactPlayer from 'react-player'
 import React from 'react'
 import ReactDOM from 'react-dom';
@@ -22,7 +22,7 @@ import {cssToSxProps} from "helpers/mui";
 import Icon from "@mui/material/Icon";
 
 
-export default class VideoPlayer extends UIBrick {
+export default class VideoPlayer extends VisualBrick {
 
     /**
      * This method runs when the brick is ready in the HTML DOM.

@@ -25,7 +25,7 @@ export default class SubString extends FunctionBrick {
      * @param {number} end
      * @param {function(string)} setResult
      */
-    onUpdate(context, [s, start, end], [setResult]) {
+    update(context, [s, start, end], [setResult]) {
         setResult(end < 0 ? String(s).substring(start) : String(s).substring(start, end));
     }
 }

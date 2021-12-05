@@ -27,7 +27,7 @@ export default class GetFileContent extends ActionBrick {
      * @param {function()} forwardEvent
      * @param {function(string)} setContent
      */
-    onUpdate(context, [file], [forwardEvent, setContent]) {
+    update(context, [file], [forwardEvent, setContent]) {
         const logger = getLogger('Get File Content');
 
         if (file === undefined || file === null || file.getContentAsBinary === undefined) {

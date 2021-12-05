@@ -49,7 +49,7 @@ export default class ParseJson extends FunctionBrick {
      * @param {string} path
      * @param {function(Object)} setResult
      */
-    onUpdate(context, [source, path], [setResult]) {
+    update(context, [source, path], [setResult]) {
         // Guards
         if(typeof source !== 'string') {
             getLogger('Parse JSON').error('Provided source is not a string');

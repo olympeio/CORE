@@ -35,7 +35,7 @@ describe('HTTPGet function brick', () => {
         outputs.push(_setBody => expect(_setBody).not.toBeNull());
         outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
 
-        brick.onUpdate(context, ['https://httpbin.org/get', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['https://httpbin.org/get', '{"Content-Type": "application/json"}'], outputs);
 
     });
 
@@ -54,7 +54,7 @@ describe('HTTPGet function brick', () => {
         outputs.push(_setBody => expect(_setBody).not.toBeNull());
         outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
 
-        brick.onUpdate(context, ['https://httpbin.org/put', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['https://httpbin.org/put', '{"Content-Type": "application/json"}'], outputs);
     });
 
     it('should generate a 404 error when getting on a wrong url',  () => {
@@ -72,7 +72,7 @@ describe('HTTPGet function brick', () => {
         outputs.push(_setBody => expect(_setBody).not.toBeNull());
         outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
 
-        brick.onUpdate(context, ['abcd', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['abcd', '{"Content-Type": "application/json"}'], outputs);
     });
 
     it('should get a non-text file as a dataUrl',  () => {
@@ -90,7 +90,7 @@ describe('HTTPGet function brick', () => {
         outputs.push(_body => expect(_body).toEqual(SMALL_GIF));
         outputs.push(_headers => expect(_headers).toEqual('{"content-type":"image/gif"}'));
 
-        brick.onUpdate(context, ['https://httpbin.org/image', ''], outputs);
+        brick.update(context, ['https://httpbin.org/image', ''], outputs);
 
     });
 });

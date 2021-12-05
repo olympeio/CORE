@@ -43,7 +43,7 @@ export default class Equals extends FunctionBrick {
      * @param {any} b
      * @param {function(boolean)} setResult
      */
-    onUpdate(context, [a, b], [setResult]) {
+    update(context, [a, b], [setResult]) {
         setResult(typeof a.equals === 'function' ? a.equals(b) : a === b);
     }
 }

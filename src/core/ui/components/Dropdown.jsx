@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { UIBrick, registerBrick, EnumValue } from 'olympe';
+import { VisualBrick, registerBrick, EnumValue } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -28,7 +28,7 @@ import { combineLatestWith, map, startWith, switchMap } from 'rxjs/operators';
 /**
  * Provide a Dropdown visual component using MUI TextField
  */
-export default class Dropdown extends UIBrick {
+export default class Dropdown extends VisualBrick {
 
     /**
      * This method runs when the brick is ready in the HTML DOM.

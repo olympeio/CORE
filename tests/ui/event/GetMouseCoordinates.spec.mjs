@@ -51,6 +51,6 @@ describe('GetMouseCoordinates brick', () => {
         outputs.push(setXSpy);
         outputs.push(setYSpy);
 
-        brick.onUpdate(context, [], outputs);
+        brick.update(context, [], outputs);
     });
 });

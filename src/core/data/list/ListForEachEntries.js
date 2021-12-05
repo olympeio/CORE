@@ -42,7 +42,7 @@ export default class ListForEachEntries extends FunctionBrick {
      * @param {!ListDef|!Array} list
      * @param {function(object)} setObject
      */
-    onUpdate(context, [list], [setObject]) {
+    update(context, [list], [setObject]) {
         if(Array.isArray(list) || list instanceof ListDef) {
             list.forEach(object => setObject(object));
         } else {

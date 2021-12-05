@@ -40,7 +40,7 @@ export default class DispatchEvent extends ActionBrick {
      * @param {*} _
      * @param {function()} forwardEvent
      */
-    onUpdate(context, [_], [forwardEvent]) {
+    update(context, [_], [forwardEvent]) {
         const [scope, event] = getScopeContext(this, this.getInputs()[1]);
         const logger = getLogger('Dispatch Event');
         if (scope && event) {

@@ -70,7 +70,7 @@ export default class GetRelatedObjects extends FunctionBrick {
      * @param {!Array} inputs
      * @param {!Array} outputs
      */
-    onUpdate(context, [object, relation], [setList]) {
+    update(context, [object, relation], [setList]) {
         const logger = getLogger('Get Related Objects');
         // Prevent errors
         if (instanceToTag(object) === '') {

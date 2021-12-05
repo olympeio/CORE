@@ -31,7 +31,7 @@ export default class KeepSessionAlive extends ActionBrick {
      * @param {!Array} _
      * @param {function()} forwardEvent
      */
-    onUpdate(context, _, [forwardEvent]) {
+    update(context, _, [forwardEvent]) {
         Auth.sendKeepAlive();
         forwardEvent();
     }

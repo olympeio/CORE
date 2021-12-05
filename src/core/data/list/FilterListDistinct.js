@@ -39,7 +39,7 @@ export default class FilterListDistinct extends FunctionBrick {
      * @param {!Array|!ListDef} list
      * @param {function(!Array|!ListDef)} setFiltered
      */
-    onUpdate(context, [list], [setFiltered]) {
+    update(context, [list], [setFiltered]) {
         const logger = getLogger('Filter List Distinct');
         if(Array.isArray(list)){
             setFiltered(Array.from(new Set(list)));

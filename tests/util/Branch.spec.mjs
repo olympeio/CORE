@@ -22,18 +22,17 @@ describe('Branch brick', () => {
     xit('should trigger the right output', (done) => {
         const branch = new Branch();
         spyOn(branch, 'getInputs').and.returnValue(['event', 'condition']);
+        spyOn(branch, 'getOutputs').and.returnValue(['trueDispatcher', 'falseDispatcher']);
 
         const context = new Context('branch');
 
         const trueDispatcher = jasmine.createSpy('true');
         const falseDispatcher = jasmine.createSpy('false');
-        const clearer = jasmine.createSpy();
 
-        branch.setupUpdate(
-            context,
-            (inputs) => branch.onUpdate(context, inputs, [trueDispatcher, falseDispatcher]),
-            clearer
-        );
+        context.observe('trueDispatcher').subscribe(trueDispatcher);
+        context.observe('falseDispatcher').subscribe(falseDispatcher);
+
+        branch.run(context);
 
         context.set('event', Date.now());
         expect(falseDispatcher).toHaveBeenCalled();

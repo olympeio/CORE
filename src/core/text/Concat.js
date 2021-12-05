@@ -28,7 +28,7 @@ export default class Concat extends FunctionBrick {
      * @param {string} s2
      * @param {function(string)} setResult
      */
-    onUpdate(context, [s1, s2], [setResult]) {
+    update(context, [s1, s2], [setResult]) {
         setResult(String(s1).concat(s2));
     }
 }

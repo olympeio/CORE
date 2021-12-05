@@ -42,7 +42,7 @@ export default class GetSizeOfList extends FunctionBrick {
      * @param {!ListDef|!Array} list
      * @param {function(number)} setSize
      */
-    onUpdate(context, [list], [setSize]) {
+    update(context, [list], [setSize]) {
         // Guard
         if (!Array.isArray(list) && !(list instanceof ListDef)) {
             getLogger('Get Size Of List').error('TypeError: the list should be of type ListDef or Array');

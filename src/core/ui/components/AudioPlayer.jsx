@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {UIBrick, registerBrick} from 'olympe';
+import {VisualBrick, registerBrick} from 'olympe';
 import ReactDOM from 'react-dom';
 import ReactAudioPlayer from 'react-audio-player';
 import React from 'react';
@@ -23,7 +23,7 @@ import {cssToSxProps} from 'helpers/mui';
 /**
  * Provide an Audio Player visual component using react-audio-player
  */
-export default class AudioPlayer extends UIBrick {
+export default class AudioPlayer extends VisualBrick {
 
     /**
      * This method runs when the brick is ready in the HTML DOM.

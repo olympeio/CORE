@@ -31,7 +31,7 @@ describe("Geolocation brick", function() {
         const setAltitude = jasmine.createSpy();
 
         const geo = new GetGeolocation();
-        geo.onUpdate(new Context(),[],[setLongitude,setLatitude,setAltitude]);
+        geo.update(new Context(),[],[setLongitude,setLatitude,setAltitude]);
 
         expect(setLongitude).toHaveBeenCalledOnceWith(-96);
         expect(setLatitude).toHaveBeenCalledOnceWith(5);

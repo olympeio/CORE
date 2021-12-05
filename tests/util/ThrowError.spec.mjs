@@ -32,7 +32,7 @@ describe('ThrowError brick', () => {
 
         brick.setupUpdate(
             context,
-            (inputs) => brick.onUpdate(context, inputs, [errorFlowSpy]),
+            (inputs) => brick.update(context, inputs, [errorFlowSpy]),
             clearer
         );
 

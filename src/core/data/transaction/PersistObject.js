@@ -29,7 +29,7 @@ export default class PersistObject extends ActionBrick {
      * @param {function()} forwardEvent
      * @param {function(InstanceTag)} setObjectOut
      */
-    onUpdate(context, [objectIn], [forwardEvent, setObjectOut]) {
+    update(context, [objectIn], [forwardEvent, setObjectOut]) {
         const transaction = context.getTransaction();
 
         if (objectIn instanceof CreateInstance || instanceToTag(objectIn) !== '') {

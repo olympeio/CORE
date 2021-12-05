@@ -27,7 +27,7 @@ describe('ControlFlowSynchronization brick', () => {
 
         const forwardEventSpy = jasmine.createSpy();
 
-        brick.onUpdate(context, [ incomingEvent_1, incomingEvent_2 ], [ forwardEventSpy ]);
+        brick.update(context, [ incomingEvent_1, incomingEvent_2 ], [ forwardEventSpy ]);
 
         expect(forwardEventSpy).toHaveBeenCalledTimes(1);
     });

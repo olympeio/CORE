@@ -51,7 +51,7 @@ export default class FilterListBigger extends FunctionBrick {
      * @param {boolean} strict
      * @param {function(!ListDef)} setFiltered
      */
-    onUpdate(context, [list, property, value, strict], [setFiltered]) {
+    update(context, [list, property, value, strict], [setFiltered]) {
         const logger = getLogger('Filter List Bigger');
         const valueDef = getValueDefFor(property);
         if (valueDef === null) {

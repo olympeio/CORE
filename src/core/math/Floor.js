@@ -41,7 +41,7 @@ export default class Floor extends FunctionBrick {
      * @param {number} a
      * @param {function(number)} setResult
      */
-    onUpdate(context, [a], [setResult]) {
+    update(context, [a], [setResult]) {
         setResult(Math.floor(a));
     }
 }

@@ -41,7 +41,7 @@ export default class IsNull extends ActionBrick {
      * @param {function(boolean)} setResult
      * @param {function()} forwardEvent
      */
-    onUpdate(context, [value], [forwardEvent, setResult]) {
+    update(context, [value], [forwardEvent, setResult]) {
         // Set result to true if current value is undefined
         setResult(value === undefined || value === null);
         forwardEvent();

@@ -30,7 +30,7 @@ export default class Base64Encoder extends FunctionBrick {
      * @param {function(string)} output
      * @param {!Array} outputs
      */
-    onUpdate(context, [input, encoding], [output]) {
+    update(context, [input, encoding], [output]) {
         let encoded = '';
         switch (encoding.toLowerCase()) {
             case 'binary' :

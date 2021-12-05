@@ -59,7 +59,7 @@ export default class JsonToObject extends ActionBrick {
      * @param {function(BusinessObject)} setObject
      * @param {function()} forwardEvent
      */
-    onUpdate(context, [json, businessModel, persist], [forwardEvent, setObject]) {
+    update(context, [json, businessModel, persist], [forwardEvent, setObject]) {
         const parsedJson = JSON.parse(json);
         // If we receive an array, try parsing the first element
         const data = parsedJson instanceof Array && parsedJson.length > 0 ? parsedJson[0] : parsedJson;

@@ -44,7 +44,7 @@ export default class PadStartOfString extends FunctionBrick {
      * @param {number} targetLength
      * @param {function(string)} setPaddedString
      */
-    onUpdate(context, [s, targetLength, padString], [setPaddedString]) {
+    update(context, [s, targetLength, padString], [setPaddedString]) {
         setPaddedString(s.padStart(targetLength, padString));
     }
 }

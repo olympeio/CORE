@@ -42,7 +42,7 @@ export default class SetObjectProperty extends ActionBrick {
      * @param {function(ErrorFlow)} setErrorFlow
      * @param {function(InstanceTag)} setObject
      */
-    onUpdate(context, [object, property, value], [forwardEvent, setErrorFlow, setObject]) {
+    update(context, [object, property, value], [forwardEvent, setErrorFlow, setObject]) {
         const logger = getLogger('Set Object Property');
 
         const castedValue = castPrimitiveValue(value);

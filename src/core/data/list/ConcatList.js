@@ -44,7 +44,7 @@ export default class ConcatList extends FunctionBrick {
      * @param {!ListDef|!Array} list2
      * @param {function(!ListDef|!Array)} setConcatenatedList
      */
-    onUpdate(context, [list1, list2], [setConcatenatedList]) {
+    update(context, [list1, list2], [setConcatenatedList]) {
         const logger = getLogger('Concat List');
 
         // Guards

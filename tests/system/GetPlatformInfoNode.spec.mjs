@@ -69,7 +69,7 @@
 //             outputs.push(setBrowserVersionSpy);
 //             outputs.push(setBrowserSpy);
 //
-//             brick.onUpdate(context, [], outputs);
+//             brick.update(context, [], outputs);
 //
 //             expect(setOSSpy).toHaveBeenCalledOnceWith(fakeResultOS[i]);
 //             expect(setOSVersionSpy).toHaveBeenCalledOnceWith(fakeResultOSVersion[i]);

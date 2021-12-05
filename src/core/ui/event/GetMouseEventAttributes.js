@@ -20,7 +20,7 @@ export default class GetMouseEventAttributes extends FunctionBrick {
     /**
      * Executed every time an input (event) gets updated.
      * Note that this method will _not_ be executed if an input value is undefined.
-     * 
+     *
      * @protected
      * @param {!Context} context
      * @param {MouseEvent} event
@@ -34,7 +34,7 @@ export default class GetMouseEventAttributes extends FunctionBrick {
      * @param {function(boolean)} setAltKeyPressed
      * @param {function(boolean)} setMetaKeyPressed
      */
-    onUpdate(context, [event], [setTimestamp, setRelativePositionX, setRelativePositionY, setAbsolutePositionX, setAbsolutePositionY, setCtrlKeyPressed, setShiftKeyPressed, setAltKeyPressed, setMetaKeyPressed]) {
+    update(context, [event], [setTimestamp, setRelativePositionX, setRelativePositionY, setAbsolutePositionX, setAbsolutePositionY, setCtrlKeyPressed, setShiftKeyPressed, setAltKeyPressed, setMetaKeyPressed]) {
         setTimestamp(event.timeStamp);
         setRelativePositionX(event.clientX);
         setRelativePositionY(event.clientY);

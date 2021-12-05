@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { UIBrick, registerBrick } from 'olympe';
+import { VisualBrick, registerBrick } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -27,7 +27,7 @@ import { jsonToSxProps, cssToSxProps, ifNotNull } from 'helpers/mui';
 /**
  * Provide a Label visual component using MUI Typography
  */
-export default class Label extends UIBrick {
+export default class Label extends VisualBrick {
 
     /**
      * This method runs when the brick is ready in the HTML DOM.

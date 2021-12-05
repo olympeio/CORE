@@ -31,7 +31,7 @@ export default class Logout extends ActionBrick {
      * @param {!Array} _1
      * @param {function()} dispatchControlFlow
      */
-    onUpdate(context, _1, [dispatchControlFlow]) {
+    update(context, _1, [dispatchControlFlow]) {
         if (Auth.getState() === AuthState.AUTHENTICATED) {
             Auth.logout().then((_2) => {
                 if (Auth.getState() === AuthState.GUEST) {

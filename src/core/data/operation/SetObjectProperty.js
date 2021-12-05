@@ -31,7 +31,7 @@ export default class SetObjectProperty extends FunctionBrick {
      * @param {*} value
      * @param {function(InstanceTag)} setObject
      */
-    onUpdate(context, [object, property, value], [setObject]) {
+    update(context, [object, property, value], [setObject]) {
         const logger = getLogger('Set Object Property');
 
         const castedValue = castPrimitiveValue(value);
