@@ -24,7 +24,7 @@ export default class Login extends FunctionBrick {
      */
     setupExecution(context) {
         const [inputFlow, inputUser, inputPassword] = this.getInputs();
-        return context.observe(inputFlow, true).pipe(map((timestamp) => {
+        return context.observe(inputFlow).pipe(map((timestamp) => {
             if (timestamp === null) {
                 // Clear the action only if the control flow has no value.
                 return null;
