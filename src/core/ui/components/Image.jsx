@@ -21,7 +21,7 @@ import ReactDOM from 'react-dom';
 
 import CardMedia from '@mui/material/CardMedia';
 
-import { startWith, combineLatestWith } from 'rxjs/operators';
+import { combineLatestWith } from 'rxjs/operators';
 
 import { jsonToSxProps, cssToSxProps } from 'helpers/mui';
 
@@ -33,7 +33,7 @@ export default class Image extends VisualBrick {
     /**
      * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!UIContext} context
+     * @param {!VisualContext} context
      * @param {!Element} elementDom
      */
     draw(context, elementDom) {
@@ -45,7 +45,7 @@ export default class Image extends VisualBrick {
             'Image URL', 'Alternative Text', 'Image Fit', 'Horizontal Align', 'Vertical Align', 'MUI sx [json]',
             'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Height', 'Hidden', 'Width'
         );
-        const observeImage = context.getProperty('Image').observe().pipe(startWith(null));
+        const observeImage = context.observe('Image', false);
 
         // Subscribe to changes
         observeImage.pipe(combineLatestWith(observeProperties)).subscribe(([image, properties]) => {
