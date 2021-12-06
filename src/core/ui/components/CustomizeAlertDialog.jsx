@@ -52,45 +52,63 @@ export default class CustomizeAlertDialog extends FunctionBrick {
             fullWidth: fullWidth,
             maxWidth: maxWidth,
             scroll: scroll,
-            transition: { type: transitionType }
+            transition: createTransitionObject(transitionType, transitionDirection, transitionEasing, transitionTimeout, transitionExitEasing, transitionExitTimeout)
         };
-
-        // Transition direction/orientation
-        if(transitionType === 'collapse') {
-            const orientation = transitionDirection === 'up' || transitionDirection === 'down' ? 'vertical' : 'horizontal';
-            customization.transition['orientation'] = orientation;
-        }
-        else if(transitionType === 'slide') {
-            customization.transition['direction'] = transitionDirection;
-        }
-
-        // Transition easing
-        if(transitionEasing !== 'none' && transitionExitEasing !== 'none') {
-            customization.transition['easing'] = {
-                enter: transitionEasing,
-                exit: transitionExitEasing
-            };
-        }
-        else if(transitionEasing !== 'none') {
-            customization.transition['easing'] = transitionEasing;
-        }
-
-        // Transition timeout
-        if(transitionTimeout !== 'default' && transitionExitTimeout !== 'default') {
-            customization.transition['timeout'] = {
-                enter: Number.parseInt(transitionTimeout),
-                exit: Number.parseInt(transitionExitTimeout)
-            };
-        }
-        else if(transitionTimeout !== 'default') {
-            customization.transition['timeout'] = Number.parseInt(transitionTimeout);
-        }
 
         setCustomization(customization);
     }
 }
 
 registerBrick('017cdfc8be25238c71ee', CustomizeAlertDialog);
+
+/**
+ * @param {string} transitionType
+ * @param {string} transitionDirection
+ * @param {string} transitionEasing
+ * @param {string} transitionTimeout
+ * @param {string} transitionExitEasing
+ * @param {string} transitionExitTimeout
+ * @return {Object}
+ */
+export function createTransitionObject(transitionType, transitionDirection, transitionEasing, transitionTimeout, transitionExitEasing, transitionExitTimeout) {
+    // Transition object
+    const transition = {
+        type: transitionType
+    };
+
+    // Transition direction/orientation
+    if(transitionType === 'collapse') {
+        const orientation = transitionDirection === 'up' || transitionDirection === 'down' ? 'vertical' : 'horizontal';
+        transition['orientation'] = orientation;
+    }
+    else if(transitionType === 'slide') {
+        transition['direction'] = transitionDirection;
+    }
+
+    // Transition easing
+    if(transitionEasing !== 'none' && transitionExitEasing !== 'none') {
+        transition['easing'] = {
+            enter: transitionEasing,
+            exit: transitionExitEasing
+        };
+    }
+    else if(transitionEasing !== 'none') {
+        transition['easing'] = transitionEasing;
+    }
+
+    // Transition timeout
+    if(transitionTimeout !== 'default' && transitionExitTimeout !== 'default') {
+        transition['timeout'] = {
+            enter: Number.parseInt(transitionTimeout),
+            exit: Number.parseInt(transitionExitTimeout)
+        };
+    }
+    else if(transitionTimeout !== 'default') {
+        transition['timeout'] = Number.parseInt(transitionTimeout);
+    }
+
+    return transition;
+}
 
 /**
  * Create a MUI Transition component from a transition object

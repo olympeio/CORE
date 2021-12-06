@@ -71,7 +71,7 @@ export default class ShowAlertDialog extends ActionBrick {
         // Create optional customization
         const custom = customization ? {
             fullWidth: customization.fullWidth,
-            maxWidth: customization.maxWidth,
+            maxWidth: customization.maxWidth !== 'disabled' ? customization.maxWidth : false,
             scroll: customization.scroll,
             TransitionComponent: createTransitionElement(customization.transition)
         } : {};
