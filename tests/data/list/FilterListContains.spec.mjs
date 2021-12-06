@@ -14,36 +14,38 @@
  * limitations under the License.
  */
 
-import FilterListDistinct from '../../../src/core/data/list/FilterListDistinct.js';
-import testResults from '../../helpers/testResults.mjs';
-import {Context, ListDef} from 'olympe';
+import FilterListContains from "../../../src/core/data/list/FilterListContains.js";
 import MockSync from "../../helpers/MockSync.mjs";
+import {Context} from "olympe";
 
-describe('FilterListDistinct brick', () => {
+describe('FilterListContains brick', () => {
 
-    it('should return an array of unique elements', () => {
-        let vals = [ 1, 2, 3, 4, 5, 6, 7, 8];
-        const tags = ['1', '2', '1', '4', '5', '1', '7', '8'];
-        const list = [];
+    it('should correctly filter an array of Sync', () => {
+        let vals = [ 'Hello', 'World', 'abcdf', 'fgh', 'a', 'on', 'olympe', 'jkl'];
+        const tags = ['1', '2', '3', '4', '5', '6', '7', '8'];
+        let list = [];
         let res = [];
         tags.forEach((v, index, a) => {
             const s = new MockSync(v);
             s.setProperty('1', vals[index]);
             list.push(s);
         });
-        const brick = new FilterListDistinct();
+        const brick = new FilterListContains();
         const context = new Context();
         const setListSpy = jasmine.createSpy().and.callFake(l => {
             res = l;
         });
 
-        brick.update(context, [list], [setListSpy]);
-
-        expect(setListSpy).toHaveBeenCalled();
-        expect(res.length).toBe(6);
+        brick.update(context, [list, '1', 'o'], [setListSpy]);
+        expect(res.length).toBe(4);
     });
 
-    xit('should do return 1 element out of 2 identical', () => {
-        // TODO
+    it('should not execute if the list is not a ListDef nor an Array', () => {
+        const brick = new FilterListContains();
+        const context = new Context();
+        const setListSpy = jasmine.createSpy();
+
+        brick.update(context,['Hello', '1', 'o'], [setListSpy]);
+        expect(setListSpy).not.toHaveBeenCalled();
     });
 });

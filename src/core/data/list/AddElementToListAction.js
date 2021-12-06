@@ -45,8 +45,11 @@ export default class AddElementToListAction extends ActionBrick {
      * @param {function(!ListDef|!Array)} setList
      */
     update(context, [inputList, object], [forwardEvent, setList]) {
-        setList(addElementToList(inputList || [], object));
-        forwardEvent();
+        const newList = addElementToList(inputList || [], object);
+        if (newList !== undefined) {
+            setList(newList);
+            forwardEvent();
+        }
     }
 }
 

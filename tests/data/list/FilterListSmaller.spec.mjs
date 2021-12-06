@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
-import FilterListDistinct from '../../../src/core/data/list/FilterListDistinct.js';
-import testResults from '../../helpers/testResults.mjs';
-import {Context, ListDef} from 'olympe';
+import FilterListSmaller from '../../../src/core/data/list/FilterListSmaller.js';
+import {Context, Sync} from "olympe";
+import {getValueDefFor} from "../../../src/core/data/list/utils.js";
 import MockSync from "../../helpers/MockSync.mjs";
 
-describe('FilterListDistinct brick', () => {
+// TODO function and action version of the brick to be tested
 
-    it('should return an array of unique elements', () => {
+describe('FilterListSmaller brick', () => {
+    xit('should filter to a ListDef', () => {
+        // TODO
+    });
+
+    it('should filter an Array', () => {
         let vals = [ 1, 2, 3, 4, 5, 6, 7, 8];
-        const tags = ['1', '2', '1', '4', '5', '1', '7', '8'];
+        const tags = ['1', '2', '3', '4', '5', '6', '7', '8'];
         const list = [];
         let res = [];
         tags.forEach((v, index, a) => {
@@ -31,19 +36,30 @@ describe('FilterListDistinct brick', () => {
             s.setProperty('1', vals[index]);
             list.push(s);
         });
-        const brick = new FilterListDistinct();
+        const brick = new FilterListSmaller();
         const context = new Context();
         const setListSpy = jasmine.createSpy().and.callFake(l => {
             res = l;
         });
 
-        brick.update(context, [list], [setListSpy]);
+        brick.update(context, [list, '1', 6, true], [setListSpy]);
 
         expect(setListSpy).toHaveBeenCalled();
+        expect(res.length).toBe(5);
+        brick.update(context, [list, '1', 6, false], [setListSpy]);
         expect(res.length).toBe(6);
     });
 
-    xit('should do return 1 element out of 2 identical', () => {
+    it('should not execute if the list is not a ListDef nor an Array', () => {
+        const brick = new FilterListSmaller();
+        const context = new Context();
+        const setListSpy = jasmine.createSpy();
+
+        brick.update(context,['Hello', 6], [setListSpy]);
+        expect(setListSpy).not.toHaveBeenCalled();
+    });
+
+    xit('should not execute if we add a non-Sync object to a ListDef', () => {
         // TODO
     });
 });

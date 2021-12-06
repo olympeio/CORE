@@ -1,4 +1,4 @@
-import {Context} from '@olympeio/runtime-web';
+import {Context} from 'olympe';
 import {NavigationManager} from 'helpers/navigation';
 import GetNavigationState from '../../../src/core/ui/navigation/GetNavigationState.js';
 import OnNavigationUpdateBrowser from '../../../src/core/ui/navigation/OnNavigationUpdateBrowser.js';
