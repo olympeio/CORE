@@ -26,7 +26,7 @@ export default class Branch extends FunctionBrick {
         const [incomingEvent, inputCondition] = this.getInputs();
         return $.observe(incomingEvent)
             // Execute the action only if the control flow has a value, clear the brick when the event is null
-            .pipe(map((event) => event === null ? null : [Boolean($.get(inputCondition))]));
+            .pipe(map((event) => event === null ? null : Boolean($.get(inputCondition))));
     }
 
     /**

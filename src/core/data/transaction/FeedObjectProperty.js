@@ -16,8 +16,8 @@
 
 import { FunctionBrick, registerBrick, BurstTransaction, instanceToTag } from 'olympe';
 import {getLogger} from 'logging';
-import {Subject} from "rxjs";
-import {combineLatestWith, map} from "rxjs/operators"
+import {combineLatest, Subject} from "rxjs";
+import {map} from "rxjs/operators"
 import {castPrimitiveValue} from "./_helpers";
 
 export default class FeedObjectProperty extends FunctionBrick {
@@ -39,19 +39,19 @@ export default class FeedObjectProperty extends FunctionBrick {
     /**
      * @override
      */
-    setupExecution(context) {
+    setupExecution($) {
         const logger = getLogger('Update property');
-        const transaction = /** @type {!BurstTransaction} */ (context.get(FeedObjectProperty.burstTransaction));
+        const transaction = /** @type {!BurstTransaction} */ ($.get(FeedObjectProperty.burstTransaction));
         const [eventInput, objectInput, propertyInput, valueInput] = this.getInputs();
 
         const flow = new Subject();
-        context.observe(propertyInput).pipe(combineLatestWith(context.observe(valueInput)))
+        combineLatest([$.observe(propertyInput), $.observe(valueInput)])
             .subscribe(([property, value]) => {
                 flow.next(new Map().set(instanceToTag(property), castPrimitiveValue(value)));
             });
 
-        return context.observe(eventInput).pipe(map((event) => {
-            const object = context.get(objectInput);
+        return $.observe(eventInput).pipe(map((event) => {
+            const object = $.get(objectInput);
 
             if (event == null || object === null) {
                 object === null && logger.warn('Try to feed new property value to a null object');

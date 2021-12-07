@@ -23,7 +23,7 @@ export default class ControlFlowMultiplexer extends FunctionBrick {
      * @override
      */
     setupExecution($) {
-        return merge(this.getInputs().map($.observe.bind($)));
+        return merge(...this.getInputs().map((i) => $.observe(i)));
     }
 
     /**

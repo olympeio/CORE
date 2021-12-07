@@ -25,7 +25,7 @@ export default class Defaultvalue extends FunctionBrick {
      */
     setupExecution($) {
         const inputs = this.getInputs();
-        return merge(inputs.map($.observe.bind($))).pipe(map((value) => {
+        return merge(...inputs.map((i) => $.observe(i))).pipe(map((_) => {
             if (!$.has(inputs[1])) {
                 return null; // Clear the brick when the default value has been cleared.
             }

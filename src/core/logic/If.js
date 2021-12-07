@@ -24,7 +24,7 @@ export default class If extends FunctionBrick {
      */
     setupExecution($) {
         const inputs = this.getInputs();
-        return merge(inputs.map($.observe.bind($))).pipe(map((value) => {
+        return merge(...inputs.map((i) => $.observe(i))).pipe(map((value) => {
             return value === null ? null : inputs.map((i) => $.get(i));
         }));
     }
