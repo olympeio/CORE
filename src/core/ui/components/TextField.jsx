@@ -98,6 +98,7 @@ export default class TextField extends VisualBrick {
                         }
                     }}
                     InputLabelProps={{
+                        ...ifNotNull('shrink', true, type === 'date' || type === 'datetime-local' || type === 'color'),
                         sx: {
                             fontFamily: fontFamily,
                             ...ifNotTransparent('color', borderColor)
