@@ -171,9 +171,9 @@ export default class List extends VisualBrick {
                                     if(el && renderer) {
                                         // Create renderer
                                         const renderer$ = $.runner(renderer)
-                                            .set('Item', item)
-                                            .set('Rank', rank)
-                                            .set('List', $.get('List'))
+                                            .set('Current Item', item)
+                                            .set('Current Rank', rank)
+                                            .set('Current List', $.get('List'))
                                             .setParentElement(el);
 
                                         // Item size (we need to set the parent also to have a correct layout)
