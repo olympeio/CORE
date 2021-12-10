@@ -18,9 +18,10 @@ import { VisualBrick, registerBrick } from 'olympe';
 import ReactPlayer from 'react-player'
 import React from 'react'
 import ReactDOM from 'react-dom';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import {cssToSxProps} from "helpers/mui";
 import Icon from "@mui/material/Icon";
-
 
 export default class VideoPlayer extends VisualBrick {
 
@@ -38,16 +39,11 @@ export default class VideoPlayer extends VisualBrick {
 
         // Observe all properties
         context.observeMany(
-            'URL', 'Playing', 'Loop', 'Show Controls', 'Volume [%]', 'Light', 'Muted', 'Playback Rate',
-            'Progress Interval', 'Plays inline', 'Picture in Picture', 'Stop on Unmount', 'Play Icon',
-            'Preview Tab Index', 'Played [fraction]', 'Loaded [fraction]', 'Played [seconds]', 'Loaded [seconds]',
-            'Duration [seconds]', 'CSS Property', 'Hidden', 'Width', 'Height', 'Border Color', 'Border Radius',
-            'Border Width',
+            'URL', 'Playing', 'Loop', 'Show Controls', 'Volume [%]', 'Light', 'Muted', 'Playback Rate', 'Progress Interval', 'Plays inline', 'Picture in Picture', 'Stop on Unmount', 'Play Icon', 'Preview Tab Index',
+            'CSS Property', 'Hidden', 'Width', 'Height', 'Border Color', 'Border Radius', 'Border Width',
         ).subscribe(([
-            url, playing, loop, showControls, volume, light, muted, playbackRate, progressInterval,
-            playsInline, pip, stopOnUnmount, playIcon, previewTabIndex, playedFraction, loadedFraction,
-            playedSeconds, loadedSeconds, duration, cssProperty, hidden, width, height, borderColor, borderRadius,
-            borderWidth
+            url, playing, loop, showControls, volume, light, muted, playbackRate, progressInterval, playsInline, pip, stopOnUnmount, playIcon, previewTabIndex,
+            cssProperty, hidden, width, height, borderColor, borderRadius, borderWidth
         ]) => {
             // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
             elementDom.style.display = 'flex';
@@ -58,64 +54,80 @@ export default class VideoPlayer extends VisualBrick {
             const cssProps = cssToSxProps(cssProperty);
             const bw = parseInt(cssProps.borderWidth) || borderWidth;
 
-            // Rendering
-            ReactDOM.render((
-                !hidden &&
-                <ReactPlayer
-                    // Properties + UI
-                    url={url}
-                    playing={playing}
-                    loop={loop}
-                    controls={showControls}
-                    light={light}
-                    volume={clampedVolume / 100}
-                    muted={muted}
-                    playbackRate={playbackRate}
-                    width={width - bw * 2}
-                    height={height - bw * 2}
-                    progressInterval={progressInterval}
-                    playsinline={playsInline}
-                    pip={pip}
-                    stopOnUnmount={stopOnUnmount}
-                    playIcon={playIcon && (<Icon>{playIcon}</Icon>)}
-                    previewTabIndex={previewTabIndex}
-                    style={{
-                        borderStyle: bw > 0 ? 'solid' : 'none',
-                        borderWidth: bw + 'px',
-                        borderColor: borderColor.toHexString(),
-                        borderRadius: borderRadius + 'px',
-                        ...cssProps
-                    }}
+            // Can play
+            if(ReactPlayer.canPlay(url)) {
+                // Rendering
+                ReactDOM.render((
+                    !hidden &&
+                    <ReactPlayer
+                        // Properties + UI
+                        url={url}
+                        playing={playing}
+                        loop={loop}
+                        controls={showControls}
+                        light={light}
+                        volume={clampedVolume / 100}
+                        muted={muted}
+                        playbackRate={playbackRate}
+                        width={width - bw * 2}
+                        height={height - bw * 2}
+                        progressInterval={progressInterval}
+                        playsinline={playsInline}
+                        pip={pip}
+                        stopOnUnmount={stopOnUnmount}
+                        playIcon={playIcon && (<Icon>{playIcon}</Icon>)}
+                        previewTabIndex={previewTabIndex}
+                        style={{
+                            borderStyle: bw > 0 ? 'solid' : 'none',
+                            borderWidth: bw + 'px',
+                            borderColor: borderColor.toHexString(),
+                            borderRadius: borderRadius + 'px',
+                            ...cssProps
+                        }}
 
-                    // Events
-                    onReady={() => context.getEvent('On Ready').trigger()}
-                    onStart={() => context.getEvent('On Start').trigger()}
-                    onPlay={() => context.getEvent('On Play').trigger()}
-                    onPause={() => context.getEvent('On Pause').trigger()}
-                    onBuffer={() => context.getEvent('On Buffer').trigger()}
-                    onBufferEnd={() => context.getEvent('On Buffer End').trigger()}
-                    onSeek={() => context.getEvent('On Seek').trigger()}
-                    onEnded={() => context.getEvent('On Ended').trigger()}
-                    onError={() => context.getEvent('On Error').trigger()}
-                    onClickPreview={() => context.getEvent('On Click Preview').trigger()}
-                    onEnablePIP={() => context.getEvent('On Enable PiP').trigger()}
-                    onDisablePIP={() => context.getEvent('On Disable PiP').trigger()}
+                        // Events
+                        onReady={() => context.getEvent('On Ready').trigger()}
+                        onStart={() => context.getEvent('On Start').trigger()}
+                        onPlay={() => context.getEvent('On Play').trigger()}
+                        onPause={() => context.getEvent('On Pause').trigger()}
+                        onBuffer={() => context.getEvent('On Buffer').trigger()}
+                        onBufferEnd={() => context.getEvent('On Buffer End').trigger()}
+                        onSeek={() => context.getEvent('On Seek').trigger()}
+                        onEnded={() => context.getEvent('On Ended').trigger()}
+                        onError={() => context.getEvent('On Error').trigger()}
+                        onClickPreview={() => context.getEvent('On Click Preview').trigger()}
+                        onEnablePIP={() => context.getEvent('On Enable PiP').trigger()}
+                        onDisablePIP={() => context.getEvent('On Disable PiP').trigger()}
 
-                    // Callbacks
-                    onProgress={(state) => {
-                        context.getProperty('Played [fraction]').set(state.played);
-                        context.getProperty('Played [seconds]').set(state.playedSeconds);
-                        context.getProperty('Loaded [fraction]').set(state.loaded);
-                        context.getProperty('Loaded [seconds]').set(state.loadedSeconds);
-                        context.getEvent('On Progress').trigger();
-                    }}
-                    onDuration={(duration) => {
-                        context.getProperty('Duration [seconds]').set(duration);
-                        context.getEvent('On Duration').trigger();
-                    }}
+                        // Callbacks
+                        onProgress={(state) => {
+                            context.getProperty('Played [fraction]').set(state.played);
+                            context.getProperty('Played [seconds]').set(state.playedSeconds);
+                            context.getProperty('Loaded [fraction]').set(state.loaded);
+                            context.getProperty('Loaded [seconds]').set(state.loadedSeconds);
+                            context.getEvent('On Progress').trigger();
+                        }}
+                        onDuration={(duration) => {
+                            context.getProperty('Duration [seconds]').set(duration);
+                            context.getEvent('On Duration').trigger();
+                        }}
 
-                />
-            ), elementDom);
+                    />
+                ), elementDom);
+            }
+
+            // Can't play
+            else {
+                ReactDOM.render((
+                    !hidden &&
+                    <Box sx={{ backgroundColor: 'lightgrey', width: 1, height: 1 }}>
+                        <Typography sx={{ color: 'black', padding: 1 }}>
+                            Please enter a playable <code>URL</code> for the component to render.<br/>
+                            Current value: {url ? url : 'no value'}
+                        </Typography>
+                    </Box>
+                ), elementDom);
+            }
         });
     }
 }
