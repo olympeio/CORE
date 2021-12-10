@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick } from 'olympe';
+import { VisualBrick, registerBrick, File, Transaction, Sync } from 'olympe';
+import {dataUrlToBinary} from 'helpers/binaryConverters';
+import { getLogger } from 'logging';
 import ReactDOM from 'react-dom';
 import React from 'react';
 import {cssToSxProps} from 'helpers/mui';
@@ -97,8 +99,23 @@ function WebcamWithRef(props) {
 
     const webcamRef = React.useRef();
 
-    props.context.getEvent('Get Screenshot').observe().subscribe(() => {
-        props.context.getProperty('Screenshot').set(webcamRef.current.getScreenshot());
+    // Take screenshot
+    props.context.getEvent('Take Screenshot').observe().subscribe(() => {
+        const t = new Transaction();
+        const screenshotAsBase64 = webcamRef.current.getScreenshot();
+        const screenshotAsArrayBuffer = dataUrlToBinary(screenshotAsBase64);
+        const screenshotExtension = props.screenshotFormat.match(/.*\/([a-z]*)+?.*/)[1];
+        const screenshotName = `screenshot_${Date.now()}.${screenshotExtension}`;
+        const tag = File.createFile(File, t, screenshotName, screenshotAsArrayBuffer, props.screenshotFormat);
+        t.persistInstance(tag, false);
+        t.persist(false);
+        t.execute((success, message) => {
+            if(!success) {
+                getLogger('Camera').warn('The application encountered a problem while taking a screenshot. The transaction failed.', message);
+                return;
+            }
+            props.context.getProperty('Screenshot').set(Sync.getInstance(tag));
+        });
     });
 
     return (
