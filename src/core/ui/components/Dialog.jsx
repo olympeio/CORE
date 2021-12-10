@@ -134,7 +134,7 @@ export default class Dialog extends VisualBrick {
                                 .setParentElement(el);
                         }}
                         sx={{
-                            width: contentWidth,
+                            width: fullWidth && showDivider ? 1 : contentWidth,
                             height: contentHeight
                         }}
                     ></DialogContent>
