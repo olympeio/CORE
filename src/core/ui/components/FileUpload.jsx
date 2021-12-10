@@ -133,11 +133,8 @@ export default class FileUpload extends VisualBrick {
                 // Open file selector when asked
                 ref={el => {
                     if(el) {
-                        $.observe('Show File Selector').subscribe(show => {
-                            if(show) {
-                                el.querySelector('input').click();
-                                $.set('Show File Selector', false);
-                            }
+                        $.observe('Show File Selector').subscribe(() => {
+                            el.querySelector('input').click();
                         });
                     }
                 }}
@@ -190,11 +187,8 @@ export default class FileUpload extends VisualBrick {
                     // Open file selector when asked
                     ref={el => {
                         if(el) {
-                            $.observe('Show File Selector').subscribe(show => {
-                                if(show) {
-                                    el.querySelector('input').click();
-                                    $.set('Show File Selector', false);
-                                }
+                            $.observe('Show File Selector').subscribe(() => {
+                                el.querySelector('input').click();
                             });
                         }
                     }}
