@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick, GlobalProperties } from 'olympe';
+import { VisualBrick, registerBrick } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -33,6 +33,20 @@ import { combineLatestWith } from 'rxjs/operators';
  * Provides a Dialog component using MUI Dialog
  */
 export default class Dialog extends VisualBrick {
+
+    /**
+     * @override
+     */
+    init($) {
+        // Handle dialog opening/closing events
+        $.set('Open', false);
+        $.observe('Open Dialog').subscribe(() => {
+            $.set('Open', true);
+        });
+        $.observe('Close Dialog').subscribe(() => {
+            $.set('Open', false);
+        });
+    }
 
     /**
      * @override
@@ -95,11 +109,6 @@ export default class Dialog extends VisualBrick {
                 // Event
                 onClose={() => {
                     $.trigger('On Close Request');
-
-                    // In DRAW we want to close the dialog automatically
-                    if($.get(GlobalProperties.EDITION, true)) {
-                        $.set('Open', false);
-                    }
                 }}
 
                 // UI
