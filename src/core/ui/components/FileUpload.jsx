@@ -34,6 +34,13 @@ export default class FileUpload extends VisualBrick {
     /**
      * @override
      */
+    init($) {
+        $.set('Files', []);
+    }
+
+    /**
+     * @override
+     */
     setupExecution($) {
         const properties = [
             'Multiple', 'Accepted Type', 'Label', 'Helper Text', 'Variant', 'Color', 'Disabled', 'Required', 'Error', 'Font Family', 'MUI sx [json]',
