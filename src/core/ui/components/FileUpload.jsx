@@ -34,6 +34,13 @@ export default class FileUpload extends VisualBrick {
     /**
      * @override
      */
+    init($) {
+        $.set('Files', []);
+    }
+
+    /**
+     * @override
+     */
     setupExecution($) {
         const properties = [
             'Multiple', 'Accepted Type', 'Label', 'Helper Text', 'Variant', 'Color', 'Disabled', 'Required', 'Error', 'Font Family', 'MUI sx [json]',
@@ -87,7 +94,10 @@ export default class FileUpload extends VisualBrick {
                 size={'small'}
 
                 // Events
-                onClick={() => $.trigger('On Click')}
+                onClick={(event) => {
+                    event.stopPropagation();
+                    $.trigger('On Click');
+                }}
                 onChange={(event) => {
                     this.uploadFiles($, event.target.files);
                 }}
@@ -133,11 +143,8 @@ export default class FileUpload extends VisualBrick {
                 // Open file selector when asked
                 ref={el => {
                     if(el) {
-                        $.observe('Show Selector').subscribe(show => {
-                            if(show) {
-                                el.querySelector('input').click();
-                                $.set('Show Selector', false);
-                            }
+                        $.observe('Show File Selector').subscribe(() => {
+                            el.querySelector('input').click();
                         });
                     }
                 }}
@@ -190,11 +197,8 @@ export default class FileUpload extends VisualBrick {
                     // Open file selector when asked
                     ref={el => {
                         if(el) {
-                            $.observe('Show Selector').subscribe(show => {
-                                if(show) {
-                                    el.querySelector('input').click();
-                                    $.set('Show Selector', false);
-                                }
+                            $.observe('Show File Selector').subscribe(() => {
+                                el.querySelector('input').click();
                             });
                         }
                     }}
@@ -240,6 +244,12 @@ export default class FileUpload extends VisualBrick {
                 }
             };
             reader.readAsArrayBuffer(file);
+        }
+
+        // No file case
+        if(files.length === 0) {
+            $.set('Files', []);
+            $.trigger('On Change');
         }
     }
 }

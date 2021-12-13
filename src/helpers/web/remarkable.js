@@ -91,14 +91,14 @@ applyRules(parser.block.ruler, blockRules);
 applyRules(parser.inline.ruler, inlineRules);
 
 /**
- * @param {string} text 
+ * @param {string} text
  * @param {string} element
  * @return {Element}
  */
 export function markdownTextToReactElement(text, element) {
     try {
         return parse(
-            parser.render(text)
+            parser.render(text.replaceAll('\n', '<br/>'))
                 .replace('<p>', `<${element}>`)
                 .replace('</p>', `</${element}>`)
         );

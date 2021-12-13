@@ -83,7 +83,6 @@ export default class AudioPlayer extends VisualBrick {
                     onListen={() => context.getEvent('On Listen').trigger()}
                     onPause={() => context.getEvent('On Pause').trigger()}
                     onPlay={() => context.getEvent('On Play').trigger()}
-                    onSeeked={() => context.getEvent('On Seeked').trigger()}
                     onVolumeChanged={() => context.getEvent('On Volume Changed').trigger()}
                 />
             ), elementDom);
