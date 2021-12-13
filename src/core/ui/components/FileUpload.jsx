@@ -94,7 +94,10 @@ export default class FileUpload extends VisualBrick {
                 size={'small'}
 
                 // Events
-                onClick={() => $.trigger('On Click')}
+                onClick={(event) => {
+                    event.stopPropagation();
+                    $.trigger('On Click');
+                }}
                 onChange={(event) => {
                     this.uploadFiles($, event.target.files);
                 }}
@@ -241,6 +244,12 @@ export default class FileUpload extends VisualBrick {
                 }
             };
             reader.readAsArrayBuffer(file);
+        }
+
+        // No file case
+        if(files.length === 0) {
+            $.set('Files', []);
+            $.trigger('On Change');
         }
     }
 }
