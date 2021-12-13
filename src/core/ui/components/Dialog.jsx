@@ -124,7 +124,7 @@ export default class Dialog extends VisualBrick {
 
                     // Event
                     onClose={() => {
-                        $.trigger('On Close Request');
+                        $.trigger('On Close Requested');
                     }}
 
                     // UI
