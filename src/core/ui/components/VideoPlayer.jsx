@@ -122,6 +122,7 @@ export default class VideoPlayer extends VisualBrick {
                     !hidden &&
                     <Box sx={{ backgroundColor: 'lightgrey', width: 1, height: 1 }}>
                         <Typography sx={{ color: 'black', padding: 1 }}>
+                            <b>Video Player</b><br/>
                             Please enter a playable <code>URL</code> for the component to render.<br/>
                             Current value: {url ? url : 'no value'}
                         </Typography>

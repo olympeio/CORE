@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick } from 'olympe';
+import { VisualBrick, registerBrick, GlobalProperties } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -22,6 +22,8 @@ import ReactDOM from 'react-dom';
 import MUIDialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 import { createTransitionElement, createTransitionObject } from './CustomizeAlertDialog.jsx';
 import { markdownTextToReactElement } from 'helpers/remarkable';
@@ -88,68 +90,83 @@ export default class Dialog extends VisualBrick {
             borderColor, borderRadius, borderWidth, cssProperty, defaultColor, zIndex
         ] = properties;
 
-        // Transition element
-        const transition = createTransitionObject(transitionType, transitionDirection, transitionEasing, transitionTimeout, transitionExitEasing, transitionExitTimeout);
-        const transitionElement = createTransitionElement(transition);
+        // In DRAW we want to show a placeholder
+        if($.get(GlobalProperties.EDITION, true)) {
+            return (
+                <Box sx={{ backgroundColor: 'lightgrey', width: 1, height: 1 }}>
+                    <Typography sx={{ color: 'black', padding: 1 }}>
+                        <b>Dialog</b><br/>
+                        To control it use events <code>Open Dialog</code> and <code>Close Dialog</code>.
+                    </Typography>
+                </Box>
+            );
+        }
 
-        // Element
-        return (open || keepMounted) && (
-            <MUIDialog
-                // Properties
-                open={open}
-                maxWidth={maxWidth !== 'disabled' ? maxWidth : false}
-                fullWidth={fullWidth}
-                fullScreen={fullScreen}
-                scroll={scroll}
-                hideBackdrop={hideBackdrop}
-                disableEscapeKeyDown={disableEsc}
-                keepMounted={keepMounted}
-                TransitionComponent={transitionElement}
+        // Not in DRAW
+        else {
+            // Transition element
+            const transition = createTransitionObject(transitionType, transitionDirection, transitionEasing, transitionTimeout, transitionExitEasing, transitionExitTimeout);
+            const transitionElement = createTransitionElement(transition);
 
-                // Event
-                onClose={() => {
-                    $.trigger('On Close Request');
-                }}
+            // Element
+            return (open || keepMounted) && (
+                <MUIDialog
+                    // Properties
+                    open={open}
+                    maxWidth={maxWidth !== 'disabled' ? maxWidth : false}
+                    fullWidth={fullWidth}
+                    fullScreen={fullScreen}
+                    scroll={scroll}
+                    hideBackdrop={hideBackdrop}
+                    disableEscapeKeyDown={disableEsc}
+                    keepMounted={keepMounted}
+                    TransitionComponent={transitionElement}
 
-                // UI
-                sx={{
-                    zIndex: open ? Math.abs(zIndex) : -Math.abs(zIndex),
-                    ...cssToSxProps(cssProperty),
-                    ...jsonToSxProps(muiSxJson)
-                }}
-                PaperProps={{
-                    variant: borderWidth > 0 ? 'outlined' : 'elevation',
-                    elevation: borderWidth > 0 ? 0 : 24,
-                    sx: {
-                        borderColor: borderColor.toHexString(),
-                        borderRadius: `${borderRadius}px`,
-                        borderWidth: `${borderWidth}px`,
-                        ...ifNotTransparent('backgroundColor', defaultColor)
-                    }
-                }}
-            >
-                {title && (
-                    <DialogTitle>
-                        {markdownTextToReactElement(title, 'span')}
-                    </DialogTitle>
-                )}
-                {contentRenderer && (
-                    <DialogContent
-                        dividers={showDivider}
-                        ref={el => {
-                            el && $.runner(contentRenderer)
-                                .set('Width', contentWidth)
-                                .set('Height', contentHeight)
-                                .setParentElement(el);
-                        }}
-                        sx={{
-                            width: fullWidth && showDivider ? 1 : contentWidth,
-                            height: contentHeight
-                        }}
-                    ></DialogContent>
-                )}
-            </MUIDialog>
-        );
+                    // Event
+                    onClose={() => {
+                        $.trigger('On Close Request');
+                    }}
+
+                    // UI
+                    sx={{
+                        zIndex: open ? Math.abs(zIndex) : -Math.abs(zIndex),
+                        ...cssToSxProps(cssProperty),
+                        ...jsonToSxProps(muiSxJson)
+                    }}
+                    PaperProps={{
+                        variant: borderWidth > 0 ? 'outlined' : 'elevation',
+                        elevation: borderWidth > 0 ? 0 : 24,
+                        sx: {
+                            borderColor: borderColor.toHexString(),
+                            borderRadius: `${borderRadius}px`,
+                            borderWidth: `${borderWidth}px`,
+                            ...ifNotTransparent('backgroundColor', defaultColor)
+                        }
+                    }}
+                >
+                    {title && (
+                        <DialogTitle>
+                            {markdownTextToReactElement(title, 'span')}
+                        </DialogTitle>
+                    )}
+                    {contentRenderer && (
+                        <DialogContent
+                            dividers={showDivider}
+                            ref={el => {
+                                el && $.runner(contentRenderer)
+                                    .set('Width', contentWidth)
+                                    .set('Height', contentHeight)
+                                    .setParentElement(el);
+                            }}
+                            sx={{
+                                width: fullWidth && showDivider ? 1 : contentWidth,
+                                height: contentHeight
+                            }}
+                        ></DialogContent>
+                    )}
+                </MUIDialog>
+            );
+        }
     }
 }
 
