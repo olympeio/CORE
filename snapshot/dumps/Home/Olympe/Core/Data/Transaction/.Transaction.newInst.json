@@ -1,14 +1,1 @@
-{
-  "rootTag": "0179b26880c1af51a32b",
-  "operations": [
-    {
-      "o": 1,
-      "t": "0179b26880c1af51a32b",
-      "p": {
-        "ff023000000000000011": "Transaction"
-      },
-      "i": -1
-    }
-  ],
-  "optionalOperations": []
-}
+{"operations":[{"i":-1,"o":1,"p":{"01621fb84e320000f001":"private","01703376c4a81c0e9d94":"stable","ff023000000000000011":"Transaction"},"t":"0179b26880c1af51a32b"}],"optionalOperations":[],"rootTag":"0179b26880c1af51a32b"}
