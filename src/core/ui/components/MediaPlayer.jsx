@@ -21,9 +21,8 @@ import ReactDOM from 'react-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import {cssToSxProps} from "helpers/mui";
-import Icon from "@mui/material/Icon";
 
-export default class VideoPlayer extends VisualBrick {
+export default class MediaPlayer extends VisualBrick {
 
     /**
      * This method runs when the brick is ready in the HTML DOM.
@@ -39,10 +38,10 @@ export default class VideoPlayer extends VisualBrick {
 
         // Observe all properties
         context.observeMany(
-            'URL', 'Playing', 'Loop', 'Show Controls', 'Volume [%]', 'Light', 'Muted', 'Playback Rate', 'Progress Interval', 'Plays inline', 'Picture in Picture', 'Stop on Unmount', 'Play Icon', 'Preview Tab Index',
+            'Media URL', 'Playing', 'Loop', 'Show Controls', 'Volume [%]', 'Muted', 'Playback Rate', 'Progress Interval', 'Plays Inline',
             'CSS Property', 'Hidden', 'Width', 'Height', 'Border Color', 'Border Radius', 'Border Width',
         ).subscribe(([
-            url, playing, loop, showControls, volume, light, muted, playbackRate, progressInterval, playsInline, pip, stopOnUnmount, playIcon, previewTabIndex,
+            url, playing, loop, showControls, volume, muted, playbackRate, progressInterval, playsInline,
             cssProperty, hidden, width, height, borderColor, borderRadius, borderWidth
         ]) => {
             // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
@@ -65,7 +64,6 @@ export default class VideoPlayer extends VisualBrick {
                         playing={playing}
                         loop={loop}
                         controls={showControls}
-                        light={light}
                         volume={clampedVolume / 100}
                         muted={muted}
                         playbackRate={playbackRate}
@@ -73,10 +71,6 @@ export default class VideoPlayer extends VisualBrick {
                         height={height - bw * 2}
                         progressInterval={progressInterval}
                         playsinline={playsInline}
-                        pip={pip}
-                        stopOnUnmount={stopOnUnmount}
-                        playIcon={playIcon && (<Icon>{playIcon}</Icon>)}
-                        previewTabIndex={previewTabIndex}
                         style={{
                             borderStyle: bw > 0 ? 'solid' : 'none',
                             borderWidth: bw + 'px',
@@ -95,20 +89,15 @@ export default class VideoPlayer extends VisualBrick {
                         onSeek={() => context.getEvent('On Seek').trigger()}
                         onEnded={() => context.getEvent('On Ended').trigger()}
                         onError={() => context.getEvent('On Error').trigger()}
-                        onClickPreview={() => context.getEvent('On Click Preview').trigger()}
-                        onEnablePIP={() => context.getEvent('On Enable PiP').trigger()}
-                        onDisablePIP={() => context.getEvent('On Disable PiP').trigger()}
 
                         // Callbacks
                         onProgress={(state) => {
-                            context.getProperty('Played [fraction]').set(state.played);
-                            context.getProperty('Played [seconds]').set(state.playedSeconds);
-                            context.getProperty('Loaded [fraction]').set(state.loaded);
-                            context.getProperty('Loaded [seconds]').set(state.loadedSeconds);
+                            context.getProperty('Played').set(state.played);
+                            context.getProperty('Loaded').set(state.loaded);
                             context.getEvent('On Progress').trigger();
                         }}
                         onDuration={(duration) => {
-                            context.getProperty('Duration [seconds]').set(duration);
+                            context.getProperty('Duration [s]').set(duration);
                             context.getEvent('On Duration').trigger();
                         }}
 
@@ -122,8 +111,8 @@ export default class VideoPlayer extends VisualBrick {
                     !hidden &&
                     <Box sx={{ backgroundColor: 'lightgrey', width: 1, height: 1 }}>
                         <Typography sx={{ color: 'black', padding: 1 }}>
-                            <b>Video Player</b><br/>
-                            Please enter a playable <code>URL</code> for the component to render.<br/>
+                            <b>Media Player</b><br/>
+                            Please enter a playable <code>Media URL</code> for the component to render.<br/>
                             Current value: {url ? url : 'no value'}
                         </Typography>
                     </Box>
@@ -133,4 +122,4 @@ export default class VideoPlayer extends VisualBrick {
     }
 }
 
-registerBrick('017ce68d72f9cad20f87', VideoPlayer);
+registerBrick('017db91b13bf1c3027c1', MediaPlayer);
