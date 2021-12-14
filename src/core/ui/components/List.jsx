@@ -45,7 +45,7 @@ export default class List extends VisualBrick {
         ];
 
         // Observe the list size to retrigger an update if necessary
-        const observeList = $.observe('List', false);
+        const observeList = $.observe('Data', false);
         const observeListSize = observeList.pipe(switchMap(list => {
             if(!list) {
                 return of(0);
@@ -85,7 +85,7 @@ export default class List extends VisualBrick {
         );
 
         // Final observable
-        return $.observe('Renderer', false).pipe(
+        return $.observe('Item Renderer', false).pipe(
             combineLatestWith(observeListAsArray),
             combineLatestWith(properties.map(p => $.observe(p)))
         );
@@ -153,7 +153,7 @@ export default class List extends VisualBrick {
                     ...jsonToSxProps(muiSxJson)
                 }}
             >
-                {$.get('List') && renderer
+                {$.get('Data') && renderer
                     // Only render if there is a list and a renderer
                     ? elements.map((item, rank) => {
                         return (
@@ -173,7 +173,7 @@ export default class List extends VisualBrick {
                                         const renderer$ = $.runner(renderer)
                                             .set('Current Item', item)
                                             .set('Current Rank', rank)
-                                            .set('Current List', $.get('List'))
+                                            .set('Current List', $.get('Data'))
                                             .setParentElement(el);
 
                                         // Item size (we need to set the parent also to have a correct layout)
@@ -206,8 +206,8 @@ export default class List extends VisualBrick {
                             <Typography sx={{ color: 'black', padding: 1 }}>
                                 <b>List</b><br/>
                                 The following properties have to be defined for the component to render:<br/>
-                                - <code>List</code><br/>
-                                - <code>Renderer</code>
+                                - <code>Data</code><br/>
+                                - <code>Item Renderer</code>
                             </Typography>
                         </Box>
                     )}

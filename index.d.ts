@@ -1,11 +1,11 @@
-import log from 'loglevel';
+import {Logger} from 'loglevel';
 
 /**
  * Return the specified logger
  *
  * @param name the logger name.
  */
-export function getLogger(name: string): log.Logger;
+export function getLogger(name: string): Logger;
 
 
 /**

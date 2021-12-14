@@ -55,8 +55,8 @@ export default class Dialog extends VisualBrick {
      */
     setupExecution($) {
         const properties = [
-            'Open', 'Title', 'Content Width', 'Content Height', 'Max Width', 'Full Width', 'Full Screen', 'Scroll',
-            'Show Divider', 'Hide Backdrop', 'Disable ESC', 'Keep Mounted', 'Transition Type', 'Transition Direction',
+            'Open', 'Title', 'Content Width', 'Content Height', 'Full Screen', 'Scroll',
+            'Show Divider', 'Hide Backdrop', 'Enable Backdrop Click', 'Keep Mounted', 'Transition Type', 'Transition Direction',
             'Transition Easing', 'Transition Timeout', 'Transition Exit Easing', 'Transition Exit Timeout', 'MUI sx [json]',
             'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Z-Index'
         ];
@@ -84,8 +84,8 @@ export default class Dialog extends VisualBrick {
      */
     render($, properties) {
         const [
-            contentRenderer, open, title, contentWidth, contentHeight, maxWidth, fullWidth, fullScreen, scroll,
-            showDivider, hideBackdrop, disableEsc, keepMounted, transitionType, transitionDirection,
+            contentRenderer, open, title, contentWidth, contentHeight, fullScreen, scroll,
+            showDivider, hideBackdrop, enableBackdropClick, keepMounted, transitionType, transitionDirection,
             transitionEasing, transitionTimeout, transitionExitEasing, transitionExitTimeout, muiSxJson,
             borderColor, borderRadius, borderWidth, cssProperty, defaultColor, zIndex
         ] = properties;
@@ -113,18 +113,18 @@ export default class Dialog extends VisualBrick {
                 <MUIDialog
                     // Properties
                     open={open}
-                    maxWidth={maxWidth !== 'disabled' ? maxWidth : false}
-                    fullWidth={fullWidth}
+                    maxWidth={false}
                     fullScreen={fullScreen}
                     scroll={scroll}
                     hideBackdrop={hideBackdrop}
-                    disableEscapeKeyDown={disableEsc}
                     keepMounted={keepMounted}
                     TransitionComponent={transitionElement}
 
                     // Event
                     onClose={() => {
-                        $.trigger('On Close Requested');
+                        if(enableBackdropClick) {
+                            $.trigger('Close Dialog');
+                        }
                     }}
 
                     // UI
@@ -159,7 +159,7 @@ export default class Dialog extends VisualBrick {
                                     .setParentElement(el);
                             }}
                             sx={{
-                                width: fullWidth && showDivider ? 1 : contentWidth,
+                                width: contentWidth,
                                 height: contentHeight
                             }}
                         ></DialogContent>
