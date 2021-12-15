@@ -103,7 +103,7 @@ export default class Camera extends VisualBrick {
 // React component
 function WebcamWithRef(props) {
     const webcamRef = React.useRef();
-    const [constraints, setConstraints] = useState();
+    const [constraints, setConstraints] = useState(null);
 
     useEffect(() => {
         navigator.mediaDevices.enumerateDevices().then((devices) => {
@@ -133,7 +133,8 @@ function WebcamWithRef(props) {
         });
     });
 
-    return (<Webcam
+    // Only add the webcam component once constraints has been defined.
+    return (constraints && <Webcam
         // Properties + UI
         ref={webcamRef}
         videoConstraints={constraints}
