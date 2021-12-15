@@ -21,6 +21,7 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import {cssToSxProps} from 'helpers/mui';
 import Webcam from 'react-webcam';
+import {Box} from "@mui/material";
 
 export default class Camera extends VisualBrick {
 
@@ -54,19 +55,33 @@ export default class Camera extends VisualBrick {
             const cssProps = cssToSxProps(cssProperty);
             const bw = parseInt(cssProps.borderWidth) || borderWidth;
 
+            // If mediaDevices features are not available in the browser, display a box with an error message.
+            if (navigator['mediaDevices'] === undefined || typeof navigator.mediaDevices.enumerateDevices !== 'function') {
+                getLogger('Camera').error('Current platform doesn\'t support media devices.');
+                ReactDOM.render((
+                    <Box
+                        width={width - bw * 2}
+                        height={height - bw * 2}
+                        style={{
+                            borderStyle: bw > 0 ? 'solid' : 'none',
+                            borderWidth: bw + 'px',
+                            borderColor: borderColor.toHexString(),
+                            borderRadius: borderRadius + 'px',
+                            ...cssProps
+                        }}
+                    >Current platform does not support media devices.</Box>
+                ), elementDom);
+                return;
+            }
+
             navigator.mediaDevices.enumerateDevices()
                 .then((devices) => {
-                    return devices.filter(device => device.kind === 'videoinput').length > 1;
+                    const hasMultiCamera = devices.filter(device => device.kind === 'videoinput').length > 1;
+
+                    // `facingMode: {exact: 'environment'}` is used for back camera on smartphones and the default camera on computers
+                    // `facingMode: 'front'` is only used when front camera is selected and that there are multiple cameras available (e.g.: on smartphones)
+                    return { facingMode: (src === 'front' && hasMultiCamera) ? 'user' : {exact: 'environment'} };
                 })
-                .then((hasTwoOrMoreCameras) => {
-                    if (!hasTwoOrMoreCameras) {
-                        context.getProperty('Source').set('front');
-                    }
-                    return {
-                        facingMode: src === 'front' && hasTwoOrMoreCameras
-                            ? 'user'
-                            : {exact: 'environment'}
-                }})
                 .finally((videoConstraints) => {
                     // Rendering
                     ReactDOM.render((
@@ -100,7 +115,7 @@ function WebcamWithRef(props) {
     const webcamRef = React.useRef();
 
     // Take screenshot
-    props.context.getEvent('Take Screenshot').observe().subscribe(() => {
+    props.context.observe('Take Screenshot').subscribe(() => {
         const t = new Transaction();
         const screenshotAsBase64 = webcamRef.current.getScreenshot();
         const screenshotAsArrayBuffer = dataUrlToBinary(screenshotAsBase64);
@@ -108,13 +123,12 @@ function WebcamWithRef(props) {
         const screenshotName = `screenshot_${Date.now()}.${screenshotExtension}`;
         const tag = File.createFile(File, t, screenshotName, screenshotAsArrayBuffer, props.screenshotFormat);
         t.persistInstance(tag, false);
-        t.persist(false);
         t.execute((success, message) => {
             if(!success) {
                 getLogger('Camera').warn('The application encountered a problem while taking a screenshot. The transaction failed.', message);
                 return;
             }
-            props.context.getProperty('Screenshot').set(Sync.getInstance(tag));
+            props.context.set('Screenshot', Sync.getInstance(tag));
         });
     });
 
