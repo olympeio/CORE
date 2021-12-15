@@ -74,38 +74,36 @@ export default class Camera extends VisualBrick {
                 return;
             }
 
-            navigator.mediaDevices.enumerateDevices()
-                .then((devices) => {
-                    const hasMultiCamera = devices.filter(device => device.kind === 'videoinput').length > 1;
+            navigator.mediaDevices.enumerateDevices().then((devices) => {
+                const hasMultiCamera = devices.filter(device => device.kind === 'videoinput').length > 1;
 
-                    // `facingMode: {exact: 'environment'}` is used for back camera on smartphones and the default camera on computers
-                    // `facingMode: 'front'` is only used when front camera is selected and that there are multiple cameras available (e.g.: on smartphones)
-                    return { facingMode: (src === 'front' && hasMultiCamera) ? 'user' : {exact: 'environment'} };
-                })
-                .finally((videoConstraints) => {
-                    // Rendering
-                    ReactDOM.render((
-                        !hidden && !disableVideo &&
-                        <WebcamWithRef
-                            audio={!disableAudio}
-                            imageSmoothing={imageSmoothing}
-                            mirrored={mirrored}
-                            screenshotFormat={screenshotFormat}
-                            screenshotQuality={clampedQuality / 100}
-                            width={width - bw * 2}
-                            height={height - bw * 2}
-                            videoConstraints={videoConstraints}
-                            context={context}
-                            style={{
-                                borderStyle: bw > 0 ? 'solid' : 'none',
-                                borderWidth: bw + 'px',
-                                borderColor: borderColor.toHexString(),
-                                borderRadius: borderRadius + 'px',
-                                ...cssProps
-                            }}
-                        />
-                    ), elementDom);
-                })
+                // `facingMode: 'user'` is used for front camera on smartphones and the default camera on computers
+                // `facingMode: {exact: 'environment'}` is only used when back camera is selected and when multiple cameras are available (e.g.: on smartphones)
+                const constraint = { facingMode: (src === 'front' && !hasMultiCamera) ? 'user' : {exact: 'environment'} };
+
+                // Rendering
+                ReactDOM.render((
+                    !hidden && !disableVideo &&
+                    <WebcamWithRef
+                        audio={!disableAudio}
+                        imageSmoothing={imageSmoothing}
+                        mirrored={mirrored}
+                        screenshotFormat={screenshotFormat}
+                        screenshotQuality={clampedQuality / 100}
+                        width={width - bw * 2}
+                        height={height - bw * 2}
+                        videoConstraints={constraint}
+                        context={context}
+                        style={{
+                            borderStyle: bw > 0 ? 'solid' : 'none',
+                            borderWidth: bw + 'px',
+                            borderColor: borderColor.toHexString(),
+                            borderRadius: borderRadius + 'px',
+                            ...cssProps
+                        }}
+                    />
+                ), elementDom);
+            });
         });
     }
 }
