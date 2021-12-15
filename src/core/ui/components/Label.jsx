@@ -20,9 +20,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Typography from '@mui/material/Typography';
+import Box from "@mui/material/Box";
 
 import { markdownTextToReactElement } from 'helpers/remarkable';
-import { jsonToSxProps, cssToSxProps, ifNotNull } from 'helpers/mui';
+import { jsonToSxProps, cssToSxProps } from 'helpers/mui';
 
 /**
  * Provide a Label visual component using MUI Typography
@@ -32,13 +33,10 @@ export default class Label extends VisualBrick {
     /**
      * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!UIContext} context
+     * @param {!BrickContext} context
      * @param {!Element} elementDom
      */
     draw(context, elementDom) {
-        // Allow overflow
-        elementDom.style.overflow = 'visible';
-
         // Observe all properties
         context.observeMany(
             'Text', 'Text Variant', 'No Wrap', 'With Format', 'Text Color', 'Font Family', 'Horizontal Align', 'Vertical Align', 'MUI sx [json]',
@@ -47,40 +45,47 @@ export default class Label extends VisualBrick {
             text, textVariant, noWrap, withFormat, textColor, fontFamily, horizontalAlign, verticalAlign, muiSxJson,
             borderColor, borderRadius, borderWidth, cssProperty, defaultColor, hidden
         ]) => {
-            // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
-            elementDom.style.display = 'flex';
-
             // Rendering
             ReactDOM.render((
                 !hidden &&
-                <Typography
-                    // Properties
-                    component={'p'}
-                    variant={textVariant}
-                    noWrap={noWrap}
-                    align={horizontalAlign}
-
+                <Box
                     // UI
                     sx={{
                         width: 1,
-                        color: textColor.toString(),
-                        fontFamily: fontFamily,
-                        alignSelf: verticalAlign,
+                        height: 1,
+                        display: 'flex',
+                        overflow: 'visible',
                         borderColor: borderColor.toHexString(),
                         borderRadius: borderRadius,
                         borderWidth: borderWidth,
                         borderStyle: 'solid',
                         boxSizing: 'border-box',
-                        backgroundColor: defaultColor.toHexString(),
-                        ...cssToSxProps(cssProperty),
-                        ...jsonToSxProps(muiSxJson)
+                        backgroundColor: defaultColor.toHexString()
                     }}
 
                     // Events
-                    onClick={() => context.getEvent('On Click').trigger()}
+                    onClick={() => context.trigger('On Click')}
                 >
-                    {withFormat ? markdownTextToReactElement(text, 'span') : text}
-                </Typography>
+                    <Typography
+                        // Properties
+                        component={'p'}
+                        variant={textVariant}
+                        noWrap={noWrap}
+                        align={horizontalAlign}
+
+                        // UI
+                        sx={{
+                            width: 1,
+                            color: textColor.toString(),
+                            fontFamily: fontFamily,
+                            alignSelf: verticalAlign,
+                            ...cssToSxProps(cssProperty),
+                            ...jsonToSxProps(muiSxJson)
+                        }}
+                    >
+                        {withFormat ? markdownTextToReactElement(text, 'span') : text}
+                    </Typography>
+                </Box>
             ), elementDom);
         });
     }
