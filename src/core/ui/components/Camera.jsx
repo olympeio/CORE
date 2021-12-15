@@ -18,99 +18,102 @@ import { VisualBrick, registerBrick, File, Transaction, Sync } from 'olympe';
 import {dataUrlToBinary} from 'helpers/binaryConverters';
 import { getLogger } from 'logging';
 import ReactDOM from 'react-dom';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {cssToSxProps} from 'helpers/mui';
 import Webcam from 'react-webcam';
 import {Box} from "@mui/material";
+import {combineLatest} from "rxjs";
 
 export default class Camera extends VisualBrick {
 
     /**
-     * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!UIContext} context
-     * @param {!Element} elementDom
      */
-    draw(context, elementDom) {
+    updateParent(parent, element) {
         // Allow overflow and center the audio player
-        elementDom.style.overflow = 'visible';
-        elementDom.style.alignItems = 'center';
-        elementDom.style.justifyContent = 'center';
+        parent.style.overflow = 'visible';
+        parent.style.alignItems = 'center';
+        parent.style.justifyContent = 'center';
+        parent.style.display = 'flex';
 
-        // Observe all properties
-        context.observeMany(
-            'Source', 'Disable Video', 'Disable Audio', 'Image Smoothing', 'Mirrored', 'Screenshot Format',
-            'Screenshot Quality [%]', 'Hidden', 'Border Color', 'Border Radius', 'Border Width', 'CSS Property',
-            'Width', 'Height'
-        ).subscribe(([
-            src, disableVideo, disableAudio, imageSmoothing, mirrored, screenshotFormat, screenshotQuality,
-            hidden, borderColor, borderRadius, borderWidth, cssProperty, width, height
-        ]) => {
-            // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
-            elementDom.style.display = 'flex';
+        ReactDOM.render(element, parent);
+        return () => ReactDOM.unmountComponentAtNode(parent);
+    }
 
-            // 0 <= screenshot quality <= 100
-            const clampedQuality = Math.min(Math.max(0, screenshotQuality), 100);
+    /**
+     * @override
+     */
+    setupExecution($) {
+        const props = ['Source', 'Disable Video', 'Disable Audio', 'Image Smoothing', 'Mirrored', 'Screenshot Format',
+        'Screenshot Quality [%]', 'Hidden', 'Border Color', 'Border Radius', 'Border Width', 'CSS Property',
+        'Width', 'Height'];
+        return combineLatest(props.map((prop) => $.observe(prop)));
+    }
 
-            const cssProps = cssToSxProps(cssProperty);
-            const bw = parseInt(cssProps.borderWidth) || borderWidth;
+    /**
+     * @override
+     */
+    render($, props) {
+        const [ src, disableVideo, disableAudio, imageSmoothing, mirrored, screenshotFormat, screenshotQuality,
+            hidden, borderColor, borderRadius, borderWidth, cssProperty, width, height ] = props;
 
-            // If mediaDevices features are not available in the browser, display a box with an error message.
-            if (navigator['mediaDevices'] === undefined || typeof navigator.mediaDevices.enumerateDevices !== 'function') {
-                getLogger('Camera').error('Current platform doesn\'t support media devices.');
-                ReactDOM.render((
-                    <Box
-                        width={width - bw * 2}
-                        height={height - bw * 2}
-                        style={{
-                            borderStyle: bw > 0 ? 'solid' : 'none',
-                            borderWidth: bw + 'px',
-                            borderColor: borderColor.toHexString(),
-                            borderRadius: borderRadius + 'px',
-                            ...cssProps
-                        }}
-                    >Current platform does not support media devices.</Box>
-                ), elementDom);
-                return;
-            }
+        // 0 <= screenshot quality <= 100
+        const clampedQuality = Math.min(Math.max(0, screenshotQuality), 100);
 
-            navigator.mediaDevices.enumerateDevices().then((devices) => {
-                const hasMultiCamera = devices.filter(device => device.kind === 'videoinput').length > 1;
+        const cssProps = cssToSxProps(cssProperty);
+        const bw = parseInt(cssProps.borderWidth) || borderWidth;
 
-                // `facingMode: 'user'` is used for front camera on smartphones and the default camera on computers
-                // `facingMode: {exact: 'environment'}` is only used when back camera is selected and when multiple cameras are available (e.g.: on smartphones)
-                const constraint = { facingMode: (src === 'front' || !hasMultiCamera) ? 'user' : {exact: 'environment'} };
+        // If mediaDevices features are not available in the browser, display a box with an error message.
+        if (navigator['mediaDevices'] === undefined || typeof navigator.mediaDevices.enumerateDevices !== 'function') {
+            getLogger('Camera').error('Current platform doesn\'t support media devices.');
+            return (<Box
+                width={width - bw * 2}
+                height={height - bw * 2}
+                style={{
+                    borderStyle: bw > 0 ? 'solid' : 'none',
+                    borderWidth: bw + 'px',
+                    borderColor: borderColor.toHexString(),
+                    borderRadius: borderRadius + 'px',
+                    ...cssProps
+                }}
+            >Current platform does not support media devices.</Box>);
+        }
 
-                // Rendering
-                ReactDOM.render((
-                    !hidden && !disableVideo &&
-                    <WebcamWithRef
-                        audio={!disableAudio}
-                        imageSmoothing={imageSmoothing}
-                        mirrored={mirrored}
-                        screenshotFormat={screenshotFormat}
-                        screenshotQuality={clampedQuality / 100}
-                        width={width - bw * 2}
-                        height={height - bw * 2}
-                        videoConstraints={constraint}
-                        context={context}
-                        style={{
-                            borderStyle: bw > 0 ? 'solid' : 'none',
-                            borderWidth: bw + 'px',
-                            borderColor: borderColor.toHexString(),
-                            borderRadius: borderRadius + 'px',
-                            ...cssProps
-                        }}
-                    />
-                ), elementDom);
-            });
-        });
+        return (!hidden && !disableVideo && <WebcamWithRef
+            audio={!disableAudio}
+            imageSmoothing={imageSmoothing}
+            mirrored={mirrored}
+            screenshotFormat={screenshotFormat}
+            screenshotQuality={clampedQuality / 100}
+            width={width - bw * 2}
+            height={height - bw * 2}
+            source={src}
+            context={$}
+            style={{
+                borderStyle: bw > 0 ? 'solid' : 'none',
+                borderWidth: bw + 'px',
+                borderColor: borderColor.toHexString(),
+                borderRadius: borderRadius + 'px',
+                ...cssProps
+            }}
+        />);
     }
 }
 
+// React component
 function WebcamWithRef(props) {
-
     const webcamRef = React.useRef();
+    const [constraints, setConstraints] = useState();
+
+    useEffect(() => {
+        navigator.mediaDevices.enumerateDevices().then((devices) => {
+            const hasMultiCamera = devices.filter(device => device.kind === 'videoinput').length > 1;
+
+            // `facingMode: 'user'` is used for front camera on smartphones and the default camera on computers
+            // `facingMode: {exact: 'environment'}` is only used when back camera is selected and when multiple cameras are available (e.g.: on smartphones)
+            setConstraints({ facingMode: (props.source === 'front' || !hasMultiCamera) ? 'user' : {exact: 'environment'} });
+        });
+    }, []);
 
     // Take screenshot
     props.context.observe('Take Screenshot').subscribe(() => {
@@ -130,13 +133,12 @@ function WebcamWithRef(props) {
         });
     });
 
-    return (
-        <Webcam
-            // Properties + UI
-            ref={webcamRef}
-            {...props}
-        />
-    )
+    return (<Webcam
+        // Properties + UI
+        ref={webcamRef}
+        videoConstraints={constraints}
+        {...props}
+    />)
 }
 
 registerBrick('017cef1da1b9d9d128d6', Camera);
