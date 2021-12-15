@@ -79,7 +79,7 @@ export default class Camera extends VisualBrick {
 
                 // `facingMode: 'user'` is used for front camera on smartphones and the default camera on computers
                 // `facingMode: {exact: 'environment'}` is only used when back camera is selected and when multiple cameras are available (e.g.: on smartphones)
-                const constraint = { facingMode: (src === 'front' && !hasMultiCamera) ? 'user' : {exact: 'environment'} };
+                const constraint = { facingMode: (src === 'front' || !hasMultiCamera) ? 'user' : {exact: 'environment'} };
 
                 // Rendering
                 ReactDOM.render((
