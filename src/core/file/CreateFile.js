@@ -32,7 +32,7 @@ export default class CreateFile extends ActionBrick {
      * @param {function(ErrorFlow)} setErrorFlow
      * @param {function(File)} setFile
      */
-    onUpdate(context, [fileName, mimeType, content], [forwardEvent, setErrorFlow, setFile]) {
+    update(context, [fileName, mimeType, content], [forwardEvent, setErrorFlow, setFile]) {
         const transaction = new Transaction();
 
         if (typeof content !== 'string' && !(content instanceof ArrayBuffer)) {

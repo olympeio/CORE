@@ -33,14 +33,14 @@ export default class CreateList extends ActionBrick {
     /**
      * Executed every time the brick receives a new trigger event.
      * Note that the method will be executed _even if_ an input () is undefined.
-     * 
+     *
      * @protected
      * @param {Context} context
      * @param {!Array} _
      * @param {function()} forwardEvent
      * @param {function(Array)} setList
      */
-    onUpdate(context, _, [forwardEvent, setList]) {
+    update(context, _, [forwardEvent, setList]) {
         setList([]);
         forwardEvent();
     }

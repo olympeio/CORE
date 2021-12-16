@@ -43,7 +43,7 @@ export default class ControlflowSynchronization extends FunctionBrick {
      * @param {number} incomingEvent_2
      * @param {function(number)} forwardEvent
      */
-    onUpdate(context, [incomingEvent_1, incomingEvent_2], [forwardEvent]) {
+    update(context, [incomingEvent_1, incomingEvent_2], [forwardEvent]) {
         forwardEvent(Date.now());
     }
 }

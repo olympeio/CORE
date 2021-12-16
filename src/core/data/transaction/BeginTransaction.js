@@ -32,7 +32,7 @@ export default class BeginTransaction extends ActionBrick {
      * @param {!Array} _
      * @param {function()} dispatchControlFlow
      */
-    onUpdate(context, _, [dispatchControlFlow]) {
+    update(context, _, [dispatchControlFlow]) {
         context.getParent().pushTransaction(new Transaction());
         dispatchControlFlow();
     }

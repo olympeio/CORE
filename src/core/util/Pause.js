@@ -37,7 +37,7 @@ export default class Pause extends ActionBrick {
     /**
      * @override
      */
-    onDestroy(context) {
+    destroy(context) {
         const timeout = context.get(Pause.timeout);
         timeout && clearTimeout(timeout);
     }
@@ -51,7 +51,7 @@ export default class Pause extends ActionBrick {
      * @param {number} duration
      * @param {function()} forwardEvent
      */
-    onUpdate(context, [duration], [forwardEvent]) {
+    update(context, [duration], [forwardEvent]) {
         const SECOND = 1000;
 
         // Clear potential previous timeout

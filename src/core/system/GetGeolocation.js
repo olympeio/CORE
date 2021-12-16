@@ -42,7 +42,7 @@ export default class GetGeolocation extends FunctionBrick {
      * @param {function(number)} setLatitude
      * @param {function(number)} setAltitude
      */
-    onUpdate(context, _, [setLongitude, setLatitude, setAltitude]) {
+    update(context, _, [setLongitude, setLatitude, setAltitude]) {
         const logger = getLogger('Geolocation');
 
         // Check if the geolocation is accessible

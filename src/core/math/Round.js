@@ -41,7 +41,7 @@ export default class Round extends FunctionBrick {
      * @param {number} a
      * @param {function(number)} setResult
      */
-    onUpdate(context, [a], [setResult]) {
+    update(context, [a], [setResult]) {
         setResult(Math.round(a));
     }
 }

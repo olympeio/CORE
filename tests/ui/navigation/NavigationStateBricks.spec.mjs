@@ -1,4 +1,4 @@
-import {Context} from '@olympeio/runtime-web';
+import {Context} from 'olympe';
 import {NavigationManager} from 'helpers/navigation';
 import GetNavigationState from '../../../src/core/ui/navigation/GetNavigationState.js';
 import OnNavigationUpdateBrowser from '../../../src/core/ui/navigation/OnNavigationUpdateBrowser.js';
@@ -21,7 +21,7 @@ describe('navigation state bricks', () => {
             await pushStateInHistory('#myCurrentHash');
 
             // when
-            brick.onUpdate(context, [], [resultSpy]);
+            brick.update(context, [], [resultSpy]);
 
             // then
             expect(resultSpy).toHaveBeenCalledOnceWith('myCurrentHash');
@@ -33,7 +33,7 @@ describe('navigation state bricks', () => {
             const resultSpy = jasmine.createSpy();
 
             // when
-            brick.onUpdate(context, [], [resultSpy]);
+            brick.update(context, [], [resultSpy]);
 
             // then
             expect(resultSpy).toHaveBeenCalledOnceWith('');
@@ -43,7 +43,7 @@ describe('navigation state bricks', () => {
             const brick = new GetNavigationState();
             const context = new Context();
             const resultSpy = jasmine.createSpy();
-            brick.onUpdate(context, [], [resultSpy]);
+            brick.update(context, [], [resultSpy]);
             resultSpy.calls.reset();
 
             // when
@@ -58,7 +58,7 @@ describe('navigation state bricks', () => {
             const context = new Context();
             const resultSpy = jasmine.createSpy();
             await pushStateInHistory('#myFirstHash');
-            brick.onUpdate(context, [], [resultSpy]);
+            brick.update(context, [], [resultSpy]);
             resultSpy.calls.reset();
 
             // when
@@ -91,7 +91,7 @@ describe('navigation state bricks', () => {
             await pushStateInHistory('#myCurrentHash');
 
             // when
-            brick.onUpdate(context, [], [controlFlowSpy, hashSpy]);
+            brick.update(context, [], [controlFlowSpy, hashSpy]);
 
             // then
             expect(controlFlowSpy).toHaveBeenCalledTimes(1);
@@ -103,7 +103,7 @@ describe('navigation state bricks', () => {
             const context = new Context();
             const controlFlowSpy = jasmine.createSpy();
             const hashSpy = jasmine.createSpy();
-            brick.onUpdate(context, [], [controlFlowSpy, hashSpy]);
+            brick.update(context, [], [controlFlowSpy, hashSpy]);
             controlFlowSpy.calls.reset();
             hashSpy.calls.reset();
 
@@ -126,7 +126,7 @@ describe('navigation state bricks', () => {
             await pushStateInHistory('#myCurrentHash')
 
             // when
-            brick.onUpdate(context, ['myNewHash'], [controlFlowSpy]);
+            brick.update(context, ['myNewHash'], [controlFlowSpy]);
 
             // then
             expect(window.location.hash).toEqual('#myNewHash');
@@ -148,7 +148,7 @@ describe('navigation state bricks', () => {
             manager.onOnHashChange(onHashChangeSpy, id);
 
             // when
-            brick.onUpdate(context, ['myNewHash'], [() => {}]);
+            brick.update(context, ['myNewHash'], [() => {}]);
 
             // then
             expect(onHashChangeSpy).toHaveBeenCalledTimes(0);
@@ -167,7 +167,7 @@ describe('navigation state bricks', () => {
             await pushStateInHistory('#myCurrentHash');
 
             // when
-            brick.onUpdate(context, ['myNewHash'], [controlFlowSpy]);
+            brick.update(context, ['myNewHash'], [controlFlowSpy]);
 
             // then
             expect(window.location.hash).toEqual('#myNewHash')

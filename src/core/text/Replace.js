@@ -29,7 +29,7 @@ export default class Replace extends FunctionBrick {
      * @param {string} replacement
      * @param {function(string)} setNewString
      */
-    onUpdate(context, [s, pattern, replacement], [setNewString]) {
+    update(context, [s, pattern, replacement], [setNewString]) {
         setNewString(String(s).replace(pattern, replacement));
     }
 }

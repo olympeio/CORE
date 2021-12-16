@@ -42,7 +42,7 @@ export default class ToString extends FunctionBrick {
      * @param {Object} n
      * @param {function(string)} setString
      */
-    onUpdate(context, [n], [setString]) {
+    update(context, [n], [setString]) {
         setString(String(n));
     }
 }

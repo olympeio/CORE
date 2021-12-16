@@ -44,9 +44,9 @@ export default class FilterListRange extends FunctionBrick {
      * @param {!ListDef|!Array} list the list to be filtered
      * @param {!number} startIndex
      * @param {!number} endIndex
-     * @param {!function(ListDef|Array)} setFiltered
+     * @param {!function(!ListDef|!Array)} setFiltered
      */
-    onUpdate(context, [list, startIndex, endIndex], [setFiltered]) {
+    update(context, [list, startIndex, endIndex], [setFiltered]) {
         const logger = getLogger('Filter List Range');
         const count = endIndex - startIndex + 1;
         if (count <= 0) {

@@ -25,7 +25,7 @@ export default class GetBinaryFileContent extends ActionBrick {
      * @param {function()} forwardEvent
      * @param {function(ArrayBuffer)} setContent
      */
-    onUpdate(context, [file], [forwardEvent, setContent]) {
+    update(context, [file], [forwardEvent, setContent]) {
         const logger = getLogger('Get Binary File Content');
 
         if (file === undefined || file === null || file.getContentAsBinary === undefined) {

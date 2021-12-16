@@ -41,7 +41,7 @@ export default class CreateLocalObject extends FunctionBrick {
      * @param {InstanceTag} model
      * @param {function(Sync)} setObject
      */
-    onUpdate(context, [model], [setObject]) {
+    update(context, [model], [setObject]) {
         const logger = getLogger('Create Local Object');
 
         // start isolated local transaction

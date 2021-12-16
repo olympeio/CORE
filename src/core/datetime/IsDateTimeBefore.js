@@ -38,7 +38,7 @@ export default class IsDateTimeBefore extends FunctionBrick {
     /**
      * Executed every time an input (dateToCompare, comparisonDate, strictly) gets updated.
      * Note that this method will _not_ be executed if an input value is undefined.
-     * 
+     *
      * @protected
      * @param {Context} context
      * @param {Date} dateToCompare
@@ -46,7 +46,7 @@ export default class IsDateTimeBefore extends FunctionBrick {
      * @param {boolean} strictly
      * @param {function(boolean)} setIsDateBefore
      */
-    onUpdate(context, [dateToCompare, comparisonDate, strictly], [setIsDateBefore]) {
+    update(context, [dateToCompare, comparisonDate, strictly], [setIsDateBefore]) {
         const strictCompare = isBefore(dateToCompare, comparisonDate);
         if (strictly) {
             setIsDateBefore(strictCompare);

@@ -43,7 +43,7 @@ export default class ToLowercase extends FunctionBrick {
      * @param {string} s
      * @param {function(string)} setResult
      */
-    onUpdate(context, [s], [setResult]) {
+    update(context, [s], [setResult]) {
         setResult(String(s).toLocaleLowerCase());
     }
 }

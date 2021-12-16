@@ -47,7 +47,7 @@ export default class DeleteRelation extends ActionBrick {
      * @param {function()} forwardEvent
      * @param {function(!Sync)} setOrigin
      */
-    onUpdate(context, [origin, destination, relation], [forwardEvent, setOrigin]) {
+    update(context, [origin, destination, relation], [forwardEvent, setOrigin]) {
         // Get current transaction
         const transaction = context.getTransaction();
 

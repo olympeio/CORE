@@ -28,7 +28,7 @@ export default class CreateFileFromBase64 extends ActionBrick {
      * @param {function(ErrorFlow)} setErrorFlow
      * @param {function(File)} setFile
      */
-    onUpdate(context, [fileName, mimeType, base64Content], [forwardEvent, setErrorFlow, setFile]) {
+    update(context, [fileName, mimeType, base64Content], [forwardEvent, setErrorFlow, setFile]) {
         const transaction = new Transaction();
         const isDataURL = base64Content.startsWith('data:');
 

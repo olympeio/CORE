@@ -49,7 +49,7 @@ export default class CatchErrorType extends FunctionBrick {
      * @param {function(ErrorFlow)} setErrorFlow
      * @param {function(string)} setMessage
      */
-    onUpdate(context, [errorFlow, code], [forwardEvent, setErrorFlow, setMessage]) {
+    update(context, [errorFlow, code], [forwardEvent, setErrorFlow, setMessage]) {
         if (code === errorFlow.getCode()) {
             setMessage(errorFlow.getMessage());
             forwardEvent(Date.now());

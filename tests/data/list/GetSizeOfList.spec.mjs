@@ -45,7 +45,7 @@ describe('GetSizeOfList brick', () => {
         let output = null;
         const setter = jasmine.createSpy().and.callFake(value => output = value);
 
-        brick.onUpdate(context, [list], [setter]);
+        brick.update(context, [list], [setter]);
         expect(output).toEqual(0);
         size.next(1);
         expect(output).toEqual(1);

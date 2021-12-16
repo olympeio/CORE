@@ -31,7 +31,7 @@ export default class LengthInPercent extends FunctionBrick {
      * @param {number} containerLength
      * @param {function(number)} setResult
      */
-    onUpdate(context, [percent, containerLength], [setResult]) {
+    update(context, [percent, containerLength], [setResult]) {
         setResult(containerLength * percent / 100);
     }
 }

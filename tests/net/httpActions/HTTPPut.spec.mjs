@@ -42,7 +42,7 @@ xdescribe('HTTPPut action brick', () => {
         outputs.push(statusCodeSpy);
         outputs.push(headersSpy);
 
-        brick.onUpdate(context, ['https://httpbin.org/put', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['https://httpbin.org/put', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
     });
 
     it('should generate a 405 error when puting on a get-only url',  (done) => {
@@ -70,6 +70,6 @@ xdescribe('HTTPPut action brick', () => {
         outputs.push(statusCodeSpy);
         outputs.push(headersSpy);
 
-        brick.onUpdate(context, ['https://httpbin.org/get', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['https://httpbin.org/get', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
     });
 });

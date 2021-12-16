@@ -15,49 +15,22 @@
  */
 
 import { FunctionBrick, registerBrick } from 'olympe';
+import {merge} from "rxjs";
+import {map} from "rxjs/operators";
 
-/**
-## Description
-Sets a value to be used when the main data-flow is unresolved.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| value | Object | The data-flow. |
-| default value | Object | The value to use by default. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| output value | Object | the out-going data flow. |
-
-**/
 export default class Defaultvalue extends FunctionBrick {
 
     /**
      * @override
      */
-    setupUpdate(context, runUpdate, clear) {
-        let defaultValue = null;
-        let value = null;
-
-        const updated = () => {
-            if (defaultValue !== undefined && defaultValue !== null) {
-                // When the default value is cleared, no need to run the function.
-                runUpdate([value, defaultValue]);
-            } else {
-                clear();
+    setupExecution($) {
+        const inputs = this.getInputs();
+        return merge(...inputs.map((i) => $.observe(i))).pipe(map((_) => {
+            if (!$.has(inputs[1])) {
+                return null; // Clear the brick when the default value has been cleared.
             }
-        };
-
-        const [valueInput, defaultValueInput] = this.getInputs();
-        context.observe(valueInput, true).subscribe((v) => {
-            value = v;
-            updated();
-        });
-
-        context.observe(defaultValueInput, true).subscribe((v) => {
-            defaultValue = v;
-            updated();
-        });
+            return [$.get(inputs[0]), $.get(inputs[1])]; // Return [value, defaultValue]
+        }));
     }
 
     /**
@@ -67,7 +40,7 @@ export default class Defaultvalue extends FunctionBrick {
      * @param {!*} value
      * @param {function(!*)} setValue
      */
-    onUpdate(context, [value, defaultValue], [setValue]) {
+    update(context, [value, defaultValue], [setValue]) {
         setValue(value !== undefined && value !== null ? value : defaultValue);
     }
 }

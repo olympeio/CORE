@@ -46,7 +46,7 @@ export default class JsonToObjectList extends JsonToObject {
      * @param {function(array)} setList
      * @param {function()} forwardEvent
      */
-    onUpdate(context, [json, businessModel, persist], [forwardEvent, setList]) {
+    update(context, [json, businessModel, persist], [forwardEvent, setList]) {
         const transaction = context.getTransaction();
         transaction.persist(persist);
 

@@ -30,7 +30,7 @@ export default class FeedUIProperty extends FunctionBrick {
      * @param {*} value
      * @param {!Array} outputs
      */
-    onUpdate(context, [_, value], outputs) {
+    update(context, [_, value], outputs) {
         const [scope, property] = getScopeContext(this, this.getInputs()[0]);
         if (scope && property) {
             let offContext;

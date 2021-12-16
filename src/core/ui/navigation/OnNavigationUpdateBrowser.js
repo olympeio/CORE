@@ -25,7 +25,7 @@ export default class OnNavigationUpdateBrowser extends FunctionBrick {
      * @param {function(number)} setControlFlow
      * @param {function(string)} setHash
      */
-    onUpdate(context, inputs, [setControlFlow, setHash]) {
+    update(context, inputs, [setControlFlow, setHash]) {
         // Get the hash at load time
         setHash(parseCurrentHash())
         setControlFlow(Date.now());
@@ -41,7 +41,7 @@ export default class OnNavigationUpdateBrowser extends FunctionBrick {
     /**
      * @override
      */
-    onDestroy(context) {
+    destroy(context) {
         // unregister the callback
         NavigationManager.get().offOnHashChange(context.get('NavigationManager_callbackId'));
     }

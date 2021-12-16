@@ -27,7 +27,7 @@ export const testPlatformInfo = (userAgent, os, osVersion, browser, browserVersi
     const setBrowserVersionSpy = jasmine.createSpy();
 
     const brick = new GetPlatformInfo();
-    brick.onUpdate(undefined, [], [setOSVersionSpy, setOSSpy, setBrowserVersionSpy, setBrowserSpy]);
+    brick.update(undefined, [], [setOSVersionSpy, setOSSpy, setBrowserVersionSpy, setBrowserSpy]);
 
     expect(setOSSpy).toHaveBeenCalledOnceWith(os);
     expect(setOSVersionSpy).toHaveBeenCalledOnceWith(osVersion);

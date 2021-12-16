@@ -34,7 +34,7 @@ export default class ListFollowRelationRecursively extends FunctionBrick {
      * @param {boolean} includeSelf
      * @param {function(!ListDef)} setFlattenedList
      */
-    onUpdate(context, [list, relation, toOrigin, includeSelf], [setFlattenedList]) {
+    update(context, [list, relation, toOrigin, includeSelf], [setFlattenedList]) {
         const logger = getLogger('List Follow Relation Recursively');
 
         // Guards

@@ -38,7 +38,7 @@ export default class DeleteObject extends ActionBrick {
      * @param {!(CreateInstance | UpdateInstance | InstanceTag)} inboundObject
      * @param {function()} forwardEvent
      */
-    onUpdate(context, [inboundObject], [forwardEvent]) {
+    update(context, [inboundObject], [forwardEvent]) {
         const logger = getLogger('Delete Object');
 
         // Check if we can delete the inboundObject

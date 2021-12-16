@@ -48,7 +48,7 @@ export default class MathFunctions extends FunctionBrick {
      * @param {number} input
      * @param {function(number)} setResult
      */
-    onUpdate(context, [functionName, input], [setResult]) {
+    update(context, [functionName, input], [setResult]) {
         const func = Math[functionName];
         const logger = getLogger('Math Functions');
 

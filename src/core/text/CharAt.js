@@ -43,7 +43,7 @@ export default class CharAt extends FunctionBrick {
      * @param {number} index
      * @param {function(string)} setResult
      */
-    onUpdate(context, [s, index], [setResult]) {
+    update(context, [s, index], [setResult]) {
         setResult(String(s).charAt(index));
     }
 }

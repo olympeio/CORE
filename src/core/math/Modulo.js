@@ -49,7 +49,7 @@ export default class Modulo extends FunctionBrick {
      * @param {number} b
      * @param {function(number)} setResult
      */
-    onUpdate(context, [a, b], [setResult]) {
+    update(context, [a, b], [setResult]) {
         setResult(a % b);
     }
 }

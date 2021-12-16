@@ -57,7 +57,7 @@ export default class HTTPGet extends ActionBrick {
      * @param {function(string)} setBody
      * @param {function(string)} setHeaders
      */
-    async onUpdate(context, [url, headers], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
+    async update(context, [url, headers], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
         const response = await httpRequest('GET', url, headers);
         const responseHeaders = handleStatusAndHeaders(response, setStatusCode, setHeaders);
         await handleData(response, responseHeaders, setBody);

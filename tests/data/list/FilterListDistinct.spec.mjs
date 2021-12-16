@@ -16,21 +16,34 @@
 
 import FilterListDistinct from '../../../src/core/data/list/FilterListDistinct.js';
 import testResults from '../../helpers/testResults.mjs';
-import { ListDef } from 'olympe';
-
-/**
- * I do not know how to work with this shitty list system outside of the old way
- * so maybe another person should make tests for this brick
- * because asking something here is good to be taken as an idiot; Happy to help
- */
+import {Context, ListDef} from 'olympe';
+import MockSync from "../../helpers/MockSync.mjs";
 
 describe('FilterListDistinct brick', () => {
 
-    it('should do return 2 elements', () => {
-        // TODO
+    it('should return an array of unique elements', () => {
+        let vals = [ 1, 2, 3, 4, 5, 6, 7, 8];
+        const tags = ['1', '2', '1', '4', '5', '1', '7', '8'];
+        const list = [];
+        let res = [];
+        tags.forEach((v, index, a) => {
+            const s = new MockSync(v);
+            s.setProperty('1', vals[index]);
+            list.push(s);
+        });
+        const brick = new FilterListDistinct();
+        const context = new Context();
+        const setListSpy = jasmine.createSpy().and.callFake(l => {
+            res = l;
+        });
+
+        brick.update(context, [list], [setListSpy]);
+
+        expect(setListSpy).toHaveBeenCalled();
+        expect(res.length).toBe(6);
     });
 
-    it('should do return 1 element out of 2 identical', () => {
+    xit('should do return 1 element out of 2 identical', () => {
         // TODO
     });
 });

@@ -49,7 +49,7 @@ export default class XmlToJson extends FunctionBrick {
      * @param {function(ErrorFlow)} dispatchErrorFlow
      * @param {function(string)} setJson
      */
-    onUpdate(context, [xml, wrappersPath], [dispatchErrorFlow, setJson]) {
+    update(context, [xml, wrappersPath], [dispatchErrorFlow, setJson]) {
         try {
             if (xml.length !== 0) {
                 const parsedXml = parse(xml, undefined, true);

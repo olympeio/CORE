@@ -24,7 +24,7 @@ export default class PushNavigationState extends ActionBrick {
      * @param {string} state
      * @param {function()} forwardEvent
      */
-    onUpdate(context, [state], [forwardEvent]) {
+    update(context, [state], [forwardEvent]) {
         updateNavigationState(state, true);
         forwardEvent();
     }

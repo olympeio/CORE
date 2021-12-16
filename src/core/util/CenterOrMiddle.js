@@ -31,7 +31,7 @@ export default class CenterOrMiddle extends FunctionBrick {
      * @param {number} elementWidth
      * @param {function(number)} setResult
      */
-    onUpdate(context, [containerWidth, elementWidth], [setResult]) {
+    update(context, [containerWidth, elementWidth], [setResult]) {
         setResult((containerWidth - elementWidth) / 2);
     }
 }

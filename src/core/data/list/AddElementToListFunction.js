@@ -21,7 +21,7 @@ import {getLogger} from 'logging';
  *
  * @param {!ListDef|!Array} list
  * @param {!Sync|!Object} object
- * @return {!ListDef|!Array}
+ * @return {!ListDef|!Array|undefined}
  */
 export const addElementToList = (list, object) => {
     const logger = getLogger('Add Element To List');
@@ -37,16 +37,13 @@ export const addElementToList = (list, object) => {
     }
 
     // Addition
-    let newList;
     if (Array.isArray(list)) {
-        newList = Array.from(list); // Generate shallow copy of the array
+        const newList = Array.from(list); // Generate shallow copy of the array
         newList.push(object);
+        return newList;
     } else {
-        newList = list.union(new ListDef(instanceToTag(object), [])); // New listdef: union of the previous + 1 instance.
+        return  list.union(new ListDef(instanceToTag(object), [])); // New listdef: union of the previous + 1 instance.
     }
-
-    // Done
-    return newList;
 };
 
 /**
@@ -67,15 +64,18 @@ export default class AddElementToListFunction extends FunctionBrick {
     /**
      * Executed every time an input (list, object) gets updated.
      * Note that this method will _not_ be executed if an input value is undefined.
-     * 
+     *
      * @protected
      * @param {Context} context
      * @param {!ListDef|!Array} list
      * @param {!Sync|!Object} object
      * @param {function(!ListDef|!Array)} setList
      */
-    onUpdate(context, [list, object], [setList]) {
-        setList(addElementToList(list, object));
+     update(context, [list, object], [setList]) {
+        const newList = addElementToList(list || [], object);
+        if (newList !== undefined) {
+            setList(newList);
+        }
     }
 }
 

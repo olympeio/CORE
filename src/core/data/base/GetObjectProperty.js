@@ -42,7 +42,7 @@ export default class GetObjectProperty extends FunctionBrick {
      * @param {!Property<*>} property
      * @param {function(*)} setValue
      */
-    onUpdate(context, [object, property], [setValue]) {
+    update(context, [object, property], [setValue]) {
         const objectSync = Sync.getInstance(object);
         objectSync.observeProperty(property).subscribe(setValue);
     }

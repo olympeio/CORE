@@ -40,7 +40,7 @@ describe('ParseDateTime brick', () => {
 
         const setDateSpy = jasmine.createSpy();
 
-        func.onUpdate(context, [dateStr, ''], [setDateSpy]);
+        func.update(context, [dateStr, ''], [setDateSpy]);
 
         // the month is 0-indexed
         expect(setDateSpy).toHaveBeenCalledOnceWith(new Date(2011, 9, 5, 14, 48, 0, 0));

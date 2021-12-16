@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { UIBrick, registerBrick, EnumValue } from 'olympe';
+import { VisualBrick, registerBrick, EnumValue } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -22,18 +22,19 @@ import ReactDOM from 'react-dom';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 
-import { jsonToSxProps, computeTextColorOverride, cssToSxProps, ifNotNull, ifNotTransparent } from '../../../helpers/web/mui';
-import { combineLatestWith, map, startWith, switchMap } from 'rxjs/operators';
+import { jsonToSxProps, computeTextColorOverride, cssToSxProps, ifNotNull, ifNotTransparent } from 'helpers/mui';
+import { combineLatestWith, map, switchMap } from 'rxjs/operators';
+import { of, combineLatest} from "rxjs";
 
 /**
  * Provide a Dropdown visual component using MUI TextField
  */
-export default class Dropdown extends UIBrick {
+export default class Dropdown extends VisualBrick {
 
     /**
      * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!UIContext} context
+     * @param {!VisualContext} context
      * @param {!Element} elementDom
      */
     draw(context, elementDom) {
@@ -41,38 +42,33 @@ export default class Dropdown extends UIBrick {
         elementDom.style.overflow = 'visible';
 
         // Observe all Enum values (options)
-        const observeSize = context.getProperty('Values').observe().pipe(
-            map(enumModel => enumModel.getValues()),
-            switchMap(ld => ld.observeSize()),
-            startWith(0)
+        const observeValues = context.observe('Values', false)
+        const observeSize = observeValues.pipe(
+            switchMap((enumModel) =>  enumModel === null ? of(0): enumModel.getValues().observeSize())
         );
-        const observeOptions = context.getProperty('Values').observe().pipe(
-            map(enumModel => enumModel.getValues()),
-            combineLatestWith(observeSize),
-            map(([ld, size]) => {
-                const values = [];
-                if(size > 0) {
-                    ld.forEachCurrentValue(enumValue => values.push(
-                        enumValue.observeProperty(EnumValue.valueProp).pipe(
-                            combineLatestWith(
+        const observeOptions = context.observe('Values').pipe(
+            switchMap((enumModel) => {
+                return enumModel === null ? of([]) : of(enumModel.getValues()).pipe(
+                    combineLatestWith(observeSize),
+                    switchMap(([list, size]) => {
+                        const values = [];
+                        if (size > 0) {
+                            list.forEachCurrentValue(enumValue => values.push(combineLatest([
+                                enumValue.observeProperty(EnumValue.valueProp),
                                 enumValue.observeProperty(EnumValue.nameProp),
                                 enumValue.observeProperty(EnumValue.rankProp)
-                            )
-                        )
-                    ));
-                }
-                return values;
-            }),
-            switchMap(values => values.length > 0
-                ? values[0].pipe(combineLatestWith(...values.slice(1)))
-                : values
-            ),
-            map(values => values.map(value => ({
-                value: value[0],
-                label: value[1] || value[0], // EnumItem may not have a name
-                rank: value[2]
-            }))),
-            startWith([])
+                            ])));
+                            return combineLatest(values);
+                        }
+                        return of([]);
+                    }),
+                    map(values => values.map(value => ({
+                        value: value[0],
+                        label: value[1] || value[0], // EnumItem may not have a name
+                        rank: value[2]
+                    })))
+                );
+            })
         );
 
         // Observe all others properties
@@ -107,15 +103,15 @@ export default class Dropdown extends UIBrick {
                     error={error}
 
                     // Events
-                    onClick={() => context.getEvent('On Click').trigger()}
+                    onClick={() => context.trigger('On Click')}
                     onChange={(event) => {
                         // Set the Value property before triggering the event
-                        context.getProperty('Value').set(
+                        context.set('Value',
                             multiple
                                 ? /** @type {Array} */(event.target.value).join(Dropdown.SEPARATOR)
                                 : event.target.value
                         );
-                        context.getEvent('On Change').trigger();
+                        context.trigger('On Change');
                     }}
 
                     // UI
@@ -161,8 +157,8 @@ export default class Dropdown extends UIBrick {
                         displayEmpty: true,
 
                         // Event
-                        onClose: () => context.getEvent('On Close').trigger(),
-                        onOpen: () => context.getEvent('On Open').trigger(),
+                        onClose: () => context.trigger('On Close'),
+                        onOpen: () => context.trigger('On Open'),
 
                         // UI
                         renderValue: val => {

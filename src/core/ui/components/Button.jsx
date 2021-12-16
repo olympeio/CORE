@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { UIBrick, registerBrick } from 'olympe';
+import { VisualBrick, registerBrick } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -22,12 +22,12 @@ import ReactDOM from 'react-dom';
 import MUIButton from '@mui/material/Button';
 import Icon from '@mui/material/Icon';
 
-import { jsonToSxProps, cssToSxProps, computeTextColorOverride, ifNotTransparent, ifNotNull } from '../../../helpers/web/mui';
+import { jsonToSxProps, cssToSxProps, computeTextColorOverride, ifNotTransparent, ifNotNull } from 'helpers/mui';
 
 /**
  * Provide a Button visual component using MUI Button
  */
-export default class Button extends UIBrick {
+export default class Button extends VisualBrick {
 
     /**
      * This method runs when the brick is ready in the HTML DOM.

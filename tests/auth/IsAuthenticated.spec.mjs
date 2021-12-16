@@ -16,7 +16,7 @@
 
 import IsAuthenticated from '../../src/core/auth/IsAuthenticated.js';
 import testEqual from '../helpers/testEqual.mjs';
-import {Auth, AuthState} from "@olympeio/runtime-web";
+import {Auth, AuthState} from "olympe";
 
 describe('IsAuthenticated brick', () => {
     it('should correctly checks whether the user is authenticated or not', async () => {

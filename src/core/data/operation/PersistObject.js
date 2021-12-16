@@ -41,7 +41,7 @@ export default class PersistObject extends FunctionBrick {
      * @param {InstanceTag} objectIn
      * @param {function(InstanceTag)} setObjectOut
      */
-    onUpdate(context, [objectIn], [setObjectOut]) {
+    update(context, [objectIn], [setObjectOut]) {
         const transaction = new Transaction();
         const logger = getLogger('Persist Object');
 

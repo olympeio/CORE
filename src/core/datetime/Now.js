@@ -49,7 +49,7 @@ export default class Now extends FunctionBrick {
      * @param {number} interval
      * @param {function(Date)} setDate
      */
-    onUpdate(context, [interval], [setDate]) {
+    update(context, [interval], [setDate]) {
 
         // Clear potential previous timeout
         let intervalID = context.get(Now.interval);
@@ -67,7 +67,7 @@ export default class Now extends FunctionBrick {
     /**
      * @override
      */
-    onDestroy(context) {
+    destroy(context) {
         const intervalID = context.get(Now.interval);
         intervalID && clearInterval(intervalID);
     }

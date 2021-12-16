@@ -45,7 +45,7 @@ export default class ClearObjectProperty extends ActionBrick {
      * @param {function()} forwardEvent
      * @param {function(InstanceTag)} setObject
      */
-    onUpdate(context, [object, property], [forwardEvent, setObject]) {
+    update(context, [object, property], [forwardEvent, setObject]) {
         const logger = getLogger('Clear Object Property');
 
         // Transaction

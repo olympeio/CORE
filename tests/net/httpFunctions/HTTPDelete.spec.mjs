@@ -34,7 +34,7 @@ xdescribe('HTTPDelete function brick', () => {
         outputs.push(_setBody => expect(_setBody).not.toBeNull());
         outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
 
-        brick.onUpdate(context, ['https://httpbin.org/delete', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['https://httpbin.org/delete', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
     });
 
     it('should generate a 405 error when deleting on a put-only url',  () => {
@@ -52,7 +52,7 @@ xdescribe('HTTPDelete function brick', () => {
         outputs.push(_setBody => expect(_setBody).not.toBeNull());
         outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
 
-        brick.onUpdate(context, ['https://httpbin.org/put', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['https://httpbin.org/put', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
     });
 
     it('should generate a 404 error when deleting on a wrong url',  () => {
@@ -70,6 +70,6 @@ xdescribe('HTTPDelete function brick', () => {
         outputs.push(_setBody => expect(_setBody).not.toBeNull());
         outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
 
-        brick.onUpdate(context, ['abcd', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['abcd', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
     });
 });

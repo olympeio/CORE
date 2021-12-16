@@ -30,7 +30,7 @@ describe('CatchErrorType brick', () => {
         const setErrorFlowSpy = jasmine.createSpy();
         const setMessageSpy = jasmine.createSpy();
 
-        brick.onUpdate(
+        brick.update(
             context, [errorFlow, code], [forwardEventSpy, setErrorFlowSpy, setMessageSpy]
         );
 
@@ -51,7 +51,7 @@ describe('CatchErrorType brick', () => {
         const setErrorFlowSpy = jasmine.createSpy();
         const setMessageSpy = jasmine.createSpy();
 
-        brick.onUpdate(
+        brick.update(
             context, [errorFlow, code], [forwardEventSpy, setErrorFlowSpy, setMessageSpy]
         );
 

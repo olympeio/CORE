@@ -52,7 +52,7 @@ export default class HTTPHead extends FunctionBrick {
      * @param {function(number)} setStatusCode
      * @param {function(string)} setHeaders
      */
-    async onUpdate(context, [url, headers], [ setStatusCode, setHeaders]) {
+    async update(context, [url, headers], [ setStatusCode, setHeaders]) {
         const response = await httpRequest('HEAD', url, headers);
         handleStatusAndHeaders(response, setStatusCode, setHeaders);
     }

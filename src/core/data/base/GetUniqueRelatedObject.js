@@ -45,7 +45,7 @@ export default class GetUniqueRelatedObject extends FunctionBrick {
      * @param {!InstanceTag} relation
      * @param {function(Sync)} setObject
      */
-    onUpdate(context, [object, relation], [setObject]) {
+    update(context, [object, relation], [setObject]) {
         const logger = getLogger('Get Unique Related Object');
 
         // Prevent errors

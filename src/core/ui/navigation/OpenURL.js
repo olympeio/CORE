@@ -43,7 +43,7 @@ export default class OpenURL extends ActionBrick {
      * @param {function()} forwardEvent
      * @param {function(boolean)} setResult
      */
-    onUpdate(context, [url, openInSameTab], [forwardEvent, setResult]) {
+    update(context, [url, openInSameTab], [forwardEvent, setResult]) {
         // Use empty URL and target to open a blank page in a new window/tab
         let selfWindow = window.open('', openInSameTab === true ? '_self' : undefined);
 

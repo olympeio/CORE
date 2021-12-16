@@ -52,7 +52,7 @@ export default class FilterHasRelated extends FunctionBrick {
      * @param {boolean} inverseFilter
      * @param {function(ListDef|Array)} setFilteredList
      */
-    onUpdate(context, [list, relatedObject, relation, inverseFilter], [setFilteredList]) {
+    update(context, [list, relatedObject, relation, inverseFilter], [setFilteredList]) {
         const logger = getLogger('Filter Has Related');
 
         if (instanceToTag(relatedObject) === '') {

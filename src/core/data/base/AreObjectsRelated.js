@@ -21,7 +21,7 @@ export default class AreObjectsRelated extends FunctionBrick {
     /**
      * Executed every time an input (object1, object2, relation) gets updated.
      * Note that this method will _not_ be executed if an input value is undefined.
-     * 
+     *
      * @protected
      * @param {Context} context
      * @param {*} origin
@@ -29,7 +29,7 @@ export default class AreObjectsRelated extends FunctionBrick {
      * @param {RelationPrimitive} relation Assumed to be always in direction origin->destination
      * @param {function(boolean)} setRelated
      */
-    onUpdate(context, [origin, destination, relation], [setRelated]) {
+    update(context, [origin, destination, relation], [setRelated]) {
         new ListDef(origin, [
             new transformers.Filter(
                 new predicates.HasRelated(

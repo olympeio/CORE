@@ -14,7 +14,22 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, ListDef, PropertyPrimitive, DBView, comparators, transformers, valuedefs, instanceToTag, StringPrimitive, NumberPrimitive, DatetimePrimitive, BooleanPrimitive} from 'olympe';
+import {
+    FunctionBrick,
+    registerBrick,
+    ListDef,
+    PropertyPrimitive,
+    DBView,
+    comparators,
+    transformers,
+    valuedefs,
+    instanceToTag,
+    StringPrimitive,
+    NumberPrimitive,
+    DatetimePrimitive,
+    BooleanPrimitive,
+    Sync
+} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -47,39 +62,49 @@ export default class SortList extends FunctionBrick {
      * @param {boolean} ascending
      * @param {function(ListDef|Array)} setSortedList
      */
-    onUpdate(context, [list, property, ascending], [setSortedList]) {
+    update(context, [list, property, ascending], [setSortedList]) {
         const logger = getLogger('Sort List');
 
-        const type = DBView.get().getUniqueRelated(property, PropertyPrimitive.typeRel);
-        let comparator = null;
-
-        // String
-        if (type === instanceToTag(StringPrimitive)) {
-            comparator = new comparators.String(new valuedefs.StringProperty(property));
-        // Number
-        } else if (type === instanceToTag(NumberPrimitive)) {
-            comparator = new comparators.Number(new valuedefs.NumberProperty(property));
-        // Datetime
-        } else if (type === instanceToTag(DatetimePrimitive)) {
-            comparator = new comparators.DateTime(new valuedefs.DateTimeProperty(property));
-        // Boolean
-        } else if (type === instanceToTag(BooleanPrimitive)) {
-            comparator = new comparators.Number(new valuedefs.BooleanProperty(property));
-        }
-
-        if (comparator === null) {
-            logger.error('Property type is not supported');
-        } else if (Array.isArray(list)) {
-            // TODO compare() to be exposed
-            logger.warn('Native JS arrays are not yet supported. Ignoring ...');
-            setSortedList(list);
-            // sortedList = list.sort((a, b) => {
-            //     const a_value = a.getProperty(property);
-            //     const b_value = b.getProperty(property);
-            //     return ascending ? comparator.compare(a_value, b_value) : comparator.compare(b_value, a_value);
-            // });
+         if (Array.isArray(list)) {
+            const a = /** @type {!Array<!Sync>} */ (list);
+            const b = a.filter( v => v instanceof Sync );
+            if (a.length !== b.length) {
+                logger.error(`${a.length - b.length} elements were not Instances`);
+            }
+            const sortedList = b.sort((left, right) => {
+                const l_value = left.getProperty(property);
+                const r_value = right.getProperty(property);
+                if (ascending) {
+                    return l_value === r_value ? 0 : l_value < r_value ? -1 : 1;
+                } else {
+                    return l_value === r_value ? 0 : l_value > r_value ? -1 : 1;
+                }
+            });
+            setSortedList(sortedList);
         } else if (list instanceof ListDef) {
-            setSortedList(list.transform(new transformers.Sort(comparator, ascending)));
+             const type = DBView.get().getUniqueRelated(property, PropertyPrimitive.typeRel);
+             let comparator = null;
+
+             // String
+             if (type === instanceToTag(StringPrimitive)) {
+                 comparator = new comparators.String(new valuedefs.StringProperty(property));
+                 // Number
+             } else if (type === instanceToTag(NumberPrimitive)) {
+                 comparator = new comparators.Number(new valuedefs.NumberProperty(property));
+                 // Datetime
+             } else if (type === instanceToTag(DatetimePrimitive)) {
+                 comparator = new comparators.DateTime(new valuedefs.DateTimeProperty(property));
+                 // Boolean
+             } else if (type === instanceToTag(BooleanPrimitive)) {
+                 comparator = new comparators.Number(new valuedefs.BooleanProperty(property));
+             }
+
+             if (comparator === null) {
+                 logger.error('Property type is not supported');
+                 setSortedList(list);
+             } else{
+                 setSortedList(list.transform(new transformers.Sort(comparator, ascending)));
+             }
         } else {
             logger.error('List is not a ListDef or an Array');
         }

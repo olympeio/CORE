@@ -32,7 +32,7 @@ setup:
     expire_in: 1 day
     paths:
       - node_modules/
-
+    
 # Build npm package
 build-package:
   stage: build

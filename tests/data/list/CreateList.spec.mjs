@@ -25,7 +25,7 @@ describe('Create brick', () => {
         const setListSpy = jasmine.createSpy();
         const forwardEventSpy = jasmine.createSpy();
 
-        brick.onUpdate(context, [], [forwardEventSpy, setListSpy]);
+        brick.update(context, [], [forwardEventSpy, setListSpy]);
 
         expect(setListSpy).toHaveBeenCalledOnceWith([]);
         expect(forwardEventSpy).toHaveBeenCalled();

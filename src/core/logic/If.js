@@ -13,52 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { FunctionBrick, registerBrick } from 'olympe';
+import {merge} from "rxjs";
+import {map} from "rxjs/operators";
 
-/**
-## Description
-This function switches between 2 data-flows based on the provided condition.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Condition | Boolean | The condition to test. |
-| a | Object | The value to return on `true`. |
-| b | Object | The value to return on `false`. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Condition ? a : b | Object | a if Condition is `true`, b otherwise. |
-
-**/
 export default class If extends FunctionBrick {
 
     /**
      * @override
      */
-    setupUpdate(context, runUpdate, clear) {
-        const values = [null, null, null];
-        this.getInputs().forEach((input, index) => {
-            context.observe(input, true).subscribe((value) => {
-                values[index] = value;
-
-                if (value !== null) {
-                    runUpdate(values);
-                } else {
-                    clear();
-                }
-            });
-        });
+    setupExecution($) {
+        const inputs = this.getInputs();
+        return merge(...inputs.map((i) => $.observe(i))).pipe(map((value) => {
+            return value === null ? null : inputs.map((i) => $.get(i));
+        }));
     }
 
     /**
-     * @param {!Context} context
+     * @param {!Context} $
      * @param {?boolean} cond
      * @param {*} a
      * @param {*} b
      * @param {function(*)} setResult
      */
-    onUpdate(context, [cond, a, b], [setResult]) {
+    update($, [cond, a, b], [setResult]) {
         if (cond !== null) {
             setResult(cond ? a : b);
         }

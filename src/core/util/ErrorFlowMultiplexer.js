@@ -15,40 +15,15 @@
  */
 
 import { FunctionBrick, registerBrick } from 'olympe';
+import {merge} from "rxjs";
 
-/**
-## Description
-Creates a new error flow by joining up to 4 error flows. The resulting flow is triggered whenever
-one of the two joined flows is triggered.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Error flow 1 | Error Flow | The first error flow to join. |
-| Error flow 2 | Error Flow | The second error flow to join. |
-| Error flow 3 | Error Flow | The third error flow to join. |
-| Error flow 4 | Error Flow | The fourth error flow to join. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Error Flow | Error Flow | The resulting error flow. |
-
-**/
 export default class ErrorFlowMultiplexer extends FunctionBrick {
 
     /**
      * @override
      */
-    setupUpdate(context, runUpdate, clear) {
-        this.getInputs().forEach((input) => {
-            context.observe(input, true).subscribe((value) => {
-                if (value !== null) {
-                    // Run function each time one of the 4 inputs is triggered
-                    runUpdate([value]);
-                } else {
-                    clear();
-                }
-            });
-        });
+    setupExecution($) {
+        return merge(...this.getInputs().map((i) => $.observe(i)));
     }
 
     /**
@@ -57,7 +32,7 @@ export default class ErrorFlowMultiplexer extends FunctionBrick {
      * @param {!ErrorFlow} incomingEvent
      * @param {function(ErrorFlow)} forwardError
      */
-    onUpdate(context, [errorFlow], [forwardError]) {
+    update(context, [errorFlow], [forwardError]) {
         forwardError(errorFlow);
     }
 }

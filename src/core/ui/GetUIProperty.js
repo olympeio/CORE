@@ -17,19 +17,6 @@
 
 import { FunctionBrick, registerBrick } from 'olympe';
 
-/**
-## Description
-Retrieves the value of the specified property from the selected UI element. For example the text color of a label.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| UI Property | Property | The selected property. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Value | Object | The value of the property. |
-
-**/
 export default class GetUIProperty extends FunctionBrick {
 
     /**

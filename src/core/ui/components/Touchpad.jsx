@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import {UIBrick, registerBrick} from 'olympe';
+import {VisualBrick, registerBrick} from 'olympe';
 import {cssToSxProps, jsonToSxProps} from 'helpers/mui';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Box from "@mui/material/Box";
 
-export default class Touchpad extends UIBrick {
+export default class Touchpad extends VisualBrick {
 
     /**
      * This method runs when the brick is ready in the HTML DOM.

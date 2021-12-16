@@ -26,7 +26,7 @@ describe('DownloadFile brick', () => {
 
         // run action
         const d = new DownloadFile();
-        d.onUpdate(new Context(), ['test.txt', file], [() => {}]);
+        d.update(new Context(), ['test.txt', file], [() => {}]);
 
         // check method to download file has been called
         expect(file.saveAs).toHaveBeenCalledTimes(1);
@@ -41,7 +41,7 @@ describe('DownloadFile brick', () => {
 
         // run action
         const d = new DownloadFile();
-        d.onUpdate(new Context(), [undefined, file], [() => {}]);
+        d.update(new Context(), [undefined, file], [() => {}]);
 
         // check method to download file has been called
         expect(file.saveAs).toHaveBeenCalledTimes(1);

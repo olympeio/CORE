@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import { UIBrick, registerBrick } from 'olympe';
+import { VisualBrick, registerBrick } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import MUITextField from '@mui/material/TextField';
 
-import { jsonToSxProps, computeTextColorOverride, ifNotNull, ifNotTransparent, cssToSxProps } from '../../../helpers/web/mui';
+import { jsonToSxProps, computeTextColorOverride, ifNotNull, ifNotTransparent, cssToSxProps } from 'helpers/mui';
 
 /**
  * Provide a Text Field visual component using MUI TextField
  */
-export default class TextField extends UIBrick {
+export default class TextField extends VisualBrick {
 
     /**
      * This method runs when the brick is ready in the HTML DOM.
@@ -98,6 +98,7 @@ export default class TextField extends UIBrick {
                         }
                     }}
                     InputLabelProps={{
+                        ...ifNotNull('shrink', true, type === 'date' || type === 'datetime-local' || type === 'color'),
                         sx: {
                             fontFamily: fontFamily,
                             ...ifNotTransparent('color', borderColor)

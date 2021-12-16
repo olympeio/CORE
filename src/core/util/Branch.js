@@ -15,57 +15,28 @@
  */
 
 import { FunctionBrick, registerBrick } from 'olympe';
+import {map} from "rxjs/operators";
 
-/**
-## Description
-Trigger the `true` or `false` control flow depending on `condition`.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| condition | Boolean | The condition. |
-| control flow | Control Flow | The triggering control flow. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| true flow | Control Flow | The control flow to trigger when condition is `true`. |
-| false flow | Control Flow | The control flow to trigger when condition is `false`. |
-
-**/
 export default class Branch extends FunctionBrick {
 
     /**
      * @override
      */
-    setupUpdate(context, runUpdate, clear) {
+    setupExecution($) {
         const [incomingEvent, inputCondition] = this.getInputs();
-
-        let condition = false;
-        context.observe(inputCondition, true).subscribe((inputValue) => {
-            condition = inputValue !== null ? Boolean(inputValue) : false;
-        });
-
-        // Run runCoreUpdate only when incoming event is triggered.
-        context.observe(incomingEvent, true).subscribe((timestamp) => {
-            if (timestamp !== null) {
-                // Execute the action only if the control flow has a value.
-                runUpdate([condition]);
-            } else {
-                clear();
-            }
-        });
+        return $.observe(incomingEvent)
+            // Execute the action only if the control flow has a value, clear the brick when the event is null
+            .pipe(map((event) => event === null ? null : Boolean($.get(inputCondition))));
     }
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {!Context} context
      * @param {boolean} condition
      * @param {function(number)} trueDispatcher
      * @param {function(number)} falseDispatcher
      */
-    onUpdate(context, [condition], [trueDispatcher, falseDispatcher]) {
+    update(context, [condition], [trueDispatcher, falseDispatcher]) {
         condition ? trueDispatcher(Date.now()) : falseDispatcher(Date.now());
     }
 }

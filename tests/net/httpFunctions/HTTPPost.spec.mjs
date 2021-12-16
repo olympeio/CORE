@@ -34,7 +34,7 @@ xdescribe('HTTPPost function brick', () => {
         outputs.push(_body => expect(_body).not.toBeNull());
         outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
 
-        brick.onUpdate(context, ['https://httpbin.org/post', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['https://httpbin.org/post', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
 
     });
 
@@ -53,7 +53,7 @@ xdescribe('HTTPPost function brick', () => {
         outputs.push(_body => expect(_body).not.toBeNull());
         outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
 
-        brick.onUpdate(context, ['https://httpbin.org/put', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['https://httpbin.org/put', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
     });
 
     it('should generate a 404 error when posting on a wrong url',  () => {
@@ -71,6 +71,6 @@ xdescribe('HTTPPost function brick', () => {
         outputs.push(_body => expect(_body).not.toBeNull());
         outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
 
-        brick.onUpdate(context, ['abcd', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['abcd', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
     });
 });

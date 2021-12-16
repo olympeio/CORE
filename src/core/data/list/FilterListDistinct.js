@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, ListDef, transformers} from 'olympe';
+import {FunctionBrick, registerBrick, ListDef, transformers, Sync} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -36,13 +36,26 @@ export default class FilterListDistinct extends FunctionBrick {
     /**
      * @protected
      * @param {!Context} context
-     * @param {!Array|!ListDef} list
-     * @param {function(!Array|!ListDef)} setFiltered
+     * @param {!Array<!Sync>|!ListDef} list
+     * @param {function(!Array<!Sync>|!ListDef)} setFiltered
      */
-    onUpdate(context, [list], [setFiltered]) {
+    update(context, [list], [setFiltered]) {
         const logger = getLogger('Filter List Distinct');
         if(Array.isArray(list)){
-            setFiltered(Array.from(new Set(list)));
+            const /** !Array<!Sync> */ res = [];
+            const tags = new Set();
+            const a = /** @type {!Array<!Sync>} */ (list);
+            const b = a.filter( v => v instanceof Sync );
+            if (a.length !== b.length) {
+                logger.error(`${a.length - b.length} elements were not Instances`);
+            }
+            b.filter(v => {
+                if (!tags.has(v.getTag())) {
+                    tags.add(v.getTag());
+                    res.push(v);
+                }
+            });
+            setFiltered(res);
         } else if (list instanceof ListDef) {
             setFiltered(list.transform(new transformers.Distinct()));
         } else {

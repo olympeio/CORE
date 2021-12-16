@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, ListDef, DBView, predicates, valuedefs} from "olympe";
+import {FunctionBrick, registerBrick, ListDef, DBView, Sync, predicates, valuedefs} from "olympe";
 import {getValueDefFor} from "./utils";
 import {getLogger} from 'logging';
 
@@ -45,26 +45,36 @@ export default class FilterListSmaller extends FunctionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!ListDef} list
+     * @param {!ListDef| !Array<!Sync>} list
      * @param {!PropertyDescriptor} property
      * @param {string | number | Date} value
      * @param {boolean} strict
-     * @param {function(!ListDef)} setFiltered
+     * @param {function(!ListDef | !Array<!Sync>)} setFiltered
      */
-    onUpdate(context, [list, property, value, strict], [setFiltered]) {
+    update(context, [list, property, value, strict], [setFiltered]) {
         const logger = getLogger('Filter List Smaller');
         const valueDef = getValueDefFor(property);
-        if (valueDef === null) {
-            const name = DBView.get().name(/** @type {!HasInstanceTag} */ (property));
-            logger.warn(`Type of property ${name} is not supported. List will not be filtered.`);
-            setFiltered(list);
-        } else if (Array.isArray(list)) {
-            logger.warn('Native JS arrays are not yet supported. Ignoring ...');
-            setFiltered(list);
+        if (Array.isArray(list)) {
+            const a = /** @type {!Array<!Sync>} */ (list);
+            const b = a.filter( v => v instanceof Sync );
+            if (a.length !== b.length) {
+                logger.error(`${a.length - b.length} elements were not Instances`);
+            }
+            const res = b.filter(v => {
+                const a_value = v.getProperty(property);
+                return strict ? a_value < value : a_value <= value;
+            });
+            setFiltered(res);
         }  else if (list instanceof ListDef) {
-            const vd = new valuedefs.Constant(value);
-            const predicate = strict ? new predicates.Smaller(valueDef, vd) : new predicates.Or(new predicates.Smaller(valueDef, vd), new predicates.Equals(valueDef, vd));
-            setFiltered(list.filter(predicate));
+            if (valueDef === null) {
+                const name = DBView.get().name(/** @type {!HasInstanceTag} */ (property));
+                logger.warn(`Type of property ${name} is not supported. List will not be filtered.`);
+                setFiltered(list);
+            } else {
+                const vd = new valuedefs.Constant(value);
+                const predicate = strict ? new predicates.Smaller(valueDef, vd) : new predicates.Or(new predicates.Smaller(valueDef, vd), new predicates.Equals(valueDef, vd));
+                setFiltered(list.filter(predicate));
+            }
         } else {
             logger.error('List is not a ListDef or an Array');
         }

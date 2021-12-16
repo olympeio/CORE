@@ -42,7 +42,7 @@ xdescribe('HTTPHead action brick', () => {
         outputs.push(statusCodeSpy);
         outputs.push(headersSpy);
 
-        brick.onUpdate(context, ['https://httpbin.org/get', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['https://httpbin.org/get', '{"Content-Type": "application/json"}'], outputs);
     });
 
     it('should generate a 405 error when heading on a put-only url',  (done) => {
@@ -70,6 +70,6 @@ xdescribe('HTTPHead action brick', () => {
         outputs.push(statusCodeSpy);
         outputs.push(headersSpy);
 
-        brick.onUpdate(context, ['https://httpbin.org/put', '{"Content-Type": "application/json"}'], outputs);
+        brick.update(context, ['https://httpbin.org/put', '{"Content-Type": "application/json"}'], outputs);
     });
 });

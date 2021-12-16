@@ -45,7 +45,7 @@ export default class StringEndsWith extends FunctionBrick {
      * @param {number} length
      * @param {function(boolean)} setResult
      */
-    onUpdate(context, [s1, s2, length], [setResult]) {
+    update(context, [s1, s2, length], [setResult]) {
         if (length >= 0) {
             setResult(String(s1).endsWith(s2, length));
         } else {

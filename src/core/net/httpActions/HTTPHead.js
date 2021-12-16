@@ -53,7 +53,7 @@ export default class HTTPHead extends ActionBrick {
      * @param {function(number)} setStatusCode
      * @param {function(string)} setHeaders
      */
-     async onUpdate(context, [ url, headers], [ forwardEvent, setErrorFlow, setStatusCode, setHeaders]) {
+     async update(context, [ url, headers], [ forwardEvent, setErrorFlow, setStatusCode, setHeaders]) {
         const response = await httpRequest('HEAD', url, headers);
         handleStatusAndHeaders(response, setStatusCode, setHeaders);
         forwardEventOrErrorFlow(response, forwardEvent, setErrorFlow);

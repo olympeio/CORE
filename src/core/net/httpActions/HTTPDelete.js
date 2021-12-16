@@ -57,7 +57,7 @@ export default class HTTPDelete extends ActionBrick {
      * @param {function(string)} setBody
      * @param {function(string)} setHeaders
      */
-    async onUpdate(context, [url, body, headers], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
+    async update(context, [url, body, headers], [ forwardEvent, setErrorFlow, setStatusCode, setBody, setHeaders]) {
         const response = await httpRequest('DELETE', url, headers, body);
         const responseHeaders = handleStatusAndHeaders(response, setStatusCode, setHeaders);
         await handleData(response, responseHeaders, setBody);

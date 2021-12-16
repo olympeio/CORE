@@ -36,7 +36,7 @@ export default class AddElementToListAction extends ActionBrick {
     /**
      * Executed every time the brick receives a new trigger event.
      * Note that the method will be executed _even if_ an input (list, object) is undefined.
-     * 
+     *
      * @protected
      * @param {Context} context
      * @param {!ListDef|!Array} inputList
@@ -44,9 +44,12 @@ export default class AddElementToListAction extends ActionBrick {
      * @param {function()} forwardEvent
      * @param {function(!ListDef|!Array)} setList
      */
-    onUpdate(context, [inputList, object], [forwardEvent, setList]) {
-        setList(addElementToList(inputList || [], object));
-        forwardEvent();
+    update(context, [inputList, object], [forwardEvent, setList]) {
+        const newList = addElementToList(inputList || [], object);
+        if (newList !== undefined) {
+            setList(newList);
+            forwardEvent();
+        }
     }
 }
 
