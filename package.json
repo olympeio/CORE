@@ -1,13 +1,13 @@
 {
   "name": "@olympeio/core",
-  "version": "1.3.0-rc4",
+  "version": "1.3.0",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/olympeio/CORE"
   },
   "build": {
-    "orchestratorVersion": "6.1.0"
+    "orchestratorVersion": "6.1.1"
   },
   "files": [
     "import",
@@ -58,8 +58,8 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@mui/material": "~5.2.1",
-    "@olympeio/runtime-node": "8.7.0-rc4",
-    "@olympeio/runtime-web": "8.7.0-rc4",
+    "@olympeio/runtime-node": "~8.7.0",
+    "@olympeio/runtime-web": "~8.7.0",
     "date-fns": "~2.22.1",
     "fast-xml-parser": "~3.19.0",
     "html-react-parser": "^1.4.0",
