@@ -1,6 +1,6 @@
 {
   "name": "@olympeio/core",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -9,6 +9,16 @@
   "build": {
     "orchestratorVersion": "5.9.4"
   },
+  "files": [
+    "import",
+    "README.md",
+    "index.d.ts",
+    "main-node.js",
+    "main-node.js.map",
+    "main-web.js",
+    "main-web.js.map",
+    "package.json"
+  ],
   "scripts": {
     "prebuild": "npx gulp patches --core.modules=project",
     "build": "webpack build",
