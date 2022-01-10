@@ -47,6 +47,7 @@ export default class TextField extends ReactBrick {
     static getReactComponent($) {
         return (props) => {
             const [hidden] = props.values;
+            const label = useProperty($, 'Label');
             const type = useProperty($, 'Type');
             const error = useProperty($, 'Error');
             const rows = useProperty($, 'Rows');
@@ -58,7 +59,7 @@ export default class TextField extends ReactBrick {
                     // Properties
                     value={useProperty($, 'Value') || ''}
                     placeholder={useProperty($, 'Placeholder')}
-                    label={useProperty($, 'Label')}
+                    {...ifNotNull('label', label, label && label.trim() !== '')}
                     helperText={useProperty($, 'Helper Text')}
                     type={type}
                     variant={useProperty($, 'Variant')}
