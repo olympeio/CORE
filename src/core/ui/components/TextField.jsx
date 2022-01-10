@@ -95,6 +95,13 @@ export default class TextField extends ReactBrick {
                             ...ifNotNull('boxSizing', 'border-box', borderWidth),
                             ...ifNotTransparent('borderColor', borderColor),
                             ...ifNotNull('color', useProperty($, 'Text Color Override'), !error)
+                        },
+
+                        // On Enter key pressed
+                        onKeyDown: (event) => {
+                            if(event.code === 'Enter') {
+                                $.trigger('On Enter Pressed');
+                            }
                         }
                     }}
                     FormHelperTextProps={{
