@@ -14,60 +14,66 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick } from 'olympe';
+import { registerBrick } from 'olympe';
+import { ReactBrick, useProperty } from 'helpers/react.jsx';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-
 import MUIButton from '@mui/material/Button';
 import Icon from '@mui/material/Icon';
 
-import { jsonToSxProps, cssToSxProps, computeTextColorOverride, ifNotTransparent, ifNotNull } from 'helpers/mui';
 
 /**
  * Provide a Button visual component using MUI Button
  */
-export default class Button extends VisualBrick {
+export default class Button extends ReactBrick {
 
     /**
-     * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!UIContext} context
-     * @param {!Element} elementDom
      */
-    draw(context, elementDom) {
-        // Allow overflow
-        elementDom.style.overflow = 'visible';
+    setupExecution($) {
+        return $.observe('Hidden');
+    }
 
-        // Observe all properties
-        context.observeMany(
-            'Text', 'Variant', 'Color', 'Start Icon', 'End Icon', 'Disabled', 'Font Size', 'Text Color Override', 'Font Family', 'MUI sx [json]',
-            'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Hidden', 'Tab Index'
-        ).subscribe(([
-            text, variant, color, startIcon, endIcon, disabled, fontSize, textColorOverride, fontFamily, muiSxJson,
-            borderColor, borderRadius, borderWidth, cssProperty, defaultColor, hidden, tabIndex
-        ]) => {
-            // Rendering
-            ReactDOM.render((
-                !hidden &&
+    /**
+     * @override
+     */
+    updateParent(parent, element) {
+        parent.style.overflow = 'visible'; // Allow overflow
+        return super.updateParent(parent, element);
+    }
+
+    /**
+     * @override
+     */
+    static getReactComponent($) {
+        return (props) => {
+            const [hidden] = props.values;
+            const startIcon = useProperty($, 'Start Icon');
+            const endIcon = useProperty($, 'End Icon');
+            const borderColor = useProperty($, 'Border Color');
+            const borderRadius = useProperty($, 'Border Radius');
+            const borderWidth = useProperty($, 'Border Width');
+            const defaultColor = useProperty($, 'Default Color');
+            return !hidden && (
                 <MUIButton
                     // Properties
-                    variant={variant}
-                    color={color}
+                    variant={useProperty($, 'Variant')}
+                    color={useProperty($, 'Color')}
                     startIcon={startIcon && (<Icon>{startIcon}</Icon>)}
                     endIcon={endIcon && (<Icon>{endIcon}</Icon>)}
-                    disabled={disabled}
-                    size={fontSize}
+                    disabled={useProperty($, 'Disabled')}
+                    size={useProperty($, 'Font Size')}
 
                     // Events
-                    onClick={() => context.getEvent('On Click').trigger()}
+                    onClick={() => $.trigger('On Click')}
 
                     // UI
                     sx={{
                         width: 1,
                         height: 1,
-                        fontFamily: fontFamily,
-                        ...computeTextColorOverride(textColorOverride),
+                        fontFamily: useProperty($, 'Font Family'),
+                        ...ifNotTransparent('color', useProperty($, 'Text Color Override')),
                         ...ifNotTransparent('borderColor', borderColor),
                         ...ifNotNull('borderRadius', borderRadius),
                         ...ifNotNull('borderWidth', borderWidth),
@@ -81,15 +87,15 @@ export default class Button extends VisualBrick {
                             ...ifNotTransparent('backgroundColor', defaultColor)
                         },
                         boxSizing: 'border-box',
-                        tabIndex: tabIndex,
-                        ...cssToSxProps(cssProperty),
-                        ...jsonToSxProps(muiSxJson)
+                        tabIndex: useProperty($, 'Tab Index'),
+                        ...cssToSxProps(useProperty($, 'CSS Property')),
+                        ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                     }}
                 >
-                    {text}
+                    {useProperty($, 'Text')}
                 </MUIButton>
-            ), elementDom);
-        });
+            );
+        };
     }
 }
 

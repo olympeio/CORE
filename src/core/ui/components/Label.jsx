@@ -14,40 +14,35 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick } from 'olympe';
+import { registerBrick } from 'olympe';
+import { ReactBrick, useProperty } from 'helpers/react.jsx';
+import { markdownTextToReactElement } from 'helpers/remarkable';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent } from 'helpers/mui';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-
 import Typography from '@mui/material/Typography';
 import Box from "@mui/material/Box";
-
-import { markdownTextToReactElement } from 'helpers/remarkable';
-import { jsonToSxProps, cssToSxProps } from 'helpers/mui';
 
 /**
  * Provide a Label visual component using MUI Typography
  */
-export default class Label extends VisualBrick {
+export default class Label extends ReactBrick {
 
     /**
-     * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!BrickContext} context
-     * @param {!Element} elementDom
      */
-    draw(context, elementDom) {
-        // Observe all properties
-        context.observeMany(
-            'Text', 'Text Variant', 'No Wrap', 'With Format', 'Text Color', 'Font Family', 'Horizontal Align', 'Vertical Align', 'MUI sx [json]',
-            'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Hidden'
-        ).subscribe(([
-            text, textVariant, noWrap, withFormat, textColor, fontFamily, horizontalAlign, verticalAlign, muiSxJson,
-            borderColor, borderRadius, borderWidth, cssProperty, defaultColor, hidden
-        ]) => {
-            // Rendering
-            ReactDOM.render((
-                !hidden &&
+    setupExecution($) {
+        return $.observe('Hidden');
+    }
+
+    /**
+     * @override
+     */
+    static getReactComponent($) {
+        return (props) => {
+            const [hidden] = props.values;
+            const text = useProperty($, 'Text');
+            return !hidden && (
                 <Box
                     // UI
                     sx={{
@@ -55,39 +50,39 @@ export default class Label extends VisualBrick {
                         height: 1,
                         display: 'flex',
                         overflow: 'visible',
-                        borderColor: borderColor.toHexString(),
-                        borderRadius: borderRadius,
-                        borderWidth: borderWidth,
+                        ...ifNotTransparent('borderColor', useProperty($, 'Border Color')),
+                        borderRadius: useProperty($, 'Border Radius'),
+                        borderWidth: useProperty($, 'Border Width'),
                         borderStyle: 'solid',
                         boxSizing: 'border-box',
-                        backgroundColor: defaultColor.toHexString()
+                        ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color'))
                     }}
 
                     // Events
-                    onClick={() => context.trigger('On Click')}
+                    onClick={() => $.trigger('On Click')}
                 >
                     <Typography
                         // Properties
                         component={'p'}
-                        variant={textVariant}
-                        noWrap={noWrap}
-                        align={horizontalAlign}
+                        variant={useProperty($, 'Text Variant')}
+                        noWrap={useProperty($, 'No Wrap')}
+                        align={useProperty($, 'Horizontal Align')}
 
                         // UI
                         sx={{
                             width: 1,
-                            color: textColor.toString(),
-                            fontFamily: fontFamily,
-                            alignSelf: verticalAlign,
-                            ...cssToSxProps(cssProperty),
-                            ...jsonToSxProps(muiSxJson)
+                            ...ifNotTransparent('color', useProperty($, 'Text Color')),
+                            fontFamily: useProperty($, 'Font Family'),
+                            alignSelf: useProperty($, 'Vertical Align'),
+                            ...cssToSxProps(useProperty($, 'CSS Property')),
+                            ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                         }}
                     >
-                        {withFormat ? markdownTextToReactElement(text, 'span') : text}
+                        {useProperty($, 'With Format') ? markdownTextToReactElement(text, 'span') : text}
                     </Typography>
                 </Box>
-            ), elementDom);
-        });
+            );
+        };
     }
 }
 

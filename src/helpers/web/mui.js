@@ -39,29 +39,20 @@ export function jsonToSxProps(json) {
  */
 export function cssToSxProps(css) {
     const capitalize = s => s[0].toUpperCase() + s.substr(1).toLowerCase();
-    let props = {};
-    css.split(';')
-        .filter(e => e)
-        .map(e => e.split(':'))
-        .filter(([key, val]) => key && val)
-        .forEach(([key, val]) => {
-            const camelCaseKey = key.trim()
-                .split('-')
-                .reduce((acc, cur, i) => acc + (i > 0 ? capitalize(cur) : cur.toLowerCase()), '');
-            props[camelCaseKey] = val.trim();
-        });
+    const props = {};
+    if(css) {
+        css.split(';')
+            .filter(e => e)
+            .map(e => e.split(':'))
+            .filter(([key, val]) => key && val)
+            .forEach(([key, val]) => {
+                const camelCaseKey = key.trim()
+                    .split('-')
+                    .reduce((acc, cur, i) => acc + (i > 0 ? capitalize(cur) : cur.toLowerCase()), '');
+                props[camelCaseKey] = val.trim();
+            });
+    }
     return props;
-}
-
-/**
- * Compute the color to use when using a color override (text color)
- * @param {Color} colorOverride
- * @param {boolean?} withError
- * @returns {Object}
- */
-export function computeTextColorOverride(colorOverride, withError) {
-    const colorHex = colorOverride.toHexString();
-    return !withError && colorHex !== '#00000000' ? {color:colorHex} : {};
 }
 
 /**
@@ -72,7 +63,8 @@ export function computeTextColorOverride(colorOverride, withError) {
  * @returns {Object}
  */
 export function ifNotTransparent(key, value, color) {
-    const colorHex = color ? color.toHexString() : value.toHexString();
+    const valueHex = value && value.toHexString ? value.toHexString() : '#00000000';
+    const colorHex = color ? color.toHexString() : valueHex;
     return colorHex !== '#00000000' ? {[key]:color?value:colorHex} : {};
 }
 

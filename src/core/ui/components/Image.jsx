@@ -14,146 +14,143 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick, File, Sync } from 'olympe';
+import { registerBrick, File, Sync } from 'olympe';
+import { ReactBrick, useProperty } from 'helpers/react.jsx';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent } from 'helpers/mui';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-
 import CardMedia from '@mui/material/CardMedia';
 
-import { combineLatestWith } from 'rxjs/operators';
-
-import { jsonToSxProps, cssToSxProps } from 'helpers/mui';
+import { switchMap } from 'rxjs/operators';
+import { of, from, combineLatest } from "rxjs";
 
 /**
  * Provide a Image visual component using MUI CardMedia
  */
-export default class Image extends VisualBrick {
+export default class Image extends ReactBrick {
 
     /**
-     * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!VisualContext} context
-     * @param {!Element} elementDom
      */
-    draw(context, elementDom) {
-        // Allow overflow
-        elementDom.style.overflow = 'visible';
+     setupExecution($) {
+        const imageUrl = combineLatest([$.observe('Image', false), $.observe('Image URL', false)]).pipe(
+            switchMap(([image, url]) => {
+                // Image file
+                if(image && image instanceof File) {
+                    return from(new Promise((resolve) => {
+                        image.getContentUrl(_url => {
+                            resolve(_url);
+                        });
+                    }));
+                }
 
-        // Observe all properties + image with a default value
-        const observeProperties = context.observeMany(
-            'Image URL', 'Alternative Text', 'Image Fit', 'Horizontal Align', 'Vertical Align', 'MUI sx [json]',
-            'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Height', 'Hidden', 'Width'
+                // URL
+                else if(url && url.trim()) {
+                    return of(url);
+                }
+
+                // Default image
+                else {
+                    return from(new Promise((resolve) => {
+                        const defaultImage = /** @type {ImageFile} */(Sync.getInstance('016eb13ba1388f7bdd71'));
+                        defaultImage.getContentUrl(_url => {
+                            resolve(_url);
+                        });
+                    }));
+                }
+            })
         );
-        const observeImage = context.observe('Image', false);
-
-        // Subscribe to changes
-        observeImage.pipe(combineLatestWith(observeProperties)).subscribe(([image, properties]) => {
-            // Image file
-            if(image && image instanceof File) {
-                image.getContentUrl(url => {
-                    properties[0] = url;
-                    this.drawImage(context, elementDom, properties);
-                });
-            }
-
-            // URL
-            else if(properties[0].trim()) {
-                this.drawImage(context, elementDom, properties);
-            }
-
-            // Default image
-            else {
-                const defaultImage = /** @type {ImageFile} */(Sync.getInstance('016eb13ba1388f7bdd71'));
-                defaultImage.getContentUrl(url => {
-                    properties[0] = url;
-                    this.drawImage(context, elementDom, properties);
-                });
-            }
-        });
+        return combineLatest([$.observe('Hidden'), imageUrl]);
     }
 
     /**
-     * @private
-     * @param {!UIContext} context
-     * @param {!Element} elementDom
-     * @param {!Array} properties
+     * @override
      */
-    drawImage(context, elementDom, properties) {
-        // Extract properties
-        const [
-            imageUrl, alternativeText, imageFit, horizontalAlign, verticalAlign, muiSxJson,
-            borderColor, borderRadius, borderWidth, cssProperty, defaultColor, height, hidden, width
-        ] = properties;
+    updateParent(parent, element) {
+        parent.style.overflow = 'visible'; // Allow overflow
+        return super.updateParent(parent, element);
+    }
 
-        // Detect if it's a SVG file + fill fit
-        const isSvg = imageUrl.indexOf('.svg') !== -1 || imageUrl.indexOf('image/svg') !== -1;
-        const isFillFit = imageFit === 'fill';
+    /**
+     * @override
+     */
+    static getReactComponent($) {
+        return (props) => {
+            const [hidden, imageUrl] = props.values;
+            const alternativeText = useProperty($, 'Alternative Text');
+            const imageFit = useProperty($, 'Image Fit');
+            const horizontalAlign = useProperty($, 'Horizontal Align');
+            const verticalAlign = useProperty($, 'Vertical Align');
+            const muiSxJson = useProperty($, 'MUI sx [json]');
+            const borderColor = useProperty($, 'Border Color');
+            const borderRadius = useProperty($, 'Border Radius');
+            const borderWidth = useProperty($, 'Border Width');
+            const cssProperty = useProperty($, 'CSS Property');
+            const defaultColor = useProperty($, 'Default Color');
+            const height = useProperty($, 'Height');
+            const width = useProperty($, 'Width');
 
-        // Create element
-        let element = null;
+            // Detect if it's a SVG file + fill fit
+            const isSvg = imageUrl.indexOf('.svg') !== -1 || imageUrl.indexOf('image/svg') !== -1;
+            const isFillFit = imageFit === 'fill';
 
-        // SVG + Fill fit case
-        if(isSvg && isFillFit) {
-            element = (
-                !hidden &&
-                <svg
-                    style={{
-                        width: width,
-                        height: height,
-                        borderColor: borderColor.toHexString(),
-                        borderRadius: borderRadius,
-                        borderWidth: borderWidth,
-                        borderStyle: 'solid',
-                        boxSizing: 'border-box',
-                        backgroundColor: defaultColor.toHexString(),
-                        ...cssToSxProps(cssProperty),
-                        ...jsonToSxProps(muiSxJson)
-                    }}
-                    onClick={() => context.getEvent('On Click').trigger()}
-                >
-                    <image
-                        alt={alternativeText}
-                        href={imageUrl}
+            // SVG + Fill fit case
+            if(isSvg && isFillFit) {
+                return !hidden && (
+                    <svg
                         style={{
                             width: width,
-                            height: height
+                            height: height,
+                            ...ifNotTransparent('borderColor', borderColor),
+                            borderRadius: borderRadius,
+                            borderWidth: borderWidth,
+                            borderStyle: 'solid',
+                            boxSizing: 'border-box',
+                            ...ifNotTransparent('backgroundColor', defaultColor),
+                            ...cssToSxProps(cssProperty),
+                            ...jsonToSxProps(muiSxJson)
                         }}
-                        preserveAspectRatio={'none'} // Fill fit hack for SVG
-                    ></image>
-                </svg>
-            );
-        }
+                        onClick={() => $.trigger('On Click')}
+                    >
+                        <image
+                            alt={alternativeText}
+                            href={imageUrl}
+                            style={{
+                                width: width,
+                                height: height
+                            }}
+                            preserveAspectRatio={'none'} // Fill fit hack for SVG
+                        ></image>
+                    </svg>
+                );
+            }
 
-        // Normal case
-        else {
-            element = (
-                !hidden &&
-                <CardMedia
-                    component={'img'}
-                    alt={alternativeText}
-                    image={imageUrl}
-                    sx={{
-                        width: 1,
-                        height: 1,
-                        objectFit: imageFit,
-                        objectPosition: `${horizontalAlign} ${verticalAlign}`,
-                        borderColor: borderColor.toHexString(),
-                        borderRadius: borderRadius,
-                        borderWidth: borderWidth,
-                        borderStyle: 'solid',
-                        boxSizing: 'border-box',
-                        backgroundColor: defaultColor.toHexString(),
-                        ...cssToSxProps(cssProperty),
-                        ...jsonToSxProps(muiSxJson)
-                    }}
-                    onClick={() => context.getEvent('On Click').trigger()}
-                ></CardMedia>
-            );
-        }
-
-        // Rendering
-        ReactDOM.render(element, elementDom);
+            // Normal case
+            else {
+                return !hidden && (
+                    <CardMedia
+                        component={'img'}
+                        alt={alternativeText}
+                        image={imageUrl}
+                        sx={{
+                            width: 1,
+                            height: 1,
+                            objectFit: imageFit,
+                            objectPosition: `${horizontalAlign} ${verticalAlign}`,
+                            ...ifNotTransparent('borderColor', borderColor),
+                            borderRadius: borderRadius,
+                            borderWidth: borderWidth,
+                            borderStyle: 'solid',
+                            boxSizing: 'border-box',
+                            ...ifNotTransparent('backgroundColor', defaultColor),
+                            ...cssToSxProps(cssProperty),
+                            ...jsonToSxProps(muiSxJson)
+                        }}
+                        onClick={() => $.trigger('On Click')}
+                    ></CardMedia>
+                );
+            }
+        };
     }
 }
 
