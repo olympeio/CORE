@@ -14,69 +14,79 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick } from 'olympe';
+ import { registerBrick } from 'olympe';
+ import { ReactBrick, useProperty } from 'helpers/react.jsx';
+ import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent } from 'helpers/mui';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-
 import MUISlider from '@mui/material/Slider';
-
-import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent } from 'helpers/mui';
 
 /**
  * Provide a Slider visual component using MUI Slider
  */
-export default class Slider extends VisualBrick {
+export default class Slider extends ReactBrick {
 
     /**
-     * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!UIContext} context
-     * @param {!Element} elementDom
      */
-    draw(context, elementDom) {
+    setupExecution($) {
+        return $.observe('Hidden');
+    }
+
+    /**
+     * @override
+     */
+    updateParent(parent, element) {
         // Change draw div display to center the slider
-        elementDom.style.alignItems = 'center';
-        elementDom.style.justifyContent = 'center';
+        parent.style.alignItems = 'center';
+        parent.style.justifyContent = 'center';
+        parent.style.display = 'flex';
 
         // Allow overflow
-        elementDom.style.overflow = 'visible';
+        parent.style.overflow = 'visible';
 
-        // Observe all properties
-        context.observeMany(
-            'Value 1', 'Value 2', 'Min', 'Max', 'Step', 'Disabled', 'Use Range', 'Range Behavior', 'Range Min Distance', 'Enable Marks', 'Orientation', 'Color', 'Color Override', 'Size', 'Track', 'Label Display', 'MUI sx [json]',
-            'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Hidden', 'Tab Index'
-        ).subscribe(([
-            value1, value2, min, max, step, disabled, useRange, rangeBehavior, rangeMinDistance, enableMarks, orientation, color, colorOverride, size, track, labelDisplay, muiSxJson,
-            borderColor, borderRadius, borderWidth, cssProperty, defaultColor, hidden, tabIndex
-        ]) => {
-            // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
-            elementDom.style.display = 'flex';
+        return super.updateParent(parent, element);
+    }
+
+    /**
+     * @override
+     */
+    static getReactComponent($) {
+        return (props) => {
+            const [hidden] = props.values;
+            const useRange = useProperty($, 'Use Range');
+            const value1 = useProperty($, 'Value 1') || 0;
+            const value2 = useProperty($, 'Value 2') || 0;
+            const min = useProperty($, 'Min');
+            const max = useProperty($, 'Max');
+            const rangeBehavior = useProperty($, 'Range Behavior');
+            const track = useProperty($, 'Track');
+            const rangeMinDistance = useProperty($, 'Range Min Distance');
+            const borderWidth = useProperty($, 'Border Width');
 
             // Handle range slider
             const muiValue = useRange ? [value1, value2] : value1;
 
-            // Rendering
-            ReactDOM.render(!hidden && (
+            return !hidden && (
                 <MUISlider
                     // Properties
                     value={muiValue}
                     min={min}
                     max={max}
-                    step={step}
-                    disabled={disabled}
+                    step={useProperty($, 'Step')}
+                    disabled={useProperty($, 'Disabled')}
                     disableSwap={rangeBehavior !== 'allow-swap'}
-                    marks={enableMarks}
-                    orientation={orientation}
-                    color={color}
-                    size={size}
+                    marks={useProperty($, 'Enable Marks')}
+                    orientation={useProperty($, 'Orientation')}
+                    color={useProperty($, 'Color')}
+                    size={useProperty($, 'Size')}
                     track={track === 'no-track' ? false : track}
-                    valueLabelDisplay={labelDisplay}
-                    tabIndex={tabIndex}
+                    valueLabelDisplay={useProperty($, 'Label Display')}
+                    tabIndex={useProperty($, 'Tab Index')}
 
                     // Events
-                    onClick={() => context.getEvent('On Click').trigger()}
-                    onChangeCommitted={() => context.getEvent('On Change Committed').trigger()}
+                    onClick={() => $.trigger('On Click')}
+                    onChangeCommitted={() => $.trigger('On Change Committed')}
                     onChange={(_, value, thumb) => {
                         let newValue1 = value1;
                         let newValue2 = value2;
@@ -125,26 +135,26 @@ export default class Slider extends VisualBrick {
 
                         // Update
                         if(value1 !== newValue1 || value2 !== newValue2) {
-                            context.getProperty('Value 1').set(newValue1);
-                            context.getProperty('Value 2').set(newValue2);
-                            context.getEvent('On Change').trigger();
+                            $.set('Value 1', newValue1);
+                            $.set('Value 2', newValue2);
+                            $.trigger('On Change');
                         }
                     }}
 
                     // UI
                     sx={{
                         borderWidth: borderWidth,
-                        borderRadius: borderRadius,
+                        borderRadius: useProperty($, 'Border Radius'),
                         ...ifNotNull('borderStyle', 'solid', borderWidth > 0),
-                        ...ifNotTransparent('borderColor', borderColor),
-                        ...ifNotTransparent('color', colorOverride),
-                        ...ifNotTransparent('backgroundColor', defaultColor),
-                        ...cssToSxProps(cssProperty),
-                        ...jsonToSxProps(muiSxJson)
+                        ...ifNotTransparent('borderColor', useProperty($, 'Border Color')),
+                        ...ifNotTransparent('color', useProperty($, 'Color Override')),
+                        ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
+                        ...cssToSxProps(useProperty($, 'CSS Property')),
+                        ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                     }}
                 ></MUISlider>
-            ), elementDom);
-        });
+            );
+        };
     }
 }
 

@@ -14,111 +14,115 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick } from 'olympe';
+ import { registerBrick } from 'olympe';
+ import { ReactBrick, useProperty } from 'helpers/react.jsx';
+ import { cssToSxProps, ifNotTransparent } from "helpers/mui";
+
 import ReactPlayer from 'react-player'
 import React from 'react'
-import ReactDOM from 'react-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import {cssToSxProps} from "helpers/mui";
 
-export default class MediaPlayer extends VisualBrick {
+import { combineLatestWith } from "rxjs/operators";
+
+/**
+ * Provide a Media Player visual component using ReactPlayer
+ */
+export default class MediaPlayer extends ReactBrick {
 
     /**
-     * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!UIContext} context
-     * @param {!Element} elementDom
      */
-    draw(context, elementDom) {
+    setupExecution($) {
+        return $.observe('Hidden').pipe(combineLatestWith($.observe('Media URL', false)));
+    }
+
+    /**
+     * @override
+     */
+    updateParent(parent, element) {
         // Allow overflow and center the audio player
-        elementDom.style.overflow = 'visible';
-        elementDom.style.alignItems = 'center';
-        elementDom.style.justifyContent = 'center';
+        parent.style.overflow = 'visible';
+        parent.style.alignItems = 'center';
+        parent.style.justifyContent = 'center';
+        parent.style.display = 'flex';
 
-        // Observe all properties
-        context.observeMany(
-            'Media URL', 'Playing', 'Loop', 'Show Controls', 'Volume [%]', 'Muted', 'Playback Rate', 'Progress Interval', 'Plays Inline',
-            'CSS Property', 'Hidden', 'Width', 'Height', 'Border Color', 'Border Radius', 'Border Width',
-        ).subscribe(([
-            url, playing, loop, showControls, volume, muted, playbackRate, progressInterval, playsInline,
-            cssProperty, hidden, width, height, borderColor, borderRadius, borderWidth
-        ]) => {
-            // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
-            elementDom.style.display = 'flex';
+        return super.updateParent(parent, element);
+    }
 
-            // 0 <= volume <= 100
-            const clampedVolume = Math.min(Math.max(0, volume), 100);
-
-            const cssProps = cssToSxProps(cssProperty);
-            const bw = parseInt(cssProps.borderWidth) || borderWidth;
+    /**
+     * @override
+     */
+    static getReactComponent($) {
+        return (props) => {
+            const [hidden, url] = props.values;
 
             // Can play
             if(ReactPlayer.canPlay(url)) {
-                // Rendering
-                ReactDOM.render((
-                    !hidden &&
+                const clampedVolume = Math.min(Math.max(0, useProperty($, 'Volume [%]')), 100); // 0 <= volume <= 100
+                const cssProps = cssToSxProps(useProperty($, 'CSS Property'));
+                const bw = parseInt(cssProps.borderWidth) || useProperty($, 'Border Width') || 0;
+                return !hidden && (
                     <ReactPlayer
                         // Properties + UI
                         url={url}
-                        playing={playing}
-                        loop={loop}
-                        controls={showControls}
+                        playing={useProperty($, 'Playing')}
+                        loop={useProperty($, 'Loop')}
+                        controls={useProperty($, 'Show Controls')}
                         volume={clampedVolume / 100}
-                        muted={muted}
-                        playbackRate={playbackRate}
-                        width={width - bw * 2}
-                        height={height - bw * 2}
-                        progressInterval={progressInterval}
-                        playsinline={playsInline}
+                        muted={useProperty($, 'Muted')}
+                        playbackRate={useProperty($, 'Playback Rate')}
+                        width={(useProperty($, 'Width') || 0) - bw * 2}
+                        height={(useProperty($, 'Height') || 0) - bw * 2}
+                        progressInterval={useProperty($, 'Progress Interval')}
+                        playsinline={useProperty($, 'Plays Inline')}
                         style={{
                             borderStyle: bw > 0 ? 'solid' : 'none',
                             borderWidth: bw + 'px',
-                            borderColor: borderColor.toHexString(),
-                            borderRadius: borderRadius + 'px',
+                            ...ifNotTransparent('borderColor', useProperty($, 'Border Color')),
+                            borderRadius: (useProperty($, 'Border Radius') || 0) + 'px',
                             ...cssProps
                         }}
 
                         // Events
-                        onReady={() => context.getEvent('On Ready').trigger()}
-                        onStart={() => context.getEvent('On Start').trigger()}
-                        onPlay={() => context.getEvent('On Play').trigger()}
-                        onPause={() => context.getEvent('On Pause').trigger()}
-                        onBuffer={() => context.getEvent('On Buffer').trigger()}
-                        onBufferEnd={() => context.getEvent('On Buffer End').trigger()}
-                        onSeek={() => context.getEvent('On Seek').trigger()}
-                        onEnded={() => context.getEvent('On Ended').trigger()}
-                        onError={() => context.getEvent('On Error').trigger()}
+                        onReady={() => $.trigger('On Ready')}
+                        onStart={() => $.trigger('On Start')}
+                        onPlay={() => $.trigger('On Play')}
+                        onPause={() => $.trigger('On Pause')}
+                        onBuffer={() => $.trigger('On Buffer')}
+                        onBufferEnd={() => $.trigger('On Buffer End')}
+                        onSeek={() => $.trigger('On Seek')}
+                        onEnded={() => $.trigger('On Ended')}
+                        onError={() => $.trigger('On Error')}
 
                         // Callbacks
                         onProgress={(state) => {
-                            context.getProperty('Played').set(state.played);
-                            context.getProperty('Loaded').set(state.loaded);
-                            context.getEvent('On Progress').trigger();
+                            $.set('Played', state.played);
+                            $.set('Loaded', state.loaded);
+                            $.trigger('On Progress');
                         }}
                         onDuration={(duration) => {
-                            context.getProperty('Duration [s]').set(duration);
-                            context.getEvent('On Duration').trigger();
+                            $.set('Duration [s]', duration);
+                            $.trigger('On Duration');
                         }}
 
                     />
-                ), elementDom);
+                );
             }
 
             // Can't play
             else {
-                ReactDOM.render((
-                    !hidden &&
+                return !hidden && (
                     <Box sx={{ backgroundColor: 'lightgrey', width: 1, height: 1 }}>
                         <Typography sx={{ color: 'black', padding: 1 }}>
                             <b>Media Player</b><br/>
                             Please enter a playable <code>Media URL</code> for the component to render.<br/>
-                            Current value: {url ? url : 'no value'}
+                            Current value: {url ? url : '<no value>'}
                         </Typography>
                     </Box>
-                ), elementDom);
+                );
             }
-        });
+        };
     }
 }
 

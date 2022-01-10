@@ -14,76 +14,78 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick } from 'olympe';
+ import { registerBrick } from 'olympe';
+ import { ReactBrick, useProperty } from 'helpers/react.jsx';
+ import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent } from 'helpers/mui';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-
 import MUIDivider from '@mui/material/Divider';
-
-import { jsonToSxProps, cssToSxProps, ifNotNull } from 'helpers/mui';
 
 /**
  * Provide a Divider visual component using MUI Divider
  */
-export default class Divider extends VisualBrick {
+export default class Divider extends ReactBrick {
 
     /**
-     * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!UIContext} context
-     * @param {!Element} elementDom
      */
-    draw(context, elementDom) {
+     setupExecution($) {
+        return $.observe('Hidden');
+    }
+
+    /**
+     * @override
+     */
+    updateParent(parent, element) {
         // Change draw div display to center the divider
-        elementDom.style.alignItems = 'center';
-        elementDom.style.justifyContent = 'center';
+        parent.style.alignItems = 'center';
+        parent.style.justifyContent = 'center';
+        parent.style.display = 'flex';
 
         // Allow overflow
-        elementDom.style.overflow = 'visible';
+        parent.style.overflow = 'visible';
 
-        // Observe all properties
-        context.observeMany(
-            'Orientation', 'Variant', 'Text', 'Text Position', 'Text Color', 'Font Family', 'MUI sx [json]',
-            'Border Color', 'CSS Property', 'Default Color', 'Hidden'
-        ).subscribe(([
-            orientation, variant, text, textPosition, textColor, fontFamily, muiSxJson,
-            borderColor, cssProperty, defaultColor, hidden
-        ]) => {
-            // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
-            elementDom.style.display = 'flex';
+        return super.updateParent(parent, element);
+    }
 
-            // Rendering
-            ReactDOM.render(!hidden && (
+    /**
+     * @override
+     */
+    static getReactComponent($) {
+        return (props) => {
+            const [hidden] = props.values;
+            const orientation = useProperty($, 'Orientation');
+            const borderColor = useProperty($, 'Border Color');
+            return !hidden && (
                 <MUIDivider
                     // Properties
                     orientation={orientation}
-                    variant={variant}
-                    textAlign={textPosition}
+                    variant={useProperty($, 'Variant')}
+                    textAlign={useProperty($, 'Text Position')}
 
                     // UI
                     flexItem={orientation === 'vertical'}
                     sx={{
-                        backgroundColor: defaultColor.toHexString(),
-                        fontFamily: fontFamily,
-                        color: textColor.toHexString(),
+                        ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
+                        fontFamily: useProperty($, 'Font Family'),
+                        ...ifNotTransparent('color', useProperty($, 'Text Color')),
                         '&.MuiDivider-root': {
                             '&::before': {
-                                borderColor: borderColor.toHexString()
+                                ...ifNotTransparent('borderColor', borderColor)
                             },
                             '&::after': {
-                                borderColor: borderColor.toHexString()
+                                ...ifNotTransparent('borderColor', borderColor)
                             }
                         },
                         ...ifNotNull('flex', 'auto', orientation === 'horizontal'),
-                        ...cssToSxProps(cssProperty),
-                        ...jsonToSxProps(muiSxJson)
+                        ...cssToSxProps(useProperty($, 'CSS Property')),
+                        ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                     }}
                 >
-                    {text}
+                    {useProperty($, 'Text')}
                 </MUIDivider>
-            ), elementDom);
-        });
+            );
+        };
     }
 }
 

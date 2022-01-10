@@ -14,91 +14,90 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick } from 'olympe';
+import { registerBrick } from 'olympe';
+import { ReactBrick, useProperty } from 'helpers/react.jsx';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-
 import MUICheckbox from '@mui/material/Checkbox';
 import Icon from '@mui/material/Icon';
-
-import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
 
 /**
  * Provide a Checkbox visual component using MUI Checkbox
  */
-export default class Checkbox extends VisualBrick {
+export default class Checkbox extends ReactBrick {
 
     /**
-     * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!UIContext} context
-     * @param {!Element} elementDom
      */
-    draw(context, elementDom) {
+    setupExecution($) {
+        return $.observe('Hidden');
+    }
+
+    /**
+     * @override
+     */
+    updateParent(parent, element) {
         // Change draw div display to center the checkbox
-        elementDom.style.alignItems = 'center';
-        elementDom.style.justifyContent = 'center';
+        parent.style.display = 'flex';
+        parent.style.alignItems = 'center';
+        parent.style.justifyContent = 'center';
 
         // Allow overflow
-        elementDom.style.overflow = 'visible';
+        parent.style.overflow = 'visible';
 
-        // Observe all properties
-        context.observeMany(
-            'Checked', 'Indeterminate', 'Disabled', 'Color', 'Checked Icon', 'Unchecked Icon', 'Indeterminate Icon', 'MUI sx [json]',
-            'Border Color', 'Border Radius', 'CSS Property', 'Default Color', 'Height', 'Hidden', 'Tab Index', 'Width'
-        )
-        .subscribe(([
-            checked, indeterminate, disabled, color, checkedIcon, uncheckedIcon, indeterminateIcon, muiSxJson,
-            borderColor, borderRadius, cssProperty, defaultColor, height, hidden, tabIndex, width
-        ]) => {
-            // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
-            elementDom.style.display = 'flex';
+        return super.updateParent(parent, element);
+    }
+
+    /**
+     * @override
+     */
+    static getReactComponent($) {
+        return (props) => {
+            const [hidden] = props.values;
 
             // Compute components size
-            const checkboxSize = Math.min(width, height);
+            const checkboxSize = Math.min(useProperty($, 'Width'), useProperty($, 'Height'));
             const iconSize = checkboxSize / 1.75;
 
             // Icon props
             const iconSxProps = {
                 fontSize: iconSize,
-                ...ifNotTransparent('backgroundColor', defaultColor),
-                ...ifNotTransparent('color', borderColor),
-                ...ifNotNull('borderRadius', borderRadius)
+                ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
+                ...ifNotTransparent('color', useProperty($, 'Border Color')),
+                ...ifNotNull('borderRadius', useProperty($, 'Border Radius'))
             };
 
-            // Rendering
-            ReactDOM.render((
-                !hidden &&
+            return !hidden && (
                 <MUICheckbox
                     // Properties
-                    checked={checked}
-                    indeterminate={indeterminate}
-                    disabled={disabled}
-                    color={color}
-                    checkedIcon={(<Icon sx={{...iconSxProps}}>{checkedIcon}</Icon>)}
-                    icon={(<Icon sx={{...iconSxProps}}>{uncheckedIcon}</Icon>)}
-                    indeterminateIcon={(<Icon sx={{...iconSxProps}}>{indeterminateIcon}</Icon>)}
+                    checked={useProperty($, 'Checked') || false}
+                    indeterminate={useProperty($, 'Indeterminate')}
+                    disabled={useProperty($, 'Disabled')}
+                    color={useProperty($, 'Color')}
+                    checkedIcon={(<Icon sx={{...iconSxProps}}>{useProperty($, 'Checked Icon')}</Icon>)}
+                    icon={(<Icon sx={{...iconSxProps}}>{useProperty($, 'Unchecked Icon')}</Icon>)}
+                    indeterminateIcon={(<Icon sx={{...iconSxProps}}>{useProperty($, 'Indeterminate Icon')}</Icon>)}
 
                     // Events
                     onChange={(event) => {
                         // Set the Checked property before triggering the event
-                        context.getProperty('Checked').set(event.target.checked);
-                        context.getEvent('On Change').trigger();
-                        context.getEvent('On Click').trigger();
+                        $.set('Checked', event.target.checked);
+                        $.trigger('On Change');
+                        $.trigger('On Click');
                     }}
 
                     // UI
                     sx={{
                         width: checkboxSize,
                         height: checkboxSize,
-                        tabIndex: tabIndex,
-                        ...cssToSxProps(cssProperty),
-                        ...jsonToSxProps(muiSxJson)
+                        tabIndex: useProperty($, 'Tab Index'),
+                        ...cssToSxProps(useProperty($, 'CSS Property')),
+                        ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                     }}
                 ></MUICheckbox>
-            ), elementDom);
-        });
+            );
+        };
     }
 }
 

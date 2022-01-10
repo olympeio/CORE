@@ -14,39 +14,31 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick, EnumValue } from 'olympe';
+import { registerBrick, EnumValue } from 'olympe';
+import { ReactBrick, useProperty } from 'helpers/react.jsx';
+import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent } from 'helpers/mui';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 
-import { jsonToSxProps, computeTextColorOverride, cssToSxProps, ifNotNull, ifNotTransparent } from 'helpers/mui';
 import { combineLatestWith, map, switchMap } from 'rxjs/operators';
-import { of, combineLatest} from "rxjs";
+import { of, combineLatest } from "rxjs";
 
 /**
  * Provide a Dropdown visual component using MUI TextField
  */
-export default class Dropdown extends VisualBrick {
+export default class Dropdown extends ReactBrick {
 
     /**
-     * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!VisualContext} context
-     * @param {!Element} elementDom
      */
-    draw(context, elementDom) {
-        // Allow overflow
-        elementDom.style.overflow = 'visible';
-
+    setupExecution($) {
         // Observe all Enum values (options)
-        const observeValues = context.observe('Values', false)
-        const observeSize = observeValues.pipe(
+        const observeSize = $.observe('Values', false).pipe(
             switchMap((enumModel) =>  enumModel === null ? of(0): enumModel.getValues().observeSize())
         );
-        const observeOptions = context.observe('Values').pipe(
+        const observeOptions = $.observe('Values').pipe(
             switchMap((enumModel) => {
                 return enumModel === null ? of([]) : of(enumModel.getValues()).pipe(
                     combineLatestWith(observeSize),
@@ -71,47 +63,63 @@ export default class Dropdown extends VisualBrick {
             })
         );
 
-        // Observe all others properties
-        context.observeMany(
-            'Value', 'Label', 'Helper Text', 'Empty Text', 'Variant', 'Color', 'Min Size', 'Multiple', 'Disabled', 'Required', 'Error', 'Show Names', 'Text Color Override', 'Font Family', 'MUI sx [json]',
-            'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Hidden', 'Tab Index'
-        )
-        .pipe(combineLatestWith(observeOptions))
-        .subscribe(([
-            [value, label, helperText, emptyText, variant, color, minSize, multiple, disabled, required, error, showNames, textColorOverride, fontFamily, muiSxJson,
-            borderColor, borderRadius, borderWidth, cssProperty, defaultColor, hidden, tabIndex],
-            options
-        ]) => {
-            // Handle multiple selection
-            const muiValue = multiple
-                ? value.split(Dropdown.SEPARATOR).map(v => v.trim()).filter(v => v !== '')
-                : value.trim();
+        // Combine with Hidden property
+        return $.observe('Hidden').pipe(combineLatestWith(observeOptions));
+    }
 
-            // Rendering
-            ReactDOM.render((
-                !hidden &&
+    /**
+     * @override
+     */
+    updateParent(parent, element) {
+        parent.style.overflow = 'visible'; // Allow overflow
+        return super.updateParent(parent, element);
+    }
+
+    /**
+     * @override
+     */
+    static getReactComponent($) {
+        return (props) => {
+            const [hidden, options] = props.values;
+            const multiple = useProperty($, 'Multiple');
+            const value = useProperty($, 'Value');
+            const fontFamily = useProperty($, 'Font Family');
+            const borderWidth = useProperty($, 'Border Width');
+            const borderColor = useProperty($, 'Border Color');
+            const emptyText = useProperty($, 'Empty Text');
+            const showNames = useProperty($, 'Show Names');
+
+            // Handle multiple selection
+            let muiValue = multiple ? [] : '';
+            if(value && multiple) {
+                muiValue = value.split(Dropdown.SEPARATOR).map(v => v.trim()).filter(v => v !== '');
+            } else if(value) {
+                muiValue = value.trim();
+            }
+
+            return !hidden && (
                 <TextField
                     // Properties
                     value={muiValue}
-                    label={label}
-                    helperText={helperText}
-                    variant={variant}
-                    color={color}
-                    size={minSize}
-                    disabled={disabled}
-                    required={required}
-                    error={error}
+                    label={useProperty($, 'Label')}
+                    helperText={useProperty($, 'Helper Text')}
+                    variant={useProperty($, 'Variant')}
+                    color={useProperty($, 'Color')}
+                    size={useProperty($, 'Min Size')}
+                    disabled={useProperty($, 'Disabled')}
+                    required={useProperty($, 'Required')}
+                    error={useProperty($, 'Error')}
 
                     // Events
-                    onClick={() => context.trigger('On Click')}
+                    onClick={() => $.trigger('On Click')}
                     onChange={(event) => {
                         // Set the Value property before triggering the event
-                        context.set('Value',
+                        $.set('Value',
                             multiple
                                 ? /** @type {Array} */(event.target.value).join(Dropdown.SEPARATOR)
                                 : event.target.value
                         );
-                        context.trigger('On Change');
+                        $.trigger('On Change');
                     }}
 
                     // UI
@@ -119,14 +127,14 @@ export default class Dropdown extends VisualBrick {
                         sx: {
                             flex: 'auto',
                             fontFamily: fontFamily,
-                            tabIndex: tabIndex,
-                            ...ifNotTransparent('backgroundColor', defaultColor),
-                            ...ifNotNull('borderRadius', borderRadius),
+                            tabIndex: useProperty($, 'Tab Index'),
+                            ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
+                            ...ifNotNull('borderRadius', useProperty($, 'Border Radius')),
                             ...ifNotNull('borderWidth', borderWidth),
                             ...ifNotTransparent('borderStyle', 'solid', borderColor),
                             ...ifNotNull('boxSizing', 'border-box', borderWidth),
                             ...ifNotTransparent('borderColor', borderColor),
-                            ...computeTextColorOverride(textColorOverride, error)
+                            ...ifNotNull('color', useProperty($, 'Text Color Override'), !useProperty($, 'Error'))
                         }
                     }}
                     FormHelperTextProps={{
@@ -145,8 +153,8 @@ export default class Dropdown extends VisualBrick {
                     sx={{
                         width: 1,
                         height: 1,
-                        ...cssToSxProps(cssProperty),
-                        ...jsonToSxProps(muiSxJson)
+                        ...cssToSxProps(useProperty($, 'CSS Property')),
+                        ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                     }}
 
                     // Select properties
@@ -157,8 +165,8 @@ export default class Dropdown extends VisualBrick {
                         displayEmpty: true,
 
                         // Event
-                        onClose: () => context.trigger('On Close'),
-                        onOpen: () => context.trigger('On Open'),
+                        onClose: () => $.trigger('On Close'),
+                        onOpen: () => $.trigger('On Open'),
 
                         // UI
                         renderValue: val => {
@@ -183,8 +191,8 @@ export default class Dropdown extends VisualBrick {
                         </MenuItem>
                     ))}
                 </TextField>
-            ), elementDom);
-        });
+            );
+        };
     }
 }
 
