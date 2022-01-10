@@ -17,68 +17,69 @@
 /**
  * Provide a visual component that generates QR codes using qrcode.react
  */
-import {VisualBrick, registerBrick} from 'olympe';
-import {cssToSxProps} from 'helpers/mui';
-import ReactDOM from 'react-dom';
+
+import { registerBrick, Color } from 'olympe';
+import { ReactBrick, useProperty } from 'helpers/react.jsx';
+import { cssToSxProps, ifNotTransparent } from 'helpers/mui';
+
 import React from 'react';
 import QRCode from 'qrcode.react';
-import {css} from "@emotion/react";
 
 /**
  * Provide a visual component that generates a QR code using qrcode.react
  */
-export default class QRCodeViewer extends VisualBrick {
+export default class QRCodeViewer extends ReactBrick {
 
     /**
-     * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!UIContext} context
-     * @param {!Element} elementDom
      */
-    draw(context, elementDom) {
-        // Allow overflow
-        elementDom.style.overflow = 'visible';
-        elementDom.style.alignItems = 'center';
-        elementDom.style.justifyContent = 'center';
+     setupExecution($) {
+        return $.observe('Hidden');
+    }
 
-        // Observe all properties
-        context.observeMany(
-            'Value', 'Render as', 'Level', 'Include Margin', 'Hidden', 'Height', 'Width',
-            'Default Color', 'Foreground Color', 'Border Color', 'Border Radius', 'Border Width', 'CSS Property'
-        ).subscribe(([
-            value, renderAs, level, includeMargin, hidden, height, width, defaultColor, foregroundColor,
-            borderColor, borderRadius, borderWidth, cssProperty
-        ]) => {
-            // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
-            elementDom.style.display = 'flex';
+    /**
+     * @override
+     */
+    updateParent(parent, element) {
+        parent.style.overflow = 'visible';
+        parent.style.alignItems = 'center';
+        parent.style.justifyContent = 'center';
+        parent.style.display = 'flex';
+        return super.updateParent(parent, element);
+    }
 
-            const cssProps = cssToSxProps(cssProperty);
-            const bw = parseInt(cssProps.borderWidth) || borderWidth;
-
-            // Rendering
-            ReactDOM.render((
-                !hidden &&
+    /**
+     * @override
+     */
+    static getReactComponent($) {
+        return (props) => {
+            const [hidden] = props.values;
+            const defaultColor = useProperty($, 'Default Color') || Color.create(0, 0, 0, 1);
+            const foregroundColor = useProperty($, 'Foreground Color') || Color.create(0, 0, 0);
+            const cssProps = cssToSxProps(useProperty($, 'CSS Property'));
+            const bw = parseInt(cssProps.borderWidth) || useProperty($, 'Border Width') || 0;
+            return !hidden && (
                 <QRCode
                     // Properties + UI
-                    value={value}
-                    renderAs={renderAs}
-                    size={Math.min(height, width) - bw*2}
+                    value={useProperty($, 'Value') || ''}
+                    renderAs={useProperty($, 'Render as')}
+                    size={Math.min(useProperty($, 'Height') || 0, useProperty($, 'Width') || 0) - bw * 2}
                     bgColor={defaultColor.toHexString()}
                     fgColor={foregroundColor.toHexString()}
-                    level={level}
-                    includeMargin={includeMargin}
+                    level={useProperty($, 'Level')}
+                    includeMargin={useProperty($, 'Include Margin')}
                     style={{
-                            borderStyle: bw > 0 ? 'solid' : 'none',
-                            borderWidth: bw + 'px',
-                            borderColor: borderColor.toHexString(),
-                            borderRadius: borderRadius + 'px',
-                            ...cssProps,
+                        borderStyle: bw > 0 ? 'solid' : 'none',
+                        borderWidth: bw + 'px',
+                        ...ifNotTransparent('borderColor', useProperty($, 'Border Color')),
+                        borderRadius: useProperty($, 'Border Radius') + 'px',
+                        ...cssProps,
                     }}
                     // Events
-                    onClick={() => context.getEvent('On Click').trigger()}
+                    onClick={() => $.trigger('On Click')}
                 />
-            ), elementDom);
-        });
+            );
+        };
     }
 }
 

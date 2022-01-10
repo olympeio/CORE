@@ -14,61 +14,64 @@
  * limitations under the License.
  */
 
-import {VisualBrick, registerBrick} from 'olympe';
-import {cssToSxProps, jsonToSxProps} from 'helpers/mui';
+ import { registerBrick } from 'olympe';
+ import { ReactBrick, useProperty } from 'helpers/react.jsx';
+import { cssToSxProps, jsonToSxProps, ifNotTransparent } from 'helpers/mui';
+
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Box from "@mui/material/Box";
 
-export default class Touchpad extends VisualBrick {
+export default class Touchpad extends ReactBrick {
 
     /**
-     * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!UIContext} context
-     * @param {!Element} elementDom
      */
-    draw(context, elementDom) {
-        // Allow overflow
-        elementDom.style.overflow = 'visible';
+     setupExecution($) {
+        return $.observe('Hidden');
+    }
 
-        // Observe all properties
-        context.observeMany(
-            'Hidden', 'Default Color', 'Border Color', 'Border Radius', 'Border Width', 'CSS Property',
-            'MUI sx [json]'
-        ).subscribe(([
-            hidden, defaultColor, borderColor, borderRadius, borderWidth, cssProperty, muiSxJson
-        ]) => {
-            // Rendering
-            ReactDOM.render((
-                !hidden &&
+    /**
+     * @override
+     */
+    updateParent(parent, element) {
+        parent.style.overflow = 'visible'; // Allow overflow
+        return super.updateParent(parent, element);
+    }
+
+    /**
+     * @override
+     */
+    static getReactComponent($) {
+        return (props) => {
+            const [hidden] = props.values;
+            return !hidden && (
                 <Box
                     component={'div'}
                     sx={{
-                        height: '100%',
-                        width: '100%',
-                        backgroundColor: defaultColor.toHexString(),
-                        borderWidth: borderWidth,
-                        borderRadius: borderRadius,
+                        height: 1,
+                        width: 1,
+                        ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
+                        borderWidth: useProperty($, 'Border Width'),
+                        borderRadius: useProperty($, 'Border Radius'),
                         boxSizing: 'border-box',
                         borderStyle: 'solid',
-                        borderColor: borderColor.toHexString(),
-                        ...cssToSxProps(cssProperty),
-                        ...jsonToSxProps(muiSxJson)
+                        ...ifNotTransparent('borderColor', useProperty($, 'Border Color')),
+                        ...cssToSxProps(useProperty($, 'CSS Property')),
+                        ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                     }}
 
                     onTouchMove={(event) => {
-                        context.getProperty('Touch Move').set(event.nativeEvent);
-                        context.getEvent('On Touch Move').trigger();
+                        $.set('Touch Move', event.nativeEvent);
+                        $.trigger('On Touch Move');
                     }}
 
                     onMouseMove={(event) => {
-                        context.getProperty('Mouse Move').set(event.nativeEvent);
-                        context.getEvent('On Mouse Move').trigger();
+                        $.set('Mouse Move', event.nativeEvent);
+                        $.trigger('On Mouse Move');
                     }}
                 />
-            ), elementDom);
-        });
+            );
+        };
     }
 }
 

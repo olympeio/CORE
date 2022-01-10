@@ -14,66 +14,71 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick } from 'olympe';
+import { registerBrick } from 'olympe';
+import { ReactBrick, useProperty } from 'helpers/react.jsx';
+import { jsonToSxProps, ifNotNull, ifNotTransparent, cssToSxProps } from 'helpers/mui';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-
 import MUITextField from '@mui/material/TextField';
-
-import { jsonToSxProps, computeTextColorOverride, ifNotNull, ifNotTransparent, cssToSxProps } from 'helpers/mui';
 
 /**
  * Provide a Text Field visual component using MUI TextField
  */
-export default class TextField extends VisualBrick {
+export default class TextField extends ReactBrick {
 
     /**
-     * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!UIContext} context
-     * @param {!Element} elementDom
      */
-    draw(context, elementDom) {
-        // Allow overflow
-        elementDom.style.overflow = 'visible';
+    setupExecution($) {
+        return $.observe('Hidden');
+    }
 
-        // Observe all properties
-        context.observeMany(
-            'Value', 'Placeholder', 'Label', 'Helper Text', 'Type', 'Variant', 'Color', 'Min Size', 'Disabled', 'Auto Focus', 'Required', 'Error', 'Multiline', 'Rows', 'Min Rows', 'Max Rows', 'Text Color Override', 'Font Family', 'MUI sx [json]',
-            'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Hidden', 'Tab Index'
-        ).subscribe(([
-            value, placeholder, label, helperText, type, variant, color, minSize, disabled, autoFocus, required, error, multiline, rows, minRows, maxRows, textColorOverride, fontFamily, muiSxJson,
-            borderColor, borderRadius, borderWidth, cssProperty, defaultColor, hidden, tabIndex
-        ]) => {
-            // Rendering
-            ReactDOM.render((
-                !hidden &&
+    /**
+     * @override
+     */
+    updateParent(parent, element) {
+        parent.style.overflow = 'visible'; // Allow overflow
+        return super.updateParent(parent, element);
+    }
+
+    /**
+     * @override
+     */
+    static getReactComponent($) {
+        return (props) => {
+            const [hidden] = props.values;
+            const type = useProperty($, 'Type');
+            const error = useProperty($, 'Error');
+            const rows = useProperty($, 'Rows');
+            const borderColor = useProperty($, 'Border Color');
+            const borderWidth = useProperty($, 'Border Width');
+            const fontFamily = useProperty($, 'Font Family');
+            return !hidden && (
                 <MUITextField
                     // Properties
-                    value={value}
-                    placeholder={placeholder}
-                    label={label}
-                    helperText={helperText}
+                    value={useProperty($, 'Value') || ''}
+                    placeholder={useProperty($, 'Placeholder')}
+                    label={useProperty($, 'Label')}
+                    helperText={useProperty($, 'Helper Text')}
                     type={type}
-                    variant={variant}
-                    color={color}
-                    size={minSize}
-                    disabled={disabled}
-                    autoFocus={autoFocus}
-                    required={required}
+                    variant={useProperty($, 'Variant')}
+                    color={useProperty($, 'Color')}
+                    size={useProperty($, 'Min Size')}
+                    disabled={useProperty($, 'Disabled')}
+                    autoFocus={useProperty($, 'Auto Focus')}
+                    required={useProperty($, 'Required')}
                     error={error}
-                    multiline={multiline}
+                    multiline={useProperty($, 'Multiline')}
                     rows={rows > 0 ? rows : null}
-                    minRows={minRows}
-                    maxRows={maxRows}
+                    minRows={useProperty($, 'Min Rows')}
+                    maxRows={useProperty($, 'Max Rows')}
 
                     // Events
-                    onClick={() => context.getEvent('On Click').trigger()}
+                    onClick={() => $.trigger('On Click')}
                     onChange={(event) => {
                         // Set the Value property before triggering the event
-                        context.getProperty('Value').set(event.target.value);
-                        context.getEvent('On Change').trigger();
+                        $.set('Value', event.target.value);
+                        $.trigger('On Change');
                     }}
 
                     // UI
@@ -81,14 +86,14 @@ export default class TextField extends VisualBrick {
                         sx: {
                             flex: 'auto',
                             fontFamily: fontFamily,
-                            tabIndex: tabIndex,
-                            ...ifNotTransparent('backgroundColor', defaultColor),
-                            ...ifNotNull('borderRadius', borderRadius),
+                            tabIndex: useProperty($, 'Tab Index'),
+                            ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
+                            ...ifNotNull('borderRadius', useProperty($, 'Border Radius')),
                             ...ifNotNull('borderWidth', borderWidth),
                             ...ifNotTransparent('borderStyle', 'solid', borderColor),
                             ...ifNotNull('boxSizing', 'border-box', borderWidth),
                             ...ifNotTransparent('borderColor', borderColor),
-                            ...computeTextColorOverride(textColorOverride, error)
+                            ...ifNotNull('color', useProperty($, 'Text Color Override'), !error)
                         }
                     }}
                     FormHelperTextProps={{
@@ -107,12 +112,12 @@ export default class TextField extends VisualBrick {
                     sx={{
                         width: 1,
                         height: 1,
-                        ...cssToSxProps(cssProperty),
-                        ...jsonToSxProps(muiSxJson)
+                        ...cssToSxProps(useProperty($, 'CSS Property')),
+                        ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                     }}
                 ></MUITextField>
-            ), elementDom);
-        });
+            );
+        };
     }
 }
 
