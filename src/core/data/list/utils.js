@@ -14,15 +14,53 @@
  * limitations under the License.
  */
 
-import {DatetimePrimitive, DBView, instanceToTag, NumberPrimitive, PropertyPrimitive, StringPrimitive, BooleanPrimitive, valuedefs} from "olympe";
+import {DatetimePrimitive, DBView, instanceToTag, NumberPrimitive, PropertyPrimitive, StringPrimitive, BooleanPrimitive, Enum, valuedefs, Sync} from "olympe";
+import {getLogger} from 'logging';
+
+/**
+ * Filter an array using a predicate
+ *
+ * @param {!Array<!Sync>} list
+ * @param {function(!Sync):boolean} predicate
+ * @return {!Array<!Sync>}
+ */
+export const filterArray = (list, predicate) => {
+    const a = list;
+    const b = a.filter((v) => v instanceof Sync);
+    if (a.length !== b.length) {
+        getLogger('Filter List ...').error(`${a.length - b.length} elements were not instances of a Data Type`);
+    }
+    return b.filter(predicate);
+};
+
+/**
+ * Filter a list def
+ *
+ * @param {!ListDef} list
+ * @param {!PropertyDescriptor} property
+ * @param {string | number | Date} value
+ * @param {function(!ValueDef, !Constant):!Predicate} predicate
+ * @param {boolean=} [allowBoolean=false]
+ * @return {*}
+ */
+export const filterListDef = (list, property, value, predicate, allowBoolean=false) => {
+    const _property = getValueDefFor(property, allowBoolean);
+    if (_property === null) {
+        getLogger('Filter List ...').warn(`Type of property ${DBView.get().name(property)} is not supported. List will not be filtered.`);
+        return list;
+    } else {
+        return list.filter(predicate(_property, new valuedefs.Constant(value)));
+    }
+};
 
 /**
  * @param {PropertyDescriptor} property
- * @param {boolean?} allowBoolean if true the property may be a boolean, otherwise only string, number and datetime are allowed
+ * @param {boolean=} [allowBoolean=false] if true the property may be a boolean, otherwise only string, number and datetime are allowed
  * @return {?ValueDef}
  */
 export const getValueDefFor = (property, allowBoolean=false) => {
-    const propertyTypeTag = DBView.get().getUniqueRelated(/** @type {!HasInstanceTag} */ (property), PropertyPrimitive.typeRel);  // Property type cannot be edited in Draw
+    const db = DBView.get();
+    const propertyTypeTag = db.getUniqueRelated(/** @type {!HasInstanceTag} */ (property), PropertyPrimitive.typeRel);  // Property type cannot be edited in Draw
 
     // String
     if (propertyTypeTag === instanceToTag(StringPrimitive)) {
@@ -39,6 +77,10 @@ export const getValueDefFor = (property, allowBoolean=false) => {
     // Boolean
     if (allowBoolean === true && propertyTypeTag === instanceToTag(BooleanPrimitive)) {
         return new valuedefs.BooleanProperty(property);
+    }
+    // Enum: check if model of the property type is an Enum
+    if (db.model(propertyTypeTag) === instanceToTag(Enum)) {
+        return new valuedefs.StringProperty(property);
     }
     return null;
 };

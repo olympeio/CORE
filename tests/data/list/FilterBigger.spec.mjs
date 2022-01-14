@@ -15,14 +15,13 @@
  */
 
 import FilterListBigger from '../../../src/core/data/list/FilterListBigger.js';
-import {Context, Sync} from "olympe";
-import {getValueDefFor} from "../../../src/core/data/list/utils.js";
+import {Context} from "olympe";
 import MockSync from "../../helpers/MockSync.mjs";
 
 // TODO function and action version of the brick to be tested
 
 describe('FilterListBigger brick', () => {
-    xit('should filter to a ListDef', () => {
+    xit('should filter a ListDef', () => {
         // TODO
     });
 

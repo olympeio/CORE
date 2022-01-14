@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, ListDef, DBView, predicates, valuedefs, Sync} from "olympe";
-import {getValueDefFor} from "./utils";
+import {FunctionBrick, registerBrick, ListDef, predicates} from "olympe";
+import {filterArray, filterListDef} from "./utils";
 import {getLogger} from 'logging';
 
 /**
@@ -53,30 +53,15 @@ export default class FilterListEquals extends FunctionBrick {
      * @param {function(!ListDef | !Array)} setFiltered
      */
     update(context, [list, property, value, not], [setFiltered]) {
-        const logger = getLogger('Filter List Equals');
         if (Array.isArray(list)) {
-            const a = /** @type {!Array} */ (list);
-            const b = a.filter( v => v instanceof Sync );
-            if (a.length !== b.length) {
-                logger.error(`${a.length - b.length} elements were not Instances`);
-            }
-            const res = b.filter(v => {
-                const a_value = v.getProperty(property);
-                return a_value === value ? !not : not;
-            });
-            setFiltered(res);
+            setFiltered(filterArray(list, (v) => v.getProperty(property) === value ? !not : not));
         } else if (list instanceof ListDef) {
-            const valueDef = getValueDefFor(property, true);
-            if (valueDef === null) {
-                const name = DBView.get().name(/** @type {!HasInstanceTag} */ (property));
-                logger.warn(`Type of property ${name} is not supported. List will not be filtered.`);
-                setFiltered(list);
-            } else {
-                const equalsFilter = new predicates.Equals(valueDef, new valuedefs.Constant(value));
-                setFiltered(list.filter(not ? new predicates.Not(equalsFilter) : equalsFilter));
-            }
+            setFiltered(filterListDef(list, property, value, (_property, _value) => {
+                const equals = new predicates.Equals(_property, _value);
+                return not ? new predicates.Not(equals) : equals;
+            }, true));
         } else {
-            logger.error('List is not a ListDef or an Array');
+            getLogger('Filter List Equals').error('List is not a ListDef or an Array');
         }
     }
 }
