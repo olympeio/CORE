@@ -36,7 +36,7 @@ export default class GetCurrentUser extends FunctionBrick {
      * @param {function(!Sync)} setUser
      */
     update(context, _, [setUser]) {
-        setUser(Sync.getInstance(Auth.getCurrentUser()));
+        Auth.observeUser(context).subscribe(tag => { setUser(Sync.getInstance(tag)); });
     }
 }
 
