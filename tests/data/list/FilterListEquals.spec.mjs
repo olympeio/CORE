@@ -56,7 +56,7 @@ describe('FilterListEquals brick', () => {
 
     });
 
-    it('should not execute if the list is not a ListDef nor an Array', () => {
+    it('should not execute if the list is not a ListDef or an Array', () => {
         const brick = new FilterListEquals();
         const context = new Context();
         const setListSpy = jasmine.createSpy();
