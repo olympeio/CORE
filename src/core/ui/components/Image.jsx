@@ -32,7 +32,7 @@ export default class Image extends ReactBrick {
     /**
      * @override
      */
-     setupExecution($) {
+    setupExecution($) {
         const imageUrl = combineLatest([$.observe('Image', false), $.observe('Image URL', false)]).pipe(
             switchMap(([image, url]) => {
                 // Image file
