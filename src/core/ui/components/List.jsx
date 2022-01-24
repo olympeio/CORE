@@ -44,45 +44,45 @@ export default class List extends VisualBrick {
             'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Hidden'
         ];
 
-        // Observe the list size to retrigger an update if necessary
+        // Observe the list size to re-trigger an update if necessary
         const observeList = $.observe('Data', false);
-        const observeListSize = observeList.pipe(switchMap(list => {
-            if(!list) {
-                return of(0);
+        const observeListAsArray = observeList.pipe(switchMap(list => {
+            let sizeObservable;
+            if (!list) {
+                sizeObservable = of(0);
+            } else {
+                sizeObservable = Array.isArray(list) ? of(list.length) : list.observeSize();
             }
-            return Array.isArray(list) ? of(list.length) : list.observeSize()
-        }));
-
-        // Observe the list items and if they should be reversed
-        const observeListAsArray = observeList.pipe(
-            combineLatestWith($.observe('Reverse'), observeListSize),
-            map(([list, reverse, size]) => {
-                let elements = [];
-                if(size > 0) {
-                    // Array case
-                    if(Array.isArray(list)) {
-                        elements = !reverse ? list : list.reverse();
-                    }
-
-                    // ListDef case
-                    else {
-                        list.forEachCurrentValue((value, key) => {
-                            elements.push({
-                                value: value,
-                                rank: list.getCurrentRank(key)
-                            });
-                        });
-                        if(!reverse) {
-                            elements = elements.sort((a, b) => a.rank - b.rank);
-                        } else {
-                            elements = elements.sort((a, b) => b.rank - a.rank);
+            return sizeObservable.pipe(
+                combineLatestWith($.observe('Reverse')),
+                map(([size, reverse]) => {
+                    let elements = [];
+                    if(size > 0) {
+                        // Array case
+                        if(Array.isArray(list)) {
+                            elements = !reverse ? list : list.reverse();
                         }
-                        elements = elements.map(e => e.value);
+
+                        // ListDef case
+                        else {
+                            list.forEachCurrentValue((value, key) => {
+                                elements.push({
+                                    value: value,
+                                    rank: list.getCurrentRank(key)
+                                });
+                            });
+                            if(!reverse) {
+                                elements = elements.sort((a, b) => a.rank - b.rank);
+                            } else {
+                                elements = elements.sort((a, b) => b.rank - a.rank);
+                            }
+                            elements = elements.map(e => e.value);
+                        }
                     }
-                }
-                return elements;
-            })
-        );
+                    return elements;
+                })
+            );
+        }));
 
         // Final observable
         return $.observe('Item Renderer', false).pipe(
