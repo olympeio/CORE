@@ -38,7 +38,7 @@ export default class Dropdown extends ReactBrick {
         const observeSize = $.observe('Values', false).pipe(
             switchMap((enumModel) =>  enumModel === null ? of(0): enumModel.getValues().observeSize())
         );
-        const observeOptions = $.observe('Values').pipe(
+        const observeOptions = $.observe('Values', false).pipe(
             switchMap((enumModel) => {
                 return enumModel === null ? of([]) : of(enumModel.getValues()).pipe(
                     combineLatestWith(observeSize),
