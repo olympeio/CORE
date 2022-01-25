@@ -15,8 +15,7 @@
  */
 
 import FilterListSmaller from '../../../src/core/data/list/FilterListSmaller.js';
-import {Context, Sync} from "olympe";
-import {getValueDefFor} from "../../../src/core/data/list/utils.js";
+import {Context} from "olympe";
 import MockSync from "../../helpers/MockSync.mjs";
 
 // TODO function and action version of the brick to be tested

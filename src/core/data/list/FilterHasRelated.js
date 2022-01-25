@@ -34,7 +34,7 @@ const filterList = (list, inverseFilter) => {
             const isRelated = db.isRelated(object, relation, relatedObject);
             return inverseFilter ? !isRelated : isRelated;
         }
-    })
+    });
     return invalidObject ? null : list;
 };
 

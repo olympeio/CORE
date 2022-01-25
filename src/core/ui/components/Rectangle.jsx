@@ -14,62 +14,61 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick } from 'olympe';
+import { registerBrick } from 'olympe';
+import { ReactBrick, useProperty } from 'helpers/react.jsx';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent } from 'helpers/mui';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-
 import Box from '@mui/material/Box';
-
-import { jsonToSxProps, cssToSxProps } from 'helpers/mui';
 
 /**
  * Provide a Rectangle visual component (empty div) using MUI Box
  */
-export default class Rectangle extends VisualBrick {
+export default class Rectangle extends ReactBrick {
 
     /**
-     * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!UIContext} context
-     * @param {!Element} elementDom
      */
-    draw(context, elementDom) {
-        // Allow overflow
-        elementDom.style.overflow = 'visible';
+     setupExecution($) {
+        return $.observe('Hidden');
+    }
 
-        // Observe all properties
-        context.observeMany(
-            'MUI sx [json]',
-            'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Hidden'
-        ).subscribe(([
-            muiSxJson,
-            borderColor, borderRadius, borderWidth, cssProperty, defaultColor, hidden
-        ]) => {
-            // Rendering
-            ReactDOM.render((
-                !hidden &&
+    /**
+     * @override
+     */
+    updateParent(parent, element) {
+        parent.style.overflow = 'visible'; // Allow overflow
+        return super.updateParent(parent, element);
+    }
+
+    /**
+     * @override
+     */
+    static getReactComponent($) {
+        return (props) => {
+            const [hidden] = props.values;
+            return !hidden && (
                 <Box
                     // Properties + UI
                     component={'div'}
                     sx={{
                         width: 1,
                         height: 1,
-                        borderColor: borderColor.toHexString(),
-                        borderRadius: borderRadius,
-                        borderWidth: borderWidth,
+                        ...ifNotTransparent('borderColor', useProperty($, 'Border Color')),
+                        borderRadius: useProperty($, 'Border Radius'),
+                        borderWidth: useProperty($, 'Border Width'),
                         borderStyle: 'solid',
                         boxSizing: 'border-box',
-                        backgroundColor: defaultColor.toHexString(),
-                        ...cssToSxProps(cssProperty),
-                        ...jsonToSxProps(muiSxJson)
+                        ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
+                        ...cssToSxProps(useProperty($, 'CSS Property')),
+                        ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                     }}
 
                     // Events
-                    onClick={() => context.getEvent('On Click').trigger()}
+                    onClick={() => $.trigger('On Click')}
                 ></Box>
-            ), elementDom);
-        });
+            );
+        };
     }
 }
 
