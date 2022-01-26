@@ -14,74 +14,73 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick } from 'olympe';
+ import { registerBrick } from 'olympe';
+ import { ReactBrick, useProperty } from 'helpers/react.jsx';
+ import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-
 import MUISwitch from '@mui/material/Switch';
-
-import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
 
 /**
  * Provide a Switch visual component using MUI Switch
  */
-export default class Switch extends VisualBrick {
+export default class Switch extends ReactBrick {
 
     /**
-     * This method runs when the brick is ready in the HTML DOM.
      * @override
-     * @param {!UIContext} context
-     * @param {!Element} elementDom
      */
-    draw(context, elementDom) {
-        // Change draw div display to center the switch
-        elementDom.style.alignItems = 'center';
-        elementDom.style.justifyContent = 'center';
+    setupExecution($) {
+        return $.observe('Hidden');
+    }
+
+    /**
+     * @override
+     */
+    updateParent(parent, element) {
+        // Change draw div display to center the checkbox
+        parent.style.display = 'flex';
+        parent.style.alignItems = 'center';
+        parent.style.justifyContent = 'center';
 
         // Allow overflow
-        elementDom.style.overflow = 'visible';
+        parent.style.overflow = 'visible';
 
-        // Observe all properties
-        context.observeMany(
-            'Checked', 'Disabled', 'Color', 'Size', 'MUI sx [json]',
-            'Border Radius', 'CSS Property', 'Default Color', 'Hidden', 'Tab Index'
-        ).subscribe(([
-            checked, disabled, color, size, muiSxJson,
-            borderRadius, cssProperty, defaultColor, hidden, tabIndex
-        ]) => {
-            // Repeat the olympe DIV style change in case the hidden property changed it (OF-1627)
-            elementDom.style.display = 'flex';
+        return super.updateParent(parent, element);
+    }
 
-            // Rendering
-            ReactDOM.render((
-                !hidden &&
+    /**
+     * @override
+     */
+    static getReactComponent($) {
+        return (props) => {
+            const [hidden] = props.values;
+            return !hidden && (
                 <MUISwitch
                     // Properties
-                    checked={checked}
-                    disabled={disabled}
-                    color={color}
-                    size={size}
+                    checked={useProperty($, 'Checked') || false}
+                    disabled={useProperty($, 'Disabled')}
+                    color={useProperty($, 'Color')}
+                    size={useProperty($, 'Size')}
 
                     // UI
                     sx={{
-                        ...ifNotTransparent('backgroundColor', defaultColor),
-                        ...ifNotNull('borderRadius', borderRadius),
-                        tabIndex: tabIndex,
-                        ...cssToSxProps(cssProperty),
-                        ...jsonToSxProps(muiSxJson)
+                        ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
+                        ...ifNotNull('borderRadius', useProperty($, 'Border Radius')),
+                        tabIndex: useProperty($, 'Tab Index'),
+                        ...cssToSxProps(useProperty($, 'CSS Property')),
+                        ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                     }}
 
                     // Events
                     onChange={(event) => {
                         // Set the Checked property before triggering the event
-                        context.getProperty('Checked').set(event.target.checked);
-                        context.getEvent('On Change').trigger();
-                        context.getEvent('On Click').trigger();
+                        $.set('Checked', event.target.checked);
+                        $.trigger('On Change');
+                        $.trigger('On Click');
                     }}
                 ></MUISwitch>
-            ), elementDom);
-        });
+            );
+        };
     }
 }
 

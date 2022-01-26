@@ -14,89 +14,95 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick, File, Transaction, Sync } from 'olympe';
-import {dataUrlToBinary} from 'helpers/binaryConverters';
+import { registerBrick, File, Transaction, Sync } from 'olympe';
+import { ReactBrick, useProperty } from 'helpers/react.jsx';
+import { cssToSxProps, ifNotTransparent } from 'helpers/mui';
+import { dataUrlToBinary } from 'helpers/binaryConverters';
 import { getLogger } from 'logging';
-import ReactDOM from 'react-dom';
-import React, {useEffect, useState} from 'react';
-import {cssToSxProps} from 'helpers/mui';
+
+import React, { useEffect, useState } from 'react';
 import Webcam from 'react-webcam';
-import {Box} from "@mui/material";
-import {combineLatest} from "rxjs";
+import { Box } from "@mui/material";
 
-export default class Camera extends VisualBrick {
+import { combineLatest } from "rxjs";
 
-    /**
-     * @override
-     */
-    updateParent(parent, element) {
-        // Allow overflow and center the audio player
-        parent.style.overflow = 'visible';
-        parent.style.alignItems = 'center';
-        parent.style.justifyContent = 'center';
-        parent.style.display = 'flex';
-
-        ReactDOM.render(element, parent);
-        return () => ReactDOM.unmountComponentAtNode(parent);
-    }
+export default class Camera extends ReactBrick {
 
     /**
      * @override
      */
     setupExecution($) {
-        const props = ['Source', 'Disable Video', 'Disable Audio', 'Image Smoothing', 'Mirrored', 'Screenshot Format',
-        'Screenshot Quality [%]', 'Hidden', 'Border Color', 'Border Radius', 'Border Width', 'CSS Property',
-        'Width', 'Height'];
-        return combineLatest(props.map((prop) => $.observe(prop)));
+        return combineLatest([$.observe('Hidden'), $.observe('Disable Video')]);
     }
 
     /**
      * @override
      */
-    render($, props) {
-        const [ src, disableVideo, disableAudio, imageSmoothing, mirrored, screenshotFormat, screenshotQuality,
-            hidden, borderColor, borderRadius, borderWidth, cssProperty, width, height ] = props;
+    updateParent(parent, element) {
+        // Allow overflow and center the webcam
+        parent.style.overflow = 'visible';
+        parent.style.alignItems = 'center';
+        parent.style.justifyContent = 'center';
+        parent.style.display = 'flex';
 
-        // 0 <= screenshot quality <= 100
-        const clampedQuality = Math.min(Math.max(0, screenshotQuality), 100);
+        return super.updateParent(parent, element);
+    }
 
-        const cssProps = cssToSxProps(cssProperty);
-        const bw = parseInt(cssProps.borderWidth) || borderWidth;
+    /**
+     * @override
+     */
+    static getReactComponent($) {
+        return (props) => {
+            const [hidden, disableVideo] = props.values;
+            if(hidden) {
+                return null;
+            }
 
-        // If mediaDevices features are not available in the browser, display a box with an error message.
-        if (navigator['mediaDevices'] === undefined || typeof navigator.mediaDevices.enumerateDevices !== 'function') {
-            getLogger('Camera').error('Current platform doesn\'t support media devices.');
-            return (<Box
-                width={width - bw * 2}
-                height={height - bw * 2}
-                style={{
-                    borderStyle: bw > 0 ? 'solid' : 'none',
-                    borderWidth: bw + 'px',
-                    borderColor: borderColor.toHexString(),
-                    borderRadius: borderRadius + 'px',
-                    ...cssProps
-                }}
-            >Current platform does not support media devices.</Box>);
-        }
+            const cssProps = cssToSxProps(useProperty($, 'CSS Property'));
+            const bw = parseInt(cssProps.borderWidth) || useProperty($, 'Border Width') || 0;
+            const width = useProperty($, 'Width') || 0;
+            const height = useProperty($, 'Height') || 0;
+            const borderColor = useProperty($, 'Border Color');
+            const borderRadius = useProperty($, 'Border Radius') || 0;
 
-        return (!hidden && !disableVideo && <WebcamWithRef
-            audio={!disableAudio}
-            imageSmoothing={imageSmoothing}
-            mirrored={mirrored}
-            screenshotFormat={screenshotFormat}
-            screenshotQuality={clampedQuality / 100}
-            width={width - bw * 2}
-            height={height - bw * 2}
-            source={src}
-            context={$}
-            style={{
-                borderStyle: bw > 0 ? 'solid' : 'none',
-                borderWidth: bw + 'px',
-                borderColor: borderColor.toHexString(),
-                borderRadius: borderRadius + 'px',
-                ...cssProps
-            }}
-        />);
+            // If mediaDevices features are not available in the browser, display a box with an error message.
+            if (navigator['mediaDevices'] === undefined || typeof navigator.mediaDevices.enumerateDevices !== 'function') {
+                getLogger('Camera').error('Current platform doesn\'t support media devices.');
+                return (<Box
+                    width={width - bw * 2}
+                    height={height - bw * 2}
+                    style={{
+                        borderStyle: bw > 0 ? 'solid' : 'none',
+                        borderWidth: bw + 'px',
+                        ...ifNotTransparent('borderColor', borderColor),
+                        borderRadius: borderRadius + 'px',
+                        ...cssProps
+                    }}
+                >Current platform does not support media devices.</Box>);
+            }
+
+            const clampedQuality = Math.min(Math.max(0, useProperty($, 'Screenshot Quality [%]')), 100); // 0 <= screenshot quality <= 100
+            return !disableVideo && (
+                <WebcamWithRef
+                    audio={!useProperty($, 'Disable Audio')}
+                    imageSmoothing={useProperty($, 'Image Smoothing')}
+                    mirrored={useProperty($, 'Mirrored')}
+                    screenshotFormat={useProperty($, 'Screenshot Format')}
+                    screenshotQuality={clampedQuality / 100}
+                    width={width - bw * 2}
+                    height={height - bw * 2}
+                    source={useProperty($, 'Source')}
+                    context={$}
+                    style={{
+                        borderStyle: bw > 0 ? 'solid' : 'none',
+                        borderWidth: bw + 'px',
+                        ...ifNotTransparent('borderColor', borderColor),
+                        borderRadius: borderRadius + 'px',
+                        ...cssProps
+                    }}
+                />
+            );
+        };
     }
 }
 
@@ -118,11 +124,12 @@ function WebcamWithRef(props) {
     // Take screenshot
     props.context.observe('Take Screenshot').subscribe(() => {
         const t = new Transaction();
+        const screenshotFormat = props.screenshotFormat || props.context.get('Screenshot Format') || 'image/png';
         const screenshotAsBase64 = webcamRef.current.getScreenshot();
         const screenshotAsArrayBuffer = dataUrlToBinary(screenshotAsBase64);
-        const screenshotExtension = props.screenshotFormat.match(/.*\/([a-z]*)+?.*/)[1];
+        const screenshotExtension = screenshotFormat.match(/.*\/([a-z]*)+?.*/)[1];
         const screenshotName = `screenshot_${Date.now()}.${screenshotExtension}`;
-        const tag = File.createFile(File, t, screenshotName, screenshotAsArrayBuffer, props.screenshotFormat);
+        const tag = File.createFile(File, t, screenshotName, screenshotAsArrayBuffer, screenshotFormat);
         t.persistInstance(tag, false);
         t.execute((success, message) => {
             if(!success) {
@@ -134,12 +141,14 @@ function WebcamWithRef(props) {
     });
 
     // Only add the webcam component once constraints has been defined.
-    return (constraints && <Webcam
-        // Properties + UI
-        ref={webcamRef}
-        videoConstraints={constraints}
-        {...props}
-    />)
+    return constraints && (
+        <Webcam
+            // Properties + UI
+            ref={webcamRef}
+            videoConstraints={constraints}
+            {...props}
+        />
+    );
 }
 
 registerBrick('017cef1da1b9d9d128d6', Camera);

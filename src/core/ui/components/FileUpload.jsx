@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick, File, Transaction, Sync } from 'olympe';
+import { registerBrick, File, Transaction, Sync } from 'olympe';
+import { ReactBrick, useProperty } from 'helpers/react.jsx';
+import { jsonToSxProps, ifNotNull, ifNotTransparent, cssToSxProps } from 'helpers/mui';
 import { getLogger } from 'logging';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 
-import { jsonToSxProps, ifNotNull, ifNotTransparent, cssToSxProps } from 'helpers/mui';
 import { combineLatestWith } from 'rxjs/operators';
 
 /**
  * Provides a File Upload component using MUI
  */
-export default class FileUpload extends VisualBrick {
+export default class FileUpload extends ReactBrick {
 
     /**
      * @override
@@ -42,55 +41,56 @@ export default class FileUpload extends VisualBrick {
      * @override
      */
     setupExecution($) {
-        const properties = [
-            'Multiple', 'Accepted Type', 'Label', 'Helper Text', 'Variant', 'Color', 'Disabled', 'Required', 'Error', 'Font Family', 'MUI sx [json]',
-            'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Hidden', 'Tab Index'
-        ];
-        const observeRenderer = $.observe('Custom Renderer', false);
-        return observeRenderer.pipe(combineLatestWith(properties.map(p => $.observe(p))));
+        return $.observe('Hidden').pipe(combineLatestWith($.observe('Custom Renderer', false)));
     }
 
     /**
      * @override
      */
     updateParent(parent, element) {
-        // Allow overflow
-        parent.style.overflow = 'visible';
-
-        // Rendering
-        ReactDOM.render(element, parent);
-        // Clear the parent
-        return () => { ReactDOM.unmountComponentAtNode(parent); }
+        parent.style.overflow = 'visible'; // Allow overflow
+        return super.updateParent(parent, element);
     }
 
     /**
      * @override
      */
-    render($) {
-        if($.get('Hidden'))
-            return null;
-        if($.has('Custom Renderer'))
-            return this.renderCustom($);
-        else
-            return this.renderTextField($);
+    static getReactComponent($) {
+        return (props) => {
+            const [hidden, renderer] = props.values;
+            if (hidden) {
+                return null;
+            }
+            if(renderer) {
+                return FileUpload.renderCustom($, renderer);
+            } else {
+                return FileUpload.renderTextField($);
+            }
+        };
     }
 
     /**
+     * @static
      * @private
      * @param {!BrickContext} $
+     * @return {!ReactElement}
      */
-    renderTextField($) {
+    static renderTextField($) {
+        const label = useProperty($, 'Label');
+        const fontFamily = useProperty($, 'Font Family');
+        const borderWidth = useProperty($, 'Border Width');
+        const borderColor = useProperty($, 'Border Color');
         return (
             <TextField
                 // Properties
-                label={$.get('Label')}
-                helperText={$.get('Helper Text')}
+                label={label}
+                helperText={useProperty($, 'Helper Text')}
                 type={'file'}
-                variant={$.get('Variant')}
-                color={$.get('Color')}
-                disabled={$.get('Disabled')}
-                required={$.get('Required')}
-                error={$.get('Error')}
+                variant={useProperty($, 'Variant')}
+                color={useProperty($, 'Color')}
+                disabled={useProperty($, 'Disabled')}
+                required={useProperty($, 'Required')}
+                error={useProperty($, 'Error')}
                 size={'small'}
 
                 // Events
@@ -99,76 +99,73 @@ export default class FileUpload extends VisualBrick {
                     $.trigger('On Click');
                 }}
                 onChange={(event) => {
-                    this.uploadFiles($, event.target.files);
+                    FileUpload.uploadFiles($, event.target.files);
                 }}
 
                 // UI
                 InputProps={{
                     inputProps: {
-                        multiple: $.get('Multiple'),
-                        accept: $.get('Accepted Type')
+                        multiple: useProperty($, 'Multiple'),
+                        accept: useProperty($, 'Accepted Type')
                     },
                     sx: {
                         flex: 'auto',
-                        fontFamily: $.get('Font Family'),
-                        tabIndex: $.get('Tab Index'),
-                        ...ifNotTransparent('backgroundColor', $.get('Default Color')),
-                        ...ifNotNull('borderRadius', $.get('Border Radius')),
-                        ...ifNotNull('borderWidth', $.get('Border Width')),
-                        ...ifNotTransparent('borderStyle', 'solid', $.get('Border Color')),
-                        ...ifNotNull('boxSizing', 'border-box', $.get('Border Width')),
-                        ...ifNotTransparent('borderColor', $.get('Border Color'))
+                        fontFamily: fontFamily,
+                        tabIndex: useProperty($, 'Tab Index'),
+                        ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
+                        ...ifNotNull('borderRadius', useProperty($, 'Border Radius')),
+                        ...ifNotNull('borderWidth', borderWidth),
+                        ...ifNotTransparent('borderStyle', 'solid', borderColor),
+                        ...ifNotNull('boxSizing', 'border-box', borderWidth),
+                        ...ifNotTransparent('borderColor', borderColor)
                     }
                 }}
                 FormHelperTextProps={{
                     sx: {
-                        fontFamily: $.get('Font Family'),
-                        ...ifNotTransparent('color', $.get('Border Color'))
+                        fontFamily: fontFamily,
+                        ...ifNotTransparent('color', borderColor)
                     }
                 }}
                 InputLabelProps={{
-                    shrink: $.get('Label') !== '',
+                    shrink: label !== '',
                     sx: {
-                        fontFamily: $.get('Font Family'),
-                        ...ifNotTransparent('color', $.get('Border Color'))
+                        fontFamily: fontFamily,
+                        ...ifNotTransparent('color', borderColor)
                     }
                 }}
                 sx={{
                     width: 1,
                     height: 1,
-                    ...cssToSxProps($.get('CSS Property')),
-                    ...jsonToSxProps($.get('MUI sx [json]'))
+                    ...cssToSxProps(useProperty($, 'CSS Property')),
+                    ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                 }}
 
                 // Open file selector when asked
-                ref={el => {
-                    if(el) {
-                        $.observe('Show File Selector').subscribe(() => {
-                            el.querySelector('input').click();
-                        });
-                    }
-                }}
+                ref={el => FileUpload.bindShowFileSelector($, el)}
             ></TextField>
         );
     }
 
     /**
+     * @static
      * @private
      * @param {!BrickContext} $
+     * @param {!VisualBrick} renderer
+     * @return {!ReactElement}
      */
-    renderCustom($) {
+    static renderCustom($, renderer) {
         return (
             <Box
                 // Style
                 sx={{
                     width: 1,
                     height: 1,
-                    ...ifNotNull('cursor', 'pointer', !$.get('Disabled'))
+                    ...ifNotNull('cursor', 'pointer', !useProperty($, 'Disabled'))
                 }}
 
                 // Content
                 ref={el => {
-                    el && $.runner('Custom Renderer')
+                    el && $.runner(renderer)
                         .repeat('Width', $.observe('Width'))
                         .repeat('Height', $.observe('Height'))
                         .setParentElement(el);
@@ -179,8 +176,8 @@ export default class FileUpload extends VisualBrick {
                     type={'file'}
                     InputProps={{
                         inputProps: {
-                            multiple: $.get('Multiple'),
-                            accept: $.get('Accepted Type')
+                            multiple: useProperty($, 'Multiple'),
+                            accept: useProperty($, 'Accepted Type')
                         }
                     }}
                     sx={{
@@ -191,28 +188,37 @@ export default class FileUpload extends VisualBrick {
 
                     // Events
                     onChange={(event) => {
-                        this.uploadFiles($, event.target.files);
+                        FileUpload.uploadFiles($, event.target.files);
                     }}
 
                     // Open file selector when asked
-                    ref={el => {
-                        if(el) {
-                            $.observe('Show File Selector').subscribe(() => {
-                                el.querySelector('input').click();
-                            });
-                        }
-                    }}
+                    ref={el => FileUpload.bindShowFileSelector($, el)}
                 ></TextField>
             </Box>
         );
     }
 
     /**
+     * @static
+     * @private
+     * @param {!BrickContext} $
+     * @param {Element} el
+     */
+    static bindShowFileSelector($, el) {
+        if(el) {
+            $.observe('Show File Selector').subscribe(() => {
+                el.querySelector('input').click();
+            });
+        }
+    }
+
+    /**
+     * @static
      * @private
      * @param {!BrickContext} $
      * @param {!Array} files
      */
-    uploadFiles($, files) {
+    static uploadFiles($, files) {
         // Local transaction
         const tags = [];
         const t = new Transaction();

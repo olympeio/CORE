@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, Sync, Auth } from 'olympe';
+import {FunctionBrick, registerBrick, Sync, Auth, ListDef} from 'olympe';
 
 /**
 ## Description
@@ -36,7 +36,12 @@ export default class GetCurrentUser extends FunctionBrick {
      * @param {function(!Sync)} setUser
      */
     update(context, _, [setUser]) {
-        setUser(Sync.getInstance(Auth.getCurrentUser()));
+        Auth.observeUser(context).subscribe(tag => {
+            const l = new ListDef(tag);
+            l.onReady(() => {
+                setUser(Sync.getInstance(tag));
+            });
+        });
     }
 }
 

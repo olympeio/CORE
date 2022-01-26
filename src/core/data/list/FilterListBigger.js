@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, ListDef, DBView, Sync, predicates, valuedefs } from "olympe";
-import {getValueDefFor} from "./utils";
+import { FunctionBrick, registerBrick, ListDef, predicates } from "olympe";
+import {filterArray, filterListDef} from "./utils";
 import {getLogger} from 'logging';
 
 /**
@@ -54,28 +54,15 @@ export default class FilterListBigger extends FunctionBrick {
     update(context, [list, property, value, strict], [setFiltered]) {
         const logger = getLogger('Filter List Bigger');
         if (Array.isArray(list)) {
-            const a = /** @type {!Array} */ (list);
-            const b = a.filter( v => v instanceof Sync );
-            if (a.length !== b.length) {
-                logger.error(`${a.length - b.length} elements were not Instances`);
-            }
-            const res = b.filter(v => {
-                const a_value = v.getProperty(property);
-                return strict ? a_value > value : a_value >= value;
-            });
-            setFiltered(res);
+            setFiltered(filterArray(list, (v) => {
+                const _v = v.getProperty(property);
+                return strict ? _v > value : _v >= value;
+            }));
         } else if (list instanceof ListDef) {
-            const valueDef = getValueDefFor(property);
-            if (valueDef === null) {
-                const name = DBView.get().name(/** @type {!HasInstanceTag} */ (property));
-                logger.warn(`Type of property ${name} is not supported. List will not be filtered.`);
-                setFiltered(list);
-            } else {
-                const vd = new valuedefs.Constant(value);
-                const predicate = strict ? new predicates.Greater(valueDef, vd) :
-                    new predicates.Or(new predicates.Greater(valueDef, vd), new predicates.Equals(valueDef, vd));
-                setFiltered(list.filter(predicate));
-            }
+            setFiltered(filterListDef(list, property, value, (_property, _value) => {
+                const greater = new predicates.Greater(_property, _value);
+                return strict ? greater : new predicates.Or(greater, new predicates.Equals(_property, _value));
+            }));
         } else {
             logger.error('List is not a ListDef or an Array');
         }
