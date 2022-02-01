@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {DatetimePrimitive, DBView, instanceToTag, NumberPrimitive, PropertyPrimitive, StringPrimitive, BooleanPrimitive, Enum, valuedefs, Sync} from "olympe";
+import {DatetimePrimitive, DBView, instanceToTag, NumberPrimitive, PropertyModel, StringPrimitive, BooleanPrimitive, Enum, valuedefs, Sync} from "olympe";
 import {getLogger} from 'logging';
 
 /**
@@ -60,7 +60,7 @@ export const filterListDef = (list, property, value, predicate, allowBoolean=fal
  */
 export const getValueDefFor = (property, allowBoolean=false) => {
     const db = DBView.get();
-    const propertyTypeTag = db.getUniqueRelated(/** @type {!HasInstanceTag} */ (property), PropertyPrimitive.typeRel);  // Property type cannot be edited in Draw
+    const propertyTypeTag = db.getUniqueRelated(/** @type {!HasInstanceTag} */ (property), PropertyModel.typeRel);  // Property type cannot be edited in Draw
 
     // String
     if (propertyTypeTag === instanceToTag(StringPrimitive)) {

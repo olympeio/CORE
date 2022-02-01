@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {ActionBrick, registerBrick, instanceToTag, ErrorFlow, DBView, RelationPrimitive, CreateInstance} from 'olympe';
+import {ActionBrick, registerBrick, instanceToTag, ErrorFlow, DBView, RelationModel, CreateInstance} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -76,12 +76,12 @@ export default class CreateRelation extends ActionBrick {
         const originModel = origin instanceof CreateInstance ? origin.getModelTag() : db.model(origin);
         const destinationModel = destination instanceof CreateInstance ? destination.getModelTag() : db.model(destination);
 
-        if (!db.isExtending(originModel, db.getUniqueRelated(relationTag, RelationPrimitive.originModelRel))) {
+        if (!db.isExtending(originModel, db.getUniqueRelated(relationTag, RelationModel.originModelRel))) {
             returnError(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the origin object (${db.name(originModel)}).`,4);
             return;
         }
 
-        if (!db.isExtending(destinationModel, db.getUniqueRelated(relationTag, RelationPrimitive.destinationModelRel))) {
+        if (!db.isExtending(destinationModel, db.getUniqueRelated(relationTag, RelationModel.destinationModelRel))) {
             returnError(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the destination object (${db.name(destinationModel)}).`,5);
             return;
         }

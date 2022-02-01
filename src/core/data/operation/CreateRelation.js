@@ -19,7 +19,7 @@ import {
     registerBrick,
     instanceToTag,
     DBView,
-    RelationPrimitive,
+    RelationModel,
     CreateInstance,
 } from 'olympe';
 import {getLogger} from 'logging';
@@ -76,11 +76,11 @@ export default class CreateRelation extends FunctionBrick {
         const originModel = origin instanceof CreateInstance ? origin.getModelTag() : db.model(origin);
         const destinationModel = destination instanceof CreateInstance ? destination.getModelTag() : db.model(destination);
 
-        if (!db.isExtending(originModel, db.getUniqueRelated(relationTag, RelationPrimitive.originModelRel))) {
+        if (!db.isExtending(originModel, db.getUniqueRelated(relationTag, RelationModel.originModelRel))) {
             logger.error(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the origin object (${db.name(originModel)}).`);
             return;
         }
-        if (!db.isExtending(destinationModel, db.getUniqueRelated(relationTag, RelationPrimitive.destinationModelRel))) {
+        if (!db.isExtending(destinationModel, db.getUniqueRelated(relationTag, RelationModel.destinationModelRel))) {
             logger.error(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the destination object (${db.name(destinationModel)}).`);
             return;
         }

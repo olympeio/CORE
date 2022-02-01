@@ -29,7 +29,7 @@ export default class ListFollowRelationRecursively extends FunctionBrick {
      * @protected
      * @param {!Context} context
      * @param {!ListDef} list
-     * @param {!RelationPrimitive} relation
+     * @param {!RelationModel} relation
      * @param {boolean} toOrigin
      * @param {boolean} includeSelf
      * @param {function(!ListDef)} setFlattenedList

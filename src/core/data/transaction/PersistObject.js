@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, Context, InstanceTag, CreateInstance, instanceToTag } from 'olympe';
+import { ActionBrick, registerBrick, Context, InstanceTag, instanceToTag } from 'olympe';
 import {getLogger} from 'logging';
 
 export default class PersistObject extends ActionBrick {
@@ -32,8 +32,8 @@ export default class PersistObject extends ActionBrick {
     update(context, [objectIn], [forwardEvent, setObjectOut]) {
         const transaction = context.getTransaction();
 
-        if (objectIn instanceof CreateInstance || instanceToTag(objectIn) !== '') {
-            transaction.persistInstance(objectIn);
+        if (typeof objectIn === 'string'  || instanceToTag(objectIn) !== '') {
+            transaction.persistInstance(objectIn, true);
         } else {
             getLogger('Persist Object').error('Cannot persist object', objectIn);
         }

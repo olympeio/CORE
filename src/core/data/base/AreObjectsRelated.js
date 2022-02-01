@@ -26,7 +26,7 @@ export default class AreObjectsRelated extends FunctionBrick {
      * @param {Context} context
      * @param {*} origin
      * @param {*} destination
-     * @param {RelationPrimitive} relation Assumed to be always in direction origin->destination
+     * @param {RelationModel} relation Assumed to be always in direction origin->destination
      * @param {function(boolean)} setRelated
      */
     update(context, [origin, destination, relation], [setRelated]) {

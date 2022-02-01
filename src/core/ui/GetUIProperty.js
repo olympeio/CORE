@@ -25,8 +25,8 @@ export default class GetUIProperty extends FunctionBrick {
      *
      * @protected
      * @param {!Context} _
-     * @param {PropertyPrimitive} uiProperty
-     * @param {function(PropertyPrimitive)} setValue
+     * @param {PropertyModel} uiProperty
+     * @param {function(PropertyModel)} setValue
      */
     onUpdate(_, [uiProperty], [setValue]) {
         setValue(uiProperty)

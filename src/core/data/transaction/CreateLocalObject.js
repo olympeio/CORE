@@ -14,22 +14,8 @@
  * limitations under the License.
  */
 
-import {ActionBrick, registerBrick, Sync, instanceToTag} from 'olympe';
+import {ActionBrick, registerBrick, CloudObject, instanceToTag} from 'olympe';
 import {getLogger} from 'logging';
-
-/**
-## Description
-Creates a local instance (not yet persisted in the database) of a model.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| model | Model | The model. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| object | Object | The created object or its tag if used inside a Begin/End. |
-**/
 export default class CreateLocalObject extends ActionBrick {
 
     /**
@@ -38,9 +24,9 @@ export default class CreateLocalObject extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!Sync} model
+     * @param {!CloudObject} model
      * @param {function()} forwardEvent
-     * @param {function(!Sync)} setObject
+     * @param {function(!CloudObject)} setObject
      */
     update(context, [model], [forwardEvent, setObject]) {
         const logger = getLogger('Create Local Object');
@@ -52,11 +38,13 @@ export default class CreateLocalObject extends ActionBrick {
         }
 
         // Transaction
-        const instance = context.getTransaction().create(model).persist(false);
+        const transaction = context.getTransaction();
+        const instance = transaction.create(model)
+        transaction.persistInstance(instance, false);
         context.releaseTransaction((executed, success, message) => {
             if(executed && !success)
                 logger.error(`transaction error: ${message}`);
-            setObject(executed ? Sync.getInstance(instance) : instance);
+            setObject(executed ? CloudObject.getInstance(instance) : instance);
             forwardEvent();
         });
     }

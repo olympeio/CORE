@@ -19,10 +19,9 @@ import {
     DBView,
     ErrorFlow,
     registerBrick,
-    PropertyPrimitive,
-    Sync,
-    instanceToTag,
-    CreateInstance
+    PropertyModel,
+    CloudObject,
+    instanceToTag
 } from 'olympe';
 import {getLogger} from 'logging';
 import {castPrimitiveValue} from "./_helpers";
@@ -53,7 +52,7 @@ export default class SetObjectProperty extends ActionBrick {
         };
 
         // Validate arguments
-        if (castedValue instanceof Sync) {
+        if (castedValue instanceof CloudObject) {
             returnError('Complex properties are not supported', 1);
             return;
         }
@@ -69,18 +68,17 @@ export default class SetObjectProperty extends ActionBrick {
             return;
         }
 
+        // Transaction
+        const transaction = context.getTransaction();
+
         const db = DBView.get();
-        const objectModel = object instanceof CreateInstance ? object.getModelTag() : db.model(object);
-        if (!db.isExtending(objectModel, db.getUniqueRelated(instanceToTag(property), PropertyPrimitive.definingModelRel))) {
+        const objectModel = typeof object === 'string' ? transaction.model(object) : db.model(object);
+        if (!db.isExtending(objectModel, db.getUniqueRelated(instanceToTag(property), PropertyModel.definingModelRel))) {
             returnError(`Cannot update property, the property ${db.name(instanceToTag(property))} is not valid for this object (${db.name(objectModel)}).`,3);
             return;
         }
 
-        // Transaction
-        const transaction = context.getTransaction();
-
         transaction.update(object, property, castedValue);
-
         context.releaseTransaction((executed, success, message) => {
             if (!success) {
                 returnError(`Transaction error: ${message}`, 4);

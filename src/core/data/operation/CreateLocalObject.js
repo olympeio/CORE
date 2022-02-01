@@ -14,22 +14,9 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, DBView, Transaction, Sync } from 'olympe';
+import { FunctionBrick, registerBrick, DBView, Transaction, CloudObject } from 'olympe';
 import {getLogger} from 'logging';
 
-/**
-## Description
-Creates an instance of the specified model. It is said to be `local` because it is not yet persisted in the main
-database. See `Persist Object` for how to persist in the database a newly created local object.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| model | Model | The model of the instance. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| object | Object | The created instance. |
-**/
 export default class CreateLocalObject extends FunctionBrick {
 
     /**
@@ -39,7 +26,7 @@ export default class CreateLocalObject extends FunctionBrick {
      * @protected
      * @param {!Context} context
      * @param {InstanceTag} model
-     * @param {function(Sync)} setObject
+     * @param {function(CloudObject)} setObject
      */
     update(context, [model], [setObject]) {
         const logger = getLogger('Create Local Object');
@@ -49,14 +36,15 @@ export default class CreateLocalObject extends FunctionBrick {
         transaction.persist(false);
 
         // And create operation to the transaction
-        const instanceTag = transaction.create(model).persist(false).getTag();
+        const instanceTag = transaction.create(model);
+        transaction.persistInstance(instanceTag, false);
 
         // Execute the transaction
         transaction.execute((success) => {
             if (!success) {
                 logger.error('Isolated transaction (local) failed');
             } else {
-                setObject(Sync.getInstance(instanceTag));
+                setObject(CloudObject.getInstance(instanceTag));
             }
         });
 

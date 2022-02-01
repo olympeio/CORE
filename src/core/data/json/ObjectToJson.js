@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {ActionBrick, registerBrick, Context, DBView, BusinessObject, RelationPrimitive, transformers} from 'olympe';
+import {ActionBrick, registerBrick, Context, DBView, BusinessObject, RelationModel, transformers} from 'olympe';
 
 /**
 ## Description
@@ -76,11 +76,11 @@ export default class ObjectToJson extends ActionBrick {
         const extendedModels = db.getRecursiveRelated(model, BusinessObject.extendRel, '016324fde11a836f76c2');
         extendedModels.unshift(model);
         const rels = extendedModels.map((extendedModel) => {
-            return db.getRelated(extendedModel, RelationPrimitive.originModelRel.getInverse());
+            return db.getRelated(extendedModel, RelationModel.originModelRel.getInverse());
         }).flat();
 
         rels.forEach((relationTag, key) => {
-            const relationOfPrimitive = db.isExtending(db.getUniqueRelated(relationTag, RelationPrimitive.destinationModelRel), 'ff021000000000000019');
+            const relationOfPrimitive = db.isExtending(db.getUniqueRelated(relationTag, RelationModel.destinationModelRel), 'ff021000000000000019');
 
             const children = db.getRelated(instance, new transformers.Related(relationTag));
             const relationName = db.name(relationTag);

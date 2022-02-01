@@ -18,7 +18,7 @@ import {
     FunctionBrick,
     registerBrick,
     ListDef,
-    PropertyPrimitive,
+    PropertyModel,
     DBView,
     comparators,
     transformers,
@@ -82,7 +82,7 @@ export default class SortList extends FunctionBrick {
             });
             setSortedList(sortedList);
         } else if (list instanceof ListDef) {
-             const type = DBView.get().getUniqueRelated(property, PropertyPrimitive.typeRel);
+             const type = DBView.get().getUniqueRelated(property, PropertyModel.typeRel);
              let comparator = null;
 
              // String

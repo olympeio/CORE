@@ -23,7 +23,7 @@ import {
     BusinessObject,
     DBView,
     Transaction,
-    RelationPrimitive,
+    RelationModel,
     StringPrimitive,
     NumberPrimitive,
     InstanceTag
@@ -130,7 +130,7 @@ export default class JsonToObject extends ActionBrick {
      * @param {!Map<string, !Map<string, string>>=} instanceTags
      */
     parseRelations(db, transaction, instance, businessModel, data, mappingModels, instanceTags) {
-        const relations = db.getRelated(businessModel, RelationPrimitive.originModelRel.getInverse());
+        const relations = db.getRelated(businessModel, RelationModel.originModelRel.getInverse());
 
         let propName, mappedModel;
         relations.filter((relation) => {
@@ -150,7 +150,7 @@ export default class JsonToObject extends ActionBrick {
                     this.parseRelations(db, transaction, relatedInstance, mappedModel, relatedObjectData, mappingModels, instanceTags);
                     transaction.createRelation(relation, instance, relatedInstance);
                 } else if (!(relatedObjectData instanceof Object)) {
-                    const obj = transaction.create(db.getUniqueRelated(relation, RelationPrimitive.destinationModelRel));
+                    const obj = transaction.create(db.getUniqueRelated(relation, RelationModel.destinationModelRel));
                     const propToUpdate = typeof relatedObjectData === 'string'
                         ? StringPrimitive.valueProp
                         : NumberPrimitive.valueProp;
