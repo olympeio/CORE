@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, ErrorFlow } from 'olympe';
-import {getLogger} from 'logging';
+import { ActionBrick, registerBrick, ErrorFlow, GlobalProperties } from 'olympe';
+import { getLogger } from 'logging';
 
 /**
 ## Description
@@ -32,26 +32,23 @@ export default class EndTransaction extends ActionBrick {
      * Note that this method will _not_ be executed if an input value is undefined.
      *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} $
      * @param {!Array} _
      * @param {function()} forwardEvent
      * @param {function(!ErrorFlow)} dispatchError
      */
-    update(context, _, [forwardEvent, dispatchError]) {
-        // Extract the current transaction from the context.
-        const transaction = context.getParent().popTransaction();
-        if (transaction === null) {
-            getLogger('End Transaction').warn('End Transaction: no transaction begun');
-            return;
+    update($, _, [forwardEvent, dispatchError]) {
+        const parent$ = $.getParent();
+        if(parent$.has(GlobalProperties.TRANSACTION)) {
+            const t = parent$.get(GlobalProperties.TRANSACTION);
+            parent$.remove(GlobalProperties.TRANSACTION);
+            t.execute()
+                .then(() => forwardEvent())
+                .catch(message => dispatchError(ErrorFlow.create(message || '', 1)));
         }
-
-        transaction.execute((success, message) => {
-            if (!success) {
-                dispatchError(ErrorFlow.create(message || '', 1));
-            } else {
-                forwardEvent();
-            }
-        });
+        else {
+            getLogger('End Transaction').warn('no transaction begun in the parent context');
+        }
     }
 }
 

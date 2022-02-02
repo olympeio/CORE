@@ -34,14 +34,9 @@ export default class PersistObject extends FunctionBrick {
 
         if (typeof objectIn === 'string' || instanceToTag(objectIn) !== '') {
             transaction.persistInstance(objectIn, true);
-            transaction.execute( (success, message) => {
-                if (success) {
-                    setObjectOut(objectIn);
-                } else {
-                    logger.error(message);
-                    setObjectOut(objectIn);
-                }
-            })
+            transaction.execute()
+                .catch(message => logger.error(message))
+                .finally(() => setObjectOut(objectIn));
         } else {
             logger.error('Cannot persist object', objectIn);
             setObjectOut(objectIn);

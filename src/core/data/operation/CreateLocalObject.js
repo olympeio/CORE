@@ -40,13 +40,9 @@ export default class CreateLocalObject extends FunctionBrick {
         transaction.persistInstance(instanceTag, false);
 
         // Execute the transaction
-        transaction.execute((success) => {
-            if (!success) {
-                logger.error('Isolated transaction (local) failed');
-            } else {
-                setObject(CloudObject.getInstance(instanceTag));
-            }
-        });
+        transaction.execute()
+            .then(() => setObject(CloudObject.getInstance(instanceTag)))
+            .catch(() => logger.error('Isolated transaction (local) failed'));
 
         // Destroy the local object when context is unloaded
         // WARNING: we register this callback independently if the Create transaction is performed by this "brick"
@@ -59,11 +55,8 @@ export default class CreateLocalObject extends FunctionBrick {
             if (dbView.exist(instanceTag) && !dbView.isPersisted(instanceTag)) {
                 const reverseTransaction = new Transaction();
                 reverseTransaction.delete(instanceTag);
-                reverseTransaction.execute(success => {
-                    if (!success) {
-                        logger.error('Failed to delete local object. Investigate.');
-                    }
-                });
+                reverseTransaction.execute()
+                    .catch(() => logger.error('Failed to delete local object. Investigate.'));
             }
         });
     }

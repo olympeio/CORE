@@ -21,7 +21,8 @@ import {
     registerBrick,
     PropertyModel,
     CloudObject,
-    instanceToTag
+    instanceToTag,
+    Transaction
 } from 'olympe';
 import {getLogger} from 'logging';
 import {castPrimitiveValue} from "./_helpers";
@@ -69,7 +70,7 @@ export default class SetObjectProperty extends ActionBrick {
         }
 
         // Transaction
-        const transaction = context.getTransaction();
+        const transaction = Transaction.from(context);
 
         const db = DBView.get();
         const objectModel = typeof object === 'string' ? transaction.model(object) : db.model(object);
@@ -79,13 +80,12 @@ export default class SetObjectProperty extends ActionBrick {
         }
 
         transaction.update(object, property, castedValue);
-        context.releaseTransaction((executed, success, message) => {
-            if (!success) {
-                returnError(`Transaction error: ${message}`, 4);
-            }
-            setObject(object);
-            forwardEvent();
-        });
+        Transaction.process(context, transaction)
+            .catch(message => returnError(`Transaction error: ${message}`, 4))
+            .then(() => {
+                setObject(object);
+                forwardEvent();
+            });
     }
 }
 

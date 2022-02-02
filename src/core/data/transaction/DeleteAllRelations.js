@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick } from 'olympe';
+import { ActionBrick, registerBrick, Transaction } from 'olympe';
 
 /**
 ## Description
@@ -45,17 +45,18 @@ export default class DeleteAllRelations extends ActionBrick {
      */
     update(context, [origin, relation], [forwardEvent, setOrigin]) {
         // Get current transaction
-        const transaction = context.getTransaction();
+        const transaction = Transaction.from(context);
 
         // Delete the specified relations
         // WARNING : it does not propagate the deletion !
         transaction.deleteAllRelations(relation, origin);
 
         // Release or execute the transaction
-        context.releaseTransaction(() => {
-            setOrigin(origin);
-            forwardEvent();
-        });
+        Transaction.process(context, transaction)
+            .finally(() => {
+                setOrigin(origin);
+                forwardEvent();
+            });
     }
 }
 

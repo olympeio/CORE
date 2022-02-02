@@ -37,14 +37,12 @@ export default class CreateFileFromURL extends ActionBrick {
             mimeType || 'text/plain'
         );
         transaction.persistInstance(fileTag, false);
-        transaction.execute((success, message) => {
-            if (success) {
+        transaction.execute()
+            .then(() => {
                 setFile(Sync.getInstance(fileTag));
                 forwardEvent();
-            } else {
-                setErrorFlow(ErrorFlow.create(message, 1));
-            }
-        });
+            })
+            .catch(message => setErrorFlow(ErrorFlow.create(message, 1)));
     }
 }
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, CreateInstance, UpdateInstance, Transaction } from 'olympe';
+import { ActionBrick, registerBrick, Transaction, DBView } from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -35,30 +35,23 @@ export default class DeleteObject extends ActionBrick {
      *
      * @protected
      * @param {!Context} context
-     * @param {!(CreateInstance | UpdateInstance | InstanceTag)} inboundObject
+     * @param {!(InstanceTag)} inboundObject
      * @param {function()} forwardEvent
      */
     update(context, [inboundObject], [forwardEvent]) {
         const logger = getLogger('Delete Object');
 
         // Check if we can delete the inboundObject
-        if (typeof inboundObject === 'string' ||
-            inboundObject instanceof CreateInstance ||
-            inboundObject instanceof UpdateInstance ||
-            typeof inboundObject['getTag'] === 'function') {
+        if (DBView.get().exist(inboundObject)) {
 
             const transaction = new Transaction();
 
             transaction.delete(inboundObject);
-            transaction.execute( (success, message) => {
-                if (success) {
-                    forwardEvent();
-                } else {
-                    logger.error(`Cannot delete object : ${message}`);
-                }
-            })
+            transaction.execute()
+                .then(() => forwardEvent())
+                .catch(message => logger.error(`Cannot delete object : ${message}`));
         } else {
-            logger.error('Cannot delete object. The object is not of type Sync, CreateInstance or UpdateInstance', inboundObject )
+            logger.error('Cannot delete object. The object is not of type Sync', inboundObject )
         }
     }
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {ActionBrick, registerBrick, CloudObject, instanceToTag} from 'olympe';
+import {ActionBrick, registerBrick, CloudObject, instanceToTag, Transaction} from 'olympe';
 import {getLogger} from 'logging';
 export default class CreateLocalObject extends ActionBrick {
 
@@ -38,15 +38,13 @@ export default class CreateLocalObject extends ActionBrick {
         }
 
         // Transaction
-        const transaction = context.getTransaction();
+        const transaction = Transaction.from(context);
         const instance = transaction.create(model)
         transaction.persistInstance(instance, false);
-        context.releaseTransaction((executed, success, message) => {
-            if(executed && !success)
-                logger.error(`transaction error: ${message}`);
-            setObject(executed ? CloudObject.getInstance(instance) : instance);
-            forwardEvent();
-        });
+        Transaction.process(context, transaction)
+            .then(executed => setObject(executed ? CloudObject.get(instance) : instance))
+            .catch(message => logger.error(`transaction error: ${message}`))
+            .finally(forwardEvent);
     }
 }
 

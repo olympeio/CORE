@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {registerBrick, DBView, BusinessObject} from 'olympe';
+import {registerBrick, DBView, BusinessObject, Transaction} from 'olympe';
 import JsonToObject from './JsonToObject.js';
 
 /**
@@ -47,7 +47,7 @@ export default class JsonToObjectList extends JsonToObject {
      * @param {function()} forwardEvent
      */
     update(context, [json, businessModel, persist], [forwardEvent, setList]) {
-        const transaction = context.getTransaction();
+        const transaction = Transaction.from(context);
         transaction.persist(persist);
 
         // Try to parse the input JSON (parsing may fail if input is e.g. an array or an object). Return the result as is if its an array or wrapped in an array.
@@ -82,13 +82,9 @@ export default class JsonToObjectList extends JsonToObject {
             result.push(instance);
         });
 
-        transaction.execute((success) => {
-            if (success) {
-                setList(result);
-            }
-            forwardEvent();
-        });
-
+        Transaction.process(context, transaction)
+            .then(() => setList(result))
+            .finally(() => forwardEvent());
     }
 }
 

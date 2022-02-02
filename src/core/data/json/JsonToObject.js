@@ -65,7 +65,7 @@ export default class JsonToObject extends ActionBrick {
         const data = parsedJson instanceof Array && parsedJson.length > 0 ? parsedJson[0] : parsedJson;
 
         const db = DBView.get();
-        const transaction = context.getTransaction();
+        const transaction = Transaction.from(context);
         transaction.persist(persist);
 
         // Check if the instance exists already in db or if it has been processed before to avoid duplication
@@ -82,15 +82,12 @@ export default class JsonToObject extends ActionBrick {
         this.parseProperties(db, transaction, instance, businessModel, /**@type {!Object}*/(data), mappingModels);
         this.parseRelations(db, transaction, instance, businessModel, /**@type {!Object}*/(data), mappingModels);
 
-        transaction.execute((success, msg) => {
-            if (success) {
+        Transaction.process(context, transaction)
+            .then(() => {
                 setObject(/**@type{BusinessObject}*/Sync.getInstance(instance));
                 forwardEvent();
-            } else {
-                getLogger('JSON To Object').error(`Transaction failed: ${msg}`);
-            }
-        });
-
+            })
+            .catch(msg => getLogger('JSON To Object').error(`Transaction failed: ${msg}`));
     }
 
     /**
@@ -112,7 +109,7 @@ export default class JsonToObject extends ActionBrick {
             if (data && data[propName] !== undefined && (!(data[propName] instanceof Array) && !(data[propName] instanceof Object))) {
                 transaction.update(instance, item, data[propName]);
             } else if (mappedModel) {
-                const buInstance = transaction.create((mappedModel)).getTag();
+                const buInstance = transaction.create((mappedModel));
                 this.parseProperties(db, transaction, buInstance, mappedModel, data[propName], mappingModels, instanceTags);
                 transaction.update(instance, item, buInstance);
             }
@@ -145,7 +142,7 @@ export default class JsonToObject extends ActionBrick {
             }
             const processRelatedObjectData = (relatedObjectData) => {
                 if (mappedModel) {
-                    const relatedInstance = transaction.create((mappedModel)).getTag();
+                    const relatedInstance = transaction.create((mappedModel));
                     this.parseProperties(db, transaction, relatedInstance, mappedModel, relatedObjectData, mappingModels, instanceTags);
                     this.parseRelations(db, transaction, relatedInstance, mappedModel, relatedObjectData, mappingModels, instanceTags);
                     transaction.createRelation(relation, instance, relatedInstance);

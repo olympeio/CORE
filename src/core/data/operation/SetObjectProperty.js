@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, Transaction, Sync, instanceToTag, DBView, PropertyModel, CreateInstance} from 'olympe';
+import {FunctionBrick, registerBrick, Transaction, Sync, instanceToTag, DBView, PropertyModel} from 'olympe';
 import {getLogger} from 'logging';
 import {castPrimitiveValue} from "../transaction/_helpers";
 
@@ -65,16 +65,12 @@ export default class SetObjectProperty extends FunctionBrick {
         transaction.update(object, property, castedValue);
 
         // Execute the transaction
-        transaction.execute((success) => {
-            if (!success) {
-                logger.error('Update transaction failed');
-            } else {
-                // Set the output to the input object
-                // it is done inside the TransactionCallback to avoid firing potential following
-                // SetObjectProperty too early, which could cause errors in the orchestrator
-                setObject(object);
-            }
-        });
+        // Set the output to the input object
+        // it is done inside the TransactionCallback to avoid firing potential following
+        // SetObjectProperty too early, which could cause errors in the orchestrator
+        transaction.execute()
+            .then(() => setObject(object))
+            .catch(() => logger.error('Update transaction failed'));
     }
 }
 

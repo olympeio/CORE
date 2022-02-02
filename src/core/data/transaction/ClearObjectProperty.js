@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {ActionBrick, registerBrick} from 'olympe';
+import {ActionBrick, registerBrick, Transaction} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -49,17 +49,16 @@ export default class ClearObjectProperty extends ActionBrick {
         const logger = getLogger('Clear Object Property');
 
         // Transaction
-        const transaction = context.getTransaction();
+        const transaction = Transaction.from(context);
 
         transaction.update(object, property, null);
 
-        context.releaseTransaction((executed, success, message) => {
-            if (!success) {
-                logger.error(`Transaction error: ${message}`);
-            }
-            setObject(object);
-            forwardEvent();
-        });
+        Transaction.process(context, transaction)
+            .catch(() => logger.error(`Transaction error: ${message}`))
+            .finally(() => {
+                setObject(object);
+                forwardEvent();
+            });
     }
 }
 

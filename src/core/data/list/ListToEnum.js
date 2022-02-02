@@ -39,13 +39,13 @@ export default class ListToEnum extends FunctionBrick {
         // 1. Create the enumeration itself
         const transaction = new Transaction().persist(false);
         const enumTag = Enum.create(transaction);
-        transaction.execute(() => { /* empty */ });
+        transaction.execute();
 
         // Function that delete the specified instance
         const clear = (instance) => {
             const t = new Transaction();
             t.delete(instance);
-            t.execute(() => { /* empty */ })
+            t.execute();
         }
 
         // Creates an enum value based on the specified context
@@ -58,7 +58,7 @@ export default class ListToEnum extends FunctionBrick {
                 const previousTag = previous.pop();
                 previousTag && t.delete(previousTag);
                 previous.push(EnumValue.create(t, enumTag, value, name, rank));
-                t.execute(() => { /* empty */ });
+                t.execute();
             });
         }
 

@@ -47,14 +47,12 @@ export default class CreateFileFromBase64 extends ActionBrick {
             finalMimeType
         );
         transaction.persistInstance(fileTag, false);
-        transaction.execute((success, message) => {
-            if (success) {
+        transaction.execute()
+            .then(() => {
                 setFile(Sync.getInstance(fileTag));
                 forwardEvent();
-            } else {
-                setErrorFlow(ErrorFlow.create(message, 1));
-            }
-        });
+            })
+            .catch(message => setErrorFlow(ErrorFlow.create(message, 1)));
     }
 }
 

@@ -131,13 +131,9 @@ function WebcamWithRef(props) {
         const screenshotName = `screenshot_${Date.now()}.${screenshotExtension}`;
         const tag = File.createFile(File, t, screenshotName, screenshotAsArrayBuffer, screenshotFormat);
         t.persistInstance(tag, false);
-        t.execute((success, message) => {
-            if(!success) {
-                getLogger('Camera').warn('The application encountered a problem while taking a screenshot. The transaction failed.', message);
-                return;
-            }
-            props.context.set('Screenshot', Sync.getInstance(tag));
-        });
+        t.execute()
+            .then(() => props.context.set('Screenshot', Sync.getInstance(tag)))
+            .catch(message => getLogger('Camera').warn('The application encountered a problem while taking a screenshot. The transaction failed.', message));
     });
 
     // Only add the webcam component once constraints has been defined.
