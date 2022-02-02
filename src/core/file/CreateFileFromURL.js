@@ -30,7 +30,6 @@ export default class CreateFileFromURL extends ActionBrick {
     update(context, [fileName, mimeType, url], [forwardEvent, setErrorFlow, setFile]) {
         const transaction = new Transaction();
         const fileTag = File.createFileFromURL(
-            File,
             transaction,
             fileName || 'new_File_from_CreateFileFromURL_brick',
             url,

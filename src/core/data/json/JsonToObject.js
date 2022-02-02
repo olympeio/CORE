@@ -83,8 +83,8 @@ export default class JsonToObject extends ActionBrick {
         this.parseRelations(db, transaction, instance, businessModel, /**@type {!Object}*/(data), mappingModels);
 
         Transaction.process(context, transaction)
-            .then(() => {
-                setObject(/**@type{BusinessObject}*/Sync.getInstance(instance));
+            .then(executed => {
+                setObject(executed ? /**@type{BusinessObject}*/Sync.getInstance(instance) : instance);
                 forwardEvent();
             })
             .catch(msg => getLogger('JSON To Object').error(`Transaction failed: ${msg}`));

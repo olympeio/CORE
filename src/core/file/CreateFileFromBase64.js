@@ -40,7 +40,6 @@ export default class CreateFileFromBase64 extends ActionBrick {
         }
 
         const fileTag = File.createFile(
-            File,
             transaction,
             fileName || 'new_File_from_CreateFileFromBase64_brick',
             isDataURL ? dataUrlToBinary(base64Content) : fromBase64(base64Content),
