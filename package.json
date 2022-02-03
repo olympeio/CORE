@@ -7,7 +7,7 @@
     "url": "https://github.com/olympeio/CORE"
   },
   "build": {
-    "orchestratorVersion": "5.9.7"
+    "orchestratorVersion": "6.2.0"
   },
   "files": [
     "import",
