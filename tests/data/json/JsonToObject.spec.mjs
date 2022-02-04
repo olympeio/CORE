@@ -92,7 +92,7 @@ describe('JsonToObject brick', () => {
         //
         // const relatedModel = 'My_Related_Business_Model';
         // this.helpers.defineRelation('relation', this.myBusinessModelTag, this.relatedBusinessModelTag);
-        // const relationRel = new olympe.dc.registry.Relation('relation', olympe.dc.RelationDirection.DESTINATION);
+        // const relationRel = new olympe.dc.registry.Relation('relation', olympe.dc.Direction.DESTINATION);
         //
         // // When
         // const json = JSON.stringify({'relation': relatedModel});
