@@ -7,7 +7,7 @@
     "url": "https://github.com/olympeio/CORE"
   },
   "build": {
-    "orchestratorVersion": "5.9.7"
+    "orchestratorVersion": "6.2.0"
   },
   "files": [
     "import",
@@ -55,25 +55,25 @@
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
-    "@emotion/react": "^11.4.1",
-    "@emotion/styled": "^11.3.0",
-    "@mui/material": "~5.2.1",
+    "@emotion/react": "11.4.1",
+    "@emotion/styled": "11.3.0",
+    "@mui/material": "5.2.1",
     "@olympeio/runtime-node": "dev",
     "@olympeio/runtime-web": "dev",
-    "date-fns": "~2.22.1",
-    "fast-xml-parser": "~3.19.0",
-    "html-react-parser": "^1.4.0",
+    "date-fns": "2.22.1",
+    "fast-xml-parser": "3.19.0",
+    "html-react-parser": "1.4.0",
     "json2csv": "5.0.6",
     "jsonpath-plus": "6.0.1",
-    "loglevel": "~1.7.1",
-    "node-fetch": "~2.6.1",
-    "qrcode.react": "~1.0.1",
-    "react": "^17.0.2",
-    "react-audio-player": "~0.17.0",
-    "react-dom": "^17.0.2",
-    "react-player": "~2.9.0",
-    "react-webcam": "^6.0.0",
-    "remarkable": "^2.0.1",
-    "rxjs": "~7.1.0"
+    "loglevel": "1.7.1",
+    "node-fetch": "2.6.1",
+    "qrcode.react": "1.0.1",
+    "react": "17.0.2",
+    "react-audio-player": "0.17.0",
+    "react-dom": "17.0.2",
+    "react-player": "2.9.0",
+    "react-webcam": "6.0.0",
+    "remarkable": "2.0.1",
+    "rxjs": "7.1.0"
   }
 }
