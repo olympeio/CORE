@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {FunctionBrick, registerBrick, ListDef, Transaction, Enum, EnumValue, onDestroy, Sync} from 'olympe';
+import {Brick, registerBrick, ListDef, Transaction, Enum, EnumValue, onDestroy, CloudObject, QueryResult} from 'olympe';
 import {getLogger} from 'logging';
 import {combineLatestWith} from "rxjs/operators";
 
-export default class ListToEnum extends FunctionBrick {
+export default class ListToEnum extends Brick {
 
     /**
      * @protected
-     * @param {!Context} brickContext
-     * @param {!ListDef | !Array} list
-     * @param {!FunctionBrick} transformer
+     * @param {!BrickContext} $
+     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!Brick} transformer
      * @param {!function(InstanceTag)} setEnum
      */
-    onUpdate(brickContext, [list, transformer], [setEnum]) {
+    onUpdate($, [list, transformer], [setEnum]) {
         // Guards
-        if (!Array.isArray(list) && !(list instanceof ListDef)) {
-            getLogger('List To Enum').error('The provided list is neither an array nor a listdef');
+        if (!Array.isArray(list) && !(list instanceof ListDef) && !(list instanceof QueryResult)) {
+            getLogger('List To Enum').error('The provided list must be of type ListDef, Array or QueryResult');
             return;
         }
 
@@ -63,42 +63,39 @@ export default class ListToEnum extends FunctionBrick {
         }
 
         // Delete the enumeration when the brick is refreshed or destroyed
-        brickContext.onClear(() => clear(enumTag));
+        $.onClear(() => clear(enumTag));
 
         // 2. Loop over the list to create values
         // The list is a listdef, so the content can change live
         if (list instanceof ListDef) {
             list.forEach((item, id) => {
-                const transformerCtx = brickContext.createChild('list item to enum value');
-                transformerCtx.set(itemInput, item);
-                list.observeRank(id).subscribe((rank) => transformerCtx.set(rankInput, rank));
+                const transformer$ = $.runner(transformer)
+                    .set(itemInput, item);
+                list.observeRank(id).subscribe(rank => transformer$.set(rankInput, rank));
 
                 const previousValueTags = [];
-                createEnumValue(previousValueTags, transformerCtx);
+                createEnumValue(previousValueTags, transformer$);
 
                 onDestroy(() => {
                     const previousTag = previousValueTags.pop();
                     previousTag && clear(previousTag);
                 });
-                transformer.run(transformerCtx);
             });
         }
 
-        // The list is a static array, so the content is static but values could change live
+        // The list is a static array or a QueryResult, so the content is static but values could change live
         else {
             list.forEach((item, itemRank) => {
-                const transformerCtx = brickContext.createChild('list item to enum value');
-                transformerCtx.set(itemInput, item);
-                transformerCtx.set(rankInput, itemRank);
+                const transformer$ = $.runner(transformer)
+                    .set(itemInput, item)
+                    .set(rankInput, itemRank);
 
                 const previousValueTags = [];
-                createEnumValue(previousValueTags, transformerCtx);
-
-                transformer.run(transformerCtx);
+                createEnumValue(previousValueTags, transformer$);
             });
         }
 
-        setEnum(Sync.getInstance(enumTag));
+        setEnum(CloudObject.get(enumTag));
     }
 }
 

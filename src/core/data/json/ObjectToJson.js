@@ -14,21 +14,8 @@
  * limitations under the License.
  */
 
-import {ActionBrick, registerBrick, Context, DBView, BusinessObject, RelationModel, transformers} from 'olympe';
+import {ActionBrick, registerBrick, DBView, BusinessObject, RelationModel, transformers} from 'olympe';
 
-/**
-## Description
-Parses an object into a json.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| object | Object | An instance of a BusinessModel. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| json | String | stringified Json |
-
-**/
 export default class ObjectToJson extends ActionBrick {
 
     /**
@@ -36,29 +23,26 @@ export default class ObjectToJson extends ActionBrick {
      * Note that this method will _not_ be executed if an input value is undefined.
      *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} $
      * @param {BusinessObject} object
      * @param {function(string)} setJson
      * @param {function()} forwardEvent
      */
-    update(context, [object], [forwardEvent, setJson]) {
-        const db = DBView.get();
-        const json = this.parseProperties(db, object.getTag());
-
+    update($, [object], [forwardEvent, setJson]) {
+        const json = ObjectToJson.parseProperties(object.getTag());
         setJson(JSON.stringify(json));
         forwardEvent();
     }
 
-
-
     /**
-     * @protected
-     * @param {DBView} db
+     * TODO replace DBView by cache queries ?
+     * @static
      * @param {string} instance
      * @param {boolean=} [isPrimitiveRelation=false]
      * @return {!Object}
      */
-    parseProperties(db, instance, isPrimitiveRelation = false) {
+    static parseProperties(instance, isPrimitiveRelation = false) {
+        const db = DBView.get();
         let json = isPrimitiveRelation ? null : {};
         const properties = db.getProperties(instance);
         properties.forEach((value, key) => {
@@ -67,7 +51,7 @@ export default class ObjectToJson extends ActionBrick {
             if (isPrimitiveRelation) {
                 json = value;
             } else {
-                json[propName] = db.exist(value) ? this.parseProperties(db, key) : value;
+                json[propName] = db.exist(value) ? ObjectToJson.parseProperties(key) : value;
             }
         });
 
@@ -87,12 +71,11 @@ export default class ObjectToJson extends ActionBrick {
 
             json[relationName] = [];
             children.forEach((child) => {
-                json[relationName].push(this.parseProperties(db, child, relationOfPrimitive));
+                json[relationName].push(ObjectToJson.parseProperties(child, relationOfPrimitive));
             });
         });
         return /**@type {!Object}*/(json);
     }
-
 }
 
 registerBrick('0175b1ab88cf39df4c54', ObjectToJson);

@@ -13,39 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { FunctionBrick, registerBrick, ListDef } from 'olympe';
-import {getLogger} from 'logging';
+import { Brick, registerBrick, ListDef, QueryResult } from 'olympe';
+import { getLogger } from 'logging';
 
-export default class ContinuousForEach extends FunctionBrick {
+export default class ContinuousForEach extends Brick {
 
     /**
      * @protected
-     * @param {!Context} brickContext
-     * @param {!ListDef | !Array} list
-     * @param {!FunctionBrick} iterator
-     * @param {!Array} outputs
+     * @param {!BrickContext} $
+     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!Brick} iterator
+     * @param {!Array} _
      */
-    onUpdate(brickContext, [list, iterator], outputs) {
+    onUpdate($, [list, iterator], _) {
         const [itemInput, rankInput, listInput] = iterator.getInputs();
 
         if (list instanceof ListDef) {
             list.forEach((item, key) => {
-                const iteratorCtx = brickContext.createChild('iterator');
-                iteratorCtx.set(itemInput, item);
-                list.observeRank(key).subscribe((r) => iteratorCtx.set(rankInput, r));
-                iteratorCtx.set(listInput, list);
-                iterator.run(iteratorCtx);
+                const iterator$ = $.runner(iterator)
+                    .set(itemInput, item)
+                    .set(listInput, list);
+                list.observeRank(key).subscribe(rank => iterator$.set(rankInput, rank));
             });
-        } else if (Array.isArray(list)) {
-            list.forEach((item , rank, array) => {
-                const iteratorCtx = brickContext.createChild('iterator');
-                iteratorCtx.set(itemInput, item);
-                iteratorCtx.set(rankInput, rank);
-                iteratorCtx.set(listInput, array);
-                iterator.run(iteratorCtx);
+        } else if (Array.isArray(list) || list instanceof QueryResult) {
+            list.forEach((item, rank, array) => {
+                $.runner(iterator)
+                    .set(itemInput, item)
+                    .set(rankInput, rank)
+                    .set(listInput, array);
             });
         } else {
-            getLogger('Continuous For Each').error('The provided list is neither an array nor a listdef');
+            getLogger('Continuous For Each').error('The provided list must be of type ListDef, Array or QueryResult');
         }
     }
 }

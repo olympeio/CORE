@@ -14,55 +14,39 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, ListDef} from 'olympe';
-import {getLogger} from 'logging';
+import { Brick, registerBrick, ListDef, QueryResult } from 'olympe';
+import { getLogger } from 'logging';
 
-/**
-## Description
-Merge two lists.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| First list | List | First list. |
-| Second list | List | Second list. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Concatenated list | List | The concatenation of First and Second list. |
-
-**/
-export default class ConcatList extends FunctionBrick {
+export default class ConcatList extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
-     * @param {!ListDef|!Array} list1
-     * @param {!ListDef|!Array} list2
-     * @param {function(!ListDef|!Array)} setConcatenatedList
+     * @param {!BrickContext} $
+     * @param {!ListDef|!Array|!QueryResult} list1
+     * @param {!ListDef|!Array|!QueryResult} list2
+     * @param {function(!ListDef|!Array|!QueryResult)} setConcatenatedList
      */
-    update(context, [list1, list2], [setConcatenatedList]) {
+    update($, [list1, list2], [setConcatenatedList]) {
         const logger = getLogger('Concat List');
 
         // Guards
-        if(!Array.isArray(list1) && !(list1 instanceof ListDef)) {
-            logger.error('TypeError: the list1 should be of type ListDef or Array');
+        if(!Array.isArray(list1) && !(list1 instanceof ListDef) && !(list1 instanceof QueryResult)) {
+            logger.error('TypeError: the list1 should be of type ListDef, Array or QueryResult');
             return;
         }
-        if(!Array.isArray(list2) && !(list2 instanceof ListDef)) {
-            logger.error('TypeError: the list2 should be of type ListDef or Array');
+        if(!Array.isArray(list2) && !(list2 instanceof ListDef) && !(list2 instanceof QueryResult)) {
+            logger.error('TypeError: the list2 should be of type ListDef, Array or QueryResult');
             return;
         }
 
         if(Array.isArray(list1) && Array.isArray(list2)) {
             setConcatenatedList(list1.concat(list2));
-        } else if(!Array.isArray(list1) && !Array.isArray(list2)) {
+        } else if(list1 instanceof ListDef && list2 instanceof ListDef) {
             setConcatenatedList(list1.union(list2));
+        } else if(list1 instanceof QueryResult && list2 instanceof QueryResult) {
+            setConcatenatedList(list1.concat(list2));
         } else {
-            logger.error('TypeError: both list should be of the same type');
+            logger.error('TypeError: both list should be of the same type (ListDef, Array or QueryResult)');
         }
     }
 }

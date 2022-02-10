@@ -14,33 +14,19 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, ListDef } from 'olympe';
+import { Brick, registerBrick, QuerySingle } from 'olympe';
 
-/**
-## Description
-Retrieve an object given its tag.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Tag | String | The tag of the requested object. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Object | Object | The Object. |
-**/
-export default class GetObjectByTag extends FunctionBrick {
+export default class GetObjectByTag extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} $
      * @param {string} tag
-     * @param {function(!Sync)} setObject
+     * @param {function(!CloudObject)} setObject
      */
-    update(context, [tag], [setObject]) {
-        new ListDef(tag, []).observeFirst().subscribe(setObject);
+    update($, [tag], [setObject]) {
+        QuerySingle.from(tag).execute($)
+            .then(setObject);
     }
 }
 

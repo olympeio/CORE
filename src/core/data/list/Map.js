@@ -13,72 +13,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, ListDef } from 'olympe';
-import {getLogger} from 'logging';
+import { ActionBrick, registerBrick, ListDef, QueryResult } from 'olympe';
+import { getLogger } from 'logging';
 
 export default class MapBrick extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} brickContext
-     * @param {!ListDef | !Array} list
-     * @param {!FunctionBrick} mapper
+     * @param {!BrickContext} $
+     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!Brick} mapper
      * @param {!function()} forwardEvent
-     * @param {!*} setList
+     * @param {function(!Array)} setList
      */
-    onUpdate(brickContext, [list, mapper], [forwardEvent, setList]) {
+    update($, [list, mapper], [forwardEvent, setList]) {
         if (!list || !mapper) {
-            getLogger('Map').warn('Nothing to do: list or map function is null or undefined.');
+            getLogger('Map').warn('Nothing to do: list or mapper is null or undefined.');
             forwardEvent();
             return;
         }
 
-        if (!Array.isArray(list) && !(list instanceof ListDef)) {
-            getLogger('Map').error('The provided list is neither an array nor a listdef');
+        let array = [];
+        if(Array.isArray(list)) {
+            array = list;
+        } else if(list instanceof QueryResult) {
+            array = list.toArray();
+        } else if (list instanceof ListDef) {
+            list.forEachCurrentValue(item => array.push(item));
+        } else {
+            getLogger('Map').error('The provided list must be of type ListDef, Array or QueryResult');
             return;
         }
 
-        const array = Array.isArray(list) ? list : [];
-        if (list instanceof ListDef) {
-            list.forEachCurrentValue((item) => array.push(item));
-        }
-
-        this.process(brickContext, array, mapper).then((outputList) => {
-            setList(outputList);
+        const [startInput, itemInput, rankInput, listInput] = iterator.getInputs();
+        const [_, itemOutput] = iterator.getOutputs();
+        Promise.all(array.map((item, rank) => {
+            return $.runner(mapper)
+                .set(itemInput, item)
+                .set(rankInput, rank)
+                .set(listInput, array)
+                .trigger(startInput)
+                .waitFor(itemOutput);
+        })).then(mappedArray => {
+            setList(mappedArray);
             forwardEvent();
         });
-    }
-
-    /**
-     * @private
-     * @param {Context} brickContext
-     * @param {!Array} array
-     * @param {FunctionBrick} mapper
-     * @return {Promise<!Array>}
-     */
-    async process(brickContext, array, mapper) {
-        const [startInput, itemInput, rankInput, listInput] = mapper.getInputs();
-        const [endOutput, itemOutput] = mapper.getOutputs();
-
-        const map = (item, rank, arr) => new Promise((done) => {
-            const mapperCtx = brickContext.createChild('mapper');
-            mapper.run(mapperCtx);
-            mapperCtx.set(itemInput, item);
-            mapperCtx.set(rankInput, rank);
-            mapperCtx.set(listInput, arr);
-            mapperCtx.set(startInput, Date.now()); // Trigger the control flow
-            mapperCtx.observe(endOutput).subscribe(() => {
-                const processedItem = mapperCtx.get(itemOutput);
-                mapperCtx.destroy(); // Destroy the context
-                done(processedItem); // Return the new processed item
-            });
-        });
-
-        const result = [];
-        for (let i = 0, l = array.length; i < l; i++) {
-            result.push(await map(array[i], i, array));
-        }
-        return result;
     }
 }
 

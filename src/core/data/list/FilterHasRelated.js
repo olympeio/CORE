@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, ListDef, predicates, Direction, instanceToTag, DBView} from 'olympe';
+import {Brick, registerBrick, ListDef, predicates, Direction, instanceToTag, DBView, QueryResult} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -38,27 +38,27 @@ const filterList = (list, inverseFilter) => {
     return invalidObject ? null : list;
 };
 
-export default class FilterHasRelated extends FunctionBrick {
+export default class FilterHasRelated extends Brick {
 
     /**
      * Executed every time an input (list, relatedObject, relation, inverseFilter) gets updated.
      * Note that this method will _not_ be executed if an input value is undefined.
      *
      * @protected
-     * @param {Context} context
-     * @param {!ListDef|!Array} list
+     * @param {!BrickContext} $
+     * @param {!ListDef|!Array|!QueryResult} list
      * @param {!InstanceTag} relatedObject
      * @param {!Relation} relation
      * @param {boolean} inverseFilter
-     * @param {function(ListDef|Array)} setFilteredList
+     * @param {function(!ListDef|Array)} setFilteredList
      */
-    update(context, [list, relatedObject, relation, inverseFilter], [setFilteredList]) {
+    update($, [list, relatedObject, relation, inverseFilter], [setFilteredList]) {
         const logger = getLogger('Filter Has Related');
 
         if (instanceToTag(relatedObject) === '') {
             logger.error('`related object` has no valid tag');
-        } else if(Array.isArray(list)) {
-            const filteredList = filterList(list);
+        } else if(Array.isArray(list) || list instanceof QueryResult) {
+            const filteredList = filterList(list, inverseFilter);
             if (filteredList !== null) {
                 setFilteredList(filteredList);
             }
@@ -66,7 +66,7 @@ export default class FilterHasRelated extends FunctionBrick {
             const relatedFilter = new predicates.HasRelated([relation], [Direction.DESTINATION], relatedObject);
             setFilteredList(list.filter(inverseFilter ? new predicates.Not(relatedFilter) : relatedFilter));
         } else {
-            logger.error('TypeError: The list should be of type ListDef or Array');
+            logger.error('TypeError: The list should be of type ListDef, Array or QueryResult');
         }
     }
 }

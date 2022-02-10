@@ -14,36 +14,19 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, ListDef } from 'olympe';
-import {getLogger} from 'logging';
+import { Brick, registerBrick, ListDef, QueryResult } from 'olympe';
+import { getLogger } from 'logging';
 
-/**
-## Description
-Gets the object that is at the specified rank in the list.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| list | List | The list. |
-| index | Number | The index of the object. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| object | Object | The retrieved object. |
-
-**/
-export default class GetObjectAtInList extends FunctionBrick {
+export default class GetObjectAtInList extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
-     * @param {!ListDef|!Array} list
+     * @param {!BrickContext} $
+     * @param {!ListDef|!Array|!QueryResult} list
      * @param {number} rank
-     * @param {function(object)} setObject
+     * @param {function(!*)} setObject
      */
-    update(context, [list, rank], [setObject]) {
+    update($, [list, rank], [setObject]) {
         const logger = getLogger('Get Object At In List');
         if (Array.isArray(list)) {
             if (list.length > rank) {
@@ -55,8 +38,14 @@ export default class GetObjectAtInList extends FunctionBrick {
             list.observeAt(rank).subscribe(_object => {
                 setObject(_object);
             });
+        } else if(list instanceof QueryResult) {
+            if (list.size() > rank) {
+                setObject(list.getAt(rank));
+            } else {
+                logger.warn(`OutOfBound: trying to return a value outside of the QueryResult! (rank=${rank}, QueryResult.size=${list.size()})`);
+            }
         } else {
-            logger.error('TypeError: The list should be of type ListDef or Array');
+            logger.error('TypeError: The list should be of type ListDef, Array or QueryResult');
         }
     }
 }

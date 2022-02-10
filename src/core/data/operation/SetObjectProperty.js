@@ -14,30 +14,27 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, Transaction, Sync, instanceToTag, DBView, PropertyModel} from 'olympe';
+import {Brick, registerBrick, Transaction, CloudObject, instanceToTag, DBView, PropertyModel} from 'olympe';
 import {getLogger} from 'logging';
 import {castPrimitiveValue} from "../transaction/_helpers";
 
-export default class SetObjectProperty extends FunctionBrick {
+export default class SetObjectProperty extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
-     * @param {InstanceTag} object
-     * @param {PropertyDescriptor} property
+     * @param {!BrickContext} $
+     * @param {!InstanceTag} object
+     * @param {!PropertyDescriptor} property
      * @param {*} value
-     * @param {function(InstanceTag)} setObject
+     * @param {function(!InstanceTag)} setObject
      */
-    update(context, [object, property, value], [setObject]) {
+    update($, [object, property, value], [setObject]) {
         const logger = getLogger('Set Object Property');
 
         const castedValue = castPrimitiveValue(value);
 
         // Validate arguments
-        if (castedValue instanceof Sync) {
+        if (castedValue instanceof CloudObject) {
             logger.error('Complex properties are not supported');
             return;
         }

@@ -13,38 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, ListDef } from 'olympe';
-import {getLogger} from 'logging';
+import { ActionBrick, registerBrick, ListDef, QueryResult } from 'olympe';
+import { getLogger } from 'logging';
 
 export default class Reduce extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} brickContext
-     * @param {!ListDef | !Array} list
-     * @param {* | undefined} initialValue
-     * @param {!FunctionBrick} reducer
+     * @param {!BrickContext} $
+     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {*|undefined} initialValue
+     * @param {!Brick} reducer
      * @param {!function()} forwardEvent
-     * @param {!*} setResult
+     * @param {function(*)} setResult
      */
-    onUpdate(brickContext, [list, reducer, initialValue], [forwardEvent, setResult]) {
+    update($, [list, reducer, initialValue], [forwardEvent, setResult]) {
         if (!list || !reducer) {
             getLogger('Reduce').warn('Nothing to do: list or reducer is null or undefined.');
             forwardEvent();
             return;
         }
 
-        if (!Array.isArray(list) && !(list instanceof ListDef)) {
-            getLogger('Reduce').error('The provided list is neither an array nor a listdef');
+        let array = [];
+        if(Array.isArray(list)) {
+            array = list;
+        } else if(list instanceof QueryResult) {
+            array = list.toArray();
+        } else if(list instanceof ListDef) {
+            list.forEachCurrentValue(item => array.push(item));
+        } else {
+            getLogger('Reduce').error('The provided list must be of type ListDef, Array or QueryResult');
             return;
         }
 
-        const array = Array.isArray(list) ? list : [];
-        if (list instanceof ListDef) {
-            list.forEachCurrentValue((item) => array.push(item));
-        }
-
-        this.process(brickContext, array, reducer, initialValue).then((result) => {
+        this.process($, array, reducer).then((result) => {
             setResult(result);
             forwardEvent();
         });
@@ -52,29 +54,25 @@ export default class Reduce extends ActionBrick {
 
     /**
      * @private
-     * @param {Context} brickContext
+     * @param {!BrickContext} $
      * @param {!Array} array
-     * @param {FunctionBrick} reducer
-     * @param {* | undefined} initialValue
+     * @param {!Brick} reducer
+     * @param {*|undefined} initialValue
      * @return {Promise<*>}
      */
-    async process(brickContext, array, reducer, initialValue) {
+    async process($, array, reducer, initialValue) {
         const [startInput, accumulatorInput, itemInput, rankInput, listInput] = reducer.getInputs();
         const [endOutput, resultOutput] = reducer.getOutputs();
 
         const reduce = (acc, item, rank, arr) => new Promise((done) => {
-            const reducerCtx = brickContext.createChild('reducer');
-            reducer.run(reducerCtx);
-            reducerCtx.set(accumulatorInput, acc);
-            reducerCtx.set(itemInput, item);
-            reducerCtx.set(rankInput, rank);
-            reducerCtx.set(listInput, arr);
-            reducerCtx.set(startInput, Date.now()); // Trigger the control flow
-            reducerCtx.observe(endOutput).subscribe(() => {
-                const reducedValue = reducerCtx.get(resultOutput);
-                reducerCtx.destroy(); // Destroy the context
-                done(reducedValue); // Return the new reduced value
-            });
+            const reducer$ = $.runner(reducer)
+                .set(accumulatorInput, acc)
+                .set(itemInput, item)
+                .set(rankInput, rank)
+                .set(listInput, arr)
+                .trigger(startInput)
+                .waitFor(endOutput)
+                .then(() => done(reducer$.get(resultOutput)));
         });
 
         let accumulator = initialValue;

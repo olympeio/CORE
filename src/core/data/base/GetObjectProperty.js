@@ -14,37 +14,21 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, Sync } from 'olympe';
+import { Brick, registerBrick, CloudObject } from 'olympe';
 
-/**
-## Description
-Access an object's property value.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Object | Object | The object. |
-| Property | Property | The property. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Value | Object | The value of the property for that object. |
-
-**/
-export default class GetObjectProperty extends FunctionBrick {
+export default class GetObjectProperty extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} $
      * @param {!InstanceTag} object
      * @param {!Property<*>} property
      * @param {function(*)} setValue
      */
-    update(context, [object, property], [setValue]) {
-        const objectSync = Sync.getInstance(object);
-        objectSync.observeProperty(property).subscribe(setValue);
+    update($, [object, property], [setValue]) {
+        CloudObject.get(object)
+            .observe($, property)
+            .subscribe(setValue);
     }
 }
 

@@ -14,7 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, Transaction, File, ErrorFlow, Sync } from 'olympe';
+
+import { ActionBrick, registerBrick, Transaction, File, ErrorFlow, CloudObject } from 'olympe';
 import {stringToBinary} from 'helpers/binaryConverters';
 
 export default class CreateFile extends ActionBrick {
@@ -24,15 +25,15 @@ export default class CreateFile extends ActionBrick {
      * Note that this method will _not_ be executed if an input value is undefined.
      *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} $
      * @param {string=} fileName
      * @param {string=} mimeType
      * @param {string} content
      * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} setErrorFlow
-     * @param {function(File)} setFile
+     * @param {function(!File)} setFile
      */
-    update(context, [fileName, mimeType, content], [forwardEvent, setErrorFlow, setFile]) {
+    update($, [fileName, mimeType, content], [forwardEvent, setErrorFlow, setFile]) {
         const transaction = new Transaction();
 
         if (typeof content !== 'string' && !(content instanceof ArrayBuffer)) {
@@ -49,7 +50,7 @@ export default class CreateFile extends ActionBrick {
         transaction.persistInstance(fileTag, false);
         transaction.execute()
             .then(() => {
-                setFile(Sync.getInstance(fileTag));
+                setFile(CloudObject.get(fileTag));
                 forwardEvent();
             })
             .catch(message => setErrorFlow(ErrorFlow.create(message, 1)));

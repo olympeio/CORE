@@ -13,37 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, ListDef } from 'olympe';
-import {getLogger} from 'logging';
+import { ActionBrick, registerBrick, ListDef, QueryResult } from 'olympe';
+import { getLogger } from 'logging';
 
 export default class Filter extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} brickContext
-     * @param {!ListDef | !Array} list
-     * @param {!FunctionBrick} predicate
+     * @param {!BrickContext} $
+     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!Brick} predicate
      * @param {!function()} forwardEvent
-     * @param {!*} setList
+     * @param {function(!Array)} setList
      */
-    onUpdate(brickContext, [list, predicate], [forwardEvent, setList]) {
+    update($, [list, predicate], [forwardEvent, setList]) {
         if (!list || !predicate) {
             getLogger('Filter').warn('Nothing to do: list or predicate is null or undefined.');
             forwardEvent();
             return;
         }
 
-        if (!Array.isArray(list) && !(list instanceof ListDef)) {
-            getLogger('Filter').error('The provided list is neither an array nor a listdef');
+        let array = [];
+        if(Array.isArray(list)) {
+            array = list;
+        } else if(list instanceof QueryResult) {
+            array = list.toArray();
+        } else if(list instanceof ListDef) {
+            list.forEachCurrentValue(item => array.push(item));
+        } else {
+            getLogger('Filter').error('The provided list must be of type ListDef, Array or QueryResult');
             return;
         }
 
-        const array = Array.isArray(list) ? list : [];
-        if (list instanceof ListDef) {
-            list.forEachCurrentValue((item) => array.push(item));
-        }
-
-        this.process(brickContext, array, predicate).then((outputList) => {
+        this.process($, array, predicate).then((outputList) => {
             setList(outputList);
             forwardEvent();
         });
@@ -51,27 +53,23 @@ export default class Filter extends ActionBrick {
 
     /**
      * @private
-     * @param {Context} brickContext
+     * @param {!BrickContext} $
      * @param {!Array} array
-     * @param {FunctionBrick} predicate
+     * @param {!Brick} predicate
      * @return {Promise<!Array>}
      */
-    async process(brickContext, array, predicate) {
+    async process($, array, predicate) {
         const [startInput, itemInput, rankInput, listInput] = predicate.getInputs();
         const [endOutput, resOutput] = predicate.getOutputs();
 
         const filter = (item, rank, arr) => new Promise((done) => {
-            const predicateCtx = brickContext.createChild('predicate');
-            predicate.run(predicateCtx);
-            predicateCtx.set(itemInput, item);
-            predicateCtx.set(rankInput, rank);
-            predicateCtx.set(listInput, arr);
-            predicateCtx.set(startInput, Date.now()); // Trigger the control flow
-            predicateCtx.observe(endOutput).subscribe(() => {
-                const result = predicateCtx.get(resOutput);
-                predicateCtx.destroy(); // Destroy the context
-                done(result); // Return the new processed item
-            });
+            const predicate$ = $.runner(predicate)
+                .set(itemInput, item)
+                .set(rankInput, rank)
+                .set(listInput, arr)
+                .trigger(startInput)
+                .waitFor(endOutput)
+                .then(() => done(predicate$.get(resOutput)));
         });
 
         const resultList = [];

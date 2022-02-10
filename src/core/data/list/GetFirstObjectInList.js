@@ -14,38 +14,21 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, ListDef } from 'olympe';
-import {getLogger} from 'logging';
+import { Brick, registerBrick, ListDef, QueryResult } from 'olympe';
+import { getLogger } from 'logging';
 
-/**
-## Description
-Get the first entry from the provided list.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| List | List | The list. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Object | Object | The first object. |
-
-**/
-export default class GetFirstObjectInList extends FunctionBrick {
+export default class GetFirstObjectInList extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
-     * @param {!ListDef|!Array} list
-     * @param {function(object)} setObject
+     * @param {!BrickContext} $
+     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {function(!*)} setObject
      */
-    update(context, [list], [setObject]) {
+    update($, [list], [setObject]) {
         const logger = getLogger('Get First Object In List');
 
         if(Array.isArray(list)) {
-            setObject(list[0]);
             if (list.length > 0) {
                 setObject(list[0]);
             } else {
@@ -55,8 +38,14 @@ export default class GetFirstObjectInList extends FunctionBrick {
             list.observeFirst().subscribe(_object => {
                 setObject(_object);
             });
+        } else if(list instanceof QueryResult) {
+            if (list.size() > 0) {
+                setObject(list.getFirst());
+            } else {
+                logger.warn('OutOfBound: trying to return the first element of an empty QueryResult!');
+            }
         } else {
-            logger.error('TypeError: The list should be of type ListDef or Array');
+            logger.error('TypeError: The list should be of type ListDef, Array or QueryResult');
         }
     }
 }
