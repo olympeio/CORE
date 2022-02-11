@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import {DatetimePrimitive, DBView, instanceToTag, NumberPrimitive, PropertyPrimitive, StringPrimitive, BooleanPrimitive, Enum, valuedefs, Sync} from "olympe";
+import {DatetimeModel, DBView, instanceToTag, NumberModel, PropertyModel, StringModel, BooleanModel, Enum, valuedefs, CloudObject} from "olympe";
 import {getLogger} from 'logging';
 
 /**
  * Filter an array using a predicate
  *
- * @param {!Array<!Sync>} list
- * @param {function(!Sync):boolean} predicate
- * @return {!Array<!Sync>}
+ * @param {!Array<!CloudObject>} list
+ * @param {function(!CloudObject):boolean} predicate
+ * @return {!Array<!CloudObject>}
  */
 export const filterArray = (list, predicate) => {
     const a = list;
-    const b = a.filter((v) => v instanceof Sync);
+    const b = a.filter((v) => v instanceof CloudObject);
     if (a.length !== b.length) {
         getLogger('Filter List ...').error(`${a.length - b.length} elements were not instances of a Data Type`);
     }
@@ -60,22 +60,22 @@ export const filterListDef = (list, property, value, predicate, allowBoolean=fal
  */
 export const getValueDefFor = (property, allowBoolean=false) => {
     const db = DBView.get();
-    const propertyTypeTag = db.getUniqueRelated(/** @type {!HasInstanceTag} */ (property), PropertyPrimitive.typeRel);  // Property type cannot be edited in Draw
+    const propertyTypeTag = db.getUniqueRelated(/** @type {!HasInstanceTag} */ (property), PropertyModel.typeRel);  // Property type cannot be edited in Draw
 
     // String
-    if (propertyTypeTag === instanceToTag(StringPrimitive)) {
+    if (propertyTypeTag === instanceToTag(StringModel)) {
         return new valuedefs.StringProperty(property);
     }
     // Number
-    if (propertyTypeTag === instanceToTag(NumberPrimitive)) {
+    if (propertyTypeTag === instanceToTag(NumberModel)) {
         return new valuedefs.NumberProperty(property);
     }
     // DateTime
-    if (propertyTypeTag === instanceToTag(DatetimePrimitive)) {
+    if (propertyTypeTag === instanceToTag(DatetimeModel)) {
         return new valuedefs.DateTimeProperty(property);
     }
     // Boolean
-    if (allowBoolean === true && propertyTypeTag === instanceToTag(BooleanPrimitive)) {
+    if (allowBoolean === true && propertyTypeTag === instanceToTag(BooleanModel)) {
         return new valuedefs.BooleanProperty(property);
     }
     // Enum: check if model of the property type is an Enum

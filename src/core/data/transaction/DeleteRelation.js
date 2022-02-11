@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick } from 'olympe';
+import { ActionBrick, registerBrick, Transaction } from 'olympe';
 
 /**
 ## Description
@@ -40,25 +40,26 @@ export default class DeleteRelation extends ActionBrick {
      * Note that this method will _not_ be executed if an input value is undefined.
      *
      * @protected
-     * @param {!Context} context
-     * @param {!Sync} origin
-     * @param {!Sync} destination
+     * @param {!BrickContext} $
+     * @param {!CloudObject} origin
+     * @param {!CloudObject} destination
      * @param {!Relation} relation
      * @param {function()} forwardEvent
-     * @param {function(!Sync)} setOrigin
+     * @param {function(!CloudObject)} setOrigin
      */
-    update(context, [origin, destination, relation], [forwardEvent, setOrigin]) {
+    update($, [origin, destination, relation], [forwardEvent, setOrigin]) {
         // Get current transaction
-        const transaction = context.getTransaction();
+        const transaction = Transaction.from($);
 
         // Delete the specified relation
         transaction.deleteRelation(relation, origin, destination);
 
         // Release or execute the transaction
-        context.releaseTransaction(() => {
-            setOrigin(origin);
-            forwardEvent();
-        });
+        Transaction.process($, transaction)
+            .then(() => {
+                setOrigin(origin);
+                forwardEvent();
+            });
     }
 }
 

@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, ErrorFlow, File, Sync, Transaction } from 'olympe';
+import { ActionBrick, registerBrick, ErrorFlow, File, CloudObject, Transaction } from 'olympe';
 import { dataUrlToBinary, fromBase64 } from 'helpers/binaryConverters';
 
 export default class CreateFileFromBase64 extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} $
      * @param {string=} fileName
      * @param {string=} mimeType
      * @param {string} base64Content
      * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} setErrorFlow
-     * @param {function(File)} setFile
+     * @param {function(!File)} setFile
      */
-    update(context, [fileName, mimeType, base64Content], [forwardEvent, setErrorFlow, setFile]) {
+    update($, [fileName, mimeType, base64Content], [forwardEvent, setErrorFlow, setFile]) {
         const transaction = new Transaction();
         const isDataURL = base64Content.startsWith('data:');
 
@@ -40,21 +40,18 @@ export default class CreateFileFromBase64 extends ActionBrick {
         }
 
         const fileTag = File.createFile(
-            File,
             transaction,
             fileName || 'new_File_from_CreateFileFromBase64_brick',
             isDataURL ? dataUrlToBinary(base64Content) : fromBase64(base64Content),
             finalMimeType
         );
         transaction.persistInstance(fileTag, false);
-        transaction.execute((success, message) => {
-            if (success) {
-                setFile(Sync.getInstance(fileTag));
+        transaction.execute()
+            .then(() => {
+                setFile(CloudObject.get(fileTag));
                 forwardEvent();
-            } else {
-                setErrorFlow(ErrorFlow.create(message, 1));
-            }
-        });
+            })
+            .catch(message => setErrorFlow(ErrorFlow.create(message, 1)));
     }
 }
 

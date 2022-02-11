@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { registerBrick, File, Transaction, Sync } from 'olympe';
+import { registerBrick, File, Transaction, CloudObject } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
 import { jsonToSxProps, ifNotNull, ifNotTransparent, cssToSxProps } from 'helpers/mui';
 import { getLogger } from 'logging';
@@ -229,7 +229,7 @@ export default class FileUpload extends ReactBrick {
             const reader = new FileReader();
             reader.onloadend = () => {
                 // Find file model and create it locally
-                const tag = File.createFile(File, t, file.name, /** @type {!ArrayBuffer} */ (reader['result']), file.type);
+                const tag = File.createFile(t, file.name, /** @type {!ArrayBuffer} */ (reader['result']), file.type);
                 t.persistInstance(tag, false);
                 tags.push(tag);
 
@@ -237,16 +237,13 @@ export default class FileUpload extends ReactBrick {
                 if (tags.length === files.length) {
                     // Execute transaction
                     t.persist(false);
-                    t.execute((success, message) => {
-                        if(!success) {
-                            getLogger('FileUpload').warn('The application encountered a problem while uploading files. The transaction failed.', message);
-                            return;
-                        }
-
-                        // All good, we notice the user
-                        $.set('Files', tags.map(Sync.getInstance));
-                        $.trigger('On Change');
-                    });
+                    t.execute()
+                        .then(() => {
+                            // All good, we notice the user
+                            $.set('Files', tags.map(CloudObject.get));
+                            $.trigger('On Change');
+                        })
+                        .catch(message => getLogger('FileUpload').warn('The application encountered a problem while uploading files. The transaction failed.', message));
                 }
             };
             reader.readAsArrayBuffer(file);

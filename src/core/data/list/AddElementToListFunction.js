@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, ListDef, Sync, instanceToTag} from 'olympe';
+import {Brick, registerBrick, ListDef, CloudObject, instanceToTag, QueryResult} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
  *
- * @param {!ListDef|!Array} list
- * @param {!Sync|!Object} object
+ * @param {!ListDef|!List} list
+ * @param {!CloudObject|!Object} object
  * @return {!ListDef|!Array|undefined}
  */
 export const addElementToList = (list, object) => {
     const logger = getLogger('Add Element To List');
 
     // Guards
-    if (!Array.isArray(list) && !(list instanceof ListDef)) {
-        logger.error('TypeError: the list should be of type ListDef or Array');
+    if (!Array.isArray(list) && !(list instanceof ListDef) && !(list instanceof QueryResult)) {
+        logger.error('TypeError: the list should be of type ListDef, Array or QueryResult');
         return;
     }
-    if (list instanceof ListDef && !(object instanceof Sync)) {
-        logger.error('TypeError: only a Sync can be added to a ListDef');
+    if (list instanceof ListDef && !(object instanceof CloudObject)) {
+        logger.error('TypeError: only a CloudObject can be added to a ListDef');
         return;
     }
 
@@ -41,37 +41,23 @@ export const addElementToList = (list, object) => {
         const newList = Array.from(list); // Generate shallow copy of the array
         newList.push(object);
         return newList;
+    } else if(list instanceof QueryResult) {
+        return list.push(object);
     } else {
-        return  list.union(new ListDef(instanceToTag(object), [])); // New listdef: union of the previous + 1 instance.
+        return list.union(new ListDef(instanceToTag(object), [])); // New listdef: union of the previous + 1 instance.
     }
 };
 
-/**
-## Description
-Adds en element to a list.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| List | List | The list in which the element will be added. |
-| Object | Object | The element to add. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| List | List | The result list, with the added element. |
-**/
-export default class AddElementToListFunction extends FunctionBrick {
+export default class AddElementToListFunction extends Brick {
 
     /**
-     * Executed every time an input (list, object) gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {Context} context
-     * @param {!ListDef|!Array} list
-     * @param {!Sync|!Object} object
+     * @param {!BrickContext} $
+     * @param {!ListDef|!List} list
+     * @param {!CloudObject|!Object} object
      * @param {function(!ListDef|!Array)} setList
      */
-     update(context, [list, object], [setList]) {
+     update($, [list, object], [setList]) {
         const newList = addElementToList(list || [], object);
         if (newList !== undefined) {
             setList(newList);

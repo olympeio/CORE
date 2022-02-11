@@ -14,52 +14,31 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, ListDef, predicates } from "olympe";
+import { Brick, registerBrick, ListDef, predicates, QueryResult } from "olympe";
 import {filterArray, filterListDef} from "./utils";
 import {getLogger} from 'logging';
 
-/**
-## Description
-This function filters out a list to generate a list that will contain objects from the original only when their
-the value of the specified string property contains the specified string.
-**Example:** All the customers who's first name contains 'John'.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| List | List | The list to filter. |
-| Property | Property | The property to test. |
-| Substring | String | The string to look for. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| List | List | The resulting list. |
-
-**/
-export default class FilterListContains extends FunctionBrick {
+export default class FilterListContains extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
-     * @param {!ListDef|Array<!Sync>} list
+     * @param {!BrickContext} $
+     * @param {!ListDef|Array<!Sync>|!QueryResult} list
      * @param {!PropertyDescriptor} property
      * @param {string} substring
      * @param {function(ListDef|!Array<!Sync>)} setFiltered
      */
-    update(context, [list, property, substring], [setFiltered]) {
+    update($, [list, property, substring], [setFiltered]) {
         const logger = getLogger('Filter List Contains');
         if (typeof(substring) !== 'string') {
-            logger.warn('The type of `substring` is not supported, iut should be a string.');
+            logger.warn('The type of `substring` is not supported, it should be a string.');
             setFiltered(list);
-        } else if (Array.isArray(list)) {
-            setFiltered(filterArray(list, (v) => v.getProperty(property).includes(substring)));
+        } else if (Array.isArray(list) || list instanceof QueryResult) {
+            setFiltered(filterArray(Array.isArray(list) ? list : list.toArray(), (v) => v.getProperty(property).includes(substring)));
         } else if (list instanceof ListDef) {
             setFiltered(filterListDef(list, property, substring, (_property, _value) => new predicates.Contains(_property, _value)));
         } else {
-            logger.error('List is not a ListDef or an Array');
+            logger.error('List is not a ListDef, an Array or a QueryResult');
         }
     }
 }

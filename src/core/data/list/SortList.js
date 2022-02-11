@@ -15,59 +15,40 @@
  */
 
 import {
-    FunctionBrick,
+    Brick,
     registerBrick,
     ListDef,
-    PropertyPrimitive,
+    PropertyModel,
     DBView,
     comparators,
     transformers,
     valuedefs,
     instanceToTag,
-    StringPrimitive,
-    NumberPrimitive,
-    DatetimePrimitive,
-    BooleanPrimitive,
-    Sync
+    StringModel,
+    NumberModel,
+    DatetimeModel,
+    BooleanModel,
+    CloudObject,
+    QueryResult
 } from 'olympe';
 import {getLogger} from 'logging';
 
-/**
-## Description
-Generate a new list containing the elements of the provided list sorted in ascending or descending order
-depending on the `asc` parameter.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Object list | List | The list to sort. |
-| Property | Property | The property of the elements to base the sort on. |
-| ASC | Boolean | `true` to sort in ascending order, `false` for descending. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Sorted list | List | The resulting list. |
-
-**/
-export default class SortList extends FunctionBrick {
+export default class SortList extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
-     * @param {!ListDef|!Array} list
+     * @param {!BrickContext} $
+     * @param {!ListDef|!List} list
      * @param {!Property} property
      * @param {boolean} ascending
      * @param {function(ListDef|Array)} setSortedList
      */
-    update(context, [list, property, ascending], [setSortedList]) {
+    update($, [list, property, ascending], [setSortedList]) {
         const logger = getLogger('Sort List');
 
-         if (Array.isArray(list)) {
-            const a = /** @type {!Array<!Sync>} */ (list);
-            const b = a.filter( v => v instanceof Sync );
+         if (Array.isArray(list) || list instanceof QueryResult) {
+            const a = /** @type {!Array<!CloudObject>} */ (Array.isArray(list) ? list : list.toArray());
+            const b = a.filter( v => v instanceof CloudObject );
             if (a.length !== b.length) {
                 logger.error(`${a.length - b.length} elements were not Instances`);
             }
@@ -82,20 +63,20 @@ export default class SortList extends FunctionBrick {
             });
             setSortedList(sortedList);
         } else if (list instanceof ListDef) {
-             const type = DBView.get().getUniqueRelated(property, PropertyPrimitive.typeRel);
+             const type = DBView.get().getUniqueRelated(property, PropertyModel.typeRel);
              let comparator = null;
 
              // String
-             if (type === instanceToTag(StringPrimitive)) {
+             if (type === instanceToTag(StringModel)) {
                  comparator = new comparators.String(new valuedefs.StringProperty(property));
                  // Number
-             } else if (type === instanceToTag(NumberPrimitive)) {
+             } else if (type === instanceToTag(NumberModel)) {
                  comparator = new comparators.Number(new valuedefs.NumberProperty(property));
                  // Datetime
-             } else if (type === instanceToTag(DatetimePrimitive)) {
+             } else if (type === instanceToTag(DatetimeModel)) {
                  comparator = new comparators.DateTime(new valuedefs.DateTimeProperty(property));
                  // Boolean
-             } else if (type === instanceToTag(BooleanPrimitive)) {
+             } else if (type === instanceToTag(BooleanModel)) {
                  comparator = new comparators.Number(new valuedefs.BooleanProperty(property));
              }
 
@@ -106,7 +87,7 @@ export default class SortList extends FunctionBrick {
                  setSortedList(list.transform(new transformers.Sort(comparator, ascending)));
              }
         } else {
-            logger.error('List is not a ListDef or an Array');
+            logger.error('List is not a ListDef, an Array or a QueryResult');
         }
     }
 }

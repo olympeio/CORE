@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { registerBrick, File, Transaction, Sync } from 'olympe';
+import { registerBrick, File, Transaction, CloudObject } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
 import { cssToSxProps, ifNotTransparent } from 'helpers/mui';
 import { dataUrlToBinary } from 'helpers/binaryConverters';
@@ -129,15 +129,11 @@ function WebcamWithRef(props) {
         const screenshotAsArrayBuffer = dataUrlToBinary(screenshotAsBase64);
         const screenshotExtension = screenshotFormat.match(/.*\/([a-z]*)+?.*/)[1];
         const screenshotName = `screenshot_${Date.now()}.${screenshotExtension}`;
-        const tag = File.createFile(File, t, screenshotName, screenshotAsArrayBuffer, screenshotFormat);
+        const tag = File.createFile(t, screenshotName, screenshotAsArrayBuffer, screenshotFormat);
         t.persistInstance(tag, false);
-        t.execute((success, message) => {
-            if(!success) {
-                getLogger('Camera').warn('The application encountered a problem while taking a screenshot. The transaction failed.', message);
-                return;
-            }
-            props.context.set('Screenshot', Sync.getInstance(tag));
-        });
+        t.execute()
+            .then(() => props.context.set('Screenshot', CloudObject.get(tag)))
+            .catch(message => getLogger('Camera').warn('The application encountered a problem while taking a screenshot. The transaction failed.', message));
     });
 
     // Only add the webcam component once constraints has been defined.

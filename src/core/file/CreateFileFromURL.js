@@ -13,38 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, File, Transaction, ErrorFlow, Sync } from 'olympe';
+
+import { ActionBrick, registerBrick, File, Transaction, ErrorFlow, CloudObject } from 'olympe';
 
 export default class CreateFileFromURL extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} $
      * @param {string=} fileName
      * @param {string=} mimeType
      * @param {string} url
      * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} setErrorFlow
-     * @param {function(File)} setFile
+     * @param {function(!File)} setFile
      */
-    update(context, [fileName, mimeType, url], [forwardEvent, setErrorFlow, setFile]) {
+    update($, [fileName, mimeType, url], [forwardEvent, setErrorFlow, setFile]) {
         const transaction = new Transaction();
         const fileTag = File.createFileFromURL(
-            File,
             transaction,
             fileName || 'new_File_from_CreateFileFromURL_brick',
             url,
             mimeType || 'text/plain'
         );
         transaction.persistInstance(fileTag, false);
-        transaction.execute((success, message) => {
-            if (success) {
-                setFile(Sync.getInstance(fileTag));
+        transaction.execute()
+            .then(() => {
+                setFile(CloudObject.get(fileTag));
                 forwardEvent();
-            } else {
-                setErrorFlow(ErrorFlow.create(message, 1));
-            }
-        });
+            })
+            .catch(message => setErrorFlow(ErrorFlow.create(message, 1)));
     }
 }
 

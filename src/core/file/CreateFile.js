@@ -14,7 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, Transaction, File, ErrorFlow, Sync } from 'olympe';
+
+import { ActionBrick, registerBrick, Transaction, File, ErrorFlow, CloudObject } from 'olympe';
 import {stringToBinary} from 'helpers/binaryConverters';
 
 export default class CreateFile extends ActionBrick {
@@ -24,15 +25,15 @@ export default class CreateFile extends ActionBrick {
      * Note that this method will _not_ be executed if an input value is undefined.
      *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} $
      * @param {string=} fileName
      * @param {string=} mimeType
      * @param {string} content
      * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} setErrorFlow
-     * @param {function(File)} setFile
+     * @param {function(!File)} setFile
      */
-    update(context, [fileName, mimeType, content], [forwardEvent, setErrorFlow, setFile]) {
+    update($, [fileName, mimeType, content], [forwardEvent, setErrorFlow, setFile]) {
         const transaction = new Transaction();
 
         if (typeof content !== 'string' && !(content instanceof ArrayBuffer)) {
@@ -41,21 +42,18 @@ export default class CreateFile extends ActionBrick {
         }
 
         const fileTag = File.createFile(
-            File,
             transaction,
             fileName || 'new_File_from_CreateFile_brick',
             content instanceof ArrayBuffer ? content : stringToBinary(content),
             mimeType || 'text/plain'
         );
         transaction.persistInstance(fileTag, false);
-        transaction.execute((success, message) => {
-            if (success) {
-                setFile(Sync.getInstance(fileTag));
+        transaction.execute()
+            .then(() => {
+                setFile(CloudObject.get(fileTag));
                 forwardEvent();
-            } else {
-                setErrorFlow(ErrorFlow.create(message, 1));
-            }
-        });
+            })
+            .catch(message => setErrorFlow(ErrorFlow.create(message, 1)));
     }
 }
 

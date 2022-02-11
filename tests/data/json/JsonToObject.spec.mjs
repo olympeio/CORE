@@ -30,17 +30,17 @@ describe('JsonToObject brick', () => {
         //     .initSCAction();
         //
         // // create a businessmodel
-        // this.helpers.createModel(olympe.sc.BusinessModel, olympe.dc.Sync);
+        // this.helpers.createModel(olympe.sc.BusinessModel, olympe.dc.CloudObject);
         //
         // this.relatedBusinessModelTag = 'relatedBU';
         // this.helpers.createModel(this.relatedBusinessModelTag, olympe.sc.BusinessModel);
         // this.helpers.defineProperty('nameTag', this.relatedBusinessModelTag, olympe.df.OString, 'name');
-        // this.helpers.updateInstanceProperty(this.relatedBusinessModelTag, olympe.dc.Sync.nameProp, 'My_Related_Business_Model');
+        // this.helpers.updateInstanceProperty(this.relatedBusinessModelTag, olympe.dc.CloudObject.nameProp, 'My_Related_Business_Model');
         //
         // this.myBusinessModelTag = 'myBU';
         // this.helpers.createModel(this.myBusinessModelTag, olympe.sc.BusinessModel);
         // this.helpers.defineProperty('namePropTag', this.myBusinessModelTag, olympe.df.OString, 'name');
-        // this.helpers.updateInstanceProperty(this.myBusinessModelTag, olympe.dc.Sync.nameProp, 'My_Business_Model');
+        // this.helpers.updateInstanceProperty(this.myBusinessModelTag, olympe.dc.CloudObject.nameProp, 'My_Business_Model');
         //
         // this.initActionTest = this.helpers.initActionTest.bind(this.helpers);
         // this.runActionWith = this.helpers.runActionWithSync.bind(this.helpers);
@@ -92,7 +92,7 @@ describe('JsonToObject brick', () => {
         //
         // const relatedModel = 'My_Related_Business_Model';
         // this.helpers.defineRelation('relation', this.myBusinessModelTag, this.relatedBusinessModelTag);
-        // const relationRel = new olympe.dc.registry.Relation('relation', olympe.dc.RelationDirection.DESTINATION);
+        // const relationRel = new olympe.dc.registry.Relation('relation', olympe.dc.Direction.DESTINATION);
         //
         // // When
         // const json = JSON.stringify({'relation': relatedModel});
@@ -145,7 +145,7 @@ describe('JsonToObject brick', () => {
         // // When
         // this.helpers.createInstance('instance', this.relatedBusinessModelTag);
         //
-        // const object = olympe.dc.Sync.getInstance('instance');
+        // const object = olympe.dc.CloudObject.get('instance');
         // const outputs = this.runActionWith(olympe.sc.logic.actions.ObjectToJson, [object]);
         //
         // // Then
@@ -163,7 +163,7 @@ describe('JsonToObject brick', () => {
         // this.helpers.createInstance('instance', this.myBusinessModelTag);
         // this.helpers.updateInstanceProperty('instance', 'namePropTag', 'Bill');
         //
-        // const object = olympe.dc.Sync.getInstance('instance');
+        // const object = olympe.dc.CloudObject.get('instance');
         // const outputs = this.runActionWith(olympe.sc.logic.actions.ObjectToJson, [object]);
         //
         // // Then
@@ -181,7 +181,7 @@ describe('JsonToObject brick', () => {
         //     ['json']);
         //
         // // When
-        // const list = olympe.dc.Sync.getInstancesOf(this.myBusinessModelTag);
+        // const list = olympe.dc.CloudObject.getInstancesOf(this.myBusinessModelTag);
         // const outputs = this.runActionWith(olympe.sc.logic.actions.ObjectListToJson, [list]);
         //
         // // Then
@@ -204,7 +204,7 @@ describe('JsonToObject brick', () => {
         // this.helpers.createInstance('instance2', this.myBusinessModelTag);
         // this.helpers.updateInstanceProperty('instance', 'namePropTag', 'Tim');
         //
-        // const list = olympe.dc.Sync.getInstancesOf(this.myBusinessModelTag);
+        // const list = olympe.dc.CloudObject.getInstancesOf(this.myBusinessModelTag);
         // const outputs = this.runActionWith(olympe.sc.logic.actions.ObjectListToJson, [list]);
         //
         // // Then
@@ -232,7 +232,7 @@ describe('JsonToObject brick', () => {
         // this.helpers.defineRelation('myRel', this.myBusinessModelTag, this.relatedBusinessModelTag);
         // this.helpers.createRelation('myRel', 'instance', 'instance2');
         //
-        // const list = olympe.dc.Sync.getInstancesOf(this.myBusinessModelTag);
+        // const list = olympe.dc.CloudObject.getInstancesOf(this.myBusinessModelTag);
         // const outputs = this.runActionWith(olympe.sc.logic.actions.ObjectListToJson, [list]);
         //
         // // Then

@@ -19,8 +19,8 @@ import {
     registerBrick,
     instanceToTag,
     DBView,
-    RelationPrimitive,
-    CreateInstance,
+    RelationModel,
+    Transaction
 } from 'olympe';
 import {getLogger} from 'logging';
 
@@ -72,38 +72,33 @@ export default class CreateRelation extends FunctionBrick {
             return;
         }
 
-        const db = DBView.get();
-        const originModel = origin instanceof CreateInstance ? origin.getModelTag() : db.model(origin);
-        const destinationModel = destination instanceof CreateInstance ? destination.getModelTag() : db.model(destination);
+        // start isolated local transaction
+        const transaction = Transaction.from(context);
 
-        if (!db.isExtending(originModel, db.getUniqueRelated(relationTag, RelationPrimitive.originModelRel))) {
+        const db = DBView.get();
+        const originModel = transaction.model(origin);
+        const destinationModel = transaction.model(destination);
+
+        if (!db.isExtending(originModel, db.getUniqueRelated(relationTag, RelationModel.originModelRel))) {
             logger.error(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the origin object (${db.name(originModel)}).`);
             return;
         }
-        if (!db.isExtending(destinationModel, db.getUniqueRelated(relationTag, RelationPrimitive.destinationModelRel))) {
+        if (!db.isExtending(destinationModel, db.getUniqueRelated(relationTag, RelationModel.destinationModelRel))) {
             logger.error(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the destination object (${db.name(destinationModel)}).`);
             return;
         }
-        // start isolated local transaction
-        const transaction = context.getTransaction();
 
         // Add transaction operation
         // Note: the relation direction is automatically treated
         transaction.createRelation(relation, origin, destination);
 
         // Execute the transaction
-        transaction.execute(
-            success => {
-                if (!success) {
-                    logger.error('Isolated transaction (local) failed');
-                } else {
-                    // Set the output to the input object
-                    // it is done inside the TransactionCallback to avoid firing potential following
-                    // CreateRelation too early, which could cause errors in the orchestrator
-                    setOrigin(origin);
-                }
-            }
-        );
+        // Set the output to the input object
+        // it is done inside the TransactionCallback to avoid firing potential following
+        // CreateRelation too early, which could cause errors in the orchestrator
+        Transaction.process(context, transaction)
+            .then(() => setOrigin(origin))
+            .catch(() => logger.error('Isolated transaction (local) failed'));
     }
 }
 

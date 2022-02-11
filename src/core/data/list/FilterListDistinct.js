@@ -14,36 +14,22 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, ListDef, transformers} from 'olympe';
+import {Brick, registerBrick, ListDef, transformers, QueryResult} from 'olympe';
 import {filterArray} from './utils';
 import {getLogger} from 'logging';
 
-/**
-## Description
-Filter out duplicate items from a list. The object tags are used to identify duplicates.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Object list | List | List with duplicate items to filter out. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Filtered list | List | The filtered list without duplicate items. |
-
-**/
-export default class FilterListDistinct extends FunctionBrick {
+export default class FilterListDistinct extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
-     * @param {!Array<!Sync>|!ListDef} list
+     * @param {!BrickContext} $
+     * @param {!Array<!Sync>|!ListDef|!QueryResult} list
      * @param {function(!Array<!Sync>|!ListDef)} setFiltered
      */
-    update(context, [list], [setFiltered]) {
-        if (Array.isArray(list)) {
+    update($, [list], [setFiltered]) {
+        if (Array.isArray(list) || list instanceof QueryResult) {
             const tags = new Set();
-            setFiltered(filterArray(list, (v) => {
+            setFiltered(filterArray(Array.isArray(list) ? list : list.toArray(), (v) => {
                 if (!tags.has(v.getTag())) {
                     tags.add(v.getTag());
                     return true;
@@ -54,7 +40,7 @@ export default class FilterListDistinct extends FunctionBrick {
         } else if (list instanceof ListDef) {
             setFiltered(list.transform(new transformers.Distinct()));
         } else {
-            getLogger('Filter List Distinct').error('List is not a ListDef or an Array');
+            getLogger('Filter List Distinct').error('List is not a ListDef, an Array or a QueryResult');
         }
     }
 }

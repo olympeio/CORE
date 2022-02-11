@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {ActionBrick, registerBrick, instanceToTag, ErrorFlow, DBView, RelationPrimitive, CreateInstance} from 'olympe';
+import {ActionBrick, registerBrick, instanceToTag, ErrorFlow, DBView, RelationModel, Transaction} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -72,31 +72,31 @@ export default class CreateRelation extends ActionBrick {
             return;
         }
 
-        const db = DBView.get();
-        const originModel = origin instanceof CreateInstance ? origin.getModelTag() : db.model(origin);
-        const destinationModel = destination instanceof CreateInstance ? destination.getModelTag() : db.model(destination);
+        const transaction = Transaction.from(context);
 
-        if (!db.isExtending(originModel, db.getUniqueRelated(relationTag, RelationPrimitive.originModelRel))) {
+        const db = DBView.get();
+        const originModel = transaction.model(origin);
+        const destinationModel = transaction.model(destination);
+
+        if (!db.isExtending(originModel, db.getUniqueRelated(relationTag, RelationModel.originModelRel))) {
             returnError(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the origin object (${db.name(originModel)}).`,4);
             return;
         }
 
-        if (!db.isExtending(destinationModel, db.getUniqueRelated(relationTag, RelationPrimitive.destinationModelRel))) {
+        if (!db.isExtending(destinationModel, db.getUniqueRelated(relationTag, RelationModel.destinationModelRel))) {
             returnError(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the destination object (${db.name(destinationModel)}).`,5);
             return;
         }
 
         // Transaction
-        context.getTransaction().createRelation(relation, origin, destination);
-        context.releaseTransaction((executed, success, message) => {
-            if (executed && !success) {
-                returnError(`Transaction error: ${message}`, 6);
-            } else {
+        transaction.createRelation(relation, origin, destination);
+        Transaction.process(context, transaction)
+            .then(() => {
                 setOrigin(origin);
                 setDestination(destination);
                 forwardEvent();
-            }
-        });
+            })
+            .catch(message => returnError(`Transaction error: ${message}`, 6));
     }
 }
 

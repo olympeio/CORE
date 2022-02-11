@@ -14,30 +14,27 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, Transaction, Sync, instanceToTag, DBView, PropertyPrimitive, CreateInstance} from 'olympe';
+import {Brick, registerBrick, Transaction, CloudObject, instanceToTag, DBView, PropertyModel} from 'olympe';
 import {getLogger} from 'logging';
 import {castPrimitiveValue} from "../transaction/_helpers";
 
-export default class SetObjectProperty extends FunctionBrick {
+export default class SetObjectProperty extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
-     * @param {InstanceTag} object
-     * @param {PropertyDescriptor} property
+     * @param {!BrickContext} $
+     * @param {!InstanceTag} object
+     * @param {!PropertyDescriptor} property
      * @param {*} value
-     * @param {function(InstanceTag)} setObject
+     * @param {function(!InstanceTag)} setObject
      */
-    update(context, [object, property, value], [setObject]) {
+    update($, [object, property, value], [setObject]) {
         const logger = getLogger('Set Object Property');
 
         const castedValue = castPrimitiveValue(value);
 
         // Validate arguments
-        if (castedValue instanceof Sync) {
+        if (castedValue instanceof CloudObject) {
             logger.error('Complex properties are not supported');
             return;
         }
@@ -54,29 +51,23 @@ export default class SetObjectProperty extends FunctionBrick {
 
         const db = DBView.get();
 
-        const objectModel = object instanceof CreateInstance ? object.getModelTag() : db.model(object);
-
-        if (!db.isExtending(objectModel, db.getUniqueRelated(instanceToTag(property), PropertyPrimitive.definingModelRel))) {
+        const objectModel = db.model(object);
+        if (!objectModel || !db.isExtending(objectModel, db.getUniqueRelated(instanceToTag(property), PropertyModel.definingModelRel))) {
             logger.error(`Cannot update property, the property ${db.name(instanceToTag(property))} is not valid for this object (${db.name(objectModel)}).`);
             return;
         }
-
 
         // Start isolated local transaction
         const transaction = new Transaction();
         transaction.update(object, property, castedValue);
 
         // Execute the transaction
-        transaction.execute((success) => {
-            if (!success) {
-                logger.error('Update transaction failed');
-            } else {
-                // Set the output to the input object
-                // it is done inside the TransactionCallback to avoid firing potential following
-                // SetObjectProperty too early, which could cause errors in the orchestrator
-                setObject(object);
-            }
-        });
+        // Set the output to the input object
+        // it is done inside the TransactionCallback to avoid firing potential following
+        // SetObjectProperty too early, which could cause errors in the orchestrator
+        transaction.execute()
+            .then(() => setObject(object))
+            .catch(() => logger.error('Update transaction failed'));
     }
 }
 
