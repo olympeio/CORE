@@ -12,12 +12,8 @@ export default class QueryFollowRelationFromObject extends Brick {
      * @param {function(!Query)} setQuery
      */
     update($, [object, relation, addToResult], [setQuery]) {
-        const query = Query.from(object)
-            .follow(relation);
-        if(addToResult) {
-            query.andReturn();
-        }
-        setQuery(query);
+        const query = Query.from(object).follow(relation);
+        setQuery(addToResult ? query.andReturn() : query);
     }
 }
 

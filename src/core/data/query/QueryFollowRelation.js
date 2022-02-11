@@ -13,10 +13,7 @@ export default class QueryFollowRelation extends Brick {
      */
     update($, [query, relation, addToResult], [setQuery]) {
         const queryFollow = query.follow(relation);
-        if(addToResult) {
-            queryFollow.andReturn();
-        }
-        setQuery(queryFollow);
+        setQuery(addToResult ? queryFollow.andReturn() : queryFollow);
     }
 }
 

@@ -13,10 +13,7 @@ export default class QueryFollowRelationRecursively extends Brick {
      */
      update($, [query, relation, addToResult], [setQuery]) {
         const queryFollowRecursively = query.followRecursively(relation);
-        if(addToResult) {
-            queryFollowRecursively.andReturn();
-        }
-        setQuery(queryFollowRecursively);
+        setQuery(addToResult ? queryFollowRecursively.andReturn() : queryFollowRecursively);
     }
 }
 
