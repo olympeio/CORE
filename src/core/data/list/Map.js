@@ -21,7 +21,7 @@ export default class MapBrick extends ActionBrick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!ListDef|!List} list
      * @param {!Brick} mapper
      * @param {!function()} forwardEvent
      * @param {function(!Array)} setList

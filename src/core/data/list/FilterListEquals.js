@@ -26,7 +26,7 @@ export default class FilterListEquals extends Brick {
      *
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!ListDef|!List} list
      * @param {!PropertyDescriptor} property
      * @param {string | number | Date} value
      * @param {boolean} not

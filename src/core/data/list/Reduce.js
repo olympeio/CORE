@@ -21,7 +21,7 @@ export default class Reduce extends ActionBrick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!ListDef|!List} list
      * @param {*|undefined} initialValue
      * @param {!Brick} reducer
      * @param {!function()} forwardEvent

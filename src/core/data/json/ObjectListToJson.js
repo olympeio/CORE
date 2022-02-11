@@ -22,7 +22,7 @@ export default class ObjectListToJson extends ActionBrick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!ListDef|!List} list
      * @param {function(string)} setJson
      * @param {function()} forwardEvent
      */

@@ -22,7 +22,7 @@ export default class GetObjectAtInList extends Brick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!ListDef|!List} list
      * @param {number} rank
      * @param {function(!*)} setObject
      */

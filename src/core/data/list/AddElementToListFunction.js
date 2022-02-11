@@ -19,7 +19,7 @@ import {getLogger} from 'logging';
 
 /**
  *
- * @param {!ListDef|!Array|!QueryResult} list
+ * @param {!ListDef|!List} list
  * @param {!CloudObject|!Object} object
  * @return {!ListDef|!Array|undefined}
  */
@@ -53,7 +53,7 @@ export default class AddElementToListFunction extends Brick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!ListDef|!List} list
      * @param {!CloudObject|!Object} object
      * @param {function(!ListDef|!Array)} setList
      */

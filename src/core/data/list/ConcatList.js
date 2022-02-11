@@ -22,9 +22,9 @@ export default class ConcatList extends Brick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} list1
-     * @param {!ListDef|!Array|!QueryResult} list2
-     * @param {function(!ListDef|!Array|!QueryResult)} setConcatenatedList
+     * @param {!ListDef|!List} list1
+     * @param {!ListDef|!List} list2
+     * @param {function(!ListDef|!List)} setConcatenatedList
      */
     update($, [list1, list2], [setConcatenatedList]) {
         const logger = getLogger('Concat List');

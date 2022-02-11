@@ -46,7 +46,7 @@ export default class FilterHasRelated extends Brick {
      *
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!ListDef|!List} list
      * @param {!InstanceTag} relatedObject
      * @param {!Relation} relation
      * @param {boolean} inverseFilter

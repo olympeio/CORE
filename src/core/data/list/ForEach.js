@@ -21,7 +21,7 @@ export default class ForEach extends ActionBrick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!ListDef|!List} list
      * @param {!Brick} iterator
      * @param {!function()} forwardEvent
      */

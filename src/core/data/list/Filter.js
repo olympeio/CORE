@@ -21,7 +21,7 @@ export default class Filter extends ActionBrick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!ListDef|!List} list
      * @param {!Brick} predicate
      * @param {!function()} forwardEvent
      * @param {function(!Array)} setList

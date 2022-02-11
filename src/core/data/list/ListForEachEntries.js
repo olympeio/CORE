@@ -23,7 +23,7 @@ export default class ListForEachEntries extends Brick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!ListDef|!List} list
      * @param {function(!*)} setObject
      */
     update($, [list], [setObject]) {

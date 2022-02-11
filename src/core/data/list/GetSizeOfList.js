@@ -22,7 +22,7 @@ export default class GetSizeOfList extends Brick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!ListDef|!List} list
      * @param {function(number)} setSize
      */
     update($, [list], [setSize]) {

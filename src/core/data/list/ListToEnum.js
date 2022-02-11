@@ -22,7 +22,7 @@ export default class ListToEnum extends Brick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!ListDef|!List} list
      * @param {!Brick} transformer
      * @param {!function(InstanceTag)} setEnum
      */

@@ -38,7 +38,7 @@ export default class SortList extends Brick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!ListDef|!List} list
      * @param {!Property} property
      * @param {boolean} ascending
      * @param {function(ListDef|Array)} setSortedList

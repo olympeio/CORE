@@ -21,7 +21,7 @@ export default class ContinuousForEach extends Brick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} list
+     * @param {!ListDef|!List} list
      * @param {!Brick} iterator
      * @param {!Array} _
      */

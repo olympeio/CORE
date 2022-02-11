@@ -22,7 +22,7 @@ export default class FilterListRange extends Brick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} list the list to be filtered
+     * @param {!ListDef|!List} list the list to be filtered
      * @param {!number} startIndex
      * @param {!number} endIndex
      * @param {!function(!ListDef|!Array)} setFiltered

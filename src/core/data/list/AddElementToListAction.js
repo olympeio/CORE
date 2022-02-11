@@ -22,7 +22,7 @@ export default class AddElementToListAction extends ActionBrick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!Array|!QueryResult} inputList
+     * @param {!ListDef|!List} inputList
      * @param {!CloudObject|!Object} object
      * @param {function()} forwardEvent
      * @param {function(!ListDef|!Array)} setList
