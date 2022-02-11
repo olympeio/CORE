@@ -15,4 +15,4 @@ export default class ObserveQuery extends Brick {
     }
 }
 
-registerBrick('017ed88f40ff82c9fc3d', ObserveQuery);
+registerBrick('017ee95e41926ddeff85', ObserveQuery);

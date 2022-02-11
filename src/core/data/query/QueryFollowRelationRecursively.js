@@ -17,4 +17,4 @@ export default class QueryFollowRelationRecursively extends Brick {
     }
 }
 
-registerBrick('017ed89d3d5e439ac69a', QueryFollowRelationRecursively);
+registerBrick('017ee95eed2d744f825f', QueryFollowRelationRecursively);

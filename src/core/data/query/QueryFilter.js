@@ -40,4 +40,4 @@ export default class QueryFilter extends Brick {
     }
 }
 
-registerBrick('017ed890161a0ffeb9ae', QueryFilter);
+registerBrick('017ee95e638e4ab1057c', QueryFilter);

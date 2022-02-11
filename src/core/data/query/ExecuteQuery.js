@@ -19,4 +19,4 @@ export default class ExecuteQuery extends ActionBrick {
     }
 }
 
-registerBrick('017ed88cb095c15aee2e', ExecuteQuery);
+registerBrick('017ee95dc502afc0c8db', ExecuteQuery);

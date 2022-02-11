@@ -19,4 +19,4 @@ export default class ExecuteQueryFromCache extends ActionBrick {
     }
 }
 
-registerBrick('017ed88e525d9bad617b', ExecuteQueryFromCache);
+registerBrick('017ee95e056346abd39d', ExecuteQueryFromCache);

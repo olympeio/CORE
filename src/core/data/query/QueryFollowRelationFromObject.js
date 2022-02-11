@@ -17,4 +17,4 @@ export default class QueryFollowRelationFromObject extends Brick {
     }
 }
 
-registerBrick('017ed89bd025189feb29', QueryFollowRelationFromObject);
+registerBrick('017ee95eb3781967a49a', QueryFollowRelationFromObject);

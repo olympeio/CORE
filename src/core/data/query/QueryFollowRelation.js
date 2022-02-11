@@ -17,4 +17,4 @@ export default class QueryFollowRelation extends Brick {
     }
 }
 
-registerBrick('017ed89a19aac7d3e654', QueryFollowRelation);
+registerBrick('017ee95e7ca42d1bb96e', QueryFollowRelation);

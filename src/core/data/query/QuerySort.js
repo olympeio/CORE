@@ -17,4 +17,4 @@ export default class QuerySort extends Brick {
     }
 }
 
-registerBrick('017ed8a05cad32049779', QuerySort);
+registerBrick('017ee95f47e53689a7c2', QuerySort);

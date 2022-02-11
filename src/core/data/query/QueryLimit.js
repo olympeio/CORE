@@ -16,4 +16,4 @@ export default class QueryLimit extends Brick {
     }
 }
 
-registerBrick('017ed89f7a5d1a0b7739', QueryLimit);
+registerBrick('017ee95f313cdfe1d7c2', QueryLimit);

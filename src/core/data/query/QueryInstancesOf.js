@@ -14,4 +14,4 @@ export default class QueryInstancesOf extends Brick {
     }
 }
 
-registerBrick('017ed89e68db8cd10a01', QueryInstancesOf);
+registerBrick('017ee95f166424bff3ac', QueryInstancesOf);
