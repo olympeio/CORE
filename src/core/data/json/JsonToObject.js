@@ -18,54 +18,34 @@
 import {
     ActionBrick,
     registerBrick,
-    Context,
-    Sync,
+    CloudObject,
     BusinessObject,
     DBView,
     Transaction,
     RelationModel,
-    StringPrimitive,
-    NumberPrimitive,
-    InstanceTag
+    StringModel,
+    NumberModel
 } from 'olympe';
 import {getLogger} from 'logging';
 
-/**
-## Description
-Parses a json into target business model.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| json | string | Json to parse |
-| persist | boolean | indicates if the instance should be persisted, default: false |
-| businessModel | Business Model | target business model |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| object | Object | instance of business model |
-
-**/
 export default class JsonToObject extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} $
      * @param {string} json
      * @param {InstanceTag} businessModel
      * @param {boolean} persist
      * @param {function(BusinessObject)} setObject
      * @param {function()} forwardEvent
      */
-    update(context, [json, businessModel, persist], [forwardEvent, setObject]) {
+    update($, [json, businessModel, persist], [forwardEvent, setObject]) {
         const parsedJson = JSON.parse(json);
         // If we receive an array, try parsing the first element
         const data = parsedJson instanceof Array && parsedJson.length > 0 ? parsedJson[0] : parsedJson;
 
         const db = DBView.get();
-        const transaction = Transaction.from(context);
+        const transaction = Transaction.from($);
         transaction.persist(persist);
 
         // Check if the instance exists already in db or if it has been processed before to avoid duplication
@@ -82,9 +62,9 @@ export default class JsonToObject extends ActionBrick {
         this.parseProperties(db, transaction, instance, businessModel, /**@type {!Object}*/(data), mappingModels);
         this.parseRelations(db, transaction, instance, businessModel, /**@type {!Object}*/(data), mappingModels);
 
-        Transaction.process(context, transaction)
+        Transaction.process($, transaction)
             .then(executed => {
-                setObject(executed ? /**@type{BusinessObject}*/Sync.getInstance(instance) : instance);
+                setObject(executed ? /**@type{BusinessObject}*/CloudObject.get(instance) : instance);
                 forwardEvent();
             })
             .catch(msg => getLogger('JSON To Object').error(`Transaction failed: ${msg}`));
@@ -149,8 +129,8 @@ export default class JsonToObject extends ActionBrick {
                 } else if (!(relatedObjectData instanceof Object)) {
                     const obj = transaction.create(db.getUniqueRelated(relation, RelationModel.destinationModelRel));
                     const propToUpdate = typeof relatedObjectData === 'string'
-                        ? StringPrimitive.valueProp
-                        : NumberPrimitive.valueProp;
+                        ? StringModel.valueProp
+                        : NumberModel.valueProp;
                     transaction.update(obj, propToUpdate, relatedObjectData);
                     transaction.createRelation(relation, instance, obj);
                 }

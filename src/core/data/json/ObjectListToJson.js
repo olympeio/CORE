@@ -14,45 +14,32 @@
  * limitations under the License.
  */
 
-import { registerBrick, DBView, ListDef } from 'olympe';
+import { ActionBrick, registerBrick, ListDef } from 'olympe';
 import ObjectToJson from "./ObjectToJson";
 
-/**
-## Description
-Parses a list of object into a json.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Object | List | A list of instances of a BusinessModel. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Object | String | stringified Json |
-
-**/
-export default class ObjectListToJson extends ObjectToJson {
+export default class ObjectListToJson extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
-     * @param {!ListDef|!Array} list
+     * @param {!BrickContext} $
+     * @param {!ListDef|!List} list
      * @param {function(string)} setJson
      * @param {function()} forwardEvent
      */
-    update(context, [list], [forwardEvent, setJson]) {
-        const db = DBView.get();
+    update($, [list], [forwardEvent, setJson]) {
         const json = [];
 
+        // ListDef
         if (list instanceof ListDef) {
             list.forEachCurrentValue((item) => {
-                json.push(this.parseProperties(db, item));
+                json.push(ObjectToJson.parseProperties(item));
             });
-        } else {
+        }
+
+        // Array or QueryResult
+        else {
             list.forEach((item) => {
-                json.push(this.parseProperties(db, item));
+                json.push(ObjectToJson.parseProperties(item));
             });
         }
 

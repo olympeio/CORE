@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick } from 'olympe';
+import { VisualBrick, registerBrick, QueryResult } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -50,8 +50,12 @@ export default class List extends VisualBrick {
             let sizeObservable;
             if (!list) {
                 sizeObservable = of(0);
+            } else if(Array.isArray(list)) {
+                sizeObservable = of(list.length);
+            } else if(list instanceof QueryResult) {
+                sizeObservable = of(list.size());
             } else {
-                sizeObservable = Array.isArray(list) ? of(list.length) : list.observeSize();
+                sizeObservable = list.observeSize();
             }
             return sizeObservable.pipe(
                 combineLatestWith($.observe('Reverse')),
@@ -61,6 +65,11 @@ export default class List extends VisualBrick {
                         // Array case
                         if(Array.isArray(list)) {
                             elements = !reverse ? list : list.reverse();
+                        }
+
+                        // QueryResult case
+                        else if(list instanceof QueryResult) {
+                            elements = !reverse ? list.toArray() : list.toArray().reverse();
                         }
 
                         // ListDef case

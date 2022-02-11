@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { registerBrick, File, Sync } from 'olympe';
+import { registerBrick, File, CloudObject } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
 import { jsonToSxProps, cssToSxProps, ifNotTransparent } from 'helpers/mui';
 
@@ -52,7 +52,7 @@ export default class Image extends ReactBrick {
                 // Default image
                 else {
                     return from(new Promise((resolve) => {
-                        const defaultImage = /** @type {ImageFile} */(Sync.getInstance('016eb13ba1388f7bdd71'));
+                        const defaultImage = /** @type {File} */(CloudObject.get('016eb13ba1388f7bdd71'));
                         defaultImage.getContentUrl(_url => {
                             resolve(_url);
                         });
