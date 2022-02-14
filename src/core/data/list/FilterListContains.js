@@ -34,7 +34,7 @@ export default class FilterListContains extends Brick {
             logger.warn('The type of `substring` is not supported, it should be a string.');
             setFiltered(list);
         } else if (Array.isArray(list) || list instanceof QueryResult) {
-            setFiltered(filterArray(Array.isArray(list) ? list : list.toArray(), (v) => v.getProperty(property).includes(substring)));
+            setFiltered(filterArray(Array.isArray(list) ? list : list.toArray(), (v) => v.get(property).includes(substring)));
         } else if (list instanceof ListDef) {
             setFiltered(filterListDef(list, property, substring, (_property, _value) => new predicates.Contains(_property, _value)));
         } else {

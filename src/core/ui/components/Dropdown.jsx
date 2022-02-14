@@ -46,9 +46,9 @@ export default class Dropdown extends ReactBrick {
                         const values = [];
                         if (size > 0) {
                             list.forEachCurrentValue(enumValue => values.push(combineLatest([
-                                enumValue.observeProperty(EnumValue.valueProp),
-                                enumValue.observeProperty(EnumValue.nameProp),
-                                enumValue.observeProperty(EnumValue.rankProp)
+                                enumValue.observe($, EnumValue.valueProp),
+                                enumValue.observe($, EnumValue.nameProp),
+                                enumValue.observe($, EnumValue.rankProp)
                             ])));
                             return combineLatest(values);
                         }

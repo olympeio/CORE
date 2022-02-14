@@ -33,7 +33,7 @@ export default class FilterListBigger extends Brick {
         const logger = getLogger('Filter List Bigger');
         if (Array.isArray(list) || list instanceof QueryResult) {
             setFiltered(filterArray(Array.isArray(list) ? list : list.toArray(), (v) => {
-                const _v = v.getProperty(property);
+                const _v = v.get(property);
                 return strict ? _v > value : _v >= value;
             }));
         } else if (list instanceof ListDef) {

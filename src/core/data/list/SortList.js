@@ -53,8 +53,8 @@ export default class SortList extends Brick {
                 logger.error(`${a.length - b.length} elements were not Instances`);
             }
             const sortedList = b.sort((left, right) => {
-                const l_value = left.getProperty(property);
-                const r_value = right.getProperty(property);
+                const l_value = left.get(property);
+                const r_value = right.get(property);
                 if (ascending) {
                     return l_value === r_value ? 0 : l_value < r_value ? -1 : 1;
                 } else {

@@ -34,7 +34,7 @@ export default class FilterListEquals extends Brick {
      */
     update($, [list, property, value, not], [setFiltered]) {
         if (Array.isArray(list) || list instanceof QueryResult) {
-            setFiltered(filterArray(Array.isArray(list) ? list : list.toArray(), (v) => v.getProperty(property) === value ? !not : not));
+            setFiltered(filterArray(Array.isArray(list) ? list : list.toArray(), (v) => v.get(property) === value ? !not : not));
         } else if (list instanceof ListDef) {
             setFiltered(filterListDef(list, property, value, (_property, _value) => {
                 const equals = new predicates.Equals(_property, _value);
