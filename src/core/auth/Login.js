@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import {registerBrick, Auth, AuthState, ErrorFlow, FunctionBrick} from 'olympe'
+import {registerBrick, Auth, AuthState, ErrorFlow, Brick} from 'olympe'
 import {map} from "rxjs/operators";
 
-export default class Login extends FunctionBrick {
+export default class Login extends Brick {
 
     /**
      * @override

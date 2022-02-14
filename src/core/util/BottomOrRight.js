@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 NO DOC
 **/
-export default class BottomOrRight extends FunctionBrick {
+export default class BottomOrRight extends Brick {
 
     /**
      * Executed every time an input gets updated.

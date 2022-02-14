@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, ListDef, instanceToTag, transformers, Direction} from 'olympe';
+import {Brick, registerBrick, ListDef, instanceToTag, transformers, Direction} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
 NO DOC
 **/
-export default class ListFollowRelation extends FunctionBrick {
+export default class ListFollowRelation extends Brick {
 
     /**
      * Executed every time an input gets updated.

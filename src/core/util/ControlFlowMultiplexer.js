@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import { merge } from "rxjs";
 
-export default class ControlFlowMultiplexer extends FunctionBrick {
+export default class ControlFlowMultiplexer extends Brick {
 
     /**
      * @override

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -30,7 +30,7 @@ For example: Round(1.1) returns 1.
 | round(a) | Number | The nearest integer to `a`. |
 
 **/
-export default class Round extends FunctionBrick {
+export default class Round extends Brick {
 
     /**
      * Executed every time an input gets updated.

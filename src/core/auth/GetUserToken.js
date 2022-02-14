@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, Auth } from 'olympe';
+import { Brick, registerBrick, Auth } from 'olympe';
 
-export default class GetUserToken extends FunctionBrick {
+export default class GetUserToken extends Brick {
 
     /**
      * Executed every time an input () gets updated.

@@ -1,5 +1,5 @@
 
-import { FunctionBrick, registerBrick, Context } from 'olympe';
+import { Brick, registerBrick, Context } from 'olympe';
 import {NavigationManager, parseCurrentHash} from 'helpers/navigation';
 
 /**
@@ -13,7 +13,7 @@ Any state changes originating from the Push or Replace Navigation State bricks a
 | State | String |  |
 
 **/
-export default class OnNavigationUpdateBrowser extends FunctionBrick {
+export default class OnNavigationUpdateBrowser extends Brick {
 
     /**
      * Executed every time an input gets updated.

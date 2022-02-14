@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import {httpRequest} from "helpers/httpRequest";
 import {handleData, handleStatusAndHeaders} from "../utils/httpResponseHandlers";
 

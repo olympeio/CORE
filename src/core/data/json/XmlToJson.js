@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, Context, ErrorFlow } from 'olympe';
+import { Brick, registerBrick, Context, ErrorFlow } from 'olympe';
 import { parse } from 'fast-xml-parser';
 
 /**
@@ -36,7 +36,7 @@ Parses a Xml string into a json, extracting the object or array specified by the
 | undefined | undefined | The Xml is not valid. |
 
 **/
-export default class XmlToJson extends FunctionBrick {
+export default class XmlToJson extends Brick {
 
     /**
      * Executed every time an input gets updated.

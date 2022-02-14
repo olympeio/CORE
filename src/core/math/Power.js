@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -31,7 +31,7 @@ Returns the base to the exponent.
 | a ** b | Number | The result of the operation. |
 
 **/
-export default class Power extends FunctionBrick {
+export default class Power extends Brick {
 
     /**
      * Executed every time an input gets updated.

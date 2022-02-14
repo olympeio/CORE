@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -30,7 +30,7 @@ Returns `false` if its single operand can be converted to `true`; otherwise, ret
 | !a | Boolean | The negated value. |
 
 **/
-export default class Not extends FunctionBrick {
+export default class Not extends Brick {
 
     /**
      * Executed every time an input gets updated.

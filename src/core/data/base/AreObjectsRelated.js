@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, Query, RelatedTo } from 'olympe';
+import {Brick, registerBrick, Query, RelatedTo } from 'olympe';
 
-export default class AreObjectsRelated extends FunctionBrick {
+export default class AreObjectsRelated extends Brick {
 
     /**
      * @protected

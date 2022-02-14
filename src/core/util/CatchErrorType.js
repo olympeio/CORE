@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, Context, ErrorFlow } from 'olympe';
+import { Brick, registerBrick, Context, ErrorFlow } from 'olympe';
 
 /**
 ## Description
@@ -35,7 +35,7 @@ its details and trigger a control-flow. If the codes are different, it simply fo
 | Message | String | The error message. |
 
 **/
-export default class CatchErrorType extends FunctionBrick {
+export default class CatchErrorType extends Brick {
 
     /**
      * Executed every time an input gets updated.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -36,7 +36,7 @@ Math('log', 10) -> 2.302585092994046
 | --- | :---: | --- |
 | result | Number | The result. |
 **/
-export default class MathFunctions extends FunctionBrick {
+export default class MathFunctions extends Brick {
 
     /**
      * Executed every time an input gets updated.

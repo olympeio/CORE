@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -30,7 +30,7 @@ For example: Ceiling(1.1) returns 1.
 | floor(a) | Number | The smallest integer smaller than or equal to a. |
 
 **/
-export default class Floor extends FunctionBrick {
+export default class Floor extends Brick {
 
     /**
      * Executed every time an input gets updated.

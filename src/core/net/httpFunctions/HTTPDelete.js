@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import {httpRequest} from "helpers/httpRequest";
 import {handleStatusAndHeaders, handleData} from "../utils/httpResponseHandlers";
 
@@ -39,7 +39,7 @@ Additional headers can be provided and returned in a string that has to be in JS
 | Response Headers | String | The response headers. |
 
 **/
-export default class HTTPDelete extends FunctionBrick {
+export default class HTTPDelete extends Brick {
 
     /**
      * Executed every time an input gets updated.

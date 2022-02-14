@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -31,7 +31,7 @@ Dispatches a control flow whenever one of the two input gets triggered, after th
 | --- | :---: | --- |
 | Output flow | ControlFlow | Synchronized out put flow. |
 **/
-export default class ControlflowSynchronization extends FunctionBrick {
+export default class ControlflowSynchronization extends Brick {
 
     /**
      * Executed every time an input gets updated.

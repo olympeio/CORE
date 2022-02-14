@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, instanceToTag, RelationModel, Direction, DBView, transformers, ListDef } from 'olympe';
+import { Brick, registerBrick, instanceToTag, RelationModel, Direction, DBView, transformers, ListDef } from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -59,7 +59,7 @@ export const getRelatedObjects = (object, relation) => {
  | --- | :---: | --- |
  | List | List | The list of objects. |
  **/
-export default class GetRelatedObjects extends FunctionBrick {
+export default class GetRelatedObjects extends Brick {
 
     /**
      * Executed every time an input gets updated.

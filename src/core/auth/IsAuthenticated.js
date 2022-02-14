@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, Auth, AuthState } from 'olympe';
+import { Brick, registerBrick, Auth, AuthState } from 'olympe';
 
 /**
 ## Description
@@ -24,7 +24,7 @@ This function checks whether the active user is properly authenticated.
 | --- | :---: | --- |
 | result | Boolean | `true` if the user is authenticated. |
 **/
-export default class IsAuthenticated extends FunctionBrick {
+export default class IsAuthenticated extends Brick {
 
     /**
      * Executed every time an input gets updated.
