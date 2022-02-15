@@ -1,4 +1,6 @@
 import {Logger} from 'loglevel';
+import {BrickContext, VisualBrick} from "@olympeio/runtime-web";
+import {ReactElement} from "react";
 
 /**
  * Return the specified logger
@@ -120,3 +122,26 @@ export function base64ToBase64Url(str: string): string
  * @return {string}
  */
 export function base64UrlToBase64(str: string): string
+
+/**
+ * Specialized version of VisualBrick for React.
+ */
+export class ReactBrick extends VisualBrick {
+    /**
+     * Specify your React function component by overriding this method
+     * 
+     * @param {BrickContext} $
+     * @return {function(Object): ReactElement}
+     */
+    static getReactComponent($: BrickContext): (properties?: Object) => ReactElement
+}
+
+/**
+ * Allows to bind a context property to a stateful react value.
+ *
+ * @param {!BrickContext} $
+ * @param {string} property
+ * @param {boolean=} [waitForValue=true]
+ * @return {*} a stateful value usable in JSX
+ */
+export function useProperty($: BrickContext, property: string, waitForValue: boolean): any

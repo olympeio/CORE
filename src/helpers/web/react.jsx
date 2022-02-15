@@ -43,7 +43,7 @@ export class ReactBrick extends VisualBrick {
     /**
      * @static
      * @param {!BrickContext} $
-     * @return {function():ReactElement}
+     * @return {function(!Object=):ReactElement}
      */
     static getReactComponent($) {
         return () => (<p>ReactBrick: <code>getReactComponent()</code> not implemented.</p>);
