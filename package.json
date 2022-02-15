@@ -74,6 +74,6 @@
     "react-player": "2.9.0",
     "react-webcam": "6.0.0",
     "remarkable": "2.0.1",
-    "rxjs": "7.1.0"
+    "rxjs": "7.5.4"
   }
 }
