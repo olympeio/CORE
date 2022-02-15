@@ -37,7 +37,7 @@ describe('DownloadFile brick', () => {
         // mock file model
         const file = {};
         file.saveAs = jasmine.createSpy();
-        file.getProperty = jasmine.createSpy().and.returnValue('test2.txt');
+        file.get = jasmine.createSpy().and.returnValue('test2.txt');
 
         // run action
         const d = new DownloadFile();
