@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -30,7 +30,7 @@ The `and` of a set of operands is true if and only if all of its operands are tr
 | result | Boolean | `true` if both `a` & `b` are true. `false` otherwise. |
 
 **/
-export default class And extends FunctionBrick {
+export default class And extends Brick {
 
     /**
      * Executed every time an input gets updated.

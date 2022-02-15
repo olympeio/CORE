@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -37,7 +37,7 @@ true xor true == false
 | result | Boolean | `true` if only `a` or `b` is `true`. `false` otherwise. |
 
 **/
-export default class Xor extends FunctionBrick {
+export default class Xor extends Brick {
 
     /**
      * Executed every time an input gets updated.

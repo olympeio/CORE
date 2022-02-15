@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 
 **/
-export default class Regex extends FunctionBrick {
+export default class Regex extends Brick {
 
     /**
      * Executed every time an input gets updated.

@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { FunctionBrick, registerBrick, Config } from 'olympe';
+import { Brick, registerBrick, Config } from 'olympe';
 
-export default class GetParameter extends FunctionBrick {
+export default class GetParameter extends Brick {
 
     /**
      * Executed every time an input (name) gets updated.

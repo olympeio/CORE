@@ -46,7 +46,7 @@ Additional headers can be provided and returned in a string that has to be in JS
 | Response Headers | String | The response headers. |
 
 **/
-export default class HTTPPatch extends FunctionBrick {
+export default class HTTPPatch extends Brick {
 
     /**
      * Executed every time an input gets updated.

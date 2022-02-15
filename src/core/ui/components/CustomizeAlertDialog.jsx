@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 import React from 'react';
 
@@ -27,7 +27,7 @@ import Zoom from '@mui/material/Zoom';
 /**
  * Create a transition object that can be used by MUI component
  */
-export default class CustomizeAlertDialog extends FunctionBrick {
+export default class CustomizeAlertDialog extends Brick {
 
     /**
      * Executed every time an input (type, direction, enterEasing, exitEasing, enterTimeout, exitTimeout) gets updated.

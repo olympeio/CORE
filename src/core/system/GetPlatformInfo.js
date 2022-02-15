@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import {getBrowserInfo, getOSInfo} from 'helpers/platformInfo';
 
-export default class GetPlatformInfo extends FunctionBrick {
+export default class GetPlatformInfo extends Brick {
 
     /**
      * @protected

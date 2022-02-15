@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -30,7 +30,7 @@ The `or` of a set of operands is `true` if and only if one of its operands is `t
 | result | Boolean | `true` if either `a` or `b` is `true`. `false` otherwise. |
 
 **/
-export default class Or extends FunctionBrick {
+export default class Or extends Brick {
 
     /**
      * Executed every time an input gets updated.

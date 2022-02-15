@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
-export default class Replace extends FunctionBrick {
+export default class Replace extends Brick {
 
     /**
      * Executed every time an input (s, pattern, replacement) gets updated.

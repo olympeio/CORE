@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -31,7 +31,7 @@ Gets the position of string s2 in string s1. The index starts at zero, and is se
 | s1.indexOf(s2) | Number | The index. |
 
 **/
-export default class IndexOf extends FunctionBrick {
+export default class IndexOf extends Brick {
 
     /**
      * Executed every time an input gets updated.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -28,7 +28,7 @@ Use string length js property.See: https://developer.mozilla.org/en-US/docs/Web/
 | --- | :---: | --- |
 | s.length | Number | Length of provided string |
 **/
-export default class LengthOfString extends FunctionBrick {
+export default class LengthOfString extends Brick {
 
     /**
      * Executed every time an input gets updated.

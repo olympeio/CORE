@@ -15,7 +15,7 @@
  */
 
 import {
-    FunctionBrick,
+    Brick,
     registerBrick,
     instanceToTag,
     DBView,
@@ -38,7 +38,7 @@ Creates a new relation connecting the two provided objects.
 | --- | :---: | --- |
 | origin | Object | The origin object. |
 **/
-export default class CreateRelation extends FunctionBrick {
+export default class CreateRelation extends Brick {
 
     /**
      * Executed every time an input gets updated.

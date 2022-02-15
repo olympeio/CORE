@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import { parse } from 'date-fns';
 import {getLogger} from 'logging';
 
@@ -38,7 +38,7 @@ https://date-fns.org/v2.22.1/docs/parse
 | --- | :---: | --- |
 | date | DateTime | The result of the conversion. |
 **/
-export default class ParseDateTime extends FunctionBrick {
+export default class ParseDateTime extends Brick {
 
     /**
      * Executed every time an input gets updated.

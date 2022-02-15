@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick} from 'olympe';
+import {Brick, registerBrick} from 'olympe';
 import {toBase64, stringToBase64} from 'helpers/binaryConverters';
 
-export default class Base64Encoder extends FunctionBrick {
+export default class Base64Encoder extends Brick {
 
     /**
      * Executed every time an input gets updated.

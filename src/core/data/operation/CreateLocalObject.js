@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, DBView, Transaction, CloudObject } from 'olympe';
+import { Brick, registerBrick, DBView, Transaction, CloudObject } from 'olympe';
 import {getLogger} from 'logging';
 
-export default class CreateLocalObject extends FunctionBrick {
+export default class CreateLocalObject extends Brick {
 
     /**
      * Executed every time an input gets updated.

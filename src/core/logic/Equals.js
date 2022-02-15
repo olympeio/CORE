@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -31,7 +31,7 @@ Note if the two objects are not comparable (e.g. a number and a color) the resul
 | a == b | Boolean | `true` if a & b are equal. |
 
 **/
-export default class Equals extends FunctionBrick {
+export default class Equals extends Brick {
 
     /**
      * Executed every time an input gets updated.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import { sub } from 'date-fns'
 
 /**
@@ -36,7 +36,7 @@ Removes an amount of days, months, years, weeks, hours, minutes and seconds to a
 | --- | :---: | --- |
 | new date | DateTime | The resulting `DateTime`. |
 **/
-export default class DateTimeSub extends FunctionBrick {
+export default class DateTimeSub extends Brick {
 
     /**
      * Executed every time an input (date, years, months, days, weeks, hours, minutes, seconds) gets updated.

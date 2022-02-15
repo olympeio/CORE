@@ -31,7 +31,7 @@ Use chartAt js function. See: https://developer.mozilla.org/en-US/docs/Web/JavaS
 | s.charAt(index) | String | The char at given position, undefined is no string found |
 **/
 
-export default class CharAt extends FunctionBrick {
+export default class CharAt extends Brick {
 
     /**
      * Executed every time an input gets updated.

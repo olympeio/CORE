@@ -31,7 +31,7 @@ Provides a data-flow containing the current date & time that will be updated eve
 | datetime flow | DateTime | The current date & time. |
 
 **/
-export default class Now extends FunctionBrick {
+export default class Now extends Brick {
 
     /**
      * The label used as key to save the interval id

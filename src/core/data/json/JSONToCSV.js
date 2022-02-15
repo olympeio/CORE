@@ -1,8 +1,8 @@
-import { FunctionBrick, registerBrick, ErrorFlow } from 'olympe';
+import { Brick, registerBrick, ErrorFlow } from 'olympe';
 import { Parser } from 'json2csv';
 import { getLogger } from 'logging';
 
-export default class JSONToCSV extends FunctionBrick {
+export default class JSONToCSV extends Brick {
 
     /**
      * Executed every time an input (json) gets updated.

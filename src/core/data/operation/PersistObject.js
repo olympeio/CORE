@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, Transaction, instanceToTag } from 'olympe';
+import { Brick, registerBrick, Transaction, instanceToTag } from 'olympe';
 import {getLogger} from 'logging';
 
-export default class PersistObject extends FunctionBrick {
+export default class PersistObject extends Brick {
 
     /**
      * Executed every time an input gets updated.

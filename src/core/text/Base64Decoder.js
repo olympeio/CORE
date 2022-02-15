@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick} from 'olympe';
+import {Brick, registerBrick} from 'olympe';
 import {fromBase64, binaryToString} from 'helpers/binaryConverters';
 import {getLogger} from "../../helpers/logging";
 
-export default class Base64Decoder extends FunctionBrick {
+export default class Base64Decoder extends Brick {
 
     /**
      * Executed every time an input gets updated.

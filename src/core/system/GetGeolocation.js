@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -29,7 +29,7 @@ This is updated in real time, but can require a permission check with the user.
 | altitude | Number | The altitude. |
 
 **/
-export default class GetGeolocation extends FunctionBrick {
+export default class GetGeolocation extends Brick {
 
     /**
      * Executed every time an input gets updated.

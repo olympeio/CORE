@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
-export default class GetTouchEventDetailsAttributes extends FunctionBrick {
+export default class GetTouchEventDetailsAttributes extends Brick {
 
     /**
      * Executed every time an input (touch) gets updated.

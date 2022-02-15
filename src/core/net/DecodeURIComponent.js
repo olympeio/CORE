@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
-export default class DecodeURIComponent extends FunctionBrick {
+export default class DecodeURIComponent extends Brick {
 
     /**
      * Executed every time an input (str) gets updated.

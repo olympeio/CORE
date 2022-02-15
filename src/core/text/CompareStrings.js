@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -30,7 +30,7 @@ Use localeCompare js function. See: https://developer.mozilla.org/en-US/docs/Web
 | --- | :---: | --- |
 | s1.localCompare(s2) | Number | -1 if s1 < s2, 0 if s1 == s2, 1 if s1 > s2. |
 **/
-export default class CompareStrings extends FunctionBrick {
+export default class CompareStrings extends Brick {
 
     /**
      * Executed every time an input gets updated.

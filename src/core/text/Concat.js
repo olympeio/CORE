@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
-export default class Concat extends FunctionBrick {
+export default class Concat extends Brick {
 
     /**
      * Executed every time an input (s1, s2) gets updated.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -32,7 +32,7 @@ Use startsWith js function: See: https://developer.mozilla.org/en-US/docs/Web/Ja
 | s1.startsWith(s2 | pos) | Boolean, True if s1 starts with s2 |
 
 **/
-export default class StringStartsWith extends FunctionBrick {
+export default class StringStartsWith extends Brick {
 
     /**
      * Executed every time an input gets updated.

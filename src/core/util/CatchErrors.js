@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, Context, ErrorFlow } from 'olympe';
+import { Brick, registerBrick, Context, ErrorFlow } from 'olympe';
 
 /**
  ## Description
@@ -34,7 +34,7 @@ import { FunctionBrick, registerBrick, Context, ErrorFlow } from 'olympe';
  | Control Flow | Control FLow | The output control flow. |
 
  **/
-export default class CatchErrors extends FunctionBrick {
+export default class CatchErrors extends Brick {
 
     /**
      * Executed every time an input gets updated.
