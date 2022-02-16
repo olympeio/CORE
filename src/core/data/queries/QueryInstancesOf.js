@@ -7,10 +7,12 @@ export default class QueryInstancesOf extends Brick {
      * @protected
      * @param {!BrickContext} $
      * @param {!Tag} dataType
+     * @param {boolean} addToResult
      * @param {function(!Query)} setQuery
      */
-    update($, [dataType], [setQuery]) {
-        setQuery(Query.instancesOf(dataType));
+    update($, [dataType, addToResult], [setQuery]) {
+        const query = Query.instancesOf(dataType);
+        setQuery(addToResult ? query.andReturn() : query);
     }
 }
 

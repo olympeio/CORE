@@ -1,4 +1,4 @@
-import { Brick, registerBrick } from 'olympe';
+import { Brick, registerBrick, Relation, Direction } from 'olympe';
 
 export default class QueryFollowRelationRecursively extends Brick {
 
@@ -8,11 +8,12 @@ export default class QueryFollowRelationRecursively extends Brick {
      * @param {!BrickContext} $
      * @param {!Query} query
      * @param {!Relation} relation
+     * @param {boolean} toOrigin
      * @param {boolean} addToResult
      * @param {function(!Query)} setQuery
      */
-     update($, [query, relation, addToResult], [setQuery]) {
-        const queryFollowRecursively = query.followRecursively(relation);
+     update($, [query, relation, toOrigin, addToResult], [setQuery]) {
+        const queryFollowRecursively = query.followRecursively(new Relation(relation, toOrigin ? Direction.ORIGIN : Direction.DESTINATION));
         setQuery(addToResult ? queryFollowRecursively.andReturn() : queryFollowRecursively);
     }
 }

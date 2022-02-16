@@ -1,4 +1,4 @@
-import { Brick, registerBrick, Query } from 'olympe';
+import { Brick, registerBrick, Query, Relation, Direction } from 'olympe';
 
 export default class QueryFollowRelationFromObject extends Brick {
 
@@ -8,11 +8,12 @@ export default class QueryFollowRelationFromObject extends Brick {
      * @param {!BrickContext} $
      * @param {!CloudObject} object
      * @param {!Relation} relation
+     * @param {boolean} toOrigin
      * @param {boolean} addToResult
      * @param {function(!Query)} setQuery
      */
-    update($, [object, relation, addToResult], [setQuery]) {
-        const query = Query.from(object).follow(relation);
+    update($, [object, relation, toOrigin, addToResult], [setQuery]) {
+        const query = Query.from(object).follow(new Relation(relation, toOrigin ? Direction.ORIGIN : Direction.DESTINATION));
         setQuery(addToResult ? query.andReturn() : query);
     }
 }
