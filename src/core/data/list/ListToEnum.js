@@ -26,7 +26,7 @@ export default class ListToEnum extends Brick {
      * @param {!Brick} transformer
      * @param {!function(InstanceTag)} setEnum
      */
-    onUpdate($, [list, transformer], [setEnum]) {
+    update($, [list, transformer], [setEnum]) {
         // Guards
         if (!Array.isArray(list) && !(list instanceof ListDef) && !(list instanceof QueryResult)) {
             getLogger('List To Enum').error('The provided list must be of type ListDef, Array or QueryResult');

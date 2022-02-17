@@ -129,7 +129,7 @@ function WebcamWithRef(props) {
         const screenshotAsArrayBuffer = dataUrlToBinary(screenshotAsBase64);
         const screenshotExtension = screenshotFormat.match(/.*\/([a-z]*)+?.*/)[1];
         const screenshotName = `screenshot_${Date.now()}.${screenshotExtension}`;
-        const tag = File.createFile(t, screenshotName, screenshotAsArrayBuffer, screenshotFormat);
+        const tag = File.createFromContent(t, screenshotName, screenshotAsArrayBuffer, screenshotFormat);
         t.persistInstance(tag, false);
         t.execute()
             .then(() => props.context.set('Screenshot', CloudObject.get(tag)))

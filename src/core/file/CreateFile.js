@@ -41,7 +41,7 @@ export default class CreateFile extends ActionBrick {
             return;
         }
 
-        const fileTag = File.createFile(
+        const fileTag = File.createFromContent(
             transaction,
             fileName || 'new_File_from_CreateFile_brick',
             content instanceof ArrayBuffer ? content : stringToBinary(content),
