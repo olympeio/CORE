@@ -39,7 +39,7 @@ export default class CreateFileFromBase64 extends ActionBrick {
             finalMimeType = regExpRes !== null && regExpRes.length === 2 ? regExpRes[1] : 'text/plain';
         }
 
-        const fileTag = File.createFile(
+        const fileTag = File.createFromContent(
             transaction,
             fileName || 'new_File_from_CreateFileFromBase64_brick',
             isDataURL ? dataUrlToBinary(base64Content) : fromBase64(base64Content),
