@@ -67,9 +67,8 @@ export default class Filter extends ActionBrick {
                 .set(itemInput, item)
                 .set(rankInput, rank)
                 .set(listInput, arr)
-                .trigger(startInput)
-                .waitFor(endOutput)
-                .then(() => done(predicate$.get(resOutput)));
+                .trigger(startInput);
+            predicate$.waitFor(endOutput).then(() => done(predicate$.get(resOutput)));
         });
 
         const resultList = [];
