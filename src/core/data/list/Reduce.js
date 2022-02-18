@@ -46,7 +46,7 @@ export default class Reduce extends ActionBrick {
             return;
         }
 
-        this.process($, array, reducer).then((result) => {
+        this.process($, array, reducer, initialValue).then((result) => {
             setResult(result);
             forwardEvent();
         });
@@ -70,9 +70,8 @@ export default class Reduce extends ActionBrick {
                 .set(itemInput, item)
                 .set(rankInput, rank)
                 .set(listInput, arr)
-                .trigger(startInput)
-                .waitFor(endOutput)
-                .then(() => done(reducer$.get(resultOutput)));
+                .trigger(startInput);
+            reducer$.waitFor(endOutput).then(() => done(reducer$.get(resultOutput)));
         });
 
         let accumulator = initialValue;

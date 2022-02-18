@@ -45,15 +45,15 @@ export default class MapBrick extends ActionBrick {
             return;
         }
 
-        const [startInput, itemInput, rankInput, listInput] = iterator.getInputs();
-        const [_, itemOutput] = iterator.getOutputs();
+        const [startInput, itemInput, rankInput, listInput] = mapper.getInputs();
+        const [endOutput, itemOutput] = mapper.getOutputs();
         Promise.all(array.map((item, rank) => {
-            return $.runner(mapper)
+            const mapper$ = $.runner(mapper)
                 .set(itemInput, item)
                 .set(rankInput, rank)
                 .set(listInput, array)
-                .trigger(startInput)
-                .waitFor(itemOutput);
+                .trigger(startInput);
+            return mapper$.waitFor(endOutput).then(() => mapper$.get(itemOutput));
         })).then(mappedArray => {
             setList(mappedArray);
             forwardEvent();
