@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { registerBrick, EnumValue } from 'olympe';
+import { registerBrick, EnumValue, Enum } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
 import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent } from 'helpers/mui';
 
@@ -36,11 +36,11 @@ export default class Dropdown extends ReactBrick {
     setupExecution($) {
         // Observe all Enum values (options)
         const observeSize = $.observe('Values', false).pipe(
-            switchMap((enumModel) =>  enumModel === null ? of(0): enumModel.getValues().observeSize())
+            switchMap((enumModel) =>  !(enumModel instanceof Enum) ? of(0): enumModel.getValues().observeSize())
         );
         const observeOptions = $.observe('Values', false).pipe(
             switchMap((enumModel) => {
-                return enumModel === null ? of([]) : of(enumModel.getValues()).pipe(
+                return !(enumModel instanceof Enum) ? of([]) : of(enumModel.getValues()).pipe(
                     combineLatestWith(observeSize),
                     switchMap(([list, size]) => {
                         const values = [];
