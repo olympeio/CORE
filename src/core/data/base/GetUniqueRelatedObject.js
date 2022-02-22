@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import { Brick, registerBrick, Relation, Direction } from 'olympe';
 import { getLogger } from 'logging';
 
 export default class GetUniqueRelatedObject extends Brick {
@@ -23,11 +23,11 @@ export default class GetUniqueRelatedObject extends Brick {
      * @protected
      * @param {!BrickContext} $
      * @param {!CloudObject} object
-     * @param {!Relation} relation
+     * @param {!RelationModel} relation Assumed to be always in direction origin->destination
      * @param {function(!CloudObject)} setObject
      */
     update($, [object, relation], [setObject]) {
-        object.follow(relation)
+        object.follow(new Relation(relation, Direction.DESTINATION))
             .observe($)
             .subscribe(result => {
                 if(result.size() !== 1) {

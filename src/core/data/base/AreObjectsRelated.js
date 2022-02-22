@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {Brick, registerBrick, Query, RelatedTo } from 'olympe';
+import {Brick, registerBrick, Query, RelatedTo, Relation, Direction } from 'olympe';
 
 export default class AreObjectsRelated extends Brick {
 
@@ -23,12 +23,12 @@ export default class AreObjectsRelated extends Brick {
      * @param {!BrickContext} $
      * @param {!CloudObject} origin
      * @param {!CloudObject} destination
-     * @param {!Relation} relation Assumed to be always in direction origin->destination
+     * @param {!RelationModel} relation Assumed to be always in direction origin->destination
      * @param {function(boolean)} setRelated
      */
     update($, [origin, destination, relation], [setRelated]) {
         Query.from(origin)
-            .filter(new RelatedTo(destination).follow(relation))
+            .filter(new RelatedTo(destination).follow(new Relation(relation, Direction.DESTINATION)))
             .execute($)
             .then(queryResult => setRelated(queryResult.size() > 0));
     }
