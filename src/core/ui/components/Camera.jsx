@@ -119,22 +119,22 @@ function WebcamWithRef(props) {
             // `facingMode: {exact: 'environment'}` is only used when back camera is selected and when multiple cameras are available (e.g.: on smartphones)
             setConstraints({ facingMode: (props.source === 'front' || !hasMultiCamera) ? 'user' : {exact: 'environment'} });
         });
-    }, []);
 
-    // Take screenshot
-    props.context.observe('Take Screenshot').subscribe(() => {
-        const t = new Transaction();
-        const screenshotFormat = props.screenshotFormat || props.context.get('Screenshot Format') || 'image/png';
-        const screenshotAsBase64 = webcamRef.current.getScreenshot();
-        const screenshotAsArrayBuffer = dataUrlToBinary(screenshotAsBase64);
-        const screenshotExtension = screenshotFormat.match(/.*\/([a-z]*)+?.*/)[1];
-        const screenshotName = `screenshot_${Date.now()}.${screenshotExtension}`;
-        const tag = File.createFromContent(t, screenshotName, screenshotAsArrayBuffer, screenshotFormat);
-        t.persistInstance(tag, false);
-        t.execute()
-            .then(() => props.context.set('Screenshot', CloudObject.get(tag)))
-            .catch(message => getLogger('Camera').warn('The application encountered a problem while taking a screenshot. The transaction failed.', message));
-    });
+        // Take screenshot => observe must be called in the "useEffect" to avoid recalling it everytime React re-render the component
+        props.context.observe('Take Screenshot').subscribe(() => {
+            const t = new Transaction();
+            const screenshotFormat = props.screenshotFormat || props.context.get('Screenshot Format') || 'image/png';
+            const screenshotAsBase64 = webcamRef.current.getScreenshot();
+            const screenshotAsArrayBuffer = dataUrlToBinary(screenshotAsBase64);
+            const screenshotExtension = screenshotFormat.match(/.*\/([a-z]*)+?.*/)[1];
+            const screenshotName = `screenshot_${Date.now()}.${screenshotExtension}`;
+            const tag = File.createFromContent(t, screenshotName, screenshotAsArrayBuffer, screenshotFormat);
+            t.persistInstance(tag, false);
+            t.execute()
+                .then(() => props.context.set('Screenshot', CloudObject.get(tag)))
+                .catch(message => getLogger('Camera').warn('The application encountered a problem while taking a screenshot. The transaction failed.', message));
+        });
+    }, []);
 
     // Only add the webcam component once constraints has been defined.
     return constraints && (
