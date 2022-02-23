@@ -1,4 +1,4 @@
-import { ActionBrick, registerBrick } from 'olympe';
+import { ActionBrick, registerBrick, ErrorFlow } from 'olympe';
 
 export default class ExecuteQueryFromCache extends ActionBrick {
 
@@ -12,10 +12,13 @@ export default class ExecuteQueryFromCache extends ActionBrick {
      * @param {function(string)} setErrorFlow
      */
     update($, [query], [forwardEvent, setQueryResult, setErrorFlow]) {
-        query.executeFromCache()
-            .then(queryResult => setQueryResult(queryResult))
-            .catch(message => setErrorFlow(message))
-            .finally(() => forwardEvent());
+        try {
+            setQueryResult(query.executeFromCache());
+        } catch(e) {
+            setErrorFlow(ErrorFlow.create(e, 1));
+        } finally {
+            forwardEvent();
+        }
     }
 }
 

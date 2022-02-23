@@ -1,4 +1,4 @@
-import { ActionBrick, registerBrick } from 'olympe';
+import { ActionBrick, registerBrick, ErrorFlow } from 'olympe';
 
 export default class ExecuteQuery extends ActionBrick {
 
@@ -14,7 +14,7 @@ export default class ExecuteQuery extends ActionBrick {
     update($, [query], [forwardEvent, setQueryResult, setErrorFlow]) {
         query.execute($)
             .then(queryResult => setQueryResult(queryResult))
-            .catch(message => setErrorFlow(message))
+            .catch(message => setErrorFlow(ErrorFlow.create(message, 1)))
             .finally(() => forwardEvent());
     }
 }
