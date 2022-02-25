@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick, QueryResult } from 'olympe';
+import { VisualBrick, registerBrick, QueryResult, ListDef } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -26,6 +26,7 @@ import { combineLatestWith, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
+import {getLogger} from "logging";
 
 /**
  * Provide a "List Renderer" visual component using MUI
@@ -48,14 +49,15 @@ export default class List extends VisualBrick {
         const observeList = $.observe('Data', false);
         const observeListAsArray = observeList.pipe(switchMap(list => {
             let sizeObservable;
-            if (!list) {
-                sizeObservable = of(0);
-            } else if(Array.isArray(list)) {
+            if (Array.isArray(list)) {
                 sizeObservable = of(list.length);
-            } else if(list instanceof QueryResult) {
+            } else if (list instanceof QueryResult) {
                 sizeObservable = of(list.size());
-            } else {
+            } else if (list instanceof ListDef) {
                 sizeObservable = list.observeSize();
+            } else {
+                getLogger('List component').warn('No data list has been set (maybe you set a query or nothing?)');
+                sizeObservable = of(0);
             }
             return sizeObservable.pipe(
                 combineLatestWith($.observe('Reverse')),
