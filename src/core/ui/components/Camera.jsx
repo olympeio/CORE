@@ -125,6 +125,9 @@ function WebcamWithRef(props) {
             const t = new Transaction();
             const screenshotFormat = props.screenshotFormat || props.context.get('Screenshot Format') || 'image/png';
             const screenshotAsBase64 = webcamRef.current.getScreenshot();
+            if (screenshotAsBase64 === null) {
+                return;
+            }
             const screenshotAsArrayBuffer = dataUrlToBinary(screenshotAsBase64);
             const screenshotExtension = screenshotFormat.match(/.*\/([a-z]*)+?.*/)[1];
             const screenshotName = `screenshot_${Date.now()}.${screenshotExtension}`;
