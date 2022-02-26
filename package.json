@@ -1,6 +1,6 @@
 {
   "name": "@olympeio/core",
-  "version": "1.3.0-dev",
+  "version": "1.4.0-rc1",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -58,8 +58,8 @@
     "@emotion/react": "11.5.0",
     "@emotion/styled": "11.3.0",
     "@mui/material": "5.2.1",
-    "@olympeio/runtime-node": "dev",
-    "@olympeio/runtime-web": "dev",
+    "@olympeio/runtime-node": "8.8.0-rc1",
+    "@olympeio/runtime-web": "8.8.0-rc1",
     "date-fns": "2.22.1",
     "fast-xml-parser": "3.19.0",
     "html-react-parser": "1.4.0",
