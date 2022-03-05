@@ -59,7 +59,7 @@ export function cssToSxProps(css) {
  * Get a value only if the color is not transparent
  * @param {string} key
  * @param {*} value
- * @param {Color} color
+ * @param {Color=} color
  * @returns {Object}
  */
 export function ifNotTransparent(key, value, color) {
@@ -72,10 +72,10 @@ export function ifNotTransparent(key, value, color) {
  * Get the value only if it's not null (zero, '', etc)
  * @param {string} key
  * @param {*} value
- * @param {boolean?} condition
+ * @param {boolean=} condition
  * @returns {Object}
  */
 export function ifNotNull(key, value, condition) {
     const cond = condition !== undefined ? condition : value
-    return cond ? {[key]:value} : {};
+    return cond !== null && cond !== undefined ? {[key]:value} : {};
 }
