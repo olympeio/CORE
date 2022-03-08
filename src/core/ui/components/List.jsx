@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick, QueryResult, ListDef } from 'olympe';
+import { VisualBrick, registerBrick, QueryResult, ListDef, GlobalProperties } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -164,8 +164,8 @@ export default class List extends VisualBrick {
                     ...jsonToSxProps(muiSxJson)
                 }}
             >
-                {$.get('Data') && renderer
-                    // Only render if there is a list and a renderer
+                {(($.get('Data') && renderer) || !$.get(GlobalProperties.EDITION, true))
+                    // Only render if there is a list and a renderer, OR if we are not in draw
                     ? elements.map((item, rank) => {
                         return (
                             <Box
