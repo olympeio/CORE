@@ -213,7 +213,7 @@ export default class List extends VisualBrick {
 
                     // No list or renderer
                     : (
-                        <Box sx={{ backgroundColor: 'lightgrey', width: 1, height: 1 }}>
+                        <Box sx={{ backgroundColor: 'lightgrey', width: 1, height: 1, overflow: 'hidden' }}>
                             <Typography sx={{ color: 'black', padding: 1 }}>
                                 <b>List</b><br/>
                                 The following properties have to be defined for the component to render:<br/>
