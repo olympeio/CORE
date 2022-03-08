@@ -76,6 +76,6 @@ export function ifNotTransparent(key, value, color) {
  * @returns {!Object}
  */
 export function ifNotNull(key, value, condition) {
-    const cond = condition !== undefined ? condition : value
-    return cond !== null && cond !== undefined ? {[key]:value} : {};
+    const cond = condition !== undefined ? condition : value;
+    return cond !== null && cond !== undefined && cond ? {[key]:value} : {};
 }
