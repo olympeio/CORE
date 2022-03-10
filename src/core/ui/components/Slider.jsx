@@ -63,6 +63,7 @@ export default class Slider extends ReactBrick {
             const track = useProperty($, 'Track');
             const rangeMinDistance = useProperty($, 'Range Min Distance');
             const borderWidth = useProperty($, 'Border Width');
+            const borderRadius = useProperty($, 'Border Radius');
 
             // Handle range slider
             const muiValue = useRange ? [value1, value2] : value1;
@@ -144,7 +145,7 @@ export default class Slider extends ReactBrick {
                     // UI
                     sx={{
                         borderWidth: borderWidth,
-                        borderRadius: useProperty($, 'Border Radius'),
+                        ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                         ...ifNotNull('borderStyle', 'solid', borderWidth > 0),
                         ...ifNotTransparent('borderColor', useProperty($, 'Border Color')),
                         ...ifNotTransparent('color', useProperty($, 'Color Override')),

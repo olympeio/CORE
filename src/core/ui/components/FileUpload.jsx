@@ -80,6 +80,7 @@ export default class FileUpload extends ReactBrick {
         const fontFamily = useProperty($, 'Font Family');
         const borderWidth = useProperty($, 'Border Width');
         const borderColor = useProperty($, 'Border Color');
+        const borderRadius = useProperty($, 'Border Radius');
         return (
             <TextField
                 // Properties
@@ -113,7 +114,7 @@ export default class FileUpload extends ReactBrick {
                         fontFamily: fontFamily,
                         tabIndex: useProperty($, 'Tab Index'),
                         ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
-                        ...ifNotNull('borderRadius', useProperty($, 'Border Radius')),
+                        ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                         ...ifNotNull('borderWidth', borderWidth),
                         ...ifNotTransparent('borderStyle', 'solid', borderColor),
                         ...ifNotNull('boxSizing', 'border-box', borderWidth),

@@ -16,7 +16,7 @@
 
 import { registerBrick, File, CloudObject } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
-import { jsonToSxProps, cssToSxProps, ifNotTransparent } from 'helpers/mui';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
 
 import React from 'react';
 import CardMedia from '@mui/material/CardMedia';
@@ -102,7 +102,7 @@ export default class Image extends ReactBrick {
                             width: width,
                             height: height,
                             ...ifNotTransparent('borderColor', borderColor),
-                            borderRadius: borderRadius,
+                            ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                             borderWidth: borderWidth,
                             borderStyle: 'solid',
                             boxSizing: 'border-box',
@@ -138,7 +138,7 @@ export default class Image extends ReactBrick {
                             objectFit: imageFit,
                             objectPosition: `${horizontalAlign} ${verticalAlign}`,
                             ...ifNotTransparent('borderColor', borderColor),
-                            borderRadius: borderRadius,
+                            ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                             borderWidth: borderWidth,
                             borderStyle: 'solid',
                             boxSizing: 'border-box',

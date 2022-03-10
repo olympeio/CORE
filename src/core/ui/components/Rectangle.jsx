@@ -16,7 +16,7 @@
 
 import { registerBrick } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
-import { jsonToSxProps, cssToSxProps, ifNotTransparent } from 'helpers/mui';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
 
 import React from 'react';
 import Box from '@mui/material/Box';
@@ -47,6 +47,7 @@ export default class Rectangle extends ReactBrick {
     static getReactComponent($) {
         return (props) => {
             const [hidden] = props.values;
+            const borderRadius = useProperty($, 'Border Radius');
             return !hidden && (
                 <Box
                     // Properties + UI
@@ -55,7 +56,7 @@ export default class Rectangle extends ReactBrick {
                         width: 1,
                         height: 1,
                         ...ifNotTransparent('borderColor', useProperty($, 'Border Color')),
-                        borderRadius: useProperty($, 'Border Radius'),
+                        ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                         borderWidth: useProperty($, 'Border Width'),
                         borderStyle: 'solid',
                         boxSizing: 'border-box',

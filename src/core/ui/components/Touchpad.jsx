@@ -16,7 +16,7 @@
 
  import { registerBrick } from 'olympe';
  import { ReactBrick, useProperty } from 'helpers/react.jsx';
-import { cssToSxProps, jsonToSxProps, ifNotTransparent } from 'helpers/mui';
+import { cssToSxProps, jsonToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
 
 import React from 'react';
 import Box from "@mui/material/Box";
@@ -44,6 +44,7 @@ export default class Touchpad extends ReactBrick {
     static getReactComponent($) {
         return (props) => {
             const [hidden] = props.values;
+            const borderRadius = useProperty($, 'Border Radius');
             return !hidden && (
                 <Box
                     component={'div'}
@@ -52,7 +53,7 @@ export default class Touchpad extends ReactBrick {
                         width: 1,
                         ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
                         borderWidth: useProperty($, 'Border Width'),
-                        borderRadius: useProperty($, 'Border Radius'),
+                        ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                         boxSizing: 'border-box',
                         borderStyle: 'solid',
                         ...ifNotTransparent('borderColor', useProperty($, 'Border Color')),

@@ -22,7 +22,6 @@ import React from 'react';
 import MUIButton from '@mui/material/Button';
 import Icon from '@mui/material/Icon';
 
-
 /**
  * Provide a Button visual component using MUI Button
  */
@@ -75,13 +74,13 @@ export default class Button extends ReactBrick {
                         fontFamily: useProperty($, 'Font Family'),
                         ...ifNotTransparent('color', useProperty($, 'Text Color Override')),
                         ...ifNotTransparent('borderColor', borderColor),
-                        ...ifNotNull('borderRadius', borderRadius),
+                        ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                         ...ifNotNull('borderWidth', borderWidth),
                         ...ifNotTransparent('borderStyle', 'solid', borderColor),
                         ...ifNotTransparent('backgroundColor', defaultColor),
                         '&:hover': {
                             ...ifNotTransparent('borderColor', borderColor),
-                            ...ifNotNull('borderRadius', borderRadius),
+                            ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                             ...ifNotNull('borderWidth', borderWidth),
                             ...ifNotTransparent('borderStyle', 'solid', borderColor),
                             ...ifNotTransparent('backgroundColor', defaultColor)
