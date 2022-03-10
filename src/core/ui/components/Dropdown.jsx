@@ -89,6 +89,7 @@ export default class Dropdown extends ReactBrick {
             const borderRadius = useProperty($, 'Border Radius');
             const emptyText = useProperty($, 'Empty Text');
             const showNames = useProperty($, 'Show Names');
+            const showBorder = borderWidth > 0 && borderColor.toHexString() !== '#00000000';
 
             // Handle multiple selection
             let muiValue = multiple ? [] : '';
@@ -131,9 +132,9 @@ export default class Dropdown extends ReactBrick {
                             tabIndex: useProperty($, 'Tab Index'),
                             ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
                             ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
-                            ...ifNotNull('borderWidth', borderWidth),
-                            ...ifNotTransparent('borderStyle', 'solid', borderColor),
-                            ...ifNotNull('boxSizing', 'border-box', borderWidth),
+                            ...ifNotNull('borderWidth', borderWidth, showBorder),
+                            ...ifNotNull('borderStyle', 'solid', showBorder),
+                            ...ifNotNull('boxSizing', 'border-box', showBorder),
                             ...ifNotTransparent('borderColor', borderColor),
                             ...ifNotNull('color', useProperty($, 'Text Color Override'), !useProperty($, 'Error'))
                         }
