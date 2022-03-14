@@ -62,11 +62,12 @@ export default class JsonToObject extends ActionBrick {
         this.parseProperties(db, transaction, instance, businessModel, /**@type {!Object}*/(data), mappingModels);
         this.parseRelations(db, transaction, instance, businessModel, /**@type {!Object}*/(data), mappingModels);
 
+        // Place a callback "afterExecution" to ensure that the transaction
+        // has been executed before to call CloudObject.get()
+        transaction.afterExecution(() => setObject(CloudObject.get(instance)));
+
         Transaction.process($, transaction)
-            .then(executed => {
-                setObject(executed ? /**@type{BusinessObject}*/CloudObject.get(instance) : instance);
-                forwardEvent();
-            })
+            .then(() => forwardEvent())
             .catch(msg => getLogger('JSON To Object').error(`Transaction failed: ${msg}`));
     }
 
