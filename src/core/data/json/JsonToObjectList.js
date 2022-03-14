@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {registerBrick, DBView, BusinessObject, Transaction} from 'olympe';
+import {registerBrick, DBView, BusinessObject, Transaction, CloudObject} from 'olympe';
 import JsonToObject from './JsonToObject.js';
 
 /**
@@ -76,14 +76,17 @@ export default class JsonToObjectList extends JsonToObject {
 
         dataArray.forEach((data) => {
             // Check if the instance exists already in db or if it has been processed before to avoid duplication
-            const instance = transaction.create((businessModel));
-            this.parseProperties(db, transaction, instance, businessModel, data, mappingModels, instanceTags);
-            this.parseRelations(db, transaction, instance, businessModel, data, mappingModels, instanceTags);
-            result.push(instance);
+            const instanceTag = transaction.create((businessModel));
+            this.parseProperties(db, transaction, instanceTag, businessModel, data, mappingModels, instanceTags);
+            this.parseRelations(db, transaction, instanceTag, businessModel, data, mappingModels, instanceTags);
+            result.push(instanceTag);
         });
 
+        // Place a callback "afterExecution" to ensure that the transaction
+        // has been executed before to call CloudObject.get()
+        transaction.afterExecution(() => setList(result.map(CloudObject.get)));
+
         Transaction.process(context, transaction)
-            .then(() => setList(result))
             .finally(() => forwardEvent());
     }
 }
