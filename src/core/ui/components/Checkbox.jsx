@@ -61,11 +61,12 @@ export default class Checkbox extends ReactBrick {
             const iconSize = checkboxSize / 1.75;
 
             // Icon props
+            const borderRadius = useProperty($, 'Border Radius');
             const iconSxProps = {
                 fontSize: iconSize,
                 ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
                 ...ifNotTransparent('color', useProperty($, 'Border Color')),
-                ...ifNotNull('borderRadius', useProperty($, 'Border Radius'))
+                ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius)
             };
 
             return !hidden && (

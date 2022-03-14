@@ -13,65 +13,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, ListDef } from 'olympe';
-import {getLogger} from 'logging';
+import { ActionBrick, registerBrick, ListDef, QueryResult } from 'olympe';
+import { getLogger } from 'logging';
 
 export default class ForEach extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} brickContext
-     * @param {!ListDef | !Array} list
-     * @param {!FunctionBrick} iterator
+     * @param {!BrickContext} $
+     * @param {!ListDef|!List} list
+     * @param {!Brick} iterator
      * @param {!function()} forwardEvent
      */
-    onUpdate(brickContext, [list, iterator], [forwardEvent]) {
+    update($, [list, iterator], [forwardEvent]) {
         if (!list || !iterator) {
             getLogger('For Each').warn('Nothing to do: list or iterator is null or undefined.');
             forwardEvent();
             return;
         }
 
-        if (!Array.isArray(list) && !(list instanceof ListDef)) {
-            getLogger('For Each').error('The provided list is neither an array nor a listdef');
+        let array = [];
+        if(Array.isArray(list)) {
+            array = list;
+        } else if(list instanceof QueryResult) {
+            array = list.toArray();
+        } else if (list instanceof ListDef) {
+            list.forEachCurrentValue(item => array.push(item));
+        } else {
+            getLogger('For Each').error('The provided list must be of type ListDef, Array or QueryResult');
             return;
         }
 
-        const array = Array.isArray(list) ? list : [];
-        if (list instanceof ListDef) {
-            list.forEachCurrentValue((item) => array.push(item));
-        }
-
-        this.process(brickContext, array, iterator).then(forwardEvent);
-    }
-
-    /**
-     * @private
-     * @param {Context} brickContext
-     * @param {!Array} array
-     * @param {FunctionBrick} iterator
-     * @return {Promise<void>}
-     */
-    async process(brickContext, array, iterator) {
         const [startInput, itemInput, rankInput, listInput] = iterator.getInputs();
         const [endOutput] = iterator.getOutputs();
-
-        const iterate = (item, rank, arr) => new Promise((done) => {
-            const iteratorCtx = brickContext.createChild('iterator');
-            iterator.run(iteratorCtx);
-            iteratorCtx.set(itemInput, item);
-            iteratorCtx.set(rankInput, rank);
-            iteratorCtx.set(listInput, arr);
-            iteratorCtx.set(startInput, Date.now()); // Trigger the control flow
-            iteratorCtx.observe(endOutput).subscribe(() => {
-                iteratorCtx.destroy(); // Destroy the context
-                done();
-            });
-        });
-
-        for (let i = 0, l = array.length; i < l; i++) {
-            await iterate(array[i], i, array);
-        }
+        Promise.all(array.map((item, rank) => {
+            return $.runner(iterator)
+                .set(itemInput, item)
+                .set(rankInput, rank)
+                .set(listInput, array)
+                .trigger(startInput)
+                .waitFor(endOutput);
+        })).then(forwardEvent);
     }
 }
 

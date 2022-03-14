@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import {merge} from "rxjs";
 import {map} from "rxjs/operators";
 
-export default class If extends FunctionBrick {
+export default class If extends Brick {
 
     /**
      * @override

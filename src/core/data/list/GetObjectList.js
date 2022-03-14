@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, Sync } from 'olympe';
+import { Brick, registerBrick, Sync } from 'olympe';
 
 /**
 ## Description
@@ -30,7 +30,7 @@ Gets a list of all the instances of a given model.
 | List | List | The list of instances. |
 
 **/
-export default class GetObjectList extends FunctionBrick {
+export default class GetObjectList extends Brick {
 
     /**
      * Executed every time an input gets updated.

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -31,7 +31,7 @@ Attempts to parse the provided string to convert it into a number value.
 | number | Number | The result of the conversion. |
 
 **/
-export default class ParseNumber extends FunctionBrick {
+export default class ParseNumber extends Brick {
 
     /**
      * Executed every time an input gets updated.

@@ -18,15 +18,15 @@
  * Transform a JSON string into an object usable for the MUI `sx` prop.
  * Returns an empty object if the JSON is invalid.
  * @param {string} json
- * @return {Object}
+ * @return {!Object}
  */
 export function jsonToSxProps(json) {
     let props = {};
     try {
         props = JSON.parse(json);
+    } catch (e) {
+        // Ignore error
     }
-    catch(e)
-    {}
     return props;
 }
 
@@ -35,12 +35,12 @@ export function jsonToSxProps(json) {
  * Expect a string of the form `prop1: val1; prop2: val2; ...`
  * Returns an empty object if the CSS is invalid.
  * @param {string} css
- * @return {Object}
+ * @return {!Object}
  */
 export function cssToSxProps(css) {
-    const capitalize = s => s[0].toUpperCase() + s.substr(1).toLowerCase();
+    const capitalize = s => s.length > 0 ? s[0].toUpperCase() + s.substr(1).toLowerCase() : s;
     const props = {};
-    if(css) {
+    if (css) {
         css.split(';')
             .filter(e => e)
             .map(e => e.split(':'))
@@ -59,8 +59,8 @@ export function cssToSxProps(css) {
  * Get a value only if the color is not transparent
  * @param {string} key
  * @param {*} value
- * @param {Color} color
- * @returns {Object}
+ * @param {Color=} color
+ * @returns {!Object}
  */
 export function ifNotTransparent(key, value, color) {
     const valueHex = value && value.toHexString ? value.toHexString() : '#00000000';
@@ -72,10 +72,10 @@ export function ifNotTransparent(key, value, color) {
  * Get the value only if it's not null (zero, '', etc)
  * @param {string} key
  * @param {*} value
- * @param {boolean?} condition
- * @returns {Object}
+ * @param {boolean=} condition
+ * @returns {!Object}
  */
 export function ifNotNull(key, value, condition) {
-    const cond = condition !== undefined ? condition : value
-    return cond ? {[key]:value} : {};
+    const cond = condition !== undefined ? condition : value;
+    return cond !== null && cond !== undefined && cond ? {[key]:value} : {};
 }

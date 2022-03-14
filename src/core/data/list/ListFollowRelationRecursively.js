@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, ListDef, instanceToTag, transformers, Direction} from 'olympe';
+import {Brick, registerBrick, ListDef, instanceToTag, transformers, Direction} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
  NO DOC
  **/
-export default class ListFollowRelationRecursively extends FunctionBrick {
+export default class ListFollowRelationRecursively extends Brick {
 
     /**
      * Executed every time an input gets updated.
@@ -29,7 +29,7 @@ export default class ListFollowRelationRecursively extends FunctionBrick {
      * @protected
      * @param {!Context} context
      * @param {!ListDef} list
-     * @param {!RelationPrimitive} relation
+     * @param {!RelationModel} relation
      * @param {boolean} toOrigin
      * @param {boolean} includeSelf
      * @param {function(!ListDef)} setFlattenedList

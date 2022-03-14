@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, ListDef, instanceToTag, transformers} from 'olympe';
+import {Brick, registerBrick, ListDef, instanceToTag, transformers} from 'olympe';
 import {getOrientedRelation} from "./GetRelatedObjects";
 import {getLogger} from 'logging';
 
-export default class GetRecursiveRelated extends FunctionBrick {
+export default class GetRecursiveRelated extends Brick {
 
     /**
      * Executed every time an input (origin, relation, includeSelf) gets updated.

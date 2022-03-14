@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick} from 'olympe';
+import { Brick, registerBrick} from 'olympe';
 import {httpRequest} from "helpers/httpRequest";
 import {handleStatusAndHeaders} from "../utils/httpResponseHandlers";
 
@@ -45,7 +45,7 @@ import {handleStatusAndHeaders} from "../utils/httpResponseHandlers";
  | Response Headers | String | The response headers. |
 
  **/
-export default class HTTPPut extends FunctionBrick {
+export default class HTTPPut extends Brick {
 
     /**
      * Executed every time an input gets updated.

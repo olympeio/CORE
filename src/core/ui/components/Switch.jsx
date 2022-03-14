@@ -54,6 +54,7 @@ export default class Switch extends ReactBrick {
     static getReactComponent($) {
         return (props) => {
             const [hidden] = props.values;
+            const borderRadius = useProperty($, 'Border Radius');
             return !hidden && (
                 <MUISwitch
                     // Properties
@@ -65,7 +66,7 @@ export default class Switch extends ReactBrick {
                     // UI
                     sx={{
                         ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
-                        ...ifNotNull('borderRadius', useProperty($, 'Border Radius')),
+                        ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                         tabIndex: useProperty($, 'Tab Index'),
                         ...cssToSxProps(useProperty($, 'CSS Property')),
                         ...jsonToSxProps(useProperty($, 'MUI sx [json]'))

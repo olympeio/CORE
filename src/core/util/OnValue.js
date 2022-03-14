@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -31,7 +31,7 @@ This functions triggers the output control-flow every time the value of the inpu
 | Control Flow | Control Flow | The output control flow. |
 
 **/
-export default class OnValue extends FunctionBrick {
+export default class OnValue extends Brick {
 
     /**
      * @protected

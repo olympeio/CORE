@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, BurstTransaction, instanceToTag } from 'olympe';
+import { Brick, registerBrick, BurstTransaction, instanceToTag } from 'olympe';
 import {getLogger} from 'logging';
 import {combineLatest, Subject} from "rxjs";
 import {map} from "rxjs/operators"
 import {castPrimitiveValue} from "./_helpers";
 
-export default class FeedObjectProperty extends FunctionBrick {
+export default class FeedObjectProperty extends Brick {
 
     /**
      * The label used as key to save the burst transaction

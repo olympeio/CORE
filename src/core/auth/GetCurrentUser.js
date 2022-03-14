@@ -14,33 +14,20 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, Sync, Auth, ListDef} from 'olympe';
+import { Brick, registerBrick, Auth, QuerySingle } from 'olympe';
 
-/**
-## Description
-Data flow returning the current user.
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Current user | User | The current user. |
-**/
-export default class GetCurrentUser extends FunctionBrick {
+export default class GetCurrentUser extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} $
      * @param {!Array} _
-     * @param {function(!Sync)} setUser
+     * @param {function(!CloudObject)} setUser
      */
-    update(context, _, [setUser]) {
-        Auth.observeUser(context).subscribe(tag => {
-            const l = new ListDef(tag);
-            l.onReady(() => {
-                setUser(Sync.getInstance(tag));
-            });
+    update($, _, [setUser]) {
+        Auth.observeUser($).subscribe(tag => {
+            QuerySingle.from(tag).execute($)
+                .then(setUser);
         });
     }
 }

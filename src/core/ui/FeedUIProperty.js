@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import getScopeContext from "./util/updateContextProperty";
 import {castPrimitiveValue} from "../data/transaction/_helpers";
 
-export default class FeedUIProperty extends FunctionBrick {
+export default class FeedUIProperty extends Brick {
 
     /**
      * Executed every time an input (uIProperty, value) gets updated.

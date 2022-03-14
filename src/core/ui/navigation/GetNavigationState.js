@@ -1,5 +1,5 @@
 
-import { FunctionBrick, registerBrick, Context } from 'olympe';
+import { Brick, registerBrick, Context } from 'olympe';
 import {NavigationManager, parseCurrentHash} from 'helpers/navigation';
 
 /**
@@ -11,7 +11,7 @@ Gets the navigation state, the data after the hashtag (#) in the broswer URL for
 | Hash | String |  |
 
 **/
-export default class GetNavigationState extends FunctionBrick {
+export default class GetNavigationState extends Brick {
 
     /**
      * Executed every time an input gets updated.

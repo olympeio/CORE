@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -37,7 +37,7 @@ It always takes the sign of the dividend.
 | a mod b | Number | The result of the modulo operation. |
 
 **/
-export default class Modulo extends FunctionBrick {
+export default class Modulo extends Brick {
 
     /**
      * Executed every time an input gets updated.

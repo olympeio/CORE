@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { registerBrick, File, Sync } from 'olympe';
+import { registerBrick, File, CloudObject } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
-import { jsonToSxProps, cssToSxProps, ifNotTransparent } from 'helpers/mui';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
 
 import React from 'react';
 import CardMedia from '@mui/material/CardMedia';
@@ -52,7 +52,7 @@ export default class Image extends ReactBrick {
                 // Default image
                 else {
                     return from(new Promise((resolve) => {
-                        const defaultImage = /** @type {ImageFile} */(Sync.getInstance('016eb13ba1388f7bdd71'));
+                        const defaultImage = /** @type {File} */(CloudObject.get('016eb13ba1388f7bdd71'));
                         defaultImage.getContentUrl(_url => {
                             resolve(_url);
                         });
@@ -102,7 +102,7 @@ export default class Image extends ReactBrick {
                             width: width,
                             height: height,
                             ...ifNotTransparent('borderColor', borderColor),
-                            borderRadius: borderRadius,
+                            ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                             borderWidth: borderWidth,
                             borderStyle: 'solid',
                             boxSizing: 'border-box',
@@ -138,7 +138,7 @@ export default class Image extends ReactBrick {
                             objectFit: imageFit,
                             objectPosition: `${horizontalAlign} ${verticalAlign}`,
                             ...ifNotTransparent('borderColor', borderColor),
-                            borderRadius: borderRadius,
+                            ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                             borderWidth: borderWidth,
                             borderStyle: 'solid',
                             boxSizing: 'border-box',

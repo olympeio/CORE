@@ -113,7 +113,7 @@ export default class MediaPlayer extends ReactBrick {
             // Can't play
             else {
                 return !hidden && (
-                    <Box sx={{ backgroundColor: 'lightgrey', width: 1, height: 1 }}>
+                    <Box sx={{ backgroundColor: 'lightgrey', width: 1, height: 1, overflow: 'hidden' }}>
                         <Typography sx={{ color: 'black', padding: 1 }}>
                             <b>Media Player</b><br/>
                             Please enter a playable <code>Media URL</code> for the component to render.<br/>

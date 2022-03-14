@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {registerBrick, DBView, BusinessObject} from 'olympe';
+import {registerBrick, DBView, BusinessObject, Transaction, CloudObject} from 'olympe';
 import JsonToObject from './JsonToObject.js';
 
 /**
@@ -47,7 +47,7 @@ export default class JsonToObjectList extends JsonToObject {
      * @param {function()} forwardEvent
      */
     update(context, [json, businessModel, persist], [forwardEvent, setList]) {
-        const transaction = context.getTransaction();
+        const transaction = Transaction.from(context);
         transaction.persist(persist);
 
         // Try to parse the input JSON (parsing may fail if input is e.g. an array or an object). Return the result as is if its an array or wrapped in an array.
@@ -76,19 +76,18 @@ export default class JsonToObjectList extends JsonToObject {
 
         dataArray.forEach((data) => {
             // Check if the instance exists already in db or if it has been processed before to avoid duplication
-            const instance = transaction.create((businessModel));
-            this.parseProperties(db, transaction, instance, businessModel, data, mappingModels, instanceTags);
-            this.parseRelations(db, transaction, instance, businessModel, data, mappingModels, instanceTags);
-            result.push(instance);
+            const instanceTag = transaction.create((businessModel));
+            this.parseProperties(db, transaction, instanceTag, businessModel, data, mappingModels, instanceTags);
+            this.parseRelations(db, transaction, instanceTag, businessModel, data, mappingModels, instanceTags);
+            result.push(instanceTag);
         });
 
-        transaction.execute((success) => {
-            if (success) {
-                setList(result);
-            }
-            forwardEvent();
-        });
+        // Place a callback "afterExecution" to ensure that the transaction
+        // has been executed before to call CloudObject.get()
+        transaction.afterExecution(() => setList(result.map(CloudObject.get)));
 
+        Transaction.process(context, transaction)
+            .finally(() => forwardEvent());
     }
 }
 

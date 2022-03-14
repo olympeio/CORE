@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -30,7 +30,7 @@ Use trim js function: See: https://developer.mozilla.org/en-US/docs/Web/JavaScri
 | s.trim() | String | Trimmed string |
 
 **/
-export default class TrimString extends FunctionBrick {
+export default class TrimString extends Brick {
 
     /**
      * Executed every time an input gets updated.

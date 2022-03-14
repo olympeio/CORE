@@ -1,6 +1,6 @@
-import {Sync} from "olympe";
+import {CloudObject} from "olympe";
 
-export default class MockSync extends Sync {
+export default class MockSync extends CloudObject {
     constructor(tag) {
         super(undefined, tag);
 
@@ -11,7 +11,7 @@ export default class MockSync extends Sync {
         this.props.set(prop, val);
     }
 
-    getProperty(prop) {
+    get(prop) {
         return this.props.get(prop);
     }
 }

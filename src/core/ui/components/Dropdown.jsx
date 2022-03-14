@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { registerBrick, EnumValue } from 'olympe';
+import { registerBrick, EnumValue, Enum } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
 import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent } from 'helpers/mui';
 
@@ -36,19 +36,19 @@ export default class Dropdown extends ReactBrick {
     setupExecution($) {
         // Observe all Enum values (options)
         const observeSize = $.observe('Values', false).pipe(
-            switchMap((enumModel) =>  enumModel === null ? of(0): enumModel.getValues().observeSize())
+            switchMap((enumModel) =>  !(enumModel instanceof Enum) ? of(0): enumModel.getValues().observeSize())
         );
         const observeOptions = $.observe('Values', false).pipe(
             switchMap((enumModel) => {
-                return enumModel === null ? of([]) : of(enumModel.getValues()).pipe(
+                return !(enumModel instanceof Enum) ? of([]) : of(enumModel.getValues()).pipe(
                     combineLatestWith(observeSize),
                     switchMap(([list, size]) => {
                         const values = [];
                         if (size > 0) {
                             list.forEachCurrentValue(enumValue => values.push(combineLatest([
-                                enumValue.observeProperty(EnumValue.valueProp),
-                                enumValue.observeProperty(EnumValue.nameProp),
-                                enumValue.observeProperty(EnumValue.rankProp)
+                                enumValue.observe($, EnumValue.valueProp),
+                                enumValue.observe($, EnumValue.nameProp),
+                                enumValue.observe($, EnumValue.rankProp)
                             ])));
                             return combineLatest(values);
                         }
@@ -86,8 +86,10 @@ export default class Dropdown extends ReactBrick {
             const fontFamily = useProperty($, 'Font Family');
             const borderWidth = useProperty($, 'Border Width');
             const borderColor = useProperty($, 'Border Color');
+            const borderRadius = useProperty($, 'Border Radius');
             const emptyText = useProperty($, 'Empty Text');
             const showNames = useProperty($, 'Show Names');
+            const showBorder = borderWidth > 0 && borderColor.toHexString() !== '#00000000';
 
             // Handle multiple selection
             let muiValue = multiple ? [] : '';
@@ -129,10 +131,10 @@ export default class Dropdown extends ReactBrick {
                             fontFamily: fontFamily,
                             tabIndex: useProperty($, 'Tab Index'),
                             ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
-                            ...ifNotNull('borderRadius', useProperty($, 'Border Radius')),
-                            ...ifNotNull('borderWidth', borderWidth),
-                            ...ifNotTransparent('borderStyle', 'solid', borderColor),
-                            ...ifNotNull('boxSizing', 'border-box', borderWidth),
+                            ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
+                            ...ifNotNull('borderWidth', borderWidth, showBorder),
+                            ...ifNotNull('borderStyle', 'solid', showBorder),
+                            ...ifNotNull('boxSizing', 'border-box', showBorder),
                             ...ifNotTransparent('borderColor', borderColor),
                             ...ifNotNull('color', useProperty($, 'Text Color Override'), !useProperty($, 'Error'))
                         }

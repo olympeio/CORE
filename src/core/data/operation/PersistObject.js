@@ -14,23 +14,10 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, Transaction, CreateInstance, instanceToTag } from 'olympe';
+import { Brick, registerBrick, Transaction, instanceToTag } from 'olympe';
 import {getLogger} from 'logging';
 
-/**
- ## Description
- Persists a local object into the server's database.
-
- ## Inputs
- | Name | Type | Description |
- | --- | :---: | --- |
- | object | Object | The object to persist. |
- ## Outputs
- | Name | Type | Description |
- | --- | :---: | --- |
- | object | Object | The persisted object. |
- **/
-export default class PersistObject extends FunctionBrick {
+export default class PersistObject extends Brick {
 
     /**
      * Executed every time an input gets updated.
@@ -45,16 +32,11 @@ export default class PersistObject extends FunctionBrick {
         const transaction = new Transaction();
         const logger = getLogger('Persist Object');
 
-        if (objectIn instanceof CreateInstance || instanceToTag(objectIn) !== '') {
-            transaction.persistInstance(objectIn);
-            transaction.execute( (success, message) => {
-                if (success) {
-                    setObjectOut(objectIn);
-                } else {
-                    logger.error(message);
-                    setObjectOut(objectIn);
-                }
-            })
+        if (typeof objectIn === 'string' || instanceToTag(objectIn) !== '') {
+            transaction.persistInstance(objectIn, true);
+            transaction.execute()
+                .catch(message => logger.error(message))
+                .finally(() => setObjectOut(objectIn));
         } else {
             logger.error('Cannot persist object', objectIn);
             setObjectOut(objectIn);

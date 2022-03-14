@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, ErrorFlow } from 'olympe';
+import { Brick, registerBrick, ErrorFlow } from 'olympe';
 import {map} from "rxjs/operators";
 
-export default class ThrowError extends FunctionBrick {
+export default class ThrowError extends Brick {
 
     /**
      * @override

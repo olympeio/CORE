@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import { add } from 'date-fns'
 
 /**
@@ -36,7 +36,7 @@ Adds an amount of days, months, years, weeks, hours, minutes and seconds to a da
 | --- | :---: | --- |
 | new date | DateTime | The resulting `DateTime`. |
 **/
-export default class DateTimeAdd extends FunctionBrick {
+export default class DateTimeAdd extends Brick {
 
     /**
      * Executed every time an input (date, years, months, days, weeks, hours, minutes, seconds) gets updated.

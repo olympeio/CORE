@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
-export default class Min extends FunctionBrick {
+export default class Min extends Brick {
 
     /**
      * Executed every time an input (a, b) gets updated.

@@ -14,47 +14,25 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, ListDef, predicates} from "olympe";
+import {Brick, registerBrick, ListDef, predicates, QueryResult} from "olympe";
 import {filterArray, filterListDef} from "./utils";
 import {getLogger} from 'logging';
 
-/**
-## Description
-This function filters out a list by comparing a specific object's property to a given threshold value. It generates a
-new list that contains only the objects whose property is smaller (or equal) to the threshold value. For the moment,
-only the following property/value types are supported: string, number, and datetime.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Object list | List | The list to filter. |
-| Property | Property | The property to filter on. |
-| Value | String/Number/Date/DateTime | The threshold value to compare to. |
-| Strict | Boolean | Whether the inequality must be strict or not. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Filtered list | List | The resulting list. |
-
-**/
-export default class FilterListSmaller extends FunctionBrick {
+export default class FilterListSmaller extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
-     * @param {!ListDef| !Array<!Sync>} list
+     * @param {!BrickContext} $
+     * @param {!ListDef|!Array<!Sync>|!QueryResult} list
      * @param {!PropertyDescriptor} property
      * @param {string | number | Date} value
      * @param {boolean} strict
      * @param {function(!ListDef | !Array<!Sync>)} setFiltered
      */
-    update(context, [list, property, value, strict], [setFiltered]) {
-        if (Array.isArray(list)) {
-            setFiltered(filterArray(list, (v) => {
-                const _v = v.getProperty(property);
+    update($, [list, property, value, strict], [setFiltered]) {
+        if (Array.isArray(list) || list instanceof QueryResult) {
+            setFiltered(filterArray(Array.isArray(list) ? list : list.toArray(), (v) => {
+                const _v = v.get(property);
                 return strict ? _v < value : _v <= value;
             }));
         } else if (list instanceof ListDef) {
@@ -63,7 +41,7 @@ export default class FilterListSmaller extends FunctionBrick {
                 return strict ? smaller : new predicates.Or(smaller, new predicates.Equals(_property, _value));
             }));
         } else {
-            getLogger('Filter List Smaller').error('List is not a ListDef or an Array');
+            getLogger('Filter List Smaller').error('List is not a ListDef, an Array or a QueryResult');
         }
     }
 }

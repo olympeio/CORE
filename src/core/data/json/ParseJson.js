@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import {getLogger} from 'logging';
 import {JSONPath} from 'jsonpath-plus';
 
@@ -37,7 +37,7 @@ ParseJson('{ "a": { "b": "hello"}}, 'a.b') -> "hello"
 | result | Object |  |
 
 **/
-export default class ParseJson extends FunctionBrick {
+export default class ParseJson extends Brick {
 
     /**
      * Executed every time an input gets updated.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import { isEqual } from 'date-fns'
 
 /**
@@ -32,7 +32,7 @@ Returns true if the datetime object equals another datetime object, false otherw
 | Are equals | Date/Time | The result. |
 
 **/
-export default class IsDateTimeEqual extends FunctionBrick {
+export default class IsDateTimeEqual extends Brick {
 
     /**
      * Executed every time an input (dateToCompare, comparisonDate) gets updated.

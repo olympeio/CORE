@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
-export default class GetUIProperty extends FunctionBrick {
+export default class GetUIProperty extends Brick {
 
     /**
      * Executed every time an input gets updated.
@@ -25,8 +25,8 @@ export default class GetUIProperty extends FunctionBrick {
      *
      * @protected
      * @param {!Context} _
-     * @param {PropertyPrimitive} uiProperty
-     * @param {function(PropertyPrimitive)} setValue
+     * @param {PropertyModel} uiProperty
+     * @param {function(PropertyModel)} setValue
      */
     onUpdate(_, [uiProperty], [setValue]) {
         setValue(uiProperty)

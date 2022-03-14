@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, instanceToTag, RelationPrimitive, Direction, DBView, transformers, ListDef } from 'olympe';
+import { Brick, registerBrick, instanceToTag, RelationModel, Direction, DBView, transformers, ListDef } from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -27,7 +27,7 @@ export const getOrientedRelation = (object, relation) => {
 
     // NB Relation here is a instance of Relation
     // Get model at origin of relation
-    const originModel = db.getUniqueRelated(relation, RelationPrimitive.originModelRel);
+    const originModel = db.getUniqueRelated(relation, RelationModel.originModelRel);
 
     // Auto detect the direction in which the relation should be followed : assess whether the provided object is an instance of the relation's origin
     // In case the relation as the same model as origin and destination, the only supported behaviour is origin -> destination (COM-1042)
@@ -59,7 +59,7 @@ export const getRelatedObjects = (object, relation) => {
  | --- | :---: | --- |
  | List | List | The list of objects. |
  **/
-export default class GetRelatedObjects extends FunctionBrick {
+export default class GetRelatedObjects extends Brick {
 
     /**
      * Executed every time an input gets updated.

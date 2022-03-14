@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -32,7 +32,7 @@ I.E. If the string is 'true' (case-insensitive match), then it returns `true`, o
 | boolean | Boolean | The result of the conversion. |
 
 **/
-export default class ParseBoolean extends FunctionBrick {
+export default class ParseBoolean extends Brick {
 
     /**
      * Executed every time an input gets updated.

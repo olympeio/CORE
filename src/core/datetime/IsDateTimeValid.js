@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import { isValid } from 'date-fns'
 
 /**
@@ -31,7 +31,7 @@ Returns true if the datetime object is a valid datetime, false otherwise.
 | Is valid | Date/Time | True if the datetime is valid, false otherwise. |
 
 **/
-export default class IsDateTimeValid extends FunctionBrick {
+export default class IsDateTimeValid extends Brick {
 
     /**
      * Executed every time an input (date) gets updated.

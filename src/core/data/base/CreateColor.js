@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, Color } from 'olympe';
+import { Brick, registerBrick, Color } from 'olympe';
 
 /**
 ## Description
@@ -33,7 +33,7 @@ Each value has to be in the 0 - 255 range.
 | --- | :---: | --- |
 | color | Color | The created color. |
 **/
-export default class CreateColor extends FunctionBrick {
+export default class CreateColor extends Brick {
 
     /**
      * Executed every time an input gets updated.

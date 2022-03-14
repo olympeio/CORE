@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
-export default class Ticker extends FunctionBrick {
+export default class Ticker extends Brick {
 
     /**
      * The label used as key to save the interval id

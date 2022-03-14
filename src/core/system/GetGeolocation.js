@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -29,7 +29,7 @@ This is updated in real time, but can require a permission check with the user.
 | altitude | Number | The altitude. |
 
 **/
-export default class GetGeolocation extends FunctionBrick {
+export default class GetGeolocation extends Brick {
 
     /**
      * Executed every time an input gets updated.
@@ -49,13 +49,22 @@ export default class GetGeolocation extends FunctionBrick {
         if(!navigator.geolocation) {
             logger.error('Cannot access geolocation data. Please make sure you allowed the geolocation feature for this page.');
         } else {
-            navigator.geolocation.getCurrentPosition((position) => {
-                setLongitude(position.coords.longitude);
-                setLatitude(position.coords.latitude);
-                setAltitude(position.coords.altitude);
-            }, (error) => {
-                logger.error(error);
-            });
+            navigator.geolocation.getCurrentPosition(
+                /**
+                 * @param {!GeolocationPosition} position See {@link https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPosition GeolocationPosition on MDN}
+                 */
+                (position) => {
+                    setLongitude(position.coords.longitude);
+                    setLatitude(position.coords.latitude);
+                    setAltitude(position.coords.altitude);
+                },
+                /**
+                 * @param {!GeolocationPositionError} error See {@link https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPositionError GeolocationPositionError on MDN}
+                 */
+                (error) => {
+                    logger.error(error.message);
+                }
+            );
         }
     }
 }

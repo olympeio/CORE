@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import {map} from "rxjs/operators";
 
-export default class Branch extends FunctionBrick {
+export default class Branch extends Brick {
 
     /**
      * @override

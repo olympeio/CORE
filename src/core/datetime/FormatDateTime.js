@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import {getLogger} from 'logging';
 import { format } from 'date-fns';
 
@@ -37,7 +37,7 @@ See https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
 | formatted datetime | String | The resulting string. |
 
 **/
-export default class FormatDateTime extends FunctionBrick {
+export default class FormatDateTime extends Brick {
 
     /**
      * Executed every time an input gets updated.

@@ -93,7 +93,7 @@ export default class Dialog extends VisualBrick {
         // In DRAW we want to show a placeholder
         if($.get(GlobalProperties.EDITION, true)) {
             return (
-                <Box sx={{ backgroundColor: 'lightgrey', width: 1, height: 1 }}>
+                <Box sx={{ backgroundColor: 'lightgrey', width: 1, height: 1, overflow: 'hidden' }}>
                     <Typography sx={{ color: 'black', padding: 1 }}>
                         <b>Dialog</b><br/>
                         To control it use events <code>Open Dialog</code> and <code>Close Dialog</code>.

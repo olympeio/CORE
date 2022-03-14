@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -32,7 +32,7 @@ Use endsWith js function: See: https://developer.mozilla.org/en-US/docs/Web/Java
 | s1.endsWith(s2, length) | Boolean | True if s1 ends with s2 |
 
 **/
-export default class StringEndsWith extends FunctionBrick {
+export default class StringEndsWith extends Brick {
 
     /**
      * Executed every time an input gets updated.

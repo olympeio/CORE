@@ -14,23 +14,10 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, DBView, Transaction, Sync } from 'olympe';
+import { Brick, registerBrick, DBView, Transaction, CloudObject } from 'olympe';
 import {getLogger} from 'logging';
 
-/**
-## Description
-Creates an instance of the specified model. It is said to be `local` because it is not yet persisted in the main
-database. See `Persist Object` for how to persist in the database a newly created local object.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| model | Model | The model of the instance. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| object | Object | The created instance. |
-**/
-export default class CreateLocalObject extends FunctionBrick {
+export default class CreateLocalObject extends Brick {
 
     /**
      * Executed every time an input gets updated.
@@ -39,7 +26,7 @@ export default class CreateLocalObject extends FunctionBrick {
      * @protected
      * @param {!Context} context
      * @param {InstanceTag} model
-     * @param {function(Sync)} setObject
+     * @param {function(CloudObject)} setObject
      */
     update(context, [model], [setObject]) {
         const logger = getLogger('Create Local Object');
@@ -49,16 +36,13 @@ export default class CreateLocalObject extends FunctionBrick {
         transaction.persist(false);
 
         // And create operation to the transaction
-        const instanceTag = transaction.create(model).persist(false).getTag();
+        const instanceTag = transaction.create(model);
+        transaction.persistInstance(instanceTag, false);
 
         // Execute the transaction
-        transaction.execute((success) => {
-            if (!success) {
-                logger.error('Isolated transaction (local) failed');
-            } else {
-                setObject(Sync.getInstance(instanceTag));
-            }
-        });
+        transaction.execute()
+            .then(() => setObject(CloudObject.getInstance(instanceTag)))
+            .catch(() => logger.error('Isolated transaction (local) failed'));
 
         // Destroy the local object when context is unloaded
         // WARNING: we register this callback independently if the Create transaction is performed by this "brick"
@@ -71,11 +55,8 @@ export default class CreateLocalObject extends FunctionBrick {
             if (dbView.exist(instanceTag) && !dbView.isPersisted(instanceTag)) {
                 const reverseTransaction = new Transaction();
                 reverseTransaction.delete(instanceTag);
-                reverseTransaction.execute(success => {
-                    if (!success) {
-                        logger.error('Failed to delete local object. Investigate.');
-                    }
-                });
+                reverseTransaction.execute()
+                    .catch(() => logger.error('Failed to delete local object. Investigate.'));
             }
         });
     }

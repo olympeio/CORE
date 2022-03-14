@@ -14,56 +14,28 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, instanceToTag } from 'olympe';
-import {getRelatedObjects} from "../list/GetRelatedObjects";
-import {getLogger} from 'logging';
+import { Brick, registerBrick, Relation, Direction } from 'olympe';
+import { getLogger } from 'logging';
 
-
-/**
-## Description
-Retrieves the first object connected to the specified object via a relation.
-Note: The direction of the relation is not taken into account.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Object | Object | The origin object. |
-| Relation | Relation | The relation. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| object | Object | The related object. |
-**/
-export default class GetUniqueRelatedObject extends FunctionBrick {
+export default class GetUniqueRelatedObject extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
-     * @param {!InstanceTag} object
-     * @param {!InstanceTag} relation
-     * @param {function(Sync)} setObject
+     * @param {!BrickContext} $
+     * @param {!CloudObject} object
+     * @param {!RelationModel} relation Assumed to be always in direction origin->destination
+     * @param {function(!CloudObject)} setObject
      */
-    update(context, [object, relation], [setObject]) {
-        const logger = getLogger('Get Unique Related Object');
-
-        // Prevent errors
-        if (instanceToTag(object) === '') {
-            logger.error('Invalid `object` provided');
-            return;
-        } else if (instanceToTag(relation) === '') {
-            logger.error('Invalid `relation` provided');
-            return;
-        }
-
-        const relatedObjects = getRelatedObjects(object, relation);
-        relatedObjects.observeSize().subscribe((size) => {
-            if (size.value > 1) {
-                logger.warn(`${db.name(db.model(object))} ${instanceToTag(object)} is related to ${size.value} objects through relation ${db.name(relation)}`);
-            }
-        });
-        relatedObjects.observeFirst().subscribe(setObject);
+    update($, [object, relation], [setObject]) {
+        object.follow(new Relation(relation, Direction.DESTINATION))
+            .observe($)
+            .subscribe(result => {
+                if(result.size() !== 1) {
+                    getLogger('Get Unique Related Object')
+                        .warn(`${object.getModel().name()} ${object.getTag()} is related to ${result.size()} object(s) through relation ${relation.name()}`);
+                }
+                setObject(result.getFirst());
+            });
     }
 }
 

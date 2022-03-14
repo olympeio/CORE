@@ -15,38 +15,22 @@
  * limitations under the License.
  */
 
-import {FunctionBrick, registerBrick, ListDef} from 'olympe';
+import {Brick, registerBrick, ListDef, QueryResult} from 'olympe';
 import {getLogger} from 'logging';
 
-/**
-## Description
-Get all entries of a list. First, get all entries existing before the execution of this function. Then, continuously
-get all new entries added to the watched list.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| List | List | The list from which to get entries. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Entry | Object | A single list entry. |
-**/
-export default class ListForEachEntries extends FunctionBrick {
+export default class ListForEachEntries extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
-     * @param {!ListDef|!Array} list
-     * @param {function(object)} setObject
+     * @param {!BrickContext} $
+     * @param {!ListDef|!List} list
+     * @param {function(!*)} setObject
      */
-    update(context, [list], [setObject]) {
-        if(Array.isArray(list) || list instanceof ListDef) {
+    update($, [list], [setObject]) {
+        if(Array.isArray(list) || list instanceof ListDef || list instanceof QueryResult) {
             list.forEach(object => setObject(object));
         } else {
-            getLogger('List For Each Entries').error('TypeError: The list should be of type ListDef or Array');
+            getLogger('List For Each Entries').error('TypeError: The list should be of type ListDef, Array or QueryResult');
         }
     }
 }

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, Context, ErrorFlow } from 'olympe';
+import { Brick, registerBrick, Context, ErrorFlow } from 'olympe';
 import { j2xParser } from 'fast-xml-parser';
 
 /**
@@ -36,7 +36,7 @@ Parses a Json into a Xml string, wrapping the result in a series of tags specifi
 | undefined | undefined | Parsing error. |
 
 **/
-export default class JsonToXml extends FunctionBrick {
+export default class JsonToXml extends Brick {
 
     /**
      * Executed every time an input gets updated.

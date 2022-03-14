@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -32,7 +32,7 @@ Use padStart js function. See: https://developer.mozilla.org/en-US/docs/Web/Java
 | padded string | String | Padded string. |
 
 **/
-export default class PadStartOfString extends FunctionBrick {
+export default class PadStartOfString extends Brick {
 
     /**
      * Executed every time an input gets updated.

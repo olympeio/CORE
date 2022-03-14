@@ -17,7 +17,7 @@
 import {Direction, transformers, DBView} from 'olympe';
 
 /**
- * @param {FunctionBrick} brick
+ * @param {Brick} brick
  * @param {string} input
  * @return {Array<?string>} [scope, property] or [null, null]
  */

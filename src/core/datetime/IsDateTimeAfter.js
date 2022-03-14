@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import { isAfter, isEqual } from 'date-fns'
 
 /**
@@ -33,7 +33,7 @@ Returns true if the datetime object is after another datetime object, false othe
 | Is date after | Date/Time | The result. |
 
 **/
-export default class IsDateTimeAfter extends FunctionBrick {
+export default class IsDateTimeAfter extends Brick {
 
     /**
      * Executed every time an input (dateToCompare, comparisonDate, strictly) gets updated.

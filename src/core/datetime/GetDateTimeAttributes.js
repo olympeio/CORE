@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import { getYear, getMonth, getDate, getHours, getMinutes, getSeconds } from 'date-fns'
 
 /**
@@ -36,7 +36,7 @@ Provides the years, the months, the days, the hours, the minutes and the seconds
 | Seconds | Number | The seconds of the given datetime. |
 
 **/
-export default class GetDateTimeAttributes extends FunctionBrick {
+export default class GetDateTimeAttributes extends Brick {
 
     /**
      * Executed every time an input (date) gets updated.

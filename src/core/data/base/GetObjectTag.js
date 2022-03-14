@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick, instanceToTag } from 'olympe';
+import { Brick, registerBrick, instanceToTag } from 'olympe';
 
 /**
 ## Description
@@ -27,7 +27,7 @@ Get the tag of an object.
 | --- | :---: | --- |
 | value | string | The object tag. |
 **/
-export default class GetObjectTag extends FunctionBrick {
+export default class GetObjectTag extends Brick {
 
     /**
      * Executed every time an input gets updated.

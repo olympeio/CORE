@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import { isBefore, isEqual } from 'date-fns'
 
 /**
@@ -33,7 +33,7 @@ Returns true if the datetime object is before another datetime object, false oth
 | Is date before | Date/Time | The result. |
 
 **/
-export default class IsDateTimeBefore extends FunctionBrick {
+export default class IsDateTimeBefore extends Brick {
 
     /**
      * Executed every time an input (dateToCompare, comparisonDate, strictly) gets updated.

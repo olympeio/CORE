@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -27,7 +27,7 @@ Gets the absolute position of the mouse.
 | y | Number | The y coordinate. |
 
 **/
-export default class GetMouseCoordinates extends FunctionBrick {
+export default class GetMouseCoordinates extends Brick {
 
     /**
      * Executed every time an input gets updated.

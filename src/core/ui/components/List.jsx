@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick } from 'olympe';
+import { VisualBrick, registerBrick, QueryResult, ListDef, GlobalProperties } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -26,6 +26,7 @@ import { combineLatestWith, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
+import {getLogger} from "logging";
 
 /**
  * Provide a "List Renderer" visual component using MUI
@@ -48,10 +49,15 @@ export default class List extends VisualBrick {
         const observeList = $.observe('Data', false);
         const observeListAsArray = observeList.pipe(switchMap(list => {
             let sizeObservable;
-            if (!list) {
-                sizeObservable = of(0);
+            if (Array.isArray(list)) {
+                sizeObservable = of(list.length);
+            } else if (list instanceof QueryResult) {
+                sizeObservable = of(list.size());
+            } else if (list instanceof ListDef) {
+                sizeObservable = list.observeSize();
             } else {
-                sizeObservable = Array.isArray(list) ? of(list.length) : list.observeSize();
+                getLogger('List component').warn('No data list has been set (maybe you set a query or nothing?)');
+                sizeObservable = of(0);
             }
             return sizeObservable.pipe(
                 combineLatestWith($.observe('Reverse')),
@@ -61,6 +67,11 @@ export default class List extends VisualBrick {
                         // Array case
                         if(Array.isArray(list)) {
                             elements = !reverse ? list : list.reverse();
+                        }
+
+                        // QueryResult case
+                        else if(list instanceof QueryResult) {
+                            elements = !reverse ? list.toArray() : list.toArray().reverse();
                         }
 
                         // ListDef case
@@ -153,8 +164,8 @@ export default class List extends VisualBrick {
                     ...jsonToSxProps(muiSxJson)
                 }}
             >
-                {$.get('Data') && renderer
-                    // Only render if there is a list and a renderer
+                {(($.get('Data') && renderer) || !$.get(GlobalProperties.EDITION, true))
+                    // Only render if there is a list and a renderer, OR if we are not in draw
                     ? elements.map((item, rank) => {
                         return (
                             <Box
@@ -202,7 +213,7 @@ export default class List extends VisualBrick {
 
                     // No list or renderer
                     : (
-                        <Box sx={{ backgroundColor: 'lightgrey', width: 1, height: 1 }}>
+                        <Box sx={{ backgroundColor: 'lightgrey', width: 1, height: 1, overflow: 'hidden' }}>
                             <Typography sx={{ color: 'black', padding: 1 }}>
                                 <b>List</b><br/>
                                 The following properties have to be defined for the component to render:<br/>

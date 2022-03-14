@@ -40,7 +40,7 @@ export default class GetFileContent extends ActionBrick {
             logger.error(`Could not retrieve content of ${file}\n${message}`);
         };
 
-        const mimeType = file.getProperty(File.mimeTypeProp) || '';
+        const mimeType = file.get(File.mimeTypeProp) || '';
         const asText = isMimeTypeText(mimeType);
         if (asText) {
             file.getContentAsString((content) => {

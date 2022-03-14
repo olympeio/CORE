@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -32,7 +32,7 @@ equal to `b`.
 | a < b | Boolean | `true` is `a` is smaller than `b`. |
 **/
 
-export default class IsSmallerThan extends FunctionBrick {
+export default class IsSmallerThan extends Brick {
 
     /**
      * Executed every time an input gets updated.

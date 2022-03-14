@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -31,7 +31,7 @@ Outputs the provided value on the console, it can be any JS object that has a st
 | value | Object | The object that was passed in. |
 
 **/
-export default class DebugLog extends FunctionBrick {
+export default class DebugLog extends Brick {
 
     /**
      * Executed every time an input gets updated.

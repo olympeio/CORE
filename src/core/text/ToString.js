@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -31,7 +31,7 @@ Returns the string representation of the object.
 | string | String | The resulting string. |
 
 **/
-export default class ToString extends FunctionBrick {
+export default class ToString extends Brick {
 
     /**
      * Executed every time an input gets updated.

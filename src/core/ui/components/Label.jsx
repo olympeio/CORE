@@ -17,7 +17,7 @@
 import { registerBrick } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
 import { markdownTextToReactElement } from 'helpers/remarkable';
-import { jsonToSxProps, cssToSxProps, ifNotTransparent } from 'helpers/mui';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
 
 import React from 'react';
 import Typography from '@mui/material/Typography';
@@ -42,6 +42,7 @@ export default class Label extends ReactBrick {
         return (props) => {
             const [hidden] = props.values;
             const text = useProperty($, 'Text');
+            const borderRadius = useProperty($, 'Border Radius');
             return !hidden && (
                 <Box
                     // UI
@@ -51,7 +52,7 @@ export default class Label extends ReactBrick {
                         display: 'flex',
                         overflow: 'visible',
                         ...ifNotTransparent('borderColor', useProperty($, 'Border Color')),
-                        borderRadius: useProperty($, 'Border Radius'),
+                        ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                         borderWidth: useProperty($, 'Border Width'),
                         borderStyle: 'solid',
                         boxSizing: 'border-box',

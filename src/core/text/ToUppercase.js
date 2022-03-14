@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FunctionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -32,7 +32,7 @@ Returns a new string containing the value of the string converted to upper case.
 | result | String | The resulting string. |
 
 **/
-export default class ToUppercase extends FunctionBrick {
+export default class ToUppercase extends Brick {
 
     /**
      * Executed every time an input gets updated.
