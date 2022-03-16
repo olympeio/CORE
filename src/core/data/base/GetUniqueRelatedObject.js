@@ -30,9 +30,9 @@ export default class GetUniqueRelatedObject extends Brick {
         object.follow(new Relation(relation, Direction.DESTINATION))
             .observe($)
             .subscribe(result => {
-                if(result.size() !== 1) {
+                if(result.size() > 1) {
                     getLogger('Get Unique Related Object')
-                        .warn(`${object.getModel().name()} ${object.getTag()} is related to ${result.size()} object(s) through relation ${relation.name()}`);
+                        .warn(`${object.getModel().name()} ${object.getTag()} is related to ${result.size()} objects through relation ${relation.name()}`);
                 }
                 setObject(result.getFirst());
             });
