@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {ActionBrick, registerBrick, instanceToTag, ErrorFlow, DBView, RelationModel, Transaction} from 'olympe';
+import {ActionBrick, registerBrick, instanceToTag, ErrorFlow, DBView, RelationModel, Transaction, File as OFile} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -77,13 +77,16 @@ export default class CreateRelation extends ActionBrick {
         const db = DBView.get();
         const originModel = transaction.model(origin);
         const destinationModel = transaction.model(destination);
+        const relOriginModel = db.getUniqueRelated(relationTag, RelationModel.originModelRel);
+        const relDestModel = db.getUniqueRelated(relationTag, RelationModel.destinationModelRel);
 
-        if (!db.isExtending(originModel, db.getUniqueRelated(relationTag, RelationModel.originModelRel))) {
+        if (!db.isExtending(originModel, relOriginModel)) {
             returnError(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the origin object (${db.name(originModel)}).`,4);
             return;
         }
 
-        if (!db.isExtending(destinationModel, db.getUniqueRelated(relationTag, RelationModel.destinationModelRel))) {
+        // Include backwards compatibility check for File sub-types (e.g. ImageFile -> File)
+        if (!(db.isExtending(destinationModel, OFile) && db.isExtending(relDestModel, OFile)) && !db.isExtending(destinationModel, relDestModel)) {
             returnError(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the destination object (${db.name(destinationModel)}).`,5);
             return;
         }
