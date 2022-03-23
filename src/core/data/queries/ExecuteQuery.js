@@ -1,4 +1,5 @@
 import { ActionBrick, registerBrick, ErrorFlow } from 'olympe';
+import { getLogger } from 'logging';
 
 export default class ExecuteQuery extends ActionBrick {
 
@@ -14,7 +15,7 @@ export default class ExecuteQuery extends ActionBrick {
     update($, [query], [forwardEvent, setQueryResult, setErrorFlow]) {
         query.execute($)
             .then(queryResult => setQueryResult(queryResult))
-            .catch(message => setErrorFlow(ErrorFlow.create(message, 1)))
+            .catch(message => getLogger('ExecuteQuery').error(`Failed execute query with error : ${message}`))
             .finally(() => forwardEvent());
     }
 }
