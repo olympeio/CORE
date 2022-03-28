@@ -112,12 +112,11 @@ function WebcamWithRef(props) {
     const [constraints, setConstraints] = useState(null);
     const [hasMultiCamera, setHasMultiCamera] = useState(false);
 
-    // MediaDevices can change. For example after user gives permission to access camera.
-    navigator.mediaDevices.addEventListener('devicechange', event => {
+    const checkDeviceList = () => {
         navigator.mediaDevices.enumerateDevices().then((devices) => {
             setHasMultiCamera(devices.filter(device => device.kind === 'videoinput').length > 1);
         });
-    });
+    };
     useEffect(() => {
         // `facingMode: 'user'` is used for front camera on smartphones and the default camera on computers
         // `facingMode: {exact: 'environment'}` is only used when back camera is selected and when multiple cameras are available (e.g.: on smartphones)
@@ -126,8 +125,11 @@ function WebcamWithRef(props) {
 
     useEffect(() => {
         // This is necessary to trigger the event manager on mediaDevices, at least on Safari
-        navigator.mediaDevices.enumerateDevices().then((devices) => {
-            setHasMultiCamera(devices.filter(device => device.kind === 'videoinput').length > 1);
+        checkDeviceList();
+        // MediaDevices can change. For example after user gives permission to access camera.
+        navigator.mediaDevices.addEventListener('devicechange', checkDeviceList);
+        props.context.onDestroy(() => {
+            navigator.mediaDevices.removeEventListener('devicechange', checkDeviceList);
         });
 
         // Take screenshot => observe must be called in the "useEffect" to avoid recalling it everytime React re-render the component
