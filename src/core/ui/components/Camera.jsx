@@ -26,6 +26,9 @@ import { Box } from "@mui/material";
 
 import { combineLatest } from "rxjs";
 
+const ua = navigator.userAgent.toLowerCase();
+const isAndroid = ua.indexOf('android') > -1;
+
 export default class Camera extends ReactBrick {
 
     /**
@@ -112,6 +115,9 @@ function WebcamWithRef(props) {
     const [constraints, setConstraints] = useState(null);
     const [hasMultiCamera, setHasMultiCamera] = useState(false);
 
+    const [androidTimeout, setAndroidTimeout] = useState(null);
+    const [androidWorkaroundCompleted, setAndroidWorkaroundCompleted] = useState(!isAndroid);
+
     const checkDeviceList = () => {
         navigator.mediaDevices.enumerateDevices().then((devices) => {
             setHasMultiCamera(devices.filter(device => device.kind === 'videoinput').length > 1);
@@ -120,7 +126,18 @@ function WebcamWithRef(props) {
     useEffect(() => {
         // `facingMode: 'user'` is used for front camera on smartphones and the default camera on computers
         // `facingMode: {exact: 'environment'}` is only used when back camera is selected and when multiple cameras are available (e.g.: on smartphones)
-        setConstraints({ facingMode: (props.source === 'front' || !hasMultiCamera) ? 'user' : {exact: 'environment'} });
+        setConstraints({ facingMode: (props.source === 'front' || !hasMultiCamera || !androidWorkaroundCompleted) ? 'user' : {exact: 'environment'} });
+
+        if (props.source === 'front' && !androidWorkaroundCompleted) {
+            setAndroidWorkaroundCompleted(true);
+        }
+
+        if (props.source === 'back' && !androidWorkaroundCompleted && !androidTimeout && hasMultiCamera) {
+            setAndroidTimeout(setTimeout(() => {
+                setAndroidWorkaroundCompleted(true);
+                checkDeviceList();
+            }, 1000));
+        }
     }, [props.source, hasMultiCamera]);
 
     useEffect(() => {
