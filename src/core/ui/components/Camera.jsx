@@ -135,10 +135,9 @@ function WebcamWithRef(props) {
         if (props.source === 'back' && !androidWorkaroundCompleted && !androidTimeout && hasMultiCamera) {
             setAndroidTimeout(setTimeout(() => {
                 setAndroidWorkaroundCompleted(true);
-                checkDeviceList();
             }, 1000));
         }
-    }, [props.source, hasMultiCamera]);
+    }, [props.source, hasMultiCamera, androidWorkaroundCompleted]);
 
     useEffect(() => {
         // This is necessary to trigger the event manager on mediaDevices, at least on Safari
