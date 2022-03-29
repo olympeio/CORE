@@ -157,6 +157,7 @@ function WebcamWithRef(props) {
             // Properties + UI
             ref={webcamRef}
             videoConstraints={constraints}
+            onUserMedia={checkDeviceList}
             {...props}
         />
     );
