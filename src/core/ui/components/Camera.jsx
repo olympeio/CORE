@@ -135,7 +135,7 @@ function WebcamWithRef(props) {
         if (props.source === 'back' && !androidWorkaroundCompleted && !androidTimeout && hasMultiCamera) {
             setAndroidTimeout(setTimeout(() => {
                 setAndroidWorkaroundCompleted(true);
-            }, 1000));
+            }, 100));
         }
     }, [props.source, hasMultiCamera, androidWorkaroundCompleted]);
 
