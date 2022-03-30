@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, instanceToTag, RelationModel, Direction, DBView, transformers, ListDef } from 'olympe';
+import { Brick, registerBrick, instanceToTag, transformers, ListDef } from 'olympe';
 import {getLogger} from 'logging';
+import { getRelationDirection } from './utils';
 
 /**
  * @param {!InstanceTag} object
@@ -23,16 +24,7 @@ import {getLogger} from 'logging';
  * @return {transformers.Related<Sync, Sync>}
  */
 export const getOrientedRelation = (object, relation) => {
-    const db = DBView.get();
-
-    // NB Relation here is a instance of Relation
-    // Get model at origin of relation
-    const originModel = db.getUniqueRelated(relation, RelationModel.originModelRel);
-
-    // Auto detect the direction in which the relation should be followed : assess whether the provided object is an instance of the relation's origin
-    // In case the relation as the same model as origin and destination, the only supported behaviour is origin -> destination (COM-1042)
-    const direction = db.getExtendedModels(db.model(object)).includes(originModel) ? Direction.DESTINATION : Direction.ORIGIN;
-
+    const direction = getRelationDirection(object, relation);
     return new transformers.Related(relation, direction);
 }
 

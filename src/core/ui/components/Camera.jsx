@@ -26,6 +26,9 @@ import { Box } from "@mui/material";
 
 import { combineLatest } from "rxjs";
 
+const ua = navigator.userAgent.toLowerCase();
+const isAndroid = ua.indexOf('android') > -1;
+
 export default class Camera extends ReactBrick {
 
     /**
@@ -110,14 +113,39 @@ export default class Camera extends ReactBrick {
 function WebcamWithRef(props) {
     const webcamRef = React.useRef();
     const [constraints, setConstraints] = useState(null);
+    const [hasMultiCamera, setHasMultiCamera] = useState(false);
+
+    const [androidTimeout, setAndroidTimeout] = useState(null);
+    const [androidWorkaroundCompleted, setAndroidWorkaroundCompleted] = useState(!isAndroid);
+
+    const checkDeviceList = () => {
+        navigator.mediaDevices.enumerateDevices().then((devices) => {
+            setHasMultiCamera(devices.filter(device => device.kind === 'videoinput').length > 1);
+        });
+    };
+    useEffect(() => {
+        // `facingMode: 'user'` is used for front camera on smartphones and the default camera on computers
+        // `facingMode: {exact: 'environment'}` is only used when back camera is selected and when multiple cameras are available (e.g.: on smartphones)
+        setConstraints({ facingMode: (props.source === 'front' || !hasMultiCamera || !androidWorkaroundCompleted) ? 'user' : {exact: 'environment'} });
+
+        if (props.source === 'front' && !androidWorkaroundCompleted) {
+            setAndroidWorkaroundCompleted(true);
+        }
+
+        if (props.source === 'back' && !androidWorkaroundCompleted && !androidTimeout && hasMultiCamera) {
+            setAndroidTimeout(setTimeout(() => {
+                setAndroidWorkaroundCompleted(true);
+            }, 1000));
+        }
+    }, [props.source, hasMultiCamera, androidWorkaroundCompleted]);
 
     useEffect(() => {
-        navigator.mediaDevices.enumerateDevices().then((devices) => {
-            const hasMultiCamera = devices.filter(device => device.kind === 'videoinput').length > 1;
-
-            // `facingMode: 'user'` is used for front camera on smartphones and the default camera on computers
-            // `facingMode: {exact: 'environment'}` is only used when back camera is selected and when multiple cameras are available (e.g.: on smartphones)
-            setConstraints({ facingMode: (props.source === 'front' || !hasMultiCamera) ? 'user' : {exact: 'environment'} });
+        // This is necessary to trigger the event manager on mediaDevices, at least on Safari
+        checkDeviceList();
+        // MediaDevices can change. For example after user gives permission to access camera.
+        navigator.mediaDevices.addEventListener('devicechange', checkDeviceList);
+        props.context.onDestroy(() => {
+            navigator.mediaDevices.removeEventListener('devicechange', checkDeviceList);
         });
 
         // Take screenshot => observe must be called in the "useEffect" to avoid recalling it everytime React re-render the component

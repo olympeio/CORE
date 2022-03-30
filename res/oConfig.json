@@ -3,8 +3,7 @@
     "subscribeAll": true
   },
   "server" : {
-    "autoConnect": true,
-    "reconnectionShortDelay": 5000
+    "autoConnect": true
   },
   "composer": {
     "suggestedUser": "admin"

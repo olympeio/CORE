@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {DatetimeModel, DBView, instanceToTag, NumberModel, PropertyModel, StringModel, BooleanModel, Enum, valuedefs, CloudObject} from "olympe";
+import {DatetimeModel, DBView, instanceToTag, NumberModel, PropertyModel, StringModel, BooleanModel, RelationModel, Enum, valuedefs, CloudObject, Direction} from "olympe";
 import {getLogger} from 'logging';
 
 /**
@@ -84,3 +84,21 @@ export const getValueDefFor = (property, allowBoolean=false) => {
     }
     return null;
 };
+
+/**
+ * @param {!Tag} object
+ * @param {!Tag} relation
+ * @return {!Direction}
+ */
+export const getRelationDirection = (object, relation) => {
+    const db = DBView.get();
+
+    // NB Relation here is a instance of Relation
+    // Get model at origin of relation
+    const originModel = db.getUniqueRelated(relation, RelationModel.originModelRel);
+
+    // Auto detect the direction in which the relation should be followed : assess whether the provided object is an instance of the relation's origin
+    // In case the relation has the same model for origin and destination, the only supported behaviour is origin -> destination (COM-1042)
+    return db.getExtendedModels(db.model(object)).includes(originModel) ? Direction.DESTINATION : Direction.ORIGIN;
+}
+

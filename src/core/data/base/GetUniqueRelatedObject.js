@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, Relation, Direction } from 'olympe';
+import { Brick, registerBrick, Relation } from 'olympe';
 import { getLogger } from 'logging';
+import { getRelationDirection } from '../list/utils';
 
 export default class GetUniqueRelatedObject extends Brick {
 
@@ -23,16 +24,17 @@ export default class GetUniqueRelatedObject extends Brick {
      * @protected
      * @param {!BrickContext} $
      * @param {!CloudObject} object
-     * @param {!RelationModel} relation Assumed to be always in direction origin->destination
+     * @param {!RelationModel} relation
      * @param {function(!CloudObject)} setObject
      */
     update($, [object, relation], [setObject]) {
-        object.follow(new Relation(relation, Direction.DESTINATION))
+        const direction = getRelationDirection(object, relation);
+        object.follow(new Relation(relation, direction))
             .observe($)
             .subscribe(result => {
-                if(result.size() !== 1) {
+                if(result.size() > 1) {
                     getLogger('Get Unique Related Object')
-                        .warn(`${object.getModel().name()} ${object.getTag()} is related to ${result.size()} object(s) through relation ${relation.name()}`);
+                        .warn(`${object.getModel().name()} ${object.getTag()} is related to ${result.size()} objects through relation ${relation.name()}`);
                 }
                 setObject(result.getFirst());
             });
