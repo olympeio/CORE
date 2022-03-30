@@ -55,7 +55,9 @@ export default class TextField extends ReactBrick {
             const borderWidth = useProperty($, 'Border Width');
             const borderRadius = useProperty($, 'Border Radius');
             const fontFamily = useProperty($, 'Font Family');
-            const showBorder = borderWidth > 0 && borderColor.toHexString() !== '#00000000';
+            const textColorOverflow = useProperty($, 'Text Color Override');
+            const showBorder = borderColor && borderWidth > 0 && borderColor.toHexString() !== '#00000000';
+            const showTextColorOverflow = textColorOverflow && !error && textColorOverflow.toHexString() !== '#00000000';
             return !hidden && (
                 <MUITextField
                     // Properties
@@ -96,7 +98,7 @@ export default class TextField extends ReactBrick {
                             ...ifNotNull('borderStyle', 'solid', showBorder),
                             ...ifNotNull('boxSizing', 'border-box', showBorder),
                             ...ifNotTransparent('borderColor', borderColor),
-                            ...ifNotNull('color', useProperty($, 'Text Color Override'), !error)
+                            ...ifNotNull('color', textColorOverflow && textColorOverflow.toHexString(), showTextColorOverflow)
                         },
 
                         // On Enter key pressed
