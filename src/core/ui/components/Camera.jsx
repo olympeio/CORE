@@ -161,9 +161,10 @@ function WebcamWithRef(props) {
             const screenshotName = `screenshot_${Date.now()}.${screenshotExtension}`;
             const tag = File.createFromContent(t, screenshotName, screenshotAsArrayBuffer, screenshotFormat);
             t.persistInstance(tag, false);
-            t.execute()
-                .then(() => props.context.set('Screenshot', CloudObject.get(tag)))
-                .catch(message => getLogger('Camera').warn('The application encountered a problem while taking a screenshot. The transaction failed.', message));
+            t.execute().catch(message => getLogger('Camera').warn('The application encountered a problem while taking a screenshot. The transaction failed.', message));
+            // Set the screenshot property synchronously in the context, instead of calling it inside the transaction callback
+            // because that component needs to get the screenshot directly for its usage in Draw. Moreover, it is a local, synchronous transaction that has no reason to fail
+            props.context.set('Screenshot', CloudObject.get(tag));
         });
     }, []);
 
