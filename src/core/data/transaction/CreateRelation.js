@@ -14,25 +14,17 @@
  * limitations under the License.
  */
 
-import {ActionBrick, registerBrick, instanceToTag, ErrorFlow, DBView, RelationModel, Transaction, File as OFile} from 'olympe';
+import {
+    ActionBrick,
+    registerBrick,
+    ErrorFlow,
+    DBView,
+    RelationModel,
+    Transaction,
+    File as OFile,
+    tagToString
+} from 'olympe';
 import {getLogger} from 'logging';
-
-/**
-## Description
-Creates a specified relation between 2 given objects.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| origin | Object | The origin object. |
-| relation | Relation | The relation. |
-| destination | Object | The destination object. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| origin | Object | The origin Object. |
-
-**/
 export default class CreateRelation extends ActionBrick {
 
     /**
@@ -51,7 +43,7 @@ export default class CreateRelation extends ActionBrick {
      */
     update(context, [origin, relation, destination], [forwardEvent, setErrorFlow, setOrigin, setDestination]) {
         const logger = getLogger('Create Relation');
-        const relationTag = instanceToTag(relation);
+        const relationTag = tagToString(relation);
 
         const returnError = (message, code) => {
             logger.error(message);
