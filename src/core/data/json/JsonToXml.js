@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, Context, ErrorFlow } from 'olympe';
-import { j2xParser } from 'fast-xml-parser';
+import { Brick, registerBrick, BrickContext, ErrorFlow } from 'olympe';
+import { XMLBuilder } from 'fast-xml-parser';
 
 /**
 ## Description
@@ -43,7 +43,7 @@ export default class JsonToXml extends Brick {
      * Note that this method will _not_ be executed if an input value is undefined.
      *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} json
      * @param {string} wrappersPath
      * @param {function(ErrorFlow)} dispatchErrorFlow
@@ -51,10 +51,10 @@ export default class JsonToXml extends Brick {
      */
     update(context, [json, wrappersPath], [dispatchErrorFlow, setXML]) {
         try {
-            const parser = new j2xParser();
+            const parser = new XMLBuilder();
             const jsonObj = JSON.parse(json);
             const jsonToParse = wrappersPath.length !== 0 ? wrappersPath.split('.').reverse().reduce((obj, key) => ({[key]: obj}), jsonObj) : jsonObj;
-            const xml = parser.parse(jsonToParse);
+            const xml = parser.build(jsonToParse);
             setXML(xml);
         } catch (error) {
             dispatchErrorFlow(ErrorFlow.create(error.message, 1));

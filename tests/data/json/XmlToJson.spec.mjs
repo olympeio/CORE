@@ -95,13 +95,13 @@ describe('XmlToJson brick', () => {
         // When
         const xml = '<menu><id>file';
         const wrappersPath = '';
-        const errorSetter = jasmine.createSpy().and.callFake(() => {});
         const jsonSetter = jasmine.createSpy().and.callFake(() => {});
+        const errorSetter = jasmine.createSpy().and.callFake(() => {});
 
         // Then
-        new XmlToJson().update(new Context(), [xml, wrappersPath], [errorSetter, jsonSetter]);
-        expect(errorSetter).toHaveBeenCalled();
+        new XmlToJson().update(new Context(), [xml, wrappersPath], [jsonSetter, errorSetter]);
         expect(jsonSetter).not.toHaveBeenCalled();
+        expect(errorSetter).toHaveBeenCalled();
     });
 
 });

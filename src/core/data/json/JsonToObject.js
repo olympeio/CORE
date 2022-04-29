@@ -17,6 +17,8 @@
 
 import {
     ActionBrick,
+    BrickContext,
+    InstanceTag,
     registerBrick,
     CloudObject,
     BusinessObject,
@@ -79,7 +81,7 @@ export default class JsonToObject extends ActionBrick {
      * @param {!string} businessModel
      * @param {!Object} data
      * @param {!Map} mappingModels
-     * @param {!Map<string, !Map<string, string>>=} instanceTags
+     * @param {!Map<string, !Map<string, string> >=} instanceTags
      */
     parseProperties(db, transaction, instance, businessModel, data, mappingModels, instanceTags) {
         const properties = db.getRelated(businessModel, BusinessObject.propertyRel);
@@ -105,7 +107,7 @@ export default class JsonToObject extends ActionBrick {
      * @param {!string} businessModel
      * @param {!Object} data
      * @param {!Map<string, string>} mappingModels
-     * @param {!Map<string, !Map<string, string>>=} instanceTags
+     * @param {!Map<string, !Map<string, string> >=} instanceTags
      */
     parseRelations(db, transaction, instance, businessModel, data, mappingModels, instanceTags) {
         const relations = db.getRelated(businessModel, RelationModel.originModelRel.getInverse());
