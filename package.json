@@ -61,7 +61,7 @@
     "@olympeio/runtime-node": "connection",
     "@olympeio/runtime-web": "connection",
     "date-fns": "2.22.1",
-    "fast-xml-parser": "3.19.0",
+    "fast-xml-parser": "4.0.7",
     "html-react-parser": "1.4.0",
     "json2csv": "5.0.6",
     "jsonpath-plus": "6.0.1",
@@ -74,6 +74,7 @@
     "react-player": "2.9.0",
     "react-webcam": "6.0.0",
     "remarkable": "2.0.1",
-    "rxjs": "7.5.4"
+    "rxjs": "7.5.4",
+    "xlsx": "0.18.5"
   }
 }

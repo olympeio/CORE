@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, Context, ErrorFlow } from 'olympe';
-import { parse } from 'fast-xml-parser';
+import { Brick, registerBrick, BrickContext, ErrorFlow } from 'olympe';
+import { XMLParser } from 'fast-xml-parser';
 
 /**
 ## Description
@@ -43,7 +43,7 @@ export default class XmlToJson extends Brick {
      * Note that this method will _not_ be executed if an input value is undefined.
      *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} xml
      * @param {string} wrappersPath
      * @param {function(ErrorFlow)} dispatchErrorFlow
@@ -52,7 +52,8 @@ export default class XmlToJson extends Brick {
     update(context, [xml, wrappersPath], [dispatchErrorFlow, setJson]) {
         try {
             if (xml.length !== 0) {
-                const parsedXml = parse(xml, undefined, true);
+                const parser = new XMLParser();
+                const parsedXml = parser.parse(xml);
                 const json = wrappersPath.length !== 0 ? wrappersPath.split('.').reduce((obj, key) => obj[key], parsedXml) : parsedXml;
                 setJson(JSON.stringify(json));
             } else {
