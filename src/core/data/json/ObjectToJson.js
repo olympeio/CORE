@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {ActionBrick, registerBrick, DBView, BusinessObject, RelationModel, transformers} from 'olympe';
+import {ActionBrick, BrickContext, registerBrick, DBView, BusinessObject, RelationModel, transformers} from 'olympe';
 
 export default class ObjectToJson extends ActionBrick {
 

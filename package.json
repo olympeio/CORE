@@ -1,13 +1,13 @@
 {
   "name": "@olympeio/core",
-  "version": "2.1.0-dev",
+  "version": "2.0.3",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/olympeio/CORE"
   },
   "build": {
-    "orchestratorVersion": "6.2.2"
+    "orchestratorVersion": "6.3.0"
   },
   "files": [
     "import",
@@ -36,7 +36,7 @@
     "@babel/core": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
     "@babel/preset-react": "^7.14.5",
-    "@olympeio/dev-tools": "latest",
+    "@olympeio/dev-tools": "~2.0.3",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^9.0.0",
@@ -58,10 +58,10 @@
     "@emotion/react": "11.5.0",
     "@emotion/styled": "11.3.0",
     "@mui/material": "5.2.1",
-    "@olympeio/runtime-node": "~9.0.1",
-    "@olympeio/runtime-web": "~9.0.1",
+    "@olympeio/runtime-node": "~9.0.2",
+    "@olympeio/runtime-web": "~9.0.2",
     "date-fns": "2.22.1",
-    "fast-xml-parser": "3.19.0",
+    "fast-xml-parser": "4.0.7",
     "html-react-parser": "1.4.0",
     "json2csv": "5.0.6",
     "jsonpath-plus": "6.0.1",
@@ -74,6 +74,7 @@
     "react-player": "2.9.0",
     "react-webcam": "6.0.0",
     "remarkable": "2.0.1",
-    "rxjs": "7.5.4"
+    "rxjs": "7.5.4",
+    "xlsx": "0.18.5"
   }
 }

@@ -34,32 +34,28 @@ export default class Dropdown extends ReactBrick {
      * @override
      */
     setupExecution($) {
-        // Observe all Enum values (options)
-        const observeSize = $.observe('Values', false).pipe(
-            switchMap((enumModel) =>  !(enumModel instanceof Enum) ? of(0): enumModel.getValues().observeSize())
-        );
         const observeOptions = $.observe('Values', false).pipe(
             switchMap((enumModel) => {
-                return !(enumModel instanceof Enum) ? of([]) : of(enumModel.getValues()).pipe(
-                    combineLatestWith(observeSize),
-                    switchMap(([list, size]) => {
-                        const values = [];
-                        if (size > 0) {
-                            list.forEachCurrentValue(enumValue => values.push(combineLatest([
-                                enumValue.observe($, EnumValue.valueProp),
-                                enumValue.observe($, EnumValue.nameProp),
-                                enumValue.observe($, EnumValue.rankProp)
-                            ])));
-                            return combineLatest(values);
-                        }
-                        return of([]);
-                    }),
-                    map(values => values.map(value => ({
-                        value: value[0],
-                        label: value[1] || value[0], // EnumItem may not have a name
-                        rank: value[2]
-                    })))
-                );
+                if (!(enumModel instanceof Enum)) {
+                    return of([]);
+                } else {
+                    const enumValues = enumModel.getValues();
+                    const size = enumValues.size();
+                    const values = [];
+                    if (size > 0) {
+                        enumValues.forEach(enumValue => values.push(combineLatest([
+                            enumValue.observe($, EnumValue.valueProp),
+                            enumValue.observe($, EnumValue.nameProp),
+                            enumValue.observe($, EnumValue.rankProp)
+                        ])));
+                        return combineLatest(values).pipe(map(values => values.map(value => ({
+                            value: value[0],
+                            label: value[1] || value[0], // EnumItem may not have a name
+                            rank: value[2]
+                        }))));
+                    }
+                    return of([]);
+                }
             })
         );
 

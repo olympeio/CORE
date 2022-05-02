@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import { Brick, BrickContext, registerBrick } from 'olympe';
 import {getLogger} from 'logging';
 import {JSONPath} from 'jsonpath-plus';
 
@@ -44,18 +44,18 @@ export default class ParseJson extends Brick {
      * Note that this method will _not_ be executed if an input value is undefined.
      *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} source
      * @param {string} path
      * @param {function(Object)} setResult
      */
     update(context, [source, path], [setResult]) {
         // Guards
-        if(typeof source !== 'string') {
+        if (typeof source !== 'string') {
             getLogger('Parse JSON').error('Provided source is not a string');
             return;
         }
-        if(typeof path !== 'string') {
+        if (typeof path !== 'string') {
             getLogger('Parse JSON').error('Provided path is not a string');
             return;
         }
@@ -69,11 +69,11 @@ export default class ParseJson extends Brick {
         }
 
         // prevent empty path from rising an error in jsonpath
-        if(path.length === 0) {
+        if (path.length === 0) {
             return;
         }
         // support access of array using syntax [i] (legacy spec)
-        if(path.startsWith('[')) {
+        if (path.startsWith('[')) {
             path = '$'+path;
         }
 
