@@ -50,7 +50,6 @@ export default class TextField extends ReactBrick {
             const label = useProperty($, 'Label');
             const type = useProperty($, 'Type');
             const error = useProperty($, 'Error');
-            const rows = useProperty($, 'Rows');
             const borderColor = useProperty($, 'Border Color');
             const borderWidth = useProperty($, 'Border Width');
             const borderRadius = useProperty($, 'Border Radius');
@@ -74,9 +73,6 @@ export default class TextField extends ReactBrick {
                     required={useProperty($, 'Required')}
                     error={error}
                     multiline={useProperty($, 'Multiline')}
-                    rows={rows > 0 ? rows : null}
-                    minRows={useProperty($, 'Min Rows')}
-                    maxRows={useProperty($, 'Max Rows')}
 
                     // Events
                     onClick={() => $.trigger('On Click')}
@@ -87,6 +83,9 @@ export default class TextField extends ReactBrick {
                     }}
 
                     // UI
+
+                    // Affects the input component (wrapper of <input> or <textarea>)
+                    // see: https://mui.com/api/text-field/#props
                     InputProps={{
                         sx: {
                             flex: 'auto',
@@ -101,11 +100,23 @@ export default class TextField extends ReactBrick {
                             ...ifNotNull('color', textColorOverflow && textColorOverflow.toHexString(), showTextColorOverflow)
                         },
 
+                        style: {
+                            height: '100%',
+                        },
+
                         // On Enter key pressed
                         onKeyDown: (event) => {
                             if(event.key === 'Enter') {
                                 $.trigger('On Enter Pressed');
                             }
+                        }
+                    }}
+                    // Affects the <input> or <textarea> element of the input component
+                    // see: https://mui.com/api/text-field/#props
+                    inputProps={{
+                        style: {
+                            maxHeight: '100%',
+                            overflow: 'auto'
                         }
                     }}
                     FormHelperTextProps={{

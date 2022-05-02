@@ -16,6 +16,7 @@
  */
 
 import { Brick, registerBrick } from 'olympe';
+import {getLogger} from "logging";
 
 /**
 
@@ -34,13 +35,21 @@ export default class Regex extends Brick {
      * @param {function(Array)} setMatchElements
      */
     update(context, [text, regex], [setMatched, setMatchElements]) {
-        const result = new RegExp(regex).exec(text);
-        if (result === null) {
-            setMatched(false);
-            setMatchElements([]);
-        } else {
-            setMatched(true);
-            setMatchElements(result.slice(0,result.length));
+        const regExpParser = RegExp("^/(.*)/([dgimsu]*)$|(.*)");
+        const match = regex.match(regExpParser);
+        const flags = match[2] && match[2].includes('g') ? match[2] : (match[2] || '') + 'g';
+        try {
+            const r = RegExp(match[1] || match[3], flags);
+            const result = text.match(r);
+            if (result === null) {
+                setMatched(false);
+                setMatchElements([]);
+            } else {
+                setMatched(true);
+                setMatchElements(result.slice(0, result.length));
+            }
+        } catch (error) {
+            getLogger('Regex').warn(`Invalid regular expression: ${error.message}`);
         }
     }
 }
