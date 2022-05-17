@@ -60,7 +60,7 @@ export default class ParseJson extends Brick {
             return;
         }
 
-        let obj, resArray;
+        let obj, results;
         try {
             obj = JSON.parse(source);
         } catch(e) {
@@ -78,21 +78,23 @@ export default class ParseJson extends Brick {
         }
 
         try {
-            resArray = JSONPath(path, obj);
+            results = JSONPath(path, obj);
         } catch (e) {
             getLogger('Parse JSON').error('Error with provided path: '+e.message);
             return;
         }
 
-        if (resArray.length === 1) {
-            // If only one result, unwrap it and return it (stringified if it is an object). Take care of not stringifying arrays.
-            const resObj = resArray[0];
-            setResult(resObj instanceof Object && !Array.isArray(resObj) ? JSON.stringify(resObj) : resObj);
-        } else if (resArray.length > 1) {
-            setResult(resArray);
-        } else {
+        if (results === undefined || results === null || results.length < 1) {
             getLogger('Parse JSON').warn('No result found matching provided path');
             setResult(null);
+            return;
+        }
+        if (results.length === 1) {
+            // If only one result, unwrap it and return it (stringified if it is an object). Take care of not stringifying arrays.
+            const resObj = results[0];
+            setResult(resObj instanceof Object && !Array.isArray(resObj) ? JSON.stringify(resObj) : resObj);
+        } else {
+            setResult(results);
         }
     }
 }
