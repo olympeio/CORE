@@ -47,22 +47,24 @@ export default class GetFromJSON extends Brick {
                 path = '$' + path;
             }
 
-            let resultArray;
+            let results;
             try {
-                resultArray = JSONPath(path, json);
+                results = JSONPath(path, json);
             } catch (e) {
                 setErrorFlow(ErrorFlow.create('Error with provided path: ' + e.message, 1));
                 return;
             }
 
-            if (resultArray.length === 1) {
-                // If only one result, unwrap and return it
-                setResult(resultArray[0]);
-            } else if (resultArray.length > 1) {
-                setResult(resultArray);
-            } else {
+            if (results === undefined || results === null || results.length < 1) {
                 logger.warn('No result found matching provided path');
                 setResult(null);
+                return;
+            }
+            if (results.length === 1) {
+                // If only one result, unwrap and return it
+                setResult(results[0]);
+            } else {
+                setResult(results);
             }
         }
     }

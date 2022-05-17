@@ -50,7 +50,7 @@ export default class RemoveFromJSON extends ActionBrick {
             });
 
             // the path was found
-            if (results.length > 0) {
+            if (results && results.length > 0) {
                 results.forEach(foundProperty => {
                     let { parent, parentProperty, value } = foundProperty;
                     // remove object from array

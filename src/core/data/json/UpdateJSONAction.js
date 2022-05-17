@@ -68,6 +68,9 @@ export const addToJson = (json, path, newValue) => {
     const lastProperty = arrayOfProps.pop();
     const jsonPath = arrayOfProps.join('.');
 
+    if (results === undefined || results === null) {
+        return json;
+    }
     // the path wasn't found - add value to new property
     if (results.length === 0) {
         JSONPath({
