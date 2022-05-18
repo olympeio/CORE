@@ -336,6 +336,7 @@ export default class Dropdown extends ReactBrick {
                     forcePopupIcon={!disabled}
                     freeSolo={freeSolo}
                     inputValue={autocompleteText || ''}
+                    openOnFocus={true}
 
                     // events
                     onChange={Dropdown.onChangeCallbackAutocomplete($, multiple, options)}
