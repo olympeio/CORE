@@ -291,6 +291,7 @@ export default class Dropdown extends ReactBrick {
         const selectedValue = useProperty($, 'Selected Value');
         const selectedValues = useProperty($, 'Selected Values');
         const emptyText = useProperty($, 'Empty Text');
+        const autocompleteText = useProperty($, 'Autocomplete Text');
 
         // Handle selected values
         const findOptionMatchingValue = (value) => {
@@ -334,9 +335,16 @@ export default class Dropdown extends ReactBrick {
                     disabled={disabled}
                     forcePopupIcon={!disabled}
                     freeSolo={freeSolo}
+                    inputValue={autocompleteText || ''}
+                    openOnFocus={true}
 
                     // events
                     onChange={Dropdown.onChangeCallbackAutocomplete($, multiple, options)}
+                    onInputChange={(event, newValue) => {
+                        if(event !== null) {
+                            $.set('Autocomplete Text', newValue || '');
+                        }
+                    }}
                     onClick={() => $.trigger('On Click')}
                     onClose={() => $.trigger('On Close')}
                     onOpen={() => $.trigger('On Open')}
@@ -347,9 +355,6 @@ export default class Dropdown extends ReactBrick {
                             {...params}
                             {...Dropdown.inputProps($, (selectedValue !== null && (!Array.isArray(selectedValue) || selectedValue.length > 0)) || emptyText !== '', params)}
                             placeholder={emptyText}
-                            onChange={(event) => {
-                                $.set('Autocomplete Text', event.target.value);
-                            }}
                         />}
 
                     // assign the id to the chip array container to gets its height later on
@@ -383,7 +388,7 @@ export default class Dropdown extends ReactBrick {
         const textColorOverride = useProperty($, 'Text Color Override');
         const focusedColorOverride = useProperty($, 'Focused Color Override');
         const error = useProperty($, 'Error');
-        const [focused, setFocused] = useState(false);
+        const [focused, setFocused] = useState($.get(Dropdown.FOCUSED_KEY) || false);
         const focusedBorderColor = (key) => {
             let colObj;
             if(focused && !error) {
@@ -410,8 +415,19 @@ export default class Dropdown extends ReactBrick {
 
             // Control over the focused state, so that we can force change color when textfield is in focus
             focused: focused,
-            onBlur: () => setFocused(false),
-            onFocus: () => setFocused(true),
+            onBlur: () => {
+                $.set(Dropdown.FOCUSED_KEY, false);
+                setFocused(false);
+            },
+            onFocus: () => {
+                $.set(Dropdown.FOCUSED_KEY, true);
+                setFocused(true);
+            },
+            inputRef: (input) => {
+                if(focused && input) {
+                    input.focus();
+                }
+            },
 
             // custom styling
             InputProps: {
@@ -507,6 +523,8 @@ registerBrick('017c9dc1ef990c55b61b', Dropdown);
 
 // Default separator for multiple selection
 Dropdown.SEPARATOR = ',';
+
+Dropdown.FOCUSED_KEY = '__focused';
 
 // theme override for the autocomplete
 Dropdown.theme = createTheme({
