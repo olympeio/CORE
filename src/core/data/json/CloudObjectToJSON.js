@@ -30,11 +30,11 @@ export default class CloudObjectToJSON extends Brick {
             } else if (source instanceof CloudObject) {
                 json = this.parseProperties(source.getTag(), propertiesOnly);
             } else {
-                logger.error('Provided source is not a Cloud Object of List of Cloud Objects');
+                logger.error('Provided source is not a Cloud Object or List of Cloud Objects');
                 return;
             }
         } catch (e) {
-            setErrorFlow(ErrorFlow.create('Provided source is not a correct Cloud Object of List of Cloud Objects: ' + e.message, 1));
+            setErrorFlow(ErrorFlow.create('Provided source is not a correct Cloud Object or List of Cloud Objects: ' + e.message, 1));
             return;
         }
 

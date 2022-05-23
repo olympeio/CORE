@@ -37,6 +37,7 @@ describe('ParseJson brick', () => {
     it('should return null when no result found', () => {
         testEqual(new ParseJson(), ['{ "a": { "b": "hello"}}', 'a.b.c'], [null]);
         testEqual(new ParseJson(), ['[ "a", "b", "c"]', '4'], [null]);
+        testEqual(new ParseJson(), ['""', '4'], [null]);
     });
 
     it('should return null when using an array path in an object', () => {

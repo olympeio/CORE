@@ -21,6 +21,7 @@ describe('GetFromJSON brick', () => {
     it('should return null when no result found', () => {
         testEqual(new GetFromJSON(), [{ "a": { "b": "hello" } }, 'a.b.c'], [null]);
         testEqual(new GetFromJSON(), [["a", "b", "c"], '4'], [null]);
+        testEqual(new GetFromJSON(), ['""', '4'], [null]);
     });
 
     it('should return null when using an array path in an object', () => {
