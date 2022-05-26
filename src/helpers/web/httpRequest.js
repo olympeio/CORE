@@ -19,9 +19,10 @@
  * @param {string} url
  * @param {string} headers
  * @param {string=} body
+ * @param {boolean=} withCors
  * @return {Promise<Response>|Promise}
  */
-export const httpRequest = (method, url, headers, body) => {
+export const httpRequest = (method, url, headers, body, withCors) => {
     const parsedHeaders = new Headers();
 
     if (headers) {
@@ -40,5 +41,10 @@ export const httpRequest = (method, url, headers, body) => {
     if (body) {
         init.body = body;
     }
+
+    if(withCors){
+        init.credentials = 'include';
+    }
+
     return fetch(url, init);
 }
