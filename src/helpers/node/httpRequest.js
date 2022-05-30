@@ -19,9 +19,10 @@
  * @param {string} url
  * @param {string} headers
  * @param {string=} body
+ * @param {boolean=} withCors Not required in node, only there to keep the same signature of method between browser & node
  * @return {Promise<Response>|Promise}
  */
-export const httpRequest = (method, url, headers, body) => {
+export const httpRequest = (method, url, headers, body, withCors) => {
     const fetch = require('node-fetch');
     const parsedHeaders = new fetch.Headers();
 
