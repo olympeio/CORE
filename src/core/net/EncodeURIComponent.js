@@ -14,22 +14,27 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import { Brick, registerBrick, BrickContext, ErrorFlow } from 'olympe';
 
 export default class EncodeURIComponent extends Brick {
 
     /**
-     * Executed every time an input (str) gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
+     * @override
      * @protected
-     * @param {Context} context
+     * @param {!BrickContext} $
      * @param {string} str
      * @param {boolean} entireURL
      * @param {function(string)} setEncoded
+     * @param {function(*)} setErrorFlow
      */
-    update(context, [str, entireURL], [setEncoded]) {
-        setEncoded(entireURL ? encodeURIComponent(String(str)) : encodeURI(String(str)));
+    update($, [str, entireURL], [setEncoded, setErrorFlow]) {
+        let encoded = null;
+        try {
+            encoded = entireURL ? encodeURIComponent(String(str)) : encodeURI(String(str));
+            setEncoded(encoded);
+        } catch (e) {
+            setErrorFlow(ErrorFlow.create(e.message, 1))
+        }
     }
 }
 
