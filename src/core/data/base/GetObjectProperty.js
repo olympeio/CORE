@@ -15,8 +15,16 @@
  */
 
 import { Brick, registerBrick, CloudObject } from 'olympe';
+import {combineLatest} from "rxjs";
 
 export default class GetObjectProperty extends Brick {
+
+    /**
+     * @override
+     */
+    setupExecution($) {
+        return combineLatest(this.getInputs().map((i) => $.observe(i)));
+    }
 
     /**
      * @protected
@@ -26,9 +34,11 @@ export default class GetObjectProperty extends Brick {
      * @param {function(*)} setValue
      */
     update($, [object, property], [setValue]) {
-        CloudObject.get(object)
-            .observe($, property)
-            .subscribe(setValue);
+        if (object === null || property === null) {
+            setValue(null);
+        } else {
+            CloudObject.get(object).observe($, property).subscribe(setValue);
+        }
     }
 }
 

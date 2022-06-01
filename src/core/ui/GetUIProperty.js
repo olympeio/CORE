@@ -16,8 +16,16 @@
  */
 
 import { Brick, registerBrick } from 'olympe';
+import {map} from "rxjs/operators";
 
 export default class GetUIProperty extends Brick {
+
+    /**
+     * @override
+     */
+    setupExecution($) {
+        return $.observe(this.getInputs()[0]).pipe(map((value) => [value]));
+    }
 
     /**
      * Executed every time an input gets updated.
