@@ -1,4 +1,4 @@
-import GetFromJSON from '../../../src/core/data/json/GetFromJSON.js';
+import GetFromJSON from '../../../src/core/data/json/GetFromJSONFunction.js';
 import testEqual from '../../helpers/testEqual.mjs';
 import { BrickContext } from 'olympe';
 
