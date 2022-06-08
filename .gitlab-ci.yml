@@ -1,3 +1,13 @@
+workflow:
+  rules:
+    # allow to publish a package from the Gitlab UI, on upgrade branch
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: always
+    # disable pipeline when pushing on master (when running release scripts) and upgrade (when running smooth upgrade pipeline)
+    - if: '$CI_COMMIT_BRANCH == "master" || $CI_COMMIT_BRANCH == "upgrade"'
+      when: never
+    - when: always
+
 .init:
   image:
     name: registry.caas.olympe.cloud/infra/docker/node-tools-light:14-bullseye-slim
@@ -13,6 +23,7 @@
   before_script:
     - export VAULT_TOKEN="$(vault write -field=token auth/jwt/login role=${VAULT_AUTH_ROLE} jwt=$CI_JOB_JWT)"
     - export GITLAB_TOKEN=$(vault kv get -field token kv/devops/npm/token)
+    # core npm registry
     - npm config set @olympeio:registry https://gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/
     - npm config set '//gitlab.caas.olympe.cloud/api/v4/projects/236/packages/npm/:_authToken' "$GITLAB_TOKEN"
 
@@ -20,7 +31,7 @@ stages:
   - setup
   - build
   - unit-tests
-  - deploy-app
+  - publish-lib
 
 # Initialize the npm environment and install packages
 setup:
@@ -32,16 +43,16 @@ setup:
     expire_in: 1 day
     paths:
       - node_modules/
-    
+
 # Build npm package
 build-package:
   stage: build
   extends: .init
-  script:
-    - if [ -z "$CI_COMMIT_TAG" ]; then apt-get install -y jq; sh ./bumpVersion.sh; fi
-    - npm run build
   dependencies:
     - setup
+  script:
+    - if [ -z "$CI_COMMIT_TAG" ]; then apt-get install -y jq; sh ./bumpVersion.sh; fi
+    - npm run build;
   artifacts:
     paths:
       - dist/
@@ -50,41 +61,41 @@ build-package:
 tests:
   stage: unit-tests
   extends: .init
+  dependencies:
+    - setup
   image: # Use an image that includes chromium and jre for test
     name: registry.caas.olympe.cloud/infra/docker/node-tools:14-bullseye-slim
   script:
     - npm test
-  dependencies:
-    - setup
 
-# Publish job
-.publish:
-  stage: deploy-app
+# publish
+#  - a package tagged "dev" when pushing on develop
+#  - a package tagged "upgrade" upon manual trigger from Gitlab CI on upgrade (see workflow rules)
+#  - in all other cases, publishing is skipped
+publish:
+  stage: publish-lib
+  extends: .npm-config
   dependencies:
     - build-package
-
-# Publish to internal npm registry on gitlab
-publish-internal:
-  extends:
-    - .npm-config
-    - .publish
+  variables:
+    NPM_PUBLISH_TAG: "dev"
   script:
-    # Set the tag to use for the newly published package :
-    # - "dev" is used when commit comes from develop
-    # - "stable" is used when we do a release
-    # - "uat" is used when beta or rc tag is created
-    - if [[ -z "$CI_COMMIT_TAG" ]]; then export TAG="dev"; elif [[ ${CI_COMMIT_TAG} =~ (-rc|-beta)[0-9]+ ]]; then export TAG="uat"; else export TAG="stable"; fi
     - cd dist
-    - npm publish --tag $TAG
+    - if [ "$CI_COMMIT_BRANCH" == "upgrade" ]; then NPM_PUBLISH_TAG="upgrade"; fi
+    - npm publish --tag "$NPM_PUBLISH_TAG"
   rules:
-    - if: '$CI_COMMIT_BRANCH == "develop"'
-    - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+(?:-(?:rc|beta)\d+)?$/'
+    - if: $CI_COMMIT_TAG # publish of released version in private registry is managed by /olympeio/extensions/npm-registry scripts
+      when: never
+    - if: '($CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "push") || $CI_COMMIT_BRANCH == "upgrade"'
+      when: always
 
 # Publish to public npm registry (npmjs.org). Publish only if a new version tag vX.Y.Z was pushed.
 publish-public:
+  stage: publish-lib
+  dependencies:
+    - build-package
   image:
     name: node:14-bullseye-slim # Original node image to keep the public registry npmjs.org
-  extends: .publish
   tags:
     - eks
   script:
