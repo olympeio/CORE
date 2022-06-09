@@ -40,7 +40,7 @@ export function jsonToSxProps(json) {
 export function cssToSxProps(css) {
     const capitalize = s => s.length > 0 ? s[0].toUpperCase() + s.substr(1).toLowerCase() : s;
     const props = {};
-    if (css) {
+    if (typeof css === 'string' && css.includes(':')) {
         css.split(';')
             .filter(e => e)
             .map(e => e.split(':'))
