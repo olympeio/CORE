@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { registerBrick, EnumValue, QueryResult, BrickContext, Brick, generateTag } from 'olympe';
+import { registerBrick, EnumValue, QueryResult, BrickContext, Brick, generateTag, ListDef } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
 import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent } from 'helpers/mui';
 import { getLogger } from 'logging';
@@ -29,8 +29,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Paper from '@mui/material/Paper';
 
 import Autocomplete from '@mui/material/Autocomplete';
-import { ThemeProvider } from '@mui/material/styles';
-import { createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme  } from '@mui/material/styles';
+import { blue, green, purple, lightBlue, red, orange } from '@mui/material/colors';
 
 /**
  * Provide a Dropdown visual component using MUI TextField
@@ -134,7 +134,7 @@ export default class Dropdown extends ReactBrick {
             return sizeObservable.pipe(map((size) => {
                 let elements = [];
                 if (size > 0 && list !== null) {
-                    elements = this.getListElements(list);
+                    elements = Dropdown.getListElements(list);
                 }
                 return [elements, size, isEnum];
             }));
@@ -143,10 +143,10 @@ export default class Dropdown extends ReactBrick {
     }
 
     /**
-     * @param {!(Array|QueryResult|ListDef)} list
+     * @param {*} list
      * @return {Array<*>}
      */
-    getListElements(list) {
+    static getListElements(list) {
         let elements = [];
         // Array case
         if (Array.isArray(list)) {
@@ -159,15 +159,17 @@ export default class Dropdown extends ReactBrick {
         }
 
         // ListDef case
-        else {
+        else if (list instanceof ListDef) {
             list.forEachCurrentValue((value, key) => {
                 elements.push({
                     value: value,
                     rank: list.getCurrentRank(key)
                 });
             });
-            elements = elements.sort((a, b) => b.rank - a.rank);
+            elements = elements.sort((a, b) => a.rank - b.rank);
             elements = elements.map(e => e.value);
+        } else if (list !== null && list !== undefined) {
+            getLogger('Dropdown').error('Object List supposed to be a ListDef, an Array or a QueryResult');
         }
         return elements;
     }
@@ -228,16 +230,22 @@ export default class Dropdown extends ReactBrick {
             const [values, setValues] = useState([]);
             const selectedValue = useProperty($, 'Selected Value');
             const selectedValues = useProperty($, 'Selected Values');
+            const theme = Dropdown.getTheme($);
 
             React.useEffect(() => {
-                setValues(multiple ? selectedValues : [selectedValue]);
+                const selectedValuesArray = Dropdown.getListElements(selectedValues);
+                setValues(multiple ? selectedValuesArray : [selectedValue]);
             }, [selectedValue, selectedValues]);
 
-            return !hidden && (autocomplete ? (
-                Dropdown.autocompleteComponent($, options, multiple, values)
-            ) : (
-                Dropdown.selectComponent($, options, multiple, values)
-            ));
+            const element = autocomplete
+                ? Dropdown.autocompleteComponent($, options, multiple, values)
+                : Dropdown.selectComponent($, options, multiple, values);
+
+            return hidden ? null : (
+                <ThemeProvider theme={theme}>
+                    {element}
+                </ThemeProvider>
+            );
         };
     }
 
@@ -317,7 +325,9 @@ export default class Dropdown extends ReactBrick {
                         key={index}
                         value={option.value}
                         sx={{
-                            fontFamily: props.fontFamily
+                            fontFamily: props.fontFamily,
+                            ...cssToSxProps(useProperty($, 'CSS Property')),
+                            ...jsonToSxProps(useProperty($, 'MUI sx [json]')),
                         }}
                     >
                         {option.label}
@@ -528,9 +538,12 @@ export default class Dropdown extends ReactBrick {
             Dropdown.onChangeCallbackAutocomplete($, multiple, currentValues);
         };
 
+        const isTextDefined = autocompleteText !== undefined && autocompleteText !== '';
+        const inputValue = isTextDefined ? autocompleteText
+            : (value === null || multiple ? '' : value.label);
+
         // Element
         return (
-            <ThemeProvider theme={Dropdown.theme}>
                 <Autocomplete
                     // Props
                     value={value}
@@ -539,7 +552,7 @@ export default class Dropdown extends ReactBrick {
                     disabled={disabled}
                     forcePopupIcon={!disabled}
                     freeSolo={freeSolo}
-                    inputValue={autocompleteText || ''}
+                    inputValue={inputValue}
                     openOnFocus={true}
                     loading={loading && open}
                     limitTags={limit || 1}
@@ -598,8 +611,42 @@ export default class Dropdown extends ReactBrick {
                         },
                     }}
                 />
-            </ThemeProvider>
         );
+    }
+
+    /**
+     * @param {!BrickContext} $
+     * @return {Object}
+     */
+    static getTheme($) {
+        const overrideColor = useProperty($, 'Color') || 'primary';
+        const theme = createTheme({
+            palette: {
+                primary: {
+                    main: Dropdown.COLORS[overrideColor]
+                }
+            },
+            components: {
+                MuiAutocomplete: {
+                    styleOverrides: {
+                        root: {
+                            height: '100%',
+                        },
+                        endAdornment: {
+                            right: '7px !important',
+                        },
+                    },
+                },
+                MuiFormControl: {
+                    styleOverrides: {
+                        root: {
+                            height: '100%',
+                        },
+                    },
+                },
+            },
+        });
+        return theme;
     }
 
     /**
@@ -758,29 +805,6 @@ registerBrick('017c9dc1ef990c55b61b', Dropdown);
 // Default separator for multiple selection
 Dropdown.SEPARATOR = ', ';
 
-// theme override for the autocomplete
-Dropdown.theme = createTheme({
-    components: {
-        MuiAutocomplete: {
-            styleOverrides: {
-                root: {
-                    height: '100%',
-                },
-                endAdornment: {
-                    right: '7px !important',
-                },
-            },
-        },
-        MuiFormControl: {
-            styleOverrides: {
-                root: {
-                    height: '100%',
-                },
-            },
-        },
-    },
-});
-
 /**
  * @param {!BrickContext} $
  * @param {*} params
@@ -805,4 +829,13 @@ Dropdown.CustomPaper = ({ $, params }) => {
 Dropdown.getNameFromValue = (value, options) => {
     const option = options.filter(o => o.value === value);
     return option.length === 1 ? option[0].label : value;
+};
+
+Dropdown.COLORS = {
+    primary: blue[700],
+    secondary: purple[500],
+    success: green[800],
+    warning: orange[700],
+    info: lightBlue[700],
+    error: red[700],
 };
