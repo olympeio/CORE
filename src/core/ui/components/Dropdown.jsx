@@ -241,7 +241,7 @@ export default class Dropdown extends ReactBrick {
                 ? Dropdown.autocompleteComponent($, options, multiple, values)
                 : Dropdown.selectComponent($, options, multiple, values);
 
-            return !hidden && (
+            return hidden ? null : (
                 <ThemeProvider theme={theme}>
                     {element}
                 </ThemeProvider>
