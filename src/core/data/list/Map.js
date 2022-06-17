@@ -45,19 +45,41 @@ export default class MapBrick extends ActionBrick {
             return;
         }
 
+        this.process($, array, mapper).then(mappedArray => {
+            setList(mappedArray);
+            forwardEvent();
+        });
+    }
+
+    /**
+     * @private
+     * @param {!BrickContext} $
+     * @param {!Array} array
+     * @param {!Brick} mapper
+     * @return {!Promise<!Array<*>>}
+     */
+    async process($, array, mapper) {
         const [startInput, itemInput, rankInput, listInput] = mapper.getInputs();
         const [endOutput, itemOutput] = mapper.getOutputs();
-        Promise.all(array.map((item, rank) => {
+
+        const map = (item, rank, array) => {
             const mapper$ = $.runner(mapper)
                 .set(itemInput, item)
                 .set(rankInput, rank)
                 .set(listInput, array)
                 .trigger(startInput);
-            return mapper$.waitFor(endOutput).then(() => mapper$.get(itemOutput));
-        })).then(mappedArray => {
-            setList(mappedArray);
-            forwardEvent();
-        });
+            return mapper$.waitFor(endOutput).then(() => {
+                const outputValue = mapper$.get(itemOutput);
+                mapper$.destroy();
+                return outputValue;
+            });
+        };
+
+        const mappedArray = [];
+        for (let i = 0, l = array.length; i < l; i++) {
+            mappedArray.push(await map(array[i], i, array));
+        }
+        return mappedArray;
     }
 }
 
