@@ -55,12 +55,12 @@ export default class Dropdown extends ReactBrick {
         }));
 
         // Combine with Hidden property
-        return combineLatest(
+        return combineLatest([
             $.observe('Hidden'),
             $.observe('Auto Complete'),
             $.observe('Multiple'),
             observeOptions
-        );
+        ]);
     }
 
     /**
@@ -92,10 +92,10 @@ export default class Dropdown extends ReactBrick {
      */
     getListObservable($) {
         // listen to either Enum or Object List property
-        const observeListAsArray = combineLatest(
+        return combineLatest([
             $.observe('Enum', false),
             $.observe('Object List', false)
-        ).pipe(switchMap(([enumModel, objectList]) => {
+        ]).pipe(switchMap(([enumModel, objectList]) => {
             // safety, if nothing set, return immediately
             if (enumModel === null && objectList === null) {
                 return of([[], 0, false]);
@@ -139,7 +139,6 @@ export default class Dropdown extends ReactBrick {
                 return [elements, size, isEnum];
             }));
         }));
-        return observeListAsArray;
     }
 
     /**
@@ -513,9 +512,11 @@ export default class Dropdown extends ReactBrick {
         /**
          * @param {*} event
          * @param {string} newValue
+         * @param {string} reason
          */
-        const onInputChange = (event, newValue) => {
-            if (event !== null) {
+        const onInputChange = (event, newValue, reason) => {
+            // Only triggers the Draw onInputChange when the user has typed something in the textfield (not when selecting or clearing the textfield programmatically).
+            if (event !== null && reason === 'input') {
                 $.set('Autocomplete Text', newValue || '');
                 if (onInputChangeLambda) {
                     const [startInput, textInput] = onInputChangeLambda.getInputs();
