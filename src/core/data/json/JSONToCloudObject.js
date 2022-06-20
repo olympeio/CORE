@@ -1,19 +1,35 @@
-import { Brick, BrickContext, InstanceTag, registerBrick, CloudObject, BusinessObject, DBView, Transaction, RelationModel, StringModel, NumberModel, ErrorFlow } from 'olympe';
+/**
+ * Copyright 2021 Olympe S.A.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { ActionBrick, BrickContext, registerBrick, CloudObject, Transaction, RelationModel, ErrorFlow } from 'olympe';
 import { getLogger } from 'logging';
 
-export default class JSONToCloudObject extends Brick {
+export default class JSONToCloudObject extends ActionBrick {
 
     /**
      * @override
-     * @protected
      * @param {!BrickContext} $
-     * @param {*} source
-     * @param {*} businessModel
+     * @param {!Object | string} source
+     * @param {!CloudObject} businessModel
      * @param {boolean} persist
-     * @param {function(*)} setResult
-     * @param {function(*)} setErrorFlow
+     * @param {function()} forwardEvent
+     * @param {function(!ErrorFlow)} setErrorFlow
+     * @param {function(!Array | !CloudObject)} setResult
      */
-    update($, [source, businessModel, persist], [setResult, setErrorFlow]) {
+    update($, [source, businessModel, persist], [forwardEvent, setErrorFlow, setResult]) {
         const logger = getLogger('JSON To Cloud Object');
 
         // Guards
@@ -21,7 +37,7 @@ export default class JSONToCloudObject extends Brick {
             logger.error('Provided source is not object or string');
             return;
         }
-        if (!(businessModel instanceof BusinessObject)) {
+        if (!(businessModel instanceof CloudObject)) {
             logger.error('Provided model is not an Object');
             return;
         }
@@ -34,140 +50,70 @@ export default class JSONToCloudObject extends Brick {
             return;
         }
 
-        const db = DBView.get();
-        const transaction = Transaction.from($);
-        transaction.persist(persist);
+        const transaction = new Transaction(persist);
 
-        // Check if the instance exists already in db or if it has been processed before to avoid duplication
-        const instance = transaction.create(businessModel);
+        // Result is either an array of tags or a single tag depending on the JSON source.
+        const result = Array.isArray(json)
+            ? json.map((data) => this.parseInstance(transaction, businessModel, data))
+            : this.parseInstance(transaction, businessModel, json);
 
-        const existingDataModels = db.getRelated(JSONToCloudObject.BUSINESS_MODEL_TAG, BusinessObject.modelRel.getInverse());
-        const mappingModels = new Map();
-
-        existingDataModels.forEach((dataModel) => {
-            const name = db.name(dataModel);
-            mappingModels.set(name, dataModel);
-        });
-
-        let result;
-        if (json instanceof Array && json.length > 0) {
-            result = [];
-            const instanceTags = new Map();
-
-            json.forEach((data) => {
-                // Check if the instance exists already in db or if it has been processed before to avoid duplication
-                const instanceTag = transaction.create(businessModel);
-                this.parseProperties(db, transaction, instanceTag, businessModel, data, mappingModels, instanceTags);
-                this.parseRelations(db, transaction, instanceTag, businessModel, data, mappingModels, instanceTags);
-                result.push(instanceTag);
-            });
-        } else {
-            this.parseProperties(db, transaction, instance, businessModel, /**@type {!Object}*/(json), mappingModels);
-            this.parseRelations(db, transaction, instance, businessModel, /**@type {!Object}*/(json), mappingModels);
-            result = instance;
-        }
-
-        // Place a callback "afterExecution" to ensure that the transaction
-        // has been executed before to call CloudObject.get()
-        transaction.afterExecution(() => {
-            if(Array.isArray(result)){
-                setResult(result.map(CloudObject.get));
-            } else {
-                setResult(CloudObject.get(result));
-            }
-        });
-
-        Transaction.process($, transaction)
-            .catch(message => {
-                setErrorFlow(ErrorFlow.create('Transaction failed: ' + message, 1));
-            });
-    }
-
-    /**
-     * @protected
-     * @param {!DBView} db
-     * @param {!Transaction} transaction
-     * @param {InstanceTag} instance
-     * @param {!string} businessModel
-     * @param {!Object} data
-     * @param {!Map<string, string>} mappingModels
-     * @param {!Map<string, !Map<string, string> >=} instanceTags
-     */
-    parseProperties(db, transaction, instance, businessModel, data, mappingModels, instanceTags) {
-        const properties = db.getRelated(businessModel, BusinessObject.propertyRel);
-
-        properties.forEach((item) => {
-            const propName = db.name(item);
-            const unifiedProperty = propName.charAt(0).toUpperCase() + propName.slice(1);
-            const mappedModel = mappingModels.get(unifiedProperty);
-            const isPropertyExists = data && data[propName] !== undefined && (!(data[propName] instanceof Array) && !(data[propName] instanceof Object));
-
-            if (isPropertyExists) {
-                transaction.update(instance, item, data[propName]);
-            } else if (mappedModel) {
-                const newInstance = transaction.create((mappedModel));
-                this.parseProperties(db, transaction, newInstance, mappedModel, data[propName], mappingModels, instanceTags);
-                transaction.update(instance, item, newInstance);
-            }
+        transaction.execute().then(() => {
+            setResult(Array.isArray(result) ? result.map(CloudObject.get) : CloudObject.get(result));
+            forwardEvent();
+        }).catch(message => {
+            setErrorFlow(ErrorFlow.create('Transaction failed: ' + message, 1));
         });
     }
 
     /**
-     * @protected
-     * @param {!DBView} db
+     * @private
      * @param {!Transaction} transaction
-     * @param {InstanceTag} instance
-     * @param {!string} businessModel
+     * @param {!CloudObject} model
      * @param {!Object} data
-     * @param {!Map<string, string>} mappingModels
-     * @param {!Map<string, !Map<string, string> >=} instanceTags
+     * @return {string}
      */
-    parseRelations(db, transaction, instance, businessModel, data, mappingModels, instanceTags) {
-        const relations = db.getRelated(businessModel, RelationModel.originModelRel.getInverse());
+    parseInstance(transaction, model, data) {
+        const properties = this.parseProperties(model, data);
+        const instanceTag = transaction.create(model, properties);
+        this.parseRelations(transaction, instanceTag, model, data);
+        return instanceTag;
+    }
 
-        let propName, mappedModel;
-
-        const filteredRelations = relations.filter((relation) => {
-            propName = db.name(relation);
-            const unifiedPropName = propName.charAt(0).toUpperCase() + propName.slice(1, propName.length - 1);
-            mappedModel = mappingModels.get(unifiedPropName);
-            return data[propName] !== undefined || mappedModel;
-        });
-
-        filteredRelations.forEach((relation) => {
-            propName = db.name(relation);
-            const unifiedPropName = propName.charAt(0).toUpperCase() + propName.slice(1, propName.length - 1);
-            mappedModel = mappingModels.get(unifiedPropName);
-            if (!data[propName]) {
-                return;
+    /**
+     * @private
+     * @param {!CloudObject} model
+     * @param {!Object} data
+     * @return {!Map<Tag, *>}
+     */
+    parseProperties(model, data) {
+        const properties = model.follow(CloudObject.propertyRel).executeFromCache();
+        return properties.reduce((map, property) => {
+            const value = data[property.name()];
+            if (value !== undefined && (!(value instanceof Array) && !(value instanceof Object))) {
+                map.set(property, value);
             }
-            const processRelatedObjectData = (relatedObjectData) => {
-                if (mappedModel) {
-                    const relatedInstance = transaction.create((mappedModel));
-                    this.parseProperties(db, transaction, relatedInstance, mappedModel, relatedObjectData, mappingModels, instanceTags);
-                    this.parseRelations(db, transaction, relatedInstance, mappedModel, relatedObjectData, mappingModels, instanceTags);
-                    transaction.createRelation(relation, instance, relatedInstance);
-                } else if (!(relatedObjectData instanceof Object)) {
-                    const obj = transaction.create(db.getUniqueRelated(relation, RelationModel.destinationModelRel));
-                    const propToUpdate = typeof relatedObjectData === 'string'
-                        ? StringModel.valueProp
-                        : NumberModel.valueProp;
-                    transaction.update(obj, propToUpdate, relatedObjectData);
-                    transaction.createRelation(relation, instance, obj);
-                }
-            };
+            return map;
+        }, new Map());
+    }
 
-            if (data[propName] instanceof Array) {
-                data[propName].forEach((relatedObjectData) => {
-                    processRelatedObjectData(relatedObjectData);
-                });
-            } else {
-                processRelatedObjectData(data[propName])
+    /**
+     * @private
+     * @param {!Transaction} transaction
+     * @param {string} instance
+     * @param {!CloudObject} model
+     * @param {!Object} data
+     */
+    parseRelations(transaction, instance, model, data) {
+        const relations = model.follow(RelationModel.originModelRel.getInverse()).executeFromCache();
+        relations.forEach((relation) => {
+            const destinationObject = data[relation.name()];
+            if (destinationObject instanceof Object) {
+                const destinationModel = relation.followSingle(RelationModel.destinationModelRel).executeFromCache();
+                const relatedInstance = this.parseInstance(transaction, destinationModel, destinationObject);
+                transaction.createRelation(relation, instance, relatedInstance);
             }
         });
     }
 }
 
-JSONToCloudObject.BUSINESS_MODEL_TAG = '016324fde11a836f76c2';
-
-registerBrick('017fc07bf104e6ce60b7', JSONToCloudObject);
+registerBrick('018162fcbe206603fdf5', JSONToCloudObject);
