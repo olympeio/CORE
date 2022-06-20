@@ -670,7 +670,10 @@ export default class Dropdown extends ReactBrick {
         const textColorOverride = useProperty($, 'Text Color Override');
         const focusedColorOverride = useProperty($, 'Focused Color Override');
         const error = useProperty($, 'Error');
-        const [focused, setFocused] = useState(false);
+        // focus: it is necessary to store this state in the context, so that is it kept when a new value is emitted
+        // from setupExecution
+        // i.e. when the list of data changes, and we still want to keep the focus while typing in the input
+        const [focused, setFocused] = useState($.get(Dropdown.FOCUSED_KEY) || false);
 
         const shrink = (hasInput || emptyText !== '') && label !== '';
 
@@ -706,9 +709,11 @@ export default class Dropdown extends ReactBrick {
             // Control over the focused state, so that we can force change color when textfield is in focus
             focused: focused,
             onBlur: () => {
+                $.set(Dropdown.FOCUSED_KEY, false);
                 setFocused(false);
             },
             onFocus: () => {
+                $.set(Dropdown.FOCUSED_KEY, true);
                 setFocused(true);
             },
             inputRef: (input) => {
@@ -804,6 +809,8 @@ registerBrick('017c9dc1ef990c55b61b', Dropdown);
 
 // Default separator for multiple selection
 Dropdown.SEPARATOR = ', ';
+
+Dropdown.FOCUSED_KEY = '__focused';
 
 /**
  * @param {!BrickContext} $
