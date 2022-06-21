@@ -35,7 +35,7 @@ export default class Reduce extends ActionBrick {
         }
 
         let array = [];
-        if(Array.isArray(list)) {
+        if (Array.isArray(list)) {
             array = list;
         } else if(list instanceof QueryResult) {
             array = list.toArray();
@@ -71,7 +71,11 @@ export default class Reduce extends ActionBrick {
                 .set(rankInput, rank)
                 .set(listInput, arr)
                 .trigger(startInput);
-            reducer$.waitFor(endOutput).then(() => done(reducer$.get(resultOutput)));
+            reducer$.waitFor(endOutput).then(() => {
+                const result = reducer$.get(resultOutput);
+                reducer$.destroy();
+                done(result);
+            });
         });
 
         let accumulator = initialValue;

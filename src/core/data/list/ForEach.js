@@ -44,16 +44,32 @@ export default class ForEach extends ActionBrick {
             return;
         }
 
+        this.process($, array, iterator).then(forwardEvent);
+    }
+
+    /**
+     * @private
+     * @param {!BrickContext} $
+     * @param {!Array} array
+     * @param {!Brick} iterator
+     * @return {!Promise<void>}
+     */
+    async process($, array, iterator) {
         const [startInput, itemInput, rankInput, listInput] = iterator.getInputs();
         const [endOutput] = iterator.getOutputs();
-        Promise.all(array.map((item, rank) => {
-            return $.runner(iterator)
+
+        const iterate = (item, rank, array) => {
+            const iterator$ = $.runner(iterator)
                 .set(itemInput, item)
                 .set(rankInput, rank)
                 .set(listInput, array)
                 .trigger(startInput)
-                .waitFor(endOutput);
-        })).then(forwardEvent);
+            return iterator$.waitFor(endOutput).then(() => iterator$.destroy());
+        }
+
+        for (let i = 0, l = array.length; i < l; i++) {
+            await iterate(array[i], i, array);
+        }
     }
 }
 
