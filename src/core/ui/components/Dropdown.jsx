@@ -516,9 +516,9 @@ export default class Dropdown extends ReactBrick {
          */
         const onInputChange = (event, newValue, reason) => {
             // Only triggers the Draw onInputChange when the user has typed something in the textfield (not when selecting or clearing the textfield programmatically).
-            if (event !== null && reason === 'input') {
+            if (event !== null) {
                 $.set('Autocomplete Text', newValue || '');
-                if (onInputChangeLambda) {
+                if (onInputChangeLambda && reason === 'input') {
                     const [startInput, textInput] = onInputChangeLambda.getInputs();
                     $.runner(onInputChangeLambda)
                         .set(textInput, newValue)
