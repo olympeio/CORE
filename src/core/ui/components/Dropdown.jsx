@@ -776,7 +776,6 @@ export default class Dropdown extends ReactBrick {
             } else {
                 selectedValue = /** @type {Object} */(event.target.value);
             }
-            $.set(Dropdown.FOCUSED_KEY, false);
             $.set('Selected Value', selectedValue);
             $.set('Selected Values', selectedValues);
             $.trigger('On Change');
@@ -801,7 +800,6 @@ export default class Dropdown extends ReactBrick {
             selectedValue = (typeof newValue === 'string' || newValue === null)
                 ? newValue : newValue.value;
         }
-        $.set(Dropdown.FOCUSED_KEY, false);
         $.set('Selected Value', selectedValue);
         $.set('Selected Values', selectedValues);
         $.trigger('On Change');
