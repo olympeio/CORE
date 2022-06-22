@@ -17,20 +17,26 @@
 import { Brick, registerBrick } from 'olympe';
 import getScopeContext from "./util/updateContextProperty";
 import {castPrimitiveValue} from "../data/transaction/_helpers";
+import {map} from 'rxjs/operators'
 
 export default class FeedUIProperty extends Brick {
 
     /**
-     * Executed every time an input (uIProperty, value) gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
+     * @override
+     */
+    setupExecution($) {
+        // Ensure to resolve anytime a value comes, and propagate null too.
+        return $.observe(this.getInputs()[1]).pipe(map((v) => [v]));
+    }
+
+    /**
      * @protected
      * @param {Context} context
      * @param {*} _
      * @param {*} value
      * @param {!Array} outputs
      */
-    update(context, [_, value], outputs) {
+    update(context, [value], outputs) {
         const [scope, property] = getScopeContext(this, this.getInputs()[0]);
         if (scope && property) {
             let offContext;
