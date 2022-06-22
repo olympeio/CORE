@@ -104,13 +104,19 @@ export default class JSONToCloudObject extends ActionBrick {
      * @param {!Object} data
      */
     parseRelations(transaction, instance, model, data) {
+        const createDestinationObject = (relation, destinationObject) => {
+            const destinationModel = relation.followSingle(RelationModel.destinationModelRel).executeFromCache();
+            const relatedInstance = this.parseInstance(transaction, destinationModel, destinationObject);
+            transaction.createRelation(relation, instance, relatedInstance);
+        };
+
         const relations = model.follow(RelationModel.originModelRel.getInverse()).executeFromCache();
         relations.forEach((relation) => {
             const destinationObject = data[relation.name()];
-            if (destinationObject instanceof Object) {
-                const destinationModel = relation.followSingle(RelationModel.destinationModelRel).executeFromCache();
-                const relatedInstance = this.parseInstance(transaction, destinationModel, destinationObject);
-                transaction.createRelation(relation, instance, relatedInstance);
+            if (Array.isArray(destinationObject)) {
+                destinationObject.forEach(createDestinationObject.bind(this, relation));
+            } else if (destinationObject instanceof Object) {
+                createDestinationObject(relation, destinationObject);
             }
         });
     }

@@ -55,12 +55,12 @@ export default class Dropdown extends ReactBrick {
         }));
 
         // Combine with Hidden property
-        return combineLatest(
+        return combineLatest([
             $.observe('Hidden'),
             $.observe('Auto Complete'),
             $.observe('Multiple'),
             observeOptions
-        );
+        ]);
     }
 
     /**
@@ -92,10 +92,10 @@ export default class Dropdown extends ReactBrick {
      */
     getListObservable($) {
         // listen to either Enum or Object List property
-        const observeListAsArray = combineLatest(
+        return combineLatest([
             $.observe('Enum', false),
             $.observe('Object List', false)
-        ).pipe(switchMap(([enumModel, objectList]) => {
+        ]).pipe(switchMap(([enumModel, objectList]) => {
             // safety, if nothing set, return immediately
             if (enumModel === null && objectList === null) {
                 return of([[], 0, false]);
@@ -139,7 +139,6 @@ export default class Dropdown extends ReactBrick {
                 return [elements, size, isEnum];
             }));
         }));
-        return observeListAsArray;
     }
 
     /**
@@ -513,9 +512,11 @@ export default class Dropdown extends ReactBrick {
         /**
          * @param {*} event
          * @param {string} newValue
+         * @param {string} reason
          */
-        const onInputChange = (event, newValue) => {
-            if (event !== null) {
+        const onInputChange = (event, newValue, reason) => {
+            // Only triggers the Draw onInputChange when the user has typed something in the textfield (not when selecting or clearing the textfield programmatically).
+            if (event !== null && reason === 'input') {
                 $.set('Autocomplete Text', newValue || '');
                 if (onInputChangeLambda) {
                     const [startInput, textInput] = onInputChangeLambda.getInputs();
@@ -670,7 +671,10 @@ export default class Dropdown extends ReactBrick {
         const textColorOverride = useProperty($, 'Text Color Override');
         const focusedColorOverride = useProperty($, 'Focused Color Override');
         const error = useProperty($, 'Error');
-        const [focused, setFocused] = useState(false);
+        // focus: it is necessary to store this state in the context, so that is it kept when a new value is emitted
+        // from setupExecution
+        // i.e. when the list of data changes, and we still want to keep the focus while typing in the input
+        const [focused, setFocused] = useState($.get(Dropdown.FOCUSED_KEY) || false);
 
         const shrink = (hasInput || emptyText !== '') && label !== '';
 
@@ -706,9 +710,11 @@ export default class Dropdown extends ReactBrick {
             // Control over the focused state, so that we can force change color when textfield is in focus
             focused: focused,
             onBlur: () => {
+                $.set(Dropdown.FOCUSED_KEY, false);
                 setFocused(false);
             },
             onFocus: () => {
+                $.set(Dropdown.FOCUSED_KEY, true);
                 setFocused(true);
             },
             inputRef: (input) => {
@@ -804,6 +810,8 @@ registerBrick('017c9dc1ef990c55b61b', Dropdown);
 
 // Default separator for multiple selection
 Dropdown.SEPARATOR = ', ';
+
+Dropdown.FOCUSED_KEY = '__focused';
 
 /**
  * @param {!BrickContext} $
