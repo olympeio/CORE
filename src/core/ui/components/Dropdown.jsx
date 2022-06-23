@@ -539,6 +539,9 @@ export default class Dropdown extends ReactBrick {
             Dropdown.onChangeCallbackAutocomplete($, multiple, currentValues);
         };
 
+        // The `inputValue` below will hold the `Autocomplete Text` property as long as we
+        // are "editing" the value. Once a value is chosen, it will be pushed to the `Selected Value(s)`
+        // property and the `Autocomplete Text` property will be emptied
         const isTextDefined = autocompleteText !== undefined && autocompleteText !== '';
         const inputValue = isTextDefined ? autocompleteText
             : (value === null || multiple ? '' : value.label);
@@ -809,6 +812,10 @@ export default class Dropdown extends ReactBrick {
         //$.set(Dropdown.FOCUSED_KEY, false);
         $.set('Selected Value', selectedValue);
         $.set('Selected Values', selectedValues);
+        // Once a value has been selected, we can safely empty the `Autocomplete Text` property
+        // This will allow the Autocomplete to display the selected value and to properly react to external
+        // Selected Value changes
+        $.set('Autocomplete Text', '');
         $.trigger('On Change');
     }
 }
