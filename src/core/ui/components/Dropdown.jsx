@@ -539,6 +539,9 @@ export default class Dropdown extends ReactBrick {
             Dropdown.onChangeCallbackAutocomplete($, multiple, currentValues);
         };
 
+        // The `inputValue` below will hold the `Autocomplete Text` property as long as we
+        // are "editing" the value. Once a value is chosen, it will be pushed to the `Selected Value(s)`
+        // property and the `Autocomplete Text` property will be emptied
         const isTextDefined = autocompleteText !== undefined && autocompleteText !== '';
         const inputValue = isTextDefined ? autocompleteText
             : (value === null || multiple ? '' : value.label);
@@ -671,7 +674,11 @@ export default class Dropdown extends ReactBrick {
         const textColorOverride = useProperty($, 'Text Color Override');
         const focusedColorOverride = useProperty($, 'Focused Color Override');
         const error = useProperty($, 'Error');
-        const [focused, setFocused] = useState(false);
+        // TODO rework Dropdown, a change in the list of data should not trigger a complete re-rendering of the dropdown
+        // focus: it is necessary to store this state in the context, so that is it kept when a new value is emitted
+        // from setupExecution
+        // i.e. when the list of data changes, and we still want to keep the focus while typing in the input
+        const [focused, setFocused] = useState($.get(Dropdown.FOCUSED_KEY) || false);
 
         const shrink = (hasInput || emptyText !== '') && label !== '';
 
@@ -707,9 +714,11 @@ export default class Dropdown extends ReactBrick {
             // Control over the focused state, so that we can force change color when textfield is in focus
             focused: focused,
             onBlur: () => {
+                $.set(Dropdown.FOCUSED_KEY, false);
                 setFocused(false);
             },
             onFocus: () => {
+                $.set(Dropdown.FOCUSED_KEY, true);
                 setFocused(true);
             },
             inputRef: (input) => {
@@ -771,6 +780,9 @@ export default class Dropdown extends ReactBrick {
             } else {
                 selectedValue = /** @type {Object} */(event.target.value);
             }
+            // TODO only seems to make a change in testing app https://marketplace-codev.fluidapp.io/?hc.app=sc.runtime&sc.app=0180d65a76e865d8a10a
+            // disabled as it may not be needed
+            //$.set(Dropdown.FOCUSED_KEY, false);
             $.set('Selected Value', selectedValue);
             $.set('Selected Values', selectedValues);
             $.trigger('On Change');
@@ -795,8 +807,15 @@ export default class Dropdown extends ReactBrick {
             selectedValue = (typeof newValue === 'string' || newValue === null)
                 ? newValue : newValue.value;
         }
+        // TODO only seems to make a change in testing app https://marketplace-codev.fluidapp.io/?hc.app=sc.runtime&sc.app=0180d65a76e865d8a10a
+        // disabled as it may not be needed
+        //$.set(Dropdown.FOCUSED_KEY, false);
         $.set('Selected Value', selectedValue);
         $.set('Selected Values', selectedValues);
+        // Once a value has been selected, we can safely empty the `Autocomplete Text` property
+        // This will allow the Autocomplete to display the selected value and to properly react to external
+        // Selected Value changes
+        $.set('Autocomplete Text', '');
         $.trigger('On Change');
     }
 }
@@ -805,6 +824,8 @@ registerBrick('017c9dc1ef990c55b61b', Dropdown);
 
 // Default separator for multiple selection
 Dropdown.SEPARATOR = ', ';
+
+Dropdown.FOCUSED_KEY = '__focused';
 
 /**
  * @param {!BrickContext} $
