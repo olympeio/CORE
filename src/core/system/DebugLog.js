@@ -16,34 +16,26 @@
 
 import { Brick, registerBrick } from 'olympe';
 import {getLogger} from 'logging';
+import {combineLatest} from "rxjs";
 
-/**
-## Description
-Outputs the provided value on the console, it can be any JS object that has a string representation.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| prefix | String | A label to put in front of the message. |
-| value | Object | The value to display. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| value | Object | The object that was passed in. |
-
-**/
 export default class DebugLog extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
+     * @override
+     */
+    setupExecution($) {
+        // Propagate null
+        return combineLatest(this.getInputs().map(i => $.observe(i)));
+    }
+
+    /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} $
      * @param {string} prefix
      * @param {*} value
      * @param {function(*)} setValue
      */
-    update(context, [prefix, value], [setValue]) {
+    update($, [prefix, value], [setValue]) {
         getLogger('Log').info((prefix ? prefix + ': ' : '') + String(value));
         setValue(value);
     }
