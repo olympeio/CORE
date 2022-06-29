@@ -15,7 +15,6 @@
  */
 
 import { ActionBrick, BrickContext, registerBrick, CloudObject, Transaction, RelationModel, ErrorFlow } from 'olympe';
-import { getLogger } from 'logging';
 import { getAsJson } from './helper';
 
 export default class JSONToCloudObject extends ActionBrick {
@@ -31,16 +30,16 @@ export default class JSONToCloudObject extends ActionBrick {
      * @param {function(!Array | !CloudObject)} setResult
      */
     update($, [source, businessModel, persist], [forwardEvent, setErrorFlow, setResult]) {
-        const logger = getLogger('JSON To Cloud Object');
-
         // Guards
-        if (typeof source !== 'object' && typeof source !== 'string' || source === null) {
-            setErrorFlow(ErrorFlow.create('Provided source is not an object or a string', 1));
+        if (source === null) {
+            setErrorFlow(ErrorFlow.create('Provided source is null', 1));
             return;
         }
+        if (typeof source !== 'object' && typeof source !== 'string') {
+            throw new Error('Provided source is not an object or a string');
+        }
         if (!(businessModel instanceof CloudObject)) {
-            logger.error('Provided model is not a Type');
-            return;
+            throw new Error('Provided model is not a Type');
         }
 
         const { json, error } = getAsJson(source);
