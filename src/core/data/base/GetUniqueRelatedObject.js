@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, Relation } from 'olympe';
+import { Brick, registerBrick, Relation, Query } from 'olympe';
 import { getLogger } from 'logging';
 import { getRelationDirection } from '../list/utils';
 
@@ -29,7 +29,7 @@ export default class GetUniqueRelatedObject extends Brick {
      */
     update($, [object, relation], [setObject]) {
         const direction = getRelationDirection(object, relation);
-        object.follow(new Relation(relation, direction))
+        Query.from(object).follow(new Relation(relation, direction))
             .observe($)
             .subscribe(result => {
                 if(result.size() > 1) {

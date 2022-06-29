@@ -68,16 +68,20 @@ export default class Filter extends ActionBrick {
                 .set(rankInput, rank)
                 .set(listInput, arr)
                 .trigger(startInput);
-            predicate$.waitFor(endOutput).then(() => done(predicate$.get(resOutput)));
+            predicate$.waitFor(endOutput).then(() => {
+                const result = predicate$.get(resOutput);
+                predicate$.destroy();
+                done(result);
+            });
         });
 
-        const resultList = [];
+        const filteredArray = [];
         for (let i = 0, l = array.length; i < l; i++) {
             if (Boolean(await filter(array[i], i, array))) {
-                resultList.push(array[i]);
+                filteredArray.push(array[i]);
             }
         }
-        return resultList;
+        return filteredArray;
     }
 }
 
