@@ -15,14 +15,14 @@
  */
 
 import { ActionBrick, BrickContext, registerBrick, CloudObject, Transaction, RelationModel, ErrorFlow } from 'olympe';
-import { getLogger } from 'logging';
+import { getAsJson } from './helper';
 
 export default class JSONToCloudObject extends ActionBrick {
 
     /**
      * @override
      * @param {!BrickContext} $
-     * @param {!Object | string} source
+     * @param {Object | string} source
      * @param {!CloudObject} businessModel
      * @param {boolean} persist
      * @param {function()} forwardEvent
@@ -30,23 +30,21 @@ export default class JSONToCloudObject extends ActionBrick {
      * @param {function(!Array | !CloudObject)} setResult
      */
     update($, [source, businessModel, persist], [forwardEvent, setErrorFlow, setResult]) {
-        const logger = getLogger('JSON To Cloud Object');
-
         // Guards
-        if (typeof source !== 'object' && typeof source !== 'string') {
-            logger.error('Provided source is not object or string');
+        if (source === null) {
+            setErrorFlow(ErrorFlow.create('Provided source is null', 1));
             return;
+        }
+        if (typeof source !== 'object' && typeof source !== 'string') {
+            throw new Error('Provided source is not an object or a string');
         }
         if (!(businessModel instanceof CloudObject)) {
-            logger.error('Provided model is not an Object');
-            return;
+            throw new Error('Provided model is not a Type');
         }
 
-        let json;
-        try {
-            json = (typeof source === 'string') ? JSON.parse(source) : source;
-        } catch (e) {
-            setErrorFlow(ErrorFlow.create('Error while parsing the source string ' + e.message, 1));
+        const { json, error } = getAsJson(source);
+        if (error !== null) {
+            setErrorFlow(ErrorFlow.create(error.message, error.code));
             return;
         }
 
