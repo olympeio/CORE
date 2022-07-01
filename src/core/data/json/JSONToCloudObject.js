@@ -32,19 +32,24 @@ export default class JSONToCloudObject extends ActionBrick {
     update($, [source, businessModel, persist], [forwardEvent, setErrorFlow, setResult]) {
         // Guards
         if (source === null) {
-            setErrorFlow(ErrorFlow.create('Provided source is null', 1));
+            setErrorFlow(ErrorFlow.create('Provided source null', 1));
             return;
         }
         if (typeof source !== 'object' && typeof source !== 'string') {
-            throw new Error('Provided source is not an object or a string');
+            setErrorFlow(ErrorFlow.create('Provided source is not an object or a string', 1));
+            return;
         }
         if (!(businessModel instanceof CloudObject)) {
-            throw new Error('Provided model is not a Type');
+            setErrorFlow(ErrorFlow.create('Provided model is not a Type', 1));
+            return;
         }
 
-        const { json, error } = getAsJson(source);
-        if (error !== null) {
-            setErrorFlow(ErrorFlow.create(error.message, error.code));
+        let json;
+        try {
+            // Try to parse the json if it is a string or keep the object otherwise.
+            json = (typeof source === 'string') ? JSON.parse(source) : source;
+        } catch(e) {
+            setErrorFlow(ErrorFlow.create(`Error while parsing the source string: ${e.message}`, 1));
             return;
         }
 
