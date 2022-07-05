@@ -46,11 +46,13 @@ export const addElementToList = (list, object, onDone) => {
         return;
     }
 
-    if (Array.isArray(list) || list instanceof QueryResult) {
+    if (Array.isArray(list)) {
         list.push(object);
         onDone(list);
+    } else if(list instanceof QueryResult) {
+        onDone(list.push(object));
     } else {
-        return onDone(list.union(new ListDef(instanceToTag(object), []))); // New listdef: union of the previous + 1 instance.
+        onDone(list.union(new ListDef(instanceToTag(object), []))); // New listdef: union of the previous + 1 instance.
     }
 };
 
