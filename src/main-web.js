@@ -25,6 +25,7 @@ import './core/**/*.jsx';
 initLogging();
 
 export { getLogger } from './helpers/logging';
+export {TimeoutMap, TimeoutSet} from './helpers/timeoutData';
 export * from 'helpers/binaryConverters';
 export * from 'helpers/navigation';
 export * from 'helpers/mui';
