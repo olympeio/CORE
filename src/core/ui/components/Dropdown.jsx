@@ -143,7 +143,7 @@ export default class Dropdown extends ReactBrick {
                         elements = elements
                             .concat(Dropdown.getListElements(selectedValues))
                             .filter(elem => {
-                                if(elem.getTag){
+                                if(elem instanceof CloudObject){
                                     if(tags.includes(elem.getTag())){
                                         return false;
                                     } else {
