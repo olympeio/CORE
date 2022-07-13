@@ -94,8 +94,9 @@ export default class Dropdown extends ReactBrick {
         // listen to either Enum or Object List property
         return combineLatest([
             $.observe('Enum', false),
-            $.observe('Object List', false)
-        ]).pipe(switchMap(([enumModel, objectList]) => {
+            $.observe('Object List', false),
+            $.observe('Selected Values', false)
+        ]).pipe(switchMap(([enumModel, objectList, selectedValues]) => {
             // safety, if nothing set, return immediately
             if (enumModel === null && objectList === null) {
                 return of([[], 0, false]);
@@ -135,6 +136,25 @@ export default class Dropdown extends ReactBrick {
                 let elements = [];
                 if (size > 0 && list !== null) {
                     elements = Dropdown.getListElements(list);
+
+                    // If the list comes from the server, we have to add the selected values to it, otherwise we cannot set any selection
+                    if(selectedValues){
+                        const tags = [];
+                        elements = elements
+                            .concat(Dropdown.getListElements(selectedValues))
+                            .filter(elem => {
+                                if(elem.getTag){
+                                    if(tags.includes(elem.getTag())){
+                                        return false;
+                                    } else {
+                                        tags.push(elem.getTag());
+                                        return true;
+                                    }
+                                } else {
+                                    return true;
+                                }
+                            });
+                    }
                 }
                 return [elements, size, isEnum];
             }));
@@ -356,6 +376,7 @@ export default class Dropdown extends ReactBrick {
         const [open, setOpen] = useState(false);
         const [limit, setLimit] = useState(1);
         const [chips, setChips] = useState([]);
+        const [selectedValue, setSelectedValue] = useState([]);
 
         React.useEffect(() => {
             if (width && height && multiple) {
@@ -370,7 +391,14 @@ export default class Dropdown extends ReactBrick {
          * @return {Object}
          */
         const findOptionValue = (value) => {
-            const foundOption = options.find(opt => opt.value === value);
+            const foundOption = options.find(opt => {
+                // Has to filter differently if it's cloud objects
+                if(opt.value.getTag){
+                    return opt.value.getTag() === value?.getTag()
+                } else {
+                    return opt.value === value
+                }
+            });
             const option = foundOption !== undefined ? foundOption : null;
             if (option === null && freeSolo && typeof value === 'string') { // in case of a custom value entered in free solo mode
                 return Dropdown.createOption(value, value);
@@ -379,12 +407,13 @@ export default class Dropdown extends ReactBrick {
             }
         };
 
-        let value = null;
-        if (multiple) {
-            value = values !== undefined ? values.map(findOptionValue).filter(val => val !== null) : [];
-        } else {
-            value = values !== undefined ? findOptionValue(values[0]) : null;
-        }
+        React.useEffect(() => {
+            if (multiple) {
+                setSelectedValue(values !== undefined ? values.map(findOptionValue).filter(val => val !== null) : []);
+            } else {
+                setSelectedValue(values !== undefined ? findOptionValue(values[0]) : null);
+            }
+        }, [options, values]);
 
         const id = 'id-' + generateTag();
         const isMultipleSelected = multiple && values && values.length > 0;
@@ -544,13 +573,13 @@ export default class Dropdown extends ReactBrick {
         // property and the `Autocomplete Text` property will be emptied
         const isTextDefined = autocompleteText !== undefined && autocompleteText !== '';
         const inputValue = isTextDefined ? autocompleteText
-            : (value === null || multiple ? '' : value.label);
+            : (selectedValue === null || multiple ? '' : selectedValue.label);
 
         // Element
         return (
                 <Autocomplete
                     // Props
-                    value={value}
+                    value={selectedValue}
                     options={options}
                     multiple={multiple}
                     disabled={disabled}
