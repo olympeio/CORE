@@ -31,6 +31,6 @@ fi
 for f in $FILES
 do
   sed -i '' -e "s/\"version\": \".*\",/\"version\": \"$VERSION\",/" "$f"
-  sed -i '' -e "s/\"@olympeio\/runtime-\(.*\)\": \".*\",/\"@olympeio\/runtime-\\1\": \"$VERSION\",/" "$f"
+  sed -i '' -e "s/\"@olympeio\/runtime-\(.*\)\": \".*\",/\"@olympeio\/runtime-\\1\": \"$FW_VERSION\",/" "$f"
 done
 
