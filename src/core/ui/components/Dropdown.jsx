@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { registerBrick, EnumValue, QueryResult, BrickContext, Brick, generateTag, ListDef } from 'olympe';
+import { registerBrick, EnumValue, QueryResult, BrickContext, Brick, generateTag, ListDef, CloudObject } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
 import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent } from 'helpers/mui';
 import { getLogger } from 'logging';
