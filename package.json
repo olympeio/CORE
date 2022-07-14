@@ -1,13 +1,10 @@
 {
   "name": "@olympeio/core",
-  "version": "2.1.0-dev",
+  "version": "2.1.1-dev",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/olympeio/CORE"
-  },
-  "build": {
-    "orchestratorVersion": "6.2.2"
   },
   "files": [
     "import",
