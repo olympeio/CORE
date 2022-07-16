@@ -8,13 +8,13 @@ workflow:
       when: never
     - when: always
 
-.init:
+.base:
   image: registry.caas.olympe.io/infra/docker/node-tools-light:latest
   tags: [eks]
 
 # Initialize the npm environment with gitlab registry
 .npm-config:
-  extends: .init
+  extends: .base
   variables:
     VAULT_ADDR: https://vault.olympe.io
     VAULT_AUTH_ROLE: gitlab-ci
@@ -33,7 +33,7 @@ stages:
 # Initialize the npm environment and install packages
 setup:
   stage: setup
-  extends: .base
+  extends: .npm-config
   script:
     - npm install
   artifacts:
@@ -72,7 +72,7 @@ tests:
 #  - in all other cases, publishing is skipped
 publish:
   stage: publish-lib
-  extends: .base
+  extends: .npm-config
   dependencies:
     - build-package
   variables:
