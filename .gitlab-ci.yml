@@ -8,24 +8,9 @@ workflow:
       when: never
     - when: always
 
-.init:
-  image:
-    name: registry.caas.olympe.io/infra/docker/node-tools-light:14-bullseye-slim
-  tags:
-    - eks
-
-# Initialize the npm environment with gitlab registry
-.npm-config:
-  extends: .init
-  variables:
-    VAULT_ADDR: https://vault.olympe.io
-    VAULT_AUTH_ROLE: gitlab-ci
-  before_script:
-    - export VAULT_TOKEN="$(vault write -field=token auth/jwt/login role=${VAULT_AUTH_ROLE} jwt=$CI_JOB_JWT)"
-    - export GITLAB_TOKEN=$(vault kv get -field token kv/devops/npm/token)
-    # core npm registry
-    - npm config set @olympeio:registry https://gitlab.caas.olympe.io/api/v4/projects/236/packages/npm/
-    - npm config set '//gitlab.caas.olympe.io/api/v4/projects/236/packages/npm/:_authToken' "$GITLAB_TOKEN"
+.base:
+  image: registry.caas.olympe.io/infra/docker/node-tools-light:latest
+  tags: [eks]
 
 stages:
   - setup
@@ -36,35 +21,36 @@ stages:
 # Initialize the npm environment and install packages
 setup:
   stage: setup
-  extends: .npm-config
+  extends: .base
   script:
     - npm install
   artifacts:
-    expire_in: 1 day
+    expire_in: 1 week
     paths:
       - node_modules/
 
 # Build npm package
 build-package:
   stage: build
-  extends: .init
+  extends: .base
   dependencies:
     - setup
   script:
     - if [ -z "$CI_COMMIT_TAG" ]; then apt-get install -y jq; sh ./bumpVersion.sh; fi
     - npm run build;
   artifacts:
+    expire_in: 1 week
     paths:
       - dist/
 
 # Run unit tests
 tests:
   stage: unit-tests
-  extends: .init
+  extends: .base
   dependencies:
     - setup
-  image: # Use an image that includes chromium and jre for test
-    name: registry.caas.olympe.io/infra/docker/node-tools:14-bullseye-slim
+  # Use an image that includes chromium and jre for test
+  image: registry.caas.olympe.io/infra/docker/node-tools:latest 
   script:
     - npm test
 
@@ -74,7 +60,7 @@ tests:
 #  - in all other cases, publishing is skipped
 publish:
   stage: publish-lib
-  extends: .npm-config
+  extends: .base
   dependencies:
     - build-package
   variables:
