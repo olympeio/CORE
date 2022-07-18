@@ -9,7 +9,7 @@ workflow:
     - when: always
 
 .base:
-  image: registry.caas.olympe.io/infra/docker/node-tools-light:14.20.0-bullseye-slim
+  image: registry.caas.olympe.io/infra/docker/node-tools-light:latest
   tags: [eks]
 
 # Initialize the npm environment with gitlab registry
@@ -19,8 +19,6 @@ workflow:
     VAULT_ADDR: https://vault.olympe.io
     VAULT_AUTH_ROLE: gitlab-ci
   before_script:
-    - whoami
-    - ls -l /usr/bin/vault
     - export VAULT_TOKEN="$(vault write -field=token auth/jwt/login role=${VAULT_AUTH_ROLE} jwt=$CI_JOB_JWT)"
     - export NPM_TOKEN=$(vault kv get -field token kv/devops/npm/token)
     # Setup token for private npm registry
