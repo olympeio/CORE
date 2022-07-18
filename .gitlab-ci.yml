@@ -92,8 +92,7 @@ publish-public:
   stage: publish-lib
   dependencies:
     - build-package
-  image:
-    name: node:14-bullseye-slim # Original node image to keep the public registry npmjs.org
+  image: node:lts-bullseye-slim # Original node image to keep the public registry npmjs.org
   tags:
     - eks
   script:
