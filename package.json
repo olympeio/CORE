@@ -33,7 +33,7 @@
     "@babel/core": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
     "@babel/preset-react": "^7.14.5",
-    "@olympeio/dev-tools": "2.1.0",
+    "@olympeio/dev-tools": "dev",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^9.0.0",
