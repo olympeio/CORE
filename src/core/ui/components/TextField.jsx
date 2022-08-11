@@ -54,6 +54,20 @@ export default class TextField extends ReactBrick {
             const borderWidth = useProperty($, 'Border Width');
             const borderRadius = useProperty($, 'Border Radius');
             const fontFamily = useProperty($, 'Font Family');
+            const vertAlign = useProperty($, 'Vertical Alignment');
+            let justifyContent;
+            switch (vertAlign) {
+                case 'top':
+                    justifyContent = 'flex-start';
+                    break;
+                case 'bottom':
+                    justifyContent = 'flex-end';
+                    break;
+                default:
+                    justifyContent = 'center';
+                    break;
+            }
+            const multiLine = useProperty($, 'Multiline');
             const textColorOverflow = useProperty($, 'Text Color Override');
             const showBorder = borderColor && borderWidth > 0 && borderColor.toHexString() !== '#00000000';
             const showTextColorOverflow = textColorOverflow && !error && textColorOverflow.toHexString() !== '#00000000';
@@ -72,7 +86,7 @@ export default class TextField extends ReactBrick {
                     autoFocus={useProperty($, 'Auto Focus')}
                     required={useProperty($, 'Required')}
                     error={error}
-                    multiline={useProperty($, 'Multiline')}
+                    multiline={multiLine}
 
                     // Events
                     onClick={() => $.trigger('On Click')}
@@ -88,7 +102,10 @@ export default class TextField extends ReactBrick {
                     // see: https://mui.com/api/text-field/#props
                     InputProps={{
                         sx: {
-                            flex: 'auto',
+                            ...ifNotNull('flex', 'auto', !multiLine),
+                            ...ifNotNull('display', 'flex', multiLine),
+                            ...ifNotNull('flexDirection', 'column', multiLine),
+                            ...ifNotNull('justifyContent', justifyContent, multiLine),
                             fontFamily: fontFamily,
                             tabIndex: useProperty($, 'Tab Index'),
                             ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
@@ -114,6 +131,9 @@ export default class TextField extends ReactBrick {
                     // Affects the <input> or <textarea> element of the input component
                     // see: https://mui.com/api/text-field/#props
                     inputProps={{
+                        ...ifNotNull('min', useProperty($, 'Min Val'), type === 'number'),
+                        ...ifNotNull('max', useProperty($, 'Max Val'), type === 'number'),
+                        ...ifNotNull('step', useProperty($, 'Step'), type === 'number'),
                         style: {
                             maxHeight: '100%',
                             overflow: 'auto'
