@@ -41,26 +41,34 @@ export default class Dropdown extends ReactBrick {
      * @override
      */
     setupExecution($) {
-        const observeListAsArray = this.getListObservable($);
-        const observeOptions = observeListAsArray.pipe(switchMap(([values, size, isEnum]) => {
-            if (size === 0) {
-                return of([]);
-            } else if (isEnum) {
-                return this.observeEnum($, values);
-            } else {
-                return $.observe('Object To String').pipe(switchMap((objectToString) => {
-                    return combineLatest(this.runTransformer($, objectToString, values));
-                }));
-            }
-        }));
-
         // Combine with Hidden property
         return combineLatest([
             $.observe('Hidden'),
             $.observe('Auto Complete'),
-            $.observe('Multiple'),
-            observeOptions
+            $.observe('Multiple')
         ]);
+    }
+
+    /**
+     * @override
+     */
+    init($) {
+        $.set('Options', []);
+        this.getListObservable($)
+            .pipe(switchMap(([values, size, isEnum]) => {
+                if (size === 0) {
+                    return of([]);
+                } else if (isEnum) {
+                    return this.observeEnum($, values);
+                } else {
+                    return $.observe('Object To String', false).pipe(switchMap((objectToString) => {
+                        return combineLatest(this.runTransformer($, objectToString, values));
+                    }));
+                }
+            }))
+            .subscribe(options => {
+                $.set('Options', options);
+            });
     }
 
     /**
@@ -138,22 +146,26 @@ export default class Dropdown extends ReactBrick {
                     elements = Dropdown.getListElements(list);
 
                     // If the list comes from the server, we have to add the selected values to it, otherwise we cannot set any selection
-                    if(selectedValues){
-                        const tags = [];
-                        elements = elements
-                            .concat(Dropdown.getListElements(selectedValues))
-                            .filter(elem => {
-                                if(elem instanceof CloudObject){
-                                    if(tags.includes(elem.getTag())){
+                    if(selectedValues) {
+                        const selectedValueElements = Dropdown.getListElements(selectedValues);
+                        // We want to concat the elements with the selectedValues only if:
+                        // - elements is empty
+                        // - OR the types of elements and selectedValues are the same -> avoid bad filtering
+                        if(elements.length === 0 || typeof elements[0] === typeof selectedValueElements[0]) {
+                            const tags = new Set();
+                            elements = elements
+                                .concat(selectedValueElements)
+                                .filter(elem => {
+                                    const elemTag = elem instanceof CloudObject ? elem.getTag() : elem;
+                                    if(tags.has(elemTag)){
                                         return false;
-                                    } else {
-                                        tags.push(elem.getTag());
+                                    }
+                                    else {
+                                        tags.add(elemTag);
                                         return true;
                                     }
-                                } else {
-                                    return true;
-                                }
-                            });
+                                });
+                        }
                     }
                 }
                 return [elements, size, isEnum];
@@ -213,7 +225,9 @@ export default class Dropdown extends ReactBrick {
                 //  context is destroyed everytime the observable returned by setupExecution emits a value
             });
         } else {
-            return list.map(item => $.observe(Dropdown.createOption(item, item.toString())));
+            // case where there is no ObjectToString lambda defined
+            // returns an array of observers. the observers push a single value corresponding to the CloudObject basic string representation
+            return list.map(item => of(Dropdown.createOption(item, item.toString())));
         }
     }
 
@@ -245,8 +259,9 @@ export default class Dropdown extends ReactBrick {
      */
     static getReactComponent($) {
         return (props) => {
-            const [hidden, autocomplete, multiple, options] = props.values;
+            const [hidden, autocomplete, multiple] = props.values;
             const [values, setValues] = useState([]);
+            const options = useProperty($, 'Options') || [];
             const selectedValue = useProperty($, 'Selected Value');
             const selectedValues = useProperty($, 'Selected Values');
             const theme = Dropdown.getTheme($);
@@ -286,7 +301,7 @@ export default class Dropdown extends ReactBrick {
             value = values[0] !== undefined ? values[0] : '';
         }
 
-        const isSelectedValue = values !== undefined && values[0] !== undefined && values[0] !== null;
+        const isSelectedValue = values !== undefined && values[0];
         const props = Dropdown.getTextFieldProps($, isSelectedValue);
 
         /**
@@ -323,6 +338,9 @@ export default class Dropdown extends ReactBrick {
             };
         };
 
+        const cssProperty = useProperty($, 'CSS Property');
+        const muiSxJson = useProperty($, 'MUI sx [json]');
+
         return (
             <TextField
                 // Properties
@@ -345,8 +363,8 @@ export default class Dropdown extends ReactBrick {
                         value={option.value}
                         sx={{
                             fontFamily: props.fontFamily,
-                            ...cssToSxProps(useProperty($, 'CSS Property')),
-                            ...jsonToSxProps(useProperty($, 'MUI sx [json]')),
+                            ...cssToSxProps(cssProperty),
+                            ...jsonToSxProps(muiSxJson),
                         }}
                     >
                         {option.label}
@@ -376,7 +394,7 @@ export default class Dropdown extends ReactBrick {
         const [open, setOpen] = useState(false);
         const [limit, setLimit] = useState(1);
         const [chips, setChips] = useState([]);
-        const [selectedValue, setSelectedValue] = useState([]);
+        const [selectedValue, setSelectedValue] = useState(multiple ? [] : null);
 
         React.useEffect(() => {
             if (width && height && multiple) {
@@ -509,7 +527,7 @@ export default class Dropdown extends ReactBrick {
          * @param {*} params
          */
         const renderInput = (params) => {
-            const isSelectedValue = values !== undefined && values[0] !== undefined && values[0] !== null;
+            const isSelectedValue = values !== undefined && values[0];
             const hasInput = isSelectedValue || autocompleteText !== '';
             const props = Dropdown.getTextFieldProps($, hasInput, params);
             const inputProps = {
@@ -571,9 +589,17 @@ export default class Dropdown extends ReactBrick {
         // The `inputValue` below will hold the `Autocomplete Text` property as long as we
         // are "editing" the value. Once a value is chosen, it will be pushed to the `Selected Value(s)`
         // property and the `Autocomplete Text` property will be emptied
-        const isTextDefined = autocompleteText !== undefined && autocompleteText !== '';
-        const inputValue = isTextDefined ? autocompleteText
-            : (selectedValue === null || multiple ? '' : selectedValue.label);
+        let inputValue;
+        if (autocompleteText !== undefined && autocompleteText !== '') {
+            // case 1: there is some text in the autocomplete
+            inputValue = autocompleteText;
+        } else if (selectedValue === null || multiple || selectedValue.length === 0) {
+            // case 2: there is no selected value or multiple selection is enabled
+            inputValue = '';
+        } else {
+            // case 3: there is a single selected value
+            inputValue = selectedValue.label;
+        }
 
         // Element
         return (
@@ -596,6 +622,9 @@ export default class Dropdown extends ReactBrick {
                         />
                     )}
                     renderInput={renderInput}
+                    getOptionLabel={option => {
+                        return option.label ?? (typeof option === 'string' ? option : option.toString());
+                    }}
 
                     // events
                     onChange={onChange}
