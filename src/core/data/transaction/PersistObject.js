@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, Context, InstanceTag, instanceToTag, Transaction } from 'olympe';
+import { ActionBrick, registerBrick, Context, InstanceTag, instanceToTag, Transaction, ErrorFlow } from 'olympe';
 import {getLogger} from 'logging';
 
 export default class PersistObject extends ActionBrick {
@@ -28,20 +28,28 @@ export default class PersistObject extends ActionBrick {
      * @param {InstanceTag} objectIn
      * @param {function()} forwardEvent
      * @param {function(InstanceTag)} setObjectOut
+     * @param {function(!ErrorFlow)} setErrorFlow
      */
-    update(context, [objectIn], [forwardEvent, setObjectOut]) {
+    update(context, [objectIn], [forwardEvent, setObjectOut, setErrorFlow]) {
         const transaction = Transaction.from(context);
 
         if (typeof objectIn === 'string'  || instanceToTag(objectIn) !== '') {
             transaction.persistInstance(objectIn, true);
         } else {
-            getLogger('Persist Object').error('Cannot persist object', objectIn);
+            const msg = `Cannot persist object ${objectIn}: Wrong type.`;
+            getLogger('Persist Object').error(msg);
+            setErrorFlow && setErrorFlow(ErrorFlow.create(msg, 2));
+            return;
         }
         Transaction.process(context, transaction)
             .then(() => {
                 setObjectOut(objectIn);
                 forwardEvent();
-            });
+            }).catch(reason => {
+                const msg = `Persist object ${objectIn} failed: ${reason}`;
+                getLogger('Persist Object').error(msg);
+                setErrorFlow && setErrorFlow(ErrorFlow.create(msg, 3));
+        });
     }
 }
 
