@@ -3,8 +3,8 @@ workflow:
     # allow to publish a package from the Gitlab UI, on upgrade branch
     - if: '$CI_PIPELINE_SOURCE == "web"'
       when: always
-    # disable pipeline when pushing on master (when running release scripts) and upgrade (when running smooth upgrade pipeline)
-    - if: '$CI_COMMIT_BRANCH == "master" || $CI_COMMIT_BRANCH == "upgrade"'
+    # disable pipeline when pushing on master (when running release scripts)
+    - if: '$CI_COMMIT_BRANCH == "master"'
       when: never
     - when: always
 
