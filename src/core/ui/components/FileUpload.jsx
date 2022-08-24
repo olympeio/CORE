@@ -19,7 +19,7 @@ import { ReactBrick, useProperty } from 'helpers/react.jsx';
 import { jsonToSxProps, ifNotNull, ifNotTransparent, cssToSxProps } from 'helpers/mui';
 import { getLogger } from 'logging';
 
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 
@@ -57,14 +57,26 @@ export default class FileUpload extends ReactBrick {
      */
     static getReactComponent($) {
         return (props) => {
+            /**
+             * Ref of the upload text field used to open the file selector when triggering the
+             * `Show File Selector` event
+             * @type {React.MutableRefObject<null>}
+             */
+            const uploadTextField = useRef(null);
+            useEffect(() => {
+                $.observe('Show File Selector').subscribe(() => {
+                    uploadTextField.current?.querySelector('input').click();
+                });
+            }, []);
+
             const [hidden, renderer] = props.values;
             if (hidden) {
                 return null;
             }
             if(renderer) {
-                return FileUpload.renderCustom($, renderer);
+                return FileUpload.renderCustom($, renderer, uploadTextField);
             } else {
-                return FileUpload.renderTextField($);
+                return FileUpload.renderTextField($, uploadTextField);
             }
         };
     }
@@ -73,9 +85,10 @@ export default class FileUpload extends ReactBrick {
      * @static
      * @private
      * @param {!BrickContext} $
+     * @param {MutableRefObject} uploadTextField
      * @return {!ReactElement}
      */
-    static renderTextField($) {
+    static renderTextField($, uploadTextField) {
         const label = useProperty($, 'Label');
         const fontFamily = useProperty($, 'Font Family');
         const borderWidth = useProperty($, 'Border Width');
@@ -143,7 +156,7 @@ export default class FileUpload extends ReactBrick {
                 }}
 
                 // Open file selector when asked
-                ref={el => FileUpload.bindShowFileSelector($, el)}
+                ref={uploadTextField}
             ></TextField>
         );
     }
@@ -153,9 +166,10 @@ export default class FileUpload extends ReactBrick {
      * @private
      * @param {!BrickContext} $
      * @param {!VisualBrick} renderer
+     * @param {MutableRefObject} uploadTextField
      * @return {!ReactElement}
      */
-    static renderCustom($, renderer) {
+    static renderCustom($, renderer, uploadTextField) {
         return (
             <Box
                 // Style
@@ -194,24 +208,10 @@ export default class FileUpload extends ReactBrick {
                     }}
 
                     // Open file selector when asked
-                    ref={el => FileUpload.bindShowFileSelector($, el)}
+                    ref={uploadTextField}
                 ></TextField>
             </Box>
         );
-    }
-
-    /**
-     * @static
-     * @private
-     * @param {!BrickContext} $
-     * @param {Element} el
-     */
-    static bindShowFileSelector($, el) {
-        if(el) {
-            $.observe('Show File Selector').subscribe(() => {
-                el.querySelector('input').click();
-            });
-        }
     }
 
     /**
