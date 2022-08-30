@@ -22,15 +22,17 @@ echo "    Core: ${VERSION}"
 echo "    Framework: ${FW_VERSION}"
 
 export FW_GIT_TAG=$FW_VERSION
+export RUNTIME_PREFIX=""
 if [[ $FW_VERSION =~ ^[0-9]+.[0-9]+.[0-9]+.*$ ]]
 then
   export FW_GIT_TAG="v${FW_VERSION}"
+  export RUNTIME_PREFIX="~"
 fi
 
 # Core version
 for f in $FILES
 do
-  sed -i '' -e "s/\"version\": \".*\",/\"version\": \"$VERSION\",/" "$f"
-  sed -i '' -e "s/\"@olympeio\/runtime-\(.*\)\": \".*\",/\"@olympeio\/runtime-\\1\": \"$VERSION\",/" "$f"
+  sed -i '' -e "s/\"version\": \".*\",/\"version\": \"${VERSION}\",/" "$f"
+  sed -i '' -e "s/\"@olympeio\/runtime-\(.*\)\": \".*\",/\"@olympeio\/runtime-\\1\": \"${RUNTIME_PREFIX}${FW_VERSION}\",/" "$f"
 done
 
