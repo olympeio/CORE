@@ -22,10 +22,12 @@
  */
 export function jsonToSxProps(json) {
     let props = {};
-    try {
-        props = JSON.parse(json);
-    } catch (e) {
-        // Ignore error
+    if (typeof json === 'string') {
+        try {
+            props = JSON.parse(json);
+        } catch (e) {
+            // Ignore error
+        }
     }
     return props;
 }
