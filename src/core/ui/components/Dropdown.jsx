@@ -22,7 +22,7 @@ import { getLogger } from 'logging';
 import { map, switchMap } from 'rxjs/operators';
 import { of, combineLatest, from, Observable } from 'rxjs';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -266,7 +266,7 @@ export default class Dropdown extends ReactBrick {
             const selectedValues = useProperty($, 'Selected Values');
             const theme = Dropdown.getTheme($);
 
-            React.useEffect(() => {
+            useEffect(() => {
                 const selectedValuesArray = Dropdown.getListElements(selectedValues);
                 setValues(multiple ? selectedValuesArray : [selectedValue]);
             }, [selectedValue, selectedValues]);
@@ -396,7 +396,16 @@ export default class Dropdown extends ReactBrick {
         const [chips, setChips] = useState([]);
         const [selectedValue, setSelectedValue] = useState(multiple ? [] : null);
 
-        React.useEffect(() => {
+        // Create a unique sub-context for the onInputChange lambda function and destroy and recreate it only when the brick is changed.
+        const onInputChangeContext = useRef();
+        useEffect(() => {
+            // Set the context in the ref object.
+            onInputChangeContext.current = onInputChangeLambda ? $.runner(onInputChangeLambda) : null;
+            // Destroy the sub-context when the onInputChangeLambda (the brick itself) is deleted/changed.
+            return () => onInputChangeContext.current?.destroy();
+        }, [onInputChangeLambda]);
+
+        useEffect(() => {
             if (width && height && multiple) {
                 setLimit(getLimitTags(chips.map(chip => chip.width)));
             }
@@ -425,7 +434,7 @@ export default class Dropdown extends ReactBrick {
             }
         };
 
-        React.useEffect(() => {
+        useEffect(() => {
             if (multiple) {
                 setSelectedValue(values !== undefined ? values.map(findOptionValue).filter(val => val !== null) : []);
             } else {
@@ -472,8 +481,7 @@ export default class Dropdown extends ReactBrick {
                     break;
                 }
             }
-            const chipsNumber = rows.reduce((prev, cur) => prev + cur.length, 0) || 1;
-            return chipsNumber;
+            return rows.reduce((prev, cur) => prev + cur.length, 0) || 1;
         };
 
         /**
@@ -565,11 +573,10 @@ export default class Dropdown extends ReactBrick {
             // Only triggers the Draw onInputChange when the user has typed something in the textfield (not when selecting or clearing the textfield programmatically).
             if (event !== null) {
                 $.set('Autocomplete Text', newValue || '');
-                if (onInputChangeLambda && reason === 'input') {
+                if (onInputChangeContext.current instanceof BrickContext && reason === 'input') {
                     const [startInput, textInput] = onInputChangeLambda.getInputs();
-                    $.runner(onInputChangeLambda)
-                        .set(textInput, newValue)
-                        .trigger(startInput);
+                    // Set new input values to the onInputChange context.
+                    onInputChangeContext.current.set(textInput, newValue).trigger(startInput);
                 }
             }
         };
