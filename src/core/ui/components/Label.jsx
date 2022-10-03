@@ -41,7 +41,11 @@ export default class Label extends ReactBrick {
     static getReactComponent($) {
         return (props) => {
             const [hidden] = props.values;
-            const text = useProperty($, 'Text');
+            let text = useProperty($, 'Text');
+            // Change typeof text to string to avoid crash
+            if (typeof text !== 'string') {
+                text = text !== null && text !== undefined ? text.toString() : '';
+            }
             const borderRadius = useProperty($, 'Border Radius');
             return !hidden && (
                 <Box
