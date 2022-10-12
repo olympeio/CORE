@@ -37,7 +37,7 @@ export default class GetObjectProperty extends Brick {
         if (object === null || property === null) {
             setValue(null);
         } else {
-            CloudObject.get(object).observe($, property).subscribe(setValue);
+            CloudObject.get(object).observe($, property, false).subscribe(setValue);
         }
     }
 }

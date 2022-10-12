@@ -18,6 +18,7 @@ import { registerBrick } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
 import { markdownTextToReactElement } from 'helpers/remarkable';
 import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
+import { getLogger } from 'logging';
 
 import React from 'react';
 import Typography from '@mui/material/Typography';
@@ -41,7 +42,14 @@ export default class Label extends ReactBrick {
     static getReactComponent($) {
         return (props) => {
             const [hidden] = props.values;
-            const text = useProperty($, 'Text');
+            let text = useProperty($, 'Text');
+            // Change typeof text to string to avoid crash
+            if (typeof text !== 'string') {
+                if (text) {
+                    getLogger('Label').warn('Improper input in text property, got type ' + typeof text + ' instead of string. You might want to use "To String" brick.');
+                }
+                text = text !== null && text !== undefined ? text.toString() : '';
+            }
             const borderRadius = useProperty($, 'Border Radius');
             return !hidden && (
                 <Box
