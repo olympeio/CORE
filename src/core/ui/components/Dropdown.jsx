@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { registerBrick, EnumValue, QueryResult, BrickContext, Brick, generateTag, ListDef, CloudObject } from 'olympe';
+import { registerBrick, EnumValue, QueryResult, BrickContext, Brick, ListDef, CloudObject } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
 import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent } from 'helpers/mui';
 import { getLogger } from 'logging';
@@ -31,6 +31,7 @@ import Paper from '@mui/material/Paper';
 import Autocomplete from '@mui/material/Autocomplete';
 import { ThemeProvider, createTheme  } from '@mui/material/styles';
 import { blue, green, purple, lightBlue, red, orange } from '@mui/material/colors';
+import {Chip} from "@mui/material";
 
 /**
  * Provide a Dropdown visual component using MUI TextField
@@ -140,7 +141,7 @@ export default class Dropdown extends ReactBrick {
                 throw new Error('Provided input is not an Enum or a List of objects: ' + list);
             }
 
-            return sizeObservable.pipe(map((size) => {
+           return sizeObservable.pipe(map((size) => {
                 let elements = [];
                 if (size > 0 && list !== null) {
                     elements = Dropdown.getListElements(list);
@@ -392,8 +393,6 @@ export default class Dropdown extends ReactBrick {
         const height = useProperty($, 'Height');
         const width = useProperty($, 'Width');
         const [open, setOpen] = useState(false);
-        const [limit, setLimit] = useState(1);
-        const [chips, setChips] = useState([]);
         const [selectedValue, setSelectedValue] = useState(multiple ? [] : null);
 
         // Create a unique sub-context for the onInputChange lambda function and destroy and recreate it only when the brick is changed.
@@ -404,12 +403,6 @@ export default class Dropdown extends ReactBrick {
             // Destroy the sub-context when the onInputChangeLambda (the brick itself) is deleted/changed.
             return () => onInputChangeContext.current?.destroy();
         }, [onInputChangeLambda]);
-
-        useEffect(() => {
-            if (width && height && multiple) {
-                setLimit(getLimitTags(chips.map(chip => chip.width)));
-            }
-        }, [width, height]);
 
         /**
          * Handle selected values
@@ -442,7 +435,6 @@ export default class Dropdown extends ReactBrick {
             }
         }, [options, values]);
 
-        const id = 'id-' + generateTag();
         const isMultipleSelected = multiple && values && values.length > 0;
         const commonSx = {
             height: height,
@@ -452,6 +444,7 @@ export default class Dropdown extends ReactBrick {
             },
             textOverflow: 'ellipsis',
         };
+
         const maxChipWidth = `calc(100% - ${(values && values.length > 1 ? 32 : 6)}px)`; // padding for number of tags label + buttons
         const focusedSx = {
             ...commonSx,
@@ -461,74 +454,12 @@ export default class Dropdown extends ReactBrick {
         };
 
         /**
-         * @param {Array<number>} chipWidths
-         * @param {number} totalWidth
-         * @param {number} numberOfRows
-         * @return {number}
-         */
-        const getChipsNumber = (chipWidths, totalWidth, numberOfRows) => {
-            // Arrange chips to groups in which element's sum <= total width
-            let total, rows = [], index = -1;
-            while (chipWidths.length > 0) {
-                total = 0;
-                index++;
-                rows[index] = [];
-                while (total + chipWidths[0] <= totalWidth) {
-                    total += chipWidths[0];
-                    rows[index].push(chipWidths.shift());
-                }
-                if (total === 0 || rows.length === numberOfRows) {
-                    break;
-                }
-            }
-            return rows.reduce((prev, cur) => prev + cur.length, 0) || 1;
-        };
-
-        /**
-         * @param {Array<number>} chipWidths
-         * @return {number}
-         */
-        const getLimitTags = (chipWidths) => {
-            const size = Math.floor((height - 12) / 33); // 12 - padding, 33 - chip height
-            const numberOfRows = size > 0 ? size : 1;
-            const availableWidth = width - 65; // padding
-            return getChipsNumber(chipWidths, availableWidth, numberOfRows);
-        };
-
-        /**
          * @param {?function()=} callback
          */
         const onBlur = (callback) => {
-            if (multiple) {
-                const chipElements = document.getElementById(id).getElementsByClassName('MuiChip-root');
-                const currentChips = Array.from(chipElements).map((chip, index) => {
-                    return {
-                        value: values[index],
-                        width: chip.clientWidth + 6, // side margins
-                    };
-                });
-                setChips(currentChips);
-                const widths = currentChips.map(chip => chip.width);
-                setLimit(getLimitTags(widths));
-            }
             if (callback) {
                 callback();
             }
-        };
-
-        /**
-         * @param {!Array<Object>} currentValues
-         */
-        const onRemoveOption = (currentValues) => {
-            const curChips = chips.filter(chip => {
-                return currentValues.find(val => {
-                    const isEnumEqual = val.value === chip.value;
-                    const isObjectEqual = val.value.tag === chip.value.tag;
-                    return isObjectEqual || isEnumEqual;
-                });
-            });
-            const widths = curChips.map(chip => chip.width);
-            setLimit(getLimitTags(widths));
         };
 
         /**
@@ -554,7 +485,6 @@ export default class Dropdown extends ReactBrick {
                 ),
                 onBlur: () => onBlur(props.onBlur)
             };
-
             return (
                 <TextField
                     {...params}
@@ -587,9 +517,6 @@ export default class Dropdown extends ReactBrick {
          * @param {string} reason
          */
         const onChange = (event, currentValues, reason) => {
-            if (reason === 'removeOption') {
-                onRemoveOption(currentValues);
-            }
             Dropdown.onChangeCallbackAutocomplete($, multiple, currentValues);
         };
 
@@ -608,12 +535,34 @@ export default class Dropdown extends ReactBrick {
             inputValue = selectedValue.label;
         }
 
+        const sortedOptions = options
+            .map(option => {
+                option.isSelected = Array.isArray(selectedValue) ?
+                    selectedValue.some(value => value?.value === option.value) :
+                    selectedValue?.value === option.value;
+                return option;
+            })
+            .sort((a, b) => {
+                if (a.isSelected === b.isSelected) {
+                    return 0;
+                } else if (a.isSelected) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            })
+
+        const isSelected = (option) => {
+                return option.isSelected ? '': ' ';
+        }
+
         // Element
         return (
                 <Autocomplete
                     // Props
                     value={selectedValue}
-                    options={options}
+                    options={sortedOptions}
+                    groupBy={isSelected}
                     multiple={multiple}
                     disabled={disabled}
                     forcePopupIcon={!disabled}
@@ -621,7 +570,6 @@ export default class Dropdown extends ReactBrick {
                     inputValue={inputValue}
                     openOnFocus={true}
                     loading={loading && open}
-                    limitTags={limit || 1}
                     PaperComponent={(params) => (
                         <Dropdown.CustomPaper
                             $={$}
@@ -629,10 +577,16 @@ export default class Dropdown extends ReactBrick {
                         />
                     )}
                     renderInput={renderInput}
+                    renderTags={(value, getTagProps) => {
+                        return (
+                            <>
+                                <Chip label={value[0].label} sx={{'height': '25px'}}></Chip>
+                                {value.length > 1 ? <span> +{value.length -1}</span> : undefined}
+                            </>)
+                    }}
                     getOptionLabel={option => {
                         return option.label ?? (typeof option === 'string' ? option : option.toString());
                     }}
-
                     // events
                     onChange={onChange}
                     onInputChange={onInputChange}
@@ -645,37 +599,43 @@ export default class Dropdown extends ReactBrick {
                         setOpen(true);
                         $.trigger('On Open');
                     }}
-                    // Textfield styling
-                    // assign the id to the chip array container to get its chips later on
-                    ref={element => {
-                        if (element) {
-                            const [chipArray] = element.getElementsByClassName('MuiFormControl-root');
-                            chipArray.id = id;
-                        }
-                    }}
                     // needs to maintain the height of the brick for different variants of autoselect
                     sx={{
+                        '.MuiInputBase-root>span': {
+                            paddingLeft: '4px',
+                        },
+                        // chip max-width
+                        '.MuiChip-label': {
+                            maxWidth: `calc(${width <= 95 ? width : 115}px)`,
+                        },
                         // Outline variant
                         '.MuiOutlinedInput-root.MuiInputBase-root:not(.Mui-focused)': {
-                            padding: isMultipleSelected ? '4px 45px 6px 6px' : '6px 65px 6px 6px',
-                            '.MuiAutocomplete-tag': {
-                                margin: `${label !== '' ? 1 : 0}px 3px 3px 0px`,
-                                maxWidth: `calc(100% - ${(values && values.length > 1 ? 40 : 15)}px)`, // padding for number of tags label + buttons
-                            },
+                            paddingTop: label ? '6px':'4px',
                             ...commonSx,
+
                         },
-                        // Standard variant
+                        '.MuiAutocomplete-tag': {
+                            margin: `${label !== '' ? 1 : 0}px 3px 3px 0px`,
+                            maxWidth: `calc(100% - ${(values && values.length > 1 ? 40 : 15 )}px)`,
+                        },
+                            // Standard variant
                         '.MuiInput-underline': {
                             '&.MuiInputBase-root:not(.Mui-focused)': {
+                                padding: '4px 45px 4px 6px',
                                 ...focusedSx,
                             }
                         },
                         // Filled variant
                         '.MuiFilledInput-root': {
                             '&.MuiInputBase-root:not(.Mui-focused)': {
-                                paddingTop: label ? '15px' : '0px',
+                                paddingTop: label ? '35px' : '6px',
+                                paddingBottom: label ? '20px' : '6px',
                                 paddingRight: '60px',
                                 ...focusedSx,
+                            },
+                            '&.MuiInputBase-root.Mui-focused': {
+                                paddingTop: label ? '35px' : '6px',
+                                paddingBottom: label ? '20px' : '6px',
                             },
                         },
                     }}
@@ -689,7 +649,7 @@ export default class Dropdown extends ReactBrick {
      */
     static getTheme($) {
         const overrideColor = useProperty($, 'Color') || 'primary';
-        const theme = createTheme({
+        return createTheme({
             palette: {
                 primary: {
                     main: Dropdown.COLORS[overrideColor]
@@ -700,6 +660,10 @@ export default class Dropdown extends ReactBrick {
                     styleOverrides: {
                         root: {
                             height: '100%',
+                        },
+                        inputRoot: {
+                            height: '42px',
+                            flexWrap: 'nowrap'
                         },
                         endAdornment: {
                             right: '7px !important',
@@ -715,7 +679,6 @@ export default class Dropdown extends ReactBrick {
                 },
             },
         });
-        return theme;
     }
 
     /**
@@ -744,7 +707,6 @@ export default class Dropdown extends ReactBrick {
         // from setupExecution
         // i.e. when the list of data changes, and we still want to keep the focus while typing in the input
         const [focused, setFocused] = useState($.get(Dropdown.FOCUSED_KEY) || false);
-
         const shrink = (hasInput || emptyText !== '') && label !== '';
 
         /**
@@ -786,6 +748,7 @@ export default class Dropdown extends ReactBrick {
                 $.set(Dropdown.FOCUSED_KEY, true);
                 setFocused(true);
             },
+
             inputRef: (input) => {
                 if (focused && input) {
                     input.focus();
@@ -896,15 +859,16 @@ Dropdown.FOCUSED_KEY = '__focused';
  * @param {!BrickContext} $
  * @param {*} params
  */
+
 Dropdown.CustomPaper = ({ $, params }) => {
     return (
-        <Paper
+      <Paper
             {...params}
             sx={{
                 ...cssToSxProps(useProperty($, 'CSS Property')),
                 ...jsonToSxProps(useProperty($, 'MUI sx [json]')),
             }}
-        />
+            />
     );
 };
 
