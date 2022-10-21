@@ -606,7 +606,7 @@ export default class Dropdown extends ReactBrick {
                         },
                         // chip max-width
                         '.MuiChip-label': {
-                            maxWidth: `calc(${width <= 95 ? width : 115}px)`,
+                            maxWidth: `calc(${width-140}px)`,
                         },
                         // Outline variant
                         '.MuiOutlinedInput-root.MuiInputBase-root:not(.Mui-focused)': {
