@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
- import { registerBrick } from 'olympe';
- import { ReactBrick, useProperty } from 'helpers/react.jsx';
- import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent } from 'helpers/mui';
+import { registerBrick } from 'olympe';
+import { ReactBrick, useProperty } from 'helpers/react.jsx';
+import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent, useMUITheme } from 'helpers/mui';
+import { ThemeProvider } from '@mui/material/styles';
 
 import React from 'react';
 import MUISlider from '@mui/material/Slider';
@@ -54,6 +55,7 @@ export default class Slider extends ReactBrick {
     static getReactComponent($) {
         return (props) => {
             const [hidden] = props.values;
+            const theme = useMUITheme($);
             const useRange = useProperty($, 'Use Range');
             const value1 = useProperty($, 'Value 1') || 0;
             const value2 = useProperty($, 'Value 2') || 0;
@@ -69,7 +71,7 @@ export default class Slider extends ReactBrick {
             const muiValue = useRange ? [value1, value2] : value1;
 
             return !hidden && (
-                <MUISlider
+                <ThemeProvider theme={theme}><MUISlider
                     // Properties
                     value={muiValue}
                     min={min}
@@ -153,7 +155,7 @@ export default class Slider extends ReactBrick {
                         ...cssToSxProps(useProperty($, 'CSS Property')),
                         ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                     }}
-                ></MUISlider>
+                ></MUISlider></ThemeProvider>
             );
         };
     }

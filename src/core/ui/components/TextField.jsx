@@ -16,7 +16,8 @@
 
 import { registerBrick } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
-import { jsonToSxProps, ifNotNull, ifNotTransparent, cssToSxProps } from 'helpers/mui';
+import { jsonToSxProps, ifNotNull, ifNotTransparent, cssToSxProps, useMUITheme } from 'helpers/mui';
+import { ThemeProvider } from '@mui/material/styles';
 
 import React from 'react';
 import MUITextField from '@mui/material/TextField';
@@ -47,6 +48,7 @@ export default class TextField extends ReactBrick {
     static getReactComponent($) {
         return (props) => {
             const [hidden] = props.values;
+            const theme = useMUITheme($);
             const label = useProperty($, 'Label');
             const type = useProperty($, 'Type');
             const error = useProperty($, 'Error');
@@ -72,7 +74,7 @@ export default class TextField extends ReactBrick {
             const showBorder = borderColor && borderWidth > 0 && borderColor.toHexString() !== '#00000000';
             const showTextColorOverflow = textColorOverflow && !error && textColorOverflow.toHexString() !== '#00000000';
             return !hidden && (
-                <MUITextField
+                <ThemeProvider theme={theme}><MUITextField
                     // Properties
                     value={useProperty($, 'Value') || ''}
                     placeholder={useProperty($, 'Placeholder')}
@@ -158,7 +160,7 @@ export default class TextField extends ReactBrick {
                         ...cssToSxProps(useProperty($, 'CSS Property')),
                         ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                     }}
-                ></MUITextField>
+                ></MUITextField></ThemeProvider>
             );
         };
     }

@@ -16,7 +16,8 @@
 
  import { registerBrick } from 'olympe';
  import { ReactBrick, useProperty } from 'helpers/react.jsx';
- import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
+ import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull, useMUITheme } from 'helpers/mui';
+import { ThemeProvider } from '@mui/material/styles';
 
 import React from 'react';
 import MUISwitch from '@mui/material/Switch';
@@ -54,9 +55,10 @@ export default class Switch extends ReactBrick {
     static getReactComponent($) {
         return (props) => {
             const [hidden] = props.values;
+            const theme = useMUITheme($);
             const borderRadius = useProperty($, 'Border Radius');
             return !hidden && (
-                <MUISwitch
+                <ThemeProvider theme={theme}><MUISwitch
                     // Properties
                     checked={useProperty($, 'Checked') || false}
                     disabled={useProperty($, 'Disabled')}
@@ -79,7 +81,7 @@ export default class Switch extends ReactBrick {
                         $.trigger('On Change');
                         $.trigger('On Click');
                     }}
-                ></MUISwitch>
+                ></MUISwitch></ThemeProvider>
             );
         };
     }
