@@ -62,7 +62,7 @@ export function useProperty($, property, waitForValue = true) {
     const [value, setValue] = useState();
     useEffect(() => {
         const subscription = $.observe(property, waitForValue).subscribe(setValue);
-        return () => { subscription.unsubscribe(); };
+        return () => {subscription.unsubscribe(); };
     }, []);
     return value;
 }

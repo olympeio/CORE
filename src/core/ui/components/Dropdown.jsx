@@ -16,7 +16,7 @@
 
 import { registerBrick, EnumValue, QueryResult, BrickContext, Brick, ListDef, CloudObject } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
-import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent } from 'helpers/mui';
+import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent, useMUITheme } from 'helpers/mui';
 import { getLogger } from 'logging';
 
 import { map, switchMap } from 'rxjs/operators';
@@ -649,6 +649,7 @@ export default class Dropdown extends ReactBrick {
      */
     static getTheme($) {
         const overrideColor = useProperty($, 'Color') || 'primary';
+        const originalTheme = useMUITheme($);
         return createTheme({
             palette: {
                 primary: {
@@ -678,7 +679,7 @@ export default class Dropdown extends ReactBrick {
                     },
                 },
             },
-        });
+        }, originalTheme);
     }
 
     /**

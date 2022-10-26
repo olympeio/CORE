@@ -14,6 +14,15 @@
  * limitations under the License.
  */
 
+import {createTheme, Theme as MUITheme, Palette} from "@mui/material/styles";
+import { map } from "rxjs/operators";
+import { Observable } from "rxjs";
+import { Theme } from 'olympe';
+import { themePropertiesObserver } from "helpers/ThemeObserver";
+import { getLogger } from 'logging';
+import { Color } from "@mui/material";
+import { useEffect, useState } from "react";
+
 /**
  * Transform a JSON string into an object usable for the MUI `sx` prop.
  * Returns an empty object if the JSON is invalid.
@@ -80,4 +89,105 @@ export function ifNotTransparent(key, value, color) {
 export function ifNotNull(key, value, condition) {
     const cond = condition !== undefined ? condition : value;
     return cond !== null && cond !== undefined && cond ? {[key]:value} : {};
+}
+
+/**
+ * Cache the computed MUI themes to avoid computing them for each component.
+ * Each MUITheme is stored in the cache alongside a number that represent its
+ * "version".
+ * @type {Map<string, [number, MUITheme]>}
+ */
+const cachedMuiThemes = new Map();
+
+/**
+ * Create once an empty theme that can be returned whenever we don't have a theme in context
+ * @type {MUITheme}
+ */
+export const emptyTheme = createTheme({});
+
+/**
+ * Returns an observer (which returns the MUI Theme), on the given context
+ * @param {BrickContext} $
+ * @return {Observable<MUITheme>}
+ *
+ */
+export const observeMUITheme = ($) => {
+    return themePropertiesObserver($).pipe(map(([theme, property, value, versionNumber]) => {
+        if (!theme) {
+            return emptyTheme;
+        }
+        const themeTag = theme.getTag();
+        const [cachedVersionNumber, cachedValue] = cachedMuiThemes.get(themeTag) || [null, null];
+        if (cachedVersionNumber === versionNumber) {
+            return cachedValue;
+        }
+        const muiTheme = getMuiTheme(theme);
+        cachedMuiThemes.set(themeTag, [versionNumber, muiTheme]);
+        return muiTheme;
+    }));
+};
+
+/**
+ * Transforms a Theme CloudObject in a MUI Theme object
+ * @param { Theme } theme
+ * @return { MUITheme }
+ */
+const getMuiTheme = (theme) => {
+    const logger = getLogger('MUI Theme');
+    if (theme instanceof Theme) {
+        /**
+         * @param {string} prop
+         * @return {{main: string | undefined}}
+         */
+        const getPaletteColorDefinition = (prop) => {
+            const color = theme.get(prop);
+            return color ? {main: theme.get(prop)?.toHexString()} : undefined;
+        };
+
+        const colorValues = {
+            primary: getPaletteColorDefinition(Theme.primaryColorProp),
+            secondary: getPaletteColorDefinition(Theme.secondaryColorProp),
+            error: getPaletteColorDefinition(Theme.errorColorProp),
+            warning: getPaletteColorDefinition(Theme.warningColorProp),
+            info: getPaletteColorDefinition(Theme.infoColorProp),
+            success: getPaletteColorDefinition(Theme.successColorProp),
+        };
+
+        /**
+         * @type {Partial<Palette>}
+         */
+        const palette = Object.keys(colorValues).reduce((p, key) => {
+            if (colorValues[key]) {
+                p[key] = colorValues[key];
+            }
+            return p;
+        }, {});
+
+        return createTheme({
+            palette,
+            typography: {
+                fontFamily: theme.get(Theme.fontFamilyProp)
+            },
+        });
+    } else {
+        logger.warn(`Invalid theme used in getMuiTheme(): ${theme}`);
+        return emptyTheme;
+    }
+}
+
+/**
+ * Allows to bind a theme to a stateful react value.
+ *
+ * @param {!BrickContext} $
+ * @return {MUITheme} a stateful value usable in JSX
+ */
+export function useMUITheme($) {
+    const [value, setValue] = useState(emptyTheme);
+    useEffect(() => {
+        const subscription = observeMUITheme($).subscribe(setValue);
+        return () => {
+            subscription.unsubscribe();
+        };
+    }, []);
+    return value;
 }

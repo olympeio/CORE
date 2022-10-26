@@ -30,5 +30,6 @@ export * from 'helpers/binaryConverters';
 export * from 'helpers/navigation';
 export * from 'helpers/mui';
 export * from 'helpers/react.jsx';
+export * from 'helpers/ThemeObserver';
 export * from 'helpers/httpRequest';
 export * from 'helpers/platformInfo';

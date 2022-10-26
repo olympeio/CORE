@@ -17,12 +17,13 @@
 import { registerBrick } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
 import { markdownTextToReactElement } from 'helpers/remarkable';
-import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull, useMUITheme } from 'helpers/mui';
 import { getLogger } from 'logging';
 
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import Box from "@mui/material/Box";
+import { ThemeProvider } from '@mui/material/styles';
 
 /**
  * Provide a Label visual component using MUI Typography
@@ -50,9 +51,10 @@ export default class Label extends ReactBrick {
                 }
                 text = text !== null && text !== undefined ? text.toString() : '';
             }
+            const theme = useMUITheme($);
             const borderRadius = useProperty($, 'Border Radius');
             return !hidden && (
-                <Box
+                <ThemeProvider theme={theme}><Box
                     // UI
                     sx={{
                         width: 1,
@@ -89,7 +91,7 @@ export default class Label extends ReactBrick {
                     >
                         {useProperty($, 'With Format') ? markdownTextToReactElement(text, 'span') : text}
                     </Typography>
-                </Box>
+                </Box></ThemeProvider>
             );
         };
     }

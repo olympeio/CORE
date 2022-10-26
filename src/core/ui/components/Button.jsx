@@ -16,7 +16,8 @@
 
 import { registerBrick } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
-import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull, useMUITheme } from 'helpers/mui';
+import { ThemeProvider } from '@mui/material/styles';
 
 import React from 'react';
 import MUIButton from '@mui/material/Button';
@@ -46,8 +47,11 @@ export default class Button extends ReactBrick {
      * @override
      */
     static getReactComponent($) {
+
         return (props) => {
             const [hidden] = props.values;
+            const theme = useMUITheme($);
+
             const startIcon = useProperty($, 'Start Icon');
             const endIcon = useProperty($, 'End Icon');
             const borderColor = useProperty($, 'Border Color');
@@ -55,7 +59,7 @@ export default class Button extends ReactBrick {
             const borderWidth = useProperty($, 'Border Width');
             const defaultColor = useProperty($, 'Default Color');
             return !hidden && (
-                <MUIButton
+                <ThemeProvider theme={theme}><MUIButton
                     // Properties
                     variant={useProperty($, 'Variant')}
                     color={useProperty($, 'Color')}
@@ -92,7 +96,7 @@ export default class Button extends ReactBrick {
                     }}
                 >
                     {useProperty($, 'Text')}
-                </MUIButton>
+                </MUIButton></ThemeProvider>
             );
         };
     }
