@@ -16,7 +16,8 @@
 
 import { registerBrick } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
-import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull, useMUITheme } from 'helpers/mui';
+import { ThemeProvider } from '@mui/material/styles';
 
 import React from 'react';
 import MUICheckbox from '@mui/material/Checkbox';
@@ -55,6 +56,7 @@ export default class Checkbox extends ReactBrick {
     static getReactComponent($) {
         return (props) => {
             const [hidden] = props.values;
+            const theme = useMUITheme($);
 
             // Compute components size
             const checkboxSize = Math.min(useProperty($, 'Width'), useProperty($, 'Height'));
@@ -70,7 +72,7 @@ export default class Checkbox extends ReactBrick {
             };
 
             return !hidden && (
-                <MUICheckbox
+                <ThemeProvider theme={theme}><MUICheckbox
                     // Properties
                     checked={useProperty($, 'Checked') || false}
                     indeterminate={useProperty($, 'Indeterminate')}
@@ -96,7 +98,7 @@ export default class Checkbox extends ReactBrick {
                         ...cssToSxProps(useProperty($, 'CSS Property')),
                         ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                     }}
-                ></MUICheckbox>
+                ></MUICheckbox></ThemeProvider>
             );
         };
     }
