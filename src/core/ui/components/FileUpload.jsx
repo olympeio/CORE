@@ -16,7 +16,7 @@
 
 import { registerBrick, File, Transaction, CloudObject } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
-import { jsonToSxProps, ifNotNull, ifNotTransparent, cssToSxProps } from 'helpers/mui';
+import { jsonToSxProps, ifNotNull, ifNotTransparent, cssToSxProps, useMUITheme } from 'helpers/mui';
 import { getLogger } from 'logging';
 
 import React, {useRef, useEffect} from 'react';
@@ -24,6 +24,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 
 import { combineLatestWith } from 'rxjs/operators';
+import { ThemeProvider } from "@mui/material/styles";
 
 /**
  * Provides a File Upload component using MUI
@@ -70,14 +71,18 @@ export default class FileUpload extends ReactBrick {
             }, []);
 
             const [hidden, renderer] = props.values;
+            const theme = useMUITheme($);
             if (hidden) {
                 return null;
             }
-            if(renderer) {
-                return FileUpload.renderCustom($, renderer, uploadTextField);
-            } else {
-                return FileUpload.renderTextField($, uploadTextField);
-            }
+            const element = renderer
+                ? FileUpload.renderCustom($, renderer, uploadTextField)
+                : FileUpload.renderTextField($, uploadTextField);
+            return (
+                <ThemeProvider theme={theme}>
+                    {element}
+                </ThemeProvider>
+            );
         };
     }
 
