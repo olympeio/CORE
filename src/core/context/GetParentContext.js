@@ -1,4 +1,5 @@
 import { Brick, registerBrick } from 'olympe';
+import { Runnable } from '../../helpers/common/tags';
 
 export default class GetParentContext extends Brick {
 
@@ -9,7 +10,8 @@ export default class GetParentContext extends Brick {
      * @param {function(*)} setParentContext
      */
     update($, [], [setParentContext]) {
-        setParentContext($.getParent().getParent());
+        const selector = {modelTag: Runnable};
+        setParentContext($.getParent()?.getClosest(selector));
     }
 }
 
