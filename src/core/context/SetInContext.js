@@ -1,5 +1,5 @@
-import { ActionBrick, registerBrick, BrickContext } from 'olympe';
-import {getLogger} from 'logging';
+import { ActionBrick, registerBrick, BrickContext, CloudObject, tagToString } from 'olympe';
+import { getLogger } from 'logging';
 
 export default class SetInContext extends ActionBrick {
 
@@ -13,16 +13,16 @@ export default class SetInContext extends ActionBrick {
      * @param {function()} forwardEvent
      */
     update($, [context, key, value], [forwardEvent]) {
-        const logger = getLogger('SetInContext')
+        const logger = getLogger('SetInContext');
         if (!(context instanceof BrickContext)) {
             logger.warn('Invalid context provided');
             return;
         }
-        if (typeof key !== 'string' || key.length < 1) {
-            logger.warn('Invalid key provided');
+        if (typeof key !== 'string' && !(key instanceof CloudObject)) {
+            logger.warn('Invalid key provided. Must be a string or a CloudObject.');
             return;
         }
-        context.set(key, value);
+        context.set(tagToString(key), value);
         forwardEvent();
     }
 }
