@@ -75,16 +75,16 @@ publish:
   extends: .npm-config
   dependencies:
     - build-package
-  variables:
-    NPM_PUBLISH_TAG: "dev"
   script:
     - cd dist
+    - NPM_PUBLISH_TAG="$CI_COMMIT_BRANCH"
     - if [ "$CI_COMMIT_BRANCH" == "upgrade" ]; then NPM_PUBLISH_TAG="upgrade"; fi
+    - if [ "$CI_COMMIT_BRANCH" == "develop" ]; then NPM_PUBLISH_TAG="dev"; fi
     - npm publish --tag "$NPM_PUBLISH_TAG"
   rules:
     - if: $CI_COMMIT_TAG # publish of released version in private registry is managed by /olympeio/extensions/npm-registry scripts
       when: never
-    - if: '($CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "push") || $CI_COMMIT_BRANCH == "upgrade"'
+    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_COMMIT_BRANCH == "upgrade"'
       when: on_success
 
 # Publish to public npm registry (npmjs.org). Publish only if a new version tag vX.Y.Z was pushed.
