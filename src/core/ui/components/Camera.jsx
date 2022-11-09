@@ -26,9 +26,6 @@ import { Box } from "@mui/material";
 
 import { combineLatest } from "rxjs";
 
-const ua = navigator.userAgent.toLowerCase();
-const isAndroid = ua.indexOf('android') > -1;
-
 export default class Camera extends ReactBrick {
 
     /**
@@ -57,60 +54,83 @@ export default class Camera extends ReactBrick {
     static getReactComponent($) {
         return (props) => {
             const [hidden, disableVideo] = props.values;
-            if(hidden) {
+            const width = useProperty($, 'Width');
+            const height = useProperty($, 'Height');
+            let borderWidth = useProperty($, 'Border Width');
+
+            if (hidden || disableVideo || width === undefined || height === undefined || width < 0 || height < 0) {
                 return null;
             }
 
-            const cssProps = cssToSxProps(useProperty($, 'CSS Property'));
-            const bw = parseInt(cssProps.borderWidth) || useProperty($, 'Border Width') || 0;
-            const width = useProperty($, 'Width') || 0;
-            const height = useProperty($, 'Height') || 0;
-            const borderColor = useProperty($, 'Border Color');
-            const borderRadius = useProperty($, 'Border Radius') || 0;
+            // If border width's greater than width | height
+            if (borderWidth * 2 >= width || borderWidth * 2 >= height) {
+                borderWidth = Math.floor(width >= height ? height / 2 - 1 : width / 2 - 1);
+                getLogger('Camera').error(`Border Width is higher Width | Height of Brick - Border Width should be lower than ${borderWidth}`);
+            }
 
             // If mediaDevices features are not available in the browser, display a box with an error message.
             if (navigator['mediaDevices'] === undefined || typeof navigator.mediaDevices.enumerateDevices !== 'function') {
-                getLogger('Camera').error('Current platform doesn\'t support media devices.');
-                return (<Box
-                    width={width - bw * 2}
-                    height={height - bw * 2}
-                    style={{
-                        borderStyle: bw > 0 ? 'solid' : 'none',
-                        borderWidth: bw + 'px',
-                        ...ifNotTransparent('borderColor', borderColor),
-                        borderRadius: borderRadius + 'px',
-                        ...cssProps
-                    }}
-                >Current platform does not support media devices.</Box>);
+                getLogger('Camera').error("Current platform doesn't support media devices.");
+                return (
+                    <Box
+                        width={width - borderWidth * 2}
+                        height={height - borderWidth * 2}
+                        style={{
+                            borderStyle: borderWidth > 0 ? 'solid' : 'none',
+                            ...ifNotNull('borderWidth', `${borderWidth}px`, borderWidth),
+                            ...ifNotTransparent('borderColor', borderColor),
+                            ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
+                            // Additional
+                            ...cssToSxProps(cssProperty),
+                        }}
+                    >
+                        Current platform does not support media devices.
+                    </Box>
+                );
             }
 
-            const clampedQuality = Math.min(Math.max(0, useProperty($, 'Screenshot Quality [%]')), 100); // 0 <= screenshot quality <= 100
-            return !disableVideo && (
-                <WebcamWithRef
-                    audio={!useProperty($, 'Disable Audio')}
-                    imageSmoothing={useProperty($, 'Image Smoothing')}
-                    mirrored={useProperty($, 'Mirrored')}
-                    screenshotFormat={useProperty($, 'Screenshot Format')}
-                    screenshotQuality={clampedQuality / 100}
-                    width={width - bw * 2}
-                    height={height - bw * 2}
-                    source={useProperty($, 'Source')}
-                    context={$}
-                    style={{
-                        borderStyle: bw > 0 ? 'solid' : 'none',
-                        borderWidth: bw + 'px',
-                        ...ifNotTransparent('borderColor', borderColor),
-                        borderRadius: borderRadius + 'px',
-                        ...cssProps
-                    }}
-                />
-            );
+            return <Camera.Component $={$} width={width} height={height} borderWidth={borderWidth} />;
         };
     }
 }
 
+Camera.Component = ({ $, width, height, borderWidth }) => {
+    const cssProperty = useProperty($, 'Css Property');
+    const borderColor = useProperty($, 'Border Color');
+    const borderRadius = useProperty($, 'Border Radius');
+    const screenshotQuality = useProperty($, 'Screenshot Quality [%]');
+    const defaultColor = useProperty($, 'Default Color');
+    const imageFit = useProperty($, 'Image Fit');
+
+    const clampedQuality = Math.min(Math.max(0, screenshotQuality), 100); // 0 <= screenshot quality <= 100
+    return (
+        <WebcamWithRef
+            audio={!useProperty($, 'Disable Audio')}
+            imageSmoothing={useProperty($, 'Image Smoothing')}
+            mirrored={useProperty($, 'Mirrored')}
+            screenshotFormat={useProperty($, 'Screenshot Format')}
+            screenshotQuality={clampedQuality / 100}
+            width={width - borderWidth * 2}
+            height={height - borderWidth * 2}
+            source={useProperty($, 'Source')}
+            context={$}
+            style={{
+                borderStyle: borderWidth > 0 ? 'solid' : 'none',
+                ...ifNotNull('borderWidth', `${borderWidth}px`, borderWidth),
+                ...ifNotTransparent('borderColor', borderColor),
+                ...ifNotTransparent('backgroundColor', defaultColor),
+                ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
+                ...cssToSxProps(cssProperty),
+                objectFit: imageFit,
+            }}
+        />
+    );
+};
+
 // React component
 function WebcamWithRef(props) {
+    const ua = navigator.userAgent.toLowerCase();
+    const isAndroid = ua.indexOf('android') > -1;
     const webcamRef = React.useRef();
     const [constraints, setConstraints] = useState(null);
     const [hasMultiCamera, setHasMultiCamera] = useState(false);
