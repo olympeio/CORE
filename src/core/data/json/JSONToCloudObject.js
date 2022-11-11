@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-import { ActionBrick, BrickContext, registerBrick, CloudObject, Transaction, RelationModel, ErrorFlow } from 'olympe';
-import { getAsJson } from './helper';
+import { Query, ActionBrick, PropertyModel, BrickContext, registerBrick, CloudObject, Transaction, RelationModel, ErrorFlow, DBView, StringModel, NumberModel, DatetimeModel, BooleanModel } from 'olympe';
 
 export default class JSONToCloudObject extends ActionBrick {
 
@@ -89,14 +88,40 @@ export default class JSONToCloudObject extends ActionBrick {
      * @return {!Map<Tag, *>}
      */
     parseProperties(model, data) {
-        const properties = model.follow(CloudObject.propertyRel).executeFromCache();
-        return properties.reduce((map, property) => {
-            const value = data[property.name()];
-            if (value !== undefined && (!(value instanceof Array) && !(value instanceof Object))) {
-                map.set(property, value);
-            }
-            return map;
-        }, new Map());
+        return Query.from(model).followRecursively(CloudObject.extendRel, true).executeFromCache()
+            .filter((model) => !model.equals(CloudObject.asInstance()))
+            .flatMap((model) => model.follow(CloudObject.propertyRel).executeFromCache().toArray())
+            .reduce((map, property) => {
+                const value = data[property.name()];
+                if (value !== undefined && (!(value instanceof Array) && !(value instanceof Object))) {
+                    map.set(property, this.formatValue(value, property));
+                }
+                return map;
+            }, new Map());
+    }
+
+    /**
+     * @private
+     * @param {*} value
+     * @param {!CloudObject} property
+     * @return {*}
+     */
+    formatValue(value, property) {
+        const propType = property.followSingle(PropertyModel.typeRel).executeFromCache();
+        switch (true) {
+            case propType === null || value === 'null':
+                return null;
+            case DBView.get().isExtending(propType, StringModel):
+                return String(value);
+            case propType.equals(NumberModel.asInstance()):
+                return Number(value);
+            case propType.equals(DatetimeModel.asInstance()):
+                return value instanceof Date ? value : new Date(value);
+            case propType.equals(BooleanModel.asInstance()):
+                return !!value;
+            default:
+                return null;
+        }
     }
 
     /**
@@ -113,7 +138,9 @@ export default class JSONToCloudObject extends ActionBrick {
             transaction.createRelation(relation, instance, relatedInstance);
         };
 
-        const relations = model.follow(RelationModel.originModelRel.getInverse()).executeFromCache();
+        const relations = Query.from(model).followRecursively(CloudObject.extendRel, true).executeFromCache()
+            .filter((model) => !model.equals(CloudObject.asInstance()))
+            .flatMap((model) => model.follow(RelationModel.originModelRel.getInverse()).executeFromCache().toArray());
         relations.forEach((relation) => {
             const destinationObject = data[relation.name()];
             if (Array.isArray(destinationObject)) {
