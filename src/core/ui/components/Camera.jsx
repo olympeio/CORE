@@ -62,6 +62,12 @@ export default class Camera extends ReactBrick {
                 return null;
             }
 
+            // If border width < 0
+            if (borderWidth < 0) {
+                getLogger("Camera").error("Border Width should be greater or equal 0");
+                borderWidth = 0;
+            }
+
             // If border width's greater than width | height
             if (borderWidth * 2 >= width || borderWidth * 2 >= height) {
                 borderWidth = Math.floor(width >= height ? height / 2 - 1 : width / 2 - 1);
