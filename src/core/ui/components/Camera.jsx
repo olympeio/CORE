@@ -16,7 +16,7 @@
 
 import { registerBrick, File, Transaction, CloudObject } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
-import { cssToSxProps, ifNotTransparent } from 'helpers/mui';
+import { cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
 import { dataUrlToBinary } from 'helpers/binaryConverters';
 import { getLogger } from 'logging';
 
