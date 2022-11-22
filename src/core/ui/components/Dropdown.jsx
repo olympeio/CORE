@@ -413,7 +413,7 @@ export default class Dropdown extends ReactBrick {
         const findOptionValue = (value) => {
             const foundOption = options.find(opt => {
                 // Has to filter differently if it's cloud objects
-                if(opt.value instanceof CloudObject){
+                if(opt.value instanceof CloudObject && value instanceof CloudObject){
                     return opt.value.getTag() === value?.getTag()
                 } else {
                     return opt.value === value
