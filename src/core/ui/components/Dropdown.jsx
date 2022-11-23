@@ -294,12 +294,30 @@ export default class Dropdown extends ReactBrick {
     static selectComponent($, options, multiple, values) {
         const label = useProperty($, 'Label');
 
+        /**
+         * Handle selected values
+         *
+         * @param {string | CloudObject} value
+         * @return {Object}
+         */
+        const findOptionValue = (value) => {
+            const foundOption = options.find(opt => {
+                // Has to filter differently if it's cloud objects
+                if(opt.value instanceof CloudObject && value instanceof CloudObject){
+                    return opt.value.getTag() === value?.getTag()
+                } else {
+                    return opt.value === value
+                }
+            });
+            return foundOption?.value || '';
+        };
+
         // Handle selected values
         let value = null;
         if (multiple) {
-            value = values !== undefined ? values : [];
+            value = values !== undefined ? values.map(findOptionValue).filter(val => val !== null) : [];
         } else {
-            value = values[0] !== undefined ? values[0] : '';
+            value = values[0] !== undefined ? findOptionValue(values[0]) : '';
         }
 
         const isSelectedValue = values !== undefined && values[0];
@@ -407,7 +425,7 @@ export default class Dropdown extends ReactBrick {
         /**
          * Handle selected values
          *
-         * @param {string} value
+         * @param {string | CloudObject} value
          * @return {Object}
          */
         const findOptionValue = (value) => {
