@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import JsonToObjectList from '../../../src/core/data/json/JsonToObjectList.js';
+import JsonToObjectList from '../../../../src/core/data/json/deprecated/JsonToObjectList.js';
 
 describe('JsonToObjectList brick', () => {
     it('should do something', () => {

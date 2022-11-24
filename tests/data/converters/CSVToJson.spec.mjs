@@ -1,5 +1,5 @@
 import { BrickContext } from 'olympe';
-import CSVToJSON from '../../../src/core/data/json/CSVToJSON.js';
+import CSVToJSON from '../../../src/core/data/converters/CSVToJSON.js';
 
 describe('CSVToJSON brick', () => {
     it('should properly parse csv to json', () => {

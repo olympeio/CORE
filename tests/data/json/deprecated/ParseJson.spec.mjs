@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import ParseJson from '../../../src/core/data/json/ParseJson.js';
-import testEqual from '../../helpers/testEqual.mjs';
+import ParseJson from '../../../../src/core/data/json/deprecated/ParseJson.js';
+import testEqual from '../../../helpers/testEqual.mjs';
 import {Context} from 'olympe';
 
 describe('ParseJson brick', () => {
