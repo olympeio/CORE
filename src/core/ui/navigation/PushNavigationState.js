@@ -1,6 +1,7 @@
 
 import { ActionBrick, registerBrick, Context } from 'olympe';
 import {updateNavigationState} from 'helpers/navigation';
+import {GlobalProperties} from "@olympeio/runtime-web";
 
 /**
 ## Description
@@ -25,8 +26,10 @@ export default class PushNavigationState extends ActionBrick {
      * @param {function()} forwardEvent
      */
     update(context, [state], [forwardEvent]) {
-        updateNavigationState(state, true);
-        forwardEvent();
+        if(context.get(GlobalProperties.EDITION_MODE, false)) {
+            updateNavigationState(state, true);
+            forwardEvent();
+        }
     }
 }
 
