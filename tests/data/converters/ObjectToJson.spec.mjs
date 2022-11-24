@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import ObjectToJson from '../../../src/core/data/json/ObjectToJson.js';
+import ObjectToJson from '../../../src/core/data/json/deprecated/ObjectToJson.js';
 
 describe('ObjectToJson brick', () => {
     it('should do something', () => {

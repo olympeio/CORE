@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import XmlToJson from '../../../src/core/data/json/XmlToJson.js';
-import testEqual from '../../helpers/testEqual.mjs';
+import XmlToJson from '../../../../src/core/data/json/deprecated/XmlToJson.js';
+import testEqual from '../../../helpers/testEqual.mjs';
 import {Context} from 'olympe';
 
 describe('XmlToJson brick', () => {

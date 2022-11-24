@@ -1,4 +1,4 @@
-import JSONToCSV from '../../../src/core/data/json/JSON_To_CSV.js';
+import JSONToCSV from '../../../src/core/data/converters/JSON_To_CSV.js';
 import testEqual from '../../helpers/testEqual.mjs';
 import { BrickContext } from 'olympe';
 
