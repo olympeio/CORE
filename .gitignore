@@ -10,3 +10,4 @@ build.cache/
 build.out_non-tech/
 package-lock.json
 backend
+**/jsconfig.json

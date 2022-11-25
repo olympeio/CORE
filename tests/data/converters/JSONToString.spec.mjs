@@ -1,4 +1,4 @@
-import JSONToString from '../../../src/core/data/json/JSONToString.js';
+import JSONToString from '../../../src/core/data/converters/JSONToString.js';
 import { BrickContext } from 'olympe';
 
 describe('JSONToString brick', () => {

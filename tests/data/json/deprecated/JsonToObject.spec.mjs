@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import JsonToObject from '../../../src/core/data/json/JsonToObject.js';
+import JsonToObject from '../../../../src/core/data/json/deprecated/JsonToObject.js';
 
 describe('JsonToObject brick', () => {
     beforeEach(() => {

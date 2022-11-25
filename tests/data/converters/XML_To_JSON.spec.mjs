@@ -1,4 +1,4 @@
-import XMLToJSON from '../../../src/core/data/json/XML_To_JSON.js';
+import XMLToJSON from '../../../src/core/data/converters/XML_To_JSON.js';
 import testEqual from '../../helpers/testEqual.mjs';
 import { BrickContext } from 'olympe';
 
