@@ -1,7 +1,6 @@
 
-import { ActionBrick, registerBrick, Context } from 'olympe';
+import { ActionBrick, registerBrick, Context, GlobalProperties } from 'olympe';
 import {updateNavigationState} from 'helpers/navigation';
-import {GlobalProperties} from "@olympeio/runtime-web";
 
 /**
 ## Description
