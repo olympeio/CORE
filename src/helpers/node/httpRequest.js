@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
+import { getLogger } from "logging";
+import { convertStringToJson } from '../convertStringToJson';
+
 /**
  * @param {string} method
  * @param {string} url
- * @param {string} headers
+ * @param {object|string} headers
  * @param {string=} body
  * @param {boolean=} withCors Not required in node, only there to keep the same signature of method between browser & node
  * @return {Promise<Response>|Promise}
@@ -25,9 +28,15 @@
 export const httpRequest = (method, url, headers, body, withCors) => {
     const fetch = require('node-fetch');
     const parsedHeaders = new fetch.Headers();
-
+    const logger = getLogger(`HTTP Delete ${method}:`);
+    let jsonInputHeader = null;
+    try {
+        jsonInputHeader = convertStringToJson(headers, 'Headers');
+    } catch (error) {
+        logger.error(error);
+    }
     if (headers) {
-        for (const [key, value] of Object.entries(JSON.parse(headers))) {
+        for (const [key, value] of Object.entries(jsonInputHeader)) {
             parsedHeaders.append(key, value);
         }
     }

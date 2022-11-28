@@ -88,7 +88,7 @@ describe('HTTPGet function brick', () => {
 
         outputs.push(_statusCode => expect(_statusCode).toEqual(200));
         outputs.push(_body => expect(_body).toEqual(SMALL_GIF));
-        outputs.push(_headers => expect(_headers).toEqual('{"content-type":"image/gif"}'));
+        outputs.push(_headers => expect(_headers).toEqual({"content-type":"image/gif"}));
 
         brick.update(context, ['https://httpbin.org/image', ''], outputs);
 

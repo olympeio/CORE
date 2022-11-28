@@ -24,7 +24,7 @@ import {getLogger} from '../../../helpers/logging';
  *
  * @param {Response} response
  * @param {function(number)} setStatusCode
- * @param {function(string)} setHeaders
+ * @param {function(object)} setHeaders
  * @return {Object}
  */
 export function handleStatusAndHeaders(response, setStatusCode, setHeaders) {
@@ -33,7 +33,7 @@ export function handleStatusAndHeaders(response, setStatusCode, setHeaders) {
     for (const [key, value] of response.headers.entries()) {
         headersResponse[key] = value;
     }
-    setHeaders(JSON.stringify(headersResponse));
+    setHeaders(headersResponse);
     return headersResponse;
 }
 
