@@ -14,19 +14,28 @@
  * limitations under the License.
  */
 
+import { getLogger } from "logging";
+import { convertStringToJson } from '../convertStringToJson';
+
 /**
  * @param {string} method
  * @param {string} url
- * @param {string} headers
+ * @param {object|string} headers
  * @param {string=} body
  * @param {boolean=} withCors
  * @return {Promise<Response>|Promise}
  */
 export const httpRequest = (method, url, headers, body, withCors) => {
     const parsedHeaders = new Headers();
-
+    const logger = getLogger(`HTTP Delete ${method}:`);
+    let jsonInputHeader = null;
+    try {
+        jsonInputHeader = convertStringToJson(headers, 'Headers');
+    } catch (error) {
+        logger.error(error);
+    }
     if (headers) {
-        for (const [key, value] of Object.entries(JSON.parse(headers))) {
+        for (const [key, value] of Object.entries(jsonInputHeader)) {
             parsedHeaders.append(key, value);
         }
     }
@@ -42,7 +51,7 @@ export const httpRequest = (method, url, headers, body, withCors) => {
         init.body = body;
     }
 
-    if(withCors){
+    if (withCors) {
         init.credentials = 'include';
     }
 
