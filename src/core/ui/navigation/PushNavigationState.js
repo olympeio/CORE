@@ -1,6 +1,6 @@
-
 import { ActionBrick, registerBrick, Context, GlobalProperties } from 'olympe';
 import {updateNavigationState} from 'helpers/navigation';
+import {getLogger} from "logging";
 
 /**
 ## Description
@@ -25,10 +25,12 @@ export default class PushNavigationState extends ActionBrick {
      * @param {function()} forwardEvent
      */
     update(context, [state], [forwardEvent]) {
-        if(context.get(GlobalProperties.EDITION_MODE, false)) {
+        if (!context.get(GlobalProperties.EDITION_MODE, true)) {
             updateNavigationState(state, true);
-            forwardEvent();
+        } else {
+            getLogger('PushNavigationState')?.info('Navigation state changes are ignored in edition mode.');
         }
+        forwardEvent();
     }
 }
 
