@@ -37,6 +37,12 @@ import {Chip} from "@mui/material";
  * Provide a Dropdown visual component using MUI TextField
  */
 export default class Dropdown extends ReactBrick {
+    // in case: Auto Complete is on
+    static heightSmallMinSizeAutoComplete = 55;
+    // in case: Auto Complete is off
+    static heightSmallMinSizeNoAuto = 48;
+
+    static heightMediumlMinSize = 56;
 
     /**
      * @override
@@ -68,7 +74,13 @@ export default class Dropdown extends ReactBrick {
                 }
             }))
             .subscribe(options => {
-                $.set('Options', options);
+                const filteredOption = options.filter(option => {
+                    if (!option.value) {
+                        getLogger('Dropdown').error(`There is an option without a value in the dropdown: ${option.label}`);
+                    }
+                    return option.value;
+                });
+                $.set('Options', filteredOption);
             });
     }
 
@@ -265,12 +277,23 @@ export default class Dropdown extends ReactBrick {
             const options = useProperty($, 'Options') || [];
             const selectedValue = useProperty($, 'Selected Value');
             const selectedValues = useProperty($, 'Selected Values');
+            const minSize = useProperty($, 'Min Size');
+            const brickHeight = useProperty($, 'Height');
             const theme = Dropdown.getTheme($);
 
             useEffect(() => {
                 const selectedValuesArray = Dropdown.getListElements(selectedValues);
                 setValues(multiple ? selectedValuesArray : [selectedValue]);
             }, [selectedValue, selectedValues]);
+
+            useEffect(() => {
+                const minHeightSmallSize = autocomplete ? Dropdown.heightSmallMinSizeAutoComplete : Dropdown.heightSmallMinSizeNoAuto;
+                if (minSize === 'small' && brickHeight < minHeightSmallSize) {
+                    $.set('Height', minHeightSmallSize);
+                } else if (minSize === 'medium' && brickHeight < Dropdown.heightMediumlMinSize) {
+                    $.set('Height', Dropdown.heightMediumlMinSize);
+                }
+            }, [minSize, brickHeight, autocomplete]);
 
             const element = autocomplete
                 ? Dropdown.autocompleteComponent($, options, multiple, values)
@@ -301,14 +324,17 @@ export default class Dropdown extends ReactBrick {
          * @return {Object}
          */
         const findOptionValue = (value) => {
-            const foundOption = options.find(opt => {
+            let foundOption = options.find(opt => {
                 // Has to filter differently if it's cloud objects
                 if(opt.value instanceof CloudObject && value instanceof CloudObject){
                     return opt.value.getTag() === value?.getTag()
                 } else {
-                    return opt.value === value
+                    const optionValue = opt.value instanceof EnumValue ? opt.value.toString() : opt.value;
+                    const selectedValue = value instanceof EnumValue ? value.toString() : value;
+                    return optionValue === selectedValue;
                 }
             });
+            if (foundOption instanceof EnumValue) foundOption = Dropdown.createOption(foundOption.toString(), foundOption.toString());
             return foundOption?.value || '';
         };
 
@@ -320,8 +346,9 @@ export default class Dropdown extends ReactBrick {
             value = values[0] !== undefined ? findOptionValue(values[0]) : '';
         }
 
-        const isSelectedValue = values !== undefined && values[0];
-        const props = Dropdown.getTextFieldProps($, isSelectedValue);
+        const isSelectedValue = values !== undefined && values[0] !== null && values[0] !== undefined;
+        const isSelectedEmptyInSingleMode = multiple === false && value === '';
+        const props = Dropdown.getTextFieldProps($, isSelectedValue && !isSelectedEmptyInSingleMode);
 
         /**
          * @param {string|Array<!Object>} currentValue
@@ -429,14 +456,17 @@ export default class Dropdown extends ReactBrick {
          * @return {Object}
          */
         const findOptionValue = (value) => {
-            const foundOption = options.find(opt => {
+            let foundOption = options.find(opt => {
                 // Has to filter differently if it's cloud objects
                 if(opt.value instanceof CloudObject && value instanceof CloudObject){
                     return opt.value.getTag() === value?.getTag()
                 } else {
-                    return opt.value === value
+                    const optionValue = opt.value instanceof EnumValue ? opt.value.toString() : opt.value;
+                    const selectedValue = value instanceof EnumValue ? value.toString() : value;
+                    return optionValue === selectedValue;
                 }
             });
+            if (foundOption instanceof EnumValue) foundOption = Dropdown.createOption(foundOption.toString(), foundOption.toString());
             const option = foundOption !== undefined ? foundOption : null;
             if (option === null && freeSolo && typeof value === 'string') { // in case of a custom value entered in free solo mode
                 return Dropdown.createOption(value, value);
@@ -484,7 +514,7 @@ export default class Dropdown extends ReactBrick {
          * @param {*} params
          */
         const renderInput = (params) => {
-            const isSelectedValue = values !== undefined && values[0];
+            const isSelectedValue = values !== undefined && values[0] !== null && values[0] !== undefined;
             const hasInput = isSelectedValue || autocompleteText !== '';
             const props = Dropdown.getTextFieldProps($, hasInput, params);
             const inputProps = {
