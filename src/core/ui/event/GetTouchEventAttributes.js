@@ -30,7 +30,18 @@ export default class GetTouchEventAttributes extends Brick {
      */
     update(context, [touchEvent], [setTimestamp, setTouches, setFirstTouch]) {
         setTimestamp(touchEvent.timeStamp);
-        setTouches(touchEvent.touches);
+        const touchListObj = touchEvent.touches || {};
+        const touchListLength = touchListObj.length || 0;
+        const touchListArr = [];
+        if (touchListLength > 0) {
+            Array(touchListLength)
+                .fill(null)
+                .map((item, index) => {
+                    touchListArr.push(touchListObj[index]);
+                });
+        }
+        setTouches(touchListArr);
+
         if (touchEvent.touches) {
             setFirstTouch(touchEvent.touches[0]);
         }
