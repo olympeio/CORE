@@ -24,14 +24,15 @@ export default class DebugLog extends Brick {
      * @override
      */
     setupExecution($) {
-        // Propagate null
-        return combineLatest(this.getInputs().map(i => $.observe(i)));
+        const [levelInput, prefixInput, valueInput] = this.getInputs();
+        // Listen to changes on prefix and value inputs and propagate null.
+        return combineLatest([$.observe(levelInput, false), $.observe(prefixInput), $.observe(valueInput)]);
     }
 
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {?string} loglevel
+     * @param {string} method
      * @param {?string} prefix
      * @param {?*} value
      * @param {function(*)} setValue
