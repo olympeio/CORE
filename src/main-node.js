@@ -19,7 +19,6 @@
 // ************************************************************************************
 // Import Olympe runtime
 import 'olympe';
-import initLogging from './helpers/logging';
 
 // Import project bricks (we use webpack-import-glob-loader to import all bricks)
 // Import all bricks (js files inside all core sub-folders) except the one in the ui folder.
@@ -35,7 +34,6 @@ import './core/system/**/*.js';
 import './core/text/**/*.js';
 import './core/util/**/*.js';
 
-initLogging();
 
 export {getLogger} from './helpers/logging';
 export {TimeoutMap, TimeoutSet} from './helpers/timeoutData';

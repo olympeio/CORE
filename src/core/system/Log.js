@@ -15,19 +15,20 @@
  */
 
 import { ActionBrick, registerBrick } from 'olympe';
-import {getLogger} from 'logging';
+import DebugLog from "./DebugLog";
 
 export default class Log extends ActionBrick {
 
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {string} prefix
-     * @param {string} message
+     * @param {?string} loglevel
+     * @param {?string} prefix
+     * @param {?string} message
      * @param {function()} forwardEvent
      */
-    update($, [prefix, message], [forwardEvent]) {
-        getLogger('Log').info((prefix !== null && prefix !== undefined ? prefix + ': ' : '') + message);
+    update($, [loglevel, prefix, message], [forwardEvent]) {
+        DebugLog.log(loglevel, prefix, message);
         forwardEvent();
     }
 }
