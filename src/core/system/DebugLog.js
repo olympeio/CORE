@@ -31,13 +31,25 @@ export default class DebugLog extends Brick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {string} prefix
-     * @param {*} value
+     * @param {?string} loglevel
+     * @param {?string} prefix
+     * @param {?*} value
      * @param {function(*)} setValue
      */
-    update($, [prefix, value], [setValue]) {
-        getLogger('Log').info((prefix ? prefix + ': ' : '') + String(value));
+    update($, [loglevel, prefix, value], [setValue]) {
+        DebugLog.log(loglevel, prefix, value);
         setValue(value);
+    }
+
+    /**
+     * @param {?string} loglevel
+     * @param {?string} prefix
+     * @param {?*} value
+     */
+    static log(loglevel, prefix, value) {
+        const validMethods = ['trace', 'debug', 'info', 'log', 'warn', 'error'];
+        const method = validMethods[validMethods.indexOf(loglevel?.toLowerCase())] ?? 'info';
+        getLogger('Draw')[method]((prefix ? prefix + ': ' : '') + String(value));
     }
 }
 
