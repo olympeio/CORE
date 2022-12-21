@@ -34,7 +34,13 @@ let loggingInitialised = new Map();
 export const getLogger = (name) => {
     if (!loggingInitialised.has(name)) {
         const newLogger = log.getLogger(name);
-        newLogger.setLevel(Config.getParameter(`loglevel.${name}`) || Config.getParameter('loglevel') || 'info');
+        const configLevel = Config.getParameter(`loglevel.${name}`) || Config.getParameter('loglevel');
+        // https://www.npmjs.com/package/loglevel
+        // 'log' and 'debug' levels are identical from a level perspective
+        // but setLevel() below only accept 'debug' as input
+        const requestedLevel = configLevel === 'log' ? 'debug' : configLevel;
+        const validLevels = ['trace', 'debug', 'info', 'warn', 'error'];
+        newLogger.setLevel(validLevels[validLevels.indexOf(requestedLevel?.toLowerCase())] ?? 'info');
         loggingInitialised.set(name, newLogger);
         return newLogger;
     } else {
