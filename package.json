@@ -55,7 +55,6 @@
     "@emotion/react": "11.5.0",
     "@emotion/styled": "11.3.0",
     "@mui/material": "5.2.8",
-    "@mui/system": "5.10.17",
     "@olympeio/runtime-node": "~9.2.0",
     "@olympeio/runtime-web": "~9.2.0",
     "date-fns": "2.22.1",
