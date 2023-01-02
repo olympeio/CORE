@@ -57,6 +57,8 @@
     "@mui/material": "5.2.8",
     "@olympeio/runtime-node": "~9.2.0",
     "@olympeio/runtime-web": "~9.2.0",
+    "knex": "2.3.0",
+    "pg": "~8.8.0",
     "date-fns": "2.22.1",
     "fast-xml-parser": "4.0.7",
     "html-react-parser": "1.4.0",
@@ -71,7 +73,7 @@
     "react-player": "2.9.0",
     "react-webcam": "7.0.1",
     "remarkable": "2.0.1",
-    "rxjs": "7.5.4",
+    "rxjs": "7.8.0",
     "xlsx": "0.18.5"
   }
 }
