@@ -107,10 +107,13 @@ export default class PostgreSQLConnector extends DataSource {
      */
     executeQuery(query) {
         const sqlBuilder = new SQLBuilder(this.knex, this.schemaObserver, this.get(DataSource.useNamesProp));
-        return sqlBuilder.parseQuery(query).then((result) => {
-            return DataResult.fromQuery(query);
-        });
+        const knexBuilder = sqlBuilder.parseQuery(query);
+        return knexBuilder === null
+            ? Promise.resolve(DataResult.fromQuery(query))
+            : knexBuilder.then((result) => {
+                return DataResult.fromQuery(query);
+            });
     }
 }
 
-register('0185625c780db58c4cdb', PostgreSQLConnector);
+register('01857d11d2f7e15cc7af', PostgreSQLConnector);

@@ -61,7 +61,7 @@ export default class SQLBuilder {
      * Transform a query to a knex query builder, ready to be executed.
      *
      * @param {!Query} query
-     * @return {!Knex.QueryBuilder}
+     * @return {Knex.QueryBuilder}
      */
     parseQuery(query) {
         const rootPart = query.parse();
@@ -72,6 +72,10 @@ export default class SQLBuilder {
         offset > 0 && this.builder.offset(offset);
 
         const rootTables = this.schema.getInheritedTables(dataType);
+        if (rootTables.length === 0) {
+            return null;
+        }
+
         this.builder.select(this.selectColumnsFromTables(rootTables, returned));
 
         const rootTableAliases = rootTables
@@ -111,6 +115,12 @@ export default class SQLBuilder {
         const {relation, optional, returned, next} = part;
 
         const relationTables = this.schema.getRelationTables(previousTables, relation);
+
+        // Early return if there is no table to follow the relation of this part.
+        if (relationTables.length === 0) {
+            return;
+        }
+
         const destTables = relationTables.map((tuple) => tuple[2]);
         this.builder.select(this.selectColumnsFromTables(destTables, returned));
 
@@ -125,7 +135,6 @@ export default class SQLBuilder {
                 qb.on(`${this.getTableAlias(rel)}.${joinCol2}`, `${this.getTableAlias(to)}.${columns.TAG}`);
             });
         });
-
         // Parse the next parts of the query.
         for (const part of next) {
             this.parsePart(part, destTables);
