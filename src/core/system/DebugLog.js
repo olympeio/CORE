@@ -52,15 +52,16 @@ export default class DebugLog extends Brick {
         try {
             const validMethods = ['trace', 'debug', 'info', 'log', 'warn', 'error'];
             const method = validMethods[validMethods.indexOf(loglevel?.toLowerCase())] ?? 'info';
+            const showPrefix = ((prefix !== null && prefix !== undefined ) ? prefix + ': ' : '')
     
             if (value !== Object(value)) { // check isPrimitive
-                getLogger('Draw')[method]((prefix ? prefix + ': ' : '') + String(value));
+                getLogger('Draw')[method](showPrefix + String(value));
                 return;
             }
 
             if (value instanceof CloudObject) { // check isCloudObject
                 const obj = CloudObjectToJSON.handleCloudObjectToJson(value, true);
-                getLogger('Draw')[method]((prefix ? prefix + ': ' : '') + JSON.stringify(obj, undefined, 4));
+                getLogger('Draw')[method](showPrefix + JSON.stringify(obj, undefined, 4));
                 return;
             }
 
@@ -68,12 +69,12 @@ export default class DebugLog extends Brick {
                 const checkCloudObjArr = (value || []).some(obj => obj instanceof CloudObject); // check array of cloudObject
                 if (checkCloudObjArr) {
                     const json = CloudObjectToJSON.handleCloudObjectToJson(value, true);
-                    getLogger('Draw')[method]((prefix ? prefix + ': ' : '') + JSON.stringify(json, undefined, 4));
+                    getLogger('Draw')[method](showPrefix + JSON.stringify(json, undefined, 4));
                     return;
                 }
             }
     
-            getLogger('Draw')[method]((prefix ? prefix + ': ' : '') + String(JSON.stringify(value, undefined, 4)));
+            getLogger('Draw')[method](showPrefix + String(JSON.stringify(value, undefined, 4)));
         } catch(err) {
             if (err) {
                 getLogger('Draw')['error'](`Something went wrong: ${err}`)
