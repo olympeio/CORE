@@ -1,7 +1,6 @@
-import { Brick, BrickContext, registerBrick, Transaction, ErrorFlow, CloudObject, File as OFile } from 'olympe';
+import { Brick, BrickContext, registerBrick, ErrorFlow, File as OFile } from 'olympe';
 import { getLogger } from 'logging';
 import * as XLSX from 'xlsx';
-import { stringToBinary } from 'helpers/binaryConverters';
 import {merge} from "rxjs";
 import {map} from "rxjs/operators";
 
@@ -24,7 +23,7 @@ export default class ExcelToJSON extends Brick {
      * @param {!BrickContext} $
      * @param {File} source
      * @param {string} sheetName
-     * @param {function(File)} setResult
+     * @param {function(*)} setResult
      * @param {function(*)} setErrorFlow
      */
      update($, [source, sheetName], [setResult, setErrorFlow]) {
@@ -47,7 +46,7 @@ export default class ExcelToJSON extends Brick {
      * @param {BrickContext} $
      * @param {function(!ArrayBuffer)} data
      * @param {string} sheetName
-     * @param {function(File)} setResult
+     * @param {function(*)} setResult
      * @param {function(*)} setErrorFlow
      * @param {Logger} logger
      */
