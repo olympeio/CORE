@@ -63,7 +63,6 @@ tests:
     - setup
   # Use an image that includes chromium and jre for test
   image: registry.caas.olympe.io/infra/docker/node-tools:stable
-  allow_failure: true
   script:
     - npm test
 

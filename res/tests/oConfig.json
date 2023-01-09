@@ -1,0 +1,8 @@
+{
+  "dc": {
+    "subscribeAll": false
+  },
+  "server" : {
+    "autoConnect": false
+  }
+}
