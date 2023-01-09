@@ -1,6 +1,6 @@
 {
   "name": "@olympeio/core",
-  "version": "2.2.4-dev",
+  "version": "2.4.0-dev",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -55,8 +55,8 @@
     "@emotion/react": "11.5.0",
     "@emotion/styled": "11.3.0",
     "@mui/material": "5.2.8",
-    "@olympeio/runtime-node": "~9.2.0",
-    "@olympeio/runtime-web": "~9.2.0",
+    "@olympeio/runtime-node": "dev-2.4.0",
+    "@olympeio/runtime-web": "dev-2.4.0",
     "knex": "2.3.0",
     "pg": "~8.8.0",
     "date-fns": "2.22.1",
