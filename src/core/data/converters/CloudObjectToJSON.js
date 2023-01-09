@@ -1,4 +1,4 @@
-import { Brick, BrickContext, InstanceTag, registerBrick, ListDef, QueryResult, DBView, ErrorFlow, BusinessObject, CloudObject, transformers, RelationModel } from 'olympe';
+import { Brick, BrickContext, registerBrick, ListDef, QueryResult, DBView, ErrorFlow, BusinessObject, CloudObject, transformers, RelationModel } from 'olympe';
 import { getLogger } from 'logging';
 
 export default class CloudObjectToJSON extends Brick {
@@ -13,6 +13,19 @@ export default class CloudObjectToJSON extends Brick {
      * @param {function(*)} setErrorFlow
      */
     update($, [source, propertiesOnly], [setResult, setErrorFlow]) {
+        const json = CloudObjectToJSON.handleCloudObjectToJson(source, propertiesOnly, setErrorFlow);
+        if (json) {
+            setResult(json);
+        }
+    }
+
+    /**
+     * @override
+     * @param {*} source
+     * @param {boolean} propertiesOnly
+     * @param {function(*)} setErrorFlow
+     */
+    static handleCloudObjectToJson(source, propertiesOnly, setErrorFlow) {
         const logger = getLogger('Cloud Object To JSON');
 
         let json;
@@ -33,22 +46,23 @@ export default class CloudObjectToJSON extends Brick {
                 logger.error('Provided source is not a Cloud Object or List of Cloud Objects');
                 return;
             }
+
+            return json;
         } catch (e) {
-            setErrorFlow(ErrorFlow.create('Provided source is not a correct Cloud Object or List of Cloud Objects: ' + e.message, 1));
+            if (setErrorFlow) {
+                setErrorFlow(ErrorFlow.create('Provided source is not a correct Cloud Object or List of Cloud Objects: ' + e.message, 1));
+            }
             return;
         }
-
-        setResult(json);
     }
 
     /**
-     * private
      * @param {string} instance
      * @param {boolean=} propertiesOnly
      * @param {boolean=} [isPrimitiveRelation=false]
      * @return {!Object}
      */
-    parseProperties(instance, propertiesOnly, isPrimitiveRelation = false) {
+    static parseProperties(instance, propertiesOnly, isPrimitiveRelation = false) {
         const db = DBView.get();
         let json = isPrimitiveRelation ? null : {};
         const properties =  /**@type {!Map<string, ?*>}*/ db.getProperties(instance);

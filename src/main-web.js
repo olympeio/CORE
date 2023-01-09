@@ -40,6 +40,7 @@ import './core/ui/**/*.js';
 import './core/**/*.jsx';
 
 
+export { markdownTextToReactElement } from './helpers/web/remarkable';
 export { getLogger } from './helpers/logging';
 export {TimeoutMap, TimeoutSet} from './helpers/timeoutData';
 export * from 'helpers/binaryConverters';

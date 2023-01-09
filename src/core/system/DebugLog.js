@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import { Brick, registerBrick, CloudObject } from 'olympe';
 import {getLogger} from 'logging';
 import {combineLatest} from "rxjs";
+import CloudObjectToJSON from '../data/converters/CloudObjectToJSON';
 
 export default class DebugLog extends Brick {
 
@@ -48,9 +49,37 @@ export default class DebugLog extends Brick {
      * @param {?*} value
      */
     static log(loglevel, prefix, value) {
-        const validMethods = ['trace', 'debug', 'info', 'log', 'warn', 'error'];
-        const method = validMethods[validMethods.indexOf(loglevel?.toLowerCase())] ?? 'info';
-        getLogger('Draw')[method]((prefix ? prefix + ': ' : '') + String(value));
+        try {
+            const validMethods = ['trace', 'debug', 'info', 'log', 'warn', 'error'];
+            const method = validMethods[validMethods.indexOf(loglevel?.toLowerCase())] ?? 'info';
+            const showPrefix = ((prefix !== null && prefix !== undefined ) ? prefix + ': ' : '')
+    
+            if (value !== Object(value)) { // check isPrimitive
+                getLogger('Draw')[method](showPrefix + String(value));
+                return;
+            }
+
+            if (value instanceof CloudObject) { // check isCloudObject
+                const obj = CloudObjectToJSON.handleCloudObjectToJson(value, true);
+                getLogger('Draw')[method](showPrefix + JSON.stringify(obj, undefined, 4));
+                return;
+            }
+
+            if (Array.isArray(value)) {
+                const checkCloudObjArr = (value || []).some(obj => obj instanceof CloudObject); // check array of cloudObject
+                if (checkCloudObjArr) {
+                    const json = CloudObjectToJSON.handleCloudObjectToJson(value, true);
+                    getLogger('Draw')[method](showPrefix + JSON.stringify(json, undefined, 4));
+                    return;
+                }
+            }
+    
+            getLogger('Draw')[method](showPrefix + String(JSON.stringify(value, undefined, 4)));
+        } catch(err) {
+            if (err) {
+                getLogger('Draw')['error'](`Something went wrong: ${err}`)
+            }
+        }
     }
 }
 
