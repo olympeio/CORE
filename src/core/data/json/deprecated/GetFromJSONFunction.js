@@ -1,6 +1,6 @@
 import { Brick, BrickContext, registerBrick } from 'olympe';
 import { getLogger } from 'logging';
-import { performGetFromJSON, processResults } from './helper';
+import { performGetFromJSON, processResults } from '../helper';
 
 export default class GetFromJSONFunction extends Brick {
 
