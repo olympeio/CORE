@@ -89,6 +89,7 @@ export default class TextField extends ReactBrick {
                     required={useProperty($, 'Required')}
                     error={error}
                     multiline={multiLine}
+                    tabIndex={useProperty($, 'Tab Index')}
 
                     // Events
                     onClick={() => $.trigger('On Click')}
@@ -109,7 +110,6 @@ export default class TextField extends ReactBrick {
                             ...ifNotNull('flexDirection', 'column', multiLine),
                             ...ifNotNull('justifyContent', justifyContent, multiLine),
                             fontFamily: fontFamily,
-                            tabIndex: useProperty($, 'Tab Index'),
                             ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
                             ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                             ...ifNotNull('borderWidth', borderWidth, showBorder),

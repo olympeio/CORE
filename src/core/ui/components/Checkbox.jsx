@@ -90,11 +90,12 @@ export default class Checkbox extends ReactBrick {
                         $.trigger('On Click');
                     }}
 
+                    tabIndex={useProperty($, 'Tab Index')}
+
                     // UI
                     sx={{
                         width: checkboxSize,
                         height: checkboxSize,
-                        tabIndex: useProperty($, 'Tab Index'),
                         ...cssToSxProps(useProperty($, 'CSS Property')),
                         ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                     }}
