@@ -21,10 +21,9 @@
  */
 
 import * as log from 'loglevel';
-import formatter from 'helpers/logFormatter';
 import {Config} from 'olympe';
 
-let loggingInitialised = false;
+let loggingInitialised = new Map();
 
 /**
  * Get a named logger. Initialise logging if this has not been done yet.
@@ -33,23 +32,18 @@ let loggingInitialised = false;
  * @return {loglevel.Logger}
  */
 export const getLogger = (name) => {
-    if (!loggingInitialised) {
-        log.setLevel(Config.getParameter('loglevel') || 'info');
-        loggingInitialised = true;
+    if (!loggingInitialised.has(name)) {
+        const newLogger = log.getLogger(name);
+        const configLevel = Config.getParameter(`loglevel.${name}`) || Config.getParameter('loglevel');
+        // https://www.npmjs.com/package/loglevel
+        // 'log' and 'debug' levels are identical from a level perspective
+        // but setLevel() below only accept 'debug' as input
+        const requestedLevel = configLevel === 'log' ? 'debug' : configLevel;
+        const validLevels = ['trace', 'debug', 'info', 'warn', 'error'];
+        newLogger.setLevel(validLevels[validLevels.indexOf(requestedLevel?.toLowerCase())] ?? 'info');
+        loggingInitialised.set(name, newLogger);
+        return newLogger;
+    } else {
+        return loggingInitialised.get(name);
     }
-
-    return log.getLogger(name);
 }
-
-/**
- * Set up the loggers factory. `formatter` must return a string or Object.
- */
-export default () => {
-    const defaultFactory = log.methodFactory;
-    log.methodFactory = (methodName, logLevel, loggerName) => {
-        const rawMethod = defaultFactory(methodName, logLevel, loggerName);
-        return (message) => {
-            rawMethod(formatter(methodName, loggerName, message));
-        };
-    };
-};

@@ -16,14 +16,13 @@
 
 // Import Olympe runtime
 import 'olympe';
-import initLogging from './helpers/logging';
 
 // Import project bricks (we use webpack-import-glob-loader to import all bricks)
 import './core/**/*.js';
 import './core/**/*.jsx';
 
-initLogging();
 
+export { markdownTextToReactElement } from './helpers/web/remarkable';
 export { getLogger } from './helpers/logging';
 export {TimeoutMap, TimeoutSet} from './helpers/timeoutData';
 export * from 'helpers/binaryConverters';

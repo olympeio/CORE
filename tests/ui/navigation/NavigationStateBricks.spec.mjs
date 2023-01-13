@@ -1,4 +1,4 @@
-import {Context} from 'olympe';
+import {Context, GlobalProperties} from 'olympe';
 import {NavigationManager} from 'helpers/navigation';
 import GetNavigationState from '../../../src/core/ui/navigation/GetNavigationState.js';
 import OnNavigationUpdateBrowser from '../../../src/core/ui/navigation/OnNavigationUpdateBrowser.js';
@@ -119,6 +119,7 @@ describe('navigation state bricks', () => {
     });
 
     describe('PushNavigationState brick', () => {
+
         it('should push a new state to the history', async () => {
             const brick = new PushNavigationState();
             const context = new Context();
@@ -135,6 +136,21 @@ describe('navigation state bricks', () => {
             // check if previous hash does exist
             await backInHistory();
             expect(window.location.hash).toEqual('#myCurrentHash');
+        });
+
+        it('should not push a new state if brick executed in DRAW', async () => {
+            const brick = new PushNavigationState();
+            const context = new Context();
+            context.set(GlobalProperties.EDITION_MODE, true);
+            const controlFlowSpy = jasmine.createSpy();
+            await pushStateInHistory('#myCurrentHash')
+
+            // when
+            brick.update(context, ['myNewHash'], [controlFlowSpy]);
+
+            // then
+            expect(window.location.hash).toEqual('#myCurrentHash');
+            expect(controlFlowSpy).toHaveBeenCalledTimes(1);
         });
 
         it('should not push a state if it is equal to the current one', async () => {

@@ -67,7 +67,7 @@ xdescribe('HTTPPatch action brick', () => {
         outputs.push(forwardEventSpy);
         outputs.push(errorFlow => {
             expect(statusCodeSpy).toHaveBeenCalledOnceWith(405);
-            expect(headersSpy).toHaveBeenCalledOnceWith('{"content-type":"text/plain"}');
+            expect(headersSpy).toHaveBeenCalledOnceWith({"content-type":"text/plain"});
             expect(bodySpy).toHaveBeenCalledOnceWith('An error occurred');
             expect(errorFlow.getCode()).toEqual(405);
             done();

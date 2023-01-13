@@ -63,7 +63,7 @@ xdescribe('HTTPHead action brick', () => {
         outputs.push(forwardEventSpy);
         outputs.push(errorFlow => {
             expect(statusCodeSpy).toHaveBeenCalledOnceWith(405);
-            expect(headersSpy).toHaveBeenCalledOnceWith('{}');
+            expect(headersSpy).toHaveBeenCalledOnceWith({});
             expect(errorFlow.getCode()).toEqual(405);
             done();
         });

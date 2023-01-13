@@ -37,7 +37,7 @@ xdescribe('HTTPGet action brick', () => {
 
         outputs.push(() => {
             expect(statusCodeSpy).toHaveBeenCalledOnceWith(200);
-            expect(headersSpy).toHaveBeenCalledWith('{"content-type":"application/json"}');
+            expect(headersSpy).toHaveBeenCalledWith({"content-type":"application/json"});
             expect(bodySpy).toHaveBeenCalledWith('{"test": "response"}');
             done();
         });
@@ -68,7 +68,7 @@ xdescribe('HTTPGet action brick', () => {
         outputs.push(forwardEventSpy);
         outputs.push(errorFlow => {
             expect(statusCodeSpy).toHaveBeenCalledOnceWith(404);
-            expect(headersSpy).toHaveBeenCalledOnceWith('{"content-type":"text/plain"}');
+            expect(headersSpy).toHaveBeenCalledOnceWith({"content-type":"text/plain"});
             expect(bodySpy).toHaveBeenCalledOnceWith('NOT FOUND');
             expect(errorFlow.getCode()).toBe(404);
             done();
@@ -99,7 +99,7 @@ xdescribe('HTTPGet action brick', () => {
 
         outputs.push(timestamp => {
             expect(statusCodeSpy).toHaveBeenCalledOnceWith(200);
-            expect(headersSpy).toHaveBeenCalledOnceWith('{"content-type":"image/gif"}');
+            expect(headersSpy).toHaveBeenCalledOnceWith({"content-type":"image/gif"});
             expect(bodySpy).toHaveBeenCalledOnceWith(SMALL_GIF);
             expect(errorFlowSpy).not.toHaveBeenCalled();
             done();
