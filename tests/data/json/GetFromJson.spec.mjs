@@ -97,7 +97,7 @@ describe('GetFromJSON brick', () => {
         });
 
 
-        testEqual(brick, [data, '$.store.bicycle.color'], 'red');
+        testEqual(brick, [data, '$.store.bicycle.color'], ['red']);
 
         // recursive access
         testEqual(brick, [data, '$..author'], [["Nigel Rees", "Evelyn Waugh", "Herman Melville", "J. R. R. Tolkien"]]);
