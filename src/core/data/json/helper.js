@@ -71,7 +71,7 @@ export const processResults = (results, logger, onSuccess, noEditOutput = false)
     } else {
         // If only one result, unwrap and return it
         if (noEditOutput) {
-            onSuccess((results || [])[0]);
+            onSuccess(results[0]);
         } else {
             onSuccess(results.length === 1 ? results[0] : results);
         }
