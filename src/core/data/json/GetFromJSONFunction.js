@@ -27,9 +27,9 @@ export default class GetFromJSONFunction extends Brick {
         }
 
         performGetFromJSON(source, path, setErrorFlow, (results) => {
-            processResults(results, logger, setResult);
+            processResults(results, logger, setResult, true);
         });
     }
 }
 
-registerBrick('017fb123b9c91dd2f6a2', GetFromJSONFunction);
+registerBrick('0185a96e948f3e09fdbd', GetFromJSONFunction);
