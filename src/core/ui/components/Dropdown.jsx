@@ -804,13 +804,16 @@ export default class Dropdown extends ReactBrick {
                 }
             },
 
+            inputProps: {
+                tabIndex: useProperty($, 'Tab Index'),
+            },
+
             // custom styling
             InputProps: {
                 ...params.InputProps,
                 sx: {
                     flex: 'auto',
                     fontFamily: fontFamily,
-                    tabIndex: useProperty($, 'Tab Index'),
                     ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
                     ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                     ...ifNotNull('borderWidth', borderWidth, showBorder),

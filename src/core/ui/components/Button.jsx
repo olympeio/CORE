@@ -58,6 +58,7 @@ export default class Button extends ReactBrick {
             const borderRadius = useProperty($, 'Border Radius');
             const borderWidth = useProperty($, 'Border Width');
             const defaultColor = useProperty($, 'Default Color');
+
             return !hidden && (
                 <ThemeProvider theme={theme}><MUIButton
                     // Properties
@@ -70,6 +71,8 @@ export default class Button extends ReactBrick {
 
                     // Events
                     onClick={() => $.trigger('On Click')}
+
+                    tabIndex={useProperty($, 'Tab Index')}
 
                     // UI
                     sx={{
@@ -90,7 +93,6 @@ export default class Button extends ReactBrick {
                             ...ifNotTransparent('backgroundColor', defaultColor)
                         },
                         boxSizing: 'border-box',
-                        tabIndex: useProperty($, 'Tab Index'),
                         ...cssToSxProps(useProperty($, 'CSS Property')),
                         ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                     }}
