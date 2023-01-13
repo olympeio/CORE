@@ -1,5 +1,6 @@
 import { ErrorFlow } from 'olympe';
 import { JSONPath } from 'jsonpath-plus';
+import { getAsJson } from '../helper';
 
 /**
  * @param {*} source
@@ -20,20 +21,6 @@ export const performGetFromJSON = (source, path, onFailure, onSuccess) => {
         } else {
             onSuccess(results);
         }
-    }
-};
-
-/**
- * @param {*} data
- * @return {Object}
- */
-export const getAsJson = data => {
-    try {
-        const dataJson = (typeof data === 'string') ? JSON.parse(data) : data;
-        return { json: dataJson, error: null };
-    } catch (e) {
-        const error = { message: 'Error while parsing the source string: ' + e.message, code: 1 };
-        return { json: null, error: error };
     }
 };
 
