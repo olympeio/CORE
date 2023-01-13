@@ -52,7 +52,7 @@ export const getByJSONPath = (data, path) => {
 
     let results = null;
     try {
-        results = JSONPath({path, json, wrap: false});
+        results = JSONPath(path, json);
         return { results: results, resultsError: null };
     } catch (e) {
         return { results: null, resultsError: e };

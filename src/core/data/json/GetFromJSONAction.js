@@ -32,7 +32,7 @@ export default class GetFromJSONAction extends ActionBrick {
                 setResult(res);
                 forwardEvent();
             }, true);
-        }, { wrap: false });
+        });
     }
 }
 
