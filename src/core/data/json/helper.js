@@ -7,14 +7,14 @@ import { JSONPath } from 'jsonpath-plus';
  * @param {function(?ErrorFlow)} onFailure
  * @param {function(*)} onSuccess
  */
-export const performGetFromJSON = (source, path, onFailure, onSuccess) => {
+export const performGetFromJSON = (source, path, onFailure, onSuccess, config = {}) => {
     const { json, error } = getAsJson(source);
     if (error !== null) {
         onFailure(ErrorFlow.create(error.message, error.code));
     } else if (path.length === 0) { // prevent empty path from rising an error in jsonpath
         onFailure(ErrorFlow.create('The path is empty', 1));
     } else {
-        const { results, resultsError } = getByJSONPath(json, path);
+        const { results, resultsError } = getByJSONPath(json, path, config);
         if (resultsError) {
             onFailure(ErrorFlow.create('Error with provided path: ' + resultsError.message, 1));
         } else {
@@ -42,7 +42,7 @@ export const getAsJson = data => {
  * @param {string} path
  * @return (!Object)
  */
-export const getByJSONPath = (data, path) => {
+export const getByJSONPath = (data, path, config = {k}) => {
     const json = data === '' ? {} : data;
 
     // support access of array using syntax [i] (legacy spec)
@@ -52,7 +52,7 @@ export const getByJSONPath = (data, path) => {
 
     let results = null;
     try {
-        results = JSONPath(path, json);
+        results = JSONPath({path, json, ...config});
         return { results: results, resultsError: null };
     } catch (e) {
         return { results: null, resultsError: e };
@@ -71,7 +71,7 @@ export const processResults = (results, logger, onSuccess, noEditOutput = false)
     } else {
         // If only one result, unwrap and return it
         if (noEditOutput) {
-            onSuccess(results[0]);
+            onSuccess(results);
         } else {
             onSuccess(results.length === 1 ? results[0] : results);
         }

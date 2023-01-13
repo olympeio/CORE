@@ -28,7 +28,7 @@ export default class GetFromJSONFunction extends Brick {
 
         performGetFromJSON(source, path, setErrorFlow, (results) => {
             processResults(results, logger, setResult, true);
-        });
+        }, { wrap: false });
     }
 }
 
