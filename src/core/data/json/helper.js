@@ -64,7 +64,7 @@ export const getByJSONPath = (data, path) => {
  * @param {loglevel.Logger} logger
  * @param {function(*)} onSuccess
  */
-export const processResults = (results, logger, onSuccess, noEditOutput = false) => {
+export const processResults = (results, logger, onSuccess) => {
     if (results === undefined || results === null || results.length < 1) {
         logger.warn('No result found matching provided path');
         onSuccess(null);
