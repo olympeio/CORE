@@ -31,7 +31,7 @@ export default class GetFromJSONAction extends ActionBrick {
             processResults(results, logger, (res) => {
                 setResult(res);
                 forwardEvent();
-            }, true);
+            });
         });
     }
 }
