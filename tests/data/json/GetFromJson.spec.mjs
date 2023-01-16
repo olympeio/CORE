@@ -96,11 +96,14 @@ describe('GetFromJSON brick', () => {
             }
         });
 
+
+        testEqual(brick, [data, '$.store.bicycle.color'], ['red']);
+
         // recursive access
         testEqual(brick, [data, '$..author'], [["Nigel Rees", "Evelyn Waugh", "Herman Melville", "J. R. R. Tolkien"]]);
 
         // last object
-        testEqual(brick, [data, '$..book[-1:].title'], ["The Lord of the Rings"]);
+        testEqual(brick, [data, '$..book[-1:].title'], [["The Lord of the Rings"]]);
 
         // multiple objects
         testEqual(brick, [data, '$..book[0:2].title'], [["Sayings of the Century", "Sword of Honour"]]);

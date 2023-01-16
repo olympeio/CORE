@@ -1,5 +1,6 @@
 import { ErrorFlow } from 'olympe';
 import { JSONPath } from 'jsonpath-plus';
+import { getAsJson } from '../helper';
 
 /**
  * @param {*} source
@@ -24,20 +25,6 @@ export const performGetFromJSON = (source, path, onFailure, onSuccess) => {
 };
 
 /**
- * @param {*} data
- * @return {Object}
- */
-export const getAsJson = data => {
-    try {
-        const dataJson = (typeof data === 'string') ? JSON.parse(data) : data;
-        return { json: dataJson, error: null };
-    } catch (e) {
-        const error = { message: 'Error while parsing the source string: ' + e.message, code: 1 };
-        return { json: null, error: error };
-    }
-};
-
-/**
  * @param {string|Object} data
  * @param {string} path
  * @return (!Object)
@@ -52,7 +39,7 @@ export const getByJSONPath = (data, path) => {
 
     let results = null;
     try {
-        results = JSONPath({path, json, wrap: false});
+        results = JSONPath(path, json);
         return { results: results, resultsError: null };
     } catch (e) {
         return { results: null, resultsError: e };
@@ -69,6 +56,7 @@ export const processResults = (results, logger, onSuccess) => {
         logger.warn('No result found matching provided path');
         onSuccess(null);
     } else {
-        onSuccess(results);
+        // If only one result, unwrap and return it
+        onSuccess(results.length === 1 ? results[0] : results);
     }
 };
