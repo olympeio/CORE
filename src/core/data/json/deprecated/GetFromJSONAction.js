@@ -1,8 +1,8 @@
-import { Brick, BrickContext, registerBrick } from 'olympe';
+import { ActionBrick, BrickContext, registerBrick } from 'olympe';
 import { getLogger } from 'logging';
 import { performGetFromJSON, processResults } from './helper';
 
-export default class GetFromJSONFunction extends Brick {
+export default class GetFromJSONAction extends ActionBrick {
 
     /**
      * @override
@@ -10,10 +10,11 @@ export default class GetFromJSONFunction extends Brick {
      * @param {!BrickContext} $
      * @param {*} source
      * @param {string} path
+     * @param {function()} forwardEvent
      * @param {function(*)} setResult
      * @param {function(*)} setErrorFlow
      */
-    update($, [source, path], [setResult, setErrorFlow]) {
+    update($, [source, path], [forwardEvent, setResult, setErrorFlow]) {
         const logger = getLogger('Get From JSON');
 
         // Guards
@@ -27,9 +28,12 @@ export default class GetFromJSONFunction extends Brick {
         }
 
         performGetFromJSON(source, path, setErrorFlow, (results) => {
-            processResults(results, logger, setResult);
+            processResults(results, logger, (res) => {
+                setResult(res);
+                forwardEvent();
+            });
         });
     }
 }
 
-registerBrick('0185a96e948f3e09fdbd', GetFromJSONFunction);
+registerBrick('01811e2ea13be04b1473', GetFromJSONAction);
