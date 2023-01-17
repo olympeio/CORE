@@ -30,12 +30,15 @@ export default class ExecuteQuery extends ActionBrick {
      */
     update($, [query], [forwardEvent, setQueryResult, setErrorFlow]) {
         query.execute($)
-            .then(queryResult => setQueryResult(queryResult))
+            .then(queryResult => {
+                setQueryResult(queryResult);
+                forwardEvent()
+
+            })
             .catch(message => {
                 getLogger('ExecuteQuery').error(`Failed execute query with error : ${message}`);
                 setErrorFlow(ErrorFlow.create(message, 1));
             })
-            .finally(() => forwardEvent());
     }
 }
 
