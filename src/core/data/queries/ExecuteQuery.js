@@ -37,7 +37,7 @@ export default class ExecuteQuery extends ActionBrick {
             .catch(message => {
                 getLogger('ExecuteQuery').error(`Failed execute query with error : ${message}`);
                 setErrorFlow(ErrorFlow.create(message, 1));
-            })
+            });
     }
 }
 
