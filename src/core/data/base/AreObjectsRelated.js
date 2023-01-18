@@ -22,11 +22,11 @@ export default class AreObjectsRelated extends Brick {
      * @protected
      * @param {!BrickContext} $
      * @param {!CloudObject} origin
-     * @param {!CloudObject} destination
      * @param {!RelationModel} relation Assumed to be always in direction origin->destination
+     * @param {!CloudObject} destination
      * @param {function(boolean)} setRelated
      */
-    update($, [origin, destination, relation], [setRelated]) {
+    update($, [origin, relation, destination], [setRelated]) {
         Query.from(origin)
             .filter(new RelatedTo(destination).follow(new Relation(relation, Direction.DESTINATION)))
             .execute($)
