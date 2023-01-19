@@ -42,7 +42,7 @@ export default class ExecuteQuery extends ActionBrick {
         } else {
             const message = `The providden Query is not a Query object`;
             getLogger('ExecuteQuery').error(message);
-            setErrorFlow(ErrorFlow.create(message, 1));
+            setErrorFlow(ErrorFlow.create(message, 2));
         }
     }
 }
