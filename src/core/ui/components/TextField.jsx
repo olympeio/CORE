@@ -89,7 +89,6 @@ export default class TextField extends ReactBrick {
                     required={useProperty($, 'Required')}
                     error={error}
                     multiline={multiLine}
-                    tabIndex={useProperty($, 'Tab Index')}
 
                     // Events
                     onClick={() => $.trigger('On Click')}
@@ -139,7 +138,8 @@ export default class TextField extends ReactBrick {
                         style: {
                             maxHeight: '100%',
                             overflow: 'auto'
-                        }
+                        },
+                        tabIndex: useProperty($, 'Tab Index'),
                     }}
                     FormHelperTextProps={{
                         sx: {
