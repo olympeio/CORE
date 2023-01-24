@@ -54,13 +54,14 @@ export default class Now extends Brick {
         // Clear potential previous timeout
         let intervalID = context.get(Now.interval);
         intervalID && clearTimeout(intervalID);
+        context.remove(Now.interval);
 
-        // Create a new timeout function
+        // Set initial value
+        setDate(new Date());
+        // Create a new timeout function if needed
         if (interval > 0) {
             intervalID = setInterval(() => setDate(new Date()), interval);
             context.set(Now.interval, intervalID);
-        } else {
-            setDate(new Date());
         }
     }
 
