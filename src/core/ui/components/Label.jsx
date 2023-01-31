@@ -60,7 +60,6 @@ export default class Label extends ReactBrick {
                         component={'p'}
                         variant={useProperty($, 'Text Variant')}
                         noWrap={useProperty($, 'No Wrap')}
-                        align={useProperty($, 'Horizontal Align')}
                         onClick={() => $.trigger('On Click')}
                         // UI
                         sx={{
@@ -74,6 +73,7 @@ export default class Label extends ReactBrick {
                             fontFamily: useProperty($, 'Font Family'),
                             alignSelf: useProperty($, 'Vertical Align'),
                             borderWidth: useProperty($, 'Border Width'),
+                            justifyContent: useProperty($, 'Horizontal Align'),
                             borderStyle: 'solid',
                             boxSizing: 'border-box',
                             ...ifNotTransparent('borderColor', useProperty($, 'Border Color')),
