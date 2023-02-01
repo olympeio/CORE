@@ -1,26 +1,12 @@
 
-import { Brick, registerBrick, Context } from 'olympe';
+import { Brick, registerBrick, BrickContext } from 'olympe';
 import {NavigationManager, parseCurrentHash} from 'helpers/navigation';
 
-/**
-## Description
-When the navigation state, the data after the hashtag (#) in the broswer current page URL, is changed by the browser or manually by the user, the control flow will be triggered.
-
-Any state changes originating from the Push or Replace Navigation State bricks are taken into account.
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| State | String |  |
-
-**/
 export default class OnNavigationUpdateBrowser extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {!Array} inputs
      * @param {function(number)} setControlFlow
      * @param {function(string)} setHash
@@ -30,20 +16,12 @@ export default class OnNavigationUpdateBrowser extends Brick {
         setHash(parseCurrentHash())
         setControlFlow(Date.now());
         // Register callback to the popstate event
-        const callbackId = NavigationManager.generateUniqueCallbackId();
-        NavigationManager.get().onOnPopState(() => {
+        const navigationMgr = NavigationManager.get();
+        const cbId = navigationMgr.onOnPopState(() => {
             setHash(parseCurrentHash())
             setControlFlow(Date.now());
-        }, callbackId);
-        context.set('NavigationManager_callbackId', callbackId);
-    }
-
-    /**
-     * @override
-     */
-    destroy(context) {
-        // unregister the callback
-        NavigationManager.get().offOnHashChange(context.get('NavigationManager_callbackId'));
+        });
+        context.onClear(() => navigationMgr.offOnPopState(cbId));
     }
 }
 

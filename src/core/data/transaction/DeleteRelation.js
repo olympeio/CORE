@@ -42,12 +42,12 @@ export default class DeleteRelation extends ActionBrick {
      * @protected
      * @param {!BrickContext} $
      * @param {!CloudObject} origin
-     * @param {!CloudObject} destination
      * @param {!Relation} relation
+     * @param {!CloudObject} destination
      * @param {function()} forwardEvent
      * @param {function(!CloudObject)} setOrigin
      */
-    update($, [origin, destination, relation], [forwardEvent, setOrigin]) {
+    update($, [origin, relation, destination], [forwardEvent, setOrigin]) {
         // Get current transaction
         const transaction = Transaction.from($);
 

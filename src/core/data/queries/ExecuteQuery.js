@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, ErrorFlow } from 'olympe';
+import { ActionBrick, registerBrick, ErrorFlow, Query } from 'olympe';
 import { getLogger } from 'logging';
 
 export default class ExecuteQuery extends ActionBrick {
@@ -29,13 +29,21 @@ export default class ExecuteQuery extends ActionBrick {
      * @param {function(ErrorFlow)} setErrorFlow
      */
     update($, [query], [forwardEvent, setQueryResult, setErrorFlow]) {
-        query.execute($)
-            .then(queryResult => setQueryResult(queryResult))
-            .catch(message => {
-                getLogger('ExecuteQuery').error(`Failed execute query with error : ${message}`);
-                setErrorFlow(ErrorFlow.create(message, 1));
-            })
-            .finally(() => forwardEvent());
+        if(query instanceof Query){
+            query.execute($)
+                .then(queryResult => {
+                    setQueryResult(queryResult);
+                    forwardEvent();
+                })
+                .catch(message => {
+                    getLogger('ExecuteQuery').error(`Failed execute query with error : ${message}`);
+                    setErrorFlow(ErrorFlow.create(message, 1));
+                });
+        } else {
+            const message = `The providden Query is not a Query object`;
+            getLogger('ExecuteQuery').error(message);
+            setErrorFlow(ErrorFlow.create(message, 2));
+        }
     }
 }
 

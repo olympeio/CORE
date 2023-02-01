@@ -54,44 +54,37 @@ export default class Label extends ReactBrick {
             const theme = useMUITheme($);
             const borderRadius = useProperty($, 'Border Radius');
             return !hidden && (
-                <ThemeProvider theme={theme}><Box
-                    // UI
-                    sx={{
-                        width: 1,
-                        height: 1,
-                        display: 'flex',
-                        overflow: 'visible',
-                        ...ifNotTransparent('borderColor', useProperty($, 'Border Color')),
-                        ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
-                        borderWidth: useProperty($, 'Border Width'),
-                        borderStyle: 'solid',
-                        boxSizing: 'border-box',
-                        ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color'))
-                    }}
-
-                    // Events
-                    onClick={() => $.trigger('On Click')}
-                >
+                <ThemeProvider theme={theme}>
                     <Typography
                         // Properties
                         component={'p'}
                         variant={useProperty($, 'Text Variant')}
                         noWrap={useProperty($, 'No Wrap')}
-                        align={useProperty($, 'Horizontal Align')}
-
+                        onClick={() => $.trigger('On Click')}
                         // UI
                         sx={{
                             width: 1,
+                            height: 1,
+                            display: 'flex',
+                            alignItems: 'center',
+                            overflow: 'hidden',
                             ...ifNotTransparent('color', useProperty($, 'Text Color')),
+                            ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
                             fontFamily: useProperty($, 'Font Family'),
                             alignSelf: useProperty($, 'Vertical Align'),
+                            borderWidth: useProperty($, 'Border Width'),
+                            justifyContent: useProperty($, 'Horizontal Align'),
+                            borderStyle: 'solid',
+                            boxSizing: 'border-box',
+                            ...ifNotTransparent('borderColor', useProperty($, 'Border Color')),
+                            ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                             ...cssToSxProps(useProperty($, 'CSS Property')),
                             ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                         }}
                     >
                         {useProperty($, 'With Format') ? markdownTextToReactElement(text, 'span') : text}
                     </Typography>
-                </Box></ThemeProvider>
+                </ThemeProvider>
             );
         };
     }

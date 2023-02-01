@@ -36,4 +36,4 @@ export default class GetFromJSONAction extends ActionBrick {
     }
 }
 
-registerBrick('01811e2ea13be04b1473', GetFromJSONAction);
+registerBrick('0185a96e5e632219dcb8', GetFromJSONAction);
