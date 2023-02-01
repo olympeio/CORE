@@ -1,4 +1,4 @@
-import {Context, GlobalProperties} from 'olympe';
+import {BrickContext, GlobalProperties} from 'olympe';
 import {NavigationManager} from 'helpers/navigation';
 import GetNavigationState from '../../../src/core/ui/navigation/GetNavigationState.js';
 import OnNavigationUpdateBrowser from '../../../src/core/ui/navigation/OnNavigationUpdateBrowser.js';
@@ -7,16 +7,19 @@ import ReplaceNavigationState from '../../../src/core/ui/navigation/ReplaceNavig
 
 describe('navigation state bricks', () => {
 
-    afterEach(() => {
+    let rootCtx;
+
+    beforeEach(() => {
         // reset hash state to empty after each test
         history.replaceState({}, 'reset', '#');
+        rootCtx = new BrickContext();
     });
 
     describe('GetNavigationState brick', () => {
 
         it('should get the current hash state', async () => {
             const brick = new GetNavigationState();
-            const context = new Context();
+            const context = rootCtx.createChild();
             const resultSpy = jasmine.createSpy();
             await pushStateInHistory('#myCurrentHash');
 
@@ -29,7 +32,7 @@ describe('navigation state bricks', () => {
 
         it('should get return an empty string if no hash state is set', () => {
             const brick = new GetNavigationState();
-            const context = new Context();
+            const context = rootCtx.createChild();
             const resultSpy = jasmine.createSpy();
 
             // when
@@ -41,7 +44,7 @@ describe('navigation state bricks', () => {
 
         it('should get the latest state if it is updated', async () => {
             const brick = new GetNavigationState();
-            const context = new Context();
+            const context = rootCtx.createChild();
             const resultSpy = jasmine.createSpy();
             brick.update(context, [], [resultSpy]);
             resultSpy.calls.reset();
@@ -55,7 +58,7 @@ describe('navigation state bricks', () => {
 
         it('should detect successive changes in the hash state', async () => {
             const brick = new GetNavigationState();
-            const context = new Context();
+            const context = rootCtx.createChild();
             const resultSpy = jasmine.createSpy();
             await pushStateInHistory('#myFirstHash');
             brick.update(context, [], [resultSpy]);
@@ -85,7 +88,7 @@ describe('navigation state bricks', () => {
 
         it('should return the current history state', async () => {
             const brick = new OnNavigationUpdateBrowser();
-            const context = new Context();
+            const context = rootCtx.createChild();
             const controlFlowSpy = jasmine.createSpy();
             const hashSpy = jasmine.createSpy();
             await pushStateInHistory('#myCurrentHash');
@@ -100,7 +103,7 @@ describe('navigation state bricks', () => {
 
         it('should update on history change by the browser', () => {
             const brick = new OnNavigationUpdateBrowser();
-            const context = new Context();
+            const context = rootCtx.createChild();
             const controlFlowSpy = jasmine.createSpy();
             const hashSpy = jasmine.createSpy();
             brick.update(context, [], [controlFlowSpy, hashSpy]);
@@ -109,7 +112,7 @@ describe('navigation state bricks', () => {
 
             // when
             history.pushState({}, 'test', '#myNewHash');
-            window.onpopstate(new PopStateEvent('popstatechange')); // fake pop state change event...
+            window.dispatchEvent(new PopStateEvent('popstate')); // fake pop state change event...
 
             // then
             expect(controlFlowSpy).toHaveBeenCalledTimes(1);
@@ -122,7 +125,7 @@ describe('navigation state bricks', () => {
 
         it('should push a new state to the history', async () => {
             const brick = new PushNavigationState();
-            const context = new Context();
+            const context = rootCtx.createChild();
             const controlFlowSpy = jasmine.createSpy();
             await pushStateInHistory('#myCurrentHash')
 
@@ -140,8 +143,8 @@ describe('navigation state bricks', () => {
 
         it('should not push a new state if brick executed in DRAW', async () => {
             const brick = new PushNavigationState();
-            const context = new Context();
-            context.set(GlobalProperties.EDITION_MODE, true);
+            const context = rootCtx.createChild();
+            context.set(GlobalProperties.EDITION, true);
             const controlFlowSpy = jasmine.createSpy();
             await pushStateInHistory('#myCurrentHash')
 
@@ -155,7 +158,7 @@ describe('navigation state bricks', () => {
 
         it('should not push a state if it is equal to the current one', async () => {
             const brick = new PushNavigationState();
-            const context = new Context();
+            const context = rootCtx.createChild();
             await pushStateInHistory('#myNewHash');
 
             const id = NavigationManager.generateUniqueCallbackId();
@@ -176,9 +179,10 @@ describe('navigation state bricks', () => {
     });
 
     describe('ReplaceNavigationState brick', () => {
+
         it('should replace the state of the history', async () => {
             const brick = new ReplaceNavigationState();
-            const context = new Context();
+            const context = rootCtx.createChild();
             const controlFlowSpy = jasmine.createSpy();
             await pushStateInHistory('#myCurrentHash');
 

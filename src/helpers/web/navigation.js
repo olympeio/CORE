@@ -37,7 +37,7 @@ export class NavigationManager {
 
         /**
          * @private
-         * @type {!Map<string, function(!window.HashChangeEvent)>}
+         * @type {!Map<string, function(!HashChangeEvent)>}
          */
         this.onHashChangeHandlers = new Map();
         window.addEventListener('hashchange', (event) => {
@@ -46,7 +46,7 @@ export class NavigationManager {
 
         /**
          * @private
-         * @type {!Map<string, function(!window.PopStateEvent)>}
+         * @type {!Map<string, function(!PopStateEvent)>}
          */
         this.onPopStateHanlders = new Map();
         window.addEventListener('popstate', (event) => {
@@ -57,7 +57,7 @@ export class NavigationManager {
     /**
      * Register a callback triggered when the browser fires an onhashchange event
      *
-     * @param {function(!window.HashChangeEvent)} callback
+     * @param {function(!HashChangeEvent)} callback
      * @param {string=} id
      * @return {string}
      */
@@ -80,7 +80,7 @@ export class NavigationManager {
      * Register a callback triggered when the browser fires an onpopstate event
      *
      * @abstract
-     * @param {function(!window.PopStateEvent)} callback
+     * @param {function(!PopStateEvent)} callback
      * @param {string=} id
      * @return {string}
      */
