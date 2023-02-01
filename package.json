@@ -52,9 +52,11 @@
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
-    "@mui/material": "5.11.2",
     "@olympeio/runtime-node": "dev",
     "@olympeio/runtime-web": "dev",
+    "@emotion/react": "11.10.5",
+    "@emotion/styled": "11.10.5",
+    "@mui/material": "5.11.7",
     "knex": "2.3.0",
     "pg": "~8.8.0",
     "date-fns": "2.22.1",
