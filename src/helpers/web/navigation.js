@@ -17,37 +17,6 @@ export class NavigationManager {
     }
 
     /**
-     * Return a function summoning all the callbacks stored in a registry
-     *
-     * @static
-     * @param {!Object<Function>} handlerCallbacksRegistry
-     * @return {Function}
-     */
-    static createHandler(handlerCallbacksRegistry) {
-        return (_event) => {
-            // Call all callbacks in the registry
-            Object.values(handlerCallbacksRegistry).forEach((_callback) => {
-                _callback(_event);
-            });
-        };
-    }
-
-    /**
-     * Register a callback to a specific event handler
-     *
-     * @static
-     * @param {Object<Function>} eventHandlerCallbacksRegistry
-     * @param {Function} callback
-     * @param {string=} id
-     * @return {string} The assigned id.
-     */
-    static registerCallbackOnEventHandler(eventHandlerCallbacksRegistry, callback, id) {
-        id = id || NavigationManager.generateUniqueCallbackId();
-        eventHandlerCallbacksRegistry[id] = callback;
-        return id;
-    }
-
-    /**
      * Generate a simple unique ID for the callback
      *
      * @static
@@ -66,34 +35,36 @@ export class NavigationManager {
 
     constructor() {
 
-        /** @private {Object<function(window.HashChangeEvent)>} */
-        this.onHashChangeCallbacksRegistry = Object.create(null);
+        /**
+         * @private
+         * @type {!Map<string, function(!window.HashChangeEvent)>}
+         */
+        this.onHashChangeHandlers = new Map();
+        window.addEventListener('hashchange', (event) => {
+            this.onHashChangeHandlers.forEach((handler) => handler(event));
+        });
 
-        /** @private {?function(window.HashChangeEvent)} */
-        this.onHashChangeHandler = NavigationManager.createHandler(this.onHashChangeCallbacksRegistry);
-        window.onhashchange = this.onHashChangeHandler.bind(this);
-
-        /** @private {Object<function(window.HashChangeEvent)>} */
-        this.onPopStateCallbacksRegistry = Object.create(null);
-
-        /** @private {?function(window.HashChangeEvent)} */
-        this.onPopStateHandler = NavigationManager.createHandler(this.onPopStateCallbacksRegistry);
-        window.onpopstate = this.onPopStateHandler.bind(this);
+        /**
+         * @private
+         * @type {!Map<string, function(!window.PopStateEvent)>}
+         */
+        this.onPopStateHanlders = new Map();
+        window.addEventListener('popstate', (event) => {
+            this.onPopStateHanlders.forEach((handler) => handler(event));
+        });
     }
 
     /**
      * Register a callback triggered when the browser fires an onhashchange event
      *
-     * @param {function(window.HashChangeEvent)} callback
+     * @param {function(!window.HashChangeEvent)} callback
      * @param {string=} id
      * @return {string}
      */
     onOnHashChange(callback, id) {
-        return NavigationManager.registerCallbackOnEventHandler(
-            this.onHashChangeCallbacksRegistry,
-            callback,
-            id
-        );
+        const finalId = id ?? NavigationManager.generateUniqueCallbackId();
+        this.onHashChangeHandlers.set(id, callback);
+        return finalId;
     }
 
     /**
@@ -102,23 +73,21 @@ export class NavigationManager {
      * @param {string} id
      */
     offOnHashChange(id) {
-        delete this.onHashChangeCallbacksRegistry[id];
+        this.onHashChangeHandlers.delete(id);
     }
 
     /**
      * Register a callback triggered when the browser fires an onpopstate event
      *
      * @abstract
-     * @param {function(window.PopStateEvent)} callback
+     * @param {function(!window.PopStateEvent)} callback
      * @param {string=} id
      * @return {string}
      */
     onOnPopState(callback, id) {
-        return NavigationManager.registerCallbackOnEventHandler(
-            this.onPopStateCallbacksRegistry,
-            callback,
-            id
-        );
+        const finalId = id ?? NavigationManager.generateUniqueCallbackId();
+        this.onPopStateHanlders.set(id, callback);
+        return finalId;
     }
 
     /**
@@ -127,7 +96,7 @@ export class NavigationManager {
      * @param {string} id
      */
     offOnPopState(id) {
-        delete this.onPopStateCallbacksRegistry[id];
+        this.onPopStateHanlders.delete(id);
     }
 }
 

@@ -1,31 +1,22 @@
 
-import { ActionBrick, registerBrick, Context } from 'olympe';
+import { ActionBrick, registerBrick, BrickContext, GlobalProperties } from 'olympe';
 import {updateNavigationState} from 'helpers/navigation';
+import {getLogger} from "logging";
 
-/**
-## Description
-Set the navigation state, the data after the hashtag (#) in the broswer current page URL, and remove the latest state stored in the history for this page.
-
-Any previous state pushed will be erased.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| State | String |  |
-
-**/
 export default class ReplaceNavigationState extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} state
      * @param {function()} forwardEvent
      */
     update(context, [state], [forwardEvent]) {
-        updateNavigationState(state, false);
+        if (!context.get(GlobalProperties.EDITION, true)) {
+            updateNavigationState(state, false);
+        } else {
+            getLogger('ReplaceNavigationState')?.info('Navigation state changes are ignored in edition mode.');
+        }
         forwardEvent();
     }
 }

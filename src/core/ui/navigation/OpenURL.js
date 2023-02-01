@@ -15,29 +15,13 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick } from 'olympe';
+import { ActionBrick, registerBrick, BrickContext } from 'olympe';
 
-/**
-## Description
-Opens an URL in a separate tab or window depending on the environment.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| URL | String | The URL to open. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| result | Boolean | `true` if the URL was successfully opened. |
-
-**/
 export default class OpenURL extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} url
      * @param {boolean} openInSameTab
      * @param {function()} forwardEvent
