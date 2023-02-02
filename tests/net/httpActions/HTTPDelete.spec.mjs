@@ -15,7 +15,7 @@
  */
 
 import HTTPDelete from '../../../src/core/net/httpActions/HTTPDelete.js';
-import {Context, ErrorFlow} from 'olympe';
+import {BrickContext} from 'olympe';
 import {mockRequest, mockResponse, mockFetch} from "../fetchMock.js";
 
 describe('HTTPDelete action brick', () => {
@@ -27,7 +27,7 @@ describe('HTTPDelete action brick', () => {
 
         const brick = new HTTPDelete();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         const statusCodeSpy = jasmine.createSpy();
@@ -56,7 +56,7 @@ describe('HTTPDelete action brick', () => {
 
         const brick = new HTTPDelete();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         const statusCodeSpy = jasmine.createSpy();

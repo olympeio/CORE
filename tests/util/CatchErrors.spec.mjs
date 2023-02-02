@@ -15,12 +15,12 @@
  */
 
 import CatchErrors from '../../src/core/util/CatchErrors.js';
-import {Context, ErrorFlow} from 'olympe';
+import {BrickContext, ErrorFlow} from 'olympe';
 
 describe('CatchErrors brick', () => {
     it('should catch an error, then trigger a control flow and spread its details', () => {
         const brick = new CatchErrors();
-        const context = new Context();
+        const context = new BrickContext().createChild();
 
         const message = 'this is an error message';
         const code = 1234;

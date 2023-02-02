@@ -16,7 +16,7 @@
 
 import XmlToJson from '../../../../src/core/data/json/deprecated/XmlToJson.js';
 import testEqual from '../../../helpers/testEqual.mjs';
-import {Context} from 'olympe';
+import {BrickContext} from 'olympe';
 
 describe('XmlToJson brick', () => {
 
@@ -99,7 +99,7 @@ describe('XmlToJson brick', () => {
         const errorSetter = jasmine.createSpy().and.callFake(() => {});
 
         // Then
-        new XmlToJson().update(new Context(), [xml, wrappersPath], [jsonSetter, errorSetter]);
+        new XmlToJson().update(new BrickContext().createChild(), [xml, wrappersPath], [jsonSetter, errorSetter]);
         expect(jsonSetter).not.toHaveBeenCalled();
         expect(errorSetter).toHaveBeenCalled();
     });

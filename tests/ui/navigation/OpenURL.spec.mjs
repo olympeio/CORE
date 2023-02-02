@@ -15,13 +15,13 @@
  */
 
 import OpenURL from '../../../src/core/ui/navigation/OpenURL.js';
-import {Context} from 'olympe';
+import {BrickContext} from 'olympe';
 
 describe('OpenURL brick', () => {
     it('should open a new tab', (done) => {
         const brick = new OpenURL();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
 
         const resultSpy = jasmine.createSpy();
 
@@ -48,7 +48,7 @@ describe('OpenURL brick', () => {
     it('should open a the url in the same tab if the corresponding param is true', (done) => {
         const brick = new OpenURL();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
 
         const resultSpy = jasmine.createSpy();
 
@@ -75,7 +75,7 @@ describe('OpenURL brick', () => {
     it('should return a false result if tab opening fail', (done) => {
         const brick = new OpenURL();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
 
         const resultSpy = jasmine.createSpy();
 

@@ -10,4 +10,5 @@ build.cache/
 build.out_non-tech/
 package-lock.json
 backend
+*.iml
 **/jsconfig.json

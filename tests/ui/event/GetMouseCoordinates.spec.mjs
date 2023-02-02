@@ -15,15 +15,13 @@
  */
 
 import GetMouseCoordinates from '../../../src/core/ui/event/GetMouseCoordinates.js';
-import {Context} from 'olympe';
-
-
+import {BrickContext} from 'olympe';
 
 describe('GetMouseCoordinates brick', () => {
     it('should return the mouse coordinates', () => {
         const brick = new GetMouseCoordinates();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const setXSpy = jasmine.createSpy();
         const setYSpy = jasmine.createSpy();
 

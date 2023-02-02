@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Context } from 'olympe';
+import {BrickContext } from 'olympe';
 
 /**
  * @param {Object} brick brick instance to test
@@ -23,6 +23,8 @@ import { Context } from 'olympe';
  * @param {number=} controlFlowIndex index of the brick control flow output (if any)
  */
 export const testEqual = (brick, inputs, expectedOutputs, controlFlowIndex) => {
+
+    const rootCtx = new BrickContext();
 
     // Add output value testers
     const outputs = [];
@@ -39,7 +41,7 @@ export const testEqual = (brick, inputs, expectedOutputs, controlFlowIndex) => {
         });
     }
 
-    brick.update(new Context(), inputs, outputs);
+    brick.update(rootCtx.createChild(), inputs, outputs);
 };
 
 export default testEqual;

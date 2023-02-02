@@ -21,7 +21,7 @@
 // describe('GetPlatformInfo node brick', () => {
 //     it('should retrieve os informations in node mode', () => {
 //         const brick = new GetPlatformInfo();
-//         const context = new Context();
+//         const context = new BrickContext().createChild();
 //
 //         const fakeResultOS = [];
 //         const fakeResultOSVersion = [];
