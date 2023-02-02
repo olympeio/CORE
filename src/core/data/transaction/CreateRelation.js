@@ -28,18 +28,15 @@ import {getLogger} from 'logging';
 export default class CreateRelation extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
-     * @param {!InstanceTag} origin
+     * @param {!BrickContext} context
+     * @param {!Tag} origin
      * @param {!Relation} relation
-     * @param {!InstanceTag} destination
+     * @param {!Tag} destination
      * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} setErrorFlow
-     * @param {function(!InstanceTag)} setOrigin
-     * @param {function(!InstanceTag)} setDestination
+     * @param {function(!Tag)} setOrigin
+     * @param {function(!Tag)} setDestination
      */
     update(context, [origin, relation, destination], [forwardEvent, setErrorFlow, setOrigin, setDestination]) {
         const logger = getLogger('Create Relation');

@@ -16,20 +16,6 @@
 
 import { ActionBrick, registerBrick, Transaction } from 'olympe';
 
-/**
-## Description
-Deletes all the relations of the specific type originating from an object.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| origin | Object | The origin object. |
-| relation | Relation | The relation type. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| origin | Object | The origin Object. |
-**/
 export default class DeleteAllRelations extends ActionBrick {
 
     /**
@@ -37,11 +23,11 @@ export default class DeleteAllRelations extends ActionBrick {
      * Note that this method will _not_ be executed if an input value is undefined.
      *
      * @protected
-     * @param {!Context} context
-     * @param {InstanceTag} origin
+     * @param {!BrickContext} context
+     * @param {Tag} origin
      * @param {Relation} relation
      * @param {function()} forwardEvent
-     * @param {function(InstanceTag)} setOrigin
+     * @param {function(Tag)} setOrigin
      */
     update(context, [origin, relation], [forwardEvent, setOrigin]) {
         // Get current transaction
