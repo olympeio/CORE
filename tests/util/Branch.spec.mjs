@@ -15,7 +15,7 @@
  */
 
 import Branch from '../../src/core/util/Branch.js';
-import {Context} from "olympe";
+import {BrickContext} from "olympe";
 
 describe('Branch brick', () => {
 

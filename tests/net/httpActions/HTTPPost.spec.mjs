@@ -15,7 +15,7 @@
  */
 
 import HTTPPost from '../../../src/core/net/httpActions/HTTPPost.js';
-import {Context, ErrorFlow} from 'olympe';
+import {BrickContext, ErrorFlow} from 'olympe';
 import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 describe('HTTPPost action brick', () => {
@@ -27,7 +27,7 @@ describe('HTTPPost action brick', () => {
 
         const brick = new HTTPPost();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         const statusCodeSpy = jasmine.createSpy();
@@ -56,7 +56,7 @@ describe('HTTPPost action brick', () => {
 
         const brick = new HTTPPost();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         const statusCodeSpy = jasmine.createSpy();

@@ -15,7 +15,7 @@
  */
 
 import Now from '../../src/core/datetime/Now.js';
-import { Context } from 'olympe';
+import {BrickContext } from 'olympe';
 
 describe('Now brick', () => {
 
@@ -31,7 +31,7 @@ describe('Now brick', () => {
 
         const setter = jasmine.createSpy().and.callFake(() => {});
 
-        new Now().update(new Context(), [interval], [setter]);
+        new Now().update(new BrickContext().createChild(), [interval], [setter]);
 
         expect(setInterval).toHaveBeenCalled();
         expect(setter).toHaveBeenCalled();
@@ -39,7 +39,7 @@ describe('Now brick', () => {
 
     it('should clear the interval upon context destruction', () => {
         const now = new Now();
-        const context = new Context();
+        const context = new BrickContext().createChild();
 
         spyOn(window, 'clearInterval');
 

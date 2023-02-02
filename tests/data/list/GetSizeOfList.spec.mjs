@@ -17,7 +17,7 @@
 import GetSizeOfList from '../../../src/core/data/list/GetSizeOfList.js';
 import testEqual from "../../helpers/testEqual.mjs";
 import {BehaviorSubject} from 'rxjs';
-import {Context, ListDef} from "olympe";
+import {BrickContext, ListDef} from "olympe";
 
 describe('GetSizeOfList brick', () => {
     it('should call the observeSize method of the list', () => {
@@ -36,7 +36,7 @@ describe('GetSizeOfList brick', () => {
     });
 
     it('should update the returned size if the list changes', () => {
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const list = new ListDef();
         const size = new BehaviorSubject(0);
         const brick = new GetSizeOfList();

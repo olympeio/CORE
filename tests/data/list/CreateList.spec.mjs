@@ -15,12 +15,12 @@
  */
 
 import CreateList from '../../../src/core/data/list/CreateList.js';
-import {Context} from 'olympe';
+import {BrickContext} from 'olympe';
 
 describe('Create brick', () => {
     it('should correctly create a list', () => {
         const brick = new CreateList();
-        const context = new Context();
+        const context = new BrickContext().createChild();
 
         const setListSpy = jasmine.createSpy();
         const forwardEventSpy = jasmine.createSpy();

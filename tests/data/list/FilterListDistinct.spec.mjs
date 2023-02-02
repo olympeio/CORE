@@ -16,7 +16,7 @@
 
 import FilterListDistinct from '../../../src/core/data/list/FilterListDistinct.js';
 import testResults from '../../helpers/testResults.mjs';
-import {Context, ListDef} from 'olympe';
+import {BrickContext, ListDef} from 'olympe';
 import MockSync from "../../helpers/MockSync.mjs";
 
 describe('FilterListDistinct brick', () => {
@@ -32,7 +32,7 @@ describe('FilterListDistinct brick', () => {
             list.push(s);
         });
         const brick = new FilterListDistinct();
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const setListSpy = jasmine.createSpy().and.callFake(l => {
             res = l;
         });

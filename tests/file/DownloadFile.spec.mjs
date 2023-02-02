@@ -15,7 +15,7 @@
  */
 
 import DownloadFile from '../../src/core/file/DownloadFile.js'
-import {Context} from 'olympe';
+import {BrickContext} from 'olympe';
 
 describe('DownloadFile brick', () => {
 
@@ -26,7 +26,7 @@ describe('DownloadFile brick', () => {
 
         // run action
         const d = new DownloadFile();
-        d.update(new Context(), ['test.txt', file], [() => {}]);
+        d.update(new BrickContext().createChild(), ['test.txt', file], [() => {}]);
 
         // check method to download file has been called
         expect(file.saveAs).toHaveBeenCalledTimes(1);
@@ -41,7 +41,7 @@ describe('DownloadFile brick', () => {
 
         // run action
         const d = new DownloadFile();
-        d.update(new Context(), [undefined, file], [() => {}]);
+        d.update(new BrickContext().createChild(), [undefined, file], [() => {}]);
 
         // check method to download file has been called
         expect(file.saveAs).toHaveBeenCalledTimes(1);

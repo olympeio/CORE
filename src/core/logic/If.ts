@@ -13,30 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Brick, registerBrick } from 'olympe';
-import {merge} from "rxjs";
-import {map} from "rxjs/operators";
+import { Brick, BrickContext, registerBrick } from 'olympe';
+import { merge } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export default class If extends Brick {
 
     /**
      * @override
      */
-    setupExecution($) {
+    setupExecution(context: BrickContext) {
         const inputs = this.getInputs();
-        return merge(...inputs.map((i) => $.observe(i))).pipe(map((value) => {
-            return value === null ? null : inputs.map((i) => $.get(i));
-        }));
+        return merge(...inputs.map((i) => context.observe(i))).pipe(
+            map((value) => {
+                return value === null ? null : inputs.map((i) => context.get(i));
+            })
+        );
     }
 
     /**
-     * @param {!Context} $
-     * @param {?boolean} cond
-     * @param {*} a
-     * @param {*} b
-     * @param {function(*)} setResult
+     * @override
      */
-    update($, [cond, a, b], [setResult]) {
+    update(context: BrickContext, [cond, a, b]: [boolean, any, any], [setResult]: [(param: any) => void]) {
         if (cond !== null) {
             setResult(cond ? a : b);
         }
@@ -44,4 +42,3 @@ export default class If extends Brick {
 }
 
 registerBrick('01633eaa139d1f5e2fc4', If);
-

@@ -16,7 +16,7 @@
 
 import ParseJson from '../../../../src/core/data/json/deprecated/ParseJson.js';
 import testEqual from '../../../helpers/testEqual.mjs';
-import {Context} from 'olympe';
+import {BrickContext} from 'olympe';
 
 describe('ParseJson brick', () => {
     it('should correctly parse a path in an object', () => {
@@ -53,7 +53,7 @@ describe('ParseJson brick', () => {
         const setter = jasmine.createSpy().and.callFake(() => {});
 
         // Then
-        const run = () => new ParseJson().update(new Context(), ['{ "a": { "b": "hello"}', 'a.b'], [setter]);
+        const run = () => new ParseJson().update(new BrickContext().createChild(), ['{ "a": { "b": "hello"}', 'a.b'], [setter]);
 
         expect(run).not.toThrowError();
         expect(setter).not.toHaveBeenCalled();
@@ -64,7 +64,7 @@ describe('ParseJson brick', () => {
         const outputValue = jasmine.createSpy();
 
         // Then
-        const run = () => new ParseJson().update(new Context(), ['{ "a": { "b": "hello"}}', ''], [outputValue]);
+        const run = () => new ParseJson().update(new BrickContext().createChild(), ['{ "a": { "b": "hello"}}', ''], [outputValue]);
 
         expect(run).not.toThrowError();
         expect(outputValue).not.toHaveBeenCalled();

@@ -15,11 +15,18 @@
  */
 
 import HTTPGet from '../../../src/core/net/httpActions/HTTPGet.js';
-import {Context, ErrorFlow} from 'olympe';
+import {BrickContext} from 'olympe';
 import {mockFetch, mockRequest, mockResponse, SMALL_GIF} from "../fetchMock.js";
 import {fromBase64} from 'helpers/binaryConverters';
 
 describe('HTTPGet action brick', () => {
+
+    let rootCtx;
+
+    beforeEach(() => {
+        rootCtx = new BrickContext();
+    });
+
     it('should get correctly',  (done) => {
         mockFetch(
             mockRequest('https://httpbin.org/get', 'GET', {"Content-Type": "application/json"}),
@@ -28,7 +35,7 @@ describe('HTTPGet action brick', () => {
 
         const brick = new HTTPGet();
 
-        const context = new Context();
+        const context = rootCtx.createChild();
         const outputs = [];
 
         const statusCodeSpy = jasmine.createSpy();
@@ -57,7 +64,7 @@ describe('HTTPGet action brick', () => {
 
         const brick = new HTTPGet();
 
-        const context = new Context();
+        const context = rootCtx.createChild();
         const outputs = [];
 
         const statusCodeSpy = jasmine.createSpy();
@@ -89,7 +96,7 @@ describe('HTTPGet action brick', () => {
 
         const brick = new HTTPGet();
 
-        const context = new Context();
+        const context = rootCtx.createChild();
         const outputs = [];
 
         const statusCodeSpy = jasmine.createSpy();

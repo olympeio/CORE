@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import Or from '../../src/core/logic/Or.js';
+import Or from '../../src/core/logic/Or.ts';
 import testEqual from '../helpers/testEqual.mjs';
 
 describe('Or brick', () => {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import Plus from '../../src/core/math/Plus.js';
+import Plus from '../../src/core/math/Plus.ts';
 import testEqual from '../helpers/testEqual.mjs';
 
 describe('Plus brick', () => {

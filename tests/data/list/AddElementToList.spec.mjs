@@ -16,7 +16,7 @@
 
 import AddElementToListFunction from '../../../src/core/data/list/AddElementToListFunction.js';
 import AddElementToListAction from '../../../src/core/data/list/AddElementToListAction.js';
-import {Context} from "olympe";
+import {BrickContext} from "olympe";
 
 // TODO function and action version of the brick to be tested
 
@@ -28,7 +28,7 @@ describe('AddElementToList bricks', () => {
     it('should add an object to an Array', () => {
         const list = [1, 2, 3, 4, 5];
         const brick = new AddElementToListFunction();
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const setListSpy = jasmine.createSpy();
 
         brick.update(context, [list, 6], [setListSpy]);
@@ -45,7 +45,7 @@ describe('AddElementToList bricks', () => {
 
     it('should not execute if the list is not a ListDef nor an Array', () => {
         const brick = new AddElementToListFunction();
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const setListSpy = jasmine.createSpy();
 
         brick.update(context,['Hello', 6], [setListSpy]);

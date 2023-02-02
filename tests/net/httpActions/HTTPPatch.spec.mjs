@@ -15,7 +15,7 @@
  */
 
 import HTTPPatch from '../../../src/core/net/httpActions/HTTPPatch.js';
-import {Context, ErrorFlow} from 'olympe';
+import {BrickContext, ErrorFlow} from 'olympe';
 import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 describe('HTTPPatch action brick', () => {
@@ -27,7 +27,7 @@ describe('HTTPPatch action brick', () => {
 
         const brick = new HTTPPatch();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         const statusCodeSpy = jasmine.createSpy();
@@ -56,7 +56,7 @@ describe('HTTPPatch action brick', () => {
 
         const brick = new HTTPPatch();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         const statusCodeSpy = jasmine.createSpy();
