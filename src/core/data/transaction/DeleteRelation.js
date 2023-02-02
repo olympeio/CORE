@@ -17,22 +17,6 @@
 
 import { ActionBrick, registerBrick, Transaction } from 'olympe';
 
-/**
-## Description
-Delete the specified relation between 2 given objects.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| origin | Object | The origin object. |
-| relation | Relation | The relation. |
-| destination | Object | The destination object. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| origin | Object | The origin Object. |
-
-**/
 export default class DeleteRelation extends ActionBrick {
 
     /**

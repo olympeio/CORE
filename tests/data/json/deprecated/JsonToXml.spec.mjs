@@ -16,7 +16,7 @@
 
 import JsonToXml from '../../../../src/core/data/json/deprecated/JsonToXml.js';
 import testEqual from '../../../helpers/testEqual.mjs';
-import {Context} from 'olympe';
+import {BrickContext} from 'olympe';
 
 describe('JsonToXml brick', () => {
     it('should return an empty string given an empty json', () => {
@@ -102,7 +102,7 @@ describe('JsonToXml brick', () => {
         const xmlSetter = jasmine.createSpy().and.callFake(() => {});
 
         // Then
-        new JsonToXml().update(new Context(), [json, wrappersPath], [errorSetter, xmlSetter]);
+        new JsonToXml().update(new BrickContext().createChild(), [json, wrappersPath], [errorSetter, xmlSetter]);
         expect(errorSetter).toHaveBeenCalled();
         expect(xmlSetter).not.toHaveBeenCalled();
     });

@@ -17,11 +17,6 @@
 import { ActionBrick, registerBrick, Transaction, GlobalProperties } from 'olympe';
 import { getLogger } from 'logging';
 
-/**!
- * %Tooltip: Begins a transaction.
- * %LongDesc
- * Marks the beginning of a series of transaction operations.
- */
 export default class BeginTransaction extends ActionBrick {
 
     /**

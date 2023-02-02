@@ -14,23 +14,15 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import { Brick, BrickContext, registerBrick } from 'olympe';
 
-export default class Max extends Brick {
-
+export default class Min extends Brick {
     /**
-     * Executed every time an input (a, b) gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
-     * @protected
-     * @param {Context} context
-     * @param {number} a
-     * @param {number} b
-     * @param {function(number)} setAb
+     * @override
      */
-    update(context, [a, b], [setAb]) {
-        setAb(Math.max(a, b));
+    update(context: BrickContext, [a, b]: [number, number], [setAb]: [(param: number) => void]) {
+        setAb(Math.min(a, b));
     }
 }
 
-registerBrick('01632b4c15a86b8a86cc', Max);
+registerBrick('01632b4862090dbd2bbe', Min);

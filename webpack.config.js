@@ -19,13 +19,19 @@ const commonConfig = {
     mode: 'development',
     devtool: 'source-map',
     resolve: {
+        extensions: ['.js', 'jsx', '.tsx', '.ts'],
         alias: {
             olympe: runtimeWebPath,
-            logging: path.resolve(__dirname, 'src/helpers/logging.js')
-        }
+            logging: path.resolve(__dirname, 'src/helpers/logging.js'),
+        },
     },
     module: {
         rules: [
+            {
+                test: /\.(tsx?)$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
             {
                 test: /\.(jsx)$/,
                 exclude: /node_modules/,
@@ -37,15 +43,12 @@ const commonConfig = {
                 use: "source-map-loader"
             },
             {
-                test: /\.js$/,
-                exclude: [
-                    /\.spec\.mjs$/,
-                    /^tests\//
-                ],
-                enforce: "pre",
-                use: "webpack-import-glob-loader"
-            }
-        ]
+                test: /\.js|ts$/,
+                exclude: [/\.spec\.mjs$/, /^tests\//],
+                enforce: 'pre',
+                use: 'webpack-import-glob-loader',
+            },
+        ],
     },
     externals: ['olympe', nodeExternals()]
 };

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "es6",
+    "target": "es6",
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "olympe": ["node_modules/@olympeio/runtime-web" ,"node_modules/@olympeio/runtime-node"],
+      "logging": ["src/helpers/logging.js"],
+      "helpers/*": ["src/helpers/node/*", "src/helpers/web/*"]
+    }
+  }
+}

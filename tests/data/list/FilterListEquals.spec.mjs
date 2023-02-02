@@ -16,7 +16,7 @@
 
 import FilterListEquals from "../../../src/core/data/list/FilterListEquals.js";
 import MockSync from "../../helpers/MockSync.mjs";
-import {Context} from "olympe";
+import {BrickContext} from "olympe";
 
 describe('FilterListEquals brick', () => {
 
@@ -31,7 +31,7 @@ describe('FilterListEquals brick', () => {
             list.push(s);
         });
         const brick = new FilterListEquals();
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const setListSpy = jasmine.createSpy().and.callFake(l => {
             res = l;
         });
@@ -58,7 +58,7 @@ describe('FilterListEquals brick', () => {
 
     it('should not execute if the list is not a ListDef or an Array', () => {
         const brick = new FilterListEquals();
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const setListSpy = jasmine.createSpy();
 
         brick.update(context,['Hello', '1', 'o'], [setListSpy]);

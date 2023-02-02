@@ -15,7 +15,7 @@
  */
 
 import ThrowError from '../../src/core/util/ThrowError.js';
-import {Context, ErrorFlow} from 'olympe';
+import {BrickContext, ErrorFlow} from 'olympe';
 
 describe('ThrowError brick', () => {
     xit('should generate an ErrorFlow correctly', () => {
@@ -25,7 +25,7 @@ describe('ThrowError brick', () => {
         const message = 'this is an error message';
         const code = 1234;
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
 
         const errorFlowSpy = jasmine.createSpy();
         const clearer = jasmine.createSpy();

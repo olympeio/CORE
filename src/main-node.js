@@ -27,13 +27,13 @@ import './core/auth/**/*.js';
 import './core/data/**/*.js';
 import './core/datetime/**/*.js';
 import './core/file/**/*.js';
-import './core/logic/**/*.js';
-import './core/math/**/*.js';
 import './core/net/**/*.js';
 import './core/system/**/*.js';
 import './core/text/**/*.js';
 import './core/util/**/*.js';
 
+import './core/logic/**/*.ts';
+import './core/math/**/*.ts';
 
 export {getLogger} from './helpers/logging';
 export {TimeoutMap, TimeoutSet} from './helpers/timeoutData';

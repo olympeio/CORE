@@ -15,7 +15,7 @@
  */
 
 import HTTPPut from '../../../src/core/net/httpFunctions/HTTPPut.js';
-import {Context} from 'olympe';
+import {BrickContext} from 'olympe';
 import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 describe('HTTPPut function brick', () => {
@@ -27,7 +27,7 @@ describe('HTTPPut function brick', () => {
 
         const brick = new HTTPPut();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         outputs.push(_statusCode => expect(_statusCode).toEqual(200));
@@ -45,7 +45,7 @@ describe('HTTPPut function brick', () => {
 
         const brick = new HTTPPut();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         outputs.push(_statusCode => expect(_statusCode).toEqual(405));
@@ -62,7 +62,7 @@ describe('HTTPPut function brick', () => {
 
         const brick = new HTTPPut();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         outputs.push(_statusCode => expect(_statusCode).toEqual(404));

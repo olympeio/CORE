@@ -14,23 +14,16 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import { Brick, BrickContext, registerBrick } from 'olympe';
 
-export default class Minus extends Brick {
+export default class Equals extends Brick {
 
     /**
-     * Executed every time an input (a, b) gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
-     * @protected
-     * @param {Context} context
-     * @param {number} a
-     * @param {number} b
-     * @param {function(number)} setAb
+     * @override
      */
-    update(context, [a, b], [setAb]) {
-        setAb(a-b);
+    update(context: BrickContext, [a, b]: any[], [setResult]: [(param: boolean) => void]) {
+        setResult(typeof a.equals === 'function' ? a.equals(b) : a === b);
     }
 }
 
-registerBrick('01626ca1e3ef544963b9', Minus);
+registerBrick('01633f061f44e5e36b06', Equals);

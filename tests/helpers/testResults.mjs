@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Context } from 'olympe';
+import {BrickContext } from 'olympe';
 export default function testResults(brick, inputs, expectedOutputsFunctions) {
-    brick.update(new Context(), inputs, expectedOutputsFunctions);
+    brick.update(new BrickContext().createChild(), inputs, expectedOutputsFunctions);
 }

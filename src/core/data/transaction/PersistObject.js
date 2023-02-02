@@ -14,26 +14,23 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, Context, InstanceTag, instanceToTag, Transaction, ErrorFlow } from 'olympe';
+import { ActionBrick, registerBrick, BrickContext, tagToString, Transaction, ErrorFlow } from 'olympe';
 import {getLogger} from 'logging';
 
 export default class PersistObject extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
-     * @param {InstanceTag} objectIn
+     * @param {!BrickContext} context
+     * @param {Tag} objectIn
      * @param {function()} forwardEvent
-     * @param {function(InstanceTag)} setObjectOut
+     * @param {function(Tag)} setObjectOut
      * @param {function(!ErrorFlow)} setErrorFlow
      */
     update(context, [objectIn], [forwardEvent, setObjectOut, setErrorFlow]) {
         const transaction = Transaction.from(context);
 
-        if (typeof objectIn === 'string'  || instanceToTag(objectIn) !== '') {
+        if (typeof objectIn === 'string'  || tagToString(objectIn) !== '') {
             transaction.persistInstance(objectIn, true);
         } else {
             const msg = `Cannot persist object ${objectIn}: Wrong type.`;
