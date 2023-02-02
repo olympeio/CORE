@@ -14,36 +14,18 @@
  * limitations under the License.
  */
 
-import {ActionBrick, registerBrick, Transaction} from 'olympe';
+import {ActionBrick, registerBrick, Transaction, BrickContext} from 'olympe';
 import {getLogger} from 'logging';
 
-/**
-## Description
-Clear a specific property of an object.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| object | Object | The object. |
-| property | Property | The property to clear. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| object | Object | The result object. |
-
-**/
 export default class ClearObjectProperty extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
-     * @param {InstanceTag} object
+     * @param {!BrickContext} context
+     * @param {Tag} object
      * @param {PropertyDescriptor} property
      * @param {function()} forwardEvent
-     * @param {function(InstanceTag)} setObject
+     * @param {function(Tag)} setObject
      */
     update(context, [object, property], [forwardEvent, setObject]) {
         const logger = getLogger('Clear Object Property');
@@ -54,7 +36,7 @@ export default class ClearObjectProperty extends ActionBrick {
         transaction.update(object, property, null);
 
         Transaction.process(context, transaction)
-            .catch(() => logger.error(`Transaction error: ${message}`))
+            .catch((message) => logger.error(`Transaction error: ${message}`))
             .finally(() => {
                 setObject(object);
                 forwardEvent();
