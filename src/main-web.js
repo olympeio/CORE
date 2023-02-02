@@ -30,8 +30,6 @@ import './core/data/queries/**/*.js';
 import './core/data/transaction/**/*.js';
 import './core/datetime/**/*.js';
 import './core/file/**/*.js';
-import './core/logic/**/*.js';
-import './core/math/**/*.js';
 import './core/net/**/*.js';
 import './core/system/**/*.js';
 import './core/text/**/*.js';
