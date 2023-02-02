@@ -15,7 +15,7 @@
  */
 
 import HTTPDelete from "../../../src/core/net/httpFunctions/HTTPDelete.js";
-import {Context} from 'olympe';
+import {BrickContext} from 'olympe';
 import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 describe('HTTPDelete function brick', () => {
@@ -27,7 +27,7 @@ describe('HTTPDelete function brick', () => {
 
         const brick = new HTTPDelete();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         outputs.push(_statusCode => expect(_statusCode).toEqual(200));
@@ -45,7 +45,7 @@ describe('HTTPDelete function brick', () => {
 
         const brick = new HTTPDelete();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         outputs.push(_statusCode => expect(_statusCode).toEqual(405));
@@ -63,7 +63,7 @@ describe('HTTPDelete function brick', () => {
 
         const brick = new HTTPDelete();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         outputs.push(_statusCode => expect(_statusCode).toEqual(404));

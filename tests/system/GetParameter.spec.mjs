@@ -15,7 +15,7 @@
  */
 
 import GetParameter from "../../src/core/system/GetParameter.js";
-import {Config, Context} from "olympe";
+import {Config, BrickContext} from "olympe";
 
 describe("GetParameter brick", function() {
 
@@ -32,26 +32,26 @@ describe("GetParameter brick", function() {
         const setVal = jasmine.createSpy();
         const brick = new GetParameter();
 
-        brick.update(new Context(),['number'],[setVal]);
+        brick.update(new BrickContext().createChild(),['number'],[setVal]);
         expect(setVal).toHaveBeenCalledOnceWith(10);
         expect(Config.getParameter).toHaveBeenCalledOnceWith('number');
 
         setVal.calls.reset();
         Config.getParameter.calls.reset();
 
-        brick.update(new Context(),['bool'],[setVal]);
+        brick.update(new BrickContext().createChild(),['bool'],[setVal]);
         expect(setVal).toHaveBeenCalledOnceWith(true);
         expect(Config.getParameter).toHaveBeenCalledOnceWith('bool');
         setVal.calls.reset();
         Config.getParameter.calls.reset();
 
-        brick.update(new Context(),['string'],[setVal]);
+        brick.update(new BrickContext().createChild(),['string'],[setVal]);
         expect(setVal).toHaveBeenCalledOnceWith('foo');
         expect(Config.getParameter).toHaveBeenCalledOnceWith('string');
         setVal.calls.reset();
         Config.getParameter.calls.reset();
 
-        brick.update(new Context(),['foo.bar'],[setVal]);
+        brick.update(new BrickContext().createChild(),['foo.bar'],[setVal]);
         expect(setVal).toHaveBeenCalledOnceWith(null);
         expect(Config.getParameter).toHaveBeenCalledOnceWith('foo.bar');
     });

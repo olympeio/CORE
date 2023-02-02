@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-import And from '../../src/core/logic/And.ts';
-import testEqual from '../helpers/testEqual.mjs';
+import { Brick, BrickContext, registerBrick } from 'olympe';
 
-describe('And brick', () => {
-    it('should transform correctly', () => {
-        const a = new And();
-        testEqual(a, [true, true], [true]);
-        testEqual(a, [true, false], [false]);
-        testEqual(a, [false, true], [false]);
-        testEqual(a, [false, false], [false]);
-    })
-});
+
+export default class IsGreaterThan extends Brick {
+    /**
+     * @override
+     */
+    update(context: BrickContext, [a, b, strictly]: [number, number, boolean], [setResult]: [(param: boolean) => void]) {
+        setResult(strictly ? a > b : a >= b);
+    }
+}
+
+registerBrick('01633eddc42e7ea58ee6', IsGreaterThan);

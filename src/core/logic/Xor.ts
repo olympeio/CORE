@@ -14,23 +14,16 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import { Brick, BrickContext, registerBrick } from 'olympe';
 
-export default class Divide extends Brick {
+export default class Xor extends Brick {
 
     /**
-     * Executed every time an input (a, b) gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
-     * @protected
-     * @param {Context} context
-     * @param {number} a
-     * @param {number} b
-     * @param {function(number)} setAb
+     * @override
      */
-    update(context, [a, b], [setAb]) {
-        setAb(a/b);
+    update(context: BrickContext, [a, b]: [boolean, boolean], [setResult]: [(param: boolean) => void]) {
+        setResult((a || b) && !(a && b));
     }
 }
 
-registerBrick('01626cab8ad21701ca50', Divide);
+registerBrick('01632a7b76b14a144a1c', Xor);

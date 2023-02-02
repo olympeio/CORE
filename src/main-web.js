@@ -38,6 +38,8 @@ import './core/text/**/*.js';
 import './core/util/**/*.js';
 import './core/ui/**/*.js';
 import './core/**/*.jsx';
+import './core/**/*.ts';
+import './core/**/*.tsx';
 
 
 export { markdownTextToReactElement } from './helpers/web/remarkable';

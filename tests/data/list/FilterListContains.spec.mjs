@@ -16,7 +16,7 @@
 
 import FilterListContains from "../../../src/core/data/list/FilterListContains.js";
 import MockSync from "../../helpers/MockSync.mjs";
-import {Context} from "olympe";
+import {BrickContext} from "olympe";
 
 describe('FilterListContains brick', () => {
 
@@ -31,7 +31,7 @@ describe('FilterListContains brick', () => {
             list.push(s);
         });
         const brick = new FilterListContains();
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const setListSpy = jasmine.createSpy().and.callFake(l => {
             res = l;
         });
@@ -42,7 +42,7 @@ describe('FilterListContains brick', () => {
 
     it('should not execute if the list is not a ListDef nor an Array', () => {
         const brick = new FilterListContains();
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const setListSpy = jasmine.createSpy();
 
         brick.update(context,['Hello', '1', 'o'], [setListSpy]);

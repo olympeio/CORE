@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import And from '../../src/core/logic/And.ts';
-import testEqual from '../helpers/testEqual.mjs';
+import { Brick, BrickContext, registerBrick } from 'olympe';
 
-describe('And brick', () => {
-    it('should transform correctly', () => {
-        const a = new And();
-        testEqual(a, [true, true], [true]);
-        testEqual(a, [true, false], [false]);
-        testEqual(a, [false, true], [false]);
-        testEqual(a, [false, false], [false]);
-    })
-});
+export default class Or extends Brick {
+    /**
+     * @override
+     */
+    update(context: BrickContext, [a, b]: [boolean, boolean], [setResult]: [(param: boolean) => void]) {
+        setResult(a || b);
+    }
+}
+
+registerBrick('01632a68f21892cad01b', Or);
