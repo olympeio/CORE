@@ -70,7 +70,7 @@ export default class List extends VisualBrick {
             }
             return sizeObservable.pipe(
                 combineLatestWith($.observe('Reverse')),
-                map(([size, reverse]) => {
+                map(([_, reverse]) => {
                     let elements = [];
                     // Array case
                     if (Array.isArray(list)) {
@@ -80,17 +80,12 @@ export default class List extends VisualBrick {
                     else if (list instanceof QueryResult) {
                         elements = !reverse ? list.toArray() : list.toArray().reverse();
                     }
-                    // ListDef reverse case
-                    else if (reverse) {
-                        list.forEachCurrentValue((value, key) => {
-                            elements[size - 1 - list.getCurrentRank(key)] = value;
-                        });
-                    }
-                    // ListDef normal case
+                    // ListDef case
                     else {
-                        list.forEachCurrentValue((value, key) => {
-                            elements[list.getCurrentRank(key)] = value;
+                        list.forEachCurrentValue((value) => {
+                            elements.push(value);
                         });
+                        elements = reverse ? elements.reverse() : elements;
                     }
                     return elements;
                 })
