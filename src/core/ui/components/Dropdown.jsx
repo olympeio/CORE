@@ -38,7 +38,7 @@ import {Chip} from "@mui/material";
  */
 export default class Dropdown extends ReactBrick {
     // in case: Auto Complete is on
-    static heightSmallMinSizeAutoComplete = 55;
+    static heightSmallMinSizeAutoComplete = 40;
     // in case: Auto Complete is off
     static heightSmallMinSizeNoAuto = 40;
 
@@ -397,15 +397,17 @@ export default class Dropdown extends ReactBrick {
             }
         };
         if (variant === 'outlined') {
-            let translateY = ((brickHeight - (hasHelperText ? 20 : 0)) - 23) / 2; // 20 is height of helper text, 23 is height of label
-    
-            if (hasEmptyText || selectedValue) {
-                translateY = -8;
-            }
-            customSx = {
-                ...customSx,
-                '.MuiInputLabel-formControl': {
-                    transform: `translate(14px, ${translateY}px) scale(${hasEmptyText || selectedValue ? 0.75 : 1})`
+            const actualInputHeight = (brickHeight - (hasHelperText ? 20 : 0)); // 20 is height of helper text
+            if (actualInputHeight > Dropdown.heightSmallMinSizeNoAuto) {
+                let translateY = (actualInputHeight - 23) / 2; // 23 is height of label
+                if (hasEmptyText || selectedValue) {
+                    translateY = -8;
+                }
+                customSx = {
+                    ...customSx,
+                    '.MuiInputLabel-formControl': {
+                        transform: `translate(14px, ${translateY}px) scale(${hasEmptyText || selectedValue ? 0.75 : 1})`
+                    }
                 }
             }
         }
@@ -532,14 +534,17 @@ export default class Dropdown extends ReactBrick {
 
         let customSx = {};
         if (variant === 'outlined') {
-            let translateY = ((height - (hasHelperText ? 20 : 0)) - 23) / 2; // 20 is height of helper text, 23 is height of label
-    
-            if (hasEmptyText || selectedValue) {
-                translateY = -8;
-            }
-            customSx = {
-                '.MuiInputLabel-formControl': {
-                    transform: `translate(14px, ${translateY}px) scale(${hasEmptyText || selectedValue ? 0.75 : 1})`
+            const actualInputHeight = (height - (hasHelperText ? 20 : 0)); // 20 is height of helper text
+            if (actualInputHeight > Dropdown.heightSmallMinSizeAutoComplete) {
+                let translateY = (actualInputHeight - 23) / 2; // 23 is height of label
+        
+                if (hasEmptyText || selectedValue) {
+                    translateY = -8;
+                }
+                customSx = {
+                    '.MuiInputLabel-formControl': {
+                        transform: `translate(14px, ${translateY}px) scale(${hasEmptyText || selectedValue ? 0.75 : 1})`
+                    }
                 }
             }
         }
