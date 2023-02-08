@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick } from 'olympe';
+import { ActionBrick, registerBrick, File } from 'olympe';
 
 /**
 ## Description

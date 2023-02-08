@@ -21,8 +21,9 @@ import {
     registerBrick,
     PropertyModel,
     CloudObject,
-    instanceToTag,
-    Transaction
+    Transaction,
+    tagToString,
+    BrickContext
 } from 'olympe';
 import {getLogger} from 'logging';
 import {castPrimitiveValue} from "./_helpers";
@@ -30,17 +31,14 @@ import {castPrimitiveValue} from "./_helpers";
 export default class SetObjectProperty extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
-     * @param {InstanceTag} object
-     * @param {PropertyDescriptor} property
+     * @param {!BrickContext} context
+     * @param {Tag} object
+     * @param {Property} property
      * @param {*} value
      * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} setErrorFlow
-     * @param {function(InstanceTag)} setObject
+     * @param {function(Tag)} setObject
      */
     update(context, [object, property, value], [forwardEvent, setErrorFlow, setObject]) {
         const logger = getLogger('Set Object Property');
@@ -64,7 +62,7 @@ export default class SetObjectProperty extends ActionBrick {
             return;
         }
 
-        if (instanceToTag(property) === '') {
+        if (tagToString(property) === '') {
             returnError('No property object specified', 2);
             return;
         }
@@ -74,8 +72,8 @@ export default class SetObjectProperty extends ActionBrick {
 
         const db = DBView.get();
         const objectModel = typeof object === 'string' ? transaction.model(object) : db.model(object);
-        if (!db.isExtending(objectModel, db.getUniqueRelated(instanceToTag(property), PropertyModel.definingModelRel))) {
-            returnError(`Cannot update property, the property ${db.name(instanceToTag(property))} is not valid for this object (${db.name(objectModel)}).`,3);
+        if (!db.isExtending(objectModel, db.getUniqueRelated(tagToString(property), PropertyModel.definingModelRel))) {
+            returnError(`Cannot update property, the property ${db.name(tagToString(property))} is not valid for this object (${db.name(objectModel)}).`,3);
             return;
         }
 

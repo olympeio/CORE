@@ -15,7 +15,7 @@
  */
 
 import GetGeolocation from '../../src/core/system/GetGeolocation.js';
-import {Context} from "olympe";
+import {BrickContext} from "olympe";
 
 describe("Geolocation brick", function() {
 
@@ -31,7 +31,7 @@ describe("Geolocation brick", function() {
         const setAltitude = jasmine.createSpy();
 
         const geo = new GetGeolocation();
-        geo.update(new Context(),[],[setLongitude,setLatitude,setAltitude]);
+        geo.update(new BrickContext().createChild(),[],[setLongitude,setLatitude,setAltitude]);
 
         expect(setLongitude).toHaveBeenCalledOnceWith(-96);
         expect(setLatitude).toHaveBeenCalledOnceWith(5);

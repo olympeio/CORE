@@ -15,7 +15,7 @@
  */
 
 import HTTPGet from '../../../src/core/net/httpFunctions/HTTPGet.js';
-import {Context} from 'olympe';
+import {BrickContext} from 'olympe';
 import {mockFetch, mockRequest, mockResponse, SMALL_GIF} from "../fetchMock.js";
 import {fromBase64} from 'helpers/binaryConverters';
 
@@ -28,7 +28,7 @@ xdescribe('HTTPGet function brick', () => {
 
         const brick = new HTTPGet();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         outputs.push(_statusCode => expect(_statusCode).toEqual(200));
@@ -47,7 +47,7 @@ xdescribe('HTTPGet function brick', () => {
 
         const brick = new HTTPGet();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         outputs.push(_statusCode => expect(_statusCode).toEqual(405));
@@ -65,7 +65,7 @@ xdescribe('HTTPGet function brick', () => {
 
         const brick = new HTTPGet();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         outputs.push(_statusCode => expect(_statusCode).toEqual(404));
@@ -83,7 +83,7 @@ xdescribe('HTTPGet function brick', () => {
 
         const brick = new HTTPGet();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         outputs.push(_statusCode => expect(_statusCode).toEqual(200));

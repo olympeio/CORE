@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import {Context} from 'olympe';
+import {BrickContext} from 'olympe';
 import Ticker from "../../src/core/util/Ticker.js";
 
 describe('Ticker brick', () => {
     xit('should forward event after right interval', async () => {
         const ticker = new Ticker();
 
-        const context = new Context()
+        const context = new BrickContext().createChild()
         spyOn(ticker, 'getInputs').and.returnValue(['interval', 'activated']);
         const outputSetter = jasmine.createSpy('ticker');
 

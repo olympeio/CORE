@@ -14,39 +14,16 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import { Brick, BrickContext, registerBrick } from 'olympe';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull, useMUITheme } from 'helpers/mui';
 
-/**
-## Description
-Returns the base to the exponent.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| a | Number | The base number. |
-| b | Number | The exponent used to raise the base. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| a ** b | Number | The result of the operation. |
-
-**/
 export default class Power extends Brick {
-
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
-     * @protected
-     * @param {!Context} context
-     * @param {number} a
-     * @param {number} b
-     * @param {function(number)} setAb
+     * @override
      */
-    update(context, [a, b], [setAb]) {
+    update(context: BrickContext, [a, b]: [number, number], [setAb]: [(param: number) => void]) {
         setAb(a ** b);
     }
 }
 
 registerBrick('01626cb10bc0db70e256', Power);
-

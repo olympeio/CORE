@@ -15,7 +15,7 @@
  */
 
 import HTTPHead from '../../../src/core/net/httpActions/HTTPHead.js';
-import {Context, ErrorFlow} from 'olympe';
+import {BrickContext, ErrorFlow} from 'olympe';
 import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 xdescribe('HTTPHead action brick', () => {
@@ -27,7 +27,7 @@ xdescribe('HTTPHead action brick', () => {
 
         const brick = new HTTPHead();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         const statusCodeSpy = jasmine.createSpy();
@@ -53,7 +53,7 @@ xdescribe('HTTPHead action brick', () => {
 
         const brick = new HTTPHead();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         const statusCodeSpy = jasmine.createSpy();

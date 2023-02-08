@@ -15,14 +15,14 @@
  */
 
 import Logout from '../../src/core/auth/Logout.js';
-import { Context, Auth, AuthState } from 'olympe';
+import {BrickContext, Auth, AuthState } from 'olympe';
 
 describe('Logout brick', () => {
     it('should not dispatch the control flow if not authenticated', () => {
         const brick = new Logout();
         const cb = jasmine.createSpy();
 
-        brick.update(new Context(), [], [cb]);
+        brick.update(new BrickContext().createChild(), [], [cb]);
 
         expect(cb).toHaveBeenCalledTimes(0);
     });
@@ -38,7 +38,7 @@ describe('Logout brick', () => {
             });
         });
 
-        brick.update(new Context(), [], [cb]);
+        brick.update(new BrickContext().createChild(), [], [cb]);
 
         expect(cb).toHaveBeenCalledTimes(1);
     });

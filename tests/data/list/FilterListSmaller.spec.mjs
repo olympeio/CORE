@@ -15,7 +15,7 @@
  */
 
 import FilterListSmaller from '../../../src/core/data/list/FilterListSmaller.js';
-import {Context} from "olympe";
+import {BrickContext} from "olympe";
 import MockSync from "../../helpers/MockSync.mjs";
 
 // TODO function and action version of the brick to be tested
@@ -36,7 +36,7 @@ describe('FilterListSmaller brick', () => {
             list.push(s);
         });
         const brick = new FilterListSmaller();
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const setListSpy = jasmine.createSpy().and.callFake(l => {
             res = l;
         });
@@ -51,7 +51,7 @@ describe('FilterListSmaller brick', () => {
 
     it('should not execute if the list is not a ListDef nor an Array', () => {
         const brick = new FilterListSmaller();
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const setListSpy = jasmine.createSpy();
 
         brick.update(context,['Hello', 6], [setListSpy]);

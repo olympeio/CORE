@@ -17,7 +17,7 @@
 import ParseDateTime from '../../src/core/datetime/ParseDateTime.js';
 import testEqual from '../helpers/testEqual.mjs';
 import { parse, parseISO } from 'date-fns';
-import {Context} from 'olympe';
+import {BrickContext} from 'olympe';
 
 describe('ParseDateTime brick', () => {
     it('should properly parse dates', () => {
@@ -35,7 +35,7 @@ describe('ParseDateTime brick', () => {
 
     it('should properly parse dates using the ISO 8601 format if no format is provided', () => {
         const func = new ParseDateTime();
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const dateStr = '2011-10-05T14:48:00.000Z';
 
         const setDateSpy = jasmine.createSpy();

@@ -56,6 +56,8 @@ export default class Divider extends ReactBrick {
             const [hidden] = props.values;
             const orientation = useProperty($, 'Orientation');
             const borderColor = useProperty($, 'Border Color');
+            const borderWidth = useProperty($, 'Border Width') || 1;
+            const borderRadius = useProperty($, 'Border Radius');
             return !hidden && (
                 <MUIDivider
                     // Properties
@@ -66,15 +68,21 @@ export default class Divider extends ReactBrick {
                     // UI
                     flexItem={orientation === 'vertical'}
                     sx={{
-                        ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
+                        ...ifNotTransparent('borderColor', borderColor),
                         fontFamily: useProperty($, 'Font Family'),
                         ...ifNotTransparent('color', useProperty($, 'Text Color')),
+                        borderBottomWidth: borderWidth,
+                        ...ifNotNull('borderRadius', borderRadius),
                         '&.MuiDivider-root': {
                             '&::before': {
-                                ...ifNotTransparent('borderColor', borderColor)
+                                ...ifNotTransparent('borderColor', borderColor),
+                                borderWidth,
+                                transform: `translateY(calc(50% - ${borderWidth / 2}px))`
                             },
                             '&::after': {
-                                ...ifNotTransparent('borderColor', borderColor)
+                                ...ifNotTransparent('borderColor', borderColor),
+                                borderWidth,
+                                transform: `translateY(calc(50% - ${borderWidth / 2}px))`
                             }
                         },
                         ...ifNotNull('flex', 'auto', orientation === 'horizontal'),

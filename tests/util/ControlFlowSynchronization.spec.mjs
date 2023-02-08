@@ -15,7 +15,7 @@
  */
 
 import ControlFlowSynchronization from '../../src/core/util/ControlflowSynchronization.js';
-import {Context} from 'olympe';
+import {BrickContext} from 'olympe';
 
 describe('ControlFlowSynchronization brick', () => {
     it('should trigger output control flow after the two inputs have been triggered at least once ', () => {
@@ -23,7 +23,7 @@ describe('ControlFlowSynchronization brick', () => {
         const incomingEvent_1 = Date.now();
         const incomingEvent_2 = Date.now();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
 
         const forwardEventSpy = jasmine.createSpy();
 

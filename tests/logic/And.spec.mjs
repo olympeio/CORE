@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import And from '../../src/core/logic/And.js';
+import And from '../../src/core/logic/And.ts';
 import testEqual from '../helpers/testEqual.mjs';
 
 describe('And brick', () => {

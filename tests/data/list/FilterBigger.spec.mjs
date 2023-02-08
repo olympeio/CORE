@@ -15,7 +15,7 @@
  */
 
 import FilterListBigger from '../../../src/core/data/list/FilterListBigger.js';
-import {Context} from "olympe";
+import {BrickContext} from "olympe";
 import MockSync from "../../helpers/MockSync.mjs";
 
 // TODO function and action version of the brick to be tested
@@ -36,7 +36,7 @@ describe('FilterListBigger brick', () => {
             list.push(s);
         });
         const brick = new FilterListBigger();
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const setListSpy = jasmine.createSpy().and.callFake(l => {
             res = l;
         });
@@ -51,7 +51,7 @@ describe('FilterListBigger brick', () => {
 
     it('should not execute if the list is not a ListDef nor an Array', () => {
         const brick = new FilterListBigger();
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const setListSpy = jasmine.createSpy();
 
         brick.update(context,['Hello', 6], [setListSpy]);

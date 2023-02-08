@@ -45,9 +45,18 @@ export default class List extends VisualBrick {
             'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Hidden'
         ];
 
+        let noDataTimeout;
         // Observe the list size to re-trigger an update if necessary
         const observeList = $.observe('Data', false);
-        const observeListAsArray = observeList.pipe(switchMap(list => {
+        const observeListAsArray = observeList.pipe(switchMap((list) => {
+            // Set no data warning message in development mode.
+            if (list === null && !$.get(GlobalProperties.PRODUCTION, true)) {
+                noDataTimeout = setTimeout(() => getLogger('List component').warn('Data property of List has not been set after 5s.'), 5000);
+                return of([]);
+            }
+
+            noDataTimeout && clearTimeout(noDataTimeout); // Cancel warning
+            noDataTimeout = null;
             let sizeObservable;
             if (Array.isArray(list)) {
                 sizeObservable = of(list.length);
@@ -56,39 +65,27 @@ export default class List extends VisualBrick {
             } else if (list instanceof ListDef) {
                 sizeObservable = list.observeSize();
             } else {
-                getLogger('List component').warn('No data list has been set (maybe you set a query or nothing?)');
+                getLogger('List component').warn('Data property of List is not a List, Array or QueryResult.');
                 sizeObservable = of(0);
             }
             return sizeObservable.pipe(
                 combineLatestWith($.observe('Reverse')),
-                map(([size, reverse]) => {
+                map(([_, reverse]) => {
                     let elements = [];
-                    if(size > 0) {
-                        // Array case
-                        if(Array.isArray(list)) {
-                            elements = !reverse ? list : list.reverse();
-                        }
-
-                        // QueryResult case
-                        else if(list instanceof QueryResult) {
-                            elements = !reverse ? list.toArray() : list.toArray().reverse();
-                        }
-
-                        // ListDef case
-                        else {
-                            list.forEachCurrentValue((value, key) => {
-                                elements.push({
-                                    value: value,
-                                    rank: list.getCurrentRank(key)
-                                });
-                            });
-                            if(!reverse) {
-                                elements = elements.sort((a, b) => a.rank - b.rank);
-                            } else {
-                                elements = elements.sort((a, b) => b.rank - a.rank);
-                            }
-                            elements = elements.map(e => e.value);
-                        }
+                    // Array case
+                    if (Array.isArray(list)) {
+                        elements = !reverse ? list : list.reverse();
+                    }
+                    // QueryResult case
+                    else if (list instanceof QueryResult) {
+                        elements = !reverse ? list.toArray() : list.toArray().reverse();
+                    }
+                    // ListDef case
+                    else {
+                        list.forEachCurrentValue((value) => {
+                            elements.push(value);
+                        });
+                        elements = reverse ? elements.reverse() : elements;
                     }
                     return elements;
                 })

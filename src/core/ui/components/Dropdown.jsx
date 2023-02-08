@@ -38,9 +38,9 @@ import {Chip} from "@mui/material";
  */
 export default class Dropdown extends ReactBrick {
     // in case: Auto Complete is on
-    static heightSmallMinSizeAutoComplete = 55;
+    static heightSmallMinSizeAutoComplete = 40;
     // in case: Auto Complete is off
-    static heightSmallMinSizeNoAuto = 48;
+    static heightSmallMinSizeNoAuto = 40;
 
     static heightMediumlMinSize = 56;
 
@@ -316,7 +316,11 @@ export default class Dropdown extends ReactBrick {
      */
     static selectComponent($, options, multiple, values) {
         const label = useProperty($, 'Label');
-
+        const brickHeight = useProperty($, 'Height');
+        const hasHelperText = !!useProperty($, 'Helper Text');
+        const hasEmptyText = !!useProperty($, 'Empty Text');
+        const selectedValue = useProperty($, 'Selected Value');
+        const variant = useProperty($, 'Variant');
         /**
          * Handle selected values
          *
@@ -387,6 +391,27 @@ export default class Dropdown extends ReactBrick {
         const cssProperty = useProperty($, 'CSS Property');
         const muiSxJson = useProperty($, 'MUI sx [json]');
 
+        let customSx = {
+            '.MuiSelect-filled': {
+                paddingTop: '8px'
+            }
+        };
+        if (variant === 'outlined') {
+            const actualInputHeight = (brickHeight - (hasHelperText ? 20 : 0)); // 20 is height of helper text
+            if (actualInputHeight > Dropdown.heightSmallMinSizeNoAuto) {
+                let translateY = (actualInputHeight - 23) / 2; // 23 is height of label
+                if (hasEmptyText || selectedValue) {
+                    translateY = -8;
+                }
+                customSx = {
+                    ...customSx,
+                    '.MuiInputLabel-formControl': {
+                        transform: `translate(14px, ${translateY}px) scale(${hasEmptyText || selectedValue ? 0.75 : 1})`
+                    }
+                }
+            }
+        }
+
         return (
             <TextField
                 // Properties
@@ -401,7 +426,10 @@ export default class Dropdown extends ReactBrick {
                 // Select properties
                 select={true}
                 SelectProps={getSelectedProps()}
-            >
+                sx={{
+                    width: 1, height: 1,
+                    ...customSx
+                }}>
                 {/* Options */}
                 {options.map((option, index) => (
                     <MenuItem
@@ -430,13 +458,17 @@ export default class Dropdown extends ReactBrick {
     static autocompleteComponent($, options, multiple, values) {
         const disabled = useProperty($, 'Disabled');
         const freeSolo = useProperty($, 'Allow Other Values');
-        const emptyText = useProperty($, 'Empty Text');
         const autocompleteText = useProperty($, 'Autocomplete Text');
         const onInputChangeLambda = useProperty($, 'On Input Change');
         const loading = useProperty($, 'Is Loading');
         const label = useProperty($, 'Label');
         const height = useProperty($, 'Height');
         const width = useProperty($, 'Width');
+
+        const variant = useProperty($, 'Variant');
+        const hasHelperText = !!useProperty($, 'Helper Text');
+        const hasEmptyText = !!useProperty($, 'Empty Text');
+        
         const [open, setOpen] = useState(false);
         const [selectedValue, setSelectedValue] = useState(multiple ? [] : null);
 
@@ -487,7 +519,6 @@ export default class Dropdown extends ReactBrick {
         const commonSx = {
             height: height,
             'input': {
-                height: isMultipleSelected && emptyText === '' && autocompleteText === '' ? 0 : 'auto', // hide input to maintain the height the brick
                 color: isMultipleSelected ? 'transparent' : '', // prevent helper text and input text overflow
             },
             textOverflow: 'ellipsis',
@@ -500,6 +531,23 @@ export default class Dropdown extends ReactBrick {
                 maxWidth: maxChipWidth,
             },
         };
+
+        let customSx = {};
+        if (variant === 'outlined') {
+            const actualInputHeight = (height - (hasHelperText ? 20 : 0)); // 20 is height of helper text
+            if (actualInputHeight > Dropdown.heightSmallMinSizeAutoComplete) {
+                let translateY = (actualInputHeight - 23) / 2; // 23 is height of label
+        
+                if (hasEmptyText || selectedValue) {
+                    translateY = -8;
+                }
+                customSx = {
+                    '.MuiInputLabel-formControl': {
+                        transform: `translate(14px, ${translateY}px) scale(${hasEmptyText || selectedValue ? 0.75 : 1})`
+                    }
+                }
+            }
+        }
 
         /**
          * @param {?function()=} callback
@@ -649,6 +697,7 @@ export default class Dropdown extends ReactBrick {
                     }}
                     // needs to maintain the height of the brick for different variants of autoselect
                     sx={{
+                        ...customSx,
                         '.MuiInputBase-root>span': {
                             paddingLeft: '4px',
                         },
@@ -676,13 +725,13 @@ export default class Dropdown extends ReactBrick {
                         // Filled variant
                         '.MuiFilledInput-root': {
                             '&.MuiInputBase-root:not(.Mui-focused)': {
-                                paddingTop: label ? '35px' : '6px',
+                                paddingTop: label ? '20px' : '6px',
                                 paddingBottom: label ? '20px' : '6px',
                                 paddingRight: '60px',
                                 ...focusedSx,
                             },
                             '&.MuiInputBase-root.Mui-focused': {
-                                paddingTop: label ? '35px' : '6px',
+                                paddingTop: label ? '20px' : '6px',
                                 paddingBottom: label ? '20px' : '6px',
                             },
                         },

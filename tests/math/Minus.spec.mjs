@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import Minus from '../../src/core/math/Minus.js';
+import Minus from '../../src/core/math/Minus.ts';
 import testEqual from '../helpers/testEqual.mjs';
 
 describe('Minus brick', () => {

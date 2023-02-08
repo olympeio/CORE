@@ -15,7 +15,7 @@
  */
 
 import HTTPPut from '../../../src/core/net/httpActions/HTTPPut.js';
-import {Context, ErrorFlow} from 'olympe';
+import {BrickContext} from 'olympe';
 import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 xdescribe('HTTPPut action brick', () => {
@@ -27,7 +27,7 @@ xdescribe('HTTPPut action brick', () => {
 
         const brick = new HTTPPut();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         const statusCodeSpy = jasmine.createSpy();
@@ -53,7 +53,7 @@ xdescribe('HTTPPut action brick', () => {
 
         const brick = new HTTPPut();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         const statusCodeSpy = jasmine.createSpy();

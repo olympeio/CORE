@@ -14,37 +14,16 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import { Brick, BrickContext, registerBrick } from 'olympe';
 
-/**
-## Description
-Returns `false` if its single operand can be converted to `true`; otherwise, returns `true`.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| a | Boolean | The operand. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| !a | Boolean | The negated value. |
-
-**/
 export default class Not extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
-     * @protected
-     * @param {!Context} context
-     * @param {boolean} a
-     * @param {function(boolean)} setResult
+     * @override
      */
-    update(context, [a], [setResult]) {
+    update(context: BrickContext, [a]: [boolean], [setResult]: [(param: boolean) => void]) {
         setResult(!a);
     }
 }
 
 registerBrick('01632a7f645d8a5b265a', Not);
-

@@ -15,7 +15,7 @@
  */
 
 import HTTPPost from '../../../src/core/net/httpFunctions/HTTPPost.js';
-import {Context} from 'olympe';
+import {BrickContext} from 'olympe';
 import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 xdescribe('HTTPPost function brick', () => {
@@ -27,7 +27,7 @@ xdescribe('HTTPPost function brick', () => {
 
         const brick = new HTTPPost();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         outputs.push(_statusCode => expect(_statusCode).toEqual(200));
@@ -46,7 +46,7 @@ xdescribe('HTTPPost function brick', () => {
 
         const brick = new HTTPPost();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         outputs.push(_statusCode => expect(_statusCode).toEqual(405));
@@ -64,7 +64,7 @@ xdescribe('HTTPPost function brick', () => {
 
         const brick = new HTTPPost();
 
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const outputs = [];
 
         outputs.push(_statusCode => expect(_statusCode).toEqual(404));

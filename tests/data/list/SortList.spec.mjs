@@ -16,7 +16,7 @@
 
 import SortList from '../../../src/core/data/list/SortList.js';
 import MockSync from "../../helpers/MockSync.mjs";
-import {Context} from "olympe";
+import {BrickContext} from "olympe";
 
 describe('SortList brick', () => {
     xit('should correctly sort by a string property', () => {
@@ -50,7 +50,7 @@ describe('SortList brick', () => {
             list.push(s);
         });
         const brick = new SortList();
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const setListSpy = jasmine.createSpy().and.callFake(l => {
             res = l;
         });
@@ -83,7 +83,7 @@ describe('SortList brick', () => {
 
     it('should not execute if the list is not a ListDef nor an Array', () => {
         const brick = new SortList();
-        const context = new Context();
+        const context = new BrickContext().createChild();
         const setListSpy = jasmine.createSpy();
 
         brick.update(context,['Hello', '6', true], [setListSpy]);
