@@ -66,7 +66,7 @@
     "jsonpath-plus": "6.0.1",
     "loglevel": "1.7.1",
     "node-fetch": "2.6.7",
-    "qrcode.react": "1.0.1",
+    "qrcode.react": "3.1.0",
     "react": "17.0.2",
     "react-audio-player": "0.17.0",
     "react-dom": "17.0.2",
