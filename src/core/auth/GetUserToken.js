@@ -26,9 +26,16 @@ export default class GetUserToken extends Brick {
      * @param {Context} context
      * @param {!Array} inputs
      * @param {function(string)} setToken
+     * @param {function(string)} setProtocol
+     * @param {function(string)} setIDPName
+     * @param {function(Object)} setPayload
      */
-    update(context, inputs, [setToken]) {
-        setToken(Auth.getToken());
+    update(context, inputs, [setToken, setProtocol, setIDPName, setPayload]) {
+        const userToken = Auth.getUserToken();
+        setToken(userToken.nonce);
+        setProtocol?.(userToken.protocol);
+        setIDPName?.(userToken.idpName ?? null);
+        setPayload?.(userToken.payload);
     }
 }
 
