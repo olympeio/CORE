@@ -20,9 +20,8 @@ import { markdownTextToReactElement } from 'helpers/remarkable';
 import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull, useMUITheme } from 'helpers/mui';
 import { getLogger } from 'logging';
 
-import React from 'react';
+import React, { useRef, useLayoutEffect } from 'react';
 import Typography from '@mui/material/Typography';
-import Box from "@mui/material/Box";
 import { ThemeProvider } from '@mui/material/styles';
 
 /**
@@ -43,6 +42,15 @@ export default class Label extends ReactBrick {
     static getReactComponent($) {
         return (props) => {
             const [hidden] = props.values;
+            const labelRef = useRef();
+            const allowContentOverflow = useProperty($, 'Allow Content Overflow');
+
+            useLayoutEffect(() => {
+                if (labelRef && labelRef.current) {
+                    labelRef.current.parentElement.style.overflow = allowContentOverflow ? "unset" : "hidden";
+                }
+            }, [labelRef, allowContentOverflow]);
+
             let text = useProperty($, 'Text');
             // Change typeof text to string to avoid crash
             if (typeof text !== 'string') {
@@ -57,6 +65,7 @@ export default class Label extends ReactBrick {
                 <ThemeProvider theme={theme}>
                     <Typography
                         // Properties
+                        ref={labelRef}
                         component={'p'}
                         variant={useProperty($, 'Text Variant')}
                         noWrap={useProperty($, 'No Wrap')}
@@ -67,7 +76,6 @@ export default class Label extends ReactBrick {
                             height: 1,
                             display: 'flex',
                             alignItems: 'center',
-                            overflow: 'hidden',
                             ...ifNotTransparent('color', useProperty($, 'Text Color')),
                             ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
                             fontFamily: useProperty($, 'Font Family'),
