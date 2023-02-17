@@ -120,6 +120,7 @@ export default class Divider extends ReactBrick {
                         fontFamily: useProperty($, 'Font Family'),
                         ...ifNotTransparent('color', useProperty($, 'Text Color')),
                         borderBottomWidth: borderWidth,
+                        borderRightWidth: borderWidth,
                         ...ifNotNull('borderRadius', borderRadius),
                         ...customStyle,
                         ...ifNotNull('flex', 'auto', orientation === 'horizontal'),
