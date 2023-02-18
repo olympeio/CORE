@@ -12,7 +12,9 @@ module.exports = function (config) {
     exclude: [],
     //files/patterns to load in the browser
     files: [
-      { pattern: 'tests/**/*.mjs', watched: true, served: true, included: true }
+      { pattern: 'tests/**/*.mjs', watched: true, served: true, included: true },
+      // Must serve files used in the proxies section:
+      { pattern: 'res/tests/*.json', watched: false, served: true, included: false },
       /*parameters:
           watched: if autoWatch is true all files that have watched set to true will be watched for changes
           served: should the files be served by Karma's webserver?
@@ -29,8 +31,9 @@ module.exports = function (config) {
       }
     },
     proxies: {
-      '/oConfig.json': 'res/oConfig-tests.json',
-      '/version.json': 'res/version.json'
+      // Note that we cannot use relative path here and must use the path.resolve function.
+      '/oConfig.json': path.resolve(__dirname, 'res/tests/oConfig.json'),
+      '/version.json': path.resolve(__dirname, 'res/tests/version.json'),
     },
     //executes the tests whenever one of the watched files changes
     autoWatch: true,

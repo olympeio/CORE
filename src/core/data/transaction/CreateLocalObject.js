@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import {ActionBrick, registerBrick, CloudObject, Transaction, tagToString} from 'olympe';
+import {ActionBrick, registerBrick, CloudObject, Transaction, tagToString, BrickContext, ErrorFlow} from 'olympe';
 import {getLogger} from 'logging';
+
 export default class CreateLocalObject extends ActionBrick {
 
     /**
@@ -23,25 +23,26 @@ export default class CreateLocalObject extends ActionBrick {
      * @param {!BrickContext} context
      * @param {!CloudObject} model
      * @param {function()} forwardEvent
+     * @param {function(!ErrorFlow)} setErrorFlow
      * @param {function(!CloudObject)} setObject
      */
-    update(context, [model], [forwardEvent, setObject]) {
-        const logger = getLogger('Create Local Object');
-
+    update(context, [model], [forwardEvent, setErrorFlow, setObject]) {
         // Guards
         if (!tagToString(model)) {
-            logger.warn('no model specified');
+            getLogger('Create Local Object').warn('no model specified');
             return;
         }
 
         // Transaction
         const transaction = Transaction.from(context);
-        const instance = transaction.create(model)
-        transaction.persistInstance(instance, false);
-        Transaction.process(context, transaction)
-            .then(executed => setObject(executed ? CloudObject.get(instance) : instance))
-            .catch(message => logger.error(`transaction error: ${message}`))
-            .finally(forwardEvent);
+        const instanceTag = transaction.create(model)
+        transaction.persistInstance(instanceTag, false);
+        Transaction.process(context, transaction).then((executed) => {
+            setObject(executed ? CloudObject.get(instanceTag) : instanceTag);
+            forwardEvent();
+        }).catch(message => {
+            setErrorFlow(ErrorFlow.create(`Create Local Object: ${message}`, 1));
+        });
     }
 }
 

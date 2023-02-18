@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, BurstTransaction, instanceToTag } from 'olympe';
+import {Brick, registerBrick, BurstTransaction, tagToString} from 'olympe';
 import {getLogger} from 'logging';
 import {combineLatest, Subject} from "rxjs";
 import {map} from "rxjs/operators"
@@ -23,32 +23,23 @@ import {castPrimitiveValue} from "./_helpers";
 export default class FeedObjectProperty extends Brick {
 
     /**
-     * The label used as key to save the burst transaction
-     *
-     * @return {string}
-     */
-    static get burstTransaction() { return 'BURST'; }
-
-    /**
-     * @override
-     */
-    init(context) {
-        context.set(FeedObjectProperty.burstTransaction, new BurstTransaction());
-    }
-
-    /**
      * @override
      */
     setupExecution($) {
-        const logger = getLogger('Update property');
-        const transaction = /** @type {!BurstTransaction} */ ($.get(FeedObjectProperty.burstTransaction));
+        const logger = getLogger('Feed Object Property');
+        const transaction = new BurstTransaction();
         const [eventInput, objectInput, propertyInput, valueInput] = this.getInputs();
 
         const flow = new Subject();
-        combineLatest([$.observe(propertyInput), $.observe(valueInput)])
-            .subscribe(([property, value]) => {
-                flow.next(new Map().set(instanceToTag(property), castPrimitiveValue(value)));
+        combineLatest([$.observe(propertyInput), $.observe(valueInput)]).subscribe(([property, value]) => {
+            flow.next(new Map().set(tagToString(property), castPrimitiveValue(value)));
+        });
+
+        $.onDestroy(() => {
+            transaction.complete().catch((errorMsg) => {
+                logger.error(`Impossible to complete the continuous update: ${errorMsg}`);
             });
+        });
 
         return $.observe(eventInput).pipe(map((event) => {
             const object = $.get(objectInput);
@@ -66,20 +57,9 @@ export default class FeedObjectProperty extends Brick {
     /**
      * @override
      */
-    update(context, [object], [forwardEvent, setObject]) {
+    update($, [object], [forwardEvent, setObject]) {
         setObject(object);
         forwardEvent(Date.now());
-    }
-
-    /**
-     * @override
-     */
-    destroy(context) {
-        /** @type {!BurstTransaction} */ (context.get(FeedObjectProperty.burstTransaction))
-            .complete()
-            .catch((errorMsg) => {
-                getLogger('Update property').error(`Impossible to complete the continuous update: ${errorMsg}`);
-            });
     }
 }
 

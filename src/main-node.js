@@ -24,6 +24,7 @@ import 'olympe';
 // Import all bricks (js files inside all core sub-folders) except the one in the ui folder.
 // TODO : Build a regex that includes all folders except /core/ui.
 import './core/auth/**/*.js';
+import './core/context/**/*.js';
 import './core/data/**/*.js';
 import './core/datetime/**/*.js';
 import './core/file/**/*.js';

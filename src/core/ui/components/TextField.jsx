@@ -109,7 +109,6 @@ export default class TextField extends ReactBrick {
                             ...ifNotNull('flexDirection', 'column', multiLine),
                             ...ifNotNull('justifyContent', justifyContent, multiLine),
                             fontFamily: fontFamily,
-                            tabIndex: useProperty($, 'Tab Index'),
                             ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
                             ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                             ...ifNotNull('borderWidth', borderWidth, showBorder),
@@ -139,7 +138,8 @@ export default class TextField extends ReactBrick {
                         style: {
                             maxHeight: '100%',
                             overflow: 'auto'
-                        }
+                        },
+                        tabIndex: useProperty($, 'Tab Index'),
                     }}
                     FormHelperTextProps={{
                         sx: {

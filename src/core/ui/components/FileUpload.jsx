@@ -112,6 +112,7 @@ export default class FileUpload extends ReactBrick {
                 required={useProperty($, 'Required')}
                 error={useProperty($, 'Error')}
                 size={'small'}
+                tabIndex={useProperty($, 'Tab Index')}
 
                 // Events
                 onClick={(event) => {
@@ -131,7 +132,6 @@ export default class FileUpload extends ReactBrick {
                     sx: {
                         flex: 'auto',
                         fontFamily: fontFamily,
-                        tabIndex: useProperty($, 'Tab Index'),
                         ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
                         ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                         ...ifNotNull('borderWidth', borderWidth, showBorder),
