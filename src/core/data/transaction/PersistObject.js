@@ -24,28 +24,25 @@ export default class PersistObject extends ActionBrick {
      * @param {!BrickContext} context
      * @param {Tag} objectIn
      * @param {function()} forwardEvent
-     * @param {function(Tag)} setObjectOut
      * @param {function(!ErrorFlow)} setErrorFlow
+     * @param {function(Tag)} setObjectOut
      */
-    update(context, [objectIn], [forwardEvent, setObjectOut, setErrorFlow]) {
-        const transaction = Transaction.from(context);
-
-        if (typeof objectIn === 'string'  || tagToString(objectIn) !== '') {
-            transaction.persistInstance(objectIn, true);
-        } else {
-            const msg = `Cannot persist object ${objectIn}: Wrong type.`;
+    update(context, [objectIn], [forwardEvent, setErrorFlow, setObjectOut]) {
+        // Ensure the input references an object.
+        if (typeof objectIn !== 'string' && tagToString(objectIn) === '') {
+            const msg = `Persist Object: Cannot persist object ${objectIn}: Wrong type.`;
             getLogger('Persist Object').error(msg);
-            setErrorFlow && setErrorFlow(ErrorFlow.create(msg, 2));
+            setErrorFlow(ErrorFlow.create(msg, 2));
             return;
         }
-        Transaction.process(context, transaction)
-            .then(() => {
-                setObjectOut(objectIn);
-                forwardEvent();
-            }).catch(reason => {
-                const msg = `Persist object ${objectIn} failed: ${reason}`;
-                getLogger('Persist Object').error(msg);
-                setErrorFlow && setErrorFlow(ErrorFlow.create(msg, 3));
+
+        const transaction = Transaction.from(context);
+        transaction.persistInstance(objectIn, true);
+        Transaction.process(context, transaction).then(() => {
+            setObjectOut(objectIn);
+            forwardEvent();
+        }).catch((error) => {
+            setErrorFlow(ErrorFlow.create(`Persist object ${objectIn} failed: ${error}`, 3));
         });
     }
 }

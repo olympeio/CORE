@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, Transaction, DBView } from 'olympe';
+import { ActionBrick, registerBrick, Transaction, DBView, BrickContext, ErrorFlow } from 'olympe';
 import { getLogger } from 'logging';
 
 export default class DeleteObject extends ActionBrick {
@@ -22,21 +22,21 @@ export default class DeleteObject extends ActionBrick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!Tag} inboundObject
+     * @param {!Tag} object
      * @param {function()} forwardEvent
+     * @param {function(ErrorFlow)} setErrorFlow
      */
-    update($, [inboundObject], [forwardEvent]) {
-        const logger = getLogger('Delete Object');
-
+    update($, [object], [forwardEvent, setErrorFlow]) {
         // Check if we can delete the inboundObject
-        if (DBView.get().exist(inboundObject)) {
+        if (DBView.get().exist(object)) {
             const transaction = new Transaction();
-            transaction.delete(inboundObject);
+            transaction.delete(object);
             transaction.execute()
                 .then(() => forwardEvent())
-                .catch(message => logger.error(`Cannot delete object : ${message}`));
+                .catch((message) => setErrorFlow(ErrorFlow.create(`Delete Object: ${message}`, 1)));
         } else {
-            logger.error('Cannot delete object. The object is not of type CloudObject', inboundObject )
+            getLogger('Delete Object').warn('Cannot delete object. The object is not of type CloudObject', object, 'Ignoring the operation...');
+            forwardEvent(); // Ignore if the object does not exist in the local database.
         }
     }
 }

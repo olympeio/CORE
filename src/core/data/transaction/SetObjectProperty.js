@@ -41,14 +41,8 @@ export default class SetObjectProperty extends ActionBrick {
      * @param {function(Tag)} setObject
      */
     update(context, [object, property, value], [forwardEvent, setErrorFlow, setObject]) {
-        const logger = getLogger('Set Object Property');
-
         const castedValue = castPrimitiveValue(value);
-
-        const returnError = (message, code) => {
-            logger.error(message);
-            setErrorFlow(ErrorFlow.create(message, code));
-        };
+        const returnError = (message, code) => setErrorFlow(ErrorFlow.create(`Set Object Property :${message}`, code));
 
         // Validate arguments
         if (castedValue instanceof CloudObject) {
@@ -56,7 +50,7 @@ export default class SetObjectProperty extends ActionBrick {
             return;
         }
         if (castedValue === undefined || castedValue === null) {
-            logger.info('Ignoring null value');
+            getLogger('Set Object Property').info('Ignoring null value');
             setObject(object);
             forwardEvent();
             return;
@@ -78,12 +72,11 @@ export default class SetObjectProperty extends ActionBrick {
         }
 
         transaction.update(object, property, castedValue);
-        Transaction.process(context, transaction)
-            .catch(message => returnError(`Transaction error: ${message}`, 4))
-            .then(() => {
-                setObject(object);
-                forwardEvent();
-            });
+        Transaction.process(context, transaction).then(() => {
+            setObject(object);
+            forwardEvent();
+        }).catch(message => returnError(message, 4));
+
     }
 }
 
