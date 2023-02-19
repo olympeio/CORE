@@ -22,9 +22,13 @@ import {
     RelationModel,
     Transaction,
     File as OFile,
-    tagToString
+    tagToString,
+    BrickContext,
+    QuerySingle,
+    Relation
 } from 'olympe';
 import {getLogger} from 'logging';
+
 export default class CreateRelation extends ActionBrick {
 
     /**
@@ -42,10 +46,7 @@ export default class CreateRelation extends ActionBrick {
         const logger = getLogger('Create Relation');
         const relationTag = tagToString(relation);
 
-        const returnError = (message, code) => {
-            logger.error(message);
-            setErrorFlow(ErrorFlow.create(message, code));
-        };
+        const returnError = (message, code) => setErrorFlow(ErrorFlow.create(`Create Relation :${message}`, code));
 
         // Guards
         if (!Boolean(origin) || !Boolean(destination)) {
@@ -66,8 +67,8 @@ export default class CreateRelation extends ActionBrick {
         const db = DBView.get();
         const originModel = transaction.model(origin);
         const destinationModel = transaction.model(destination);
-        const relOriginModel = db.getUniqueRelated(relationTag, RelationModel.originModelRel);
-        const relDestModel = db.getUniqueRelated(relationTag, RelationModel.destinationModelRel);
+        const relOriginModel = QuerySingle.from(relationTag).follow(RelationModel.originModelRel).executeFromCache();
+        const relDestModel = QuerySingle.from(relationTag).follow(RelationModel.destinationModelRel).executeFromCache();
 
         if (!db.isExtending(originModel, relOriginModel)) {
             returnError(`Cannot update relation, the relation ${db.name(relationTag)} is not valid for the origin object (${db.name(originModel)}).`,4);
@@ -82,13 +83,11 @@ export default class CreateRelation extends ActionBrick {
 
         // Transaction
         transaction.createRelation(relation, origin, destination);
-        Transaction.process(context, transaction)
-            .then(() => {
-                setOrigin(origin);
-                setDestination(destination);
-                forwardEvent();
-            })
-            .catch(message => returnError(`Transaction error: ${message}`, 6));
+        Transaction.process(context, transaction).then(() => {
+            setOrigin(origin);
+            setDestination(destination);
+            forwardEvent();
+        }).catch((message) => returnError(message, 6));
     }
 }
 
