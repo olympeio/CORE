@@ -14,23 +14,20 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, ErrorFlow, GlobalProperties, CloudObject } from 'olympe';
+import { ActionBrick, registerBrick, ErrorFlow, GlobalProperties, CloudObject, BrickContext } from 'olympe';
 import { getLogger } from 'logging';
 
 export default class EndTransaction extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {!BrickContext} $
      * @param {!Array} _
      * @param {function()} forwardEvent
-     * @param {function(!ErrorFlow)} dispatchError
+     * @param {function(!ErrorFlow)} setErrorFlow
      * @param {function(!Array<!CloudObject>)} setCreatedObjects
      */
-    update($, _, [forwardEvent, dispatchError, setCreatedObjects]) {
+    update($, _, [forwardEvent, setErrorFlow, setCreatedObjects]) {
         const parent$ = $.getParent();
         if (parent$.has(GlobalProperties.TRANSACTION)) {
             const t = parent$.get(GlobalProperties.TRANSACTION);
@@ -38,10 +35,11 @@ export default class EndTransaction extends ActionBrick {
             t.execute().then((result) => {
                 setCreatedObjects(result.getCreatedObjects());
                 forwardEvent();
-            }).catch((message) => dispatchError(ErrorFlow.create(message || '', 1)));
+            }).catch((message) => setErrorFlow(ErrorFlow.create(`End Transaction: ${message}`, 1)));
         }
         else {
-            getLogger('End Transaction').warn('no transaction begun in the parent context');
+            getLogger('End Transaction').warn('no transaction begun in the parent context. Ignore the operation...');
+            forwardEvent();
         }
     }
 }

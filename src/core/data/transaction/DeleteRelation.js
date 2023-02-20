@@ -15,23 +15,21 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, Transaction } from 'olympe';
+import { ActionBrick, registerBrick, Transaction, BrickContext, Relation, CloudObject, ErrorFlow } from 'olympe';
 
 export default class DeleteRelation extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {!BrickContext} $
      * @param {!CloudObject} origin
      * @param {!Relation} relation
      * @param {!CloudObject} destination
      * @param {function()} forwardEvent
+     * @param {function(ErrorFlow)} setErrorFlow
      * @param {function(!CloudObject)} setOrigin
      */
-    update($, [origin, relation, destination], [forwardEvent, setOrigin]) {
+    update($, [origin, relation, destination], [forwardEvent, setErrorFlow, setOrigin]) {
         // Get current transaction
         const transaction = Transaction.from($);
 
@@ -39,11 +37,12 @@ export default class DeleteRelation extends ActionBrick {
         transaction.deleteRelation(relation, origin, destination);
 
         // Release or execute the transaction
-        Transaction.process($, transaction)
-            .then(() => {
-                setOrigin(origin);
-                forwardEvent();
-            });
+        Transaction.process($, transaction).then(() => {
+            setOrigin(origin);
+            forwardEvent();
+        }).catch((message) => {
+            setErrorFlow(ErrorFlow.create(`Delete Relation: ${message}`, 1));
+        });
     }
 }
 
