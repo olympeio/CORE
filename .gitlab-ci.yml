@@ -79,7 +79,6 @@ publish:
     - cd dist
     - NPM_PUBLISH_TAG="$CI_COMMIT_BRANCH"
     - if [ "$CI_COMMIT_BRANCH" == "upgrade" ]; then NPM_PUBLISH_TAG="upgrade"; fi
-    - if [ "$CI_COMMIT_BRANCH" == "develop_data_integration" ]; then NPM_PUBLISH_TAG="upgrade-2.4.0"; fi
     - if [ "$CI_COMMIT_BRANCH" == "develop" ]; then NPM_PUBLISH_TAG="dev"; fi
     - npm publish --tag "$NPM_PUBLISH_TAG"
   rules:
