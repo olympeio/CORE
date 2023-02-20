@@ -120,6 +120,7 @@ export default class SQLQueryExecutor {
             // Loop over each couple (relation, destination) of the path
             for (let i = 1, l = path.length; i < l; i += 2) {
                 const index = ((i - 1) / 2) + 1;
+                // TODO: from Table can be at another place than i-1 => should store parent index in path element.
                 const fromTable = this.fromTable(index, path[i - 1]);
                 const relTable = this.fromTable(index, path[i]);
                 const toTable = this.fromTable(index, path[i + 1]);
@@ -127,6 +128,9 @@ export default class SQLQueryExecutor {
 
                 // Select the required column for the next level
                 builder.select(this.selectColumns(index, toTable, columns));
+
+                // TODO: add filter to the builder for current path.
+                // builder.where(this.parseFilter())
 
                 const direction = relation.getDirection();
                 const joinCol1 = direction === Direction.DESTINATION ? COLUMNS.FROM : COLUMNS.TO;
