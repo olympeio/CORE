@@ -1,7 +1,6 @@
-import { DataSource, DataResult, register } from 'olympe';
+import { DataSource, register } from 'olympe';
 import {knex, Knex} from 'knex';
 import {getLogger} from "logging";
-import SQLBuilder from "./sql/SQLBuilder";
 import SchemaObserver from "./sql/SchemaObserver";
 import {HEALTH_CHECK_QUERY} from "./sql/_statics";
 
@@ -87,7 +86,6 @@ export default class PostgreSQLConnector extends DataSource {
         }
 
         return this.knex.raw(HEALTH_CHECK_QUERY).then();
-            // .catch((err) => throw new Error(`SQL Connector, error while checking connection to database: ${err}`));
     }
 
     /**
@@ -106,13 +104,7 @@ export default class PostgreSQLConnector extends DataSource {
      * @override
      */
     executeQuery(query) {
-        const sqlBuilder = new SQLBuilder(this.knex, this.schemaObserver, this.get(DataSource.useNamesProp));
-        const knexBuilder = sqlBuilder.parseQuery(query);
-        return knexBuilder === null
-            ? Promise.resolve(DataResult.fromQuery(query))
-            : knexBuilder.then((result) => {
-                return DataResult.fromQuery(query);
-            });
+        // TODO: to be completed.
     }
 }
 
