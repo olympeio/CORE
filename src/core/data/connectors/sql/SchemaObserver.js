@@ -1,19 +1,19 @@
 import {Knex} from "knex";
 import {Query, CloudObject, tagToString, Direction, RelationModel, PropertyModel, QuerySingle,
     StringModel, NumberModel, BooleanModel, DatetimeModel, ColorModel, DBView} from 'olympe';
-import {columns} from "./SQLBuilder";
+import {COLUMNS} from "./SQLQueryExecutor";
 import {QUERY_COLUMNS, QUERY_TABLES} from "./_statics";
 
 export default class SchemaObserver {
 
     /**
-     * @param {!loglevel.Logger} logger
+     * @param {!log.Logger} logger
      */
     constructor(logger) {
 
         /**
          * @private
-         * @type {!loglevel.Logger}
+         * @type {!log.Logger}
          */
         this.logger = logger;
 
@@ -163,8 +163,8 @@ export default class SchemaObserver {
         const toModelRel = toOrigin ? RelationModel.originModelRel : RelationModel.destinationModelRel;
         const fromModels = Query.from(relation).follow(fromModelRel).followRecursively(CloudObject.extendedByRel, true).executeFromCache();
 
-        const toModel = Query.from(relation).followSingle(toModelRel).executeFromCache();
-        const toModelTableNames = toModel !== null ? this.getInheritedTables(toModel) : [];
+        const toModel = QuerySingle.from(relation).follow(toModelRel).executeFromCache();
+        const toModelTableNames = toModel !== null ? this.getInheritedTables(/** @type {!Tag} */ (toModel)) : [];
         const relationName = CloudObject.get(relation).name();
 
         const result = [];
@@ -192,7 +192,7 @@ export default class SchemaObserver {
      */
     ensureDataType(dataType, properties) {
         const tableName = this.tableFromTags.get(dataType) ?? SchemaObserver.toSQLName(CloudObject.get(dataType).name());
-        const table = this.ensureTable(dataType, tableName, [columns.TAG]);
+        const table = this.ensureTable(dataType, tableName, [COLUMNS.TAG]);
         this.pushOperation(
             () => table.ensureColumns(this.getSchemaBuilder(), properties),
             `Ensure properties columns exists for ${dataType}`
@@ -213,7 +213,7 @@ export default class SchemaObserver {
             CloudObject.get(relationTag).name(),
             CloudObject.get(toTag).name()
         );
-        const table = this.ensureTable(globalTag, tableName, [columns.FROM, columns.TO]);
+        const table = this.ensureTable(globalTag, tableName, [COLUMNS.FROM, COLUMNS.TO]);
         this.pushOperation(
             () => {
                 const from = `${this.schema}.${this.tableFromTags.get(fromTag)}`;
@@ -385,15 +385,15 @@ class Table {
         }
 
         await builder.table(this.name, (tableBuilder) => {
-            tableBuilder.string(columns.FROM)
+            tableBuilder.string(COLUMNS.FROM)
                 .notNullable()
-                .references(columns.TAG)
+                .references(COLUMNS.TAG)
                 .inTable(fromName)
                 .onDelete('CASCADE');
 
-            tableBuilder.string(columns.TO)
+            tableBuilder.string(COLUMNS.TO)
                 .notNullable()
-                .references(columns.TAG)
+                .references(COLUMNS.TAG)
                 .inTable(toName)
                 .onDelete('CASCADE');
         });

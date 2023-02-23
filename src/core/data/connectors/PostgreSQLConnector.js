@@ -29,7 +29,7 @@ export default class PostgreSQLConnector extends DataSource {
 
         /**
          * @private
-         * @type {!loglevel.Logger}
+         * @type {!log.Logger}
          */
         this.logger = getLogger('sql');
 
