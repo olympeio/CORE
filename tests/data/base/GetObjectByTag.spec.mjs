@@ -22,8 +22,8 @@ describe('GetObject brick', () => {
         // TODO
     });
 
-    it('should return undefined if the object with the given tag does not exist', () => {
+    it('should return null if the object with the given tag does not exist', () => {
         const getObject = new GetObjectByTag();
-        testEqual(getObject, ['this tag does not exist'], [undefined]);
-    })
+        testEqual(getObject, ['this tag does not exist'], [null]);
+    });
 });
