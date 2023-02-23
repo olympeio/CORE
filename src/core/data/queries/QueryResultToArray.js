@@ -1,7 +1,7 @@
 import { Brick, registerBrick, QueryResult } from 'olympe';
 import {getLogger} from "logging";
 
-export default class QueryResultToList extends Brick {
+export default class QueryResultToArray extends Brick {
 
     /**
      * @override
@@ -14,9 +14,9 @@ export default class QueryResultToList extends Brick {
         if(queryResult instanceof QueryResult){
             setList(queryResult.toArray());
         } else {
-            getLogger('QueryResultToList').warn(`The input wasn't a query result, so it was ignored.`)
+            getLogger('QueryResultToArray').warn(`The input wasn't a query result, so it was ignored.`)
         }
     }
 }
 
-registerBrick('0186174bea3609b086fa', QueryResultToList);
+registerBrick('0186174bea3609b086fa', QueryResultToArray);
