@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, Transaction } from 'olympe';
+import {ActionBrick, registerBrick, Transaction, BrickContext, Relation, ErrorFlow} from 'olympe';
 
 export default class DeleteAllRelations extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {!BrickContext} context
      * @param {Tag} origin
      * @param {Relation} relation
      * @param {function()} forwardEvent
+     * @param {function(ErrorFlow)} setErrorFlow
      * @param {function(Tag)} setOrigin
      */
-    update(context, [origin, relation], [forwardEvent, setOrigin]) {
+    update(context, [origin, relation], [forwardEvent, setErrorFlow, setOrigin]) {
         // Get current transaction
         const transaction = Transaction.from(context);
 
@@ -38,11 +36,12 @@ export default class DeleteAllRelations extends ActionBrick {
         transaction.deleteAllRelations(relation, origin);
 
         // Release or execute the transaction
-        Transaction.process(context, transaction)
-            .finally(() => {
-                setOrigin(origin);
-                forwardEvent();
-            });
+        Transaction.process(context, transaction).then(() => {
+            setOrigin(origin);
+            forwardEvent();
+        }).catch((message) => {
+            setErrorFlow(ErrorFlow.create(`Delete All Relations: ${message}`, 1));
+        });
     }
 }
 

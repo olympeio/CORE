@@ -18,7 +18,7 @@
  import { ReactBrick, useProperty } from 'helpers/react.jsx';
  import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent } from 'helpers/mui';
 
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import MUIDivider from '@mui/material/Divider';
 
 /**
@@ -42,9 +42,6 @@ export default class Divider extends ReactBrick {
         parent.style.justifyContent = 'center';
         parent.style.display = 'flex';
 
-        // Allow overflow
-        parent.style.overflow = 'visible';
-
         return super.updateParent(parent, element);
     }
 
@@ -54,12 +51,63 @@ export default class Divider extends ReactBrick {
     static getReactComponent($) {
         return (props) => {
             const [hidden] = props.values;
+            const dividerRef = useRef(null);
             const orientation = useProperty($, 'Orientation');
             const borderColor = useProperty($, 'Border Color');
             const borderWidth = useProperty($, 'Border Width') || 1;
             const borderRadius = useProperty($, 'Border Radius');
+            const allowContentOverflow = useProperty($, 'Allow Content Overflow');
+            const muiSx = jsonToSxProps(useProperty($, 'MUI sx [json]'));
+
+            useLayoutEffect(() => {
+                if (dividerRef && dividerRef.current) {
+                    dividerRef.current.parentElement.style.overflow = allowContentOverflow ? "visible" : "hidden";
+                }
+            }, [dividerRef, allowContentOverflow]);
+
+            let finalBorderColor = {...ifNotTransparent('borderColor', borderColor) };
+            if(muiSx.backgroundColor) {
+                finalBorderColor = {...finalBorderColor, borderColor: muiSx.backgroundColor }
+            }
+
+            let customStyle = {};
+            if (orientation === 'horizontal') {
+                customStyle = {
+                    ...customStyle,
+                    '&.MuiDivider-root': {
+                        '&::before': {
+                            ...finalBorderColor,
+                            borderWidth,
+                            transform: `translateY(calc(50% - ${borderWidth / 2}px))`
+                        },
+                        '&::after': {
+                            ...finalBorderColor,
+                            borderWidth,
+                            transform: `translateY(calc(50% - ${borderWidth / 2}px))`
+                        }
+                    },
+                }
+            } else {
+                customStyle = {
+                    ...customStyle,
+                    '&.MuiDivider-root': {
+                        '&::before': {
+                            ...finalBorderColor,
+                            borderWidth,
+                            transform: `translateX(-${borderWidth / 2}px)`
+                        },
+                        '&::after': {
+                            ...finalBorderColor,
+                            borderWidth,
+                            transform: `translateX(-${borderWidth / 2}px)`
+                        }
+                    },
+                }
+            }
+
             return !hidden && (
                 <MUIDivider
+                    ref={dividerRef}
                     // Properties
                     orientation={orientation}
                     variant={useProperty($, 'Variant')}
@@ -68,26 +116,21 @@ export default class Divider extends ReactBrick {
                     // UI
                     flexItem={orientation === 'vertical'}
                     sx={{
-                        ...ifNotTransparent('borderColor', borderColor),
+                        ...finalBorderColor,
                         fontFamily: useProperty($, 'Font Family'),
                         ...ifNotTransparent('color', useProperty($, 'Text Color')),
                         borderBottomWidth: borderWidth,
+                        borderRightWidth: borderWidth,
                         ...ifNotNull('borderRadius', borderRadius),
-                        '&.MuiDivider-root': {
-                            '&::before': {
-                                ...ifNotTransparent('borderColor', borderColor),
-                                borderWidth,
-                                transform: `translateY(calc(50% - ${borderWidth / 2}px))`
-                            },
-                            '&::after': {
-                                ...ifNotTransparent('borderColor', borderColor),
-                                borderWidth,
-                                transform: `translateY(calc(50% - ${borderWidth / 2}px))`
-                            }
-                        },
+                        ...customStyle,
                         ...ifNotNull('flex', 'auto', orientation === 'horizontal'),
                         ...cssToSxProps(useProperty($, 'CSS Property')),
-                        ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
+
+                        '&.MuiDivider-root>span': {
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }
                     }}
                 >
                     {useProperty($, 'Text')}

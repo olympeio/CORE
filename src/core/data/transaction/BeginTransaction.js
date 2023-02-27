@@ -14,29 +14,25 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, Transaction, GlobalProperties } from 'olympe';
+import { ActionBrick, registerBrick, Transaction, GlobalProperties, BrickContext } from 'olympe';
 import { getLogger } from 'logging';
 
 export default class BeginTransaction extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {!BrickContext} $
      * @param {!Array} _
-     * @param {function()} dispatchControlFlow
+     * @param {function()} forwardEvent
      */
-    update($, _, [dispatchControlFlow]) {
+    update($, _, [forwardEvent]) {
         const parent$ = $.getParent();
-        if(!parent$.has(GlobalProperties.TRANSACTION)) {
+        if (!parent$.has(GlobalProperties.TRANSACTION)) {
             parent$.set(GlobalProperties.TRANSACTION, new Transaction());
+        } else {
+            getLogger('Begin Transaction').error('Try to begin a transaction inside another begin in the same parent context');
         }
-        else {
-            getLogger('Begin Transaction').error('trying to begin a transaction inside another begin in the same parent context');
-        }
-        dispatchControlFlow();
+        forwardEvent();
     }
 }
 
