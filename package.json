@@ -1,6 +1,6 @@
 {
   "name": "@olympeio/core",
-  "version": "2.3.6-dev",
+  "version": "2.3.6",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
