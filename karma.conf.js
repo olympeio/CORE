@@ -1,5 +1,4 @@
 const path = require('path');
-require('karma-jasmine-html-reporter');
 const runtimeWebPath = path.resolve(__dirname, 'node_modules/@olympeio/runtime-web');
 const helpersPath = path.resolve(__dirname, 'src/helpers/web');
 const loggingPath = path.resolve(__dirname, 'src/helpers/logging.js');
@@ -14,7 +13,7 @@ module.exports = function (config) {
     files: [
       { pattern: 'tests/**/*.mjs', watched: true, served: true, included: true },
       // Must serve files used in the proxies section:
-      { pattern: 'res/tests/*.json', watched: false, served: true, included: false },
+      { pattern: 'tests/res/*.json', watched: false, served: true, included: false },
       /*parameters:
           watched: if autoWatch is true all files that have watched set to true will be watched for changes
           served: should the files be served by Karma's webserver?
@@ -32,8 +31,8 @@ module.exports = function (config) {
     },
     proxies: {
       // Note that we cannot use relative path here and must use the path.resolve function.
-      '/oConfig.json': path.resolve(__dirname, 'res/tests/oConfig.json'),
-      '/version.json': path.resolve(__dirname, 'res/tests/version.json'),
+      '/oConfig.json': path.resolve(__dirname, 'tests/res/oConfig.json'),
+      '/version.json': path.resolve(__dirname, 'tests/res/version.json'),
     },
     //executes the tests whenever one of the watched files changes
     autoWatch: true,
@@ -88,28 +87,13 @@ module.exports = function (config) {
     webpack: {
       module: {
         rules: [
-          {
-            test: /\.js$/i,
-            exclude: /(node_modules)/,
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                [
-                  "@babel/preset-env",
-                  {
-                    "targets": {
-                      "esmodules": true // needed for transpiling async/await syntax, not supported within karma runner
-                    }
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            test: /\.ts$/,
-            use: 'ts-loader',
-            exclude: /node_modules/,
-        },
+          {test: /\.js$/i, exclude: /(node_modules)/, loader: 'babel-loader', options: {
+            presets: [
+              // needed for transpiling async/await syntax, not supported within karma runner
+              ["@babel/preset-env", {"targets": {"esmodules": true}}]
+            ]
+          }},
+          {test: /\.ts$/, use: 'ts-loader', exclude: /node_modules/,},
         ]
       },
       resolve: {

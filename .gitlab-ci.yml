@@ -9,7 +9,7 @@ workflow:
     - when: always
 
 .base:
-  image: registry.caas.olympe.io/infra/docker/node-tools-light:stable
+  image: registry.caas.olympe.io/infra/docker/node-tools-light:18.14-bullseye-slim
   tags: [eks]
 
 # Initialize the npm environment with gitlab registry
@@ -62,7 +62,7 @@ tests:
   dependencies:
     - setup
   # Use an image that includes chromium and jre for test
-  image: registry.caas.olympe.io/infra/docker/node-tools:stable
+  image: registry.caas.olympe.io/infra/docker/node-tools:18.14-bullseye-slim
   script:
     - npm test
 
