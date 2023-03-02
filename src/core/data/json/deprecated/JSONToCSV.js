@@ -1,5 +1,5 @@
 import { Brick, BrickContext, registerBrick, ErrorFlow } from 'olympe';
-import { Parser } from 'json2csv';
+import { Parser } from '@json2csv/plainjs';
 import { getLogger } from 'logging';
 
 export default class JSONToCSV extends Brick {
@@ -11,12 +11,10 @@ export default class JSONToCSV extends Brick {
      * @param {function(*)} setErrorFlow
      * @param {function(string)} setCsv
      */
-    onUpdate(context, [json], [setErrorFlow, setCsv]) {
+    update(context, [json], [setErrorFlow, setCsv]) {
         try {
             const jsonList = JSON.parse(json);
-            const parser = new Parser();
-            const csv = parser.parse(jsonList);
-            setCsv(csv);
+            setCsv(new Parser().parse(jsonList));
         } catch (error) {
             getLogger('JSONToCSV').error('Failed at JSONToCSV' + error.message);
             setErrorFlow(ErrorFlow.create('Failed at JSONToCSV' + error.message, 1));

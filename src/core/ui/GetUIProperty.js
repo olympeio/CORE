@@ -29,12 +29,12 @@ export default class GetUIProperty extends Brick {
 
     /**
      * @protected
-     * @param {!Context} _
-     * @param {PropertyModel} uiProperty
-     * @param {function(PropertyModel)} setValue
+     * @param {!BrickContext} $
+     * @param {*} propValue
+     * @param {function(*)} setValue
      */
-    onUpdate(_, [uiProperty], [setValue]) {
-        setValue(uiProperty)
+    update($, [propValue], [setValue]) {
+        setValue(propValue)
     }
 }
 
