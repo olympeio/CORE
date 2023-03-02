@@ -36,9 +36,6 @@ Each value has to be in the 0 - 255 range.
 export default class CreateColor extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {!Context} context
      * @param {number} r

@@ -19,9 +19,6 @@ import { Brick, registerBrick } from 'olympe';
 export default class Replace extends Brick {
 
     /**
-     * Executed every time an input (s, pattern, replacement) gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {Context} context
      * @param {string} s

@@ -39,9 +39,6 @@ Removes an amount of days, months, years, weeks, hours, minutes and seconds to a
 export default class DateTimeSub extends Brick {
 
     /**
-     * Executed every time an input (date, years, months, days, weeks, hours, minutes, seconds) gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {Context} context
      * @param {Date} date

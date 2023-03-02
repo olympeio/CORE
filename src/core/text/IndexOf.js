@@ -34,9 +34,6 @@ Gets the position of string s2 in string s1. The index starts at zero, and is se
 export default class IndexOf extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {!Context} context
      * @param {string} s1

@@ -35,9 +35,6 @@ Returns true if the datetime object equals another datetime object, false otherw
 export default class IsDateTimeEqual extends Brick {
 
     /**
-     * Executed every time an input (dateToCompare, comparisonDate) gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {Context} context
      * @param {Date} dateToCompare

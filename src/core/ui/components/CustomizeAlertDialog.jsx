@@ -30,9 +30,6 @@ import Zoom from '@mui/material/Zoom';
 export default class CustomizeAlertDialog extends Brick {
 
     /**
-     * Executed every time an input (type, direction, enterEasing, exitEasing, enterTimeout, exitTimeout) gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {!Context} context
      * @param {boolean} fullWidth

@@ -36,9 +36,6 @@ Returns true if the datetime object is before another datetime object, false oth
 export default class IsDateTimeBefore extends Brick {
 
     /**
-     * Executed every time an input (dateToCompare, comparisonDate, strictly) gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {Context} context
      * @param {Date} dateToCompare

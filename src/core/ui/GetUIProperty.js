@@ -28,9 +28,6 @@ export default class GetUIProperty extends Brick {
     }
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {!Context} _
      * @param {PropertyModel} uiProperty

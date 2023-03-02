@@ -27,9 +27,6 @@ This function checks whether the active user is properly authenticated.
 export default class IsAuthenticated extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {!Context} context
      * @param {!Array} _

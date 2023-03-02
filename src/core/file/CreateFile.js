@@ -21,9 +21,6 @@ import {stringToBinary} from 'helpers/binaryConverters';
 export default class CreateFile extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {!BrickContext} $
      * @param {string=} fileName
