@@ -32,7 +32,7 @@ export default class LengthOfString extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} s
      * @param {function(number)} setLength
      */

@@ -40,7 +40,7 @@ export default class GetDateTimeAttributes extends Brick {
 
     /**
      * @protected
-     * @param {Context} context
+     * @param {!BrickContext} context
      * @param {Date} date
      * @param {function(number)} setYear
      * @param {function(number)} setMonthNatural

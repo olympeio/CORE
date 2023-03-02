@@ -24,7 +24,7 @@ export default class Logout extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {!Array} _1
      * @param {function()} dispatchControlFlow
      */

@@ -25,7 +25,7 @@ export default class Regex extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} text
      * @param {string} regex
      * @param {function(boolean)} setMatched

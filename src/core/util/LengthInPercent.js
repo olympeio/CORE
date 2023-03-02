@@ -23,7 +23,7 @@ export default class LengthInPercent extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {number} percent
      * @param {number} containerLength
      * @param {function(number)} setResult

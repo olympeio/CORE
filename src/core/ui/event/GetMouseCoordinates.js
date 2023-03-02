@@ -31,7 +31,7 @@ export default class GetMouseCoordinates extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {!Array} inputs
      * @param {function(number)} setX
      * @param {function(number)} setY
@@ -48,7 +48,7 @@ export default class GetMouseCoordinates extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      */
     destroy(context) {
         super.destroy(context);

@@ -40,7 +40,7 @@ export default class DateTimeSub extends Brick {
 
     /**
      * @protected
-     * @param {Context} context
+     * @param {!BrickContext} context
      * @param {Date} date
      * @param {number} years
      * @param {number} months

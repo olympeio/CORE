@@ -35,7 +35,7 @@ export default class IndexOf extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} s1
      * @param {string} s2
      * @param {function(number)} setIndex

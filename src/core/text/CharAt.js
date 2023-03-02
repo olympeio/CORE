@@ -35,7 +35,7 @@ export default class CharAt extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} s
      * @param {number} index
      * @param {function(string)} setResult

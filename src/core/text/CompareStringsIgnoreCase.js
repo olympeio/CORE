@@ -34,7 +34,7 @@ export default class CompareStringsIgnoreCase extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {!Context} context
      * @param {string} s1
      * @param {string} s2

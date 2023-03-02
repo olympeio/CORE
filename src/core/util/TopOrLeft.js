@@ -23,7 +23,7 @@ export default class TopOrLeft extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {!Array} inputs
      * @param {function(number)} setResult
      */

@@ -41,7 +41,7 @@ export default class FormatDateTime extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {Date} datetime
      * @param {string} formatString
      * @param {function(string)} setFormattedDatetime

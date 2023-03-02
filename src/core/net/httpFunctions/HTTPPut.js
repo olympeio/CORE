@@ -49,7 +49,7 @@ export default class HTTPPut extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} headers
      * @param {string} body
      * @param {string} url

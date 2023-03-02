@@ -34,7 +34,7 @@ export default class GetObjectList extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {InstanceTag} model
      * @param {function(!ListDef)} setList
      */

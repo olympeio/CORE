@@ -42,7 +42,7 @@ export default class HTTPHead extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} headers
      * @param {string} url
      * @param {function()} forwardEvent

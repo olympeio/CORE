@@ -20,7 +20,7 @@ export default class Replace extends Brick {
 
     /**
      * @protected
-     * @param {Context} context
+     * @param {!BrickContext} context
      * @param {string} s
      * @param {string} pattern
      * @param {string} replacement

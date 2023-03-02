@@ -37,7 +37,7 @@ export default class IsDateTimeBefore extends Brick {
 
     /**
      * @protected
-     * @param {Context} context
+     * @param {!BrickContext} context
      * @param {Date} dateToCompare
      * @param {Date} comparisonDate
      * @param {boolean} strictly

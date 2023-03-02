@@ -50,7 +50,7 @@ export default class HTTPPost extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} url
      * @param {string} body
      * @param {string} headers

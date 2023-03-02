@@ -23,7 +23,7 @@ export default class SetUIProperty extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {*} _
      * @param {*} value
      * @param {function()} forwardEvent

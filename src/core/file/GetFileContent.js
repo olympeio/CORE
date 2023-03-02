@@ -22,7 +22,7 @@ export default class GetFileContent extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {File} file
      * @param {function()} forwardEvent
      * @param {function(string)} setContent

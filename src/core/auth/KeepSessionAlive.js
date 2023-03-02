@@ -24,7 +24,7 @@ export default class KeepSessionAlive extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {!Array} _
      * @param {function()} forwardEvent
      */

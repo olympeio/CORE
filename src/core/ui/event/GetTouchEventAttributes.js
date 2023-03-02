@@ -19,7 +19,7 @@ export default class GetTouchEventAttributes extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {TouchEvent} touchEvent
      * @param {function(number)} setTimestamp
      * @param {function(*)} setTouches

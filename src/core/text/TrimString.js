@@ -34,7 +34,7 @@ export default class TrimString extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} s
      * @param {function(string)} setResult
      */

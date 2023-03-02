@@ -36,7 +36,7 @@ export default class PadEndOfString extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} s
      * @param {number} targetLength
      * @param {function(string)} setPaddedString

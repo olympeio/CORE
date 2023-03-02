@@ -24,7 +24,7 @@ export default class ListFollowRelationRecursively extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {!ListDef} list
      * @param {!RelationModel} relation
      * @param {boolean} toOrigin

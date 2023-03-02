@@ -35,7 +35,7 @@ export default class ControlflowSynchronization extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {number} incomingEvent_1
      * @param {number} incomingEvent_2
      * @param {function(number)} forwardEvent

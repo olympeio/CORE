@@ -33,7 +33,7 @@ export default class GetGeolocation extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {Array} _
      * @param {function(number)} setLongitude
      * @param {function(number)} setLatitude

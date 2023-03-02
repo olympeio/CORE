@@ -42,7 +42,7 @@ export default class ParseDateTime extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} dateTimeString
      * @param {string} formatInput
      * @param {function(Date)} setDate

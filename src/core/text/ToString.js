@@ -35,7 +35,7 @@ export default class ToString extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {Object} n
      * @param {function(string)} setString
      */

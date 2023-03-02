@@ -34,7 +34,7 @@ export default class CompareStrings extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} s1
      * @param {string} s2
      * @param {function(number)} setResult

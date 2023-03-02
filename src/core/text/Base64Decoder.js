@@ -22,7 +22,7 @@ export default class Base64Decoder extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} input
      * @param {string} encoding
      * @param {function(string)} output

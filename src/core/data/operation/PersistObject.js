@@ -21,7 +21,7 @@ export default class PersistObject extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {InstanceTag} objectIn
      * @param {function(InstanceTag)} setObjectOut
      */

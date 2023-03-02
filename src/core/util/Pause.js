@@ -44,7 +44,7 @@ export default class Pause extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {number} duration
      * @param {function()} forwardEvent
      */

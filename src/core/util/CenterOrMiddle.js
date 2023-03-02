@@ -20,7 +20,7 @@ export default class CenterOrMiddle extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {number} containerWidth
      * @param {number} elementWidth
      * @param {function(number)} setResult

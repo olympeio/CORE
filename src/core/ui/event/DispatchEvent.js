@@ -33,7 +33,7 @@ export default class DispatchEvent extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {*} _
      * @param {function()} forwardEvent
      */

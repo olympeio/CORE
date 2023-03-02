@@ -21,7 +21,7 @@ export default class CreateLocalObject extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {InstanceTag} model
      * @param {function(CloudObject)} setObject
      */

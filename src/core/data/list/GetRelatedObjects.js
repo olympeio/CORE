@@ -55,7 +55,7 @@ export default class GetRelatedObjects extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {!Array} inputs
      * @param {!Array} outputs
      */

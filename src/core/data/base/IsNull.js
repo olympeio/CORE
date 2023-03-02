@@ -33,7 +33,7 @@ export default class IsNull extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {Object} value
      * @param {function(boolean)} setResult
      * @param {function()} forwardEvent

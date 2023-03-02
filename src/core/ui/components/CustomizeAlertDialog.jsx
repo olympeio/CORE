@@ -31,7 +31,7 @@ export default class CustomizeAlertDialog extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {boolean} fullWidth
      * @param {string} maxWidth
      * @param {string} scroll

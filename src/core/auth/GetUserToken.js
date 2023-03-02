@@ -20,7 +20,7 @@ export default class GetUserToken extends Brick {
 
     /**
      * @protected
-     * @param {Context} context
+     * @param {!BrickContext} context
      * @param {!Array} inputs
      * @param {function(string)} setToken
      * @param {function(string)} setProtocol

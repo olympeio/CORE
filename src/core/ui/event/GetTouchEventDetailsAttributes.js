@@ -19,7 +19,7 @@ export default class GetTouchEventDetailsAttributes extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {Touch} touch
      * @param {function(number)} setIdentifier
      * @param {function(number)} setRelativePositionX

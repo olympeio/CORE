@@ -19,7 +19,7 @@ export default class GetParameter extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} name
      * @param {function(*)} setValue
      */

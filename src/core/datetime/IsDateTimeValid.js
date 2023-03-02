@@ -35,7 +35,7 @@ export default class IsDateTimeValid extends Brick {
 
     /**
      * @protected
-     * @param {Context} context
+     * @param {!BrickContext} context
      * @param {Date} date
      * @param {function(boolean)} setIsValid
      */

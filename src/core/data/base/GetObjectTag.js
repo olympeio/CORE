@@ -31,7 +31,7 @@ export default class GetObjectTag extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {!InstanceTag} object
      * @param {function(string)} setValue
      */

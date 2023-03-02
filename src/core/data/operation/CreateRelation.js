@@ -43,7 +43,7 @@ export default class CreateRelation extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {InstanceTag} origin
      * @param {InstanceTag} relation
      * @param {InstanceTag} destination

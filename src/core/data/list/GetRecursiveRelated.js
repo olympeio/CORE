@@ -22,7 +22,7 @@ export default class GetRecursiveRelated extends Brick {
 
     /**
      * @protected
-     * @param {Context} context
+     * @param {!BrickContext} context
      * @param {!InstanceTag} object
      * @param {!InstanceTag} relation
      * @param {boolean} includeSelf

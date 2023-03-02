@@ -46,7 +46,7 @@ export default class HTTPGet extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} headers
      * @param {string} url
      * @param {function(string)} setBody

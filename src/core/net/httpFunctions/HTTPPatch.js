@@ -50,7 +50,7 @@ export default class HTTPPatch extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} body
      * @param {string} url
      * @param {string} headers

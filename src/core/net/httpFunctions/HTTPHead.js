@@ -43,7 +43,7 @@ export default class HTTPHead extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} url
      * @param {string} headers
      * @param {function(number)} setStatusCode

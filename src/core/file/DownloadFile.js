@@ -31,7 +31,7 @@ export default class DownloadFile extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} name
      * @param {File} file
      * @param {function()} forwardEvent

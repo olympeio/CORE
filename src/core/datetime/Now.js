@@ -42,7 +42,7 @@ export default class Now extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {number} interval
      * @param {function(Date)} setDate
      */

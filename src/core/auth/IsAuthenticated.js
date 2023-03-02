@@ -28,7 +28,7 @@ export default class IsAuthenticated extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {!Array} _
      * @param {function(boolean)} setResult
      */

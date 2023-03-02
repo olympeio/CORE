@@ -23,7 +23,7 @@ export default class BottomOrRight extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {number} containerWidth
      * @param {number} elementWidth
      * @param {function(number)} setResult

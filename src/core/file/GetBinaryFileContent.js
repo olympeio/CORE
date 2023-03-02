@@ -20,7 +20,7 @@ export default class GetBinaryFileContent extends ActionBrick {
 
     /**
      * @protected
-     * @param {Context} context
+     * @param {!BrickContext} context
      * @param {File} file
      * @param {function()} forwardEvent
      * @param {function(ArrayBuffer)} setContent

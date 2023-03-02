@@ -28,7 +28,7 @@ export default class ControlFlowMultiplexer extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {number} incomingEvent
      * @param {function(number)} forwardEvent
      */

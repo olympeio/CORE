@@ -21,7 +21,7 @@ export default class GetPlatformInfo extends Brick {
 
     /**
      * @protected
-     * @param {!Context} _
+     * @param {!BrickContext} _
      * @param {!Array} inputs
      * @param {function(string)} setOSVersion
      * @param {function(string)} setOS

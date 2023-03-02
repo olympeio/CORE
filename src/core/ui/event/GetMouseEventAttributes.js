@@ -19,7 +19,7 @@ export default class GetMouseEventAttributes extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {MouseEvent} event
      * @param {function(number)} setTimestamp
      * @param {function(number)} setRelativePositionX

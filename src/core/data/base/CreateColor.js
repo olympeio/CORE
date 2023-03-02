@@ -37,7 +37,7 @@ export default class CreateColor extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {number} r
      * @param {number} g
      * @param {number} b

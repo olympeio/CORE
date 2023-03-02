@@ -38,7 +38,7 @@ export default class CatchErrors extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {ErrorFlow} errorFlow
      * @param {function(number)} forwardEvent
      * @param {function(string)} setMessage

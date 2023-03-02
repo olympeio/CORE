@@ -36,7 +36,7 @@ export default class ToLowercase extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} s
      * @param {function(string)} setResult
      */
