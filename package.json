@@ -65,7 +65,7 @@
     "json2csv": "5.0.6",
     "jsonpath-plus": "7.2.0",
     "loglevel": "1.8.1",
-    "node-fetch": "2.6.7",
+    "node-fetch": "2.6.9",
     "qrcode.react": "3.1.0",
     "react": "17.0.2",
     "react-audio-player": "0.17.0",
