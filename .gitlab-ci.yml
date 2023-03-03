@@ -35,7 +35,7 @@ setup:
   stage: setup
   extends: .npm-config
   script:
-    - npm install
+    - yarn install
   artifacts:
     expire_in: 1 week
     paths:
@@ -49,7 +49,7 @@ build-package:
     - setup
   script:
     - if [ -z "$CI_COMMIT_TAG" ]; then apt-get install -y jq; sh ./bumpVersion.sh; fi
-    - npm run build;
+    - yarn run build;
   artifacts:
     expire_in: 1 week
     paths:
@@ -64,7 +64,7 @@ tests:
   # Use an image that includes chromium and jre for test
   image: registry.caas.olympe.io/infra/docker/node-tools:18.14-bullseye-slim
   script:
-    - npm test
+    - yarn test
 
 # publish
 #  - a package tagged "dev" when pushing on develop
