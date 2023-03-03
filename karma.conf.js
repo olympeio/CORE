@@ -79,12 +79,12 @@ module.exports = function (config) {
         random: false
       }
     },
-
-    /* karma-webpack config
-       pass your webpack configuration for karma
-       add `babel-loader` to the webpack configuration
-       to make the ES6+ code readable by the browser */
     webpack: {
+      module: {
+        rules: [
+          {test: /\.(tsx?)$/, use: 'ts-loader', exclude: /node_modules/}
+        ]
+      },
       resolve: {
         alias: {
           olympe: runtimeWebPath,
