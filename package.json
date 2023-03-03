@@ -34,6 +34,7 @@
     "@babel/core": "7.21.0",
     "@babel/preset-env": "7.20.2",
     "@babel/preset-react": "7.18.6",
+    "babel-loader": "9.1.2",
     "clean-webpack-plugin": "4.0.0",
     "copy-webpack-plugin": "11.0.0",
     "generate-json-webpack-plugin": "2.0.0",
@@ -49,7 +50,9 @@
     "jasmine": "4.5.0",
     "karma-jasmine": "5.1.0",
     "karma-webpack": "5.0.0",
-    "webpack-karma-jasmine": "4.0.0"
+    "karma": "6.4.1",
+    "karma-chrome-launcher": "3.1.1",
+    "karma-spec-reporter": "0.0.36"
   },
   "dependencies": {
     "@olympeio/runtime-node": "dev",

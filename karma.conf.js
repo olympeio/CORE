@@ -48,7 +48,7 @@ module.exports = function (config) {
     //list of browsers to launch and capture
     browsers: ['CustomChromeHeadless', /*'Chrome','PhantomJS','Firefox','Edge','ChromeCanary','Opera','IE','Safari'*/],
     //list of reporters to use
-    reporters: ['mocha', 'kjhtml'/*,'dots','progress','spec'*/],
+    reporters: ['spec'/*'mocha','kjhtml','dots','progress','spec'*/],
 
     //address that the server will listen on, '0.0.0.0' is default
     listenAddress: '0.0.0.0',
@@ -85,17 +85,6 @@ module.exports = function (config) {
        add `babel-loader` to the webpack configuration
        to make the ES6+ code readable by the browser */
     webpack: {
-      module: {
-        rules: [
-          {test: /\.js$/i, exclude: /(node_modules)/, loader: 'babel-loader', options: {
-            presets: [
-              // needed for transpiling async/await syntax, not supported within karma runner
-              ["@babel/preset-env", {"targets": {"esmodules": true}}]
-            ]
-          }},
-          {test: /\.ts$/, use: 'ts-loader', exclude: /node_modules/,},
-        ]
-      },
       resolve: {
         alias: {
           olympe: runtimeWebPath,
