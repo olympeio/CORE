@@ -1,27 +1,23 @@
-import {Direction, QueryPart, DataResult} from 'olympe';
+import {
+    Direction,
+    QueryPart,
+    DataResult,
+    Query,
+    Order,
+    tagToString,
+    Color,
+    QuerySingle,
+    PropertyModel,
+    ColorModel
+} from 'olympe';
 import {Knex} from "knex";
+import {parsePredicate} from './SQLPredicateBuilder';
 
 export const COLUMNS = {
     TAG: 'tagOlympe',
     FROM: 'tagOlympeOrig',
     TO: 'tagOlympeDest',
     FILE_CONTENT: 'fileContent'
-};
-
-const OPERANDS = {
-    EQUALS: '=',
-    LIKE: 'LIKE',
-    SMALLER_EQUALS: '<=',
-    GREATER_EQUALS: '>=',
-    SMALLER: '<',
-    GREATER: '>',
-};
-
-const WHERE_OPERANDS = {
-    AND: '&',
-    OR: '|',
-    NOT: '!',
-    NONE: '',
 };
 
 const PREFIXES = {
@@ -34,11 +30,18 @@ const PREFIXES = {
 export default class SQLQueryExecutor {
 
     /**
+     * @param {!log.Logger} logger
      * @param {!Knex} client
      * @param {!SchemaObserver} schemaObserver
-     * @param {!log.Logger} logger
      */
-    constructor(client, schemaObserver, logger) {
+    constructor(logger, client, schemaObserver) {
+
+        /**
+         * @private
+         * @type {!log.Logger}
+         */
+        this.logger = logger;
+
         /**
          * @private
          * @type {!Knex}
@@ -50,12 +53,6 @@ export default class SQLQueryExecutor {
          * @type {!SchemaObserver}
          */
         this.schema = schemaObserver;
-
-        /**
-         * @private
-         * @type {!log.Logger}
-         */
-        this.logger = logger;
 
         /**
          * @private
@@ -79,69 +76,79 @@ export default class SQLQueryExecutor {
     /**
      * Transform a query to a knex query builder, ready to be executed.
      *
-     * @param {!Query} query
-     * @return {!Promise<!DataResult>}
+     * @param {!Query<CloudObject, any>} query
+     * @return {Promise<!DataResult>}
      */
     executeQuery(query) {
         const result = DataResult.fromQuery(query);
         const rootPart = query.parse();
-        const {limit, offset, root, dataType, next, returned} = rootPart;
+        const {limit, offset, root, dataType, inheritance, next, returned, filter, sort} = rootPart;
 
-        const initTables = this.schema.getInheritedTables(dataType);
+        const initTables = this.schema.getTablesOfType(/** @type {!Tag} */ (dataType), inheritance);
         if (initTables.length === 0) {
             return Promise.resolve(result);
         }
 
-        const rootColumns = new Set(returned ? initTables.flatMap((table) => this.schema.getAllColumns(table)) : []).add(COLUMNS.TAG);
-        const filter = root ? [[[COLUMNS.TAG, OPERANDS.EQUALS, root]]] : []; // Filter with the root tag if defined.
-        const rootLevel = { columns: rootColumns, filter, optional: false, tables: initTables };
-        const parsedRelationParts = next.map((part) => this.parsePart(part, initTables));
-        const parsedParts = [rootLevel, ...parsedRelationParts];
+        // Parse parts of the query to transform them into a single array, to build SQL query with joins.
+        const rootColumns = new Map(returned ? this.schema.getAllColumns(...initTables) : [[COLUMNS.TAG, COLUMNS.TAG]]);
+        const finalFilter = root ? [[{name: 'IS', tags: [root]}]] : filter; // Filter with the root tag if defined.
+        const rootLevel = { columns: rootColumns, filter: finalFilter, sort, optional: false, tables: initTables, index: 0 };
+        const parsedParts = next.reduce((acc, part) => {
+            acc.push(...this.parsePart(part, initTables, acc.length, 0));
+            return acc;
+        }, [rootLevel]);
+        const parsedRelationParts = parsedParts.slice(1);
 
-        // `Paths` is made of list of tables to join.
-        // E.g: if we have the following parts [t01, t02], [t11] and [t21, t22] it will build:
-        // [[t01, r1, t11, r2 t21], [t02, r1, t11, r2, t21], [t01, r1, t11, r2, t22], [t02, r1, t11, r2, t22]]
-        const paths = parsedRelationParts.reduce((paths, part) => {
-            return paths.flatMap((path) => part.tables.map(([from, rel, to]) => from === path[path.length-1] && path.concat(rel, to)));
-        }, initTables.map((table) => [table]));
-
-        if (paths.length !== parsedParts.length * 2 - 1) {
-            throw new Error('Query was not built properly');
+        // `Paths` is made of list of tables to join. To handle inheritance, it could generate multiple joins to union.
+        // E.g: if we have the following tables in parts [t01, t02], [t11] and [t21, t22] it will build:
+        // [
+        //      [[t01], [t01, r1, t11], [t11, r2, t21]], => path 1
+        //      [[t02], [t02, r1, t11], [t11, r2, t21]], => path 2
+        //      [[t01], [t01, r1, t11], [t11, r2, t22]], => path 3
+        //      [[t02], [t02, r1, t11], [t11, r2, t22]]  => path 4
+        // ]
+        let paths = initTables.map((table) => [[table]]);
+        for (const {parentIndex, tables} of parsedRelationParts) {
+            paths = tables.flatMap((relTable) => {
+                return paths.map((path) => {
+                    if (path[parentIndex][0] === relTable[0]) { // Ensure concordance of path (toTable of parent == fromTable of current level)
+                        return [...path, relTable];
+                    }
+                    throw new Error(`Path does not match: ${path[parentIndex][0]} !== ${relTable[0]}`);
+                });
+            });
         }
 
         const queryBuilders = [];
         for (const path of paths) {
-            const rootTable = path[0];
-            // Initiate a new knex query builder
+            const [rootTable] = path[0];
+            // Initiate a new knex query builder for each path
             const builder = this.builder()
                 .select(this.selectColumns(0, rootTable, rootColumns))
                 .from(this.fromTable(0, rootTable));
 
-            // Loop over each couple (relation, destination) of the path
-            for (let i = 1, l = path.length; i < l; i += 2) {
-                const index = ((i - 1) / 2) + 1;
-                // TODO: from Table can be at another place than i-1 => should store parent index in path element.
-                const fromTable = this.fromTable(index, path[i - 1]);
-                const relTable = this.fromTable(index, path[i]);
-                const toTable = this.fromTable(index, path[i + 1]);
-                const {optional, columns, relation} = parsedParts[index];
+            const rootFilter = parsedParts[0].filter;
+            rootFilter && this.buildPredicate(builder, 0, rootTable, rootFilter);
+            // Loop over each tuple (origin, relation, destination) of the path
+            for (let i = 1, l = path.length; i < l; i++) {
+                const [fromTable, relTable, toTable] = path[i];
+                const {optional, columns, filter, relation, parentIndex} = parsedParts[i];
 
                 // Select the required column for the next level
-                builder.select(this.selectColumns(index, toTable, columns));
+                builder.select(this.selectColumns(i, toTable, columns));
 
-                // TODO: add filter to the builder for current path.
-                // builder.where(this.parseFilter())
+                // Apply potential filters
+                filter && this.buildPredicate(builder, i, toTable, filter);
 
+                // Then apply the join for relation.
                 const direction = relation.getDirection();
                 const joinCol1 = direction === Direction.DESTINATION ? COLUMNS.FROM : COLUMNS.TO;
                 const joinCol2 = direction === Direction.DESTINATION ? COLUMNS.TO : COLUMNS.FROM;
-
-                // Then apply the join for relation.
-                builder[optional ? 'leftJoin' : 'innerJoin'](fromTable, (qb) => {
-                    qb.on(`${fromTable}.${COLUMNS.TAG}`, `${relTable}.${joinCol1}`);
+                builder[optional ? 'leftJoin' : 'innerJoin'](this.fromTable(i, relTable), (qb) => {
+                    qb.on(this.fromColumn(i, relTable, joinCol1), this.fromColumn(parentIndex, fromTable, COLUMNS.TAG));
                 });
-                builder.innerJoin(relTable, (qb) => {
-                    qb.on(`${relTable}.${joinCol2}`, `${toTable}.${COLUMNS.TAG}`);
+                builder.innerJoin(this.fromTable(i, toTable), (qb) => {
+                    qb.on(this.fromColumn(i, toTable, COLUMNS.TAG), this.fromColumn(i, relTable, joinCol2));
                 });
             }
 
@@ -152,16 +159,23 @@ export default class SQLQueryExecutor {
         const queryBuilder = queryBuilders.shift().union(queryBuilders)
 
         // Apply the sort - limit - offset operator on the global builder.
-        // TODO: sort
+        const sortPart = parsedParts.reverse().find((part) => !!part.sort);
+        if (sortPart) {
+            const {index, sort, columns} = sortPart;
+            const sortPropTag = tagToString(sort.property);
+            if (columns.has(sortPropTag)) { // Do not sort if the column does not exist (eg: no instance has initiated that property).
+                queryBuilder.orderBy(this.getColumnAlias(index, sortPropTag), sort.order === Order.ASC ? 'ASC' : 'DESC');
+            }
+        }
         limit > -1 && queryBuilder.limit(limit);
         offset > 0 && queryBuilder.offset(offset);
 
-        this.logger.debug(`SQL Query to be executed: ${queryBuilder.toSQL().sql}`);
+        this.logger.debug(`SQL Query to be executed: ${queryBuilder.toString()}`);
 
         return queryBuilder.then((rows) => {
             const result = DataResult.fromQuery(query);
             this.logger.info(`Result size: ${rows.length}`);
-            this.buildDataResult(result, rows, parsedRelationParts.map((part) => part.relation));
+            this.buildDataResult(result, rows, parsedRelationParts);
             return result;
         });
     }
@@ -170,19 +184,48 @@ export default class SQLQueryExecutor {
      * @private
      * @param {!QueryPart} part
      * @param {string[]} parentTables
-     * @return {Array<!Object>}
+     * @param {number} partIndex
+     * @param {number} parentIndex
+     * @return {!Array<!Object>}
      */
-    parsePart(part, parentTables) {
-        const {relation, optional, filter, returned, next} = part;
+    parsePart(part, parentTables, partIndex, parentIndex) {
+        const {relation, optional, filter, sort, returned, next} = part;
         const relationTables = this.schema.getRelationTables(parentTables, relation);
         if (relationTables.length === 0) {
             return [];
         }
         const toTables = relationTables.map((t) => t[2]);
-        const columns = new Set(returned ? toTables.flatMap((table) => this.schema.getAllColumns(table)) : []).add(COLUMNS.TAG);
-        const currentLevel = { columns, filter, optional, tables: relationTables };
-        return [currentLevel, ...next.map((part) => this.parsePart(part, toTables))];
+        const columns = new Map(returned ? this.schema.getAllColumns(...toTables) : [[COLUMNS.TAG, COLUMNS.TAG]]);
+        const currentLevel = { columns, filter, sort, optional, relation, tables: relationTables, index: partIndex, parentIndex };
+
+        return next.reduce((acc, part) => {
+            acc.push(...this.parsePart(part, toTables, partIndex + acc.length, partIndex));
+            return acc;
+        }, [currentLevel]);
     }
+
+    /**
+     * @private
+     * @param {Knex.QueryBuilder} builder
+     * @param {number} index
+     * @param {string} table
+     * @param {!Array<!Array<Object>>} predicates
+     */
+    buildPredicate(builder, index, table, predicates)  {
+        builder.whereWrapped((wrappedBuilder) => {
+            for (const orClausePredicates of predicates) {
+                wrappedBuilder.orWhere((orClauseWrapper) => {
+                    for (const objectPredicate of orClausePredicates) {
+                        orClauseWrapper.andWhere((andClauseWrapper) => {
+                            const sqlColumnName = this.schema.getColumn(table, objectPredicate.property ?? COLUMNS.TAG);
+                            const column = this.client.raw('??.??', [this.getTableAlias(index, table), sqlColumnName]);
+                            parsePredicate(andClauseWrapper, column, objectPredicate);
+                        });
+                    }
+                });
+            }
+        });
+    };
 
     /**
      * @private
@@ -194,27 +237,18 @@ export default class SQLQueryExecutor {
 
     /**
      * @private
-     * @param part
-     */
-    parseFilter(part) {
-        // TODO
-    }
-
-    /**
-     * @private
      * @param {number} index
-     * @param {!Table} table
-     * @param {string | !Knex.Raw} tableAlias
-     * @param {!Set<string>} columns
+     * @param {string} table
+     * @param {!Map<string, string>} columns
      * @return {!Knex.Raw[]}
      */
-    selectColumns(index, table, tableAlias, columns) {
-        const existingColumns = new Set(table.getColumns());
-        const modelTag = table.getTag();
-        return Array.from(columns).map((c) => {
-            return existingColumns.has(c)
-                ? this.client.raw('??.?? as ??', [this.getTableAlias(index, tableAlias), c, this.getColumnAlias(index, tableAlias, c)])
-                : this.client.raw('null as ??', [this.getColumnAlias(index, tableAlias, c)]);
+    selectColumns(index, table, columns) {
+        const existingColumns = new Map(this.schema.getAllColumns(table));
+        const modelTag = this.schema.getTableTag(table);
+        return Array.from(columns).map(([propTag, column]) => {
+            return existingColumns.has(propTag)
+                ? this.client.raw('??.?? as ??', [this.getTableAlias(index, table), column, this.getColumnAlias(index, propTag)])
+                : this.client.raw('null as ??', [this.getColumnAlias(index, propTag)]);
         }).concat(this.client.raw(`'${modelTag}' as ??`, [this.getModelAlias(index, modelTag)]));
     }
 
@@ -231,36 +265,61 @@ export default class SQLQueryExecutor {
     /**
      * @private
      * @param {number} index
-     * @param {string} name
-     * @return {string}
+     * @param {string} table
+     * @param {string} column
+     * @return {!Knex.Raw}
      */
-    getTableAlias(index, name) {
-        return this.getAlias(`${index};${name}`, 't_');
+    fromColumn(index, table, column) {
+        return this.client.raw('??.??', [this.getTableAlias(index, table), column]);
     }
 
     /**
      * @private
      * @param {number} index
-     * @param {string} tableName
      * @param {string} name
      * @return {string}
      */
-    getColumnAlias(index, tableName, name) {
-        return this.getAlias(`${index};${tableName};${name}`, 'c_');
+    getTableAlias(index, name) {
+        return this.getAlias(index, PREFIXES.TABLE, name);
     }
 
+    /**
+     * @private
+     * @param {number} index
+     * @param {string} name
+     * @return {string}
+     */
+    getColumnAlias(index, name) {
+        return this.getAlias(index, name === COLUMNS.TAG ? PREFIXES.TAG : PREFIXES.COLUMN, name);
+    }
+
+    /**
+     * @private
+     * @param {number} index
+     * @param {string} modelTag
+     * @return {string}
+     */
     getModelAlias(index, modelTag) {
-        return this.getAlias()
+        return this.getAlias(index, PREFIXES.MODEL, modelTag)
     }
 
     /**
      * @private
      * @param {!DataResult} result
      * @param {!Object} rows
-     * @param {string[]} relations
+     * @param {!Object[]} relationParts
      */
-    buildDataResult(result, rows, relations) {
+    buildDataResult(result, rows, relationParts) {
         const currentRowInstances = []; // index to instance
+        // Specific behaviour for Color type:
+        const colorProperties = new Set();
+        const colorModelTag = tagToString(ColorModel);
+        for (const [alias, value] of this.reverseAliases) {
+            if (alias.startsWith(PREFIXES.COLUMN)) {
+                const type = QuerySingle.from(value).follow(PropertyModel.typeRel).executeFromCache();
+                type?.getTag() === colorModelTag && colorProperties.add(value);
+            }
+        }
 
         for (const row of rows) {
             for (const [alias, value] of Object.entries(row)) {
@@ -272,16 +331,23 @@ export default class SQLQueryExecutor {
                 } else if (alias.startsWith(PREFIXES.MODEL)) {
                     instance.model = value;
                 } else {
-                    const props = instance.properties ?? new Map();
-                    props.set(this.reverseAliases.get(alias), value);
-                    instance.properties ??= props;
+                    const propTag = this.reverseAliases.get(alias);
+                    if (typeof propTag === 'string') {
+                        const props = instance.properties ?? new Map();
+                        const propVal = colorProperties.has(propTag) ? Color.create(...value.split(';')) : value;
+                        props.set(propTag, propVal);
+                        instance.properties ??= props;
+                    }
                 }
             }
 
             currentRowInstances.forEach((instance, index) => {
                 result.create(instance.tag, instance.model, instance.properties);
-                if (index > 0 && relations.length >= index) {
-                    result.createRelation(relations[index - 1], currentRowInstances[index - 1].tag, instance.tag);
+                if (index > 0 && relationParts.length >= index) {
+                    const {relation, parentIndex} = relationParts[index - 1];
+                    relation.getDirection() === Direction.ORIGIN
+                        ? result.createRelation(relation.getTag(), instance.tag, currentRowInstances[parentIndex].tag)
+                        : result.createRelation(relation.getTag(), currentRowInstances[parentIndex].tag, instance.tag);
                 }
             });
 
@@ -293,15 +359,15 @@ export default class SQLQueryExecutor {
      * @private
      * @param {number} index
      * @param {string} prefix
-     * @param {string} tag
+     * @param {string} name
      * @return {string}
      */
-    getAlias(index, prefix, tag) {
-        const value = index + tag;
+    getAlias(index, prefix, name) {
+        const value = index + name;
         let alias = this.aliases.get(value);
         if (typeof alias !== 'string') {
             alias = prefix + this.aliases.size;
-            this.reverseAliases.set(alias, tag);
+            this.reverseAliases.set(alias, name);
             this.aliasIndexes.set(alias, index);
             this.aliases.set(value, alias);
         }

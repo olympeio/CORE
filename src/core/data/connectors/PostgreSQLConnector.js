@@ -1,8 +1,10 @@
 import { DataSource, register } from 'olympe';
 import {knex, Knex} from 'knex';
 import {getLogger} from "logging";
+import SQLQueryExecutor from "./sql/SQLQueryExecutor";
 import SchemaObserver from "./sql/SchemaObserver";
 import {HEALTH_CHECK_QUERY} from "./sql/_statics";
+import SQLTransactionWriter from "./sql/SQLTransactionWriter";
 
 const config = {
     host: 'host',
@@ -43,14 +45,20 @@ export default class PostgreSQLConnector extends DataSource {
     /**
      * @override
      */
-    init() {
+    async init() {
         this.logger.info(`Initialization of SQLConnector ${this.getId()}...`);
         const host = this.getConfig(config.host) ?? 'localhost';
         const database = this.getConfig(config.database);
         const schema = this.getConfig(config.schema);
 
+        if (database === null || schema === null) {
+            const errorMsg = 'Config error: Database or Schema is null.\n' +
+            `Note that this data connector look for config from either data.${this.name().toLowerCase().replace(/\W/g, '_')}, data.${this.getTag()} or data.`;
+            throw new Error(errorMsg);
+        }
+
         if (this.knex !== null) {
-            this.knex.destroy().then();
+            await this.knex.destroy();
         }
 
         this.knex = knex({
@@ -67,45 +75,64 @@ export default class PostgreSQLConnector extends DataSource {
                 max: this.getConfig(config.maxConnections) ?? 10,
             },
             acquireConnectionTimeout: this.getConfig(config.connectionsTimeout) ?? 10000,
-        })
-
-        return this.healthCheck().then(() => {
-            this.logger.info(`SQLConnector ${this.getId()} started with host ${host}, database ${database} on schema ${schema}`);
-            return this.schemaObserver.init(this.knex, schema);
-        }).then(() => {
-            this.logger.info(`Schema of SQLConnector ${this.getId()} has been initialized`);
         });
-    }
 
-    /**
-     * @override
-     */
-    healthCheck() {
-        if (this.knex === null) {
-            return Promise.reject('SQL Connector: No knex client');
-        }
+        // Check the connection to SQL database is established
+        await this.healthCheck();
+        this.logger.info(`SQLConnector ${this.getId()} started with host ${host}, database ${database} on schema ${schema}`);
 
-        return this.knex.raw(HEALTH_CHECK_QUERY).then();
-    }
+        // Subscribe to the data model handled by this data source
+        await new Promise((done, fail) => {
+            let first = true;
+            this.observeDataTypes().subscribe((dataTypes) => {
+                this.logger.debug(`Data source ${this.name()} should handle ${dataTypes.size()} data types`);
 
-    /**
-     * @override
-     */
-    destroy() {
-        if (this.knex !== null) {
-            return this.knex.destroy().then(() => {
-                this.knex = null;
+                // Wait for the first result to arrive before validate the schema the first time.
+                if (first) {
+                    this.schemaObserver.init(this.knex, schema).then(done).catch(fail);
+                    first = false;
+                }
             });
-        }
-        return Promise.resolve();
+        });
+        this.logger.info(`Schema of SQLConnector ${this.getId()} has been initialized`);
     }
 
     /**
      * @override
      */
-    executeQuery(query) {
-        // TODO: to be completed.
+    async healthCheck() {
+        if (this.knex === null) {
+            throw new Error('SQL Connector: No knex client');
+        }
+
+        await this.knex.raw(HEALTH_CHECK_QUERY);
+    }
+
+    /**
+     * @override
+     */
+    async destroy() {
+        if (this.knex !== null) {
+            await this.knex.destroy();
+            this.knex = null;
+        }
+    }
+
+    /**
+     * @override
+     */
+    async executeQuery(query) {
+        const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaObserver);
+        return await executor.executeQuery(query);
+    }
+
+    /**
+     * @override
+     */
+    async applyTransaction(user, operations) {
+        const writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaObserver);
+        await writer.applyOperations(operations);
     }
 }
 
-register('01857d11d2f7e15cc7af', PostgreSQLConnector);
+register('0185afa35a6a1a5c37e6', PostgreSQLConnector);

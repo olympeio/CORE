@@ -1,20 +1,27 @@
 import {Knex} from 'knex';
 import {COLUMNS} from "./SQLQueryExecutor";
-import {Color, Operation} from 'olympe';
+import {CloudObject, Color, Operation} from 'olympe';
 
 export default class SQLTransactionWriter {
 
     /**
-     * @param {!Logger} logger
+     * @param {!log.Logger} logger
+     * @param {!Knex} client
      * @param {!SchemaObserver} schemaObserver
      */
-    constructor(logger, schemaObserver) {
+    constructor(logger, client, schemaObserver) {
 
         /**
          * @private
-         * @type {!Logger}
+         * @type {!log.Logger}
          */
         this.logger = logger;
+
+        /**
+         * @private
+         * @type {!Knex}
+         */
+        this.client = client;
 
         /**
          * @private
@@ -32,11 +39,10 @@ export default class SQLTransactionWriter {
     /**
      * Execute the list of operations
      *
-     * @param {!Knex} client
-     * @param {!Operation[]} operations
-     * @return {!Promise<!knex.Transaction>}
+     * @param {Operation[]} operations
+     * @return {!Promise<void>}
      */
-    async executeOperations(client, operations) {
+    async applyOperations(operations) {
         // loop over all operations, to ensure the schema is ready for the transaction
         for (const op of operations) {
             switch(op.type) {
@@ -53,7 +59,7 @@ export default class SQLTransactionWriter {
                     this.stack.push(this.createRelation(op.relation, op.from, op.to, op.fromModel, op.toModel));
                     break;
                 case 'DELETE_RELATION':
-                    this.stack.push(this.createRelation(op.relation, op.from, op.to, op.fromModel, op.toModel));
+                    this.stack.push(this.deleteRelation(op.relation, op.from, op.to, op.fromModel, op.toModel));
                     break;
                 default:
             }
@@ -63,13 +69,14 @@ export default class SQLTransactionWriter {
         await this.schemaObserver.waitForFree();
 
         // Return the promise executing the knex transaction on the database.
-        return client.transaction(async (trx) => {
+        return this.client.transaction(async (trx) => {
+            const schema = this.schemaObserver.getSchema();
             for (const knexOp of this.stack) {
-                await knexOp(trx.withSchema(this.schemaObserver.getSchema()));
+                await knexOp(trx.withSchema(schema));
             }
             this.logger.debug('Transaction just before commit: ', trx.toString());
             return trx;
-        }).finally(() => {
+        }, {isolationLevel: 'serializable'}).finally(() => {
             // Clear the writer.
             this.stack.length = 0;
             this.logger.debug('Transaction completed');
@@ -85,7 +92,7 @@ export default class SQLTransactionWriter {
      */
     create(tag, dataType, properties) {
         const table = this.schemaObserver.ensureDataType(dataType, Array.from(properties?.keys() ?? []));
-        return (trx) => trx.table(table).insert(this.toObject(tag, dataType, true, properties)).then();
+        return (trx) => trx.table(table).insert(this.toObject(tag, dataType, true, properties)).onConflict(COLUMNS.TAG).merge().then();
     }
 
     /**
@@ -117,13 +124,20 @@ export default class SQLTransactionWriter {
      * @param {string} relation
      * @param {string} from
      * @param {string} to
-     * @param {string} fromModel
-     * @param {string} toModel
+     * @param {?string=} fromModel
+     * @param {?string=} toModel
      * @return {function(!Knex.Transaction):!Promise<void>}
      */
     createRelation(relation, from, to, fromModel, toModel) {
+        // Skip model relations => represented through tables containing rows (instances)
+        if (relation === CloudObject.modelRel.getTag()) {
+            return (_) => Promise.resolve();
+        }
+        if (typeof fromModel !== 'string' || typeof toModel !== 'string') {
+            throw new Error(`SQL connector: invalid transaction: missing origin or destination model to create the relation ${from}-[${relation}]->${to}`);
+        }
         const table = this.schemaObserver.ensureRelation(relation, fromModel, toModel);
-        return (trx) => trx.table(table).insert({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).then();
+        return (trx) => trx.table(table).insert({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).onConflict().ignore().then();
     }
 
     /**
@@ -131,12 +145,19 @@ export default class SQLTransactionWriter {
      * @param {string} relation
      * @param {string} from
      * @param {string} to
-     * @param {string} fromModel
-     * @param {string} toModel
+     * @param {?string=} fromModel
+     * @param {?string=} toModel
      * @return {function(!Knex.Transaction):!Promise<void>}
      */
     deleteRelation(relation, from, to, fromModel, toModel) {
-        const table = this.schemaObserver.getRelation(relation, fromModel, toModel);
+        // Skip model relations => represented through tables containing rows (instances)
+        if (relation === CloudObject.modelRel.getTag()) {
+            return (_) => Promise.resolve();
+        }
+        if (typeof fromModel !== 'string' || typeof toModel !== 'string') {
+            throw new Error(`SQL connector: invalid transaction: missing origin or destination model to create the relation ${from}-[${relation}]->${to}`);
+        }
+        const table = this.schemaObserver.getRelationTable(relation, fromModel, toModel);
         return (trx) => table ? trx.table(table).where({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).del().then() : Promise.resolve();
     }
 
@@ -150,9 +171,10 @@ export default class SQLTransactionWriter {
      */
     toObject(tag, dataType, withTag, properties) {
         const object = withTag ? {[COLUMNS.TAG]: tag } : {};
+        const table = this.schemaObserver.getTable(dataType);
         if (properties) {
             for (const [prop, value] of properties) {
-                const colName = this.schemaObserver.getColumn(dataType, prop);
+                const colName = this.schemaObserver.getColumn(table, prop);
                 object[colName] = SQLTransactionWriter.serializeValue(value);
             }
         }
@@ -169,7 +191,7 @@ export default class SQLTransactionWriter {
         if (val instanceof Date) {
             serialValue = val.toJSON();
         } else if (val instanceof Color) {
-            serialValue = `${val.getRed()}.${val.getGreen()}.${val.getBlue()}.${val.getAlpha()}`;
+            serialValue = `${val.getRed()};${val.getGreen()};${val.getBlue()};${val.getAlpha()}`;
         }
         return serialValue;
     }
