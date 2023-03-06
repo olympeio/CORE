@@ -1,6 +1,6 @@
 import {Brick, Predicate, registerBrick} from 'olympe';
 
-export default class QueryFilterIsObject extends Brick {
+export default class QueryFilterIn extends Brick {
 
     /**
      * @protected
@@ -11,8 +11,8 @@ export default class QueryFilterIsObject extends Brick {
      */
     update($, [query, objects], [setQuery]) {
         const array = Array.isArray(objects) ? objects : [objects];
-        setQuery(query.filter(Predicate.is(...array)));
+        setQuery(query.filter(Predicate.in(...array)));
     }
 }
 
-registerBrick('0186b15a8b63513b2e4b', QueryFilterIsObject);
+registerBrick('0186b15a8b63513b2e4b', QueryFilterIn);
