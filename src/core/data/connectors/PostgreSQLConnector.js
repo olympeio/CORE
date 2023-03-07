@@ -137,7 +137,7 @@ export default class PostgreSQLConnector extends DataSource {
     /**
      * @override
      */
-    async uploadFile(fileTag, dataType, binary) {
+    async uploadFileContent(fileTag, dataType, binary) {
         const properties = new Map([[COLUMNS.FILE_CONTENT, binary]]);
         await this.applyTransaction([{type: 'CREATE', object: fileTag, model: dataType, properties}]);
     }
@@ -145,7 +145,7 @@ export default class PostgreSQLConnector extends DataSource {
     /**
      * @override
      */
-    async downloadFile(fileTag, dataType) {
+    async downloadFileContent(fileTag, dataType) {
         const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaObserver);
         return await executor.downloadFileContent(fileTag, dataType);
     }
@@ -153,7 +153,7 @@ export default class PostgreSQLConnector extends DataSource {
     /**
      * @override
      */
-    async deleteFile(fileTag, dataType) {
+    async deleteFileContent(fileTag, dataType) {
         const properties = new Map([[COLUMNS.FILE_CONTENT, null]]);
         await this.applyTransaction([{type: 'UPDATE', object: fileTag, model: dataType, properties}]);
     }
