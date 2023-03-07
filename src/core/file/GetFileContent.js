@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, File } from 'olympe';
+import { ActionBrick, registerBrick, File as OFile } from 'olympe';
 import { toBase64 } from 'helpers/binaryConverters';
 import {getLogger} from 'logging';
 import {isMimeTypeText} from '../net/utils/httpResponseHandlers';
@@ -30,7 +30,7 @@ export default class GetFileContent extends ActionBrick {
     update(context, [file], [forwardEvent, setContent]) {
         const logger = getLogger('Get File Content');
 
-        if (file === undefined || file === null || file.getContentAsBinary === undefined) {
+        if (!(file instanceof OFile)) {
             // warning for legacy usage of the brick, where string/ArrayBuffer was provided as input
             logger.warn(`${file} is not a valid file`);
             return;
@@ -40,21 +40,17 @@ export default class GetFileContent extends ActionBrick {
             logger.error(`Could not retrieve content of ${file}\n${message}`);
         };
 
-        const mimeType = file.get(File.mimeTypeProp) || '';
-        const asText = isMimeTypeText(mimeType);
-        if (asText) {
+        const mimeType = file.get(OFile.mimeTypeProp) ?? '';
+        if (isMimeTypeText(mimeType)) {
             file.getContentAsString((content) => {
                 setContent(content);
                 forwardEvent();
             }, onFailure);
         } else {
-            file.getContentAsBinary(
-                (content) => {
-                    setContent(toBase64(content));
-                    forwardEvent();
-                },
-                onFailure
-            );
+            file.getContentAsBinary((content) => {
+                setContent(toBase64(content));
+                forwardEvent();
+            }, onFailure);
         }
     }
 }

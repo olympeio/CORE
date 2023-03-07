@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick } from 'olympe';
+import { ActionBrick, registerBrick, File as OFile } from 'olympe';
 import {getLogger} from 'logging';
 
 export default class GetBinaryFileContent extends ActionBrick {
@@ -28,21 +28,18 @@ export default class GetBinaryFileContent extends ActionBrick {
     update(context, [file], [forwardEvent, setContent]) {
         const logger = getLogger('Get Binary File Content');
 
-        if (file === undefined || file === null || file.getContentAsBinary === undefined) {
+        if (!(file instanceof OFile)) {
             // warning for legacy usage of the brick, where string/ArrayBuffer was provided as input
             logger.warn(`${file} is not a valid file`);
             return;
         }
 
-        file.getContentAsBinary(
-            (content) => {
-                setContent(content);
-                forwardEvent();
-            },
-            (message) => {
-                logger.error(`Could not retrieve content of ${file}\n${message}`);
-            }
-        );
+        file.getContentAsBinary((content) => {
+            setContent(content);
+            forwardEvent();
+        }, (message) => {
+            logger.error(`Could not retrieve content of ${file}\n${message}`);
+        });
     }
 }
 

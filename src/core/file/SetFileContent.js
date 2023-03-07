@@ -1,4 +1,3 @@
-
 /**
  * Copyright 2021 Olympe S.A.
  *
@@ -14,45 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import {ActionBrick, ErrorFlow, registerBrick, File as OFile, Transaction, CloudObject} from 'olympe';
+import {stringToBinary} from "helpers/binaryConverters";
 
-import { ActionBrick, registerBrick, Transaction, File as OFile, ErrorFlow, CloudObject } from 'olympe';
-import {stringToBinary} from 'helpers/binaryConverters';
-
-export default class CreateFile extends ActionBrick {
+export default class SetFileContent extends ActionBrick {
 
     /**
+     * @override
      * @protected
      * @param {!BrickContext} $
-     * @param {string=} fileName
-     * @param {string=} mimeType
+     * @param {File} file
+     * @param {string} fileName
+     * @param {string} mimeType
      * @param {string} content
      * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} setErrorFlow
-     * @param {function(!File)} setFile
+     * @param {function(File)} setFile
      */
-    update($, [fileName, mimeType, content], [forwardEvent, setErrorFlow, setFile]) {
+    update($, [file, fileName, mimeType, content], [forwardEvent, setErrorFlow, setFile]) {
+        // Guards
         if (typeof content !== 'string' && !(content instanceof ArrayBuffer)) {
             setErrorFlow(ErrorFlow.create('Only support String or ArrayBuffer content types', 2));
             return;
         }
 
-        const transaction = new Transaction();
-        const file = transaction.create(OFile)
+        const transaction = Transaction.from($);
         OFile.setContent(
             transaction,
             file,
-            fileName ?? 'new_File_from_CreateFile_brick',
+            fileName ?? 'File_from_Set_File_Content_brick',
             content instanceof ArrayBuffer ? content : stringToBinary(content),
             mimeType ?? 'text/plain'
         );
-        transaction.persistInstance(file, false);
-        transaction.execute().then(() => {
-            setFile(CloudObject.get(file));
+        Transaction.process($, transaction).then((executed) => {
+            setFile(executed ? CloudObject.get(file) : file);
             forwardEvent();
         }).catch((message) => {
-            setErrorFlow(ErrorFlow.create(message, 1));
+            setErrorFlow(ErrorFlow.create(`Set File Content: ${message}`, 1));
         });
     }
 }
 
-registerBrick('0177920f48b23cd01af7', CreateFile);
+registerBrick('0186bb8ab7bd8fa01d91', SetFileContent);

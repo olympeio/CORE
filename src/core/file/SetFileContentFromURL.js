@@ -13,39 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import {ActionBrick, registerBrick, Transaction, File as OFile, CloudObject, ErrorFlow} from 'olympe';
 
-import { ActionBrick, registerBrick, File as OFile, Transaction, ErrorFlow, CloudObject } from 'olympe';
-
-export default class CreateFileFromURL extends ActionBrick {
+export default class SetFileContentFromURL extends ActionBrick {
 
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {string=} fileName
-     * @param {string=} mimeType
+     * @param {File} file
+     * @param {string} fileName
+     * @param {string} mimeType
      * @param {string} url
      * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} setErrorFlow
-     * @param {function(!File)} setFile
+     * @param {function(File)} setFile
      */
-    update($, [fileName, mimeType, url], [forwardEvent, setErrorFlow, setFile]) {
-        const transaction = new Transaction();
-        const file = transaction.create(OFile);
+    update($, [file, fileName, mimeType, url], [forwardEvent, setErrorFlow, setFile]) {
+        const transaction = Transaction.from($);
         OFile.setURLContent(
             transaction,
             file,
-            fileName ?? 'new_File_from_CreateFileFromURL_brick',
+            fileName ?? 'File_from_Set_File_URL_Content_brick',
             url,
             mimeType ?? 'text/plain'
         );
-        transaction.persistInstance(file, false);
-        transaction.execute().then(() => {
-            setFile(CloudObject.get(file));
+        Transaction.process($, transaction).then((executed) => {
+            setFile(executed ? CloudObject.get(file) : file);
             forwardEvent();
         }).catch((message) => {
-            setErrorFlow(ErrorFlow.create(message, 1));
+            setErrorFlow(ErrorFlow.create(`Set File Content: ${message}`, 1));
         });
     }
 }
 
-registerBrick('017bc1ea3fad868319fc', CreateFileFromURL);
+registerBrick('0186bb8b16cb1a4eed14', SetFileContentFromURL);

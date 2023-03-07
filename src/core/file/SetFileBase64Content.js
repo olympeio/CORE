@@ -13,25 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, ErrorFlow, File as OFile, CloudObject, Transaction } from 'olympe';
-import { dataUrlToBinary, fromBase64 } from 'helpers/binaryConverters';
+import {ActionBrick, registerBrick, Transaction, File as OFile, CloudObject, ErrorFlow} from 'olympe';
+import {dataUrlToBinary, fromBase64} from "helpers/binaryConverters";
 
-export default class CreateFileFromBase64 extends ActionBrick {
+export default class SetFileBase64Content extends ActionBrick {
 
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {string=} fileName
-     * @param {string=} mimeType
+     * @param {File} file
+     * @param {string} fileName
+     * @param {string} mimeType
      * @param {string} base64Content
      * @param {function()} forwardEvent
      * @param {function(ErrorFlow)} setErrorFlow
-     * @param {function(!File)} setFile
+     * @param {function(File)} setFile
      */
-    update($, [fileName, mimeType, base64Content], [forwardEvent, setErrorFlow, setFile]) {
-        const transaction = new Transaction();
+    update($, [file, fileName, mimeType, base64Content], [forwardEvent, setErrorFlow, setFile]) {
         const isDataURL = base64Content.startsWith('data:');
-
         let finalMimeType = mimeType;
         if (!finalMimeType) {
             // Try to guess the mimetype from the data url.
@@ -39,22 +38,21 @@ export default class CreateFileFromBase64 extends ActionBrick {
             finalMimeType = regExpRes !== null && regExpRes.length === 2 ? regExpRes[1] : 'text/plain';
         }
 
-        const file = transaction.create(OFile);
+        const transaction = Transaction.from($);
         OFile.setContent(
             transaction,
             file,
-            fileName ?? 'new_File_from_CreateFileFromBase64_brick',
+            fileName ?? 'File_from_Set_File_Base64_Content_brick',
             isDataURL ? dataUrlToBinary(base64Content) : fromBase64(base64Content),
             finalMimeType
         );
-        transaction.persistInstance(file, false);
-        transaction.execute().then(() => {
-            setFile(CloudObject.get(file));
+        Transaction.process($, transaction).then((executed) => {
+            setFile(executed ? CloudObject.get(file) : file);
             forwardEvent();
         }).catch((message) => {
-            setErrorFlow(ErrorFlow.create(message, 1));
+            setErrorFlow(ErrorFlow.create(`Set File Base64 Content: ${message}`, 1));
         });
     }
 }
 
-registerBrick('017821d939590a41cc82', CreateFileFromBase64);
+registerBrick('0186bb8aed6b15cc318c', SetFileBase64Content);
