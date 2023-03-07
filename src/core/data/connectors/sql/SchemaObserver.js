@@ -522,9 +522,17 @@ class Table {
 
         await builder.table(this.name, (tableBuilder) => {
             columnsToCreate.forEach((columnTag) => {
+                const comment = `${SCHEMA_PREFIXES.PROPERTY}:${columnTag}`
+
+                // Exception for file content (binary content of files)
+                if (columnTag === COLUMNS.FILE_CONTENT) {
+                    tableBuilder.binary(columnTag).comment(comment);
+                    this.columns.set(columnTag, columnTag);
+                    return;
+                }
+
                 // Primitive types are: string, number, boolean, date, color
                 const columnName = SchemaObserver.toSQLName(this.db.name(columnTag), columnTag);
-                const comment = `${SCHEMA_PREFIXES.PROPERTY}:${columnTag}`
                 this.columns.set(columnTag, columnName);
                 const type = /** @type {!olympe.dc.CloudObject} */ (QuerySingle.from(columnTag).follow(PropertyModel.typeRel).executeFromCache());
                 if (this.db.isExtending(type, StringModel)) { // this also takes care of enums

@@ -1,7 +1,7 @@
-import { DataSource, register } from 'olympe';
+import {DataSource, register} from 'olympe';
 import {knex, Knex} from 'knex';
 import {getLogger} from "logging";
-import SQLQueryExecutor from "./sql/SQLQueryExecutor";
+import SQLQueryExecutor, {COLUMNS} from "./sql/SQLQueryExecutor";
 import SchemaObserver from "./sql/SchemaObserver";
 import {HEALTH_CHECK_QUERY} from "./sql/_statics";
 import SQLTransactionWriter from "./sql/SQLTransactionWriter";
@@ -129,9 +129,33 @@ export default class PostgreSQLConnector extends DataSource {
     /**
      * @override
      */
-    async applyTransaction(user, operations) {
+    async applyTransaction(operations) {
         const writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaObserver);
         await writer.applyOperations(operations);
+    }
+
+    /**
+     * @override
+     */
+    async uploadFile(fileTag, dataType, binary) {
+        const properties = new Map([[COLUMNS.FILE_CONTENT, binary]]);
+        await this.applyTransaction([{type: 'CREATE', object: fileTag, model: dataType, properties}]);
+    }
+
+    /**
+     * @override
+     */
+    async downloadFile(fileTag, dataType) {
+        const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaObserver);
+        return await executor.downloadFileContent(fileTag, dataType);
+    }
+
+    /**
+     * @override
+     */
+    async deleteFile(fileTag, dataType) {
+        const properties = new Map([[COLUMNS.FILE_CONTENT, null]]);
+        await this.applyTransaction([{type: 'UPDATE', object: fileTag, model: dataType, properties}]);
     }
 }
 

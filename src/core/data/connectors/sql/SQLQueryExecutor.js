@@ -181,6 +181,27 @@ export default class SQLQueryExecutor {
     }
 
     /**
+     * Return the binary content of the given file.
+     *
+     * @param {string} fileTag
+     * @param {string} dataType
+     * @return {Promise<!Uint8Array>}
+     */
+    async downloadFileContent(fileTag, dataType) {
+        const {FILE_CONTENT, TAG} = COLUMNS;
+        const tableName = this.schema.getTablesOfType(dataType, false)[0];
+        if (tableName) {
+            const rows = await this.builder().from(tableName).select(FILE_CONTENT).where(TAG, fileTag);
+            const fileResult = rows[0];
+            if (fileResult?.[FILE_CONTENT]) {
+                const fileBuffer = fileResult[FILE_CONTENT];
+                return fileBuffer.buffer.slice(fileBuffer.byteOffset, fileBuffer.byteOffset + fileBuffer.byteLength);
+            }
+        }
+        throw new Error(`File ${fileTag} not found in the database`);
+    }
+
+    /**
      * @private
      * @param {!QueryPart} part
      * @param {string[]} parentTables
