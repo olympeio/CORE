@@ -16,34 +16,26 @@ export const SCHEMA_PREFIXES = {
 export const HEALTH_CHECK_QUERY = 'SELECT 1';
 
 export const QUERY_ALL_TABLES = `
-    SELECT 
-        rel.relname AS name, 
-        obj_description(rel.oid) AS comment
-    FROM 
-        pg_class rel
-    WHERE 
-        rel.relkind = 'r' 
-        AND rel.relnamespace IN (?::regnamespace) -- schema
+    SELECT
+        allTables.table_name as name,
+        obj_description(class.oid) as comment
+    FROM information_schema.tables allTables
+    JOIN pg_class class
+    ON class.relname = allTables.table_name
+    WHERE table_schema = ? -- schema
 `;
 
 export const QUERY_ALL_COLUMNS = `
-    SELECT
-        att.attname AS name,
-        rel.relname AS tableName,
-        des.description AS comment
-    FROM
-        pg_attribute att
-        LEFT JOIN pg_class rel ON att.attrelid = rel.oid
-        LEFT JOIN pg_description des ON (att.attrelid, att.attnum) = (des.objoid, des.objsubid)
-    WHERE
-        rel.relnamespace IN (?::regnamespace)   -- schema 
-        AND rel.relname = ?                     -- table name
-        AND rel.relkind = 'r'
-        AND att.attnum > 0
+    SELECT    cols.column_name as name,    
+              cols.table_name as tablename,    
+              col_description(class.oid, cols.ordinal_position::int) as comment
+    FROM information_schema.columns cols
+    JOIN pg_class class ON class.relname = cols.table_name
+    WHERE  cols.table_schema = ? AND cols.table_name = ?
 `;
 
-export const QUERY_DATA_TYPE_TABLES = `${QUERY_ALL_TABLES} AND obj_description(rel.oid) LIKE '${SCHEMA_PREFIXES.TYPE}:%'`;
-export const QUERY_RELATION_TABLES = `${QUERY_ALL_TABLES} AND obj_description(rel.oid) LIKE '${SCHEMA_PREFIXES.RELATION}:%'`;
-export const QUERY_COLUMNS = `${QUERY_ALL_COLUMNS} AND des.description LIKE '${SCHEMA_PREFIXES.PROPERTY}:%'`;
+export const QUERY_DATA_TYPE_TABLES = `${QUERY_ALL_TABLES} AND obj_description(class.oid) LIKE '${SCHEMA_PREFIXES.TYPE}:%'`;
+export const QUERY_RELATION_TABLES = `${QUERY_ALL_TABLES} AND obj_description(class.oid) LIKE '${SCHEMA_PREFIXES.RELATION}:%'`;
+export const QUERY_COLUMNS = `${QUERY_ALL_COLUMNS} AND col_description(class.oid, cols.ordinal_position::int) LIKE '${SCHEMA_PREFIXES.PROPERTY}:%'`;
 
 export const SET_COLUMNS_COMMENT = (value) => `COMMENT ON COLUMN ??.??.?? IS '${value}';`;
