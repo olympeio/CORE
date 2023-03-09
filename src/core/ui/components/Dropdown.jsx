@@ -468,7 +468,7 @@ export default class Dropdown extends ReactBrick {
         const variant = useProperty($, 'Variant');
         const hasHelperText = !!useProperty($, 'Helper Text');
         const hasEmptyText = !!useProperty($, 'Empty Text');
-        
+
         const [open, setOpen] = useState(false);
         const [selectedValue, setSelectedValue] = useState(multiple ? [] : null);
 
@@ -537,7 +537,7 @@ export default class Dropdown extends ReactBrick {
             const actualInputHeight = (height - (hasHelperText ? 20 : 0)); // 20 is height of helper text
             if (actualInputHeight > Dropdown.heightSmallMinSizeAutoComplete) {
                 let translateY = (actualInputHeight - 23) / 2; // 23 is height of label
-        
+
                 if (hasEmptyText || selectedValue) {
                     translateY = -8;
                 }
@@ -565,7 +565,7 @@ export default class Dropdown extends ReactBrick {
             const isSelectedValue = values !== undefined && values[0] !== null && values[0] !== undefined;
             const hasInput = isSelectedValue || autocompleteText !== '';
             const props = Dropdown.getTextFieldProps($, hasInput, params);
-            const inputProps = {
+            const InputProps = {
                 ...props.InputProps,
                 endAdornment: (
                     <React.Fragment>
@@ -585,7 +585,10 @@ export default class Dropdown extends ReactBrick {
                 <TextField
                     {...params}
                     {...props}
-                    InputProps={inputProps}
+                    inputProps={{
+                        ...params.inputProps
+                    }}
+                    InputProps={InputProps}
                 />
             );
         };
