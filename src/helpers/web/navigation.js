@@ -63,7 +63,7 @@ export class NavigationManager {
      */
     onOnHashChange(callback, id) {
         const finalId = id ?? NavigationManager.generateUniqueCallbackId();
-        this.onHashChangeHandlers.set(id, callback);
+        this.onHashChangeHandlers.set(finalId, callback);
         return finalId;
     }
 
@@ -86,7 +86,7 @@ export class NavigationManager {
      */
     onOnPopState(callback, id) {
         const finalId = id ?? NavigationManager.generateUniqueCallbackId();
-        this.onPopStateHanlders.set(id, callback);
+        this.onPopStateHanlders.set(finalId, callback);
         return finalId;
     }
 

@@ -63,7 +63,8 @@ export default class ExcelToJSON extends Brick {
                 logger.error('Provided source is empty or is not a correct Excel file');
                 setErrorFlow(ErrorFlow.create('Provided source is empty or is not a correct Excel file', 1));
             } else {
-                setResult(json);
+                // The first line contains header so we have to remove it
+                setResult(json.slice(1));
             }
         } catch (error) {
             logger.error('Error while converting content to JSON: ' + error.message);
