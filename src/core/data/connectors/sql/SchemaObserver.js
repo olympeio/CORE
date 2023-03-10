@@ -275,20 +275,22 @@ export default class SchemaObserver {
      * @param {!Array<string>} propertiesTag list of the properties tags of the data type to migrate
      */
     migrateDataType(dataType, propertiesTag) {
-        const tableName = this.tableFromTags.get(dataType) ?? SchemaObserver.toSQLName(this.db.name(dataType), dataType);
-        const table = this.tables.get(tableName) ?? new Table(this.logger, tableName, dataType);
+        // discriminate file model tag that changed with data source integration.
+        const dataTypeTag = dataType === 'ff021000000000000030' ? 'ff021000000000000031' : dataType;
+        const tableName = this.tableFromTags.get(dataTypeTag) ?? SchemaObserver.toSQLName(this.db.name(dataTypeTag), dataTypeTag);
+        const table = this.tables.get(tableName) ?? new Table(this.logger, tableName, dataTypeTag);
         if (!this.tables.has(tableName)) {
             this.tables.set(tableName, table);
-            this.tableFromTags.set(dataType, tableName);
+            this.tableFromTags.set(dataTypeTag, tableName);
             this.pushOperation(
-                () => this.getSchemaBuilder().renameTable(dataType, tableName).then(() => {
-                    this.logger.log('[MIGRATION] Table ', dataType, ' renamed successfully to ', tableName);
+                () => this.getSchemaBuilder().renameTable(dataTypeTag, tableName).then(() => {
+                    this.logger.log('[MIGRATION] Table ', dataTypeTag, ' renamed successfully to ', tableName);
                 }).catch((err) => {
-                    this.logger.log('[MIGRATION] Error renaming table ', dataType, ' with name ', tableName, ' got error: ', err);
+                    this.logger.log('[MIGRATION] Error renaming table ', dataTypeTag, ' with name ', tableName, ' got error: ', err);
                 }),
-                `Altering table for tag ${dataType}, with name ${tableName}`
+                `Altering table for tag ${dataTypeTag}, with name ${tableName}`
             );
-            const comment = `${SCHEMA_PREFIXES.TYPE}:${dataType}`;
+            const comment = `${SCHEMA_PREFIXES.TYPE}:${dataTypeTag}`;
             this.pushOperation(
                 () => this.getSchemaBuilder().table(
                     tableName,
@@ -296,11 +298,11 @@ export default class SchemaObserver {
                 ),
                 `Add a comment ${comment} for table ${tableName}`
             );
-            this.logger.log('[MIGRATION] Migrating columns for the table ', tableName, ' with tag ', dataType);
+            this.logger.log('[MIGRATION] Migrating columns for the table ', tableName, ' with tag ', dataTypeTag);
             for (const propertyTag of propertiesTag) {
                 this.pushOperation(
                     () => table.migratePropertyColumn(this.getSchemaBuilder(), propertyTag),
-                    `Migrating column ${propertyTag} for data type ${dataType} and table name ${tableName}`
+                    `Migrating column ${propertyTag} for data type ${dataTypeTag} and table name ${tableName}`
                 );
             }
         }
@@ -609,7 +611,7 @@ class Table {
             const comment = `${SCHEMA_PREFIXES.PROPERTY}:${columnTag}`
             if (columnTag === COLUMNS.FILE_CONTENT) {
                 this.columns.set(columnTag, columnTag);
-                tableBuilder.renameColumn(OLD_FILE_MODEL_TAG, columnTag).comment(comment);
+                tableBuilder.binary(COLUMNS.FILE_CONTENT).comment(comment).alter({alterNullable: false});
                 return;
             }
             // for any other type
@@ -625,7 +627,6 @@ class Table {
         }).catch((err) => {
             this.logger.log('[MIGRATION] Error changing column name: ', columnTag, ' to new name ', this.columns.get(columnTag), '\n Error: ', err);
         });
-        const OLD_FILE_MODEL_TAG = "ff021000000000000030";
     }
     /**
      * @param {!Knex.SchemaBuilder} builder
