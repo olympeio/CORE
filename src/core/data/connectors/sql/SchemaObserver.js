@@ -4,7 +4,13 @@ import {
     StringModel, NumberModel, BooleanModel, DatetimeModel, ColorModel, DBView
 } from 'olympe';
 import {COLUMNS} from "./SQLQueryExecutor";
-import {QUERY_COLUMNS, QUERY_DATA_TYPE_TABLES, QUERY_RELATION_TABLES, SCHEMA_PREFIXES} from "./_statics";
+import {
+    QUERY_ALL_TABLES,
+    QUERY_COLUMNS,
+    QUERY_DATA_TYPE_TABLES,
+    QUERY_RELATION_TABLES,
+    SCHEMA_PREFIXES
+} from './_statics';
 
 export default class SchemaObserver {
 
@@ -97,6 +103,9 @@ export default class SchemaObserver {
 
             // If no data type table, means that we are probably trying to migration to the new sql connector format.
             if (dataTypeTables.length === 0) {
+                this.logger.log("[MIGRATION] STARTING")
+                const allTables = await queryTables(QUERY_ALL_TABLES);
+                this.migrate(allTables.map(([tableName,]) => tableName));
                 return;
             }
 
@@ -261,6 +270,43 @@ export default class SchemaObserver {
     }
 
     /**
+     * Migrate a data type table and its columns
+     * @param {string } dataType the tag of the data type
+     * @param {!Array<string>} propertiesTag list of the properties tags of the data type to migrate
+     */
+    migrateDataType(dataType, propertiesTag) {
+        const tableName = this.tableFromTags.get(dataType) ?? SchemaObserver.toSQLName(this.db.name(dataType), dataType);
+        const table = this.tables.get(tableName) ?? new Table(this.logger, tableName, dataType);
+        if (!this.tables.has(tableName)) {
+            this.tables.set(tableName, table);
+            this.tableFromTags.set(dataType, tableName);
+            this.pushOperation(
+                () => this.getSchemaBuilder().renameTable(dataType, tableName).then(() => {
+                    this.logger.log('[MIGRATION] Table ', dataType, ' renamed successfully to ', tableName);
+                }).catch((err) => {
+                    this.logger.log('[MIGRATION] Error renaming table ', dataType, ' with name ', tableName, ' got error: ', err);
+                }),
+                `Altering table for tag ${dataType}, with name ${tableName}`
+            );
+            const comment = `${SCHEMA_PREFIXES.TYPE}:${dataType}`;
+            this.pushOperation(
+                () => this.getSchemaBuilder().table(
+                    tableName,
+                    (tableBuilder) => tableBuilder.comment(comment)
+                ),
+                `Add a comment ${comment} for table ${tableName}`
+            );
+            this.logger.log('[MIGRATION] Migrating columns for the table ', tableName, ' with tag ', dataType);
+            for (const propertyTag of propertiesTag) {
+                this.pushOperation(
+                    () => table.migratePropertyColumn(this.getSchemaBuilder(), propertyTag),
+                    `Migrating column ${propertyTag} for data type ${dataType} and table name ${tableName}`
+                );
+            }
+        }
+    }
+
+    /**
      * @param {string} relationTag
      * @param {string} fromTag
      * @param {string} toTag
@@ -282,6 +328,27 @@ export default class SchemaObserver {
             }, `Ensure relation table exists for ${fromTag}-[${relationTag}]->${toTag}`);
         }
         return tableName;
+    }
+
+
+
+    migrateRelation(relationTag, fromTag, toTag) {
+        this.logger.log(`[MIGRATION] migrating relation table ${relationTag}`);
+        const globalTag = `${fromTag}:${relationTag}:${toTag}`;
+        const tableName = this.tableFromTags.get(globalTag)
+            ?? SchemaObserver.getSQLRelationName(this.db.name(fromTag), this.db.name(relationTag), this.db.name(toTag), relationTag);
+        if (!this.tables.has(tableName)) {
+            const table = new Table(this.logger, tableName, globalTag);
+            this.tables.set(tableName, table);
+            this.tableFromTags.set(globalTag, tableName);
+            this.pushOperation(() => {
+                this.getSchemaBuilder().renameTable(relationTag, tableName).then(() => {
+                    this.logger.log('[MIGRATION] Table ', relationTag, ' renamed successfully to ', tableName);
+                }).catch((err) => {
+                    this.logger.log('[MIGRATION] Error renaming table ', relationTag, ' with name ', tableName, ' got error: ', err);
+                })
+            }, `Renaming relation table ${relationTag} to ${tableName}`);
+        }
     }
 
     /**
@@ -318,6 +385,28 @@ export default class SchemaObserver {
      */
     getSchemaBuilder() {
         return this.knex.schema.withSchema(this.schema);
+    }
+
+    migrate(tableNameList) {
+        for (const name of tableNameList) {
+            if (this.db.exist(name)) {
+                const tag = name;
+                // the name exists => the table name is a tag and needs migration
+                if(this.db.instanceOf(name,RelationModel)) {
+                    const fromTag = QuerySingle.from(tag).follow(RelationModel.originModelRel).executeFromCache()?.getTag();
+                    const toTag = QuerySingle.from(tag).follow(RelationModel.destinationModelRel).executeFromCache()?.getTag();
+
+                    this.migrateRelation(tag, fromTag, toTag);
+                } else {
+                    // tag is a name of DB table, tag is not a relation => tag is a data type
+                    const propertiesTag = Query.from(tag)
+                        .follow(CloudObject.propertyRel).andReturn()
+                        .executeFromCache()
+                        .map(propertyModel => propertyModel.getTag());
+                    this.migrateDataType(tag, propertiesTag);
+                }
+            }
+        }
     }
 
     /**
@@ -402,58 +491,57 @@ export default class SchemaObserver {
         return Promise.all(promises);
     }
 
-    /**
-     * @param {!log.Logger} logger
-     * @param {string} schemaType
-     * @param {[string, string][]} currentSchema
-     * @param {!QueryResult<CloudObject>} validDataTypes
-     * @param {function(string, string, string, string):Promise<void>} modifier
-     * @return {!Promise<void>}
-     */
-    static migrateSchema(logger, schemaType, currentSchema, validDataTypes, modifier) {
-        const db = DBView.get();
-        let recoveryMap = null;
-        const promises = [];
-
-        for (const [name, comment] of currentSchema) {
-            let finalName = null, finalTag = null;
-            const tag = typeof comment === 'string' && comment.split(':')[1];
-
-            // 1. If tag is valid, compute the new name to ensure it is updated
-            if (typeof tag === 'string' && db.exist(tag)) {
-                finalTag = tag;
-                finalName = SchemaObserver.toSQLName(db.name(tag), tag);
-            }
-
-            // 2. Otherwise, try to recover the right model based on the name, which could either be a tag or a formatted name of a model.
-            else {
-                // 2.a. build the recovery map if it does not exist yet.
-                if (recoveryMap === null) {
-                    recoveryMap = validDataTypes.reduce((map , model) => map.set(model.getTag(), model), new Map());
-                }
-
-                // 2.b. try to find a candidate model
-                if (recoveryMap.has(name)) {
-                    const recoveredModel = recoveryMap.get(name);
-                    recoveryMap.delete(name); // Avoid to reuse a model multiple times.
-                    const modelName = recoveredModel.name();
-                    finalTag = recoveredModel.getTag();
-                    finalName = SchemaObserver.toSQLName(modelName, finalTag);
-                    logger.info(`${schemaType === SCHEMA_PREFIXES.TYPE ? 'Table' : 'Column'} ${name} (tag: ${tag}) has been matched with model ${modelName} (tag: ${finalTag}) and will be updated`);
-                }
-            }
-
-            if (finalName !== null && finalTag !== null) {
-                promises.push(modifier(name, tag, /** @type {string} */ (finalName), /** @type {string} */ (finalTag)));
-            } else {
-                logger.warn(`No match has been found for ${schemaType === SCHEMA_PREFIXES.TYPE ? 'Table' : 'Column'} ${name} (tag: ${tag}) in the data model, ignore that element.`);
-            }
-        }
-
-        return Promise.all(promises);
-    }
+//     /**
+//      * @param {!log.Logger} logger
+//      * @param {string} schemaType
+//      * @param {[string, string][]} currentSchema
+//      * @param {!QueryResult<CloudObject>} validDataTypes
+//      * @param {function(string, string, string, string):Promise<void>} modifier
+//      * @return {!Promise<void>}
+//      */
+//     static migrateSchema(logger, schemaType, currentSchema, validDataTypes, modifier) {
+//         const db = DBView.get();
+//         let recoveryMap = null;
+//         const promises = [];
+//
+//         for (const [name, comment] of currentSchema) {
+//             let finalName = null, finalTag = null;
+//             const tag = typeof comment === 'string' && comment.split(':')[1];
+//
+//             // 1. If tag is valid, compute the new name to ensure it is updated
+//             if (typeof tag === 'string' && db.exist(tag)) {
+//                 finalTag = tag;
+//                 finalName = SchemaObserver.toSQLName(db.name(tag), tag);
+//             }
+//
+//             // 2. Otherwise, try to recover the right model based on the name, which could either be a tag or a formatted name of a model.
+//             else {
+//                 // 2.a. build the recovery map if it does not exist yet.
+//                 if (recoveryMap === null) {
+//                     recoveryMap = validDataTypes.reduce((map , model) => map.set(model.getTag(), model), new Map());
+//                 }
+//
+//                 // 2.b. try to find a candidate model
+//                 if (recoveryMap.has(name)) {
+//                     const recoveredModel = recoveryMap.get(name);
+//                     recoveryMap.delete(name); // Avoid to reuse a model multiple times.
+//                     const modelName = recoveredModel.name();
+//                     finalTag = recoveredModel.getTag();
+//                     finalName = SchemaObserver.toSQLName(modelName, finalTag);
+//                     logger.info(`${schemaType === SCHEMA_PREFIXES.TYPE ? 'Table' : 'Column'} ${name} (tag: ${tag}) has been matched with model ${modelName} (tag: ${finalTag}) and will be updated`);
+//                 }
+//             }
+//
+//             if (finalName !== null && finalTag !== null) {
+//                 promises.push(modifier(name, tag, /** @type {string} */ (finalName), /** @type {string} */ (finalTag)));
+//             } else {
+//                 logger.warn(`No match has been found for ${schemaType === SCHEMA_PREFIXES.TYPE ? 'Table' : 'Column'} ${name} (tag: ${tag}) in the data model, ignore that element.`);
+//             }
+//         }
+//
+//         return Promise.all(promises);
+//     }
 }
-
 class Table {
 
     /**
@@ -509,6 +597,36 @@ class Table {
         this.columns.set(COLUMNS.TAG, COLUMNS.TAG);
     }
 
+    /**
+     * Change a column from the old postgreSQL connector to data source name conventions
+     * @param builder
+     * @param {string} columnTag
+     * @returns {Promise<void>}
+     */
+    async migratePropertyColumn(builder, columnTag) {
+        await builder.alterTable(this.name, (tableBuilder) => {
+            // Exception for file content (binary content of files)
+            const comment = `${SCHEMA_PREFIXES.PROPERTY}:${columnTag}`
+            if (columnTag === COLUMNS.FILE_CONTENT) {
+                this.columns.set(columnTag, columnTag);
+                tableBuilder.renameColumn(OLD_FILE_MODEL_TAG, columnTag).comment(comment);
+                return;
+            }
+            // for any other type
+            const columnName = SchemaObserver.toSQLName(this.db.name(columnTag), columnTag);
+            this.columns.set(columnTag, columnName);
+            tableBuilder.renameColumn(columnTag, columnName).comment(comment);
+            // migrate date
+            if (this.db.instanceOf(columnTag, DatetimeModel)) {
+                tableBuilder.datetime(columnName).alter({alterNullable:false, alterType:true})
+            }
+        }).then(() => {
+            this.logger.log('[MIGRATION] Column name changed successfully from ', columnTag, ' to ', this.columns.get(columnTag));
+        }).catch((err) => {
+            this.logger.log('[MIGRATION] Error changing column name: ', columnTag, ' to new name ', this.columns.get(columnTag), '\n Error: ', err);
+        });
+        const OLD_FILE_MODEL_TAG = "ff021000000000000030";
+    }
     /**
      * @param {!Knex.SchemaBuilder} builder
      * @param {string[]} columnNames
