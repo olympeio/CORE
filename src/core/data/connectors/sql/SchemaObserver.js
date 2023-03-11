@@ -261,7 +261,7 @@ export default class SchemaObserver {
             );
         }
 
-        if (properties.length > 0) {
+        if (!table.hasAllColumns(properties)) {
             // Ensure all the required columns exist for properties.
             this.pushOperation(
                 () => table.ensureColumns(this.getSchemaBuilder(), properties),
@@ -778,6 +778,14 @@ class Table {
      */
     getName() {
         return this.name;
+    }
+
+    /**
+     * @package
+     * @param {!Array<string>} properties
+     */
+    hasAllColumns(properties) {
+        return properties.every((p) => this.columns.has(p));
     }
 
     /**

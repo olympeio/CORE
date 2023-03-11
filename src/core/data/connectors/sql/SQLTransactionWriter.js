@@ -75,7 +75,7 @@ export default class SQLTransactionWriter {
             for (const knexOp of this.stack) {
                 await knexOp(trx.withSchema(schema));
             }
-            this.logger.debug('Transaction just before commit');
+            this.logger.debug(`Transaction with ${this.stack.length} operations will be commit`);
             return trx;
         }, {isolationLevel: 'serializable'}).finally(() => {
             // Clear the writer.
