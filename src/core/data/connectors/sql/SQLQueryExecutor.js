@@ -331,7 +331,6 @@ export default class SQLQueryExecutor {
      * @param {!Object[]} relationParts
      */
     buildDataResult(result, rows, relationParts) {
-        const currentRowInstances = []; // index to instance
         // Specific behaviour for Color type:
         const colorProperties = new Set();
         const colorModelTag = tagToString(ColorModel);
@@ -342,6 +341,7 @@ export default class SQLQueryExecutor {
             }
         }
 
+        const currentRowInstances = []; // index to instance
         for (const row of rows) {
             for (const [alias, value] of Object.entries(row)) {
                 const index = this.aliasIndexes.get(alias);
@@ -355,7 +355,9 @@ export default class SQLQueryExecutor {
                     const propTag = this.reverseAliases.get(alias);
                     if (typeof propTag === 'string') {
                         const props = instance.properties ?? new Map();
-                        const propVal = colorProperties.has(propTag) ? Color.create(...value.split(';')) : value;
+                        const propVal = colorProperties.has(propTag) && typeof value === 'string'
+                            ? Color.create(...value.split(';'))
+                            : value;
                         props.set(propTag, propVal);
                         instance.properties ??= props;
                     }
@@ -363,12 +365,22 @@ export default class SQLQueryExecutor {
             }
 
             currentRowInstances.forEach((instance, index) => {
+                if (!instance.tag || !instance.model) {
+                    this.logger.warn('An instance is missing its tag or model => ignore that instance');
+                    return;
+                }
+
                 result.create(instance.tag, instance.model, instance.properties);
                 if (index > 0 && relationParts.length >= index) {
                     const {relation, parentIndex} = relationParts[index - 1];
+                    const otherTag = currentRowInstances[parentIndex].tag;
+                    if (!otherTag) {
+                        this.logger.warn('An instance is missing its tag => ignore the relation to create with', instance.tag);
+                        return;
+                    }
                     relation.getDirection() === Direction.ORIGIN
-                        ? result.createRelation(relation.getTag(), instance.tag, currentRowInstances[parentIndex].tag)
-                        : result.createRelation(relation.getTag(), currentRowInstances[parentIndex].tag, instance.tag);
+                        ? result.createRelation(relation.getTag(), instance.tag, otherTag)
+                        : result.createRelation(relation.getTag(), otherTag, instance.tag);
                 }
             });
 

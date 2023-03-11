@@ -17,25 +17,27 @@ export const HEALTH_CHECK_QUERY = 'SELECT 1';
 
 export const QUERY_ALL_TABLES = `
     SELECT
-        allTables.table_name as name,
+        class.relname as name,
         obj_description(class.oid) as comment
-    FROM information_schema.tables allTables
-    JOIN pg_class class
-    ON class.relname = allTables.table_name
-    WHERE table_schema = ? -- schema
+    FROM pg_class class
+        JOIN pg_namespace schema ON class.relnamespace = schema.oid
+    WHERE class.relkind = 'r' -- only tables
+        AND schema.nspname = ? -- schema
 `;
 
 export const QUERY_ALL_COLUMNS = `
-    SELECT    cols.column_name as name,    
-              cols.table_name as tablename,    
-              col_description(class.oid, cols.ordinal_position::int) as comment
-    FROM information_schema.columns cols
-    JOIN pg_class class ON class.relname = cols.table_name
-    WHERE  cols.table_schema = ? AND cols.table_name = ?
+    SELECT
+        cols.attname as name,
+        col_description(class.oid, cols.attnum::int) as comment
+    FROM pg_attribute cols
+        JOIN pg_class class ON cols.attrelid = class.oid
+        JOIN pg_namespace schema ON class.relnamespace = schema.oid
+    WHERE class.relkind = 'r' -- class must be tables
+        AND cols.attnum > 0 -- avoid system columns (index <= 0)
+        AND schema.nspname = ? -- schema
+        AND class.relname = ? -- table name filter
 `;
 
 export const QUERY_DATA_TYPE_TABLES = `${QUERY_ALL_TABLES} AND obj_description(class.oid) LIKE '${SCHEMA_PREFIXES.TYPE}:%'`;
 export const QUERY_RELATION_TABLES = `${QUERY_ALL_TABLES} AND obj_description(class.oid) LIKE '${SCHEMA_PREFIXES.RELATION}:%'`;
-export const QUERY_COLUMNS = `${QUERY_ALL_COLUMNS} AND col_description(class.oid, cols.ordinal_position::int) LIKE '${SCHEMA_PREFIXES.PROPERTY}:%'`;
-
-export const SET_COLUMNS_COMMENT = (value) => `COMMENT ON COLUMN ??.??.?? IS '${value}';`;
+export const QUERY_COLUMNS = `${QUERY_ALL_COLUMNS} AND col_description(class.oid, cols.attnum::int) LIKE '${SCHEMA_PREFIXES.PROPERTY}:%'`;

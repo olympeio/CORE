@@ -62,6 +62,7 @@ export default class SQLTransactionWriter {
                     this.stack.push(this.deleteRelation(op.relation, op.from, op.to, op.fromModel, op.toModel));
                     break;
                 default:
+                    throw new Error(`Transaction error: operation type is unknown: ${op.type}`);
             }
         }
 
@@ -74,7 +75,7 @@ export default class SQLTransactionWriter {
             for (const knexOp of this.stack) {
                 await knexOp(trx.withSchema(schema));
             }
-            this.logger.debug('Transaction just before commit: ', trx.toString());
+            this.logger.debug('Transaction just before commit');
             return trx;
         }, {isolationLevel: 'serializable'}).finally(() => {
             // Clear the writer.
