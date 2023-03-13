@@ -22,6 +22,7 @@ workflow:
     - export VAULT_TOKEN="$(vault write -field=token auth/jwt/login role=${VAULT_AUTH_ROLE} jwt=$CI_JOB_JWT)"
     - export NPM_TOKEN=$(vault kv get -field token kv/devops/npm/token)
     # Setup token for private npm registry
+    - npm config set @olympeio:registry=https://gitlab.caas.olympe.io/api/v4/projects/236/packages/npm/
     - npm config set '//gitlab.caas.olympe.io/api/v4/projects/236/packages/npm/:_authToken' "$NPM_TOKEN"
 
 stages:
