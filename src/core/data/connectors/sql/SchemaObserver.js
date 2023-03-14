@@ -348,9 +348,12 @@ export default class SchemaObserver {
                 const tag = name;
                 // the name exists => the table name is a tag and needs migration
                 if (this.db.instanceOf(tag, RelationModel)) {
-                    //
+                    // Migration of tables having a tag of a relation.
                     const fromTag = QuerySingle.from(tag).follow(RelationModel.originModelRel).executeFromCache()?.getTag();
                     const toTag = QuerySingle.from(tag).follow(RelationModel.destinationModelRel).executeFromCache()?.getTag();
+                    if (!fromTag || !toTag) {
+                        throw new Error(`Missing from (${fromTag}) or to (${toTag}) to migrate the relation table ${tag}.`);
+                    }
                     relationOperations.push(() => this.migrateRelation(tag, fromTag, toTag));
                 } else {
                     // tag is a name of DB table, tag is not a relation => tag is a data type
@@ -373,7 +376,7 @@ export default class SchemaObserver {
      * @param {string} toTag
      */
     migrateRelation(relationTag, fromTag, toTag) {
-        this.logger.info(`[MIGRATION] migrating relation table ${relationTag}`);
+        this.logger.info(`[MIGRATION] migrating relation table (${fromTag})->[${relationTag}]->(${toTag})`);
         const globalTag = `${fromTag}:${relationTag}:${toTag}`;
         const tableName = this.tableFromTags.get(globalTag)
             ?? SchemaObserver.getSQLRelationName(this.db.name(fromTag), this.db.name(relationTag), this.db.name(toTag), relationTag);
