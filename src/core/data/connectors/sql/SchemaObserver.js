@@ -105,7 +105,7 @@ export default class SchemaObserver {
             // If no data type table, means that we are probably trying to migration to the new sql connector format.
             if (dataTypeTables.length === 0) {
                 const allTables = await queryTables(QUERY_ALL_TABLES);
-                this.migrate(allTables.map(([tableName]) => tableName));
+                await this.migrate(allTables.map(([tableName]) => tableName));
                 return;
             }
 
@@ -414,20 +414,20 @@ export default class SchemaObserver {
      */
     migrateDataType(dataType, columnNames) {
         // Discriminate file model tag that changed with data source integration
-        const dataTypeTag = dataType === 'ff021000000000000030' ? tagToString(OFile) : dataType;
-        const tableName = this.tableFromTags.get(dataTypeTag) ?? SchemaObserver.toSQLName(this.db.name(dataTypeTag), dataTypeTag);
-        const table = this.tables.get(tableName) ?? new Table(this.logger, tableName, dataTypeTag);
+        const newDataType = dataType === 'ff021000000000000030' ? tagToString(OFile) : dataType;
+        const tableName = this.tableFromTags.get(newDataType) ?? SchemaObserver.toSQLName(this.db.name(newDataType), newDataType);
+        const table = this.tables.get(tableName) ?? new Table(this.logger, tableName, newDataType);
 
         if (!this.tables.has(tableName)) {
             this.tables.set(tableName, table);
-            this.tableFromTags.set(dataTypeTag, tableName);
+            this.tableFromTags.set(newDataType, tableName);
 
             this.pushOperation(
-                () => this.getSchemaBuilder().renameTable(dataTypeTag, tableName),
-                `[MIGRATION] Rename table for data type ${dataTypeTag} to ${tableName}`
+                () => this.getSchemaBuilder().renameTable(dataType, tableName),
+                `[MIGRATION] Rename table for data type ${dataType} to ${tableName}`
             );
 
-            const comment = `${SCHEMA_PREFIXES.TYPE}:${dataTypeTag}`;
+            const comment = `${SCHEMA_PREFIXES.TYPE}:${newDataType}`;
             this.pushOperation(
                 () => this.getSchemaBuilder().table(tableName, (builder) => builder.comment(comment)),
                 `[MIGRATION] Add a comment ${comment} for table ${tableName}`
@@ -438,7 +438,7 @@ export default class SchemaObserver {
                 if (hardcodedColumns.includes(columnName) || this.db.instanceOf(columnName, PropertyModel)) {
                     this.pushOperation(
                         () => table.migratePropertyColumn(this.getSchemaBuilder(), columnName),
-                        `[MIGRATION] column ${columnName} for data type ${dataTypeTag} and table name ${tableName}`
+                        `[MIGRATION] column ${columnName} for data type ${newDataType} and table name ${tableName}`
                     );
                 }
             }
