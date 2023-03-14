@@ -354,8 +354,7 @@ export default class SchemaObserver {
                     relationOperations.push(() => this.migrateRelation(tag, fromTag, toTag));
                 } else {
                     // tag is a name of DB table, tag is not a relation => tag is a data type
-                    const rawColumns = (await this.knex.raw(QUERY_ALL_COLUMNS, [this.schema]))?.rows?.map((r) => r.name)
-                    const propertiesTag = Array.from(Query.from(tag).follow(CloudObject.propertyRel).executeFromCache().keys());
+                    const rawColumns = (await this.knex.raw(QUERY_ALL_COLUMNS, [this.schema, name]))?.rows?.map((r) => r.name)
                     dataTypeOperations.push(() => this.migrateDataType(tag, rawColumns));
                 }
             }
