@@ -102,10 +102,12 @@ export default class SchemaObserver {
         this.pushOperation(async () => {
             // List of data types tables from the database
             const dataTypeTables = await queryTables(QUERY_DATA_TYPE_TABLES);
+            this.logger.debug(`Found ${dataTypeTables.length} data type tables to be validated.`);
 
             // If no data type table, means that we are probably trying to migration to the new sql connector format.
             if (dataTypeTables.length === 0) {
                 const allTables = await queryTables(QUERY_ALL_TABLES);
+                this.logger.debug(`No data type table, try a migration on ${allTables.length} tables`);
                 await this.migrate(allTables.map(([tableName]) => tableName));
                 return;
             }
@@ -115,6 +117,7 @@ export default class SchemaObserver {
 
             // List of relation tables from the database
             const relationTables = await queryTables(QUERY_RELATION_TABLES);
+            this.logger.debug(`Found ${relationTables.length} relation tables to be validated.`);
             return SchemaObserver.validateRelationSchema(this.logger, relationTables, tableModifier);
         }, 'Initialize schema observer');
 
@@ -752,6 +755,8 @@ class Table {
         const hardcodedColumns = new Set(Object.values(COLUMNS));
         // List of columns (pairs of column name and column comments) to be validated.
         const rawColumns = await client.raw(QUERY_COLUMNS, [schema, this.name]);
+        this.logger.debug(`Found ${rawColumns.length} columns to be validated in table ${this.name}`);
+
         const columnsList = rawColumns?.rows?.map((row) => [row.name, row.comment]).filter(([name]) => {
             if (hardcodedColumns.has(name)) {
                 this.columns.set(name, name);
