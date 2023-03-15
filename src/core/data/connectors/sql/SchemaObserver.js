@@ -10,6 +10,7 @@ import {
     QUERY_COLUMNS,
     QUERY_DATA_TYPE_TABLES,
     QUERY_RELATION_TABLES,
+    REMOVE_DUPLICATES,
     SCHEMA_PREFIXES
 } from './_statics';
 
@@ -398,11 +399,17 @@ export default class SchemaObserver {
                 `[MIGRATION] Renaming relation table ${relationTag} to ${tableName}`
             );
 
+            // remove duplicates in relation tables
+            this.pushOperation(
+                () => this.knex.raw(REMOVE_DUPLICATES, [this.schema, tableName, this.schema, tableName]),
+                `[MIGRATION] Remove duplicates from relation table ${tableName}`
+            );
+
             // Ensure update of FROM and TO columns + comment on the table
             const fromTable = SchemaObserver.toSQLName(this.db.name(fromTag), fromTag);
             const toTable = SchemaObserver.toSQLName(this.db.name(toTag), toTag);
             this.pushOperation(
-                () => table.migrateRelationColumns(this.getSchemaBuilder(), tableName, fromTable, toTable),
+                () => table.migrateRelationColumns(this.getSchemaBuilder(), tableName, fromTable, toTable, this.schema),
                 `[MIGRATION] Update columns of relation table ${tableName} to add foreign keys and comments`
             );
         }
@@ -638,14 +645,15 @@ class Table {
      * @param {string} tableName
      * @param {string} fromTable
      * @param {string} toTable
+     * @param {string} schema
      * @return {Promise<void>}
      */
-    async migrateRelationColumns(builder, tableName, fromTable, toTable) {
+    async migrateRelationColumns(builder, tableName, fromTable, toTable, schema) {
         await builder.alterTable(tableName, (builder) => {
             builder.string(COLUMNS.FROM, 21).alter()
                 .notNullable()
                 .references(COLUMNS.TAG)
-                .inTable(fromTable)
+                .inTable(`${schema}.${fromTable}`)
                 .onDelete('CASCADE')
                 .onUpdate('RESTRICT')
                 .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.FROM}`);
@@ -653,7 +661,7 @@ class Table {
             builder.string(COLUMNS.TO, 21).alter()
                 .notNullable()
                 .references(COLUMNS.TAG)
-                .inTable(toTable)
+                .inTable(`${schema}.${toTable}`)
                 .onDelete('CASCADE')
                 .onUpdate('RESTRICT')
                 .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TO}`);
