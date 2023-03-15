@@ -35,8 +35,7 @@ export default class DeleteObject extends ActionBrick {
                 .then(() => forwardEvent())
                 .catch((message) => setErrorFlow(ErrorFlow.create(`Delete Object: ${message}`, 1)));
         } else {
-            getLogger('Delete Object').warn('Cannot delete object. The object is not of type CloudObject', object, 'Ignoring the operation...');
-            forwardEvent(); // Ignore if the object does not exist in the local database.
+            setErrorFlow(ErrorFlow.create('Cannot delete object. The object is not of type CloudObject.', 2));
         }
     }
 }
