@@ -229,10 +229,10 @@ export default class SchemaObserver {
 
         const result = [];
         for (const fromTableName of fromTables) {
-            const fromTable = this.tables.get(fromTableName);
+            const fromTableTag = this.getTableTag(fromTableName);
             // Only do something if the specified table does extend the origin model of the relation
-            if (fromTable && fromModels.has(fromTable.getTag())) {
-                const fromName = this.db.name(fromTable);
+            if (fromModels.has(fromTableTag)) {
+                const fromName = this.db.name(fromTableTag);
                 toModelTableNames.forEach((toTableName) => {
                     const toName = this.db.name(this.getTableTag(toTableName));
                     const relTableName = toOrigin
@@ -755,7 +755,7 @@ class Table {
         const hardcodedColumns = new Set(Object.values(COLUMNS));
         // List of columns (pairs of column name and column comments) to be validated.
         const rawColumns = await client.raw(QUERY_COLUMNS, [schema, this.name]);
-        this.logger.debug(`Found ${rawColumns.length} columns to be validated in table ${this.name}`);
+        this.logger.debug(`Found ${rawColumns.rowCount} columns to be validated in table ${this.name}`);
 
         const columnsList = rawColumns?.rows?.map((row) => [row.name, row.comment]).filter(([name]) => {
             if (hardcodedColumns.has(name)) {
