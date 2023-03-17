@@ -48,6 +48,12 @@ export default class CreateRelation extends ActionBrick {
 
         const returnError = (message, code) => setErrorFlow(ErrorFlow.create(`Create Relation :${message}`, code));
 
+        if (destination === null) {
+            setOrigin(origin);
+            forwardEvent();
+            return;
+        }
+
         // Guards
         if (!CloudObject.exists(origin) || !CloudObject.exists(destination) || !CloudObject.exists(relation) || !(CloudObject.get(relation) instanceof RelationModel)) {
             returnError('Invalid inputs',1);
