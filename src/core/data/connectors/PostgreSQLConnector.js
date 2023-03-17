@@ -81,19 +81,8 @@ export default class PostgreSQLConnector extends DataSource {
         await this.healthCheck();
         this.logger.info(`SQLConnector ${this.getId()} started with host ${host}, database ${database} on schema ${schema}`);
 
-        // Subscribe to the data model handled by this data source
-        await new Promise((done, fail) => {
-            let first = true;
-            this.observeDataTypes().subscribe((dataTypes) => {
-                this.logger.debug(`Data source ${this.name()} should handle ${dataTypes.size()} data types`);
-
-                // Wait for the first result to arrive before validate the schema the first time.
-                if (first) {
-                    this.schemaObserver.init(this.knex, schema).then(done).catch(fail);
-                    first = false;
-                }
-            });
-        });
+        // Initialize the schema observer that fulfill the cache with all the existing tables with their associated data types.
+        await this.schemaObserver.init(this.knex, schema);
         this.logger.info(`Schema of SQLConnector ${this.getId()} has been initialized`);
     }
 
