@@ -48,23 +48,24 @@ export default class CreateRelation extends ActionBrick {
 
         const returnError = (message, code) => setErrorFlow(ErrorFlow.create(`Create Relation :${message}`, code));
 
+        // If `destination` is null => ignore the relation and forward immediately
         if (destination === null) {
             setOrigin(origin);
             forwardEvent();
             return;
         }
 
+        const transaction = Transaction.from(context);
+        const db = DBView.get();
+        const originModel = transaction.model(origin);
+        const destinationModel = transaction.model(destination);
+
         // Guards
-        if (!CloudObject.exists(origin) || !CloudObject.exists(destination) || !CloudObject.exists(relation) || !(CloudObject.get(relation) instanceof RelationModel)) {
+        if (!originModel || !destinationModel || !CloudObject.exists(relation) || !(CloudObject.get(relation) instanceof RelationModel)) {
             returnError('Invalid inputs',1);
             return;
         }
 
-        const transaction = Transaction.from(context);
-
-        const db = DBView.get();
-        const originModel = transaction.model(origin);
-        const destinationModel = transaction.model(destination);
         const relOriginModel = QuerySingle.from(relationTag).follow(RelationModel.originModelRel).executeFromCache();
         const relDestModel = QuerySingle.from(relationTag).follow(RelationModel.destinationModelRel).executeFromCache();
 
