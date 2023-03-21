@@ -361,7 +361,7 @@ export default class SchemaObserver {
                     relationOperations.push(() => this.migrateRelation(tag, fromTag, toTag));
                 } else {
                     // tag is a name of DB table, tag is not a relation => tag is a data type
-                    const rawColumns = (await this.knex.raw(QUERY_ALL_COLUMNS, [this.schema, name]))?.rows?.map((r) => r.name)
+                    const rawColumns = (await this.knex.raw(QUERY_ALL_COLUMNS, {"schemaName":this.schema, "tableName":name}))?.rows?.map((r) => r.name)
                     dataTypeOperations.push(() => this.migrateDataType(tag, rawColumns));
                 }
             }
@@ -404,7 +404,7 @@ export default class SchemaObserver {
 
             // remove duplicates in relation tables
             this.pushOperation(
-                () => this.knex.raw(REMOVE_DUPLICATES, [this.schema, tableName, this.schema, tableName]),
+                () => this.knex.raw(REMOVE_DUPLICATES, {"schema1":this.schema,"table1": tableName}),
                 `[MIGRATION] Remove duplicates from relation table ${tableName}`
             );
 
@@ -754,7 +754,7 @@ class Table {
     async checkColumns(client, schema) {
         const hardcodedColumns = new Set(Object.values(COLUMNS));
         // List of columns (pairs of column name and column comments) to be validated.
-        const rawColumns = await client.raw(QUERY_COLUMNS, [schema, this.name]);
+        const rawColumns = await client.raw(QUERY_COLUMNS, {"schemaName": schema, "tableName":  this.name});
         this.logger.debug(`Found ${rawColumns.rowCount} columns to be validated in table ${this.name}`);
 
         const columnsList = rawColumns?.rows?.map((row) => [row.name, row.comment]).filter(([name]) => {
