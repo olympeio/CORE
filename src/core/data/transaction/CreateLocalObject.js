@@ -30,6 +30,7 @@ export default class CreateLocalObject extends ActionBrick {
         // Guards
         if (!tagToString(model)) {
             getLogger('Create Local Object').warn('no model specified');
+            setErrorFlow(ErrorFlow.create('Create Local Object: no model specified', 1));
             return;
         }
 
