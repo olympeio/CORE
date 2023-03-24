@@ -13,6 +13,7 @@ import {
     REMOVE_DUPLICATES,
     SCHEMA_PREFIXES
 } from './_statics';
+import { jenkinsOneAtATimeHash } from '../../../../helpers/common/hash';
 
 export default class SchemaObserver {
 
@@ -235,9 +236,13 @@ export default class SchemaObserver {
                 const fromName = this.db.name(fromTableTag);
                 toModelTableNames.forEach((toTableName) => {
                     const toName = this.db.name(this.getTableTag(toTableName));
+                    const toTableTag = this.getTableTag(toName);
+                    const relGlobalTag = toOrigin
+                        ? SchemaObserver.getRelGlobalTag(toTableTag, fromTableTag, relation.getTag())
+                        : SchemaObserver.getRelGlobalTag(fromTableTag, toTableTag, relation.getTag())
                     const relTableName = toOrigin
-                        ? SchemaObserver.getSQLRelationName(toName, relationName, fromName, relation.getTag())
-                        : SchemaObserver.getSQLRelationName(fromName, relationName, toName, relation.getTag());
+                        ? SchemaObserver.getSQLRelationName(toName, relationName, fromName, relGlobalTag)
+                        : SchemaObserver.getSQLRelationName(fromName, relationName, toName, relGlobalTag);
                     if (this.tables.has(relTableName)) {
                         result.push([fromTableName, relTableName, toTableName]);
                     }
@@ -282,9 +287,9 @@ export default class SchemaObserver {
      * @return {string}
      */
     ensureRelation(relationTag, fromTag, toTag) {
-        const globalTag = `${fromTag}:${relationTag}:${toTag}`;
+        const globalTag = SchemaObserver.getRelGlobalTag(fromTag, toTag, relationTag);
         const tableName = this.tableFromTags.get(globalTag)
-            ?? SchemaObserver.getSQLRelationName(this.db.name(fromTag), this.db.name(relationTag), this.db.name(toTag), relationTag);
+            ?? SchemaObserver.getSQLRelationName(this.db.name(fromTag), this.db.name(relationTag), this.db.name(toTag), globalTag);
 
         this.ensureDataType(fromTag, []);
         this.ensureDataType(toTag, []);
@@ -381,9 +386,9 @@ export default class SchemaObserver {
      */
     migrateRelation(relationTag, fromTag, toTag) {
         this.logger.info(`[MIGRATION] migrating relation table (${fromTag})->[${relationTag}]->(${toTag})`);
-        const globalTag = `${fromTag}:${relationTag}:${toTag}`;
+        const globalTag = SchemaObserver.getRelGlobalTag(fromTag, toTag, relationTag);
         const tableName = this.tableFromTags.get(globalTag)
-            ?? SchemaObserver.getSQLRelationName(this.db.name(fromTag), this.db.name(relationTag), this.db.name(toTag), relationTag);
+            ?? SchemaObserver.getSQLRelationName(this.db.name(fromTag), this.db.name(relationTag), this.db.name(toTag), globalTag);
 
         if (!this.tables.has(tableName)) {
             const table = new Table(this.logger, tableName, globalTag);
@@ -463,14 +468,26 @@ export default class SchemaObserver {
      * @param {string} from
      * @param {string} rel
      * @param {string} to
-     * @param {string} relTag
+     * @param {string} relGlobalTag
      * @param {number=} max
      * @return {string}
      */
-    static getSQLRelationName(from, rel, to, relTag, max = 59) {
-        const tagLength = Math.min(10, relTag.length);
-        const subMax = Math.floor((max - tagLength - 3) / 3);
-        return `${this.toSQLName(from, '', subMax)}_${this.toSQLName(rel, '', subMax)}_${this.toSQLName(to, '', subMax)}_${relTag.slice(-tagLength)}`;
+    static getSQLRelationName(from, rel, to, relGlobalTag, max = 59) {
+        const hash = jenkinsOneAtATimeHash(relGlobalTag);
+        const hashLength = Math.min(10, hash.length);
+        const subMax = Math.floor((max - hashLength - 3) / 3);
+        return `${this.toSQLName(from, '', subMax)}_${this.toSQLName(rel, '', subMax)}_${this.toSQLName(to, '', subMax)}_${hash.slice(-hashLength)}`;
+    }
+
+    /**
+     * @private
+     * @param {string} fromTag
+     * @param {string} toTag
+     * @param {string} relationTag
+     * @returns {string}
+     */
+    static getRelGlobalTag(fromTag, toTag, relationTag) {
+        return `${fromTag}:${relationTag}:${toTag}`;
     }
 
     /**
@@ -501,9 +518,9 @@ export default class SchemaObserver {
 
             // If relation tag is valid, compute the new name to ensure it is updated
             if (typeof relTag === 'string' && db.exist(fromTag) && db.instanceOf(relTag, RelationModel) && db.exist(toTag)) {
-                const finalTags = `${fromTag}:${relTag}:${toTag}`;
-                const finalName = SchemaObserver.getSQLRelationName(db.name(fromTag), db.name(relTag), db.name(toTag), relTag);
-                promises.push(modifier(name, finalName, finalTags));
+                const globalTag = SchemaObserver.getRelGlobalTag(fromTag, toTag, relTag);
+                const finalName = SchemaObserver.getSQLRelationName(db.name(fromTag), db.name(relTag), db.name(toTag), globalTag);
+                promises.push(modifier(name, finalName, globalTag));
             } else {
                 // Otherwise, ignore the table.
                 logger.warn(`No match has been found for Relation Table ${name} (${fromTag} -[${relTag}]-> ${toTag}) in the data model, ignore that table.`);
