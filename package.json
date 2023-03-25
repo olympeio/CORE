@@ -73,7 +73,7 @@
     "react": "17.0.2",
     "react-audio-player": "0.17.0",
     "react-dom": "17.0.2",
-    "react-player": "2.11.2",
+    "react-player": "2.12.0",
     "react-webcam": "7.0.1",
     "remarkable": "2.0.1",
     "rxjs": "7.8.0",
