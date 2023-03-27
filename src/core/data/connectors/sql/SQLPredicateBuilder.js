@@ -135,7 +135,7 @@ const toSQLRegex = (regex, dialect) => {
 
     // the escape character is removed for translation, considered a normal character in SQL
     // noinspection RegExpRedundantEscape
-    const withoutEscapeSQL = /^(\\\^|\\\/|\\\$|\\\.|\\\?|\\\*|\\\+|\\\(|\\\)|\\\[|\\\]|\\\{|\\\}])/;
+    const withoutEscapeSQL = /^(\\\^|\\\/|\\\$|\\\.|\\\?|\\\*|\\\+|\\\(|\\\)|\\\[|\\\]|\\\{|\\\})/;
 
     // are RegExpr wildcards and need special translation
     const wildCards = /^(\.\+\?|\.\*|\.\+)/;
