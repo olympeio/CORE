@@ -28,6 +28,12 @@ export default class CreateLocalObject extends Brick {
     update(context, [model], [setObject]) {
         const logger = getLogger('Create Local Object');
 
+        // Guards
+        if (!tagToString(model) || !CloudObject.exists(model)) {
+            logger.error(`Specified model (${model}) does not exist.`);
+            return;
+        }
+
         // start isolated local transaction
         const transaction = new Transaction();
         transaction.persist(false);
