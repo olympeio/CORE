@@ -28,7 +28,7 @@ export default class CreateLocalObject extends ActionBrick {
      */
     update(context, [model], [forwardEvent, setErrorFlow, setObject]) {
         // Guards
-        if (!tagToString(model)) {
+        if (!(tagToString(model) || CloudObject.exists(model))) {
             getLogger('Create Local Object').warn('no model specified');
             setErrorFlow(ErrorFlow.create('Create Local Object: no model specified', 1));
             return;
