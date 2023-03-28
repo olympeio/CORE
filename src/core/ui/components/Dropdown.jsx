@@ -374,9 +374,20 @@ export default class Dropdown extends ReactBrick {
         const cssProperty = useProperty($, 'CSS Property');
         const muiSxJson = useProperty($, 'MUI sx [json]');
 
+        // 20 is height of helper text, 40 is the min height of the component (by MUI)
+        const actualInputHeight = Math.max((brickHeight - (hasHelperText ? 20 : 0)), 40);
+        let translateY = (actualInputHeight - 23) / 2; // 23 is height of label
+        const hasSelectedValue = multiple ? Array.isArray(value) && value.length > 0 : value;
+        if (hasEmptyText || hasSelectedValue) {
+            translateY = -8;
+        }
+
         let customSx = {
-            '.MuiSelect-filled': {
-                paddingTop: '8px'
+            '.MuiSelect-select': {
+                paddingBlock: '8px'
+            },
+            '.MuiInputLabel-formControl': {
+                transform: `translate(14px, ${translateY}px) scale(${hasEmptyText || hasSelectedValue ? 0.75 : 1})`
             }
         };
 
@@ -501,6 +512,19 @@ export default class Dropdown extends ReactBrick {
         };
 
         let customSx = {};
+        // 20 is height of helper text, 40 is the min height of the component (by MUI)
+        const actualInputHeight = Math.max((height - (hasHelperText ? 20 : 0)), 40);
+        let translateY = (actualInputHeight - 23) / 2; // 23 is height of label
+        const hasSelectedValue = Array.isArray(values) && values.filter(v => !!v).length > 0;
+        if (hasEmptyText || hasSelectedValue) {
+            translateY = -8;
+        }
+        customSx = {
+            '.MuiInputLabel-formControl': {
+                transform: `translate(14px, ${translateY}px) scale(${hasEmptyText || hasSelectedValue ? 0.75 : 1})`
+            }
+        }
+
 
         /**
          * @param {?function()=} callback
