@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, DBView, Transaction, CloudObject } from 'olympe';
+import { Brick, registerBrick, DBView, Transaction, CloudObject, tagToString } from 'olympe';
 import {getLogger} from 'logging';
 
 export default class CreateLocalObject extends Brick {
