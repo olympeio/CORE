@@ -200,7 +200,12 @@ export default class SchemaObserver {
     getAllColumns(...tableNames) {
         return (function* (tables, names) {
             for (const name of names) {
-                yield* tables.get(name)?.getColumns() ?? [];
+                for (const entry of tables.get(name)?.getColumns() ?? []) {
+                    // Do not consider the File Content column (with blob). Only use it for upload/download operations.
+                    if (entry[0] !== COLUMNS.FILE_CONTENT) {
+                        yield entry;
+                    }
+                }
             }
         }(this.tables, tableNames));
     }
