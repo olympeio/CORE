@@ -516,12 +516,12 @@ export default class Dropdown extends ReactBrick {
         const actualInputHeight = Math.max((height - (hasHelperText ? 20 : 0)), 40);
         let translateY = (actualInputHeight - 23) / 2; // 23 is height of label
         const hasSelectedValue = Array.isArray(values) && values.filter(v => !!v).length > 0;
-        if (hasEmptyText || hasSelectedValue) {
+        if (hasEmptyText || hasSelectedValue || autocompleteText) {
             translateY = -8;
         }
         customSx = {
             '.MuiInputLabel-formControl': {
-                transform: `translate(14px, ${translateY}px) scale(${hasEmptyText || hasSelectedValue ? 0.75 : 1})`
+                transform: `translate(14px, ${translateY}px) scale(${hasEmptyText || hasSelectedValue || autocompleteText ? 0.75 : 1})`
             }
         }
 
