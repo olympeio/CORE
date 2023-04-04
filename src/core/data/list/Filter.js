@@ -48,6 +48,8 @@ export default class Filter extends ActionBrick {
         this.process($, array, predicate).then((outputList) => {
             setList(outputList);
             forwardEvent();
+        }).catch((error) => {
+            getLogger('Filter').error(error.message);
         });
     }
 
@@ -77,6 +79,9 @@ export default class Filter extends ActionBrick {
 
         const filteredArray = [];
         for (let i = 0, l = array.length; i < l; i++) {
+            if ($.isDestroyed()) {
+                throw new Error('Filter context has been destroyed');
+            }
             if (Boolean(await filter(array[i], i, array))) {
                 filteredArray.push(array[i]);
             }
