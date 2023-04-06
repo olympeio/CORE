@@ -79,7 +79,10 @@ export default class SQLQueryExecutor {
      * @param {!Query<CloudObject, any>} query
      * @return {Promise<!DataResult>}
      */
-    executeQuery(query) {
+    async executeQuery(query) {
+        // Wait for the schema observer to be ready before building a query.
+        await this.schema.waitForFree();
+
         const result = DataResult.fromQuery(query);
         const rootPart = query.parse();
         const {limit, offset, root, dataType, inheritance, next, returned, filter, sort} = rootPart;
@@ -170,14 +173,15 @@ export default class SQLQueryExecutor {
         limit > -1 && queryBuilder.limit(limit);
         offset > 0 && queryBuilder.offset(offset);
 
+        // Execute the SQL Query on the database
         this.logger.debug(`SQL Query to be executed: ${queryBuilder.toString()}`);
+        const rows = await queryBuilder;
 
-        return queryBuilder.then((rows) => {
-            const result = DataResult.fromQuery(query);
-            this.logger.debug(`Result size: ${rows.length}`);
-            this.buildDataResult(result, rows, parsedRelationParts);
-            return result;
-        });
+        // Build and return DataResult from SQL raw result
+        const dataResult = DataResult.fromQuery(query);
+        this.logger.debug(`Result size: ${rows.length}`);
+        this.buildDataResult(dataResult, rows, parsedRelationParts);
+        return dataResult;
     }
 
     /**

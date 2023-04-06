@@ -264,7 +264,9 @@ export default class SchemaObserver {
      */
     ensureDataType(dataType, properties) {
         const tableName = this.tableFromTags.get(dataType) ?? SchemaObserver.toSQLName(this.db.name(dataType), dataType);
-        const table = this.tables.get(tableName) ?? new Table(this.logger, tableName, dataType);
+        const table = this.tables.get(tableName)
+            ?? new Table(this.logger, tableName, dataType).addColumns([COLUMNS.TAG]);
+
         // Create the table if it does not exist yet
         if (!this.tables.has(tableName)) {
             this.tables.set(tableName, table);
@@ -276,9 +278,10 @@ export default class SchemaObserver {
         }
 
         if (!table.hasAllColumns(properties)) {
+            table.addColumns(properties);
             // Ensure all the required columns exist for properties.
             this.pushOperation(
-                () => table.ensureColumns(this.getSchemaBuilder(), properties),
+                () => table.ensureColumns(this.getSchemaBuilder()),
                 `Ensure properties columns exists for ${dataType}`
             );
         }
@@ -300,7 +303,7 @@ export default class SchemaObserver {
         this.ensureDataType(toTag, []);
 
         if (!this.tables.has(tableName)) {
-            const table = new Table(this.logger, tableName, globalTag);
+            const table = new Table(this.logger, tableName, globalTag).addColumns([COLUMNS.FROM, COLUMNS.TO]);
             this.tables.set(tableName, table);
             this.tableFromTags.set(globalTag, tableName);
             this.pushOperation(() => {
@@ -601,6 +604,12 @@ class Table {
          * @type {!Map<string, string>}
          */
         this.columns = new Map();
+
+        /**
+         * @private
+         * @type {!Set<string>}
+         */
+        this.pendingColumns = new Set();
     }
 
     /**
@@ -615,7 +624,7 @@ class Table {
                 .primary()
                 .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TAG}`);
         });
-        this.columns.set(COLUMNS.TAG, COLUMNS.TAG);
+        this.pendingColumns.delete(COLUMNS.TAG);
     }
 
     /**
@@ -698,29 +707,25 @@ class Table {
 
     /**
      * @param {!Knex.SchemaBuilder} builder
-     * @param {string[]} columnNames
      * @return {!Promise<void>}
      */
-    async ensureColumns(builder, columnNames) {
-        const columnsToCreate = columnNames.filter((col) => !this.columns.has(col));
-        if (columnsToCreate.length === 0) {
+    async ensureColumns(builder) {
+        if (this.pendingColumns.size === 0) {
             return;
         }
 
         await builder.table(this.name, (tableBuilder) => {
-            columnsToCreate.forEach((columnTag) => {
+            this.pendingColumns.forEach((columnTag) => {
                 const comment = `${SCHEMA_PREFIXES.PROPERTY}:${columnTag}`
 
                 // Exception for file content (binary content of files)
                 if (columnTag === COLUMNS.FILE_CONTENT) {
                     tableBuilder.binary(columnTag).comment(comment);
-                    this.columns.set(columnTag, columnTag);
                     return;
                 }
 
                 // Primitive types are: string, number, boolean, date, color
-                const columnName = SchemaObserver.toSQLName(this.db.name(columnTag), columnTag);
-                this.columns.set(columnTag, columnName);
+                const columnName = this.columns.get(columnTag);
                 const type = /** @type {!olympe.dc.CloudObject} */ (QuerySingle.from(columnTag).follow(PropertyModel.typeRel).executeFromCache());
                 if (this.db.isExtending(type, StringModel)) { // this also takes care of enums
                     tableBuilder.text(columnName).comment(comment);
@@ -734,6 +739,8 @@ class Table {
                     tableBuilder.string(columnName, 50).comment(comment);
                 }
             });
+
+            this.pendingColumns.clear();
         });
     }
 
@@ -765,7 +772,8 @@ class Table {
                 .primary([COLUMNS.FROM, COLUMNS.TO])
                 .comment(`${SCHEMA_PREFIXES.RELATION}:${this.tag}`);
         });
-        this.columns.set(COLUMNS.FROM, COLUMNS.FROM).set(COLUMNS.TO, COLUMNS.TO);
+        this.pendingColumns.delete(COLUMNS.FROM);
+        this.pendingColumns.delete(COLUMNS.TO);
     }
 
     /**
@@ -800,6 +808,24 @@ class Table {
         // Execute the schema validation according to what has been found in the database.
         await SchemaObserver.validateSchema(this.logger, SCHEMA_PREFIXES.PROPERTY, columnsList, modifier);
 
+        return this;
+    }
+
+    /**
+     * @package
+     * @param {!Array<string>} columns
+     * @return {!Table} this
+     */
+    addColumns(columns) {
+        for (const column of columns) {
+            if (!this.columns.has(column)) {
+                this.pendingColumns.add(column);
+                const columnName = Object.values(COLUMNS).includes(column)
+                    ? column
+                    : SchemaObserver.toSQLName(this.db.name(column), column);
+                this.columns.set(column, columnName);
+            }
+        }
         return this;
     }
 
