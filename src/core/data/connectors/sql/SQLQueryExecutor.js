@@ -233,6 +233,9 @@ export default class SQLQueryExecutor {
      * @param {!Array<!Array<Object>>} predicates
      */
     buildPredicate(builder, index, table, predicates)  {
+        if (predicates.length === 0) {
+            return;
+        }
         builder.whereWrapped((wrappedBuilder) => {
             for (const orClausePredicates of predicates) {
                 wrappedBuilder.orWhere((orClauseWrapper) => {
