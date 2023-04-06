@@ -174,7 +174,7 @@ export default class SQLQueryExecutor {
 
         return queryBuilder.then((rows) => {
             const result = DataResult.fromQuery(query);
-            this.logger.info(`Result size: ${rows.length}`);
+            this.logger.debug(`Result size: ${rows.length}`);
             this.buildDataResult(result, rows, parsedRelationParts);
             return result;
         });
