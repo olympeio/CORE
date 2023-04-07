@@ -11,7 +11,8 @@ import {
     QUERY_DATA_TYPE_TABLES,
     QUERY_RELATION_TABLES,
     REMOVE_DUPLICATES,
-    SCHEMA_PREFIXES
+    SCHEMA_PREFIXES,
+    MAX_NAME_LENGTH
 } from './_statics';
 import { jenkinsOneAtATimeHash } from '../../../../helpers/common/hash';
 
@@ -303,12 +304,10 @@ export default class SchemaObserver {
         const toTableName = this.ensureDataType(toTag, []);
 
         if (!this.tables.has(tableName)) {
-            this.logger.info(`Push operation: create Relation Table for: ${fromTag}-[${relationTag}]->${toTag}`);
             const table = new Table(this.logger, tableName, globalTag).addColumns([COLUMNS.FROM, COLUMNS.TO]);
             this.tables.set(tableName, table);
             this.tableFromTags.set(globalTag, tableName);
             this.pushOperation(() => {
-                this.logger.info(`Execute operation: create Relation Table for: ${fromTag}-[${relationTag}]->${toTag}`);
                 const from = `${this.schema}.${fromTableName}`;
                 const to = `${this.schema}.${toTableName}`;
                 return table.createRelation(this.getSchemaBuilder(), from, to);
@@ -482,7 +481,7 @@ export default class SchemaObserver {
      * @param {number=} max
      * @return {string}
      */
-    static getSQLRelationName(from, rel, to, relGlobalTag, max = 59) {
+    static getSQLRelationName(from, rel, to, relGlobalTag, max = MAX_NAME_LENGTH) {
         const hash = jenkinsOneAtATimeHash(relGlobalTag);
         const hashLength = Math.min(10, hash.length);
         const subMax = Math.floor((max - hashLength - 3) / 3);
@@ -505,7 +504,7 @@ export default class SchemaObserver {
      * @param {string} tag
      * @param {number=} max
      */
-    static toSQLName(name, tag, max = 59) {
+    static toSQLName(name, tag, max = MAX_NAME_LENGTH) {
         const tagLength = Math.min(10, tag.length);
         // Ensure the name do not start by a digit and does not contain non-word characters.
         const candidate = name.replace(/^\d|\W/g, '_').substring(0, max - 1 - tagLength);
@@ -690,6 +689,7 @@ class Table {
                 .notNullable()
                 .references(COLUMNS.TAG)
                 .inTable(`${schema}.${fromTable}`)
+                .withKeyName(`${(tableName + COLUMNS.FROM + '_foreign').slice(-MAX_NAME_LENGTH)}`)
                 .onDelete('CASCADE')
                 .onUpdate('RESTRICT')
                 .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.FROM}`);
@@ -698,6 +698,7 @@ class Table {
                 .notNullable()
                 .references(COLUMNS.TAG)
                 .inTable(`${schema}.${toTable}`)
+                .withKeyName(`${(tableName + COLUMNS.TO + '_foreign').slice(-MAX_NAME_LENGTH)}`)
                 .onDelete('CASCADE')
                 .onUpdate('RESTRICT')
                 .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TO}`);
@@ -763,6 +764,8 @@ class Table {
                 .notNullable()
                 .references(COLUMNS.TAG)
                 .inTable(fromName)
+                // Avoid name conflict when auto constraint name is too long
+                .withKeyName(`${(this.name + COLUMNS.FROM + '_foreign').slice(-MAX_NAME_LENGTH)}`)
                 .onDelete('CASCADE')
                 .onUpdate('RESTRICT')
                 .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.FROM}`);
@@ -771,6 +774,8 @@ class Table {
                 .notNullable()
                 .references(COLUMNS.TAG)
                 .inTable(toName)
+                // Avoid name conflict when auto constraint name is too long
+                .withKeyName(`${(this.name + COLUMNS.TO + '_foreign').slice(-MAX_NAME_LENGTH)}`)
                 .onDelete('CASCADE')
                 .onUpdate('RESTRICT')
                 .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TO}`);

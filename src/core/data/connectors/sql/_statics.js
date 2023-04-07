@@ -13,6 +13,8 @@ export const SCHEMA_PREFIXES = {
     PROPERTY: 'property',
 };
 
+export const MAX_NAME_LENGTH = 60;
+
 export const HEALTH_CHECK_QUERY = 'SELECT 1';
 
 export const QUERY_ALL_TABLES = `
