@@ -299,16 +299,18 @@ export default class SchemaObserver {
         const tableName = this.tableFromTags.get(globalTag)
             ?? SchemaObserver.getSQLRelationName(this.db.name(fromTag), this.db.name(relationTag), this.db.name(toTag), globalTag);
 
-        this.ensureDataType(fromTag, []);
-        this.ensureDataType(toTag, []);
+        const fromTableName = this.ensureDataType(fromTag, []);
+        const toTableName = this.ensureDataType(toTag, []);
 
         if (!this.tables.has(tableName)) {
+            this.logger.info(`Push operation: create Relation Table for: ${fromTag}-[${relationTag}]->${toTag}`);
             const table = new Table(this.logger, tableName, globalTag).addColumns([COLUMNS.FROM, COLUMNS.TO]);
             this.tables.set(tableName, table);
             this.tableFromTags.set(globalTag, tableName);
             this.pushOperation(() => {
-                const from = `${this.schema}.${this.tableFromTags.get(fromTag)}`;
-                const to = `${this.schema}.${this.tableFromTags.get(toTag)}`;
+                this.logger.info(`Execute operation: create Relation Table for: ${fromTag}-[${relationTag}]->${toTag}`);
+                const from = `${this.schema}.${fromTableName}`;
+                const to = `${this.schema}.${toTableName}`;
                 return table.createRelation(this.getSchemaBuilder(), from, to);
             }, `Ensure relation table exists for ${fromTag}-[${relationTag}]->${toTag}`);
         }
@@ -751,6 +753,11 @@ class Table {
      * @return {!Promise<void>}
      */
     async createRelation(builder, fromName, toName) {
+        if (this.pendingColumns.size === 0) {
+            return;
+        }
+
+        this.pendingColumns.clear();
         await builder.createTable(this.name, (tableBuilder) => {
             tableBuilder.string(COLUMNS.FROM, 21)
                 .notNullable()
@@ -772,8 +779,6 @@ class Table {
                 .primary([COLUMNS.FROM, COLUMNS.TO])
                 .comment(`${SCHEMA_PREFIXES.RELATION}:${this.tag}`);
         });
-        this.pendingColumns.delete(COLUMNS.FROM);
-        this.pendingColumns.delete(COLUMNS.TO);
     }
 
     /**
