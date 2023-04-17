@@ -244,11 +244,13 @@ export default class SQLQueryExecutor {
             for (const orClausePredicates of predicates) {
                 wrappedBuilder.orWhere((orClauseWrapper) => {
                     for (const objectPredicate of orClausePredicates) {
-                        orClauseWrapper.andWhere((andClauseWrapper) => {
-                            const sqlColumnName = this.schema.getColumn(table, objectPredicate.property ?? COLUMNS.TAG);
-                            const column = this.client.raw('??.??', [this.getTableAlias(index, table), sqlColumnName]);
-                            parsePredicate(andClauseWrapper, column, objectPredicate);
-                        });
+                        const sqlColumnName = this.schema.getColumn(table, objectPredicate.property ?? COLUMNS.TAG);
+                        if (sqlColumnName !== null) {
+                            orClauseWrapper.andWhere((andClauseWrapper) => {
+                                const column = this.client.raw('??.??', [this.getTableAlias(index, table), sqlColumnName]);
+                                parsePredicate(andClauseWrapper, column, objectPredicate);
+                            });
+                        }
                     }
                 });
             }

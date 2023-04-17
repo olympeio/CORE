@@ -1,7 +1,21 @@
 import {Knex} from "knex";
 import {
-    Query, CloudObject, Direction, RelationModel, PropertyModel, QuerySingle,
-    StringModel, NumberModel, BooleanModel, DatetimeModel, ColorModel, DBView, tagToString, File as OFile
+    Query,
+    CloudObject,
+    Direction,
+    RelationModel,
+    PropertyModel,
+    QuerySingle,
+    StringModel,
+    NumberModel,
+    BooleanModel,
+    DatetimeModel,
+    ColorModel,
+    DBView,
+    tagToString,
+    File as OFile,
+    Context,
+    Predicate
 } from 'olympe';
 import {COLUMNS} from "./SQLQueryExecutor";
 import {
@@ -31,6 +45,12 @@ export default class SchemaObserver {
 
         /**
          * @private
+         * @type {Context}
+         */
+        this.context = null;
+
+        /**
+         * @private
          * @type {string}
          */
         this.schema = '';
@@ -49,15 +69,15 @@ export default class SchemaObserver {
 
         /**
          * @private
-         * @type {!Map<string, string>}
-         */
-        this.tableFromTags = new Map();
-
-        /**
-         * @private
          * @type {!Map<string, Table>}
          */
         this.tables = new Map();
+
+        /**
+         * @private
+         * @type {!Map<string, string>}
+         */
+        this.tableNames = new Map();
 
         /**
          * @private
@@ -75,11 +95,13 @@ export default class SchemaObserver {
     /**
      * @param {!Knex} client
      * @param {string} schema
+     * @param {!Context} context
      * @return {!Promise<void>}
      */
-    init(client, schema) {
+    init(client, schema, context) {
         this.knex = client;
         this.schema = schema;
+        this.context = context;
 
         // What to apply on the schema for the tables to consider:
         const tableModifier = async (currentName, finalName, finalTag) => {
@@ -88,10 +110,10 @@ export default class SchemaObserver {
                 await client.schema.withSchema(schema).renameTable(currentName, finalName);
             }
 
-            const table = new Table(this.logger, finalName, finalTag);
+            const table = new Table(this.logger, finalTag, finalName);
             await table.checkColumns(client, schema);
-            this.tables.set(finalName, table);
-            this.tableFromTags.set(finalTag, finalName);
+            this.tables.set(finalTag, table);
+            this.tableNames.set(finalName, finalTag);
         };
 
         /**
@@ -190,7 +212,7 @@ export default class SchemaObserver {
             query = query.followRecursively(CloudObject.extendedByRel, true);
         }
         return query.executeFromCache()
-            .map((model) => this.tableFromTags.get(model.getTag()) ?? null)
+            .map((model) => this.tables.get(model.getTag())?.getName() ?? null)
             .filter((v) => v !== null);
     }
 
@@ -199,16 +221,16 @@ export default class SchemaObserver {
      * @return {Generator<[string, string]>}
      */
     getAllColumns(...tableNames) {
-        return (function* (tables, names) {
+        return (function* (tables, tableNames, names) {
             for (const name of names) {
-                for (const entry of tables.get(name)?.getColumns() ?? []) {
+                for (const entry of tables.get(tableNames.get(name))?.getColumns() ?? []) {
                     // Do not consider the File Content column (with blob). Only use it for upload/download operations.
                     if (entry[0] !== COLUMNS.FILE_CONTENT) {
                         yield entry;
                     }
                 }
             }
-        }(this.tables, tableNames));
+        }(this.tables, this.tableNames, tableNames));
     }
 
     /**
@@ -216,7 +238,7 @@ export default class SchemaObserver {
      * @return {?string}
      */
     getTableTag(table) {
-        return this.tables.get(table)?.getTag() ?? null;
+        return this.tableNames.get(table) ?? null;
     }
 
     /**
@@ -249,7 +271,7 @@ export default class SchemaObserver {
                     const relTableName = toOrigin
                         ? SchemaObserver.getSQLRelationName(toName, relationName, fromName, relGlobalTag)
                         : SchemaObserver.getSQLRelationName(fromName, relationName, toName, relGlobalTag);
-                    if (this.tables.has(relTableName)) {
+                    if (this.tableNames.has(relTableName)) {
                         result.push([fromTableName, relTableName, toTableName]);
                     }
                 });
@@ -261,67 +283,62 @@ export default class SchemaObserver {
     /**
      * @param {string} dataType
      * @param {string[]} properties
-     * @return {string}
+     * @return {!Table}
      */
     ensureDataType(dataType, properties) {
-        const tableName = this.tableFromTags.get(dataType) ?? SchemaObserver.toSQLName(this.db.name(dataType), dataType);
-        const table = this.tables.get(tableName)
-            ?? new Table(this.logger, tableName, dataType).addColumns([COLUMNS.TAG]);
+        const table = this.tables.get(dataType) ?? new Table(this.logger, dataType).addColumns([COLUMNS.TAG]);
 
         // Create the table if it does not exist yet
-        if (!this.tables.has(tableName)) {
-            this.tables.set(tableName, table);
-            this.tableFromTags.set(dataType, tableName);
-            this.pushOperation(
-                () => table.create(this.getSchemaBuilder()),
-                `Create new table for tag ${dataType}, with name ${tableName}`
-            );
+        if (!this.tables.has(dataType)) {
+            this.tables.set(dataType, table);
+            this.pushOperation(async () => {
+                await table.create(this.getSchemaBuilder(), this.context);
+                this.tableNames.set(table.getName(), dataType);
+            }, `Create new table for tag ${dataType}, with name ${table.getName()}`);
         }
 
         if (!table.hasAllColumns(properties)) {
             table.addColumns(properties);
             // Ensure all the required columns exist for properties.
             this.pushOperation(
-                () => table.ensureColumns(this.getSchemaBuilder()),
+                () => table.ensureColumns(this.getSchemaBuilder(), this.context),
                 `Ensure properties columns exists for ${dataType}`
             );
         }
-        return tableName;
+        return table;
     }
 
     /**
      * @param {string} relationTag
      * @param {string} fromTag
      * @param {string} toTag
-     * @return {string}
+     * @return {Table}
      */
     ensureRelation(relationTag, fromTag, toTag) {
         const globalTag = SchemaObserver.getRelGlobalTag(fromTag, toTag, relationTag);
-        const tableName = this.tableFromTags.get(globalTag)
-            ?? SchemaObserver.getSQLRelationName(this.db.name(fromTag), this.db.name(relationTag), this.db.name(toTag), globalTag);
+        const fromTable = this.ensureDataType(fromTag, []);
+        const toTable = this.ensureDataType(toTag, []);
+        const table = this.tables.get(globalTag) ?? new Table(this.logger, globalTag).addColumns([COLUMNS.FROM, COLUMNS.TO]);
 
-        const fromTableName = this.ensureDataType(fromTag, []);
-        const toTableName = this.ensureDataType(toTag, []);
-
-        if (!this.tables.has(tableName)) {
-            const table = new Table(this.logger, tableName, globalTag).addColumns([COLUMNS.FROM, COLUMNS.TO]);
-            this.tables.set(tableName, table);
-            this.tableFromTags.set(globalTag, tableName);
-            this.pushOperation(() => {
-                const from = `${this.schema}.${fromTableName}`;
-                const to = `${this.schema}.${toTableName}`;
-                return table.createRelation(this.getSchemaBuilder(), from, to);
+        if (!this.tables.has(globalTag)) {
+            this.tables.set(globalTag, table);
+            this.pushOperation(async () => {
+                const from = `${this.schema}.${fromTable.getName()}`;
+                const to = `${this.schema}.${toTable.getName()}`;
+                await table.createRelation(this.getSchemaBuilder(), from, to, this.context);
+                this.tableNames.set(table.getName(), globalTag);
             }, `Ensure relation table exists for ${fromTag}-[${relationTag}]->${toTag}`);
         }
-        return tableName;
+
+        return table;
     }
 
     /**
      * @param {string} dataType
-     * @return {?string}
+     * @return {Table}
      */
     getTable(dataType) {
-        return this.tableFromTags.get(dataType) ?? null;
+        return this.tables.get(dataType) ?? null;
     }
 
     /**
@@ -330,18 +347,18 @@ export default class SchemaObserver {
      * @return {?string}
      */
     getColumn(table, property) {
-        return this.tables.get(table)?.getColumn(property) ?? null;
+        return this.tables.get(this.tableNames.get(table))?.getColumn(property) ?? null;
     }
 
     /**
      * @param {string} relationTag
      * @param {string} fromTag
      * @param {string} toTag
-     * @return {?string}
+     * @return {Table}
      */
     getRelationTable(relationTag, fromTag, toTag) {
         const globalTag = `${fromTag}:${relationTag}:${toTag}`;
-        return this.tableFromTags.get(globalTag) ?? null;
+        return this.tables.get(globalTag) ?? null;
     }
 
     /**
@@ -396,13 +413,13 @@ export default class SchemaObserver {
     migrateRelation(relationTag, fromTag, toTag) {
         this.logger.info(`[MIGRATION] migrating relation table (${fromTag})->[${relationTag}]->(${toTag})`);
         const globalTag = SchemaObserver.getRelGlobalTag(fromTag, toTag, relationTag);
-        const tableName = this.tableFromTags.get(globalTag)
+        const tableName = this.tableNames.get(globalTag)
             ?? SchemaObserver.getSQLRelationName(this.db.name(fromTag), this.db.name(relationTag), this.db.name(toTag), globalTag);
 
-        if (!this.tables.has(tableName)) {
-            const table = new Table(this.logger, tableName, globalTag);
-            this.tables.set(tableName, table);
-            this.tableFromTags.set(globalTag, tableName);
+        if (!this.tableNames.has(tableName)) {
+            const table = new Table(this.logger, globalTag, tableName);
+            this.tables.set(globalTag, table);
+            this.tableNames.set(tableName, globalTag);
 
             this.pushOperation(async () => {
                 await this.getSchemaBuilder().alterTable(relationTag, (builder) => {
@@ -442,12 +459,12 @@ export default class SchemaObserver {
     migrateDataType(dataType, columnNames) {
         // Discriminate file model tag that changed with data source integration
         const newDataType = dataType === 'ff021000000000000030' ? tagToString(OFile) : dataType;
-        const tableName = this.tableFromTags.get(newDataType) ?? SchemaObserver.toSQLName(this.db.name(newDataType), newDataType);
-        const table = this.tables.get(tableName) ?? new Table(this.logger, tableName, newDataType);
+        const tableName = this.tableNames.get(newDataType) ?? SchemaObserver.toSQLName(this.db.name(newDataType), newDataType);
+        const table = this.tables.get(newDataType) ?? new Table(this.logger, newDataType, tableName);
 
-        if (!this.tables.has(tableName)) {
-            this.tables.set(tableName, table);
-            this.tableFromTags.set(newDataType, tableName);
+        if (!this.tableNames.has(tableName)) {
+            this.tables.set(newDataType, table);
+            this.tableNames.set(tableName, newDataType);
 
             this.pushOperation(
                 () => this.getSchemaBuilder().renameTable(dataType, tableName),
@@ -464,7 +481,7 @@ export default class SchemaObserver {
             for (const columnName of columnNames) {
                 if (hardcodedColumns.includes(columnName) || this.db.instanceOf(columnName, PropertyModel)) {
                     this.pushOperation(
-                        () => table.migratePropertyColumn(this.getSchemaBuilder(), columnName),
+                        () => table.migratePropertyColumn(this.getSchemaBuilder(), tableName, columnName),
                         `[MIGRATION] column ${columnName} for data type ${newDataType} and table name ${tableName}`
                     );
                 }
@@ -473,7 +490,6 @@ export default class SchemaObserver {
     }
 
     /**
-     * @private
      * @param {string} from
      * @param {string} rel
      * @param {string} to
@@ -489,7 +505,6 @@ export default class SchemaObserver {
     }
 
     /**
-     * @private
      * @param {string} fromTag
      * @param {string} toTag
      * @param {string} relationTag
@@ -512,7 +527,6 @@ export default class SchemaObserver {
     }
 
     /**
-     *
      * @param {log.Logger} logger
      * @param {[string, string][]} relationTables
      * @param {function(string, string, string):Promise<void>} modifier
@@ -571,10 +585,10 @@ class Table {
 
     /**
      * @param {!log.Logger} logger
-     * @param {string} name
      * @param {string} tag
+     * @param {string=} name
      */
-    constructor(logger, name, tag) {
+    constructor(logger, tag, name) {
 
         /**
          * @private
@@ -590,9 +604,9 @@ class Table {
 
         /**
          * @private
-         * @type {string}
+         * @type {?string}
          */
-        this.name = name;
+        this.name = name ?? null;
 
         /**
          * @private
@@ -614,30 +628,42 @@ class Table {
     }
 
     /**
+     * Create the table associated to this "Table Object" in the database
+     *
      * @param {!Knex.SchemaBuilder} builder
+     * @param {!Context} context
      * @return {!Promise<Table>} this
      */
-    async create(builder) {
+    async create(builder, context) {
+        const dataType = await QuerySingle.from(this.tag).execute(context);
+
+        if (dataType === null) {
+            throw new Error(`Try to create a table for a non-existing data type: ${this.tag}`);
+        }
+
+        this.name = this.name ?? SchemaObserver.toSQLName(dataType.name(), this.tag);
         await builder.createTable(this.name, (tableBuilder) => {
             tableBuilder.comment(`${SCHEMA_PREFIXES.TYPE}:${this.tag}`);
 
             tableBuilder.string(COLUMNS.TAG, 21)
-                .primary()
+                .primary({constraintName: (`${this.name}_${COLUMNS.TAG}_pk`).slice(-MAX_NAME_LENGTH)})
                 .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TAG}`);
         });
         this.pendingColumns.delete(COLUMNS.TAG);
+        this.columns.set(COLUMNS.TAG, COLUMNS.TAG);
     }
 
     /**
      * Change a column from the old postgreSQL connector to data source name conventions
      *
      * @param {!Knex.SchemaBuilder} builder
+     * @param {string} tableName
      * @param {string} columnTag
      * @return {!Promise<void>}
      */
-    async migratePropertyColumn(builder, columnTag) {
+    async migratePropertyColumn(builder, tableName, columnTag) {
         const hardcodedTags = Array.from(Object.values(COLUMNS));
-        await builder.alterTable(this.name, (tableBuilder) => {
+        await builder.alterTable(tableName, (tableBuilder) => {
             const comment = `${SCHEMA_PREFIXES.PROPERTY}:${columnTag}`
 
             // Exception for hardcoded columns: tags, and file content (binary content of files)
@@ -689,7 +715,7 @@ class Table {
                 .notNullable()
                 .references(COLUMNS.TAG)
                 .inTable(`${schema}.${fromTable}`)
-                .withKeyName(`${(tableName + COLUMNS.FROM + '_foreign').slice(-MAX_NAME_LENGTH)}`)
+                .withKeyName((`${tableName}_${COLUMNS.FROM}_fk`).slice(-MAX_NAME_LENGTH))
                 .onDelete('CASCADE')
                 .onUpdate('RESTRICT')
                 .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.FROM}`);
@@ -698,7 +724,7 @@ class Table {
                 .notNullable()
                 .references(COLUMNS.TAG)
                 .inTable(`${schema}.${toTable}`)
-                .withKeyName(`${(tableName + COLUMNS.TO + '_foreign').slice(-MAX_NAME_LENGTH)}`)
+                .withKeyName((`${tableName}_${COLUMNS.TO}_fk`).slice(-MAX_NAME_LENGTH))
                 .onDelete('CASCADE')
                 .onUpdate('RESTRICT')
                 .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TO}`);
@@ -710,12 +736,24 @@ class Table {
 
     /**
      * @param {!Knex.SchemaBuilder} builder
+     * @param {!Context} context
      * @return {!Promise<void>}
      */
-    async ensureColumns(builder) {
+    async ensureColumns(builder, context) {
         if (this.pendingColumns.size === 0) {
             return;
         }
+
+        if (typeof this.name !== 'string') {
+            throw new Error(`Try to add columns to a table with no name: ${this.tag}`);
+        }
+
+        const properties = (await Query.from(this.tag)
+            .followRecursively(CloudObject.extendRel, true)
+            .follow(CloudObject.propertyRel).andReturn()
+            .follow(PropertyModel.typeRel).andReturn()
+            .execute(context))
+            .reduce((props, pair) => props.set(pair[0].getTag(), pair), new Map());
 
         await builder.table(this.name, (tableBuilder) => {
             this.pendingColumns.forEach((columnTag) => {
@@ -724,12 +762,16 @@ class Table {
                 // Exception for file content (binary content of files)
                 if (columnTag === COLUMNS.FILE_CONTENT) {
                     tableBuilder.binary(columnTag).comment(comment);
+                    this.columns.set(columnTag, columnTag);
+                    return;
+                } else if (!properties.has(columnTag)) {
+                    this.logger.warn(`Try to create column ${columnTag} for table ${this.name} (${this.tag}) while it is not a valid property for this data type.`);
                     return;
                 }
 
                 // Primitive types are: string, number, boolean, date, color
-                const columnName = this.columns.get(columnTag);
-                const type = /** @type {!olympe.dc.CloudObject} */ (QuerySingle.from(columnTag).follow(PropertyModel.typeRel).executeFromCache());
+                const [property, type] = properties.get(columnTag);
+                const columnName = SchemaObserver.toSQLName(property.name(), columnTag);
                 if (this.db.isExtending(type, StringModel)) { // this also takes care of enums
                     tableBuilder.text(columnName).comment(comment);
                 } else if (this.db.isExtending(type, NumberModel)) {
@@ -740,32 +782,50 @@ class Table {
                     tableBuilder.datetime(columnName).comment(comment);
                 } else if (this.db.isExtending(type, ColorModel)) {
                     tableBuilder.string(columnName, 50).comment(comment);
+                } else {
+                    this.logger.warn(`Type not found for creation of column ${columnTag} for table ${this.name} (${this.tag})`);
+                    return;
                 }
+                this.columns.set(columnTag, columnName);
             });
-
-            this.pendingColumns.clear();
         });
+        this.pendingColumns.clear();
     }
 
     /**
      * @param {!Knex.SchemaBuilder} builder
      * @param {string} fromName
      * @param {string} toName
+     * @param {!Context} context
      * @return {!Promise<void>}
      */
-    async createRelation(builder, fromName, toName) {
+    async createRelation(builder, fromName, toName, context) {
         if (this.pendingColumns.size === 0) {
             return;
         }
 
-        this.pendingColumns.clear();
+        // Ensure we have the right models in the cache to create the relation table.
+        const [fromTag, relTag, toTag] = this.tag.split(':');
+        const relationTuple = (await Query.from(fromTag).andReturn()
+            .follow(RelationModel.originModelRel.getInverse()).filter(Predicate.in(relTag)).andReturn()
+            .follow(RelationModel.destinationModelRel).andReturn()
+            .execute(context))
+            .getFirst();
+
+        if (relationTuple === null) {
+            throw new Error(`Try to create a relation table for an object which is not a relation: ${fromTag}-[${relTag}]->${toTag}`);
+        }
+
+        // Build the name of this relation table
+        const [from, rel, to] = relationTuple;
+        this.name = this.name ?? SchemaObserver.getSQLRelationName(from.name(), rel.name(), to.name(), this.tag);
         await builder.createTable(this.name, (tableBuilder) => {
             tableBuilder.string(COLUMNS.FROM, 21)
                 .notNullable()
                 .references(COLUMNS.TAG)
                 .inTable(fromName)
                 // Avoid name conflict when auto constraint name is too long
-                .withKeyName(`${(this.name + COLUMNS.FROM + '_foreign').slice(-MAX_NAME_LENGTH)}`)
+                .withKeyName((`${this.name}_${COLUMNS.FROM}_fk`).slice(-MAX_NAME_LENGTH))
                 .onDelete('CASCADE')
                 .onUpdate('RESTRICT')
                 .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.FROM}`);
@@ -775,7 +835,7 @@ class Table {
                 .references(COLUMNS.TAG)
                 .inTable(toName)
                 // Avoid name conflict when auto constraint name is too long
-                .withKeyName(`${(this.name + COLUMNS.TO + '_foreign').slice(-MAX_NAME_LENGTH)}`)
+                .withKeyName((`${this.name}_${COLUMNS.TO}_fk`).slice(-MAX_NAME_LENGTH))
                 .onDelete('CASCADE')
                 .onUpdate('RESTRICT')
                 .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TO}`);
@@ -784,6 +844,8 @@ class Table {
                 .primary([COLUMNS.FROM, COLUMNS.TO])
                 .comment(`${SCHEMA_PREFIXES.RELATION}:${this.tag}`);
         });
+        this.pendingColumns.clear();
+        this.columns.set(COLUMNS.FROM, COLUMNS.FROM).set(COLUMNS.TO, COLUMNS.TO);
     }
 
     /**
@@ -794,7 +856,7 @@ class Table {
     async checkColumns(client, schema) {
         const hardcodedColumns = new Set(Object.values(COLUMNS));
         // List of columns (pairs of column name and column comments) to be validated.
-        const rawColumns = await client.raw(QUERY_COLUMNS, {"schemaName": schema, "tableName":  this.name});
+        const rawColumns = await client.raw(QUERY_COLUMNS, {"schemaName": schema, "tableName": this.name});
         this.logger.debug(`Found ${rawColumns.rowCount} columns to be validated in table ${this.name}`);
 
         const columnsList = rawColumns?.rows?.map((row) => [row.name, row.comment]).filter(([name]) => {
@@ -830,10 +892,6 @@ class Table {
         for (const column of columns) {
             if (!this.columns.has(column)) {
                 this.pendingColumns.add(column);
-                const columnName = Object.values(COLUMNS).includes(column)
-                    ? column
-                    : SchemaObserver.toSQLName(this.db.name(column), column);
-                this.columns.set(column, columnName);
             }
         }
         return this;
@@ -850,6 +908,10 @@ class Table {
      * @return {string}
      */
     getName() {
+        if (typeof this.name !== 'string') {
+            throw new Error(`Try to get the name of table ${this.tag} which has not been set yet.`);
+        }
+
         return this.name;
     }
 
@@ -858,7 +920,7 @@ class Table {
      * @param {!Array<string>} properties
      */
     hasAllColumns(properties) {
-        return properties.every((p) => this.columns.has(p));
+        return properties.every((p) => this.columns.has(p) || this.pendingColumns.has(p));
     }
 
     /**

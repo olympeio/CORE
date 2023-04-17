@@ -45,7 +45,7 @@ export default class PostgreSQLConnector extends DataSource {
     /**
      * @override
      */
-    async init() {
+    async init(context) {
         this.logger.info(`Initialization of SQLConnector ${this.getId()}...`);
         const host = this.getConfig(config.host) ?? 'localhost';
         const database = this.getConfig(config.database);
@@ -82,7 +82,7 @@ export default class PostgreSQLConnector extends DataSource {
         this.logger.info(`SQLConnector ${this.getId()} started with host ${host}, database ${database} on schema ${schema}`);
 
         // Initialize the schema observer that fulfill the cache with all the existing tables with their associated data types.
-        await this.schemaObserver.init(this.knex, schema);
+        await this.schemaObserver.init(this.knex, schema, context);
         this.logger.info(`Schema of SQLConnector ${this.getId()} has been initialized`);
     }
 

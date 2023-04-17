@@ -93,7 +93,7 @@ export default class SQLTransactionWriter {
      */
     create(tag, dataType, properties) {
         const table = this.schemaObserver.ensureDataType(dataType, Array.from(properties?.keys() ?? []));
-        return (trx) => trx.table(table).insert(this.toObject(tag, dataType, true, properties)).onConflict(COLUMNS.TAG).merge().then();
+        return (trx) => trx.table(table.getName()).insert(this.toObject(tag, dataType, true, properties)).onConflict(COLUMNS.TAG).merge().then();
     }
 
     /**
@@ -105,7 +105,7 @@ export default class SQLTransactionWriter {
      */
     update(tag, dataType, properties) {
         const table = this.schemaObserver.ensureDataType(dataType, Array.from(properties.keys()));
-        return (trx) => trx.table(table).where(COLUMNS.TAG, tag).update(this.toObject(tag, dataType, false, properties)).then();
+        return (trx) => trx.table(table.getName()).where(COLUMNS.TAG, tag).update(this.toObject(tag, dataType, false, properties)).then();
     }
 
     /**
@@ -117,7 +117,7 @@ export default class SQLTransactionWriter {
     delete(tag, dataType) {
         const table = this.schemaObserver.getTable(dataType);
         // Delete the instance itself, auto cascade the deletion of relations.
-        return (trx) => table ? trx.table(table).where(COLUMNS.TAG, tag).del().then() : Promise.resolve();
+        return (trx) => table ? trx.table(table.getName()).where(COLUMNS.TAG, tag).del().then() : Promise.resolve();
     }
 
     /**
@@ -138,7 +138,7 @@ export default class SQLTransactionWriter {
             throw new Error(`SQL connector: invalid transaction: missing origin or destination model to create the relation ${from}-[${relation}]->${to}`);
         }
         const table = this.schemaObserver.ensureRelation(relation, fromModel, toModel);
-        return (trx) => trx.table(table).insert({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).onConflict().ignore().then();
+        return (trx) => trx.table(table.getName()).insert({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).onConflict().ignore().then();
     }
 
     /**
@@ -159,7 +159,7 @@ export default class SQLTransactionWriter {
             throw new Error(`SQL connector: invalid transaction: missing origin or destination model to create the relation ${from}-[${relation}]->${to}`);
         }
         const table = this.schemaObserver.getRelationTable(relation, fromModel, toModel);
-        return (trx) => table ? trx.table(table).where({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).del().then() : Promise.resolve();
+        return (trx) => table ? trx.table(table.getName()).where({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).del().then() : Promise.resolve();
     }
 
     /**
@@ -175,7 +175,7 @@ export default class SQLTransactionWriter {
         const table = this.schemaObserver.getTable(dataType);
         if (properties) {
             for (const [prop, value] of properties) {
-                const colName = this.schemaObserver.getColumn(table, prop);
+                const colName = table.getColumn(prop);
                 object[colName] = SQLTransactionWriter.serializeValue(value);
             }
         }
