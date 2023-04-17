@@ -269,8 +269,8 @@ export default class SchemaObserver {
             if (fromModels.has(fromTableTag)) {
                 const fromName = this.db.name(fromTableTag);
                 toModelTableNames.forEach((toTableName) => {
-                    const toName = this.db.name(this.getTableTag(toTableName));
-                    const toTableTag = this.getTableTag(toName);
+                    const toTableTag = this.getTableTag(toTableName);
+                    const toName = this.db.name(toTableTag);
                     const relGlobalTag = toOrigin
                         ? SchemaObserver.getRelGlobalTag(toTableTag, fromTableTag, relation.getTag())
                         : SchemaObserver.getRelGlobalTag(fromTableTag, toTableTag, relation.getTag())
