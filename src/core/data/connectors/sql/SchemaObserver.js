@@ -211,9 +211,15 @@ export default class SchemaObserver {
         if (includeInheritance) {
             query = query.followRecursively(CloudObject.extendedByRel, true);
         }
-        return query.executeFromCache()
-            .map((model) => this.tables.get(model.getTag())?.getName() ?? null)
-            .filter((v) => v !== null);
+        return query.executeFromCache().map((model) => {
+            let tableName = null;
+            try {
+                tableName = this.tables.get(model.getTag())?.getName() ?? null;
+            } catch(e) {
+                this.logger.warn(`Try to get the name of a table not fully initialized yet.`);
+            }
+            return tableName;
+        }).filter((v) => v !== null);
     }
 
     /**
@@ -294,7 +300,7 @@ export default class SchemaObserver {
             this.pushOperation(async () => {
                 await table.create(this.getSchemaBuilder(), this.context);
                 this.tableNames.set(table.getName(), dataType);
-            }, `Create new table for tag ${dataType}, with name ${table.getName()}`);
+            }, `Create new table for data type ${dataType}`);
         }
 
         if (!table.hasAllColumns(properties)) {
