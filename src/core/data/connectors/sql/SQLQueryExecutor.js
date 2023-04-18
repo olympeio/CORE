@@ -114,7 +114,7 @@ export default class SQLQueryExecutor {
         for (const {parentIndex, tables} of parsedRelationParts) {
             paths = tables.flatMap((relTable) => {
                 return paths.map((path) => {
-                    if (path[parentIndex][0] === relTable[0]) { // Ensure concordance of path (toTable of parent == fromTable of current level)
+                    if (path[parentIndex].at(-1) === relTable.at(0)) { // Ensure concordance of path (toTable of parent == fromTable of current level)
                         return [...path, relTable];
                     }
                     throw new Error(`Path does not match: ${path[parentIndex][0]} !== ${relTable[0]}`);
