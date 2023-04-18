@@ -41,11 +41,8 @@ https://date-fns.org/v2.22.1/docs/parse
 export default class ParseDateTime extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} dateTimeString
      * @param {string} formatInput
      * @param {function(Date)} setDate

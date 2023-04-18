@@ -40,7 +40,7 @@ export default class Login extends Brick {
      * Executed when the control flow is triggered
      *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} username
      * @param {string} password
      * @param {function(number)} onSuccess

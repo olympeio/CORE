@@ -28,7 +28,7 @@ export default class ErrorFlowMultiplexer extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {!ErrorFlow} incomingEvent
      * @param {function(ErrorFlow)} forwardError
      */

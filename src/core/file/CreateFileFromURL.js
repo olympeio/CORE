@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, File, Transaction, ErrorFlow, CloudObject } from 'olympe';
+import { ActionBrick, registerBrick, File as OFile, Transaction, ErrorFlow, CloudObject } from 'olympe';
 
 export default class CreateFileFromURL extends ActionBrick {
 
@@ -30,19 +30,21 @@ export default class CreateFileFromURL extends ActionBrick {
      */
     update($, [fileName, mimeType, url], [forwardEvent, setErrorFlow, setFile]) {
         const transaction = new Transaction();
-        const fileTag = File.createFromURL(
+        const file = transaction.create(OFile);
+        OFile.setURLContent(
             transaction,
-            fileName || 'new_File_from_CreateFileFromURL_brick',
+            file,
+            fileName ?? 'new_File_from_CreateFileFromURL_brick',
             url,
-            mimeType || 'text/plain'
+            mimeType ?? 'text/plain'
         );
-        transaction.persistInstance(fileTag, false);
-        transaction.execute()
-            .then(() => {
-                setFile(CloudObject.get(fileTag));
-                forwardEvent();
-            })
-            .catch(message => setErrorFlow(ErrorFlow.create(message, 1)));
+        transaction.persistInstance(file, false);
+        transaction.execute().then(() => {
+            setFile(CloudObject.get(file));
+            forwardEvent();
+        }).catch((message) => {
+            setErrorFlow(ErrorFlow.create(message, 1));
+        });
     }
 }
 

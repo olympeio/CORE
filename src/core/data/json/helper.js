@@ -61,7 +61,7 @@ export const getByJSONPath = (data, path) => {
 
 /**
  * @param {*} results
- * @param {loglevel.Logger} logger
+ * @param {log.Logger} logger
  * @param {function(*)} onSuccess
  */
 export const processResults = (results, logger, onSuccess) => {

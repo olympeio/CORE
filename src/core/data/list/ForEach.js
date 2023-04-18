@@ -44,7 +44,9 @@ export default class ForEach extends ActionBrick {
             return;
         }
 
-        this.process($, array, iterator).then(forwardEvent);
+        this.process($, array, iterator).then(forwardEvent).catch((error) => {
+            getLogger('For Each').error(error.message);
+        });
     }
 
     /**
@@ -68,6 +70,9 @@ export default class ForEach extends ActionBrick {
         }
 
         for (let i = 0, l = array.length; i < l; i++) {
+            if ($.isDestroyed()) {
+                throw new Error('For each context has been destroyed');
+            }
             await iterate(array[i], i, array);
         }
     }

@@ -31,7 +31,7 @@ export default class Branch extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {boolean} condition
      * @param {function(number)} trueDispatcher
      * @param {function(number)} falseDispatcher

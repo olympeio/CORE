@@ -31,11 +31,8 @@ Create an empty JavaScript Array.
 export default class CreateList extends ActionBrick {
 
     /**
-     * Executed every time the brick receives a new trigger event.
-     * Note that the method will be executed _even if_ an input () is undefined.
-     *
      * @protected
-     * @param {Context} context
+     * @param {!BrickContext} context
      * @param {!Array} _
      * @param {function()} forwardEvent
      * @param {function(Array)} setList

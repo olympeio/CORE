@@ -49,6 +49,8 @@ export default class Reduce extends ActionBrick {
         this.process($, array, reducer, initialValue).then((result) => {
             setResult(result);
             forwardEvent();
+        }).catch((error) => {
+            getLogger('Reduce').error(error.message);
         });
     }
 
@@ -80,6 +82,9 @@ export default class Reduce extends ActionBrick {
 
         let accumulator = initialValue;
         for (let i = 0, l = array.length; i < l; i++) {
+            if ($.isDestroyed()) {
+                throw new Error('Reduce context has been destroyed');
+            }
             accumulator = await reduce(accumulator, array[i], i, array);
         }
         return accumulator;

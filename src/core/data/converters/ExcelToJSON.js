@@ -28,7 +28,6 @@ export default class ExcelToJSON extends Brick {
      */
      update($, [source, sheetName], [setResult, setErrorFlow]) {
         const logger = getLogger('Excel to JSON');
-        console.log("Excel to JSON brick");
         if (source instanceof OFile) {
             source.getContentAsBinary(
                 (data) => this.convertToJSON($, data, sheetName, setResult, setErrorFlow, logger),
@@ -43,12 +42,12 @@ export default class ExcelToJSON extends Brick {
     }
 
     /**
-     * @param {BrickContext} $
-     * @param {function(!ArrayBuffer)} data
+     * @param {!BrickContext} $
+     * @param {!ArrayBuffer} data
      * @param {string} sheetName
      * @param {function(*)} setResult
      * @param {function(*)} setErrorFlow
-     * @param {Logger} logger
+     * @param {log.Logger} logger
      */
      convertToJSON($, data, sheetName, setResult, setErrorFlow, logger) {
         try {
@@ -56,15 +55,14 @@ export default class ExcelToJSON extends Brick {
                 type: 'buffer',
                 cellDates: true,
             });
-            sheetName = sheetName ?? worksheet.SheetNames[0];
-            const json = XLSX.utils.sheet_to_json(worksheet.Sheets[sheetName]);
+            const finalSheetName = sheetName ?? worksheet.SheetNames[0];
+            const json = XLSX.utils.sheet_to_json(worksheet.Sheets[finalSheetName]);
 
             if (json.length === 0) {
                 logger.error('Provided source is empty or is not a correct Excel file');
                 setErrorFlow(ErrorFlow.create('Provided source is empty or is not a correct Excel file', 1));
             } else {
-                // The first line contains header so we have to remove it
-                setResult(json.slice(1));
+                setResult(json);
             }
         } catch (error) {
             logger.error('Error while converting content to JSON: ' + error.message);

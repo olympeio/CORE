@@ -18,11 +18,8 @@ import { Brick, registerBrick } from 'olympe';
 export default class GetMouseEventAttributes extends Brick {
 
     /**
-     * Executed every time an input (event) gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {MouseEvent} event
      * @param {function(number)} setTimestamp
      * @param {function(number)} setRelativePositionX

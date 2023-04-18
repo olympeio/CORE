@@ -33,7 +33,7 @@ export default class ThrowError extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} message
      * @param {number} code
      * @param {function(ErrorFlow)} setErrorFlow

@@ -41,9 +41,6 @@ const filterList = (list, inverseFilter) => {
 export default class FilterHasRelated extends Brick {
 
     /**
-     * Executed every time an input (list, relatedObject, relation, inverseFilter) gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {!BrickContext} $
      * @param {!ListDef|!List} list

@@ -42,11 +42,8 @@ Additional headers can be provided and returned in a string that has to be in JS
 export default class HTTPHead extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} url
      * @param {string} headers
      * @param {function(number)} setStatusCode

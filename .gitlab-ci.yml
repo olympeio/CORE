@@ -9,7 +9,7 @@ workflow:
     - when: always
 
 .base:
-  image: registry.caas.olympe.io/infra/docker/node-tools-light:stable
+  image: registry.caas.olympe.io/infra/docker/node-tools-light:18.14-bullseye-slim
   tags: [eks]
 
 # Initialize the npm environment with gitlab registry
@@ -36,7 +36,7 @@ setup:
   stage: setup
   extends: .npm-config
   script:
-    - npm install
+    - yarn install
   artifacts:
     expire_in: 1 week
     paths:
@@ -50,7 +50,7 @@ build-package:
     - setup
   script:
     - if [ -z "$CI_COMMIT_TAG" ]; then apt-get install -y jq; sh ./bumpVersion.sh; fi
-    - npm run build;
+    - yarn run build;
   artifacts:
     expire_in: 1 week
     paths:
@@ -63,9 +63,9 @@ tests:
   dependencies:
     - setup
   # Use an image that includes chromium and jre for test
-  image: registry.caas.olympe.io/infra/docker/node-tools:stable
+  image: registry.caas.olympe.io/infra/docker/node-tools:18.14-bullseye-slim
   script:
-    - npm test
+    - yarn test
 
 # publish
 #  - a package tagged "dev" when pushing on develop
@@ -80,7 +80,6 @@ publish:
     - cd dist
     - NPM_PUBLISH_TAG="$CI_COMMIT_BRANCH"
     - if [ "$CI_COMMIT_BRANCH" == "upgrade" ]; then NPM_PUBLISH_TAG="upgrade"; fi
-    - if [ "$CI_COMMIT_BRANCH" == "develop_data_integration" ]; then NPM_PUBLISH_TAG="upgrade-2.4.0"; fi
     - if [ "$CI_COMMIT_BRANCH" == "develop" ]; then NPM_PUBLISH_TAG="dev"; fi
     - npm publish --tag "$NPM_PUBLISH_TAG"
   rules:

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, ErrorFlow, File, CloudObject, Transaction } from 'olympe';
+import { ActionBrick, registerBrick, ErrorFlow, File as OFile, CloudObject, Transaction } from 'olympe';
 import { dataUrlToBinary, fromBase64 } from 'helpers/binaryConverters';
 
 export default class CreateFileFromBase64 extends ActionBrick {
@@ -39,19 +39,21 @@ export default class CreateFileFromBase64 extends ActionBrick {
             finalMimeType = regExpRes !== null && regExpRes.length === 2 ? regExpRes[1] : 'text/plain';
         }
 
-        const fileTag = File.createFromContent(
+        const file = transaction.create(OFile);
+        OFile.setContent(
             transaction,
-            fileName || 'new_File_from_CreateFileFromBase64_brick',
+            file,
+            fileName ?? 'new_File_from_CreateFileFromBase64_brick',
             isDataURL ? dataUrlToBinary(base64Content) : fromBase64(base64Content),
             finalMimeType
         );
-        transaction.persistInstance(fileTag, false);
-        transaction.execute()
-            .then(() => {
-                setFile(CloudObject.get(fileTag));
-                forwardEvent();
-            })
-            .catch(message => setErrorFlow(ErrorFlow.create(message, 1)));
+        transaction.persistInstance(file, false);
+        transaction.execute().then(() => {
+            setFile(CloudObject.get(file));
+            forwardEvent();
+        }).catch((message) => {
+            setErrorFlow(ErrorFlow.create(message, 1));
+        });
     }
 }
 
