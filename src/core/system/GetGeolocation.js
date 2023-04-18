@@ -32,11 +32,8 @@ This is updated in real time, but can require a permission check with the user.
 export default class GetGeolocation extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {Array} _
      * @param {function(number)} setLongitude
      * @param {function(number)} setLatitude

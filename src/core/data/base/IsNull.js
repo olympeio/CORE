@@ -32,11 +32,8 @@ Returns `true` if the value passed is `null` or `undefined` at the time this act
 export default class IsNull extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {Object} value
      * @param {function(boolean)} setResult
      * @param {function()} forwardEvent

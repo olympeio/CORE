@@ -20,11 +20,8 @@ import {toBase64, stringToBase64} from 'helpers/binaryConverters';
 export default class Base64Encoder extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} input
      * @param {string} encoding
      * @param {function(string)} output

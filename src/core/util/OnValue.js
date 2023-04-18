@@ -35,7 +35,7 @@ export default class OnValue extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {*} value
      * @param {function(*)} setValue
      * @param {function(*)} emitEvent

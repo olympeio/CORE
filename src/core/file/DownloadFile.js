@@ -15,32 +15,19 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, File } from 'olympe';
+import { ActionBrick, registerBrick, File as OFile} from 'olympe';
 
-/**
-## Description
-Downloads a file and save it locally.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| File | File | The file to download. |
-| Name | String | The name for the save file. |
-
-**/
 export default class DownloadFile extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} name
      * @param {File} file
      * @param {function()} forwardEvent
      */
     update(context, [name, file], [forwardEvent]) {
-        file.saveAs(name || file.get(File.nameProp));
+        file.saveAs(name ?? file.get(OFile.fileNameProp));
         forwardEvent();
     }
 }

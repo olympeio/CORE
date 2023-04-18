@@ -1,5 +1,4 @@
 const path = require('path');
-require('karma-jasmine-html-reporter');
 const runtimeWebPath = path.resolve(__dirname, 'node_modules/@olympeio/runtime-web');
 const helpersPath = path.resolve(__dirname, 'src/helpers/web');
 const loggingPath = path.resolve(__dirname, 'src/helpers/logging.js');
@@ -12,7 +11,9 @@ module.exports = function (config) {
     exclude: [],
     //files/patterns to load in the browser
     files: [
-      { pattern: 'tests/**/*.mjs', watched: true, served: true, included: true }
+      { pattern: 'tests/**/*.mjs', watched: true, served: true, included: true },
+      // Must serve files used in the proxies section:
+      { pattern: 'tests/res/*.json', watched: false, served: true, included: false },
       /*parameters:
           watched: if autoWatch is true all files that have watched set to true will be watched for changes
           served: should the files be served by Karma's webserver?
@@ -29,8 +30,9 @@ module.exports = function (config) {
       }
     },
     proxies: {
-      '/oConfig.json': 'res/oConfig-tests.json',
-      '/version.json': 'res/version.json'
+      // Note that we cannot use relative path here and must use the path.resolve function.
+      '/oConfig.json': path.resolve(__dirname, 'tests/res/oConfig.json'),
+      '/version.json': path.resolve(__dirname, 'tests/res/version.json'),
     },
     //executes the tests whenever one of the watched files changes
     autoWatch: true,
@@ -46,7 +48,7 @@ module.exports = function (config) {
     //list of browsers to launch and capture
     browsers: ['CustomChromeHeadless', /*'Chrome','PhantomJS','Firefox','Edge','ChromeCanary','Opera','IE','Safari'*/],
     //list of reporters to use
-    reporters: ['mocha', 'kjhtml'/*,'dots','progress','spec'*/],
+    reporters: ['spec'/*'mocha','kjhtml','dots','progress','spec'*/],
 
     //address that the server will listen on, '0.0.0.0' is default
     listenAddress: '0.0.0.0',
@@ -77,36 +79,10 @@ module.exports = function (config) {
         random: false
       }
     },
-
-    /* karma-webpack config
-       pass your webpack configuration for karma
-       add `babel-loader` to the webpack configuration
-       to make the ES6+ code readable by the browser */
     webpack: {
       module: {
         rules: [
-          {
-            test: /\.js$/i,
-            exclude: /(node_modules)/,
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                [
-                  "@babel/preset-env",
-                  {
-                    "targets": {
-                      "esmodules": true // needed for transpiling async/await syntax, not supported within karma runner
-                    }
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            test: /\.ts$/,
-            use: 'ts-loader',
-            exclude: /node_modules/,
-        },
+          {test: /\.(tsx?)$/, use: 'ts-loader', exclude: /node_modules/}
         ]
       },
       resolve: {

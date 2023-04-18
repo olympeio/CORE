@@ -19,16 +19,20 @@ import { Brick, registerBrick, Auth } from 'olympe';
 export default class GetUserToken extends Brick {
 
     /**
-     * Executed every time an input () gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {Context} context
+     * @param {!BrickContext} context
      * @param {!Array} inputs
      * @param {function(string)} setToken
+     * @param {function(string)} setProtocol
+     * @param {function(string)} setIDPName
+     * @param {function(Object)} setPayload
      */
-    update(context, inputs, [setToken]) {
-        setToken(Auth.getToken());
+    update(context, inputs, [setToken, setProtocol, setIDPName, setPayload]) {
+        const userToken = Auth.getUserToken();
+        setToken(userToken.nonce);
+        setProtocol?.(userToken.protocol);
+        setIDPName?.(userToken.idpName ?? null);
+        setPayload?.(userToken.payload);
     }
 }
 

@@ -27,7 +27,7 @@ export default class Ticker extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {number} interval
      * @param {boolean} onOff
      * @param {function(number)} triggerEvent

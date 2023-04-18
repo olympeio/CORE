@@ -1,25 +1,5 @@
 {
-  "dc": {
-    "subscribeAll": true
-  },
   "server" : {
     "autoConnect": true
-  },
-  "composer": {
-    "suggestedUser": "admin"
-  },
-  "#dr.routing": {
-    "getContext": [
-      {"type":  "offline", "destinations": ["self"]}
-    ],
-    "query": [
-      {"type":  "offline", "destinations": ["self"]}
-    ],
-    "file" : [
-      {"type":  "offline", "destinations": ["self"]}
-    ],
-    "transaction": [
-      {"type":  "offline", "destinations": ["self"]}
-    ]
   }
 }

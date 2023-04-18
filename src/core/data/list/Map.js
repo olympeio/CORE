@@ -48,6 +48,8 @@ export default class MapBrick extends ActionBrick {
         this.process($, array, mapper).then(mappedArray => {
             setList(mappedArray);
             forwardEvent();
+        }).catch((error) => {
+            getLogger('Map').error(error.message);
         });
     }
 
@@ -77,6 +79,9 @@ export default class MapBrick extends ActionBrick {
 
         const mappedArray = [];
         for (let i = 0, l = array.length; i < l; i++) {
+            if ($.isDestroyed()) {
+                throw new Error('Map context has been destroyed');
+            }
             mappedArray.push(await map(array[i], i, array));
         }
         return mappedArray;

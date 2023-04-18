@@ -19,11 +19,8 @@ import { Brick, registerBrick } from 'olympe';
 export default class CenterOrMiddle extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {number} containerWidth
      * @param {number} elementWidth
      * @param {function(number)} setResult

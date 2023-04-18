@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {ActionBrick, registerBrick, Transaction, BrickContext, Relation, ErrorFlow} from 'olympe';
+import {CloudObject, ActionBrick, registerBrick, Transaction, BrickContext, Relation, RelationModel, ErrorFlow} from 'olympe';
 
 export default class DeleteAllRelations extends ActionBrick {
 
@@ -28,6 +28,10 @@ export default class DeleteAllRelations extends ActionBrick {
      * @param {function(Tag)} setOrigin
      */
     update(context, [origin, relation], [forwardEvent, setErrorFlow, setOrigin]) {
+        if (!CloudObject.exists(origin) || !CloudObject.exists(relation) || !(CloudObject.get(relation) instanceof RelationModel)) {
+            setErrorFlow(ErrorFlow.create('Invalid inputs', 1));
+            return;
+        }
         // Get current transaction
         const transaction = Transaction.from(context);
 

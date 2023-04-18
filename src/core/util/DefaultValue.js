@@ -35,7 +35,7 @@ export default class Defaultvalue extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {!*} defaultValue
      * @param {!*} value
      * @param {function(!*)} setValue

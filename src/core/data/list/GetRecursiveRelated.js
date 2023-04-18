@@ -21,11 +21,8 @@ import {getLogger} from 'logging';
 export default class GetRecursiveRelated extends Brick {
 
     /**
-     * Executed every time an input (origin, relation, includeSelf) gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {Context} context
+     * @param {!BrickContext} context
      * @param {!InstanceTag} object
      * @param {!InstanceTag} relation
      * @param {boolean} includeSelf

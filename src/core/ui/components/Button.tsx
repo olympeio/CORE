@@ -84,6 +84,7 @@ export default class Button extends ReactBrick {
                             size={useProperty($, 'Font Size')}
                             // Events
                             onClick={() => $.trigger('On Click')}
+                            tabIndex={useProperty($, 'Tab Index')}
                             // UI
                             sx={{
                                 width: 1,
@@ -91,7 +92,6 @@ export default class Button extends ReactBrick {
                                 fontFamily: useProperty($, 'Font Family'),
                                 ...customSx,
                                 boxSizing: 'border-box',
-                                tabIndex: useProperty($, 'Tab Index'),
                                 ...cssToSxProps(useProperty($, 'CSS Property')),
                                 ...jsonToSxProps(useProperty($, 'MUI sx [json]')),
                             }}

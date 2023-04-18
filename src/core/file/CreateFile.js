@@ -15,15 +15,12 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, Transaction, File, ErrorFlow, CloudObject } from 'olympe';
+import { ActionBrick, registerBrick, Transaction, File as OFile, ErrorFlow, CloudObject } from 'olympe';
 import {stringToBinary} from 'helpers/binaryConverters';
 
 export default class CreateFile extends ActionBrick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
      * @param {!BrickContext} $
      * @param {string=} fileName
@@ -34,26 +31,27 @@ export default class CreateFile extends ActionBrick {
      * @param {function(!File)} setFile
      */
     update($, [fileName, mimeType, content], [forwardEvent, setErrorFlow, setFile]) {
-        const transaction = new Transaction();
-
         if (typeof content !== 'string' && !(content instanceof ArrayBuffer)) {
             setErrorFlow(ErrorFlow.create('Only support String or ArrayBuffer content types', 2));
             return;
         }
 
-        const fileTag = File.createFromContent(
+        const transaction = new Transaction();
+        const file = transaction.create(OFile)
+        OFile.setContent(
             transaction,
-            fileName || 'new_File_from_CreateFile_brick',
+            file,
+            fileName ?? 'new_File_from_CreateFile_brick',
             content instanceof ArrayBuffer ? content : stringToBinary(content),
-            mimeType || 'text/plain'
+            mimeType ?? 'text/plain'
         );
-        transaction.persistInstance(fileTag, false);
-        transaction.execute()
-            .then(() => {
-                setFile(CloudObject.get(fileTag));
-                forwardEvent();
-            })
-            .catch(message => setErrorFlow(ErrorFlow.create(message, 1)));
+        transaction.persistInstance(file, false);
+        transaction.execute().then(() => {
+            setFile(CloudObject.get(file));
+            forwardEvent();
+        }).catch((message) => {
+            setErrorFlow(ErrorFlow.create(message, 1));
+        });
     }
 }
 

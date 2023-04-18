@@ -35,7 +35,7 @@ export default class SubString2 extends Brick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} s
      * @param {number} start
      * @param {number} end

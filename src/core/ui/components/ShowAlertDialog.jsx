@@ -36,11 +36,8 @@ import { markdownTextToReactElement } from 'helpers/remarkable';
 export default class ShowAlertDialog extends ActionBrick {
 
     /**
-     * Executed every time the brick receives a new trigger event.
-     * Note that the method will be executed _even if_ an input is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {string} textContent
      * @param {string} title
      * @param {string} confirmText
@@ -132,7 +129,7 @@ export default class ShowAlertDialog extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      */
     init(context) {
         // Add a custom div to the body
@@ -146,7 +143,7 @@ export default class ShowAlertDialog extends ActionBrick {
 
     /**
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      */
     destroy(context) {
         // Remove the custom div from the body

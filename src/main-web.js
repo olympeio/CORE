@@ -18,7 +18,23 @@
 import 'olympe';
 
 // Import project bricks (we use webpack-import-glob-loader to import all bricks)
-import './core/**/*.js';
+import './core/auth/**/*.js';
+import './core/context/**/*.js';
+// Exclude the "postgresql connectors"
+import './core/data/base/**/*.js';
+import './core/data/converters/**/*.js';
+import './core/data/json/**/*.js';
+import './core/data/list/**/*.js';
+import './core/data/operation/**/*.js';
+import './core/data/queries/**/*.js';
+import './core/data/transaction/**/*.js';
+import './core/datetime/**/*.js';
+import './core/file/**/*.js';
+import './core/net/**/*.js';
+import './core/system/**/*.js';
+import './core/text/**/*.js';
+import './core/util/**/*.js';
+import './core/ui/**/*.js';
 import './core/**/*.jsx';
 import './core/**/*.ts';
 import './core/**/*.tsx';

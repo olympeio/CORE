@@ -31,7 +31,7 @@ export default class FeedUIProperty extends Brick {
 
     /**
      * @protected
-     * @param {Context} context
+     * @param {!BrickContext} context
      * @param {*} _
      * @param {*} value
      * @param {!Array} outputs

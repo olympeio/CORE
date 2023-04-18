@@ -29,7 +29,7 @@ let loggingInitialised = new Map();
  * Get a named logger. Initialise logging if this has not been done yet.
  *
  * @param {string} name
- * @return {loglevel.Logger}
+ * @return {log.Logger}
  */
 export const getLogger = (name) => {
     if (!loggingInitialised.has(name)) {

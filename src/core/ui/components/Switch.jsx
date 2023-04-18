@@ -64,12 +64,12 @@ export default class Switch extends ReactBrick {
                     disabled={useProperty($, 'Disabled')}
                     color={useProperty($, 'Color')}
                     size={useProperty($, 'Size')}
+                    tabIndex={useProperty($, 'Tab Index')}
 
                     // UI
                     sx={{
                         ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
                         ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
-                        tabIndex: useProperty($, 'Tab Index'),
                         ...cssToSxProps(useProperty($, 'CSS Property')),
                         ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
                     }}

@@ -73,10 +73,29 @@ export default class TextField extends ReactBrick {
             const textColorOverflow = useProperty($, 'Text Color Override');
             const showBorder = borderColor && borderWidth > 0 && borderColor.toHexString() !== '#00000000';
             const showTextColorOverflow = textColorOverflow && !error && textColorOverflow.toHexString() !== '#00000000';
+
+            const value = useProperty($, 'Value');
+            const brickHeight = useProperty($, 'Height');
+            const hasHelperText = !!useProperty($, 'Helper Text');
+            const hasEmptyText = !!useProperty($, 'Placeholder');
+            // 20 is height of helper text, 40 is the min height of the component (by MUI)
+            const actualInputHeight = Math.max((brickHeight - (hasHelperText ? 20 : 0)), 40);
+            let translateY = (actualInputHeight - 23) / 2; // 23 is height of label
+            const hasValue = !!value;
+            if (hasEmptyText || hasValue) {
+                translateY = -8;
+            }
+
+            let customSx = {
+                '.MuiInputLabel-formControl:not(.Mui-focused)': {
+                    transform: `translate(14px, ${translateY}px) scale(${hasEmptyText || hasValue ? 0.75 : 1})`
+                }
+            };
+
             return !hidden && (
                 <ThemeProvider theme={theme}><MUITextField
                     // Properties
-                    value={useProperty($, 'Value') || ''}
+                    value={value || ''}
                     placeholder={useProperty($, 'Placeholder')}
                     {...ifNotNull('label', label, label && label.trim() !== '')}
                     helperText={useProperty($, 'Helper Text')}
@@ -109,7 +128,6 @@ export default class TextField extends ReactBrick {
                             ...ifNotNull('flexDirection', 'column', multiLine),
                             ...ifNotNull('justifyContent', justifyContent, multiLine),
                             fontFamily: fontFamily,
-                            tabIndex: useProperty($, 'Tab Index'),
                             ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
                             ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                             ...ifNotNull('borderWidth', borderWidth, showBorder),
@@ -139,7 +157,8 @@ export default class TextField extends ReactBrick {
                         style: {
                             maxHeight: '100%',
                             overflow: 'auto'
-                        }
+                        },
+                        tabIndex: useProperty($, 'Tab Index'),
                     }}
                     FormHelperTextProps={{
                         sx: {
@@ -158,7 +177,8 @@ export default class TextField extends ReactBrick {
                         width: 1,
                         height: 1,
                         ...cssToSxProps(useProperty($, 'CSS Property')),
-                        ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
+                        ...jsonToSxProps(useProperty($, 'MUI sx [json]')),
+                        ...customSx
                     }}
                 ></MUITextField></ThemeProvider>
             );

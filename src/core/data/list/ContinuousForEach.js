@@ -25,7 +25,7 @@ export default class ContinuousForEach extends Brick {
      * @param {!Brick} iterator
      * @param {!Array} _
      */
-    onUpdate($, [list, iterator], _) {
+    update($, [list, iterator], _) {
         const [itemInput, rankInput, listInput] = iterator.getInputs();
 
         if (list instanceof ListDef) {

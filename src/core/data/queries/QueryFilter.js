@@ -19,7 +19,7 @@ export default class QueryFilter extends Brick {
     /**
      * @static
      * @param {string} filterType
-     * @param {!Property} property
+     * @param {!Property<*>} property
      * @param {*} value
      * @return {!Predicate}
      */
@@ -27,12 +27,12 @@ export default class QueryFilter extends Brick {
         switch(filterType) {
             case 'equals': return Predicate.equals(property, value);
             case 'different': return Predicate.not(Predicate.equals(property, value));
-            case 'contains': return Predicate.contains(property, value, true); // TODO case sensitive property?
+            case 'contains': return Predicate.contains(property, value, true);
             case 'greater than': return Predicate.greaterThan(property, value, true);
             case 'greater or equals': return Predicate.greaterThan(property, value, false);
             case 'smaller than': return Predicate.smallerThan(property, value, true);
             case 'smaller or equals': return Predicate.smallerThan(property, value, false);
-            case 'regexp': return Predicate.regex(property, value, true); // TODO case sensitive property?
+            case 'regexp': return Predicate.regex(property, value, true);
 
             // Should never happen
             default: throw new Error('[QueryFilter] unknown filter type "' + filterType + '"');

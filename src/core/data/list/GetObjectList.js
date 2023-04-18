@@ -33,11 +33,8 @@ Gets a list of all the instances of a given model.
 export default class GetObjectList extends Brick {
 
     /**
-     * Executed every time an input gets updated.
-     * Note that this method will _not_ be executed if an input value is undefined.
-     *
      * @protected
-     * @param {!Context} context
+     * @param {!BrickContext} context
      * @param {InstanceTag} model
      * @param {function(!ListDef)} setList
      */

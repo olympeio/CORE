@@ -21,13 +21,14 @@ import {
     DBView,
     RelationModel,
     Transaction,
+    CloudObject,
     File as OFile,
     tagToString,
     BrickContext,
     QuerySingle,
-    Relation
+    Relation,
+    Tag
 } from 'olympe';
-import {getLogger} from 'logging';
 
 export default class CreateRelation extends ActionBrick {
 
@@ -43,30 +44,28 @@ export default class CreateRelation extends ActionBrick {
      * @param {function(!Tag)} setDestination
      */
     update(context, [origin, relation, destination], [forwardEvent, setErrorFlow, setOrigin, setDestination]) {
-        const logger = getLogger('Create Relation');
-        const relationTag = tagToString(relation);
+        const relationTag = relation === undefined || relation === null ? '' : tagToString(relation);
 
         const returnError = (message, code) => setErrorFlow(ErrorFlow.create(`Create Relation :${message}`, code));
 
-        // Guards
-        if (!Boolean(origin) || !Boolean(destination)) {
-            !Boolean(origin) && logger.info('Ignoring null value for origin object');
+        // If `destination` is null => ignore the relation and forward immediately
+        if (destination === null) {
             setOrigin(origin);
-            !Boolean(destination) && logger.info('Ignoring null value for destination object');
-            setDestination(destination);
             forwardEvent();
-            return;
-        }
-        if (relationTag === '') {
-            returnError('No relation specified',1);
             return;
         }
 
         const transaction = Transaction.from(context);
-
         const db = DBView.get();
         const originModel = transaction.model(origin);
         const destinationModel = transaction.model(destination);
+
+        // Guards
+        if (!originModel || !destinationModel || !CloudObject.exists(relation) || !(CloudObject.get(relation) instanceof RelationModel)) {
+            returnError('Invalid inputs',1);
+            return;
+        }
+
         const relOriginModel = QuerySingle.from(relationTag).follow(RelationModel.originModelRel).executeFromCache();
         const relDestModel = QuerySingle.from(relationTag).follow(RelationModel.destinationModelRel).executeFromCache();
 
