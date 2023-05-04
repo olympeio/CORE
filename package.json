@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@olympeio/dev-tools": "dev",
-    "@babel/core": "7.21.4",
+    "@babel/core": "7.21.8",
     "@babel/preset-env": "7.20.2",
     "@babel/preset-react": "7.18.6",
     "babel-loader": "9.1.2",
