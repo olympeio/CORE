@@ -66,7 +66,7 @@ export default class List extends VisualBrick {
                 sizeObservable = list.observeSize();
             } else {
                 getLogger('List component').warn('Data property of List is not a List, Array or QueryResult.');
-                sizeObservable = of(0);
+                return of([]);
             }
             return sizeObservable.pipe(
                 combineLatestWith($.observe('Reverse')),
