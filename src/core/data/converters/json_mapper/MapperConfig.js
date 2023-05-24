@@ -8,10 +8,10 @@ import { JSONPath } from 'jsonpath-plus';
 export default class MapperConfig extends CloudObject { /* empty */ };
 
 // Hardcoded tags
-register('018220ebbffb8198c669', MapperConfig);
-MapperConfig.pathProp = defineProperty('018220ebe8b017c4f973');
-MapperConfig.propertyProp = defineProperty('018220ebf161aae84548');
-MapperConfig.useAsKeyProp = defineProperty('018221101b2c55d03516');
+register('01884cb66812dcc5d9fd', MapperConfig);
+MapperConfig.pathProp = defineProperty('01884cb67c7865c3818c');
+MapperConfig.propertyProp = defineProperty('01884cb695678e7085c1');
+MapperConfig.useAsKeyProp = defineProperty('01884cb6a6809559f1c2');
 
 /**
  * Mappers cache: key -> mapper function
