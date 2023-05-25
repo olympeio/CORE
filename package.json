@@ -57,9 +57,9 @@
   "dependencies": {
     "@olympeio/runtime-node": "~9.4.0",
     "@olympeio/runtime-web": "~9.4.0",
-    "@emotion/react": "11.10.6",
-    "@emotion/styled": "11.10.6",
-    "@mui/material": "5.11.13",
+    "@emotion/react": "11.11.0",
+    "@emotion/styled": "11.11.0",
+    "@mui/material": "5.13.2",
     "@json2csv/plainjs": "6.1.2",
     "knex": "2.4.2",
     "pg": "8.10.0",
