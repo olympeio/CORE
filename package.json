@@ -47,7 +47,7 @@
     "webpack-node-externals": "3.0.0",
     "ts-loader": "9.4.3",
     "typescript": "5.0.4",
-    "jasmine": "4.5.0",
+    "jasmine": "4.6.0",
     "karma-jasmine": "5.1.0",
     "karma-webpack": "5.0.0",
     "karma": "6.4.2",
