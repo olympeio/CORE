@@ -23,6 +23,7 @@ import { getLogger } from 'logging';
 import React, { useRef, useLayoutEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import { ThemeProvider } from '@mui/material/styles';
+import Box from "@mui/material/Box";
 
 /**
  * Provide a Label visual component using MUI Typography
@@ -46,7 +47,7 @@ export default class Label extends ReactBrick {
             const allowContentOverflow = useProperty($, 'Allow Content Overflow');
 
             useLayoutEffect(() => {
-                if (labelRef && labelRef.current) {
+                if (labelRef?.current) {
                     labelRef.current.parentElement.style.overflow = allowContentOverflow ? "unset" : "hidden";
                 }
             }, [labelRef, allowContentOverflow]);
@@ -61,37 +62,54 @@ export default class Label extends ReactBrick {
             }
             const theme = useMUITheme($);
             const borderRadius = useProperty($, 'Border Radius');
+
+            const propFontFamily = useProperty($, 'Font Family');
+            // Extract text specific SX and CSS properties to be applied on the <p> instead of the box
+            const extractFontProps = ({fontFamily, fontSize, lineHeight, letterSpacing, ...otherProps}) => {
+                return [{fontFamily, fontSize, lineHeight, letterSpacing}, otherProps];
+            };
+            const [cssFontProps, cssOtherProps] = extractFontProps(cssToSxProps(useProperty($, 'CSS Property')));
+            const [sxFontProps, sxOtherProps] = extractFontProps(jsonToSxProps(useProperty($, 'MUI sx [json]')));
+
             return !hidden && (
                 <ThemeProvider theme={theme}>
-                    <Typography
-                        // Properties
+                    <Box
                         ref={labelRef}
-                        component={'p'}
-                        variant={useProperty($, 'Text Variant')}
-                        noWrap={useProperty($, 'No Wrap')}
                         onClick={() => $.trigger('On Click')}
-                        // UI
                         sx={{
                             width: 1,
                             height: 1,
                             display: 'flex',
-                            alignItems: 'center',
-                            ...ifNotTransparent('color', useProperty($, 'Text Color')),
-                            ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
-                            fontFamily: useProperty($, 'Font Family'),
-                            alignSelf: useProperty($, 'Vertical Align'),
+                            overflow: 'visible',
                             borderWidth: useProperty($, 'Border Width'),
+                            alignItems: useProperty($, 'Vertical Align'),
                             justifyContent: useProperty($, 'Horizontal Align'),
                             borderStyle: 'solid',
                             boxSizing: 'border-box',
+                            ...ifNotTransparent('color', useProperty($, 'Text Color')),
+                            ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
                             ...ifNotTransparent('borderColor', useProperty($, 'Border Color')),
                             ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                             ...cssToSxProps(useProperty($, 'CSS Property')),
-                            ...jsonToSxProps(useProperty($, 'MUI sx [json]'))
+                            ...cssOtherProps,
+                            ...sxOtherProps
                         }}
                     >
-                        {useProperty($, 'With Format') ? markdownTextToReactElement(text, 'span') : text}
-                    </Typography>
+                        <Typography
+                            // Properties
+                            component={'p'}
+                            variant={useProperty($, 'Text Variant')}
+                            noWrap={useProperty($, 'No Wrap')}
+                            sx={{
+                                // Font family should be overridden by the sx and css props
+                                fontFamily: useProperty($, 'Font Family'),
+                                ...cssFontProps,
+                                ...sxFontProps,
+                            }}
+                        >
+                            {useProperty($, 'With Format') ? markdownTextToReactElement(text, 'span') : text}
+                        </Typography>
+                    </Box>
                 </ThemeProvider>
             );
         };
