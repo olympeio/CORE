@@ -30,7 +30,7 @@ export default class DeleteObject extends ActionBrick {
         if (CloudObject.exists(object)) {
             const transaction = Transaction.from($);
             transaction.delete(object);
-            Transaction.process(transaction)
+            Transaction.process($, transaction)
                 .then(() => forwardEvent())
                 .catch((message) => setErrorFlow(ErrorFlow.create(`Delete Object: ${message}`, 1)));
         } else {
