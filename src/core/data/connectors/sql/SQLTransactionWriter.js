@@ -1,15 +1,16 @@
 import {Knex} from 'knex';
 import {COLUMNS} from "./SQLQueryExecutor";
 import {CloudObject, Color, Operation} from 'olympe';
+import {DB_DIALECT_NAMES, MSSQL} from './_statics';
 
 export default class SQLTransactionWriter {
 
     /**
      * @param {!log.Logger} logger
      * @param {!Knex} client
-     * @param {!SchemaObserver} schemaObserver
+     * @param {!SchemaProvider} schemaProvider
      */
-    constructor(logger, client, schemaObserver) {
+    constructor(logger, client, schemaProvider) {
 
         /**
          * @private
@@ -25,9 +26,9 @@ export default class SQLTransactionWriter {
 
         /**
          * @private
-         * @type {!SchemaObserver}
+         * @type {!SchemaProvider}
          */
-        this.schemaObserver = schemaObserver;
+        this.schemaProvider = schemaProvider;
 
         /**
          * @private
@@ -67,11 +68,11 @@ export default class SQLTransactionWriter {
         }
 
         // Wait if schema requires updates
-        await this.schemaObserver.waitForFree();
+        await this.schemaProvider.waitForFree();
 
         // Return the promise executing the knex transaction on the database.
         return this.client.transaction(async (trx) => {
-            const schema = this.schemaObserver.getSchema();
+            const schema = this.schemaProvider.getSchema();
             for (const knexOp of this.stack) {
                 await knexOp(trx.withSchema(schema));
             }
@@ -92,8 +93,20 @@ export default class SQLTransactionWriter {
      * @return {function(!Knex.Transaction):!Promise<void>}
      */
     create(tag, dataType, properties) {
-        const table = this.schemaObserver.ensureDataType(dataType, Array.from(properties?.keys() ?? []));
-        return (trx) => trx.table(table.getName()).insert(this.toObject(tag, dataType, true, properties)).onConflict(COLUMNS.TAG).merge().then();
+        this.schemaProvider.ensureDataType(dataType, Array.from(properties?.keys() ?? []));
+        return (trx) => {
+            let insertTx = trx.table(this.schemaProvider.getTableName(dataType)).insert(this.toObject(tag, dataType, true, properties));
+            switch (this.schemaProvider.getDBDialectName()) {
+                case DB_DIALECT_NAMES.POSTGRES:
+                case DB_DIALECT_NAMES.MYSQL:
+                case DB_DIALECT_NAMES.SQLITE3:
+                    // for cross-platform support between these 3 dialects, the conflict column has to be specified,
+                    // the specified conflict column has to be a PRIMARY KEY
+                    insertTx = insertTx.onConflict(COLUMNS.TAG).merge();
+                    break;
+            }
+            return insertTx.then();
+        }
     }
 
     /**
@@ -104,8 +117,8 @@ export default class SQLTransactionWriter {
      * @return {function(!Knex.Transaction):!Promise<void>}
      */
     update(tag, dataType, properties) {
-        const table = this.schemaObserver.ensureDataType(dataType, Array.from(properties.keys()));
-        return (trx) => trx.table(table.getName()).where(COLUMNS.TAG, tag).update(this.toObject(tag, dataType, false, properties)).then();
+        this.schemaProvider.ensureDataType(dataType, Array.from(properties.keys()));
+        return (trx) => trx.table(this.schemaProvider.getTableName(dataType)).where(COLUMNS.TAG, tag).update(this.toObject(tag, dataType, false, properties)).then();
     }
 
     /**
@@ -115,9 +128,9 @@ export default class SQLTransactionWriter {
      * @return {function(!Knex.Transaction):!Promise<void>}
      */
     delete(tag, dataType) {
-        const table = this.schemaObserver.getTable(dataType);
+        const tableName = this.schemaProvider.getTableName(dataType);
         // Delete the instance itself, auto cascade the deletion of relations.
-        return (trx) => table ? trx.table(table.getName()).where(COLUMNS.TAG, tag).del().then() : Promise.resolve();
+        return (trx) => tableName ? trx.table(tableName).where(COLUMNS.TAG, tag).del().then() : Promise.resolve();
     }
 
     /**
@@ -137,8 +150,30 @@ export default class SQLTransactionWriter {
         if (typeof fromModel !== 'string' || typeof toModel !== 'string') {
             throw new Error(`SQL connector: invalid transaction: missing origin or destination model to create the relation ${from}-[${relation}]->${to}`);
         }
-        const table = this.schemaObserver.ensureRelation(relation, fromModel, toModel);
-        return (trx) => trx.table(table.getName()).insert({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).onConflict().ignore().then();
+        this.schemaProvider.ensureRelation(relation, fromModel, toModel);
+        return (trx) => {
+            let insertTx =  trx.table(this.schemaProvider.getRelationTableName(relation, fromModel, toModel)).insert({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to });
+            switch (this.schemaProvider.getDBDialectName()) {
+                case DB_DIALECT_NAMES.MSSQL:
+                    insertTx = trx.client.raw(
+                        MSSQL.INSERT_REL_IF_NOT_EXIST,
+                        {
+                            schema : this.schemaProvider.getSchema(),
+                            relationTable :this.schemaProvider.getRelationTableName(relation, fromModel, toModel),
+                            tagOlympeOrig: from,
+                            tagOlympeDest: to,
+                        }
+                    );
+                    break;
+                case DB_DIALECT_NAMES.POSTGRES:
+                case DB_DIALECT_NAMES.MYSQL:
+                case DB_DIALECT_NAMES.SQLITE3:
+                default:
+                    insertTx = insertTx.onConflict().ignore();
+                    break;
+            }
+            return insertTx.then();
+        }
     }
 
     /**
@@ -158,8 +193,8 @@ export default class SQLTransactionWriter {
         if (typeof fromModel !== 'string' || typeof toModel !== 'string') {
             throw new Error(`SQL connector: invalid transaction: missing origin or destination model to create the relation ${from}-[${relation}]->${to}`);
         }
-        const table = this.schemaObserver.getRelationTable(relation, fromModel, toModel);
-        return (trx) => table ? trx.table(table.getName()).where({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).del().then() : Promise.resolve();
+        const tableName = this.schemaProvider.getRelationTableName(relation, from, to);
+        return (trx) => tableName ? trx.table(tableName).where({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).del().then() : Promise.resolve();
     }
 
     /**
@@ -172,10 +207,10 @@ export default class SQLTransactionWriter {
      */
     toObject(tag, dataType, withTag, properties) {
         const object = withTag ? {[COLUMNS.TAG]: tag } : {};
-        const table = this.schemaObserver.getTable(dataType);
         if (properties) {
             for (const [prop, value] of properties) {
-                const colName = table.getColumn(prop);
+                const tableName = this.schemaProvider.getTableName(dataType);
+                const colName = this.schemaProvider.getColumn(tableName, prop);
                 object[colName] = SQLTransactionWriter.serializeValue(value);
             }
         }
