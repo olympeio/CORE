@@ -32,9 +32,9 @@ export default class SQLQueryExecutor {
     /**
      * @param {!log.Logger} logger
      * @param {!Knex} client
-     * @param {!SchemaObserver} schemaObserver
+     * @param {!SchemaProvider} schemaProvider
      */
-    constructor(logger, client, schemaObserver) {
+    constructor(logger, client, schemaProvider) {
 
         /**
          * @private
@@ -50,9 +50,9 @@ export default class SQLQueryExecutor {
 
         /**
          * @private
-         * @type {!SchemaObserver}
+         * @type {!SchemaProvider}
          */
-        this.schema = schemaObserver;
+        this.schema = schemaProvider;
 
         /**
          * @private
@@ -375,7 +375,7 @@ export default class SQLQueryExecutor {
 
             currentRowInstances.forEach((instance, index) => {
                 if (!instance.tag || !instance.model) {
-                    this.logger.warn('An instance is missing its tag or model => ignore that instance');
+                    this.logger.warn(`An instance is missing its tag (${instance.tag}) or model  (${instance.model}) => ignore that instance`);
                     return;
                 }
 
