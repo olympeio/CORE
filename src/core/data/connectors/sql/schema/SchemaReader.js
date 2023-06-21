@@ -351,7 +351,7 @@ export default class SchemaReader {
                     : acc, '');
             // clear errors promises array
             this.errors = [];
-            if (errorPromises) {
+            if (errorMsg) {
                 // log if any error happened
                 this.logger.error(`Schema reader failed with reason(s): \n${errorMsg}`);
                 return Promise.reject(errorMsg);
