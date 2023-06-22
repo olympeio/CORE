@@ -209,7 +209,7 @@ export default class SchemaObserver {
             try {
                 tableName = this.tables.get(model.getTag())?.getName() ?? null;
             } catch(e) {
-                this.logger.warn(`Try to get the name of a table not fully initialized yet.`);
+                this.logger.warn(`Try to get the name of a table not fully initialized yet, for data type ${dataType}.`);
             }
             return tableName;
         }).filter((v) => v !== null);
