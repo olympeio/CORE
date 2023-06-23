@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {createTheme, Theme as MUITheme, Palette} from "@mui/material/styles";
+import {createTheme, Theme as MUITheme, Palette, Typography} from "@mui/material/styles";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { Theme } from 'olympe';
@@ -163,12 +163,10 @@ const getMuiTheme = (theme) => {
             return p;
         }, {});
 
-        return createTheme({
-            palette,
-            typography: {
-                fontFamily: theme.get(Theme.fontFamilyProp)
-            },
-        });
+        const fontFamily = theme.get(Theme.fontFamilyProp);
+        const typography = fontFamily ? {fontFamily: fontFamily} : {};
+
+        return createTheme({palette, typography});
     } else {
         logger.warn(`Invalid theme used in getMuiTheme(): ${theme}`);
         return emptyTheme;
