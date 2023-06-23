@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {createTheme, Theme as MUITheme, Palette, Typography} from "@mui/material/styles";
+import {createTheme, Theme as MUITheme, Palette} from "@mui/material/styles";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { Theme } from 'olympe';
