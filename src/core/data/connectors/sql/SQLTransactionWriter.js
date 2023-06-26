@@ -193,7 +193,7 @@ export default class SQLTransactionWriter {
         if (typeof fromModel !== 'string' || typeof toModel !== 'string') {
             throw new Error(`SQL connector: invalid transaction: missing origin or destination model to create the relation ${from}-[${relation}]->${to}`);
         }
-        const tableName = this.schemaProvider.getRelationTableName(relation, from, to);
+        const tableName = this.schemaProvider.getRelationTableName(relation, fromModel, toModel);
         return (trx) => tableName ? trx.table(tableName).where({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).del().then() : Promise.resolve();
     }
 

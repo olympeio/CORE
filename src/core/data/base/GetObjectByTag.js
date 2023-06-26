@@ -24,9 +24,9 @@ export default class GetObjectByTag extends Brick {
      * @param {string} tag
      * @param {function(!CloudObject)} setObject
      */
-    update($, [tag], [setObject]) {
-        QuerySingle.from(tag).execute($)
-            .then(setObject);
+    async update($, [tag], [setObject]) {
+        const object = await QuerySingle.from(tag).execute($);
+        setObject(object);
     }
 }
 
