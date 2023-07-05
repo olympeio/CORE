@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, File as OFile } from 'olympe';
+import { ActionBrick, registerBrick, File as OFile, ErrorFlow } from 'olympe';
 import { toBase64 } from 'helpers/binaryConverters';
 import {getLogger} from 'logging';
 import {isMimeTypeText} from '../net/utils/httpResponseHandlers';
@@ -25,9 +25,10 @@ export default class GetFileContent extends ActionBrick {
      * @param {!BrickContext} context
      * @param {File} file
      * @param {function()} forwardEvent
+     * @param {function(ErrorFlow)} setErrorFlow
      * @param {function(string)} setContent
      */
-    update(context, [file], [forwardEvent, setContent]) {
+    update(context, [file], [forwardEvent, setErrorFlow, setContent]) {
         const logger = getLogger('Get File Content');
 
         if (!(file instanceof OFile)) {
@@ -37,7 +38,9 @@ export default class GetFileContent extends ActionBrick {
         }
 
         const onFailure = (message) => {
-            logger.error(`Could not retrieve content of ${file}\n${message}`);
+            const errMsg = `Could not retrieve content of ${file}\n${message}`;
+            logger.error(errMsg);
+            setErrorFlow(ErrorFlow.create(errMsg, 1));
         };
 
         const mimeType = file.get(OFile.mimeTypeProp) ?? '';

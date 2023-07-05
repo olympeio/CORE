@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, File as OFile } from 'olympe';
+import { ActionBrick, registerBrick, File as OFile, ErrorFlow } from 'olympe';
 import {getLogger} from 'logging';
 
 export default class GetBinaryFileContent extends ActionBrick {
@@ -23,9 +23,10 @@ export default class GetBinaryFileContent extends ActionBrick {
      * @param {!BrickContext} context
      * @param {File} file
      * @param {function()} forwardEvent
+     * @param {function(ErrorFlow)} setErrorFlow
      * @param {function(ArrayBuffer)} setContent
      */
-    update(context, [file], [forwardEvent, setContent]) {
+    update(context, [file], [forwardEvent, setErrorFlow, setContent]) {
         const logger = getLogger('Get Binary File Content');
 
         if (!(file instanceof OFile)) {
@@ -38,7 +39,9 @@ export default class GetBinaryFileContent extends ActionBrick {
             setContent(content);
             forwardEvent();
         }, (message) => {
-            logger.error(`Could not retrieve content of ${file}\n${message}`);
+            const errMsg = `Could not retrieve content of ${file}\n${message}`;
+            logger.error(errMsg);
+            setErrorFlow(ErrorFlow.create(errMsg, 1));
         });
     }
 }
