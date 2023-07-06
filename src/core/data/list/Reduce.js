@@ -66,19 +66,19 @@ export default class Reduce extends ActionBrick {
         const [startInput, accumulatorInput, itemInput, rankInput, listInput] = reducer.getInputs();
         const [endOutput, resultOutput] = reducer.getOutputs();
 
-        const reduce = (acc, item, rank, arr) => new Promise((done) => {
+        const reduce = async (acc, item, rank, arr) => {
             const reducer$ = $.runner(reducer)
                 .set(accumulatorInput, acc)
                 .set(itemInput, item)
                 .set(rankInput, rank)
                 .set(listInput, arr)
                 .trigger(startInput);
-            reducer$.waitFor(endOutput).then(() => {
-                const result = reducer$.get(resultOutput);
-                reducer$.destroy();
-                done(result);
-            });
-        });
+
+            await reducer$.waitFor(endOutput); // Wait for the output control flow.
+            const result = reducer$.get(resultOutput);
+            reducer$.destroy();
+            return result;
+        };
 
         let accumulator = initialValue;
         for (let i = 0, l = array.length; i < l; i++) {

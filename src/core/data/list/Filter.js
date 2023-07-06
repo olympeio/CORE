@@ -64,18 +64,18 @@ export default class Filter extends ActionBrick {
         const [startInput, itemInput, rankInput, listInput] = predicate.getInputs();
         const [endOutput, resOutput] = predicate.getOutputs();
 
-        const filter = (item, rank, arr) => new Promise((done) => {
+        const filter = async (item, rank, arr) => {
             const predicate$ = $.runner(predicate)
                 .set(itemInput, item)
                 .set(rankInput, rank)
                 .set(listInput, arr)
                 .trigger(startInput);
-            predicate$.waitFor(endOutput).then(() => {
-                const result = predicate$.get(resOutput);
-                predicate$.destroy();
-                done(result);
-            });
-        });
+
+            await predicate$.waitFor(endOutput); // Wait for the output control flow.
+            const result = predicate$.get(resOutput);
+            predicate$.destroy();
+            return result;
+        };
 
         const filteredArray = [];
         for (let i = 0, l = array.length; i < l; i++) {
