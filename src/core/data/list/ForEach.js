@@ -33,7 +33,7 @@ export default class ForEach extends ActionBrick {
         }
 
         let array = [];
-        if(Array.isArray(list)) {
+        if (Array.isArray(list)) {
             array = list;
         } else if(list instanceof QueryResult) {
             array = list.toArray();
@@ -60,13 +60,14 @@ export default class ForEach extends ActionBrick {
         const [startInput, itemInput, rankInput, listInput] = iterator.getInputs();
         const [endOutput] = iterator.getOutputs();
 
-        const iterate = (item, rank, array) => {
+        const iterate = async (item, rank, array) => {
             const iterator$ = $.runner(iterator)
                 .set(itemInput, item)
                 .set(rankInput, rank)
                 .set(listInput, array)
                 .trigger(startInput)
-            return iterator$.waitFor(endOutput).then(() => iterator$.destroy());
+            await iterator$.waitFor(endOutput)
+            iterator$.destroy();
         }
 
         for (let i = 0, l = array.length; i < l; i++) {
