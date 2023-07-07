@@ -234,7 +234,7 @@ export default class Dropdown extends ReactBrick {
         } else {
             // case where there is no ObjectToString lambda defined
             // returns an array of observers. the observers push a single value corresponding to the CloudObject basic string representation
-            return list.map(item => of(Dropdown.createOption(item, item.toString())));
+            return list.map(item => of(Dropdown.createOption(item, item?.toString() ?? '')));
         }
     }
 
