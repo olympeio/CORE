@@ -1,4 +1,4 @@
-import {Brick, CloudObject, Query, registerBrick} from 'olympe';
+import {Brick, Query, registerBrick} from 'olympe';
 
 export default class QueryObject extends Brick {
 
@@ -12,9 +12,7 @@ export default class QueryObject extends Brick {
      * @param {function(*)} setQuery
      */
     update($, [tag, type, addToResult], [setQuery]) {
-        // Create the CloudObjet in the local database so that it exists and can be queried to the right data source.
-        const object = CloudObject.exists(tag) ? tag : CloudObject.createWith(new Map(), type);
-        const query = Query.from(object);
+        const query = Query.fromTag(tag, type);
         setQuery(addToResult ? query.andReturn() : query);
     }
 }
