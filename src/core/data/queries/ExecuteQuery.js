@@ -29,7 +29,7 @@ export default class ExecuteQuery extends ActionBrick {
      * @param {function(ErrorFlow)} setErrorFlow
      */
     update($, [query], [forwardEvent, setQueryResult, setErrorFlow]) {
-        if(query instanceof Query){
+        if (query instanceof Query) {
             query.execute($)
                 .then(queryResult => {
                     setQueryResult(queryResult);

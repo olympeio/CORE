@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, Transaction, DBView, BrickContext, ErrorFlow } from 'olympe';
-import { getLogger } from 'logging';
+import { ActionBrick, registerBrick, Transaction, CloudObject, BrickContext, ErrorFlow } from 'olympe';
 
 export default class DeleteObject extends ActionBrick {
 
@@ -28,10 +27,10 @@ export default class DeleteObject extends ActionBrick {
      */
     update($, [object], [forwardEvent, setErrorFlow]) {
         // Check if we can delete the inboundObject
-        if (DBView.get().exist(object)) {
-            const transaction = new Transaction();
+        if (CloudObject.exists(object)) {
+            const transaction = Transaction.from($);
             transaction.delete(object);
-            transaction.execute()
+            Transaction.process($, transaction)
                 .then(() => forwardEvent())
                 .catch((message) => setErrorFlow(ErrorFlow.create(`Delete Object: ${message}`, 1)));
         } else {

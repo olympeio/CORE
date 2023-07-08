@@ -17,19 +17,13 @@ import {
     Context,
     Predicate
 } from 'olympe';
-import {COLUMNS} from "./SQLQueryExecutor";
-import {
-    QUERY_ALL_COLUMNS,
-    QUERY_ALL_TABLES,
-    QUERY_COLUMNS,
-    QUERY_DATA_TYPE_TABLES,
-    QUERY_RELATION_TABLES,
-    REMOVE_DUPLICATES,
-    SCHEMA_PREFIXES,
-    MAX_NAME_LENGTH
-} from './_statics';
-import { jenkinsOneAtATimeHash } from '../../../../helpers/common/hash';
+import {COLUMNS} from "../SQLQueryExecutor";
+import {PG, SCHEMA_PREFIXES, MAX_NAME_LENGTH} from '../_statics';
+import SchemaProvider from './SchemaProvider';
 
+/**
+ * @implements {SchemaProvider}
+ */
 export default class SchemaObserver {
 
     /**
@@ -93,10 +87,8 @@ export default class SchemaObserver {
     }
 
     /**
-     * @param {!Knex} client
-     * @param {string} schema
-     * @param {!Context} context
-     * @return {!Promise<void>}
+     * @override
+     * @inheritDoc
      */
     init(client, schema, context) {
         this.knex = client;
@@ -125,12 +117,12 @@ export default class SchemaObserver {
         // Initialize and validate the schema according to the data model.
         this.pushOperation(async () => {
             // List of data types tables from the database
-            const dataTypeTables = await queryTables(QUERY_DATA_TYPE_TABLES);
+            const dataTypeTables = await queryTables(PG.QUERY_DATA_TYPE_TABLES);
             this.logger.debug(`Found ${dataTypeTables.length} data type tables to be validated.`);
 
             // If no data type table, means that we are probably trying to migration to the new sql connector format.
             if (dataTypeTables.length === 0) {
-                const allTables = await queryTables(QUERY_ALL_TABLES);
+                const allTables = await queryTables(PG.QUERY_ALL_TABLES);
                 this.logger.debug(`No data type table, try a migration on ${allTables.length} tables`);
                 await this.migrate(allTables.map(([tableName]) => tableName));
                 return;
@@ -140,7 +132,7 @@ export default class SchemaObserver {
             await SchemaObserver.validateSchema(this.logger, SCHEMA_PREFIXES.TYPE, dataTypeTables, tableModifier);
 
             // List of relation tables from the database
-            const relationTables = await queryTables(QUERY_RELATION_TABLES);
+            const relationTables = await queryTables(PG.QUERY_RELATION_TABLES);
             this.logger.debug(`Found ${relationTables.length} relation tables to be validated.`);
             return SchemaObserver.validateRelationSchema(this.logger, relationTables, tableModifier);
         }, 'Initialize schema observer');
@@ -149,7 +141,8 @@ export default class SchemaObserver {
     }
 
     /**
-     * @return {!Promise<void>}
+     * @override
+     * @inheritDoc
      */
     waitForFree() {
         return new Promise((resolve) => {
@@ -195,16 +188,16 @@ export default class SchemaObserver {
     }
 
     /**
-     * @return {string}
+     * @override
+     * @inheritDoc
      */
     getSchema() {
         return this.schema;
     }
 
     /**
-     * @param {!Tag} dataType
-     * @param {boolean=} includeInheritance
-     * @return {string[]}
+     * @override
+     * @inheritDoc
      */
     getTablesOfType(dataType, includeInheritance = true) {
         let query = Query.from(dataType);
@@ -216,15 +209,15 @@ export default class SchemaObserver {
             try {
                 tableName = this.tables.get(model.getTag())?.getName() ?? null;
             } catch(e) {
-                this.logger.warn(`Try to get the name of a table not fully initialized yet.`);
+                this.logger.warn(`Try to get the name of a table not fully initialized yet, for data type ${dataType}.`);
             }
             return tableName;
         }).filter((v) => v !== null);
     }
 
     /**
-     * @param {...string} tableNames
-     * @return {Generator<[string, string]>}
+     * @override
+     * @inheritDoc
      */
     getAllColumns(...tableNames) {
         return (function* (tables, tableNames, names) {
@@ -240,17 +233,24 @@ export default class SchemaObserver {
     }
 
     /**
-     * @param {string} table
-     * @return {?string}
+     * @override
+     * @inheritDoc
+     */
+    getColumn(table, property) {
+        return this.tables.get(this.tableNames.get(table))?.getColumn(property) ?? null;
+    }
+
+    /**
+     * @override
+     * @inheritDoc
      */
     getTableTag(table) {
         return this.tableNames.get(table) ?? null;
     }
 
     /**
-     * @param {string[]} fromTables
-     * @param {!Relation} relation
-     * @return {[string, string, string][]}
+     * @override
+     * @inheritDoc
      */
     getRelationTables(fromTables, relation) {
         const toOrigin = relation.getDirection() === Direction.ORIGIN;
@@ -272,11 +272,11 @@ export default class SchemaObserver {
                     const toTableTag = this.getTableTag(toTableName);
                     const toName = this.db.name(toTableTag);
                     const relGlobalTag = toOrigin
-                        ? SchemaObserver.getRelGlobalTag(toTableTag, fromTableTag, relation.getTag())
-                        : SchemaObserver.getRelGlobalTag(fromTableTag, toTableTag, relation.getTag())
+                        ? SchemaProvider.getRelGlobalTag(toTableTag, fromTableTag, relation.getTag())
+                        : SchemaProvider.getRelGlobalTag(fromTableTag, toTableTag, relation.getTag())
                     const relTableName = toOrigin
-                        ? SchemaObserver.getSQLRelationName(toName, relationName, fromName, relGlobalTag)
-                        : SchemaObserver.getSQLRelationName(fromName, relationName, toName, relGlobalTag);
+                        ? SchemaProvider.relationTranslationToODBName(toName, relationName, fromName, relGlobalTag)
+                        : SchemaProvider.relationTranslationToODBName(fromName, relationName, toName, relGlobalTag);
                     if (this.tableNames.has(relTableName)) {
                         result.push([fromTableName, relTableName, toTableName]);
                     }
@@ -287,12 +287,11 @@ export default class SchemaObserver {
     }
 
     /**
-     * @param {string} dataType
-     * @param {string[]} properties
-     * @return {!Table}
+     * @override
+     * @inheritDoc
      */
     ensureDataType(dataType, properties) {
-        const table = this.tables.get(dataType) ?? new Table(this.logger, dataType).addColumns([COLUMNS.TAG]);
+        const table = this.getTableForDataType(dataType);
 
         // Create the table if it does not exist yet
         if (!this.tables.has(dataType)) {
@@ -311,20 +310,28 @@ export default class SchemaObserver {
                 `Ensure properties columns exists for ${dataType}`
             );
         }
-        return table;
     }
 
     /**
-     * @param {string} relationTag
-     * @param {string} fromTag
-     * @param {string} toTag
-     * @return {Table}
+     * @private
+     * @param {string} dataType
+     * @returns {Table}
+     */
+    getTableForDataType(dataType) {
+        return this.tables.get(dataType) ?? new Table(this.logger, dataType).addColumns([COLUMNS.TAG]);
+    }
+
+    /**
+     * @override
+     * @inheritDoc
      */
     ensureRelation(relationTag, fromTag, toTag) {
-        const globalTag = SchemaObserver.getRelGlobalTag(fromTag, toTag, relationTag);
-        const fromTable = this.ensureDataType(fromTag, []);
-        const toTable = this.ensureDataType(toTag, []);
-        const table = this.tables.get(globalTag) ?? new Table(this.logger, globalTag).addColumns([COLUMNS.FROM, COLUMNS.TO]);
+        const globalTag = SchemaProvider.getRelGlobalTag(fromTag, toTag, relationTag);
+        this.ensureDataType(fromTag, []);
+        const fromTable = this.getTableForDataType(fromTag);
+        this.ensureDataType(toTag, []);
+        const toTable = this.getTableForDataType(toTag);
+        const table = this.getTableForRelation(globalTag);
 
         if (!this.tables.has(globalTag)) {
             this.tables.set(globalTag, table);
@@ -335,11 +342,27 @@ export default class SchemaObserver {
                 this.tableNames.set(table.getName(), globalTag);
             }, `Ensure relation table exists for ${fromTag}-[${relationTag}]->${toTag}`);
         }
-
-        return table;
     }
 
     /**
+     * @private
+     * @param {string} globalTag
+     * @return {Table}
+     */
+    getTableForRelation(globalTag) {
+        return this.tables.get(globalTag) ?? new Table(this.logger, globalTag).addColumns([COLUMNS.FROM, COLUMNS.TO]);
+    }
+
+    /**
+     * @override
+     * @inheritDoc
+     */
+    getRelationTableName(relationTag, fromTag, toTag) {
+        return this.getTableForRelation( SchemaProvider.getRelGlobalTag(fromTag, toTag, relationTag))?.getName();
+    }
+
+    /**
+     * @private
      * @param {string} dataType
      * @return {Table}
      */
@@ -348,23 +371,11 @@ export default class SchemaObserver {
     }
 
     /**
-     * @param {string} table
-     * @param {string} property
-     * @return {?string}
+     * @override
+     * @inheritDoc
      */
-    getColumn(table, property) {
-        return this.tables.get(this.tableNames.get(table))?.getColumn(property) ?? null;
-    }
-
-    /**
-     * @param {string} relationTag
-     * @param {string} fromTag
-     * @param {string} toTag
-     * @return {Table}
-     */
-    getRelationTable(relationTag, fromTag, toTag) {
-        const globalTag = `${fromTag}:${relationTag}:${toTag}`;
-        return this.tables.get(globalTag) ?? null;
+    getTableName(dataType) {
+        return this.getTable(dataType).getName() ?? '';
     }
 
     /**
@@ -373,6 +384,14 @@ export default class SchemaObserver {
      */
     getSchemaBuilder() {
         return this.knex.schema.withSchema(this.schema);
+    }
+
+    /**
+     * @override
+     * @inheritDoc
+     */
+    getDBDialectName(){
+        return this.knex.client.config.client;
     }
 
     /**
@@ -398,7 +417,7 @@ export default class SchemaObserver {
                     relationOperations.push(() => this.migrateRelation(tag, fromTag, toTag));
                 } else {
                     // tag is a name of DB table, tag is not a relation => tag is a data type
-                    const rawColumns = (await this.knex.raw(QUERY_ALL_COLUMNS, {"schemaName":this.schema, "tableName":name}))?.rows?.map((r) => r.name)
+                    const rawColumns = (await this.knex.raw(PG.QUERY_ALL_COLUMNS, {"schemaName":this.schema, "tableName":name}))?.rows?.map((r) => r.name)
                     dataTypeOperations.push(() => this.migrateDataType(tag, rawColumns));
                 }
             }
@@ -418,9 +437,9 @@ export default class SchemaObserver {
      */
     migrateRelation(relationTag, fromTag, toTag) {
         this.logger.info(`[MIGRATION] migrating relation table (${fromTag})->[${relationTag}]->(${toTag})`);
-        const globalTag = SchemaObserver.getRelGlobalTag(fromTag, toTag, relationTag);
+        const globalTag = SchemaProvider.getRelGlobalTag(fromTag, toTag, relationTag);
         const tableName = this.tableNames.get(globalTag)
-            ?? SchemaObserver.getSQLRelationName(this.db.name(fromTag), this.db.name(relationTag), this.db.name(toTag), globalTag);
+            ?? SchemaProvider.relationTranslationToODBName(this.db.name(fromTag), this.db.name(relationTag), this.db.name(toTag), globalTag);
 
         if (!this.tableNames.has(tableName)) {
             const table = new Table(this.logger, globalTag, tableName);
@@ -441,13 +460,13 @@ export default class SchemaObserver {
 
             // remove duplicates in relation tables
             this.pushOperation(
-                () => this.knex.raw(REMOVE_DUPLICATES, {"schema1":this.schema,"table1": tableName}),
+                () => this.knex.raw(PG.REMOVE_DUPLICATES, {"schema1":this.schema,"table1": tableName}),
                 `[MIGRATION] Remove duplicates from relation table ${tableName}`
             );
 
             // Ensure update of FROM and TO columns + comment on the table
-            const fromTable = SchemaObserver.toSQLName(this.db.name(fromTag), fromTag);
-            const toTable = SchemaObserver.toSQLName(this.db.name(toTag), toTag);
+            const fromTable = SchemaProvider.tagTranslationToODBName(this.db.name(fromTag), fromTag);
+            const toTable = SchemaProvider.tagTranslationToODBName(this.db.name(toTag), toTag);
             this.pushOperation(
                 () => table.migrateRelationColumns(this.getSchemaBuilder(), tableName, fromTable, toTable, this.schema),
                 `[MIGRATION] Update columns of relation table ${tableName} to add foreign keys and comments`
@@ -465,7 +484,7 @@ export default class SchemaObserver {
     migrateDataType(dataType, columnNames) {
         // Discriminate file model tag that changed with data source integration
         const newDataType = dataType === 'ff021000000000000030' ? tagToString(OFile) : dataType;
-        const tableName = this.tableNames.get(newDataType) ?? SchemaObserver.toSQLName(this.db.name(newDataType), newDataType);
+        const tableName = this.tableNames.get(newDataType) ?? SchemaProvider.tagTranslationToODBName(this.db.name(newDataType), newDataType);
         const table = this.tables.get(newDataType) ?? new Table(this.logger, newDataType, tableName);
 
         if (!this.tableNames.has(tableName)) {
@@ -494,45 +513,8 @@ export default class SchemaObserver {
             }
         }
     }
-
     /**
-     * @param {string} from
-     * @param {string} rel
-     * @param {string} to
-     * @param {string} relGlobalTag
-     * @param {number=} max
-     * @return {string}
-     */
-    static getSQLRelationName(from, rel, to, relGlobalTag, max = MAX_NAME_LENGTH) {
-        const hash = jenkinsOneAtATimeHash(relGlobalTag);
-        const hashLength = Math.min(10, hash.length);
-        const subMax = Math.floor((max - hashLength - 3) / 3);
-        return `${this.toSQLName(from, '', subMax)}_${this.toSQLName(rel, '', subMax)}_${this.toSQLName(to, '', subMax)}_${hash.slice(-hashLength)}`;
-    }
-
-    /**
-     * @param {string} fromTag
-     * @param {string} toTag
-     * @param {string} relationTag
-     * @returns {string}
-     */
-    static getRelGlobalTag(fromTag, toTag, relationTag) {
-        return `${fromTag}:${relationTag}:${toTag}`;
-    }
-
-    /**
-     * @param {string} name
-     * @param {string} tag
-     * @param {number=} max
-     */
-    static toSQLName(name, tag, max = MAX_NAME_LENGTH) {
-        const tagLength = Math.min(10, tag.length);
-        // Ensure the name do not start by a digit and does not contain non-word characters.
-        const candidate = name.replace(/^\d|\W/g, '_').substring(0, max - 1 - tagLength);
-        return tagLength > 0 ? candidate.concat('_', tag.slice(-tagLength)) : candidate;
-    }
-
-    /**
+     * @private
      * @param {log.Logger} logger
      * @param {[string, string][]} relationTables
      * @param {function(string, string, string):Promise<void>} modifier
@@ -547,8 +529,8 @@ export default class SchemaObserver {
 
             // If relation tag is valid, compute the new name to ensure it is updated
             if (typeof relTag === 'string' && db.exist(fromTag) && db.instanceOf(relTag, RelationModel) && db.exist(toTag)) {
-                const globalTag = SchemaObserver.getRelGlobalTag(fromTag, toTag, relTag);
-                const finalName = SchemaObserver.getSQLRelationName(db.name(fromTag), db.name(relTag), db.name(toTag), globalTag);
+                const globalTag = SchemaProvider.getRelGlobalTag(fromTag, toTag, relTag);
+                const finalName = SchemaProvider.relationTranslationToODBName(db.name(fromTag), db.name(relTag), db.name(toTag), globalTag);
                 promises.push(modifier(name, finalName, globalTag));
             } else {
                 // Otherwise, ignore the table.
@@ -560,6 +542,7 @@ export default class SchemaObserver {
     }
 
     /**
+     * @private
      * @param {!log.Logger} logger
      * @param {string} schemaType
      * @param {[string, string][]} currentSchema
@@ -575,7 +558,7 @@ export default class SchemaObserver {
 
             // If tag is valid, compute the new name to ensure it is updated
             if (typeof tag === 'string' && (schemaType === SCHEMA_PREFIXES.PROPERTY ? db.instanceOf(tag, PropertyModel) : db.exist(tag))) {
-                const finalName = SchemaObserver.toSQLName(db.name(tag), tag);
+                const finalName = SchemaProvider.tagTranslationToODBName(db.name(tag), tag);
                 promises.push(modifier(name, finalName, tag));
             } else {
                 // Otherwise, ignore the table/column
@@ -647,7 +630,7 @@ class Table {
             throw new Error(`Try to create a table for a non-existing data type: ${this.tag}`);
         }
 
-        this.name = this.name ?? SchemaObserver.toSQLName(dataType.name(), this.tag);
+        this.name = this.name ?? SchemaProvider.tagTranslationToODBName(dataType.name(), this.tag);
         await builder.createTable(this.name, (tableBuilder) => {
             tableBuilder.comment(`${SCHEMA_PREFIXES.TYPE}:${this.tag}`);
 
@@ -701,7 +684,7 @@ class Table {
             }
 
             // Finally rename the column
-            const columnName = SchemaObserver.toSQLName(this.db.name(columnTag), columnTag);
+            const columnName = SchemaProvider.tagTranslationToODBName(this.db.name(columnTag), columnTag);
             this.columns.set(columnTag, columnName);
             tableBuilder.renameColumn(columnTag, columnName);
         });
@@ -777,7 +760,7 @@ class Table {
 
                 // Primitive types are: string, number, boolean, date, color
                 const [property, type] = properties.get(columnTag);
-                const columnName = SchemaObserver.toSQLName(property.name(), columnTag);
+                const columnName = SchemaProvider.tagTranslationToODBName(property.name(), columnTag);
                 if (this.db.isExtending(type, StringModel)) { // this also takes care of enums
                     tableBuilder.text(columnName).comment(comment);
                 } else if (this.db.isExtending(type, NumberModel)) {
@@ -824,7 +807,7 @@ class Table {
 
         // Build the name of this relation table
         const [from, rel, to] = relationTuple;
-        this.name = this.name ?? SchemaObserver.getSQLRelationName(from.name(), rel.name(), to.name(), this.tag);
+        this.name = this.name ?? SchemaProvider.relationTranslationToODBName(from.name(), rel.name(), to.name(), this.tag);
         await builder.createTable(this.name, (tableBuilder) => {
             tableBuilder.string(COLUMNS.FROM, 21)
                 .notNullable()
@@ -862,7 +845,7 @@ class Table {
     async checkColumns(client, schema) {
         const hardcodedColumns = new Set(Object.values(COLUMNS));
         // List of columns (pairs of column name and column comments) to be validated.
-        const rawColumns = await client.raw(QUERY_COLUMNS, {"schemaName": schema, "tableName": this.name});
+        const rawColumns = await client.raw(PG.QUERY_COLUMNS, {"schemaName": schema, "tableName": this.name});
         this.logger.debug(`Found ${rawColumns.rowCount} columns to be validated in table ${this.name}`);
 
         const columnsList = rawColumns?.rows?.map((row) => [row.name, row.comment]).filter(([name]) => {

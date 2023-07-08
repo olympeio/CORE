@@ -64,17 +64,17 @@ export default class MapBrick extends ActionBrick {
         const [startInput, itemInput, rankInput, listInput] = mapper.getInputs();
         const [endOutput, itemOutput] = mapper.getOutputs();
 
-        const map = (item, rank, array) => {
+        const map = async (item, rank, array) => {
             const mapper$ = $.runner(mapper)
                 .set(itemInput, item)
                 .set(rankInput, rank)
                 .set(listInput, array)
                 .trigger(startInput);
-            return mapper$.waitFor(endOutput).then(() => {
-                const outputValue = mapper$.get(itemOutput);
-                mapper$.destroy();
-                return outputValue;
-            });
+
+            await mapper$.waitFor(endOutput); // Wait for the output control flow.
+            const outputValue = mapper$.get(itemOutput);
+            mapper$.destroy();
+            return outputValue;
         };
 
         const mappedArray = [];

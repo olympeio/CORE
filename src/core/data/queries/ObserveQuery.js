@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import { Brick, registerBrick, Query } from 'olympe';
+import {getLogger} from "logging";
 
 export default class ObserveQuery extends Brick {
 
@@ -26,8 +27,11 @@ export default class ObserveQuery extends Brick {
      * @param {function(!QueryResult)} setQueryResult
      */
     update($, [query], [setQueryResult]) {
-        query.observe($)
-            .subscribe(queryResult => setQueryResult(queryResult));
+        if (query instanceof Query) {
+            query.observe($).subscribe(setQueryResult);
+        } else {
+            getLogger('ObserveQuery').error(`The provided Query is not a Query object`);
+        }
     }
 }
 

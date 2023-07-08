@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
+import {BrickContext } from 'olympe';
 import GetObjectByTag from '../../../src/core/data/base/GetObjectByTag.js';
-import testEqual from '../../helpers/testEqual.mjs';
 
 describe('GetObject brick', () => {
     it('should correctly retrieve an object given a tag', () => {
         // TODO
     });
 
-    it('should return null if the object with the given tag does not exist', () => {
+    it('should throw an error if the object with the given tag does not exist', async () => {
         const getObject = new GetObjectByTag();
-        testEqual(getObject, ['this tag does not exist'], [null]);
+        const promise = getObject.update(new BrickContext().createChild(), ['this tag does not exist'], [(_v) => {}]);
+        await expectAsync(promise).toBeRejectedWithError(/Try to get a CloudObject from a tag that does not exist in the local database/);
     });
 });

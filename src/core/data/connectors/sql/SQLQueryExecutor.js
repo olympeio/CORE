@@ -32,9 +32,9 @@ export default class SQLQueryExecutor {
     /**
      * @param {!log.Logger} logger
      * @param {!Knex} client
-     * @param {!SchemaObserver} schemaObserver
+     * @param {!SchemaProvider} schemaProvider
      */
-    constructor(logger, client, schemaObserver) {
+    constructor(logger, client, schemaProvider) {
 
         /**
          * @private
@@ -50,9 +50,9 @@ export default class SQLQueryExecutor {
 
         /**
          * @private
-         * @type {!SchemaObserver}
+         * @type {!SchemaProvider}
          */
-        this.schema = schemaObserver;
+        this.schema = schemaProvider;
 
         /**
          * @private
@@ -196,10 +196,9 @@ export default class SQLQueryExecutor {
         const tableName = this.schema.getTablesOfType(dataType, false)[0];
         if (tableName) {
             const rows = await this.builder().from(tableName).select(FILE_CONTENT).where(TAG, fileTag);
-            const fileResult = rows[0];
-            if (fileResult?.[FILE_CONTENT]) {
-                const fileBuffer = fileResult[FILE_CONTENT];
-                return fileBuffer.buffer.slice(fileBuffer.byteOffset, fileBuffer.byteOffset + fileBuffer.byteLength);
+            const fileContent = rows[0]?.[FILE_CONTENT];
+            if (fileContent instanceof Uint8Array) {
+                return fileContent;
             }
         }
         throw new Error(`File ${fileTag} not found in the database`);
@@ -375,7 +374,7 @@ export default class SQLQueryExecutor {
 
             currentRowInstances.forEach((instance, index) => {
                 if (!instance.tag || !instance.model) {
-                    this.logger.warn('An instance is missing its tag or model => ignore that instance');
+                    this.logger.warn(`An instance is missing its tag (${instance.tag}) or model  (${instance.model}) => ignore that instance`);
                     return;
                 }
 

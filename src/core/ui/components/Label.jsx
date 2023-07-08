@@ -62,11 +62,13 @@ export default class Label extends ReactBrick {
             }
             const theme = useMUITheme($);
             const borderRadius = useProperty($, 'Border Radius');
-
-            const propFontFamily = useProperty($, 'Font Family');
             // Extract text specific SX and CSS properties to be applied on the <p> instead of the box
             const extractFontProps = ({fontFamily, fontSize, lineHeight, letterSpacing, ...otherProps}) => {
-                return [{fontFamily, fontSize, lineHeight, letterSpacing}, otherProps];
+                // Remove undefined properties
+                const fontProps = {fontFamily, fontSize, lineHeight, letterSpacing};
+                Object.keys(fontProps).forEach((k) => fontProps[k] === undefined && delete fontProps[k]);
+                // Return separated props series.
+                return [fontProps, otherProps];
             };
             const [cssFontProps, cssOtherProps] = extractFontProps(cssToSxProps(useProperty($, 'CSS Property')));
             const [sxFontProps, sxOtherProps] = extractFontProps(jsonToSxProps(useProperty($, 'MUI sx [json]')));
@@ -90,7 +92,6 @@ export default class Label extends ReactBrick {
                             ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
                             ...ifNotTransparent('borderColor', useProperty($, 'Border Color')),
                             ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
-                            ...cssToSxProps(useProperty($, 'CSS Property')),
                             ...cssOtherProps,
                             ...sxOtherProps
                         }}

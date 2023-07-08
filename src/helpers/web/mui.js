@@ -163,12 +163,10 @@ const getMuiTheme = (theme) => {
             return p;
         }, {});
 
-        return createTheme({
-            palette,
-            typography: {
-                fontFamily: theme.get(Theme.fontFamilyProp)
-            },
-        });
+        const fontFamily = theme.get(Theme.fontFamilyProp);
+        const typography = fontFamily ? {fontFamily: fontFamily} : {};
+
+        return createTheme({palette, typography});
     } else {
         logger.warn(`Invalid theme used in getMuiTheme(): ${theme}`);
         return emptyTheme;

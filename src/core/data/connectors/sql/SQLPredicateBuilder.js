@@ -69,7 +69,7 @@ const inequality = (builder, column, predicateObject) => {
  * @param {!*} objectPredicate
  */
 const contains = (builder, column, objectPredicate) => {
-    const wildcard = translateWildcard('.*', builder.client.dialect);
+    const wildcard = translateWildcard('.*');
     // match substring by using .* wildcard at the start and end of the values being searched
     const matchSubstring = `${wildcard}${objectPredicate.value}${wildcard}`;
     let queryString = '?? LIKE ?';
@@ -85,7 +85,7 @@ const contains = (builder, column, objectPredicate) => {
  * @param {!*} objectPredicate
  */
 const regex = (builder, column, objectPredicate) => {
-    const regexJS = (/** @type {!RegExp} */ operatorValue);
+    const regexJS = (/** @type {!RegExp} */ objectPredicate.pattern);
     const sqlRegex = toSQLRegex(regexJS, builder.client.dialect);
     let queryString = '?? LIKE ?';
     if (objectPredicate.caseSensitive) {
@@ -96,25 +96,15 @@ const regex = (builder, column, objectPredicate) => {
 /**
  * @private
  * @param {string} char
- * @param {string} dialect
  * @return {string}
  */
-const translateWildcard = (char, dialect) => {
+const translateWildcard = char => {
     const wildCardsReplacement = {
-        '.+?': '_',
+        '.': '_',
         '.*': '%',
         '.+': '_%'
     };
-    const wildcardsMSSQL = {
-        '.+?': '?',
-        '.*': '*',
-        '.+': '?*'
-    };
-    if (dialect === 'mssql') {
-        return wildcardsMSSQL[char];
-    } else {
-        return wildCardsReplacement[char];
-    }
+    return wildCardsReplacement[char];
 };
 /**
  * @private
@@ -138,7 +128,7 @@ const toSQLRegex = (regex, dialect) => {
     const withoutEscapeSQL = /^(\\\^|\\\/|\\\$|\\\.|\\\?|\\\*|\\\+|\\\(|\\\)|\\\[|\\\]|\\\{|\\\})/;
 
     // are RegExpr wildcards and need special translation
-    const wildCards = /^(\.\+\?|\.\*|\.\+)/;
+    const wildCards = /^(\.\*|\.\+|\.)/;
 
 
     let regexSource = regex.source;
@@ -186,7 +176,7 @@ const translateNextToken = (regexSource, dialect, sqlSpecial, wildCards, without
     // second we match RegExp wildcards
     const wildCardsMatch = wildCards.exec(regexSource);
     if (wildCardsMatch) {
-        return [translateWildcard(wildCardsMatch[0], dialect), wildCardsMatch[0].length];
+        return [translateWildcard(wildCardsMatch[0]), wildCardsMatch[0].length];
     }
 
     // match characters that needs escaping in RegExpr but not in SQL and thus need removal of escape character
