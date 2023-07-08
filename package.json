@@ -1,6 +1,6 @@
 {
   "name": "@olympeio/core",
-  "version": "2.4.2-dev",
+  "version": "2.4.2",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -30,7 +30,7 @@
     "test:debug": "npx karma start karma.conf.js --browsers=Chrome --single-run=false --debug"
   },
   "devDependencies": {
-    "@olympeio/dev-tools": "dev",
+    "@olympeio/dev-tools": "~2.4.0",
     "@babel/core": "7.22.1",
     "@babel/preset-env": "7.22.2",
     "@babel/preset-react": "7.22.0",
@@ -55,8 +55,8 @@
     "karma-spec-reporter": "0.0.36"
   },
   "dependencies": {
-    "@olympeio/runtime-node": "dev",
-    "@olympeio/runtime-web": "dev",
+    "@olympeio/runtime-node": "~9.4.3",
+    "@olympeio/runtime-web": "~9.4.3",
     "@emotion/react": "11.11.0",
     "@emotion/styled": "11.11.0",
     "@mui/material": "5.13.2",
