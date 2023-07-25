@@ -103,9 +103,9 @@ export default class MSSQLConnector extends DataSource {
     /**
      * @override
      */
-    async applyTransaction(operations) {
+    async applyTransaction(operations, options) {
         const writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaReader);
-        await writer.applyOperations(operations);
+        await writer.applyOperations(operations, options?.batch);
     }
 
     /**
