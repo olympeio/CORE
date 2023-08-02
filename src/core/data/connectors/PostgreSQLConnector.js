@@ -106,9 +106,9 @@ export default class PostgreSQLConnector extends DataSource {
     /**
      * @override
      */
-    async applyTransaction(operations) {
+    async applyTransaction(operations, options) {
         const writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaObserver);
-        await writer.applyOperations(operations);
+        await writer.applyOperations(operations, options?.batch);
     }
 
     /**
