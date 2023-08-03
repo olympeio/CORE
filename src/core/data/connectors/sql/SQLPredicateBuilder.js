@@ -25,9 +25,11 @@ export const parsePredicate = (builder, column, objectPredicate) => {
             equals(builder, column, objectPredicate.value);
             break;
         case 'IS':
-            objectPredicate.tags.length > 1
-                ? isIn(builder, column, objectPredicate.tags)
-                : equals(builder, column, objectPredicate.tags[0]);
+            if (objectPredicate.tags.length > 0) {
+                objectPredicate.tags.length > 1
+                    ? isIn(builder, column, objectPredicate.tags)
+                    : equals(builder, column, objectPredicate.tags[0]);
+            }
             break;
     }
 };

@@ -14,21 +14,26 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, Auth, QuerySingle } from 'olympe';
+import { Brick, registerBrick, Auth, Query, User } from 'olympe';
 
 export default class GetCurrentUser extends Brick {
 
     /**
+     * @override
+     */
+    setupExecution($) {
+        return Auth.observeUser($);
+    }
+
+    /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!Array} _
-     * @param {function(!CloudObject)} setUser
+     * @param {string} userTag
+     * @param {function(!User)} setUser
      */
-    update($, _, [setUser]) {
-        Auth.observeUser($).subscribe(tag => {
-            QuerySingle.from(tag).execute($)
-                .then(setUser);
-        });
+    async update($, [userTag], [setUser]) {
+        const result = await Query.fromTag(userTag, User).execute($);
+        setUser(result.getFirst());
     }
 }
 
