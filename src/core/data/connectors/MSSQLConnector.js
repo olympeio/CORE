@@ -1,22 +1,28 @@
 import {DataSource, register} from 'olympe';
 import {getLogger} from 'logging';
-import {knex} from 'knex';
+import {knex, Knex} from 'knex';
 import {HEALTH_CHECK_QUERY, config} from './sql/_statics';
 import SchemaReader from './sql/schema/SchemaReader';
 import SQLQueryExecutor, {COLUMNS} from './sql/SQLQueryExecutor';
 import SQLTransactionWriter from './sql/SQLTransactionWriter';
+
 export default class MSSQLConnector extends DataSource {
+
     constructor(...args) {
         super(...args);
+
         /**
          * @private
+         * @type {Knex}
          */
         this.knex = null;
+
         /**
          * @private
          * @type {log.Logger}
          */
         this.logger = getLogger('mssql');
+
         /**
          * @private
          * @type {!SchemaReader}
@@ -35,7 +41,7 @@ export default class MSSQLConnector extends DataSource {
 
         if (database === null || schema === null) {
             const errorMsg = 'Config error: Database or schema is null.\n' +
-                `Note that this data connector looks for config from either data.${this.name.toLowerCase().replace(/\W/g, '_')} or data.`;
+                `Note that this data connector looks for config from either data.${this.name().toLowerCase().replace(/\W/g, '_')} or data.`;
             throw new Error(errorMsg);
         }
         if (this.knex !== null) {
@@ -103,9 +109,9 @@ export default class MSSQLConnector extends DataSource {
     /**
      * @override
      */
-    async applyTransaction(operations, options) {
+    async applyTransaction(operations, { batch = false }) {
         const writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaReader);
-        await writer.applyOperations(operations, options?.batch);
+        await writer.applyOperations(operations, batch);
     }
 
     /**
@@ -113,7 +119,7 @@ export default class MSSQLConnector extends DataSource {
      */
     async uploadFileContent(fileTag, dataType, binary) {
         const properties = new Map([[COLUMNS.FILE_CONTENT, binary]]);
-        await this.applyTransaction([{type: 'CREATE', object: fileTag, model: dataType, properties}]);
+        await this.applyTransaction([{type: 'CREATE', object: fileTag, model: dataType, properties}], {});
     }
 
     /**
@@ -129,7 +135,7 @@ export default class MSSQLConnector extends DataSource {
      */
     async deleteFileContent(fileTag, dataType) {
         const properties = new Map([[COLUMNS.FILE_CONTENT, null]]);
-        await this.applyTransaction([{type: 'UPDATE', object: fileTag, model: dataType, properties}]);
+        await this.applyTransaction([{type: 'UPDATE', object: fileTag, model: dataType, properties}], {});
     }
 }
 register('01888ba7faaacebdb63b', MSSQLConnector);
