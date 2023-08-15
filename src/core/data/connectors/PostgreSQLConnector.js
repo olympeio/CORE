@@ -34,7 +34,7 @@ export default class PostgreSQLConnector extends DataSource {
      * @override
      */
     async init(context) {
-        this.logger.info(`Initialization of SQLConnector ${this.getId()}...`);
+        this.logger.info(`Initialization of PostgresqlConnector ${this.getId()}...`);
         const host = this.getConfig(config.host) ?? 'localhost';
         const database = this.getConfig(config.database);
         const schema = this.getConfig(config.schema);
@@ -106,9 +106,9 @@ export default class PostgreSQLConnector extends DataSource {
     /**
      * @override
      */
-    async applyTransaction(operations, options) {
+    async applyTransaction(operations, { batch = false }) {
         const writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaObserver);
-        await writer.applyOperations(operations, options?.batch);
+        await writer.applyOperations(operations, batch);
     }
 
     /**
@@ -116,7 +116,7 @@ export default class PostgreSQLConnector extends DataSource {
      */
     async uploadFileContent(fileTag, dataType, binary) {
         const properties = new Map([[COLUMNS.FILE_CONTENT, binary]]);
-        await this.applyTransaction([{type: 'CREATE', object: fileTag, model: dataType, properties}]);
+        await this.applyTransaction([{type: 'CREATE', object: fileTag, model: dataType, properties}], {});
     }
 
     /**
@@ -132,7 +132,7 @@ export default class PostgreSQLConnector extends DataSource {
      */
     async deleteFileContent(fileTag, dataType) {
         const properties = new Map([[COLUMNS.FILE_CONTENT, null]]);
-        await this.applyTransaction([{type: 'UPDATE', object: fileTag, model: dataType, properties}]);
+        await this.applyTransaction([{type: 'UPDATE', object: fileTag, model: dataType, properties}], {});
     }
 }
 

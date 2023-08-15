@@ -71,6 +71,25 @@ export default class SQLQueryExecutor {
          * @type {!Map<string, string>}
          */
         this.reverseAliases = new Map();
+
+        /**
+         * Used to bypass the execution of SQL queries on the database directly to use another transport layer (eg: HTTP)
+         *
+         * @private
+         * @type {function(!Knex.QueryBuilder):!Promise<*>}
+         */
+        this.executor = (builder) => builder.then();
+    }
+
+    /**
+     * Set a function that will handle the execution of the SQL query once built, instead of being applied directly on a local database.
+     *
+     * @param {function(!Knex.QueryBuilder):!Promise<*>} executor
+     * @return {this}
+     */
+    delegateExecution(executor) {
+        this.executor = executor;
+        return this;
     }
 
     /**
@@ -175,7 +194,7 @@ export default class SQLQueryExecutor {
 
         // Execute the SQL Query on the database
         this.logger.debug(`SQL Query to be executed: ${queryBuilder.toString()}`);
-        const rows = await queryBuilder;
+        const rows = /** @type {!Array<!Object>} */ (await this.executor(queryBuilder));
 
         // Build and return DataResult from SQL raw result
         const dataResult = DataResult.fromQuery(query);
@@ -193,9 +212,9 @@ export default class SQLQueryExecutor {
      */
     async downloadFileContent(fileTag, dataType) {
         const {FILE_CONTENT, TAG} = COLUMNS;
-        const tableName = this.schema.getTablesOfType(dataType, false)[0];
+        const tableName = this.schema.getTablesOfType(dataType, false)?.[0];
         if (tableName) {
-            const rows = await this.builder().from(tableName).select(FILE_CONTENT).where(TAG, fileTag);
+            const rows = await this.executor(this.builder().from(tableName).select(FILE_CONTENT).where(TAG, fileTag));
             const fileContent = rows[0]?.[FILE_CONTENT];
             if (fileContent instanceof Uint8Array) {
                 return fileContent;
