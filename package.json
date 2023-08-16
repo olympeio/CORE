@@ -1,6 +1,6 @@
 {
   "name": "@olympeio/core",
-  "version": "2.4.3-dev",
+  "version": "2.4.3",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -55,8 +55,8 @@
     "karma-spec-reporter": "0.0.36"
   },
   "dependencies": {
-    "@olympeio/runtime-node": "~9.4.3",
-    "@olympeio/runtime-web": "~9.4.3",
+    "@olympeio/runtime-node": "~9.4.5",
+    "@olympeio/runtime-web": "~9.4.5",
     "@emotion/react": "11.11.0",
     "@emotion/styled": "11.11.0",
     "@mui/material": "5.13.2",
