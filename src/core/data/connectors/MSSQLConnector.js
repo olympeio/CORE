@@ -1,22 +1,28 @@
 import {DataSource, register} from 'olympe';
 import {getLogger} from 'logging';
-import {knex} from 'knex';
+import {knex, Knex} from 'knex';
 import {HEALTH_CHECK_QUERY, config} from './sql/_statics';
 import SchemaReader from './sql/schema/SchemaReader';
 import SQLQueryExecutor, {COLUMNS} from './sql/SQLQueryExecutor';
 import SQLTransactionWriter from './sql/SQLTransactionWriter';
+
 export default class MSSQLConnector extends DataSource {
+
     constructor(...args) {
         super(...args);
+
         /**
          * @private
+         * @type {Knex}
          */
         this.knex = null;
+
         /**
          * @private
          * @type {log.Logger}
          */
         this.logger = getLogger('mssql');
+
         /**
          * @private
          * @type {!SchemaReader}
@@ -35,9 +41,15 @@ export default class MSSQLConnector extends DataSource {
 
         if (database === null || schema === null) {
             const errorMsg = 'Config error: Database or schema is null.\n' +
-                `Note that this data connector looks for config from either data.${this.name.toLowerCase().replace(/\W/g, '_')} or data.`;
+                `Note that this data connector looks for config from either data.${this.name().toLowerCase().replace(/\W/g, '_')} or data.`;
             throw new Error(errorMsg);
         }
+
+        const schemaDesc = this.getConfig(config.schemaDescription);
+        if (!(schemaDesc instanceof Object)) {
+            throw new Error(`No schema description found for the data source ${this.getId()}. Please ensure the "schemaDescription" parameter has an Object value.`);
+        }
+
         if (this.knex !== null) {
             await this.knex.destroy();
         }
@@ -68,7 +80,7 @@ export default class MSSQLConnector extends DataSource {
 
         // Initialize the schema observer that fulfill the cache
         // with all the existing tables with their associated data types.
-        await this.schemaReader.init(this.knex, schema, context);
+        await this.schemaReader.init(this.knex, schema, context, schemaDesc);
         this.logger.info(`Schema of MSSql connector ${this.getId()} has been initialized`);
     }
 
@@ -103,9 +115,9 @@ export default class MSSQLConnector extends DataSource {
     /**
      * @override
      */
-    async applyTransaction(operations) {
+    async applyTransaction(operations, { batch = false }) {
         const writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaReader);
-        await writer.applyOperations(operations);
+        await writer.applyOperations(operations, batch);
     }
 
     /**
@@ -113,7 +125,7 @@ export default class MSSQLConnector extends DataSource {
      */
     async uploadFileContent(fileTag, dataType, binary) {
         const properties = new Map([[COLUMNS.FILE_CONTENT, binary]]);
-        await this.applyTransaction([{type: 'CREATE', object: fileTag, model: dataType, properties}]);
+        await this.applyTransaction([{type: 'CREATE', object: fileTag, model: dataType, properties}], {});
     }
 
     /**
@@ -129,7 +141,7 @@ export default class MSSQLConnector extends DataSource {
      */
     async deleteFileContent(fileTag, dataType) {
         const properties = new Map([[COLUMNS.FILE_CONTENT, null]]);
-        await this.applyTransaction([{type: 'UPDATE', object: fileTag, model: dataType, properties}]);
+        await this.applyTransaction([{type: 'UPDATE', object: fileTag, model: dataType, properties}], {});
     }
 }
 register('01888ba7faaacebdb63b', MSSQLConnector);

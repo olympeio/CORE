@@ -13,7 +13,6 @@ import SchemaProvider from './SchemaProvider';
  * @enum {string}
  */
 const oConfigNames = {
-    schemaReader: 'schemaReader',
     dataTypes: 'dataTypes',
     dataTypeTag: 'dataTypeTag',
     tableName: 'tableName',
@@ -256,17 +255,22 @@ export default class SchemaReader {
     }
 
     /**
-     *  @override
-     *  @inheritDoc
+     * Initialize the schema reader with knex client to retrieve starting schema information
+
+     * @param {!Knex} client
+     * @param {string} schema
+     * @param {!Context} context
+     * @param {!Object} schemaConfig
+     * @return {!Promise<void>}
      */
-    init(client, schema, context) {
+    init(client, schema, context, schemaConfig) {
         // 1. init field with parameters
         this.schema = schema;
         this.knex = client;
         this.context = context;
 
         // 2. import config from existing config in oConfig
-        const config = Config.getParameter(oConfigNames.schemaReader)[schema];
+        const config = schemaConfig[schema];
         /** @type {!Array<Object>} */
         const dataTypeConfigs = config[oConfigNames.dataTypes];
         /**

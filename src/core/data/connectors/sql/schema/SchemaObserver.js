@@ -87,8 +87,12 @@ export default class SchemaObserver {
     }
 
     /**
-     * @override
-     * @inheritDoc
+     * Initialize the schema observer with knex client to retrieve starting schema information
+
+     * @param {!Knex} client
+     * @param {string} schema
+     * @param {!Context} context
+     * @return {!Promise<void>}
      */
     init(client, schema, context) {
         this.knex = client;
@@ -315,7 +319,7 @@ export default class SchemaObserver {
     /**
      * @private
      * @param {string} dataType
-     * @returns {Table}
+     * @return {!Table}
      */
     getTableForDataType(dataType) {
         return this.tables.get(dataType) ?? new Table(this.logger, dataType).addColumns([COLUMNS.TAG]);
@@ -347,7 +351,7 @@ export default class SchemaObserver {
     /**
      * @private
      * @param {string} globalTag
-     * @return {Table}
+     * @return {!Table}
      */
     getTableForRelation(globalTag) {
         return this.tables.get(globalTag) ?? new Table(this.logger, globalTag).addColumns([COLUMNS.FROM, COLUMNS.TO]);
@@ -795,9 +799,12 @@ class Table {
 
         // Ensure we have the right models in the cache to create the relation table.
         const [fromTag, relTag, toTag] = this.tag.split(':');
-        const relationTuple = (await Query.from(fromTag).andReturn()
-            .follow(RelationModel.originModelRel.getInverse()).filter(Predicate.in(relTag)).andReturn()
-            .follow(RelationModel.destinationModelRel).andReturn()
+        const relationTuple = (await Query.fromTag(relTag, RelationModel).andReturn()
+            .follow(RelationModel.originModelRel).followRecursively(CloudObject.extendedByRel, true)
+            .filter(Predicate.in(fromTag)).andReturn()
+            .back(2)
+            .follow(RelationModel.destinationModelRel).followRecursively(CloudObject.extendedByRel, true)
+            .filter(Predicate.in(toTag)).andReturn()
             .execute(context))
             .getFirst();
 
@@ -806,7 +813,7 @@ class Table {
         }
 
         // Build the name of this relation table
-        const [from, rel, to] = relationTuple;
+        const [rel, from, to] = relationTuple;
         this.name = this.name ?? SchemaProvider.relationTranslationToODBName(from.name(), rel.name(), to.name(), this.tag);
         await builder.createTable(this.name, (tableBuilder) => {
             tableBuilder.string(COLUMNS.FROM, 21)
@@ -907,6 +914,7 @@ class Table {
     /**
      * @package
      * @param {!Array<string>} properties
+     * @return {boolean}
      */
     hasAllColumns(properties) {
         return properties.every((p) => this.columns.has(p) || this.pendingColumns.has(p));
