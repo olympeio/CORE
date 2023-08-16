@@ -112,4 +112,5 @@ export const config = {
     minConnections: 'minConnections',
     maxConnections: 'maxConnections',
     connectionsTimeout: 'connectionsTimeout',
+    schemaDescription: 'schemaDescription',
 };
