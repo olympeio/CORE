@@ -44,6 +44,12 @@ export default class MSSQLConnector extends DataSource {
                 `Note that this data connector looks for config from either data.${this.name().toLowerCase().replace(/\W/g, '_')} or data.`;
             throw new Error(errorMsg);
         }
+
+        const schemaDesc = this.getConfig(config.schemaDescription);
+        if (!(schemaDesc instanceof Object)) {
+            throw new Error(`No schema description found for the data source ${this.getId()}. Please ensure the "schemaDescription" parameter has an Object value.`);
+        }
+
         if (this.knex !== null) {
             await this.knex.destroy();
         }
@@ -74,7 +80,7 @@ export default class MSSQLConnector extends DataSource {
 
         // Initialize the schema observer that fulfill the cache
         // with all the existing tables with their associated data types.
-        await this.schemaReader.init(this.knex, schema, context);
+        await this.schemaReader.init(this.knex, schema, context, schemaDesc);
         this.logger.info(`Schema of MSSql connector ${this.getId()} has been initialized`);
     }
 

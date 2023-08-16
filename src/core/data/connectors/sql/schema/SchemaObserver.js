@@ -87,8 +87,12 @@ export default class SchemaObserver {
     }
 
     /**
-     * @override
-     * @inheritDoc
+     * Initialize the schema observer with knex client to retrieve starting schema information
+
+     * @param {!Knex} client
+     * @param {string} schema
+     * @param {!Context} context
+     * @return {!Promise<void>}
      */
     init(client, schema, context) {
         this.knex = client;

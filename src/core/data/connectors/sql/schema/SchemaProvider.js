@@ -5,17 +5,6 @@ import {jenkinsOneAtATimeHash} from '../../../../../helpers/common/hash';
  * @interface
  */
 export default class SchemaProvider {
-    /**
-     * Initialize the schema provider with knex client to retrieve starting schema information
-     * @abstract
-     * @param {!Knex} client
-     * @param {string} schema
-     * @param {!Context} context
-     * @return {!Promise<void>}
-     */
-    init(client, schema, context) {
-        /* empty */
-    }
 
     /**
      * Concurrence handling: wait for operations being made on the schema

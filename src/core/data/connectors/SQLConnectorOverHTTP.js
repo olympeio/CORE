@@ -5,15 +5,13 @@ import SchemaReader from "./sql/schema/SchemaReader";
 import {DB_DIALECT_NAMES, MSSQL} from "./sql/_statics";
 import SQLQueryExecutor, {COLUMNS} from "./sql/SQLQueryExecutor";
 import SQLTransactionWriter from "./sql/SQLTransactionWriter";
+import {config} from "./sql/_statics";
 
-const config = {
-    host: 'host',
-    port: 'port',
+const httpConfig = {
     ssl: 'ssl',
     path: 'path',
     authHeaders: 'authHeaders',
     dialect: 'dialect',
-    schema: 'schema',
 };
 
 export default class SQLConnectorOverHTTP extends DataSource {
@@ -59,11 +57,12 @@ export default class SQLConnectorOverHTTP extends DataSource {
         this.logger.info(`Initialization of SQL Over HTTP Connector: ${this.getId()}...`);
         const host = this.getConfig(config.host);
         const port = this.getConfig(config.port) ?? 443;
-        const ssl = this.getConfig(config.ssl) ?? port === 443;
-        const path = this.getConfig(config.path) ?? '/data';
-        this.authHeaders = this.getConfig(config.authHeaders) ?? {};
-        const dialect = this.getConfig(config.dialect)?.toLowerCase();
+        const ssl = this.getConfig(httpConfig.ssl) ?? port === 443;
+        const path = this.getConfig(httpConfig.path) ?? '/data';
+        this.authHeaders = this.getConfig(httpConfig.authHeaders) ?? {};
+        const dialect = this.getConfig(httpConfig.dialect)?.toLowerCase();
         const schema = this.getConfig(config.schema);
+        const schemaDesc = this.getConfig(config.schemaDescription);
 
         const validDialects = Array.from(Object.values(DB_DIALECT_NAMES));
         if (!validDialects.includes(dialect)) {
@@ -78,6 +77,10 @@ export default class SQLConnectorOverHTTP extends DataSource {
             throw new Error(errorMsg);
         }
 
+        if (!(schemaDesc instanceof Object)) {
+            throw new Error(`No schema description found for the data source ${this.getId()}. Please ensure the "schemaDescription" parameter has an Object value.`);
+        }
+
         this.url = new URL(path.replace(/\/+/g, '/'), `${ssl ? 'https' : 'http'}://${host}:${port}`).href;
 
         // Take the proper dialect to build the SQL strings
@@ -86,7 +89,7 @@ export default class SQLConnectorOverHTTP extends DataSource {
 
         // Initialize the schema observer that fulfill the cache
         // with all the existing tables with their associated data types.
-        await this.schemaReader.init(this.knex, schema, context);
+        await this.schemaReader.init(this.knex, schema, context, schemaDesc);
         this.logger.info(`Schema of HTTP SQL connector ${this.getId()} has been initialized.`);
     }
 
