@@ -32,7 +32,7 @@ export default class SQLTransactionWriter {
 
         /**
          * @private
-         * @type {(function(!Knex.QueryBuilder):!Knex.QueryBuilder)[]}
+         * @type {(function(!Knex.QueryBuilder):Knex.QueryBuilder)[]}
          */
         this.stack = [];
 
@@ -62,13 +62,13 @@ export default class SQLTransactionWriter {
         return this.client.transaction(async (trx) => {
             const schema = this.schemaProvider.getSchema();
             for (const knexOp of this.stack) {
-                knexOp(this.client.withSchema(schema)).transacting(trx);
+                await knexOp(trx.withSchema(schema));
             }
 
             // Process batch inserts in case of large transactions.
             if (batchInserts !== null) {
                 for (const [table, rows] of batchInserts) {
-                    this.client.batchInsert(`${schema}.${table}`, rows, 500).transacting(trx);
+                    await this.client.batchInsert(`${schema}.${table}`, rows, 500).transacting(trx);
                 }
             }
 
@@ -91,7 +91,11 @@ export default class SQLTransactionWriter {
     async getRawOperations(operations) {
         await this.buildStack(operations, null);
         const schema = this.schemaProvider.getSchema();
-        return this.stack.map((fn) => fn(this.client.withSchema(schema)).toString());
+        return this.stack.reduce((res, fn) => {
+            const builder = fn(this.client.withSchema(schema));
+            builder !== null && res.push(builder.toString());
+            return res;
+        }, []);
     }
 
     /**
@@ -113,10 +117,7 @@ export default class SQLTransactionWriter {
                     this.stack.push(this.delete(op.object, op.model));
                     break;
                 case 'CREATE_RELATION':
-                    // Skip model relations => represented through tables containing rows (instances)
-                    if (op.relation !== CloudObject.modelRel.getTag()) {
-                        this.stack.push(this.createRelation(op.relation, op.from, op.to, op.fromModel, op.toModel, batchInserts));
-                    }
+                    this.stack.push(this.createRelation(op.relation, op.from, op.to, op.fromModel, op.toModel, batchInserts));
                     break;
                 case 'DELETE_RELATION':
                     this.stack.push(this.deleteRelation(op.relation, op.from, op.to, op.fromModel, op.toModel));
@@ -136,7 +137,7 @@ export default class SQLTransactionWriter {
      * @param {string} dataType
      * @param {!Map<string, *>=} properties
      * @param {Map<string, !Array>} batchInserts
-     * @return {function(!Knex.QueryBuilder):!Knex.QueryBuilder}
+     * @return {function(!Knex.QueryBuilder):Knex.QueryBuilder}
      */
     create(tag, dataType, properties, batchInserts) {
         this.schemaProvider.ensureDataType(dataType, Array.from(properties?.keys() ?? []));
@@ -154,6 +155,7 @@ export default class SQLTransactionWriter {
                 }
                 objectToInsert[COLUMNS.TAG] = tag;
                 batch.push(objectToInsert);
+                return null;
             }
 
             // Normal insert
@@ -170,6 +172,7 @@ export default class SQLTransactionWriter {
                 case DB_DIALECT_NAMES.POSTGRES:
                 case DB_DIALECT_NAMES.MYSQL:
                 case DB_DIALECT_NAMES.SQLITE3:
+                default:
                     objectToInsert[COLUMNS.TAG] = tag;
                     // for cross-platform support between these 3 dialects, the conflict column has to be specified,
                     // the specified conflict column has to be a PRIMARY KEY
@@ -213,12 +216,18 @@ export default class SQLTransactionWriter {
      * @param {?string=} fromModel
      * @param {?string=} toModel
      * @param {Map<string, !Array>} batchInserts
-     * @return {?function(!Knex.QueryBuilder):!Knex.QueryBuilder}
+     * @return {?function(!Knex.QueryBuilder):Knex.QueryBuilder}
      */
     createRelation(relation, from, to, fromModel, toModel, batchInserts) {
+        // Skip model relations => represented through tables containing rows (instances)
+        if (relation === CloudObject.modelRel.getTag()) {
+            return (_) => null;
+        }
+
         if (typeof fromModel !== 'string' || typeof toModel !== 'string') {
             throw new Error(`SQL connector: invalid transaction: missing origin or destination model to create the relation ${from}-[${relation}]->${to}`);
         }
+
         this.schemaProvider.ensureRelation(relation, fromModel, toModel);
         return (builder) => {
             const tableName = this.schemaProvider.getRelationTableName(relation, fromModel, toModel);
@@ -230,7 +239,7 @@ export default class SQLTransactionWriter {
                     batchInserts.set(tableName, batch);
                 }
                 batch.push({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to });
-                return builder;
+                return null;
             }
 
             // Relation creation for normal transactions.

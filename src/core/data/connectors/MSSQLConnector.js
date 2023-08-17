@@ -80,7 +80,7 @@ export default class MSSQLConnector extends DataSource {
 
         // Initialize the schema observer that fulfill the cache
         // with all the existing tables with their associated data types.
-        await this.schemaReader.init(this.knex, schema, context, schemaDesc);
+        await this.schemaReader.init(this.knex, schema, schemaDesc);
         this.logger.info(`Schema of MSSql connector ${this.getId()} has been initialized`);
     }
 
