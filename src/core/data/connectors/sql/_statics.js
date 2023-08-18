@@ -67,7 +67,7 @@ USING (values (:tagOlympeOrig, :tagOlympeDest)) s([tagOlympeOrig], [tagOlympeDes
 ON :schema:.:relationTable:.[tagOlympeOrig] = s.[tagOlympeOrig] AND :schema:.:relationTable:.[tagOlympeDest] = s.[tagOlympeDest]
 WHEN NOT MATCHED THEN
 INSERT ([tagOlympeOrig], [tagOlympeDest]) 
-VALUES(s.[tagOlympeOrig], s.[tagOlympeDest])`;
+VALUES(s.[tagOlympeOrig], s.[tagOlympeDest]);`;
 
 /**
  * bindings for UPSERT:
