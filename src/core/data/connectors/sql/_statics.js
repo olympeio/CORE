@@ -76,12 +76,13 @@ VALUES(s.[tagOlympeOrig], s.[tagOlympeDest])`;
  * @param {!Array<string>} properties
  * @return {string} The SQL query
  */
-MSSQL.UPSERT = (tag, properties) => `MERGE into :schema:.[:table:] WITH (HOLDLOCK)
-USING (values (${tag})) s([${COLUMNS.TAG}])
-    ON s.[${COLUMNS.TAG}] = :schema:.[:table:].[${COLUMNS.TAG}]
-WHEN MATCHED THEN UPDATE
-    SET ${properties.map((prop) => `[${prop}] = :${prop}`).join(', ')}
-WHEN NOT MATCHED THEN 
+MSSQL.UPSERT = (tag, properties) => `MERGE into :schema:.:table: WITH (HOLDLOCK)
+USING (values ('${tag}')) s([${COLUMNS.TAG}])
+    ON s.[${COLUMNS.TAG}] = :schema:.:table:.[${COLUMNS.TAG}]`
+    + (properties.length > 0 ?
+        `WHEN MATCHED THEN UPDATE SET ${properties.map((prop) => `[${prop}] = :${prop}`).join(', ')}`
+        : '')
+    + `WHEN NOT MATCHED THEN 
     INSERT ([${COLUMNS.TAG}]${properties.length > 0 ? ', ' : ''}${properties.map((prop) => `[${prop}]`).join(', ')}) 
     VALUES ('${tag}'${properties.length > 0 ? ', ' : ''}${properties.map((prop) => `:${prop}`).join(', ')});`;
 
