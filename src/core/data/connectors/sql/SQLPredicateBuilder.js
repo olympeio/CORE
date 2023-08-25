@@ -120,7 +120,7 @@ const toSQLRegex = (regex, dialect) => {
     let end = '';
 
     // are translated as such
-    const normalChar = /^([-œŒæÆåÅøØ&/ß¡¿=àÀâÂäÄáÁéÉèÈêÊëËìÌîÎïÏòÒôÔöÖùÙûÛüÜçÇ’ñãõÃÕÑ]|\w|\s|\d|\\\\)/;
+    const normalChar = /^([-œŒæÆåÅøØ&/ß¡¿=àÀâÂäÄáÁéÉèÈêÊëËìÌîÎïÏòÒôÔöÖùÙûÛüÜçÇ’ñãõÃÕÑ:@,;]|\w|\s|\d|\\\\)/;
 
     // are escaped before translation
     const sqlSpecial = /^[%_'"]/;
