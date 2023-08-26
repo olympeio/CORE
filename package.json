@@ -46,7 +46,7 @@
     "webpack-merge": "5.9.0",
     "webpack-node-externals": "3.0.0",
     "ts-loader": "9.4.4",
-    "typescript": "5.0.4",
+    "typescript": "5.2.2",
     "jasmine": "4.6.0",
     "karma-jasmine": "5.1.0",
     "karma-webpack": "5.0.0",
