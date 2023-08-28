@@ -8,7 +8,8 @@ import {
     Color,
     QuerySingle,
     PropertyModel,
-    ColorModel
+    ColorModel,
+    DatetimeModel
 } from 'olympe';
 import {Knex} from "knex";
 import {parsePredicate} from './SQLPredicateBuilder';
@@ -360,11 +361,15 @@ export default class SQLQueryExecutor {
     buildDataResult(result, rows, relationParts) {
         // Specific behaviour for Color type:
         const colorProperties = new Set();
+        const datetimeProperties = new Set();
         const colorModelTag = tagToString(ColorModel);
+        const datetimeModelTag = tagToString(DatetimeModel);
         for (const [alias, value] of this.reverseAliases) {
             if (alias.startsWith(PREFIXES.COLUMN)) {
-                const type = QuerySingle.from(value).follow(PropertyModel.typeRel).executeFromCache();
-                type?.getTag() === colorModelTag && colorProperties.add(value);
+                // Extract DateTime and Color properties to cast primitive values coming from SQL to Date or Color objects
+                const typeTag = QuerySingle.from(value).follow(PropertyModel.typeRel).executeFromCache()?.getTag();
+                typeTag === colorModelTag && colorProperties.add(value);
+                typeTag === datetimeModelTag && datetimeProperties.add(value);
             }
         }
 
@@ -374,17 +379,27 @@ export default class SQLQueryExecutor {
                 const index = this.aliasIndexes.get(alias);
                 const instance = currentRowInstances[index] ?? {};
                 currentRowInstances[index] ??= instance;
+                // Current column contains the tag of an instance
                 if (alias.startsWith(PREFIXES.TAG)) {
                     instance.tag = value;
-                } else if (alias.startsWith(PREFIXES.MODEL)) {
+                }
+                // Current column contains the model tag of an instance
+                else if (alias.startsWith(PREFIXES.MODEL)) {
                     instance.model = value;
-                } else {
+                }
+                // Current column contains the value of a property for an instance
+                else {
                     const propTag = this.reverseAliases.get(alias);
                     if (typeof propTag === 'string') {
                         const props = instance.properties ?? new Map();
-                        const propVal = colorProperties.has(propTag) && typeof value === 'string'
-                            ? Color.create(...value.split(';'))
-                            : value;
+                        let propVal;
+                        if (colorProperties.has(propTag) && typeof value === 'string') {
+                            propVal = Color.create(...value.split(';'));
+                        } else if (datetimeProperties.has(propTag) && typeof value === 'string') {
+                            propVal = new Date(value);
+                        } else {
+                            propVal = value;
+                        }
                         props.set(propTag, propVal);
                         instance.properties ??= props;
                     }
