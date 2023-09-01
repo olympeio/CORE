@@ -19,7 +19,7 @@ export default class JSONToExcel extends ActionBrick {
             return;
         }   
 
-        const excelFile = excelFileName + ".xlsx";
+        const excelFile = excelFileName.endsWith('.xlsx') ? excelFileName : excelFileName + ".xlsx";
         const workbook = XLSX.utils.book_new();
         const transaction = new Transaction();
         let binary;

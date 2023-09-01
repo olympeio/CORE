@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, CloudObject } from 'olympe';
+import { Brick, registerBrick, CloudObject, QueryResult } from 'olympe';
 import {getLogger} from 'logging';
 import {combineLatest} from "rxjs";
 import CloudObjectToJSON from '../data/converters/CloudObjectToJSON';
@@ -63,6 +63,14 @@ export default class DebugLog extends Brick {
                 const obj = CloudObjectToJSON.handleCloudObjectToJson(value, true);
                 getLogger('Draw')[method](showPrefix + JSON.stringify(obj, undefined, 4));
                 return;
+            }
+
+            if (value instanceof Map) {
+                value = Object.fromEntries(value);
+            }
+
+            if (value instanceof QueryResult) {
+                value = value.toArray();
             }
 
             if (Array.isArray(value)) {
