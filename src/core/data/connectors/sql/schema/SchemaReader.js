@@ -13,7 +13,6 @@ import SchemaProvider from './SchemaProvider';
  * @enum {string}
  */
 const oConfigNames = {
-    schemaReader: 'schemaReader',
     dataTypes: 'dataTypes',
     dataTypeTag: 'dataTypeTag',
     tableName: 'tableName',
@@ -256,23 +255,25 @@ export default class SchemaReader {
     }
 
     /**
-     *  @override
-     *  @inheritDoc
+     * Initialize the schema reader with knex client to retrieve starting schema information
+
+     * @param {!Knex} client
+     * @param {string} schema
+     * @param {!Object} schemaConfig
+     * @return {!Promise<void>}
      */
-    init(client, schema, context) {
+    init(client, schema, schemaConfig) {
         // 1. init field with parameters
         this.schema = schema;
         this.knex = client;
-        this.context = context;
 
         // 2. import config from existing config in oConfig
-        const config = Config.getParameter(oConfigNames.schemaReader)[schema];
         /** @type {!Array<Object>} */
-        const dataTypeConfigs = config[oConfigNames.dataTypes];
+        const dataTypeConfigs = schemaConfig[oConfigNames.dataTypes];
         /**
          * Can be empty
          * @type {!Array<Object>} */
-        const relationConfigs = config[oConfigNames.relations] ?? [];
+        const relationConfigs = schemaConfig[oConfigNames.relations] ?? [];
 
         // 3. check data type configs has at least one element
         if (!dataTypeConfigs || !Array.isArray(dataTypeConfigs) || dataTypeConfigs.length === 0) {
@@ -351,14 +352,11 @@ export default class SchemaReader {
                     : acc, '');
             // clear errors promises array
             this.errors = [];
-            if (errorMsg) {
-                // log if any error happened
+            // log if any error happened, but never fails => wrong/incomplete config should not make the backend crash.
+            if (errorMsg.length > 0) {
                 this.logger.error(`Schema reader failed with reason(s): \n${errorMsg}`);
-                return Promise.reject(errorMsg);
-            } else {
-                return Promise.resolve();
             }
-        })
+        });
     }
 }
 

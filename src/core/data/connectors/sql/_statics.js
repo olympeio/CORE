@@ -4,6 +4,8 @@
  * Created by Sym on 02.01.2023
  */
 
+import {COLUMNS} from "./SQLQueryExecutor";
+
 /**
  * Constants prefixes used in comments of schema objects (tables and columns) to store tags and olympe specific metadata.
  *
@@ -65,8 +67,25 @@ USING (values (:tagOlympeOrig, :tagOlympeDest)) s([tagOlympeOrig], [tagOlympeDes
 ON :schema:.:relationTable:.[tagOlympeOrig] = s.[tagOlympeOrig] AND :schema:.:relationTable:.[tagOlympeDest] = s.[tagOlympeDest]
 WHEN NOT MATCHED THEN
 INSERT ([tagOlympeOrig], [tagOlympeDest]) 
-VALUES(s.[tagOlympeOrig], s.[tagOlympeDest]);
-`
+VALUES(s.[tagOlympeOrig], s.[tagOlympeDest]);`;
+
+/**
+ * bindings for UPSERT:
+ * :schema:, :table:, and the properties, which is a list of strings used as binding in the resulting query.
+ * @param {string} tag
+ * @param {!Array<string>} properties
+ * @return {string} The SQL query
+ */
+MSSQL.UPSERT = (tag, properties) => `MERGE into :schema:.:table: WITH (HOLDLOCK)
+USING (values ('${tag}')) s([${COLUMNS.TAG}])
+    ON s.[${COLUMNS.TAG}] = :schema:.:table:.[${COLUMNS.TAG}] \n`
+    + (properties.length > 0 ?
+        ` WHEN MATCHED THEN UPDATE SET ${properties.map((prop) => `[${prop}] = :${prop}`).join(', ')}`
+        : '')
+    + ` WHEN NOT MATCHED THEN 
+    INSERT ([${COLUMNS.TAG}]${properties.length > 0 ? ', ' : ''}${properties.map((prop) => `[${prop}]`).join(', ')}) 
+    VALUES ('${tag}'${properties.length > 0 ? ', ' : ''}${properties.map((prop) => `:${prop}`).join(', ')});`;
+
 export {MSSQL};
 /**
  * Constant names for all possible data sources dialect names
@@ -94,4 +113,5 @@ export const config = {
     minConnections: 'minConnections',
     maxConnections: 'maxConnections',
     connectionsTimeout: 'connectionsTimeout',
+    schemaDescription: 'schemaDescription',
 };
