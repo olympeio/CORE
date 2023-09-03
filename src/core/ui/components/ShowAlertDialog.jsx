@@ -75,7 +75,7 @@ export default class ShowAlertDialog extends ActionBrick {
 
         // Compute markdown so we don't do it 2 times
         const titleElement = title && markdownTextToReactElement(title, 'span');
-        const textContentElement = markdownTextToReactElement(textContent || '', 'span');
+        const textContentElement = markdownTextToReactElement(String(textContent) || '', 'span');
 
         // Show/hide the dialog
         context.set('open', true);

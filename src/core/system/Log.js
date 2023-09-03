@@ -24,7 +24,7 @@ export default class Log extends ActionBrick {
      * @param {!BrickContext} $
      * @param {?string} loglevel
      * @param {?string} prefix
-     * @param {?string} message
+     * @param {?*} message
      * @param {function()} forwardEvent
      */
     update($, [loglevel, prefix, message], [forwardEvent]) {
