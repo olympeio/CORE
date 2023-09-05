@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, CloudObject, QueryResult } from 'olympe';
+import {Brick, registerBrick, CloudObject, QueryResult, BrickContext, ListDef} from 'olympe';
 import {getLogger} from 'logging';
-import {combineLatest} from "rxjs";
-import CloudObjectToJSON from '../data/converters/CloudObjectToJSON';
+import {combineLatest} from 'rxjs';
 
 export default class DebugLog extends Brick {
 
@@ -49,45 +48,75 @@ export default class DebugLog extends Brick {
      * @param {?*} value
      */
     static log(loglevel, prefix, value) {
+        const logger = getLogger('Draw');
         try {
             const validMethods = ['trace', 'debug', 'info', 'log', 'warn', 'error'];
             const method = validMethods[validMethods.indexOf(loglevel?.toLowerCase())] ?? 'info';
             const showPrefix = ((prefix !== null && prefix !== undefined ) ? prefix + ': ' : '')
-    
-            if (value !== Object(value)) { // check isPrimitive
-                getLogger('Draw')[method](showPrefix + String(value));
-                return;
-            }
-
-            if (value instanceof CloudObject) { // check isCloudObject
-                const obj = CloudObjectToJSON.handleCloudObjectToJson(value, true);
-                getLogger('Draw')[method](showPrefix + JSON.stringify(obj, undefined, 4));
-                return;
-            }
-
-            if (value instanceof Map) {
-                value = Object.fromEntries(value);
-            }
-
-            if (value instanceof QueryResult) {
-                value = value.toArray();
-            }
-
-            if (Array.isArray(value)) {
-                const checkCloudObjArr = (value || []).some(obj => obj instanceof CloudObject); // check array of cloudObject
-                if (checkCloudObjArr) {
-                    const json = CloudObjectToJSON.handleCloudObjectToJson(value, true);
-                    getLogger('Draw')[method](showPrefix + JSON.stringify(json, undefined, 4));
-                    return;
-                }
-            }
-    
-            getLogger('Draw')[method](showPrefix + String(JSON.stringify(value, undefined, 4)));
+            const serializedValue = this.serialize(value);
+            logger[method](showPrefix + JSON.stringify(serializedValue, undefined, 4));
         } catch(err) {
-            if (err) {
-                getLogger('Draw')['error'](`Something went wrong: ${err}`)
-            }
+            logger.error(`Something went wrong: ${err}`)
         }
+    }
+
+    /**
+     * @private
+     * @param {*} rawValue
+     * @return {!Object | !Array | string | number | boolean | null | undefined}
+     */
+    serialize(rawValue) {
+        if (rawValue !== Object(rawValue)) { // check isPrimitive
+            return rawValue;
+        }
+
+        else if (rawValue instanceof CloudObject) { // check isCloudObject
+            return Object.assign(rawValue.toObject(true, true), {'tag': rawValue.getTag()});
+        }
+
+        // Handle collections
+        let value = rawValue;
+        if (rawValue instanceof Map) {
+            value = Object.fromEntries(rawValue);
+        }
+
+        else if (rawValue instanceof Set) {
+            value = Array.from(rawValue);
+        }
+
+        else if (rawValue instanceof QueryResult) {
+            value = rawValue.toArray();
+        }
+
+        else if (rawValue instanceof ListDef) {
+            value = [];
+            rawValue.forEachCurrentValue((item) => { value.push(item); });
+        }
+
+        if (Array.isArray(value)) {
+            return value.map((item) => this.serialize(item));
+        }
+
+        // Check if the object does override toJSON method (used by stringify)
+        else if (rawValue.toJSON !== undefined) {
+            return rawValue;
+        }
+
+        // If the object has override the toString method, use it to log the object.
+        else if (value.toString !== Object.prototype.toString) {
+            return value.toString();
+        }
+
+        // Finally, if the object is a simple collection of key-values, serialize all the values recursively
+        else if (value.constructor === Object) {
+            return Object.entries(/** @type {!Object}*/ (value)).reduce((serialized, [k, v]) => {
+                serialized[k] = this.serialize(v);
+                return serialized;
+            }, {});
+        }
+
+        // Do not know how to deal with this object, transform it to a String.
+        return String(rawValue);
     }
 }
 
