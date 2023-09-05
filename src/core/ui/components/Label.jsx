@@ -63,9 +63,9 @@ export default class Label extends ReactBrick {
             const theme = useMUITheme($);
             const borderRadius = useProperty($, 'Border Radius');
             // Extract text specific SX and CSS properties to be applied on the <p> instead of the box
-            const extractFontProps = ({fontFamily, fontSize, lineHeight, letterSpacing, ...otherProps}) => {
+            const extractFontProps = ({fontFamily, fontSize, lineHeight, letterSpacing, fontWeight, ...otherProps}) => {
                 // Remove undefined properties
-                const fontProps = {fontFamily, fontSize, lineHeight, letterSpacing};
+                const fontProps = {fontFamily, fontSize, lineHeight, letterSpacing, fontWeight};
                 Object.keys(fontProps).forEach((k) => fontProps[k] === undefined && delete fontProps[k]);
                 // Return separated props series.
                 return [fontProps, otherProps];
