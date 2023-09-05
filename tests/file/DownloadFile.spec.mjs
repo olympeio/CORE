@@ -21,12 +21,11 @@ describe('DownloadFile brick', () => {
 
     it('should call the method to download the file with the name given as input', () => {
         // mock file model
-        const file = {};
-        file.saveAs = jasmine.createSpy();
+        const file = jasmine.createSpyObj(['saveAs']);
 
         // run action
         const d = new DownloadFile();
-        d.update(new BrickContext().createChild(), ['test.txt', file], [() => {}]);
+        d.update(new BrickContext().createChild(), [file, 'test.txt'], [() => {}]);
 
         // check method to download file has been called
         expect(file.saveAs).toHaveBeenCalledTimes(1);
@@ -35,13 +34,12 @@ describe('DownloadFile brick', () => {
 
     it('should call the method to download the file with the file name', () => {
         // mock file model
-        const file = {};
-        file.saveAs = jasmine.createSpy();
-        file.get = jasmine.createSpy().and.returnValue('test2.txt');
+        const file = jasmine.createSpyObj(['saveAs', 'get']);
+        file.get.and.returnValue('test2.txt');
 
         // run action
         const d = new DownloadFile();
-        d.update(new BrickContext().createChild(), [undefined, file], [() => {}]);
+        d.update(new BrickContext().createChild(), [file], [() => {}]);
 
         // check method to download file has been called
         expect(file.saveAs).toHaveBeenCalledTimes(1);
