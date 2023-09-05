@@ -76,8 +76,12 @@ export default class DebugLog extends Brick {
 
         // Handle collections
         let value = rawValue;
-        if (rawValue instanceof Map || rawValue instanceof Set) {
+        if (rawValue instanceof Map) {
             value = Object.fromEntries(rawValue);
+        }
+
+        else if (rawValue instanceof Set) {
+            value = Array.from(rawValue);
         }
 
         else if (rawValue instanceof QueryResult) {
@@ -104,7 +108,7 @@ export default class DebugLog extends Brick {
         }
 
         // Finally, if the object is a simple collection of key-values, serialize all the values recursively
-        else if (typeof value === 'object') {
+        else if (value.constructor === Object) {
             return Object.entries(/** @type {!Object}*/ (value)).reduce((serialized, [k, v]) => {
                 serialized[k] = this.serialize(v);
                 return serialized;
