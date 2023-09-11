@@ -53,7 +53,7 @@ export default class DebugLog extends Brick {
             const validMethods = ['trace', 'debug', 'info', 'log', 'warn', 'error'];
             const method = validMethods[validMethods.indexOf(loglevel?.toLowerCase())] ?? 'info';
             const showPrefix = ((prefix !== null && prefix !== undefined ) ? prefix + ': ' : '')
-            const serializedValue = this.serialize(value);
+            const serializedValue = DebugLog.serialize(value);
             logger[method](showPrefix + JSON.stringify(serializedValue, undefined, 4));
         } catch(err) {
             logger.error(`Something went wrong: ${err}`)
@@ -65,7 +65,7 @@ export default class DebugLog extends Brick {
      * @param {*} rawValue
      * @return {!Object | !Array | string | number | boolean | null | undefined}
      */
-    serialize(rawValue) {
+    static serialize(rawValue) {
         if (rawValue !== Object(rawValue)) { // check isPrimitive
             return rawValue;
         }
