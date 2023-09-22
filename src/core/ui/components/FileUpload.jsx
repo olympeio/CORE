@@ -68,6 +68,11 @@ export default class FileUpload extends ReactBrick {
                 $.observe('Show File Selector').subscribe(() => {
                     uploadTextField.current?.querySelector('input').click();
                 });
+
+                $.observe('Clear Files').subscribe(() => {
+                    $.set('Files', []);
+                    $.trigger('On Change');
+                });
             }, []);
 
             const [hidden, renderer] = props.values;
@@ -248,6 +253,7 @@ export default class FileUpload extends ReactBrick {
                         .then(() => {
                             // All good, we notice the user
                             $.set('Files', tags.map(CloudObject.get));
+                            $.trigger('On Files Added');
                             $.trigger('On Change');
                         })
                         .catch(message => getLogger('FileUpload').warn('The application encountered a problem while uploading files. The transaction failed.', message));
