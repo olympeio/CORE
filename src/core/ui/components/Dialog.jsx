@@ -112,6 +112,7 @@ export default class Dialog extends VisualBrick {
             return (open || keepMounted) && (
                 <MUIDialog
                     // Properties
+                    disableEnforceFocus
                     open={open}
                     maxWidth={false}
                     fullScreen={fullScreen}

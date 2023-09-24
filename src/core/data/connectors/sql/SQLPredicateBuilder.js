@@ -74,10 +74,7 @@ const contains = (builder, column, objectPredicate) => {
     const wildcard = translateWildcard('.*');
     // match substring by using .* wildcard at the start and end of the values being searched
     const matchSubstring = `${wildcard}${objectPredicate.value}${wildcard}`;
-    let queryString = '?? LIKE ?';
-    if (objectPredicate.caseSensitive) {
-        queryString = 'LOWER(??) LIKE LOWER(?)';
-    }
+    const queryString = objectPredicate.caseSensitive ? '?? LIKE ?' : 'LOWER(??) LIKE LOWER(?)';
     builder.whereRaw(queryString, [column, matchSubstring,]);
 }
 /**
@@ -89,10 +86,7 @@ const contains = (builder, column, objectPredicate) => {
 const regex = (builder, column, objectPredicate) => {
     const regexJS = (/** @type {!RegExp} */ objectPredicate.pattern);
     const sqlRegex = toSQLRegex(regexJS, builder.client.dialect);
-    let queryString = '?? LIKE ?';
-    if (objectPredicate.caseSensitive) {
-        queryString = 'LOWER(??) LIKE LOWER(?)';
-    }
+    const queryString = objectPredicate.caseSensitive ? '?? LIKE ?' : 'LOWER(??) LIKE LOWER(?)';
     builder.whereRaw(queryString, [column, sqlRegex]);
 }
 /**
