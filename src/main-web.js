@@ -22,6 +22,7 @@ import './core/auth/**/*.js';
 import './core/context/**/*.js';
 // Exclude the "postgresql connectors"
 import './core/data/base/**/*.js';
+import './core/data/offline/**/*.js';
 import './core/data/converters/**/*.js';
 import './core/data/json/**/*.js';
 import './core/data/list/**/*.js';

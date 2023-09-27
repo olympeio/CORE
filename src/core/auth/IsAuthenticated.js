@@ -14,26 +14,25 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, Auth, AuthState } from 'olympe';
+import { Brick, registerBrick, Auth } from 'olympe';
 
-/**
-## Description
-This function checks whether the active user is properly authenticated.
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| result | Boolean | `true` if the user is authenticated. |
-**/
 export default class IsAuthenticated extends Brick {
+
+    /**
+     * @override
+     */
+    setupExecution($) {
+        return Auth.isAuthenticated($);
+    }
 
     /**
      * @protected
      * @param {!BrickContext} context
-     * @param {!Array} _
+     * @param {boolean} value
      * @param {function(boolean)} setResult
      */
-    update(context, _, [setResult]) {
-        setResult(Auth.getState() === AuthState.AUTHENTICATED);
+    update(context, [value], [setResult]) {
+        setResult(value);
     }
 }
 

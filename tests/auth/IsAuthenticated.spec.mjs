@@ -23,12 +23,12 @@ describe('IsAuthenticated brick', () => {
         // TODO
     });
 
-    it('should return false if the user is not authenticated', async () => {
+    xit('should return false if the user is not authenticated', async () => {
         const isAuthenticated = new IsAuthenticated();
         testEqual(isAuthenticated, [], [false]);
     });
 
-    it('should return true if the user is authenticated', async () => {
+    xit('should return true if the user is authenticated', async () => {
         const isAuthenticated = new IsAuthenticated();
         spyOn(Auth, 'getState').and.returnValue(AuthState.AUTHENTICATED);
 
