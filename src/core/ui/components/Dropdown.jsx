@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import { registerBrick, EnumValue, QueryResult, BrickContext, Brick, ListDef, CloudObject } from 'olympe';
-import { ReactBrick, useProperty } from 'helpers/react.jsx';
-import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent, useMUITheme } from 'helpers/mui';
-import { getLogger } from 'logging';
+import {registerBrick, EnumValue, QueryResult, BrickContext, Brick, ListDef, CloudObject, Enum} from 'olympe';
+import {ReactBrick, useProperty} from 'helpers/react.jsx';
+import {jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent, useMUITheme} from 'helpers/mui';
+import {getLogger} from 'logging';
 
-import { map, switchMap } from 'rxjs/operators';
-import { of, combineLatest, from, Observable } from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
+import {of, combineLatest, from, Observable} from 'rxjs';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import CircularProgress from '@mui/material/CircularProgress';
 import Paper from '@mui/material/Paper';
 
 import Autocomplete from '@mui/material/Autocomplete';
-import { ThemeProvider, createTheme  } from '@mui/material/styles';
-import { blue, green, purple, lightBlue, red, orange } from '@mui/material/colors';
+import {ThemeProvider, createTheme} from '@mui/material/styles';
+import {blue, green, purple, lightBlue, red, orange} from '@mui/material/colors';
 import {Chip} from "@mui/material";
 
 /**
@@ -67,14 +67,18 @@ export default class Dropdown extends ReactBrick {
                     }));
                 }
             }))
-            .subscribe(options => {
-                const filteredOption = options.filter(option => {
-                    if (!option.value) {
-                        getLogger('Dropdown').error(`There is an option without a value in the dropdown: ${option.label}`);
-                    }
-                    return option.value;
-                });
-                $.set('Options', filteredOption);
+            .subscribe({
+                next: options => {
+                    const filteredOption = options.filter(option => {
+                        if (!option.value) {
+                            getLogger('Dropdown').error(`There is an option without a value in the dropdown: ${option.label}`);
+                        }
+                        return option.value;
+                    });
+                    $.set('Options', filteredOption);
+                }, error: (error) => {
+                    getLogger('Dropdown').error(`Impossible to get the list of values for the dropdown: ${error}`);
+                }, complete: () => {}
             });
     }
 
@@ -121,6 +125,9 @@ export default class Dropdown extends ReactBrick {
             let isEnum = false;
             let list = null;
             if (enumModel !== null) {
+                if(!CloudObject.exists(enumModel) || !CloudObject.get(enumModel).getModel().equals(Enum)) {
+                    throw new Error(`Provided enum model is not an Enum: ${enumModel}`);
+                }
                 if (objectList !== null) {
                     getLogger('Dropdown').warn('Both Enum and Object List property are set. Object List is ignored');
                 }
@@ -131,9 +138,7 @@ export default class Dropdown extends ReactBrick {
             }
 
             let sizeObservable = null;
-            if (list === null) {
-                getLogger('Dropdown').warn('None of Enum and Object List property have a value.');
-            } else if (Array.isArray(list)) {
+            if (Array.isArray(list)) {
                 sizeObservable = of(list.length);
             } else if (list instanceof QueryResult) {
                 sizeObservable = of(list.size());
@@ -147,27 +152,26 @@ export default class Dropdown extends ReactBrick {
                 throw new Error('Provided input is not an Enum or a List of objects: ' + list);
             }
 
-           return sizeObservable.pipe(map((size) => {
+            return sizeObservable.pipe(map((size) => {
                 let elements = [];
                 if (size > 0 && list !== null) {
                     elements = Dropdown.getListElements(list);
 
                     // If the list comes from the server, we have to add the selected values to it, otherwise we cannot set any selection
-                    if(selectedValues) {
+                    if (selectedValues) {
                         const selectedValueElements = Dropdown.getListElements(selectedValues);
                         // We want to concat the elements with the selectedValues only if:
                         // - elements is empty
                         // - OR the types of elements and selectedValues are the same -> avoid bad filtering
-                        if(elements.length === 0 || typeof elements[0] === typeof selectedValueElements[0]) {
+                        if (elements.length === 0 || typeof elements[0] === typeof selectedValueElements[0]) {
                             const tags = new Set();
                             elements = elements
                                 .concat(selectedValueElements)
                                 .filter(elem => {
                                     const elemTag = elem instanceof CloudObject ? elem.getTag() : elem;
-                                    if(tags.has(elemTag)){
+                                    if (tags.has(elemTag)) {
                                         return false;
-                                    }
-                                    else {
+                                    } else {
                                         tags.add(elemTag);
                                         return true;
                                     }
@@ -313,7 +317,7 @@ export default class Dropdown extends ReactBrick {
         const findOptionValue = (value) => {
             let foundOption = options.find(opt => {
                 // Has to filter differently if it's cloud objects
-                if(opt.value instanceof CloudObject && value instanceof CloudObject){
+                if (opt.value instanceof CloudObject && value instanceof CloudObject) {
                     return opt.value.getTag() === value?.getTag()
                 } else {
                     const optionValue = opt.value instanceof EnumValue ? opt.value.toString() : opt.value;
@@ -469,7 +473,7 @@ export default class Dropdown extends ReactBrick {
         const findOptionValue = (value) => {
             let foundOption = options.find(opt => {
                 // Has to filter differently if it's cloud objects
-                if(opt.value instanceof CloudObject && value instanceof CloudObject){
+                if (opt.value instanceof CloudObject && value instanceof CloudObject) {
                     return opt.value.getTag() === value?.getTag()
                 } else {
                     const optionValue = opt.value instanceof EnumValue ? opt.value.toString() : opt.value;
@@ -629,94 +633,94 @@ export default class Dropdown extends ReactBrick {
             })
 
         const isSelected = (option) => {
-                return option.isSelected ? '': ' ';
+            return option.isSelected ? '' : ' ';
         }
 
         // Element
         return (
-                <Autocomplete
-                    // Props
-                    value={selectedValue}
-                    options={sortedOptions}
-                    groupBy={isSelected}
-                    multiple={multiple}
-                    disabled={disabled}
-                    forcePopupIcon={!disabled}
-                    freeSolo={freeSolo}
-                    inputValue={inputValue}
-                    openOnFocus={true}
-                    loading={loading && open}
-                    PaperComponent={(params) => (
-                        <Dropdown.CustomPaper
-                            $={$}
-                            params={params}
-                        />
-                    )}
-                    renderInput={renderInput}
-                    renderTags={(value, getTagProps) => {
-                        return (
-                            <>
-                                <Chip label={value[0].label} sx={{'height': '25px'}}></Chip>
-                                {value.length > 1 ? <span> +{value.length -1}</span> : undefined}
-                            </>)
-                    }}
-                    getOptionLabel={option => {
-                        return option.label ?? (typeof option === 'string' ? option : option.toString());
-                    }}
-                    // events
-                    onChange={onChange}
-                    onInputChange={onInputChange}
-                    onClick={() => $.trigger('On Click')}
-                    onClose={() => {
-                        setOpen(false);
-                        $.trigger('On Close');
-                    }}
-                    onOpen={() => {
-                        setOpen(true);
-                        $.trigger('On Open');
-                    }}
-                    // needs to maintain the height of the brick for different variants of autoselect
-                    sx={{
-                        ...customSx,
-                        '.MuiInputBase-root>span': {
-                            paddingLeft: '4px',
-                        },
-                        // chip max-width
-                        '.MuiChip-label': {
-                            maxWidth: `calc(${width-140}px)`,
-                        },
-                        // Outline variant
-                        '.MuiOutlinedInput-root.MuiInputBase-root:not(.Mui-focused)': {
-                            paddingTop: label ? '6px':'4px',
-                            ...commonSx,
+            <Autocomplete
+                // Props
+                value={selectedValue}
+                options={sortedOptions}
+                groupBy={isSelected}
+                multiple={multiple}
+                disabled={disabled}
+                forcePopupIcon={!disabled}
+                freeSolo={freeSolo}
+                inputValue={inputValue}
+                openOnFocus={true}
+                loading={loading && open}
+                PaperComponent={(params) => (
+                    <Dropdown.CustomPaper
+                        $={$}
+                        params={params}
+                    />
+                )}
+                renderInput={renderInput}
+                renderTags={(value, getTagProps) => {
+                    return (
+                        <>
+                            <Chip label={value[0].label} sx={{'height': '25px'}}></Chip>
+                            {value.length > 1 ? <span> +{value.length - 1}</span> : undefined}
+                        </>)
+                }}
+                getOptionLabel={option => {
+                    return option.label ?? (typeof option === 'string' ? option : option.toString());
+                }}
+                // events
+                onChange={onChange}
+                onInputChange={onInputChange}
+                onClick={() => $.trigger('On Click')}
+                onClose={() => {
+                    setOpen(false);
+                    $.trigger('On Close');
+                }}
+                onOpen={() => {
+                    setOpen(true);
+                    $.trigger('On Open');
+                }}
+                // needs to maintain the height of the brick for different variants of autoselect
+                sx={{
+                    ...customSx,
+                    '.MuiInputBase-root>span': {
+                        paddingLeft: '4px',
+                    },
+                    // chip max-width
+                    '.MuiChip-label': {
+                        maxWidth: `calc(${width - 140}px)`,
+                    },
+                    // Outline variant
+                    '.MuiOutlinedInput-root.MuiInputBase-root:not(.Mui-focused)': {
+                        paddingTop: label ? '6px' : '4px',
+                        ...commonSx,
 
+                    },
+                    '.MuiAutocomplete-tag': {
+                        margin: `${label !== '' ? 1 : 0}px 3px 3px 0px`,
+                        maxWidth: `calc(100% - ${(values && values.length > 1 ? 40 : 15)}px)`,
+                    },
+                    // Standard variant
+                    '.MuiInput-underline': {
+                        '&.MuiInputBase-root:not(.Mui-focused)': {
+                            padding: '4px 45px 4px 6px',
+                            ...focusedSx,
+                        }
+                    },
+                    // Filled variant
+                    '.MuiFilledInput-root': {
+                        '&.MuiInputBase-root:not(.Mui-focused)': {
+                            paddingTop: label ? '20px' : '6px',
+                            paddingBottom: label ? '20px' : '6px',
+                            paddingRight: '60px',
+                            ...focusedSx,
                         },
-                        '.MuiAutocomplete-tag': {
-                            margin: `${label !== '' ? 1 : 0}px 3px 3px 0px`,
-                            maxWidth: `calc(100% - ${(values && values.length > 1 ? 40 : 15 )}px)`,
+                        '&.MuiInputBase-root.Mui-focused': {
+                            paddingTop: label ? '20px' : '6px',
+                            paddingBottom: label ? '20px' : '6px',
                         },
-                            // Standard variant
-                        '.MuiInput-underline': {
-                            '&.MuiInputBase-root:not(.Mui-focused)': {
-                                padding: '4px 45px 4px 6px',
-                                ...focusedSx,
-                            }
-                        },
-                        // Filled variant
-                        '.MuiFilledInput-root': {
-                            '&.MuiInputBase-root:not(.Mui-focused)': {
-                                paddingTop: label ? '20px' : '6px',
-                                paddingBottom: label ? '20px' : '6px',
-                                paddingRight: '60px',
-                                ...focusedSx,
-                            },
-                            '&.MuiInputBase-root.Mui-focused': {
-                                paddingTop: label ? '20px' : '6px',
-                                paddingBottom: label ? '20px' : '6px',
-                            },
-                        },
-                    }}
-                />
+                    },
+                }}
+            />
         );
     }
 
@@ -769,7 +773,7 @@ export default class Dropdown extends ReactBrick {
      * @param {{InputProps: {}, InputLabelProps: {}}} params
      * @return {Object}
      */
-    static getTextFieldProps($, hasInput, params = { InputProps: {}, InputLabelProps: {} }) {
+    static getTextFieldProps($, hasInput, params = {InputProps: {}, InputLabelProps: {}}) {
         const label = useProperty($, 'Label');
         const emptyText = useProperty($, 'Empty Text');
         const fontFamily = useProperty($, 'Font Family');
@@ -941,15 +945,15 @@ Dropdown.FOCUSED_KEY = '__focused';
  * @param {*} params
  */
 
-Dropdown.CustomPaper = ({ $, params }) => {
+Dropdown.CustomPaper = ({$, params}) => {
     return (
-      <Paper
+        <Paper
             {...params}
             sx={{
                 ...cssToSxProps(useProperty($, 'CSS Property')),
                 ...jsonToSxProps(useProperty($, 'MUI sx [json]')),
             }}
-            />
+        />
     );
 };
 

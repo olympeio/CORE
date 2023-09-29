@@ -15,8 +15,8 @@
  */
 
 import { Brick, registerBrick } from 'olympe';
-import {merge} from "rxjs";
-import {map} from "rxjs/operators";
+import {catchError, from, merge, of} from "rxjs";
+import {map, switchMap} from "rxjs/operators";
 
 export default class Defaultvalue extends Brick {
 
@@ -29,7 +29,26 @@ export default class Defaultvalue extends Brick {
             if (!$.has(inputs[1])) {
                 return null; // Clear the brick when the default value has been cleared.
             }
-            return [$.get(inputs[0]), $.get(inputs[1])]; // Return [value, defaultValue]
+            //Original implementation
+            //return [$.get(inputs[0]), $.get(inputs[1])]; // Return [value, defaultValue]
+
+            //Used rxjs
+            //It stops the breaking of DRAW by catching the error before it breaks
+            return from($.get(inputs[0])).pipe(
+                catchError(error => {
+                    console.error('Error fetching value:', error);
+                    return of(null);
+                }),
+                switchMap(value => {
+                    return from($.get(inputs[1])).pipe(
+                        catchError(error => {
+                            console.error('Error fetching defaultValue:', error);
+                            return of(null);
+                        }),
+                        map(defaultValue => [value, defaultValue])
+                    );
+                })
+            );
         }));
     }
 
