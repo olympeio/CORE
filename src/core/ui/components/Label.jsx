@@ -86,6 +86,7 @@ export default class Label extends ReactBrick {
                             borderWidth: useProperty($, 'Border Width'),
                             alignItems: useProperty($, 'Vertical Align'),
                             justifyContent: useProperty($, 'Horizontal Align'),
+                            textAlign: useProperty($, 'Horizontal Align'),
                             borderStyle: 'solid',
                             boxSizing: 'border-box',
                             ...ifNotTransparent('color', useProperty($, 'Text Color')),
