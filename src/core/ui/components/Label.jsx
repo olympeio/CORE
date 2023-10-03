@@ -45,14 +45,21 @@ export default class Label extends ReactBrick {
             const [hidden] = props.values;
             const labelRef = useRef();
             const allowContentOverflow = useProperty($, 'Allow Content Overflow');
+            let text = useProperty($, 'Text');
 
             useLayoutEffect(() => {
                 if (labelRef?.current) {
                     labelRef.current.parentElement.style.overflow = allowContentOverflow ? "unset" : "hidden";
                 }
-            }, [labelRef, allowContentOverflow]);
 
-            let text = useProperty($, 'Text');
+                if($.get('Auto Compute Height')){
+                    // Skip a frame to let the browser render that new text, so we can get the actual height computed by the browser
+                    setTimeout(() => {
+                        $.set('Height', labelRef.current.clientHeight);
+                    }, 1);
+                }
+            }, [labelRef, allowContentOverflow, text]);
+
             // Change typeof text to string to avoid crash
             if (typeof text !== 'string') {
                 if (text) {
@@ -73,6 +80,7 @@ export default class Label extends ReactBrick {
             const [cssFontProps, cssOtherProps] = extractFontProps(cssToSxProps(useProperty($, 'CSS Property')));
             const [sxFontProps, sxOtherProps] = extractFontProps(jsonToSxProps(useProperty($, 'MUI sx [json]')));
 
+            const autoHeight = useProperty($, 'Auto Compute Height');
             return !hidden && (
                 <ThemeProvider theme={theme}>
                     <Box
@@ -80,7 +88,7 @@ export default class Label extends ReactBrick {
                         onClick={() => $.trigger('On Click')}
                         sx={{
                             width: 1,
-                            height: 1,
+                            ...(autoHeight ? {height: 1} : {}),
                             display: 'flex',
                             overflow: 'visible',
                             borderWidth: useProperty($, 'Border Width'),
