@@ -185,12 +185,14 @@ export default class List extends VisualBrick {
                                             .setParentElement(el);
 
                                         // Item size (we need to set the parent also to have a correct layout)
-                                        observeItemWidth.subscribe(width => {
-                                            renderer$.set('Width', width);
+                                        renderer$.repeat('Height', observeItemHeight);
+                                        renderer$.repeat('Width', observeItemWidth);
+
+                                        renderer$.observe('Width').subscribe(width => {
                                             el.style.width = `${width}px`;
                                         });
-                                        observeItemHeight.subscribe(height => {
-                                            renderer$.set('Height', height);
+
+                                        renderer$.observe('Height').subscribe(height => {
                                             el.style.height = `${height}px`;
                                         });
 
