@@ -53,10 +53,10 @@ export default class Label extends ReactBrick {
                 }
 
                 if($.get('Auto Compute Height')){
-                    // Skip a frame to let the browser render that new text, so we can get the actual height computed by the browser
-                    setTimeout(() => {
+                    // Wait for next frame to let the browser render that new text, so we can get the actual height computed by the browser
+                    requestAnimationFrame(() => {
                         $.set('Height', labelRef.current.clientHeight);
-                    }, 1);
+                    });
                 }
             }, [labelRef, allowContentOverflow, text]);
 
