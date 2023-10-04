@@ -28,7 +28,7 @@ Create an empty JavaScript Array.
 | --- | :---: | --- |
 | List | List | The created list. |
 **/
-export default class CreateList extends ActionBrick {
+export default class CreateListAction extends ActionBrick {
 
     /**
      * @protected
@@ -43,4 +43,4 @@ export default class CreateList extends ActionBrick {
     }
 }
 
-registerBrick('017a1e1270d9a8e557a9', CreateList);
+registerBrick('017a1e1270d9a8e557a9', CreateListAction);

@@ -56,7 +56,7 @@ export default class ShowAlertDialog extends ActionBrick {
             if(confirm) {
                 const value = context.get('value');
                 if(value) {
-                    setTextFieldValue(value);
+                    setTextFieldValue(value.toString());
                 }
                 onConfirm();
             } else {

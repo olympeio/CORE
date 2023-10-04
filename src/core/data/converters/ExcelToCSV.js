@@ -59,13 +59,14 @@ export default class ExcelToCSV extends Brick {
                 type: 'buffer',
                 cellDates: true,
             });
-            sheetName = sheetName ?? worksheet.SheetNames[0];
+            sheetName = sheetName.trim() !== '' ? sheetName : worksheet.SheetNames[0];
             separator = separator ?? ",";
             const csv = XLSX.utils.sheet_to_csv(worksheet.Sheets[sheetName], { FS: separator });
 
             if (csv.length === 0) {
-                logger.error('Provided source is empty or is not a correct Excel file');
-                setErrorFlow(ErrorFlow.create('Provided source is empty or is not a correct Excel file', 1));
+                const errorMsg = `${sheetName !== '' ? 'Cannot read from sheet "' + sheetName + '"' : 'Cannot read from first sheet of provided file'}`
+                logger.error(errorMsg);
+                setErrorFlow(ErrorFlow.create(errorMsg, 1));
             } else {
                 fileName = fileName.substring(0, fileName.lastIndexOf(".")) + ".csv";
                 const transaction = Transaction.from($);
