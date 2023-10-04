@@ -28,6 +28,12 @@ export default class MSSQLConnector extends DataSource {
          * @type {!SchemaReader}
          */
         this.schemaReader = new SchemaReader(this.logger);
+
+        /**
+         * @private
+         * @type {SQLTransactionWriter}
+         */
+        this.writer = null;
     }
 
     /**
@@ -73,6 +79,10 @@ export default class MSSQLConnector extends DataSource {
             },
             acquireConnectionTimeout: this.getConfig(config.connectionsTimeout) ?? 10000,
         });
+
+        // Initialize the writer
+        this.writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaObserver);
+
         // Check the connection to SQL database is established
         await this.healthCheck();
         this.logger.info(`MSSQL Connector ${this.getId()} started with host ${host},
@@ -115,9 +125,8 @@ export default class MSSQLConnector extends DataSource {
     /**
      * @override
      */
-    async applyTransaction(operations, { batch = false }) {
-        const writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaReader);
-        await writer.applyOperations(operations, batch);
+    applyTransaction(operations, { batch = false }) {
+        return this.writer ? this.writer.applyOperations(operations, batch) : Promise.reject('Writer is not ready, you probably need to call init() first');
     }
 
     /**

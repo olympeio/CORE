@@ -1,7 +1,32 @@
 import {Knex} from 'knex';
 import {COLUMNS} from "./SQLQueryExecutor";
-import {CloudObject, Color, File as OFile, Operation, Query} from 'olympe';
+import {CloudObject, Color, File as OFile, Operation, Query, getUniqueTag} from 'olympe';
 import {DB_DIALECT_NAMES, MSSQL} from './_statics';
+
+/**
+ * @typedef {(function(!Knex.QueryBuilder):Knex.QueryBuilder)} StackOperation
+ */
+
+/**
+ * @typedef {string} RawOperation
+ */
+
+/**
+ * @typedef {Map<string, !Array<!Object>>} BatchInserts
+ */
+
+/**
+ * @typedef {Object} StackItem
+ * @property {Function} resolve
+ * @property {Function} reject
+ * @property {StackOperation|RawOperation[]} operations
+ * @property {?BatchInserts} batchInserts
+ * @property {Set<string>} affectedTags
+ * @property {string} operationId
+ * @property {?function(*[], ?BatchInserts):!Promise<*>} executor
+ */
+
+
 
 export default class SQLTransactionWriter {
 
@@ -32,9 +57,15 @@ export default class SQLTransactionWriter {
 
         /**
          * @private
-         * @type {(function(!Knex.QueryBuilder):Knex.QueryBuilder)[]}
+         * @type {StackItem[]}
          */
         this.stack = [];
+
+        /**
+         * @private
+         * @type {Set<string>}
+         */
+        this.lockedTags = new Set();
 
         /**
          * @private
@@ -44,6 +75,25 @@ export default class SQLTransactionWriter {
             .followRecursively(CloudObject.extendedByRel, true)
             .executeFromCache().keys()
         );
+
+        /**
+         * Used to bypass the execution of SQL queries on the database directly to use another transport layer (eg: HTTP)
+         *
+         * @private
+         * @type {function(*[], ?BatchInserts):!Promise<*>}
+         */
+        this.executor = this.executeStackOperations;
+    }
+
+    /**
+     * Set a function that will handle the execution of the SQL query once built, instead of being applied directly on a local database.
+     *
+     * @param {function(*[], ?BatchInserts):!Promise<*>} executor
+     * @return {this}
+     */
+    delegateExecution(executor) {
+        this.executor = executor;
+        return this;
     }
 
     /**
@@ -51,17 +101,127 @@ export default class SQLTransactionWriter {
      *
      * @param {Operation[]} operations
      * @param {boolean=} batch
+     * @param {boolean=} raw
+     * @param {?function(*[], ?BatchInserts):!Promise<*>} executor
      * @return {!Promise<void>}
      */
-    async applyOperations(operations, batch = false) {
+    async applyOperations(operations, batch = false, raw = false, executor = null) {
         const batchInserts = batch ? new Map() : null;
 
-        await this.buildStack(operations, batchInserts);
+        const operationId = getUniqueTag();
+        const [operationsList, affectedTags] = await this.buildStack(operations, batchInserts);
 
-        // Return the promise executing the knex transaction on the database.
+        return new Promise((resolve, reject) => {
+            this.stack.push({
+                resolve,
+                reject,
+                operations: raw ? this.getRawOperations(operationsList) : operationsList,
+                affectedTags,
+                batchInserts,
+                operationId,
+                executor
+            });
+            this.processNextStackOperation();
+        });
+    }
+
+    /**
+     * @private
+     * @param {Array<StackOperation>} operations
+     * @return {Array<RawOperation>}
+     */
+    getRawOperations(operations) {
+        const schema = this.schemaProvider.getSchema();
+        return operations.reduce((res, fn) => {
+            const builder = fn(this.client.withSchema(schema));
+            // builder can be null for no-op
+            builder !== null && res.push(builder.toString());
+            return res;
+        }, []);
+    }
+
+    /**
+     * @private
+     */
+    processNextStackOperation() {
+        this.logger.trace(`processNextStackOperation`);
+        if (this.stack.length === 0) {
+            // stack is empty
+            return;
+        }
+
+        // find the first non-conflicting operation
+        this.detectMultipleTransactionsOnIdenticalObject();
+        const foundIndex = this.getFirstNonConflictingOperation();
+        if (foundIndex === -1) {
+            // no non-conflicting item found, wait next iteration
+            return;
+        }
+        const nextItem = this.stack.splice(foundIndex, 1)[0];
+        // lock affected tags
+        nextItem.affectedTags.forEach(tag => this.lockedTags.add(tag));
+
+        this.logger.trace(`Starting operation ${nextItem.operationId}`);
+        const executor = nextItem.executor ?? this.executor;
+        executor.call(this, nextItem.operations, nextItem.batchInserts).then((result) => {
+            this.logger.trace(`Operation ${nextItem.operationId} resolved`);
+            nextItem.resolve(result);
+        }).catch((error) => {
+            this.logger.trace(`Operation ${nextItem.operationId} rejected with message ${error}`);
+            nextItem.reject(error);
+        }).finally(() => {
+            // unlock affected tags
+            nextItem.affectedTags.forEach(tag => this.lockedTags.delete(tag));
+            // call to check if pending operations could be processed now that those tags are unlocked
+            this.processNextStackOperation();
+        });
+        // when processing an operation, it's possible that another one in the stack is non-conflicting
+        // calling processNextStackOperation to find it and process if possible
+        this.processNextStackOperation();
+    }
+
+    /**
+     * Find the first Stack Operation which doesn't affect any of the currently locked tags
+     * @private
+     * @return {number}
+     */
+    getFirstNonConflictingOperation() {
+        const lockedTags = Array.from(this.lockedTags);
+        const nbLockedTags = this.lockedTags.size;
+        return this.stack.findIndex((item) => {
+            const nbAffectedTags = item.affectedTags.size;
+            // Do the `.some()` operation on the smallest Set
+            return nbLockedTags < nbAffectedTags
+                ? !lockedTags.some(tag => item.affectedTags.has(tag))
+                : !Array.from(item.affectedTags).some(tag => this.lockedTags.has(tag));
+        });
+    }
+
+    /**
+     * @private
+     */
+    detectMultipleTransactionsOnIdenticalObject() {
+        const firstTag = (op) => op.affectedTags.values().next().value;
+        if (
+            this.stack.length >= 2 // has at least 2 operations
+            && this.stack[0].affectedTags.size === 1 // both operations contain only one affected tag
+            && this.stack[1].affectedTags.size === 1 // both operations contain only one affected tag
+            && firstTag(this.stack[0]) === firstTag(this.stack[1]) // the first (and only) affectedTag of each stack operation is identical
+        ) {
+            this.logger.warn(`Detected several successive db operation affecting ${firstTag(this.stack[0])}. You might consider grouping the transactions either with a begin/end transaction or by debouncing them.`);
+        }
+    }
+
+    /**
+     * @private
+     * @param {StackOperation[]} operations
+     * @param {?BatchInserts} batchInserts
+     * @return {Promise<void>}
+     */
+    executeStackOperations(operations, batchInserts) {
         return this.client.transaction(async (trx) => {
             const schema = this.schemaProvider.getSchema();
-            for (const knexOp of this.stack) {
+            for (const knexOp of operations) {
                 await knexOp(trx.withSchema(schema));
             }
 
@@ -72,55 +232,45 @@ export default class SQLTransactionWriter {
                 }
             }
 
-            this.logger.debug(`Transaction with ${this.stack.length} operations will be commit`);
+            this.logger.debug(`Transaction with ${operations.length} operations will be commit`);
 
             return trx;
-        }, {isolationLevel: 'serializable'}).finally(() => {
-            // Clear the writer.
-            this.stack.length = 0;
-            this.logger.debug('Transaction completed');
-        });
-    }
-
-    /**
-     * Execute the list of operations
-     *
-     * @param {Operation[]} operations
-     * @return {Promise<!Array<string>>}
-     */
-    async getRawOperations(operations) {
-        await this.buildStack(operations, null);
-        const schema = this.schemaProvider.getSchema();
-        return this.stack.reduce((res, fn) => {
-            const builder = fn(this.client.withSchema(schema));
-            builder !== null && res.push(builder.toString());
-            return res;
-        }, []);
+        }, {isolationLevel: 'serializable'});
     }
 
     /**
      * @private
      * @param {Operation[]} operations
-     * @param {?Map<string, !Array<!Object>>} batchInserts
+     * @param {?BatchInserts} batchInserts
+     * @return {Promise<[StackOperation[], Set<string>]>}
      */
     async buildStack(operations, batchInserts) {
         // loop over all operations, to ensure the schema is ready for the transaction
+        const returnedOperations = [];
+        const affectedTags = new Set();
         for (const op of operations) {
             switch(op.type) {
                 case 'CREATE':
-                    this.stack.push(this.create(op.object, op.model, op.properties, batchInserts));
+                    returnedOperations.push(this.create(op.object, op.model, op.properties, batchInserts));
+                    affectedTags.add(op.object);
                     break;
                 case 'UPDATE':
-                    this.stack.push(this.update(op.object, op.model, op.properties));
+                    returnedOperations.push(this.update(op.object, op.model, op.properties));
+                    affectedTags.add(op.object);
                     break;
                 case 'DELETE':
-                    this.stack.push(this.delete(op.object, op.model));
+                    returnedOperations.push(this.delete(op.object, op.model));
+                    affectedTags.add(op.object);
                     break;
                 case 'CREATE_RELATION':
-                    this.stack.push(this.createRelation(op.relation, op.from, op.to, op.fromModel, op.toModel, batchInserts));
+                    returnedOperations.push(this.createRelation(op.relation, op.from, op.to, op.fromModel, op.toModel, batchInserts));
+                    affectedTags.add(op.from);
+                    affectedTags.add(op.to);
                     break;
                 case 'DELETE_RELATION':
-                    this.stack.push(this.deleteRelation(op.relation, op.from, op.to, op.fromModel, op.toModel));
+                    returnedOperations.push(this.deleteRelation(op.relation, op.from, op.to, op.fromModel, op.toModel));
+                    affectedTags.add(op.from);
+                    affectedTags.add(op.to);
                     break;
                 default:
                     throw new Error(`Transaction error: operation type is unknown: ${op.type}`);
@@ -129,6 +279,7 @@ export default class SQLTransactionWriter {
 
         // Wait if schema requires updates
         await this.schemaProvider.waitForFree();
+        return [returnedOperations, affectedTags];
     }
 
     /**
