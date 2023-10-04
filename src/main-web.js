@@ -28,6 +28,7 @@ import './core/data/list/**/*.js';
 import './core/data/operation/**/*.js';
 import './core/data/queries/**/*.js';
 import './core/data/transaction/**/*.js';
+import './core/data/map/**/*.js';
 import './core/datetime/**/*.js';
 import './core/file/**/*.js';
 import './core/net/**/*.js';
