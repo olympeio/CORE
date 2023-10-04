@@ -14,7 +14,15 @@
  * limitations under the License.
  */
 
-import {Brick, registerBrick, Transaction, CloudObject, instanceToTag, DBView, PropertyModel} from 'olympe';
+import {
+    Brick,
+    registerBrick,
+    Transaction,
+    CloudObject,
+    tagToString,
+    DBView,
+    PropertyModel,
+} from 'olympe';
 import {getLogger} from 'logging';
 import {castPrimitiveValue} from "../transaction/_helpers";
 
@@ -34,6 +42,14 @@ export default class SetObjectProperty extends Brick {
         const castedValue = castPrimitiveValue(value);
 
         // Validate arguments
+        if (tagToString(object) === '') {
+            logger.error('No object input specified');
+            return;
+        }
+        if (tagToString(property) === '') {
+            logger.error('No property input specified');
+            return;
+        }
         if (castedValue instanceof CloudObject) {
             logger.error('Complex properties are not supported');
             return;
@@ -44,10 +60,7 @@ export default class SetObjectProperty extends Brick {
             return;
         }
 
-        if (instanceToTag(property) === '') {
-            logger.error('No property object specified');
-            return;
-        }
+
 
         const db = DBView.get();
 
