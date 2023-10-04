@@ -9,12 +9,12 @@ export default class ExcelToJSON extends Brick {
     /**
      * @override
      */
-     setupExecution($) {
+    setupExecution($) {
         const inputs = this.getInputs();
         return merge(...inputs.map((i) => $.observe(i)))
-        .pipe(map((value) => {
-            return $.get(inputs[0]) === null ? null : inputs.map((i) => $.get(i));
-        }));
+            .pipe(map((value) => {
+                return $.get(inputs[0]) === null ? null : inputs.map((i) => $.get(i));
+            }));
     }
 
     /**
@@ -26,7 +26,7 @@ export default class ExcelToJSON extends Brick {
      * @param {function(*)} setResult
      * @param {function(*)} setErrorFlow
      */
-     update($, [source, sheetName], [setResult, setErrorFlow]) {
+    update($, [source, sheetName], [setResult, setErrorFlow]) {
         const logger = getLogger('Excel to JSON');
         if (source instanceof OFile) {
             source.getContentAsBinary(
@@ -49,18 +49,20 @@ export default class ExcelToJSON extends Brick {
      * @param {function(*)} setErrorFlow
      * @param {log.Logger} logger
      */
-     convertToJSON($, data, sheetName, setResult, setErrorFlow, logger) {
+    convertToJSON($, data, sheetName, setResult, setErrorFlow, logger) {
         try {
             const worksheet = XLSX.read(data, {
                 type: 'buffer',
                 cellDates: true,
             });
-            const finalSheetName = sheetName ?? worksheet.SheetNames[0];
+            const finalSheetName = sheetName.trim() !== '' ? sheetName : worksheet.SheetNames[0];
             const json = XLSX.utils.sheet_to_json(worksheet.Sheets[finalSheetName]);
 
             if (json.length === 0) {
-                logger.error('Provided source is empty or is not a correct Excel file');
-                setErrorFlow(ErrorFlow.create('Provided source is empty or is not a correct Excel file', 1));
+                const errorMsg = `${sheetName !== '' ? 'Cannot read from sheet "' + sheetName + '"' : 'Cannot read from first sheet of provided file'}`
+                logger.error(errorMsg);
+                setErrorFlow(ErrorFlow.create(errorMsg, 1));
+
             } else {
                 setResult(json);
             }

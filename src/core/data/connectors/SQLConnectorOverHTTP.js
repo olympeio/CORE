@@ -48,6 +48,12 @@ export default class SQLConnectorOverHTTP extends DataSource {
          * @type {!Object<string>}
          */
         this.authHeaders = {};
+
+        /**
+         * @private
+         * @type {SQLTransactionWriter}
+         */
+        this.writer = null;
     }
 
     /**
@@ -91,6 +97,12 @@ export default class SQLConnectorOverHTTP extends DataSource {
         // with all the existing tables with their associated data types.
         await this.schemaReader.init(this.knex, schema, schemaDesc);
         this.logger.info(`Schema of HTTP SQL connector ${this.getId()} has been initialized.`);
+
+        // Initialize the writer
+        this.writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaReader).delegateExecution((operations) => {
+            // default executor sends request over POST
+            return this.sendHTTPRequest('POST', 'transaction', operations);
+        });
     }
 
     /**
@@ -113,10 +125,8 @@ export default class SQLConnectorOverHTTP extends DataSource {
     /**
      * @override
      */
-    async applyTransaction(operations, options) {
-        const writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaReader);
-        const sqlOperations = await writer.getRawOperations(operations);
-        await this.sendHTTPRequest('POST', 'transaction', sqlOperations);
+    applyTransaction(operations, options) {
+        return this.writer ? this.writer.applyOperations(operations, false, true) : Promise.reject('Writer is not ready, you probably need to call init() first');
     }
 
     /**
@@ -161,12 +171,13 @@ export default class SQLConnectorOverHTTP extends DataSource {
     /**
      * @override
      */
-    async deleteFileContent(fileTag, dataType) {
+    deleteFileContent(fileTag, dataType) {
         const properties = new Map([[COLUMNS.FILE_CONTENT, null]]);
         const operations = [{ type: 'UPDATE', object: fileTag, model: dataType, properties }];
-        const writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaReader);
-        const sqlOperations = await writer.getRawOperations(operations);
-        await this.sendHTTPRequest('DELETE', 'file', sqlOperations[0]);
+        return this.writer ? this.writer.applyOperations(operations, false, true, (operations) => {
+            // delete executor sends request over DELETE
+            return this.sendHTTPRequest('DELETE', 'transaction', operations[0]);
+        }) : Promise.reject('Writer is not ready, you probably need to call init() first');
     }
 
     /**
