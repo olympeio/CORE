@@ -1,5 +1,4 @@
 import { ActionBrick, registerBrick } from 'olympe';
-import {getLogger} from "logging";
 
 export default class GetFromMap extends ActionBrick {
 
@@ -18,7 +17,7 @@ export default class GetFromMap extends ActionBrick {
             throw new Error('TypeError: the map should be of type Map');
         }
         if(typeof key !== 'string') {
-            throw new Error('Provided key is not a string:', key);
+            throw new Error(`Provided key is not a string: ${key}`);
         }
 
         // get the value
