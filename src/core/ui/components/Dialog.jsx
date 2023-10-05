@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-import { VisualBrick, registerBrick, GlobalProperties } from 'olympe';
+import { registerBrick, GlobalProperties } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ReactBrick, useProperty } from 'helpers/react.jsx';
 
 import MUIDialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -29,12 +30,10 @@ import { createTransitionElement, createTransitionObject } from './CustomizeAler
 import { markdownTextToReactElement } from 'helpers/remarkable';
 import { cssToSxProps, jsonToSxProps, ifNotTransparent } from 'helpers/mui';
 
-import { combineLatestWith } from 'rxjs/operators';
-
 /**
  * Provides a Dialog component using MUI Dialog
  */
-export default class Dialog extends VisualBrick {
+export default class Dialog extends ReactBrick {
 
     /**
      * @override
@@ -54,14 +53,9 @@ export default class Dialog extends VisualBrick {
      * @override
      */
     setupExecution($) {
-        const properties = [
-            'Open', 'Title', 'Content Width', 'Content Height', 'Full Screen', 'Scroll',
-            'Show Divider', 'Hide Backdrop', 'Enable Backdrop Click', 'Keep Mounted', 'Transition Type', 'Transition Direction',
-            'Transition Easing', 'Transition Timeout', 'Transition Exit Easing', 'Transition Exit Timeout', 'MUI sx [json]',
-            'Border Color', 'Border Radius', 'Border Width', 'CSS Property', 'Default Color', 'Z-Index'
-        ];
-        const contentRendererObserver = $.observe('Content Renderer', false);
-        return contentRendererObserver.pipe(combineLatestWith(properties.map(p => $.observe(p))));
+        // don't wait for value on the "Content Renderer" so that in Draw
+        // we can display the "placeholder"
+        return $.observe('Content Renderer', false);
     }
 
     /**
@@ -79,94 +73,121 @@ export default class Dialog extends VisualBrick {
     /**
      * @override
      * @param {!BrickContext} $
-     * @param {!Array} properties
      * @return {Element}
      */
-    render($, properties) {
-        const [
-            contentRenderer, open, title, contentWidth, contentHeight, fullScreen, scroll,
-            showDivider, hideBackdrop, enableBackdropClick, keepMounted, transitionType, transitionDirection,
-            transitionEasing, transitionTimeout, transitionExitEasing, transitionExitTimeout, muiSxJson,
-            borderColor, borderRadius, borderWidth, cssProperty, defaultColor, zIndex
-        ] = properties;
+    static getReactComponent($) {
+        return (props) => {
+            const [contentRenderer] = props.values;
+            const open = useProperty($, 'Open');
+            const title = useProperty($, 'Title');
+            const contentWidth = useProperty($, 'Content Width');
+            const contentHeight = useProperty($, 'Content Height');
+            const contentPadding = useProperty($, 'Content Padding');
+            const fullScreen = useProperty($, 'Full Screen');
+            const scroll = useProperty($, 'Scroll');
+            const showDivider = useProperty($, 'Show Divider');
+            const hideBackdrop = useProperty($, 'Hide Backdrop');
+            const enableBackdropClick = useProperty($, 'Enable Backdrop Click');
+            const keepMounted = useProperty($, 'Keep Mounted');
+            const transitionType = useProperty($, 'Transition Type');
+            const transitionDirection = useProperty($, 'Transition Direction'); // aie
+            const transitionEasing = useProperty($, 'Transition Easing');
+            const transitionTimeout = useProperty($, 'Transition Timeout');
+            const transitionExitEasing = useProperty($, 'Transition Exit Easing');
+            const transitionExitTimeout = useProperty($, 'Transition Exit Timeout');
+            const muiSxJson = useProperty($, 'MUI sx [json]');
+            const borderColor = useProperty($, 'Border Color');
+            const borderRadius = useProperty($, 'Border Radius');
+            const borderWidth = useProperty($, 'Border Width');
+            const cssProperty = useProperty($, 'CSS Property');
+            const defaultColor = useProperty($, 'Default Color');
+            const zIndex = useProperty($, 'Z-Index');
 
-        // In DRAW we want to show a placeholder
-        if($.get(GlobalProperties.EDITION, true)) {
-            return (
-                <Box sx={{ backgroundColor: 'lightgrey', width: 1, height: 1, overflow: 'hidden' }}>
-                    <Typography sx={{ color: 'black', padding: 1 }}>
-                        <b>Dialog</b><br/>
-                        To control it use events <code>Open Dialog</code> and <code>Close Dialog</code>.
-                    </Typography>
-                </Box>
-            );
-        }
+            const [$renderer, set$Renderer] = React.useState();
 
-        // Not in DRAW
-        else {
-            // Transition element
-            const transition = createTransitionObject(transitionType, transitionDirection, transitionEasing, transitionTimeout, transitionExitEasing, transitionExitTimeout);
-            const transitionElement = createTransitionElement(transition);
+            React.useEffect(() => {
+                set$Renderer(contentRenderer ? $.runner(contentRenderer) : null);
+            }, [contentRenderer]);
 
-            // Element
-            return (open || keepMounted) && (
-                <MUIDialog
-                    // Properties
-                    disableEnforceFocus
-                    open={open}
-                    maxWidth={false}
-                    fullScreen={fullScreen}
-                    scroll={scroll}
-                    hideBackdrop={hideBackdrop}
-                    keepMounted={keepMounted}
-                    TransitionComponent={transitionElement}
+            // In DRAW we want to show a placeholder
+            if ($.get(GlobalProperties.EDITION, true)) {
+                return (
+                    <Box sx={{backgroundColor: 'lightgrey', width: 1, height: 1, overflow: 'hidden'}}>
+                        <Typography sx={{color: 'black', padding: 1}}>
+                            <b>Dialog</b><br/>
+                            To control it use events <code>Open Dialog</code> and <code>Close Dialog</code>.
+                        </Typography>
+                    </Box>
+                );
+            }
 
-                    // Event
-                    onClose={() => {
-                        if(enableBackdropClick) {
-                            $.trigger('Close Dialog');
-                        }
-                    }}
+            // Not in DRAW
+            else {
+                // Transition element
+                const transition = createTransitionObject(transitionType, transitionDirection, transitionEasing, transitionTimeout, transitionExitEasing, transitionExitTimeout);
+                const transitionElement = createTransitionElement(transition);
 
-                    // UI
-                    sx={{
-                        zIndex: open ? Math.abs(zIndex) : -Math.abs(zIndex),
-                        ...cssToSxProps(cssProperty),
-                        ...jsonToSxProps(muiSxJson)
-                    }}
-                    PaperProps={{
-                        variant: borderWidth > 0 ? 'outlined' : 'elevation',
-                        elevation: borderWidth > 0 ? 0 : 24,
-                        sx: {
-                            borderColor: borderColor.toHexString(),
-                            borderRadius: `${borderRadius}px`,
-                            borderWidth: `${borderWidth}px`,
-                            ...ifNotTransparent('backgroundColor', defaultColor)
-                        }
-                    }}
-                >
-                    {title && (
-                        <DialogTitle>
-                            {markdownTextToReactElement(title, 'span')}
-                        </DialogTitle>
-                    )}
-                    {contentRenderer && (
-                        <DialogContent
-                            dividers={showDivider}
-                            ref={el => {
-                                el && $.runner(contentRenderer)
-                                    .set('Width', contentWidth)
-                                    .set('Height', contentHeight)
-                                    .setParentElement(el);
-                            }}
-                            sx={{
-                                width: contentWidth,
-                                height: contentHeight
-                            }}
-                        ></DialogContent>
-                    )}
-                </MUIDialog>
-            );
+                // Element
+                return (open || keepMounted) ? (
+                    <MUIDialog
+                        // Properties
+                        disableEnforceFocus
+                        open={open}
+                        maxWidth={false}
+                        fullScreen={fullScreen}
+                        scroll={scroll}
+                        hideBackdrop={hideBackdrop}
+                        keepMounted={keepMounted}
+                        TransitionComponent={transitionElement}
+
+                        // Event
+                        onClose={() => {
+                            if (enableBackdropClick) {
+                                $.trigger('Close Dialog');
+                            }
+                        }}
+
+                        // UI
+                        sx={{
+                            zIndex: open ? Math.abs(zIndex) : -Math.abs(zIndex),
+                            ...cssToSxProps(cssProperty),
+                            ...jsonToSxProps(muiSxJson)
+                        }}
+                        PaperProps={{
+                            variant: borderWidth > 0 ? 'outlined' : 'elevation',
+                            elevation: borderWidth > 0 ? 0 : 24,
+                            sx: {
+                                borderColor: borderColor.toHexString(),
+                                borderRadius: `${borderRadius}px`,
+                                borderWidth: `${borderWidth}px`,
+                                ...ifNotTransparent('backgroundColor', defaultColor)
+                            }
+                        }}
+                    >
+                        {title && (
+                            <DialogTitle>
+                                {markdownTextToReactElement(title, 'span')}
+                            </DialogTitle>
+                        )}
+                        {$renderer && (
+                            <DialogContent
+                                dividers={showDivider}
+                                ref={el => {
+                                    el && $renderer
+                                        .set('Width', contentWidth)
+                                        .set('Height', contentHeight)
+                                        .setParentElement(el);
+                                }}
+                                sx={{
+                                    width: contentWidth,
+                                    height: contentHeight,
+                                    padding: typeof contentPadding === 'number' ? `${contentPadding}px` : undefined
+                                }}
+                            ></DialogContent>
+                        )}
+                    </MUIDialog>
+                ) : null;
+            }
         }
     }
 }
