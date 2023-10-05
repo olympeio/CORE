@@ -1,5 +1,4 @@
-import { Brick, registerBrick } from 'olympe';
-import {getLogger} from '@olympeio/core';
+import { Brick, registerBrick, BrickContext } from 'olympe';
 import {LocalStorageManager} from '../LocalStorageManager';
 
 export default class GetLocalStorage extends Brick {
@@ -33,7 +32,7 @@ export default class GetLocalStorage extends Brick {
 
     /**
      * @private
-     * @param {Context} context
+     * @param {BrickContext} context
      */
     cleanLatestCallback(context) {
         if(context.get(GetLocalStorage.INPUT_KEY) !== undefined && context.get(GetLocalStorage.CALLBACK_INDEX) !== undefined) {
@@ -42,7 +41,7 @@ export default class GetLocalStorage extends Brick {
     }
 
     /**
-     * @param {Context} context
+     * @param {BrickContext} context
      */
     destroy(context) {
         this.cleanLatestCallback(context);

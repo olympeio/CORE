@@ -1,5 +1,4 @@
 import { Brick, registerBrick } from 'olympe';
-import {getLogger} from '@olympeio/core';
 import {LocalStorageManager} from '../LocalStorageManager';
 
 export default class SetLocalStorage extends Brick {

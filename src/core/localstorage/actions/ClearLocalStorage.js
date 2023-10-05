@@ -1,5 +1,4 @@
 import {ActionBrick, registerBrick} from 'olympe';
-import {getLogger} from '@olympeio/core';
 
 export default class ClearLocalStorage extends ActionBrick {
     /**
