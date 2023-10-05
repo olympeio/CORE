@@ -88,7 +88,7 @@ export default class Label extends ReactBrick {
                         onClick={() => $.trigger('On Click')}
                         sx={{
                             width: 1,
-                            ...(autoHeight ? {height: 1} : {}),
+                            ...(autoHeight ? {} : {height: 1}),
                             display: 'flex',
                             overflow: 'visible',
                             borderWidth: useProperty($, 'Border Width'),
