@@ -20,11 +20,11 @@ export default class StringSplit extends Brick {
 
         // Set default values if separator and limit are not provided
         if (typeof pattern !== 'string') {
-            pattern = ''; // Default to empty string if separator is not provided
+            throw new Error('Provided separator is not a string.');
         }
 
         if (typeof limit !== 'number') {
-            limit = -1; // Default to -1 if limit is not provided
+            throw new Error('Provided limit is not a number.');
         }
 
         const resultArray  = input.split(pattern, limit);
