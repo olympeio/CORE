@@ -1,5 +1,4 @@
 import { ActionBrick, registerBrick } from 'olympe'
-import {getLogger} from '@olympeio/core';
 import {LocalStorageManager} from '../LocalStorageManager';
 
 export default class RemoveLocalStorage extends ActionBrick {
