@@ -31,6 +31,7 @@ import './core/data/transaction/**/*.js';
 import './core/data/map/**/*.js';
 import './core/datetime/**/*.js';
 import './core/file/**/*.js';
+import './core/localstorage/**/*.js';
 import './core/net/**/*.js';
 import './core/system/**/*.js';
 import './core/text/**/*.js';
