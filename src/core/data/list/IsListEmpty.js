@@ -10,7 +10,9 @@ export default class IsListEmpty extends Brick {
      * @param {function(boolean)} setIsEmpty
      */
     update($, [list], [setIsEmpty]) {
-        // Check if the list is null or undefined
+        if(!Array.isArray(list) && !(list instanceof QueryResult)) {
+            throw new Error('Input must be of type Array, List, or Query Result. Please provide a valid input.')
+        }
         // Check if the list is an empty array or an empty QueryResult
         if ((Array.isArray(list) && list.length === 0) || (list instanceof QueryResult && list.size() === 0)) {
             setIsEmpty(true);
