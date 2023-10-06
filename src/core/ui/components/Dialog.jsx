@@ -103,11 +103,16 @@ export default class Dialog extends ReactBrick {
             const defaultColor = useProperty($, 'Default Color');
             const zIndex = useProperty($, 'Z-Index');
 
-            const [$renderer, set$Renderer] = React.useState();
+            const [$renderer, set$Renderer] = React.useState(null);
 
             React.useEffect(() => {
-                set$Renderer(contentRenderer ? $.runner(contentRenderer) : null);
-            }, [contentRenderer]);
+                if ((open || keepMounted) && $renderer === null) {
+                    set$Renderer((contentRenderer) ? $.runner(contentRenderer) : null);
+                } else {
+                    $renderer?.destroy();
+                    set$Renderer(null);
+                }
+            }, [open, keepMounted]);
 
             // In DRAW we want to show a placeholder
             if ($.get(GlobalProperties.EDITION, true)) {
