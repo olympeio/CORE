@@ -1,4 +1,3 @@
-
 /**
  * Copyright 2021 Olympe S.A.
  *
@@ -15,33 +14,10 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import {Brick, ErrorFlow, registerBrick} from 'olympe';
 import {httpRequest} from "helpers/httpRequest";
 import {handleStatusAndHeaders, handleData} from "../utils/httpResponseHandlers";
 
-/**
-## Description
-Sends an HTTP GET request to the specified URL and provide the results.
-
-The HTTP GET method requests a representation of the specified resource. Requests using GET should only retrieve data.
-
-Additional headers can be provided and returned in a string that has to be in JSON format.
-
-**Example:** '{"Content-Type": "text/html; charset=UTF-8",  "Content-Length": 1024 }'
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| URL | String | The URL to query. |
-| Headers | String | Optional HTTP headers in a JSON parsable string. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Response Status Code | Number | The response status code. |
-| Response Body | String | The body (i.e. the content) of the response. |
-| Response Headers | String | The response headers. |
-
-**/
 export default class HTTPGet extends Brick {
 
     /**
@@ -53,11 +29,15 @@ export default class HTTPGet extends Brick {
      * @param {function(string)} setHeaders
      * @param {function(number)} setStatusCode
      * @param {function(string)} setStatusText
+     * @param {function(ErrorFlow)} setErrorFlow
      */
-    async update(context, [url, headers], [setStatusCode, setBody, setHeaders]) {
+    async update(context, [url, headers], [setStatusCode, setBody, setHeaders, setErrorFlow]) {
         const response = await httpRequest('GET', url, headers);
         const responseHeaders = handleStatusAndHeaders(response, setStatusCode, setHeaders);
         await handleData(response, responseHeaders, setBody);
+        if(!response.ok) {
+            setErrorFlow(ErrorFlow.create(`Network error ${response.status} ${response.statusText}`, response.status));
+        }
     }
 }
 

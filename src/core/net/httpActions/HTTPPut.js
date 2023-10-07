@@ -18,33 +18,6 @@ import { ActionBrick, registerBrick, ErrorFlow } from 'olympe';
 import {httpRequest} from "helpers/httpRequest";
 import {forwardEventOrErrorFlow, handleStatusAndHeaders} from "../utils/httpResponseHandlers";
 
-/**
- ## Description
- Sends an HTTP PUT request to the specified URL and provide the results.
-
- The HTTP PUT request method creates a new resource or replaces a representation of the target resource with the request body.
- The difference between PUT and POST is that PUT is idempotent: calling it once or several times successively has the
- same effect (that is no side effect), where successive identical POST may have additional effects, like passing an
- order several times.
-
- Additional headers can be provided and returned in a string that has to be in JSON format.
-
- **Example:** '{"Content-Type": "text/html; charset=UTF-8",  "Content-Length": 1024 }'
-
- ## Inputs
- | Name | Type | Description |
- | --- | :---: | --- |
- | URL | String | The URL to query. |
- | Headers | String | Optional HTTP headers in a JSON parsable string. |
- | Body | String | The body of the request. |
- ## Outputs
- | Name | Type | Description |
- | --- | :---: | --- |
- | Response Status Code | Number | The response status code. |
- | Response Body | String | The body (i.e. the content) of the response. |
- | Response Headers | String | The response headers. |
-
- **/
 export default class HTTPPut extends ActionBrick {
 
     /**
