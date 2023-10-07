@@ -18,29 +18,6 @@ import {ActionBrick, registerBrick, ErrorFlow} from 'olympe';
 import {httpRequest} from "helpers/httpRequest";
 import {handleStatusAndHeaders, handleData, forwardEventOrErrorFlow} from "../utils/httpResponseHandlers";
 
-/**
-## Description
-Sends an HTTP GET request to the specified URL and provide the results.
-
-The HTTP GET method requests a representation of the specified resource. Requests using GET should only retrieve data.
-
-Additional headers can be provided and returned in a string that has to be in JSON format.
-
-**Example:** '{"Content-Type": "text/html; charset=UTF-8",  "Content-Length": 1024 }'
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| URL | String | The URL to query. |
-| Headers | String | Optional HTTP headers in a JSON parsable string. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Response Status Code | Number | The response status code. |
-| Response Body | String | The body (i.e. the content) of the response. |
-| Response Headers | String | The response headers. |
-
-**/
 export default class HTTPGet extends ActionBrick {
 
     /**

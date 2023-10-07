@@ -20,59 +20,73 @@ import {mockFetch, mockRequest, mockResponse, SMALL_GIF} from "../fetchMock.js";
 import {fromBase64} from 'helpers/binaryConverters';
 
 describe('HTTPGet function brick', () => {
-    it('should get correctly',  () => {
+    it('should get correctly',  async () => {
+        const brick = new HTTPGet();
+        const context = new BrickContext().createChild();
+        const outputs = [
+            jasmine.createSpy(),
+            jasmine.createSpy(),
+            jasmine.createSpy(),
+            jasmine.createSpy(),
+        ];
+
         mockFetch(
             mockRequest('https://httpbin.org/get', 'GET', '{"Content-Type": "application/json"}'),
             mockResponse(true, 200, {"Content-Type": "text/plain"}, 'test body')
         );
 
-        const brick = new HTTPGet();
+        await brick.update(context, ['https://httpbin.org/get', '{"Content-Type": "application/json"}'], outputs);
 
-        const context = new BrickContext().createChild();
-        const outputs = [];
-
-        outputs.push(_statusCode => expect(_statusCode).toEqual(200));
-        outputs.push(_setBody => expect(_setBody).not.toBeNull());
-        outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
-
-        brick.update(context, ['https://httpbin.org/get', '{"Content-Type": "application/json"}'], outputs);
-
+        expect(outputs[0]).toHaveBeenCalledWith(200);
+        expect(outputs[1]).toHaveBeenCalledWith('test body');
+        expect(outputs[2]).toHaveBeenCalledWith({"content-type": 'text/plain'});
+        expect(outputs[3]).not.toHaveBeenCalled();
     });
 
-    it('should generate a 405 error when getting on a put-only url',  () => {
+    it('should generate a 405 error when getting on a put-only url',  async () => {
+        const brick = new HTTPGet();
+        const context = new BrickContext().createChild();
+        const outputs = [
+            jasmine.createSpy(),
+            jasmine.createSpy(),
+            jasmine.createSpy(),
+            jasmine.createSpy(),
+        ];
+
         mockFetch(
             mockRequest('https://httpbin.org/put', 'GET', '{"Content-Type": "application/json"}'),
             mockResponse(false, 405, {"Content-Type": "text/plain"}, 'test body')
         );
 
-        const brick = new HTTPGet();
+        await brick.update(context, ['https://httpbin.org/put', '{"Content-Type": "application/json"}'], outputs);
 
-        const context = new BrickContext().createChild();
-        const outputs = [];
-
-        outputs.push(_statusCode => expect(_statusCode).toEqual(405));
-        outputs.push(_setBody => expect(_setBody).not.toBeNull());
-        outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
-
-        brick.update(context, ['https://httpbin.org/put', '{"Content-Type": "application/json"}'], outputs);
+        expect(outputs[0]).toHaveBeenCalledWith(405);
+        expect(outputs[1]).toHaveBeenCalledWith('test body');
+        expect(outputs[2]).toHaveBeenCalledWith({"content-type": 'text/plain'});
+        expect(outputs[3]).toHaveBeenCalled();
     });
 
-    it('should generate a 404 error when getting on a wrong url',  () => {
+    it('should generate a 404 error when getting on a wrong url',  async () => {
+        const brick = new HTTPGet();
+        const context = new BrickContext().createChild();
+        const outputs = [
+            jasmine.createSpy(),
+            jasmine.createSpy(),
+            jasmine.createSpy(),
+            jasmine.createSpy(),
+        ];
         mockFetch(
             mockRequest('abcd', 'GET', '{"Content-Type": "application/json"}'),
             mockResponse(false, 404, {"Content-Type": "text/plain"}, 'test body')
         );
+        await brick.update(context, ['abcd', '{"Content-Type": "application/json"}'], outputs);
 
-        const brick = new HTTPGet();
+        expect(outputs[0]).toHaveBeenCalledWith(404);
+        expect(outputs[1]).toHaveBeenCalledWith('test body');
+        expect(outputs[2]).toHaveBeenCalledWith({"content-type": 'text/plain'});
+        expect(outputs[3]).toHaveBeenCalled();
 
-        const context = new BrickContext().createChild();
-        const outputs = [];
 
-        outputs.push(_statusCode => expect(_statusCode).toEqual(404));
-        outputs.push(_setBody => expect(_setBody).not.toBeNull());
-        outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
-
-        brick.update(context, ['abcd', '{"Content-Type": "application/json"}'], outputs);
     });
 
     it('should get a non-text file as a dataUrl',  () => {
