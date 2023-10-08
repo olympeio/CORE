@@ -14,6 +14,12 @@ export const convertStringToJson = (objectInput, objectName) => {
 
     let outputObject = null;
     const typeOfInput = typeof objectInput;
+
+    // Check if empty string first
+    if (typeOfInput === 'string' && objectInput.trim() === '') {
+        return {}; // Return an empty JSON object
+    }
+
     if (!objectInput || (typeOfInput !== 'string' && typeOfInput !== 'object')) {
         throw invalidJSONObjectMessage;
     }

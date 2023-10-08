@@ -18,26 +18,6 @@ import { ActionBrick, registerBrick, ErrorFlow } from 'olympe';
 import {httpRequest} from "helpers/httpRequest";
 import {forwardEventOrErrorFlow, handleStatusAndHeaders} from "../utils/httpResponseHandlers";
 
-/**
- ## Description
- Sends an HTTP HEAD request to the specified URL and provide the results.
-
- Additional headers can be provided and returned in a string that has to be in JSON format.
-
- **Example:** '{"Content-Type": "text/html; charset=UTF-8",  "Content-Length": 1024 }'
-
- ## Inputs
- | Name | Type | Description |
- | --- | :---: | --- |
- | URL | String | The URL to query. |
- | Headers | String | Optional HTTP headers in a JSON parsable string. |
- ## Outputs
- | Name | Type | Description |
- | --- | :---: | --- |
- | Response Status Code | Number | The response status code. |
- | Response Headers | String | The response headers. |
-
- **/
 export default class HTTPHead extends ActionBrick {
 
     /**

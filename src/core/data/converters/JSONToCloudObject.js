@@ -28,7 +28,7 @@ export default class JSONToCloudObject extends ActionBrick {
      * @param {function(!ErrorFlow)} setErrorFlow
      * @param {function(!Array | !CloudObject)} setResult
      */
-    update($, [source, businessModel, persist], [forwardEvent, setErrorFlow, setResult]) {
+    update($, [source, businessModel, persist], [forwardEvent, setResult, setErrorFlow]) {
         // Guards
         if (source === null) {
             setErrorFlow(ErrorFlow.create('Provided source null', 1));

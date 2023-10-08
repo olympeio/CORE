@@ -14,31 +14,10 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import {Brick, ErrorFlow, registerBrick} from 'olympe';
 import {httpRequest} from "helpers/httpRequest";
 import {handleStatusAndHeaders, handleData} from "../utils/httpResponseHandlers";
 
-/**
-## Description
-Sends an HTTP DELETE request to the specified URL and provide the results.
-
-Additional headers can be provided and returned in a string that has to be in JSON format.
-
-**Example:** '{"Content-Type": "text/html; charset=UTF-8",  "Content-Length": 1024 }'
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| URL | String | The URL to query. |
-| Headers | String | Optional HTTP headers in a JSON parsable string. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Response Status Code | Number | The response status code. |
-| Response Body | String | The body (i.e. the content) of the response. |
-| Response Headers | String | The response headers. |
-
-**/
 export default class HTTPDelete extends Brick {
 
     /**
@@ -50,12 +29,15 @@ export default class HTTPDelete extends Brick {
      * @param {function(string)} setBody
      * @param {function(number)} setStatusCode
      * @param {function(string)} setHeaders
+     * @param {function(ErrorFlow)} setErrorFlow
      */
-    async update(context, [url, body, headers], [ setStatusCode, setBody, setHeaders]) {
+    async update(context, [url, body, headers], [setStatusCode, setBody, setHeaders, setErrorFlow]) {
         const response = await httpRequest('DELETE', url, headers, body);
         const responseHeaders = handleStatusAndHeaders(response, setStatusCode, setHeaders);
-        if(response.ok) {
+        if (response.ok) {
             await handleData(response, responseHeaders, setBody);
+        } else {
+            setErrorFlow(ErrorFlow.create(`Network error ${response.status} ${response.statusText}`, response.status));
         }
     }
 }
