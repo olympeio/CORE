@@ -447,7 +447,11 @@ export default class SQLTransactionWriter {
         if (properties) {
             for (const [prop, value] of properties) {
                 const colName = this.schemaProvider.getColumn(tableName, prop);
-                object[colName] = SQLTransactionWriter.serializeValue(value);
+                if (colName !== null) {
+                    object[colName] = SQLTransactionWriter.serializeValue(value);
+                } else {
+                    this.logger.error(`Could not set the property "${prop}" of data type in table "${tableName}"`);
+                }
             }
         }
         return object;
