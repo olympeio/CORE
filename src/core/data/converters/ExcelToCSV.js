@@ -1,7 +1,7 @@
-import { Brick, BrickContext, registerBrick, Transaction, ErrorFlow, CloudObject, File as OFile } from 'olympe';
-import { getLogger } from 'logging';
+import {Brick, BrickContext, registerBrick, Transaction, ErrorFlow, CloudObject, File as OFile} from 'olympe';
+import {getLogger} from 'logging';
 import * as XLSX from 'xlsx';
-import { stringToBinary } from 'helpers/binaryConverters';
+import {stringToBinary} from 'helpers/binaryConverters';
 import {merge} from "rxjs";
 import {map} from "rxjs/operators";
 
@@ -10,12 +10,12 @@ export default class ExcelToCSV extends Brick {
     /**
      * @override
      */
-     setupExecution($) {
+    setupExecution($) {
         const inputs = this.getInputs();
         return merge(...inputs.map((i) => $.observe(i)))
-        .pipe(map((value) => {
-            return $.get(inputs[0]) === null ? null : inputs.map((i) => $.get(i));
-        }));
+            .pipe(map((value) => {
+                return $.get(inputs[0]) === null ? null : inputs.map((i) => $.get(i));
+            }));
     }
 
     /**
@@ -59,9 +59,9 @@ export default class ExcelToCSV extends Brick {
                 type: 'buffer',
                 cellDates: true,
             });
-            sheetName = sheetName.trim() !== '' ? sheetName : worksheet.SheetNames[0];
+            sheetName = sheetName !== null && sheetName.trim() !== '' ? sheetName : worksheet.SheetNames[0];
             separator = separator ?? ",";
-            const csv = XLSX.utils.sheet_to_csv(worksheet.Sheets[sheetName], { FS: separator });
+            const csv = XLSX.utils.sheet_to_csv(worksheet.Sheets[sheetName], {FS: separator});
 
             if (csv.length === 0) {
                 const errorMsg = `${sheetName !== '' ? 'Cannot read from sheet "' + sheetName + '"' : 'Cannot read from first sheet of provided file'}`
