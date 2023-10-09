@@ -55,7 +55,7 @@ export default class ExcelToJSON extends Brick {
                 type: 'buffer',
                 cellDates: true,
             });
-            const finalSheetName = sheetName.trim() !== '' ? sheetName : worksheet.SheetNames[0];
+            const finalSheetName = sheetName !== null && sheetName.trim() !== '' ? sheetName : worksheet.SheetNames[0];
             const json = XLSX.utils.sheet_to_json(worksheet.Sheets[finalSheetName]);
 
             if (json.length === 0) {
