@@ -437,7 +437,6 @@ export default class SQLTransactionWriter {
 
     /**
      * @private
-     * @param {string} tag
      * @param {string} tableName
      * @param {!Map<string, *>=} properties
      * @return {!Object}
