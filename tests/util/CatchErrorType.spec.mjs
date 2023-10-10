@@ -29,14 +29,14 @@ describe('CatchErrorType brick', () => {
         const forwardEventSpy = jasmine.createSpy();
         const setErrorFlowSpy = jasmine.createSpy();
         const setMessageSpy = jasmine.createSpy();
+        const setStack = jasmine.createSpy();
 
-        brick.update(
-            context, [errorFlow, code], [forwardEventSpy, setErrorFlowSpy, setMessageSpy]
-        );
+        brick.update(context, [errorFlow, code], [forwardEventSpy, setErrorFlowSpy, setMessageSpy, setStack]);
 
         expect(forwardEventSpy).toHaveBeenCalled();
         expect(setErrorFlowSpy).not.toHaveBeenCalled();
         expect(setMessageSpy).toHaveBeenCalledWith(message);
+        expect(setStack).toHaveBeenCalledWith('');
     });
 
     it('should only forward the error flow if the codes are different', () => {
@@ -50,13 +50,13 @@ describe('CatchErrorType brick', () => {
         const forwardEventSpy = jasmine.createSpy();
         const setErrorFlowSpy = jasmine.createSpy();
         const setMessageSpy = jasmine.createSpy();
+        const setStack = jasmine.createSpy();
 
-        brick.update(
-            context, [errorFlow, code], [forwardEventSpy, setErrorFlowSpy, setMessageSpy]
-        );
+        brick.update(context, [errorFlow, code], [forwardEventSpy, setErrorFlowSpy, setMessageSpy, setStack]);
 
         expect(forwardEventSpy).not.toHaveBeenCalled();
         expect(setErrorFlowSpy).toHaveBeenCalledWith(errorFlow);
         expect(setMessageSpy).not.toHaveBeenCalled();
+        expect(setStack).not.toHaveBeenCalled();
     });
 });
