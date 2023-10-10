@@ -19,55 +19,62 @@ import {BrickContext} from 'olympe';
 import {mockFetch, mockRequest, mockResponse} from "../fetchMock.js";
 
 describe('HTTPPut function brick', () => {
-    it('should put correctly',  () => {
+    it('should put correctly', async () => {
+        const brick = new HTTPPut();
+        const context = new BrickContext().createChild();
+        const outputs = [
+            jasmine.createSpy(),
+            jasmine.createSpy(),
+            jasmine.createSpy(),
+        ];
         mockFetch(
             mockRequest('https://httpbin.org/put', 'PUT', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
             mockResponse(true, 200, {})
         );
+        await brick.update(context, ['https://httpbin.org/put', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
 
-        const brick = new HTTPPut();
-
-        const context = new BrickContext().createChild();
-        const outputs = [];
-
-        outputs.push(_statusCode => expect(_statusCode).toEqual(200));
-        outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
-
-        brick.update(context, ['https://httpbin.org/put', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
-
+        expect(outputs[0]).toHaveBeenCalledWith(200);
+        expect(outputs[1]).toHaveBeenCalledWith({});
+        expect(outputs[2]).not.toHaveBeenCalled();
     });
 
-    it('should generate a 405 error when putting on a post-only url',  () => {
+
+    it('should generate a 405 error when putting on a post-only url',  async () => {
+        const brick = new HTTPPut();
+        const context = new BrickContext().createChild();
+        const outputs = [
+            jasmine.createSpy(),
+            jasmine.createSpy(),
+            jasmine.createSpy(),
+        ];
         mockFetch(
             mockRequest('https://httpbin.org/post', 'PUT', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
             mockResponse(false, 405, {})
         );
+        await brick.update(context, [ 'https://httpbin.org/post', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
 
-        const brick = new HTTPPut();
-
-        const context = new BrickContext().createChild();
-        const outputs = [];
-
-        outputs.push(_statusCode => expect(_statusCode).toEqual(405));
-        outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
-
-        brick.update(context, [ 'https://httpbin.org/post', '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
+        expect(outputs[0]).toHaveBeenCalledWith(405);
+        expect(outputs[1]).toHaveBeenCalledWith({});
+        expect(outputs[2]).toHaveBeenCalled();
     });
 
-    it('should generate a 404 error when putting on a wrong url',  () => {
+    it('should generate a 404 error when putting on a wrong url',  async () => {
+        const brick = new HTTPPut();
+        const context = new BrickContext().createChild();
+        const outputs = [
+            jasmine.createSpy(),
+            jasmine.createSpy(),
+            jasmine.createSpy(),
+        ];
         mockFetch(
             mockRequest('abcd', 'PUT', '{"Content-Type": "application/json"}', '{"test": "payload"}'),
             mockResponse(false, 404, {})
         );
 
-        const brick = new HTTPPut();
+        await brick.update(context, ['abcd',  '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
 
-        const context = new BrickContext().createChild();
-        const outputs = [];
-
-        outputs.push(_statusCode => expect(_statusCode).toEqual(404));
-        outputs.push(_setHeaders => expect(_setHeaders).not.toBeNull());
-
-        brick.update(context, ['abcd',  '{"test": "payload"}', '{"Content-Type": "application/json"}'], outputs);
+        expect(outputs[0]).toHaveBeenCalledWith(404);
+        expect(outputs[1]).toHaveBeenCalledWith({});
+        expect(outputs[2]).toHaveBeenCalled();
     });
 });

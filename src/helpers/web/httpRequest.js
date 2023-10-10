@@ -34,7 +34,7 @@ export const httpRequest = (method, url, headers, body, withCors) => {
     } catch (error) {
         logger.error(error);
     }
-    if (headers) {
+    if (jsonInputHeader !== null) {
         for (const [key, value] of Object.entries(jsonInputHeader)) {
             parsedHeaders.append(key, value);
         }

@@ -1,6 +1,5 @@
-import { ActionBrick, registerBrick, BrickContext, CloudObject } from 'olympe';
-import { getLogger } from 'logging';
-import { getMapper } from './MapperConfig';
+import {ActionBrick, registerBrick, BrickContext, CloudObject, Transaction} from 'olympe';
+import {getMapper} from './MapperConfig';
 
 export default class MapJSONToObjects extends ActionBrick {
 
@@ -15,18 +14,16 @@ export default class MapJSONToObjects extends ActionBrick {
      * @param {boolean} unique
      * @param {function()} forwardEvent
      * @param {function(!Array<CloudObject>)} setObjects
+     * @param {boolean} persist
      */
-    update(_$, [json, objectType, mapperConfig, autoMapping, unique], [forwardEvent, setObjects]) {
-        const logger = getLogger('Map JSON To Objects');
-
+    async update(_$, [json, objectType, mapperConfig, autoMapping, unique, persist], [forwardEvent, setObjects]) {
         // Inputs guard
         if (!objectType) {
-            logger.warn('object type is not defined');
-            return;
+            throw new Error('object type is not defined');
         }
+
         if (!mapperConfig && !autoMapping) {
-            logger.warn('mapper config can only be undefined if auto mapping is set to true');
-            return;
+            throw new Error('mapper config can only be undefined if auto mapping is set to true');
         }
 
         // Get data from JSON
@@ -37,8 +34,8 @@ export default class MapJSONToObjects extends ActionBrick {
             if (!Array.isArray(data)) {
                 data = [data];
             }
-        } catch(e) {
-            logger.error(`cannot parse JSON: ${e.message}`);
+        } catch (e) {
+            throw new Error(`cannot parse JSON: ${e.message}`);
         }
 
         // Get the mapper and map data to objects
@@ -52,6 +49,18 @@ export default class MapJSONToObjects extends ActionBrick {
                 objects.push(CloudObject.get(objectTag));
             }
         });
+
+        if (persist) {
+            const transaction = new Transaction(true);
+            tags.forEach((tag) => transaction.persistInstance(tag, true));
+
+            try {
+                await transaction.execute();
+            } catch(e) {
+                throw new Error('Transaction failed: ' + e);
+            }
+        }
+
         setObjects(objects);
         forwardEvent();
     }

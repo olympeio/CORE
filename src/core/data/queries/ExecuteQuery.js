@@ -15,7 +15,6 @@
  */
 
 import { ActionBrick, registerBrick, ErrorFlow, Query } from 'olympe';
-import { getLogger } from 'logging';
 
 export default class ExecuteQuery extends ActionBrick {
 
@@ -35,14 +34,11 @@ export default class ExecuteQuery extends ActionBrick {
                     setQueryResult(queryResult);
                     forwardEvent();
                 })
-                .catch(message => {
-                    getLogger('ExecuteQuery').error(`Failed execute query with error : ${message}`);
-                    setErrorFlow(ErrorFlow.create(message, 1));
+                .catch((error) => {
+                    setErrorFlow(ErrorFlow.create(`${error}`, 1));
                 });
         } else {
-            const message = `The provided Query is not a Query object`;
-            getLogger('ExecuteQuery').error(message);
-            setErrorFlow(ErrorFlow.create(message, 2));
+            setErrorFlow(ErrorFlow.create(`The provided Query is not a Query object: ${query}`, 2));
         }
     }
 }

@@ -6,10 +6,10 @@ export default class ExecuteOnRuntimeOnly extends ActionBrick {
      * @override
      * @protected
      * @param {!BrickContext} $
-     * @param {string} param
+     * @param {Array} inputs
      * @param {function()} forwardEvent
      */
-    update($, [param], [forwardEvent]) {
+    update($, inputs, [forwardEvent]) {
         if(!$.get(GlobalProperties.EDITION, true)) {
             forwardEvent();
         }
