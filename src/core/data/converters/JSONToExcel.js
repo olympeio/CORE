@@ -33,20 +33,15 @@ export default class JSONToExcel extends ActionBrick {
             return;
         }
 
-        const fileTag = OFile.createFromContent(
-            transaction,
-            excelFile,
-            binary,
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        );
+        const fileTag = transaction.create(OFile);
+        transaction.persist(fileTag, false);
+        const mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+        OFile.setContent(transaction, fileTag, excelFile, binary, mimeType);
 
-        transaction.persistInstance(fileTag, false);
-        transaction.execute()
-            .then(() => {
-                setExcelFile(CloudObject.get(fileTag));
-                forwardEvent();
-            })
-            .catch(message => setErrorFlow(ErrorFlow.create(message, 1)));
+        transaction.execute().then(() => {
+            setExcelFile(CloudObject.get(fileTag));
+            forwardEvent();
+        }).catch(message => setErrorFlow(ErrorFlow.create(message, 1)));
     }
 }
 

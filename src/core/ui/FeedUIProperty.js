@@ -39,9 +39,8 @@ export default class FeedUIProperty extends Brick {
     update(context, [value], outputs) {
         const [scope, property] = getScopeContext(this, this.getInputs()[0]);
         if (scope && property) {
-            let offContext;
-            offContext = context.onContext(scope, (scopeContext) => {
-                offContext && offContext();
+            const offContext = context.onContext(scope, (scopeContext) => {
+                offContext?.();
                 scopeContext.set(property, castPrimitiveValue(value));
             });
         }
