@@ -64,6 +64,7 @@ export default class FileUpload extends ReactBrick {
              * @type {React.MutableRefObject<null>}
              */
             const uploadTextField = useRef(null);
+            const textFieldLastEvent = useRef(null);
             useEffect(() => {
                 $.observe('Show File Selector').subscribe(() => {
                     uploadTextField.current?.querySelector('input').click();
@@ -72,6 +73,11 @@ export default class FileUpload extends ReactBrick {
                 $.observe('Clear Files').subscribe(() => {
                     $.set('Files', []);
                     $.trigger('On Change');
+
+                    const event = textFieldLastEvent.current;
+                    if(event){
+                        event.target.value = null;
+                    }
                 });
             }, []);
 
@@ -81,8 +87,8 @@ export default class FileUpload extends ReactBrick {
                 return null;
             }
             const element = renderer
-                ? FileUpload.renderCustom($, renderer, uploadTextField)
-                : FileUpload.renderTextField($, uploadTextField);
+                ? FileUpload.renderCustom($, renderer, uploadTextField, textFieldLastEvent)
+                : FileUpload.renderTextField($, uploadTextField, textFieldLastEvent);
             return (
                 <ThemeProvider theme={theme}>
                     {element}
@@ -96,9 +102,10 @@ export default class FileUpload extends ReactBrick {
      * @private
      * @param {!BrickContext} $
      * @param {MutableRefObject} uploadTextField
+     * @param {MutableRefObject} textFieldLastEvent
      * @return {!ReactElement}
      */
-    static renderTextField($, uploadTextField) {
+    static renderTextField($, uploadTextField, textFieldLastEvent) {
         const label = useProperty($, 'Label');
         const fontFamily = useProperty($, 'Font Family');
         const borderWidth = useProperty($, 'Border Width');
@@ -125,6 +132,7 @@ export default class FileUpload extends ReactBrick {
                     $.trigger('On Click');
                 }}
                 onChange={(event) => {
+                    textFieldLastEvent.current = event;
                     FileUpload.uploadFiles($, event.target.files);
                 }}
 
@@ -177,9 +185,10 @@ export default class FileUpload extends ReactBrick {
      * @param {!BrickContext} $
      * @param {!VisualBrick} renderer
      * @param {MutableRefObject} uploadTextField
+     * @param {MutableRefObject} textFieldLastEvent
      * @return {!ReactElement}
      */
-    static renderCustom($, renderer, uploadTextField) {
+    static renderCustom($, renderer, uploadTextField, textFieldLastEvent) {
         return (
             <Box
                 // Style
@@ -214,6 +223,7 @@ export default class FileUpload extends ReactBrick {
 
                     // Events
                     onChange={(event) => {
+                        textFieldLastEvent.current = event;
                         FileUpload.uploadFiles($, event.target.files);
                     }}
 
