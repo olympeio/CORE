@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, Transaction, instanceToTag } from 'olympe';
+import { Brick, registerBrick, Transaction, tagToString } from 'olympe';
 import {getLogger} from 'logging';
 
 export default class PersistObject extends Brick {
@@ -22,15 +22,15 @@ export default class PersistObject extends Brick {
     /**
      * @protected
      * @param {!BrickContext} context
-     * @param {InstanceTag} objectIn
-     * @param {function(InstanceTag)} setObjectOut
+     * @param {InstanceOrTag} objectIn
+     * @param {function(InstanceOrTag)} setObjectOut
      */
     update(context, [objectIn], [setObjectOut]) {
         const transaction = new Transaction();
         const logger = getLogger('Persist Object');
 
-        if (typeof objectIn === 'string' || instanceToTag(objectIn) !== '') {
-            transaction.persistInstance(objectIn, true);
+        if (typeof objectIn === 'string' || tagToString(objectIn) !== '') {
+            transaction.persist(objectIn);
             transaction.execute()
                 .catch(message => logger.error(message))
                 .finally(() => setObjectOut(objectIn));

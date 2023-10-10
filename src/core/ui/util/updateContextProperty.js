@@ -14,36 +14,27 @@
  * limitations under the License.
  */
 
-import {Direction, transformers, DBView} from 'olympe';
+import {CloudObject, Relation, Predicate} from 'olympe';
 
 /**
- * @param {Brick} brick
+ * @param {CloudObject} brick
  * @param {string} input
  * @return {Array<?string>} [scope, property] or [null, null]
  */
 export default function getScopeContext(brick, input) {
-    const srcScope = '0168a431d91f25780002'
-    const srcProperty = '0168a431d91f25780004'
-    const destScope = '0168a431d91f2578000a'
-    const destInput = '0168a431d91f2578000b'
+    const srcScopeRel = new Relation('0168a431d91f25780002');
+    const srcPropertyRel = new Relation('0168a431d91f25780004');
+    const destScopeRel = new Relation('0168a431d91f2578000a');
+    const destInputRel = new Relation('0168a431d91f2578000b');
 
-    const dbView = DBView.get();
-
-    const srcScopeRel = new transformers.Related(srcScope, Direction.DESTINATION);
-    const srcPropertyRel = new transformers.Related(srcProperty, Direction.DESTINATION);
-    const destScopeRel = new transformers.Related(destScope, Direction.DESTINATION);
-    const destInputRel = new transformers.Related(destInput, Direction.DESTINATION);
-    const propertyPipe = dbView.findRelated(
-        brick,
-        [destScopeRel.getInverse()],
-        (pipe) => dbView.getUniqueRelated(pipe, destInputRel) === input
-    );
+    const propertyPipe = brick.follow(destScopeRel.getInverse()).andReturn()
+        .follow(destInputRel).filter(Predicate.in(input))
+        .executeFromCache().getFirst();
 
     if (propertyPipe) {
-        const scope = dbView.getUniqueRelated(propertyPipe, srcScopeRel);
-        const property = dbView.getUniqueRelated(propertyPipe, srcPropertyRel);
-
-        return [scope, property];
+        const scope = propertyPipe.followSingle(srcScopeRel).executeFromCache();
+        const property = propertyPipe.followSingle(srcPropertyRel).executeFromCache();
+        return [scope?.getTag(), property?.getTag()];
     }
 
     return [null, null];

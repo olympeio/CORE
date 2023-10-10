@@ -26,7 +26,7 @@ export default class ListToEnum extends Brick {
      * @param {!Brick} transformer
      * @param {!function(InstanceTag)} setEnum
      */
-    update($, [list, transformer], [setEnum]) {
+    async update($, [list, transformer], [setEnum]) {
         // Guards
         if (!Array.isArray(list) && !(list instanceof ListDef) && !(list instanceof QueryResult)) {
             getLogger('List To Enum').error('The provided list must be of type ListDef, Array or QueryResult');
@@ -37,15 +37,15 @@ export default class ListToEnum extends Brick {
         const [valueOutput, nameOutput, rankOutput] = transformer.getOutputs();
 
         // 1. Create the enumeration itself
-        const transaction = new Transaction().persist(false);
+        const transaction = new Transaction(false);
         const enumTag = Enum.create(transaction);
-        transaction.execute();
+        await transaction.execute();
 
         // Function that delete the specified instance
-        const clear = (instance) => {
+        const clear = async (instance) => {
             const t = new Transaction();
             t.delete(instance);
-            t.execute();
+            await t.execute();
         }
 
         // Creates an enum value based on the specified context
@@ -54,11 +54,11 @@ export default class ListToEnum extends Brick {
                 ctx.observe(nameOutput),
                 ctx.observe(rankOutput)
             )).subscribe(([value, name, rank]) => {
-                const t = new Transaction().persist(false);
+                const t = new Transaction(false);
                 const previousTag = previous.pop();
                 previousTag && t.delete(previousTag);
                 previous.push(EnumValue.create(t, enumTag, value, name, rank));
-                t.execute();
+                t.execute().catch();
             });
         }
 

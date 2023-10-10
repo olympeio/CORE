@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, DBView, Transaction, CloudObject, tagToString } from 'olympe';
+import { Brick, registerBrick, Transaction, CloudObject, tagToString, BrickContext } from 'olympe';
 import {getLogger} from 'logging';
 
 export default class CreateLocalObject extends Brick {
@@ -22,7 +22,7 @@ export default class CreateLocalObject extends Brick {
     /**
      * @protected
      * @param {!BrickContext} context
-     * @param {InstanceTag} model
+     * @param {Tag} model
      * @param {function(CloudObject)} setObject
      */
     update(context, [model], [setObject]) {
@@ -35,27 +35,24 @@ export default class CreateLocalObject extends Brick {
         }
 
         // start isolated local transaction
-        const transaction = new Transaction();
-        transaction.persist(false);
+        const transaction = new Transaction(false);
 
         // And create operation to the transaction
         const instanceTag = transaction.create(model);
-        transaction.persistInstance(instanceTag, false);
 
         // Execute the transaction
         transaction.execute()
-            .then(() => setObject(CloudObject.getInstance(instanceTag)))
+            .then(() => setObject(CloudObject.get(instanceTag)))
             .catch(() => logger.error('Isolated transaction (local) failed'));
 
         // Destroy the local object when context is unloaded
         // WARNING: we register this callback independently if the Create transaction is performed by this "brick"
         //              or by an "end" transaction brick
-        context.onDestroy(() => {
+        context.onClear(() => {
             // destroy the local object :
             //  - if it was created (if it was not the source should be undefined)
             //  - if it was not persisted (its source is self only)
-            const dbView = DBView.get();
-            if (dbView.exist(instanceTag) && !dbView.isPersisted(instanceTag)) {
+            if (CloudObject.exists(instanceTag) && CloudObject.get(instanceTag).isPersisted()) {
                 const reverseTransaction = new Transaction();
                 reverseTransaction.delete(instanceTag);
                 reverseTransaction.execute()

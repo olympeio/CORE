@@ -21,7 +21,6 @@ import {
     InstanceTag,
     registerBrick,
     CloudObject,
-    BusinessObject,
     DBView,
     Transaction,
     RelationModel,
@@ -29,6 +28,7 @@ import {
     NumberModel
 } from 'olympe';
 import {getLogger} from 'logging';
+import JSONToCloudObject from "./JSONToCloudObjectOld";
 
 export default class JsonToObject extends ActionBrick {
 
@@ -38,7 +38,7 @@ export default class JsonToObject extends ActionBrick {
      * @param {string} json
      * @param {InstanceTag} businessModel
      * @param {boolean} persist
-     * @param {function(BusinessObject)} setObject
+     * @param {function(CloudObject)} setObject
      * @param {function()} forwardEvent
      */
     update($, [json, businessModel, persist], [forwardEvent, setObject]) {
@@ -47,15 +47,15 @@ export default class JsonToObject extends ActionBrick {
         const data = parsedJson instanceof Array && parsedJson.length > 0 ? parsedJson[0] : parsedJson;
 
         const db = DBView.get();
-        const transaction = Transaction.from($);
-        transaction.persist(persist);
+        const transaction = new Transaction(persist);
 
         // Check if the instance exists already in db or if it has been processed before to avoid duplication
-        const instance = transaction.create((businessModel));
+        const instance = transaction.create(businessModel);
 
         const mappingModels = new Map();
-        // TODO should add BusinessModel in public api?
-        db.getRelated('016324fde11a836f76c2', BusinessObject.modelRel.getInverse())
+
+        // Tag of DataType
+        db.getRelated(JSONToCloudObject.BUSINESS_MODEL_TAG, CloudObject.modelRel.getInverse())
             .forEach((buInstance) => {
                 const name = db.name(buInstance);
                 mappingModels.set(name, buInstance);
@@ -64,13 +64,10 @@ export default class JsonToObject extends ActionBrick {
         this.parseProperties(db, transaction, instance, businessModel, /**@type {!Object}*/(data), mappingModels);
         this.parseRelations(db, transaction, instance, businessModel, /**@type {!Object}*/(data), mappingModels);
 
-        // Place a callback "afterExecution" to ensure that the transaction
-        // has been executed before to call CloudObject.get()
-        transaction.afterExecution(() => setObject(CloudObject.get(instance)));
-
-        Transaction.process($, transaction)
-            .then(() => forwardEvent())
-            .catch(msg => getLogger('JSON To Object').error(`Transaction failed: ${msg}`));
+        transaction.execute().then(() => {
+            setObject(CloudObject.get(instance));
+            forwardEvent();
+        }).catch(msg => getLogger('JSON To Object').error(`Transaction failed: ${msg}`));
     }
 
     /**
@@ -84,7 +81,7 @@ export default class JsonToObject extends ActionBrick {
      * @param {!Map<string, !Map<string, string> >=} instanceTags
      */
     parseProperties(db, transaction, instance, businessModel, data, mappingModels, instanceTags) {
-        const properties = db.getRelated(businessModel, BusinessObject.propertyRel);
+        const properties = db.getRelated(businessModel, CloudObject.propertyRel);
 
         properties.forEach((item) => {
             const propName =  db.name(item);
@@ -92,7 +89,7 @@ export default class JsonToObject extends ActionBrick {
             if (data && data[propName] !== undefined && (!(data[propName] instanceof Array) && !(data[propName] instanceof Object))) {
                 transaction.update(instance, item, data[propName]);
             } else if (mappedModel) {
-                const buInstance = transaction.create((mappedModel));
+                const buInstance = transaction.create(mappedModel);
                 this.parseProperties(db, transaction, buInstance, mappedModel, data[propName], mappingModels, instanceTags);
                 transaction.update(instance, item, buInstance);
             }
