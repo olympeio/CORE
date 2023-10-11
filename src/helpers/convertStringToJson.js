@@ -16,7 +16,7 @@ export const convertStringToJson = (objectInput, objectName) => {
     const typeOfInput = typeof objectInput;
 
     // Check if empty string first
-    if (typeOfInput === 'string' && objectInput.trim() === '') {
+    if (objectInput === null || typeOfInput === 'string' && objectInput.trim() === '') {
         return {}; // Return an empty JSON object
     }
 
