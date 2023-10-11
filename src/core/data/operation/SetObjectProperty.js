@@ -43,16 +43,13 @@ export default class SetObjectProperty extends Brick {
 
         // Validate arguments
         if (tagToString(object) === '') {
-            logger.error('No object input specified');
-            return;
+            throw new Error('No object input specified');
         }
         if (tagToString(property) === '') {
-            logger.error('No property input specified');
-            return;
+            throw new Error('No property input specified');
         }
         if (castedValue instanceof CloudObject) {
-            logger.error('Complex properties are not supported');
-            return;
+            throw new Error('Complex properties are not supported');
         }
         if (castedValue === undefined || castedValue === null) {
             logger.info('Ignoring null value');
@@ -60,14 +57,10 @@ export default class SetObjectProperty extends Brick {
             return;
         }
 
-
-
         const db = DBView.get();
-
-        const objectModel = db.model(object);
-        if (!objectModel || !db.isExtending(objectModel, db.getUniqueRelated(instanceToTag(property), PropertyModel.definingModelRel))) {
-            logger.error(`Cannot update property, the property ${db.name(instanceToTag(property))} is not valid for this object (${db.name(objectModel)}).`);
-            return;
+        const objectModel = typeof object === 'string' ? transaction.model(object) : db.model(object);
+        if (!db.isExtending(objectModel, db.getUniqueRelated(tagToString(property), PropertyModel.definingModelRel))) {
+            throw new Error(`Cannot update property, the property ${db.name(tagToString(property))} is not valid for this object (${db.name(objectModel)}).`);
         }
 
         // Start isolated local transaction

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {Brick, registerBrick, ListDef, instanceToTag, transformers, Direction} from 'olympe';
+import {Brick, registerBrick, ListDef, tagToString, transformers, Direction} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -38,7 +38,7 @@ export default class ListFollowRelation extends Brick {
             logger.error('TypeError: the list should be of type ListDef.');
             return;
         }
-        if (!instanceToTag(relation)) {
+        if (!tagToString(relation)) {
             logger.error('relation is not specified');
             return;
         }

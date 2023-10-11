@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {Brick, registerBrick, ListDef, predicates, Direction, instanceToTag, DBView, QueryResult} from 'olympe';
+import {Brick, registerBrick, ListDef, predicates, Direction, tagToString, DBView, QueryResult} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -26,7 +26,7 @@ const filterList = (list, inverseFilter) => {
     const db = DBView.get();
     let invalidObject = false;
     list.filter((object) => {
-        if (instanceToTag(object) === '') {
+        if (tagToString(object) === '') {
             getLogger('Filter Has Related').error('One object in the list has no valid tag');
             invalidObject = true;
             return false;
@@ -52,7 +52,7 @@ export default class FilterHasRelated extends Brick {
     update($, [list, relatedObject, relation, inverseFilter], [setFilteredList]) {
         const logger = getLogger('Filter Has Related');
 
-        if (instanceToTag(relatedObject) === '') {
+        if (tagToString(relatedObject) === '') {
             logger.error('`related object` has no valid tag');
         } else if(Array.isArray(list) || list instanceof QueryResult) {
             const filteredList = filterList(list, inverseFilter);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {Brick, registerBrick, ListDef, instanceToTag, transformers} from 'olympe';
+import {Brick, registerBrick, ListDef, tagToString, transformers} from 'olympe';
 import {getOrientedRelation} from "./GetRelatedObjects";
 import {getLogger} from 'logging';
 
@@ -32,10 +32,10 @@ export default class GetRecursiveRelated extends Brick {
         const logger = getLogger('Get Recursive Related');
 
         // Prevent errors
-        if (instanceToTag(object) === '') {
+        if (tagToString(object) === '') {
             logger.error('Invalid `object` provided, must be a business object, or a tag');
             return;
-        } else if (instanceToTag(relation) === '') {
+        } else if (tagToString(relation) === '') {
             logger.error('Invalid `relation` provided');
             return;
         }

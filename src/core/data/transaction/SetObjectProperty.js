@@ -64,8 +64,6 @@ export default class SetObjectProperty extends ActionBrick {
             return;
         }
 
-
-
         // Transaction
         const transaction = Transaction.from(context);
 

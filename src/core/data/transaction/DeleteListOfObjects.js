@@ -1,4 +1,4 @@
-import { ActionBrick, registerBrick, ListDef, Sync, Context, instanceToTag, Transaction, QueryResult } from 'olympe';
+import { ActionBrick, registerBrick, ListDef, CloudObject, BrickContext, tagToString, Transaction, QueryResult } from 'olympe';
 import {getLogger} from "logging";
 
 export default class DeleteListOfObjects extends ActionBrick {
@@ -7,7 +7,7 @@ export default class DeleteListOfObjects extends ActionBrick {
     /**
      * @protected
      * @param {!BrickContext} context
-     * @param {Array<Sync> | ListDef | QueryResult} list
+     * @param {Array<CloudObject> | ListDef | QueryResult} list
      * @param {function()} forwardEvent
      */
     update(context, [list], [forwardEvent]) {
@@ -19,7 +19,7 @@ export default class DeleteListOfObjects extends ActionBrick {
 
         const transaction = Transaction.from(context);
         const deleteInstance = (objectIn) => {
-            if (instanceToTag(objectIn) !== '') {
+            if (tagToString(objectIn) !== '') {
                 transaction.delete(objectIn);
             } else {
                 logger.error('Cannot delete object ' + objectIn);
@@ -46,9 +46,10 @@ const performOperation = (list, operation, execute) => {
         list.onReady(() => {
             list.forEachCurrentValue(operation);
             execute();
-        })
+        });
     }
 };
+
 const checkList = (list) => {
     const isListDef = list instanceof ListDef;
     const isQueryResult = list instanceof QueryResult;
