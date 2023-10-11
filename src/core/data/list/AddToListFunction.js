@@ -1,4 +1,4 @@
-import { Brick, registerBrick, instanceToTag, ErrorFlow, ListDef, CloudObject, QueryResult } from 'olympe';
+import { Brick, registerBrick, tagToString, ErrorFlow, ListDef, CloudObject, QueryResult } from 'olympe';
 import { getLogger } from 'logging';
 
 export default class AddToListFunction extends Brick {
@@ -52,7 +52,7 @@ export const addElementToList = (list, object, onDone) => {
     } else if(list instanceof QueryResult) {
         onDone(list.push(object));
     } else {
-        onDone(list.union(new ListDef(instanceToTag(object), []))); // New listdef: union of the previous + 1 instance.
+        onDone(list.union(new ListDef(tagToString(object), []))); // New listdef: union of the previous + 1 instance.
     }
 };
 

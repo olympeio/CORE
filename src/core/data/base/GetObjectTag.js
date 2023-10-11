@@ -14,19 +14,8 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, instanceToTag } from 'olympe';
+import { Brick, registerBrick, tagToString } from 'olympe';
 
-/**
-## Description
-Get the tag of an object.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Object | Object | The object. |
-| Name | Type | Description |
-| --- | :---: | --- |
-| value | string | The object tag. |
-**/
 export default class GetObjectTag extends Brick {
 
     /**
@@ -36,7 +25,7 @@ export default class GetObjectTag extends Brick {
      * @param {function(string)} setValue
      */
     update(context, [object], [setValue]) {
-        setValue(instanceToTag(object));
+        setValue(tagToString(object));
     }
 }
 

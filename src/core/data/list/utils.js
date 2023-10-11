@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {DatetimeModel, DBView, instanceToTag, NumberModel, PropertyModel, StringModel, BooleanModel, RelationModel, Enum, valuedefs, CloudObject, Direction} from "olympe";
+import {DatetimeModel, DBView, tagToString, NumberModel, PropertyModel, StringModel, BooleanModel, RelationModel, Enum, valuedefs, CloudObject, Direction} from "olympe";
 import {getLogger} from 'logging';
 
 /**
@@ -63,23 +63,23 @@ export const getValueDefFor = (property, allowBoolean=false) => {
     const propertyTypeTag = db.getUniqueRelated(/** @type {!HasInstanceTag} */ (property), PropertyModel.typeRel);  // Property type cannot be edited in Draw
 
     // String
-    if (propertyTypeTag === instanceToTag(StringModel)) {
+    if (propertyTypeTag === tagToString(StringModel)) {
         return new valuedefs.StringProperty(property);
     }
     // Number
-    if (propertyTypeTag === instanceToTag(NumberModel)) {
+    if (propertyTypeTag === tagToString(NumberModel)) {
         return new valuedefs.NumberProperty(property);
     }
     // DateTime
-    if (propertyTypeTag === instanceToTag(DatetimeModel)) {
+    if (propertyTypeTag === tagToString(DatetimeModel)) {
         return new valuedefs.DateTimeProperty(property);
     }
     // Boolean
-    if (allowBoolean === true && propertyTypeTag === instanceToTag(BooleanModel)) {
+    if (allowBoolean === true && propertyTypeTag === tagToString(BooleanModel)) {
         return new valuedefs.BooleanProperty(property);
     }
     // Enum: check if model of the property type is an Enum
-    if (db.model(propertyTypeTag) === instanceToTag(Enum)) {
+    if (db.model(propertyTypeTag) === tagToString(Enum)) {
         return new valuedefs.StringProperty(property);
     }
     return null;
