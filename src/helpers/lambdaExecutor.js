@@ -1,4 +1,4 @@
-import {ErrorFlow} from 'olympe';
+import {Brick, ErrorFlow} from 'olympe';
 
 /**
  * @param {BrickContext} $
