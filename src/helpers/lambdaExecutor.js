@@ -2,29 +2,28 @@ import {Brick, ErrorFlow} from 'olympe';
 
 /**
  * @param {BrickContext} $
- * @param {string} lambda name of the lambda to be executed
+ * @param {!Brick} lambda lambda to be executed
  * @param {!Array<*>} inputsValues input values except for control flow, in order of the function signature.
  * @param {number=} customErrorCode
  * @return {Promise<!Array<*>>}
  */
 export const executeLambda = ($, lambda, inputsValues, customErrorCode) => {
-    const lambdaFunction = $.get(lambda);
-    if (!(lambdaFunction instanceof Brick)) {
-        const errorMsg = `No matching lambda with name "${lambda}" could be found within the provided context, or the lambda you try to execute is not a Brick`;
+    if (!(lambda instanceof Brick)) {
+        const errorMsg = `The lambda you try to execute is not a Brick`;
         return Promise.reject(errorMsg);
     }
-    const inputs = lambdaFunction.getInputs();
+    const inputs = lambda.getInputs();
     // get first input that should be a control flow
     const controlFlowIn = inputs.shift();
     // remove control flows and error flows (they have to be first two)
-    const [controlFlowOut, errorFlowOut, ...outputs] = lambdaFunction.getOutputs();
+    const [controlFlowOut, errorFlowOut, ...outputs] = lambda.getOutputs();
 
     if (inputs.length !== inputsValues.length) {
         const errorMsg = `Inputs provided to the lambda: ${inputsValues.length}, but expected ${inputs.length} from function signature
         , values: ${JSON.stringify(inputsValues)}`;
         return Promise.reject(errorMsg);
     }
-    const runner = $.runner(lambdaFunction);
+    const runner = $.runner(lambda);
     for (const [idx, inputSignature] of inputs.entries()) {
         runner.set(inputSignature, inputsValues[idx]);
     }
