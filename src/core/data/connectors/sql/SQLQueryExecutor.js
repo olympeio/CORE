@@ -5,6 +5,7 @@ import {
     Query,
     Order,
     tagToString,
+    CloudObject,
     Color,
     QuerySingle,
     PropertyModel,
@@ -113,7 +114,7 @@ export default class SQLQueryExecutor {
         }
 
         // Parse parts of the query to transform them into a single array, to build SQL query with joins.
-        const rootColumns = new Map(returned ? this.schema.getAllColumns(...initTables) : [[COLUMNS.TAG, COLUMNS.TAG]]);
+        const rootColumns = this.getRequiredColumns(rootPart, initTables);
         const finalFilter = root ? [[{name: 'IS', tags: [root]}]] : filter; // Filter with the root tag if defined.
         const rootLevel = { columns: rootColumns, filter: finalFilter, sort, optional: false, tables: initTables, index: 0 };
         const parsedParts = next.reduce((acc, part) => {
@@ -239,13 +240,42 @@ export default class SQLQueryExecutor {
             return [];
         }
         const toTables = relationTables.map((t) => t[2]);
-        const columns = new Map(returned ? this.schema.getAllColumns(...toTables) : [[COLUMNS.TAG, COLUMNS.TAG]]);
+        const columns = this.getRequiredColumns(part, toTables);
         const currentLevel = { columns, filter, sort, optional, relation, tables: relationTables, index: partIndex, parentIndex };
 
         return next.reduce((acc, part) => {
             acc.push(...this.parsePart(part, toTables, partIndex + acc.length, partIndex));
             return acc;
         }, [currentLevel]);
+    }
+
+    /**
+     * Return the list of properties / columns to select from the database based for the given query part.
+     *
+     * @private
+     * @param {!QueryPart} part
+     * @param {!string[]} destinationTables
+     * @return {!Map<string, string>}
+     */
+    getRequiredColumns(part, destinationTables) {
+        // In case the current part is part of the "returned" part, we return all the available columns
+        if (part.returned) {
+            return new Map(this.schema.getAllColumns(...destinationTables));
+        }
+
+        // Otherwise, extract the tag, and potential required properties to apply filters and/or sort.
+        const {filter, sort} = part;
+        const properties = new Set([COLUMNS.TAG, sort?.property?.getTag()]
+            .concat(filter.flatMap((andPredicates) => andPredicates.map((predicate) => predicate?.property)))
+            .filter((prop) => !!prop));
+
+        return properties.reduce((map, prop) => {
+            destinationTables.some((table) => {
+                const column = this.schema.getColumn(table, prop);
+                return Boolean(column && map.set(prop, column));
+            });
+            return map;
+        }, new Map());
     }
 
     /**
