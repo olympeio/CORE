@@ -30,7 +30,7 @@ export default class SchemaProvider {
      * @abstract
      * @param {!Tag} dataType
      * @param {boolean=} includeInheritance
-     * @return {?string[]}
+     * @return {string[]}
      */
     getTablesOfType(dataType, includeInheritance = true) {
         /* empty */
