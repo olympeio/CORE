@@ -246,8 +246,8 @@ export default class FileUpload extends ReactBrick {
             reader.onloadend = () => {
                 // Find file model and create it locally
                 const fileTag = t.create(File);
-                const tag = File.setContent(t, fileTag, file.name, /** @type {!ArrayBuffer} */ (reader['result']), file.type);
-                tags.push(tag);
+                File.setContent(t, fileTag, file.name, /** @type {!ArrayBuffer} */ (reader['result']), file.type);
+                tags.push(fileTag);
 
                 // Only call when all files have been loaded.
                 if (tags.length === files.length) {
