@@ -86,8 +86,8 @@ const contains = (builder, column, objectPredicate) => {
 const regex = (builder, column, objectPredicate) => {
     const regexJS = (/** @type {!RegExp} */ objectPredicate.pattern);
     const sqlRegex = toSQLRegex(regexJS, builder.client.dialect);
-    const queryString = objectPredicate.caseSensitive ? '?? LIKE ?' : 'LOWER(??) LIKE LOWER(?)';
-    builder.whereRaw(queryString, [column, sqlRegex]);
+    const queryString = objectPredicate.caseSensitive ? '?? LIKE ?' : 'LOWER(??) LIKE ?';
+    builder.whereRaw(queryString, [column, objectPredicate.caseSensitive ? sqlRegex : sqlRegex.toLowerCase()]);
 }
 /**
  * @private
