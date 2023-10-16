@@ -9,8 +9,7 @@ import {Brick, ErrorFlow} from 'olympe';
  */
 export const executeLambda = ($, lambda, inputsValues, customErrorCode) => {
     if (!(lambda instanceof Brick)) {
-        const errorMsg = `The lambda you try to execute is not a Brick`;
-        return Promise.reject(errorMsg);
+        return Promise.reject(`The lambda you try to execute is not a Brick: ${lambda}`);
     }
     const inputs = lambda.getInputs();
     // get first input that should be a control flow
@@ -28,20 +27,16 @@ export const executeLambda = ($, lambda, inputsValues, customErrorCode) => {
         runner.set(inputSignature, inputsValues[idx]);
     }
     runner.trigger(controlFlowIn);
+
     return Promise.race([
         runner.waitFor(controlFlowOut),
         runner.waitFor(errorFlowOut),
     ]).then((outputFlow) => {
         if (outputFlow instanceof ErrorFlow) {
-            const error = typeof customErrorCode === 'number' ? ErrorFlow.create(outputFlow.getMessage(), customErrorCode) : outputFlow;
-            throw error;
-        } else {
-            const resultArray = [];
-            for (const outputTag of outputs) {
-                resultArray.push(runner.get(outputTag));
-            }
-            return resultArray;
+            throw (typeof customErrorCode === 'number' ? ErrorFlow.create(outputFlow.getMessage(), customErrorCode) : outputFlow);
         }
-    })
-        .finally(() => runner.destroy());
+        return outputs.map((output) => runner.get(output));
+    }).finally(() => {
+        runner.destroy();
+    });
 }
