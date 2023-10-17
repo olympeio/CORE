@@ -1,5 +1,4 @@
 import { Brick, Query, registerBrick } from 'olympe';
-import { getLogger } from "logging";
 
 export default class ObserveAndCacheQuery extends Brick {
 
@@ -13,9 +12,9 @@ export default class ObserveAndCacheQuery extends Brick {
      */
     update($, [query, cacheId], [setQueryResult]) {
         if (query instanceof Query) {
-            query.observe($).subscribe(setQueryResult, {cacheId: cacheId ? cacheId : undefined});
+            query.observe($, {cacheId: cacheId ? cacheId : undefined}).subscribe(setQueryResult);
         } else {
-            getLogger('ObserveQuery').error(`The provided Query is not a Query object`);
+            throw new Error(`The provided Query is not a Query object: ${query}`);
         }
     }
 }

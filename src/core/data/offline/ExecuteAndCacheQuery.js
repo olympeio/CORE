@@ -31,7 +31,7 @@ export default class ExecuteAndCacheQuery extends ActionBrick {
      */
     update($, [query, cacheId], [forwardEvent, setQueryResult, setErrorFlow]) {
         if (query instanceof Query) {
-            query.execute($, {cacheId: cacheId ? cacheId : undefined})
+            query.execute({cacheId: cacheId ? cacheId : undefined})
                 .then(queryResult => {
                     setQueryResult(queryResult);
                     forwardEvent();
