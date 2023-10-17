@@ -8,19 +8,20 @@ export default class OnControlFlow extends Brick {
      */
     setupExecution($) {
         const [controlFlow, data] = this.getInputs();
-        return $.observe(controlFlow).pipe(map(val => [val, $.get(data)]));
+        return $.observe(controlFlow).pipe(map((_val) => [$.get(data)]));
     }
 
     /**
      * @override
      * @protected
      * @param {!BrickContext} $
-     * @param {number} controlFlow
      * @param {*} data
+     * @param {function()} forwardEvent
      * @param {function(*)} setData
      */
-    update($, [controlFlow, data], [setData]) {
+    update($, [data], [forwardEvent, setData]) {
         setData(data);
+        forwardEvent();
     }
 }
 
