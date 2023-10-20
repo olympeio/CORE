@@ -29,6 +29,7 @@ import Typography from '@mui/material/Typography';
 import { createTransitionElement, createTransitionObject } from './CustomizeAlertDialog.jsx';
 import { markdownTextToReactElement } from 'helpers/remarkable';
 import { cssToSxProps, jsonToSxProps, ifNotTransparent } from 'helpers/mui';
+import {map} from "rxjs";
 
 /**
  * Provides a Dialog component using MUI Dialog
@@ -53,9 +54,9 @@ export default class Dialog extends ReactBrick {
      * @override
      */
     setupExecution($) {
-        // don't wait for value on the "Content Renderer" so that in Draw
-        // we can display the "placeholder"
-        return $.observe('Content Renderer', false);
+        // Don't wait for value on the "Content Renderer" so that in Draw we can display the "placeholder".
+        // But map it into an array to avoid returning "null" which would not render the component at all.
+        return $.observe('Content Renderer', false).pipe(map((renderer) => [renderer]));
     }
 
     /**
@@ -103,10 +104,12 @@ export default class Dialog extends ReactBrick {
             const defaultColor = useProperty($, 'Default Color');
             const zIndex = useProperty($, 'Z-Index');
 
+            const editionMode = $.get(GlobalProperties.EDITION, true);
+
             const [$renderer, set$Renderer] = React.useState(null);
 
             React.useEffect(() => {
-                if ((open || keepMounted) && $renderer === null) {
+                if (!editionMode && (open || keepMounted) && $renderer === null) {
                     set$Renderer((contentRenderer) ? $.runner(contentRenderer) : null);
                 } else {
                     $renderer?.destroy();
@@ -115,7 +118,7 @@ export default class Dialog extends ReactBrick {
             }, [open, keepMounted]);
 
             // In DRAW we want to show a placeholder
-            if ($.get(GlobalProperties.EDITION, true)) {
+            if (editionMode) {
                 return (
                     <Box sx={{backgroundColor: 'lightgrey', width: 1, height: 1, overflow: 'hidden'}}>
                         <Typography sx={{color: 'black', padding: 1}}>
