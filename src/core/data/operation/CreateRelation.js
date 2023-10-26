@@ -17,7 +17,7 @@
 import {
     Brick,
     registerBrick,
-    instanceToTag,
+    tagToString,
     DBView,
     RelationModel,
     Transaction,
@@ -53,9 +53,9 @@ export default class CreateRelation extends Brick {
         const logger = getLogger('Create Relation');
 
         // Validate arguments
-        const relationTag = instanceToTag(relation);
-        const originTag = instanceToTag(origin);
-        const destinationTag = instanceToTag(destination);
+        const relationTag = tagToString(relation);
+        const originTag = tagToString(origin);
+        const destinationTag = tagToString(destination);
         if (relationTag === '') {
             logger.error('No relation specified');
             return;

@@ -14,24 +14,10 @@
  * limitations under the License.
  */
 
-import {registerBrick, BrickContext, InstanceTag, DBView, BusinessObject, Transaction, CloudObject} from 'olympe';
+import {registerBrick, BrickContext, InstanceTag, DBView, CloudObject, Transaction} from 'olympe';
 import JsonToObject from './JsonToObject.js';
+import JSONToCloudObject from "./JSONToCloudObjectOld";
 
-/**
-## Description
-Parses a json into a list of target business model.
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| json | string | Json to parse |
-| persist | boolean | indicates if the instance should be persisted, default: false |
-| businessModel | Business Model | target business model |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Object | List | list of instances of business model |
-
-**/
 export default class JsonToObjectList extends JsonToObject {
 
     /**
@@ -44,9 +30,6 @@ export default class JsonToObjectList extends JsonToObject {
      * @param {function()} forwardEvent
      */
     update(context, [json, businessModel, persist], [forwardEvent, setList]) {
-        const transaction = Transaction.from(context);
-        transaction.persist(persist);
-
         // Try to parse the input JSON (parsing may fail if input is e.g. an array or an object). Return the result as is if its an array or wrapped in an array.
         let dataArray;
         if (typeof(json) === 'string') {
@@ -56,10 +39,8 @@ export default class JsonToObjectList extends JsonToObject {
             dataArray = Array.isArray(json) ? json : [json]
         }
 
-        // TODO should add BusinessModel in public api?
-        const businessModelTag = '016324fde11a836f76c2';
         const db = DBView.get();
-        const existingDataModels = db.getRelated(businessModelTag, BusinessObject.modelRel.getInverse());
+        const existingDataModels = db.getRelated(JSONToCloudObject.BUSINESS_MODEL_TAG, CloudObject.modelRel.getInverse());
         const mappingModels = new Map();
 
         existingDataModels.forEach((dm) => {
@@ -68,12 +49,13 @@ export default class JsonToObjectList extends JsonToObject {
         });
 
         const instanceTags = new Map();
+        const transaction = new Transaction(persist);
 
         const result = [];
 
         dataArray.forEach((data) => {
             // Check if the instance exists already in db or if it has been processed before to avoid duplication
-            const instanceTag = transaction.create((businessModel));
+            const instanceTag = transaction.create(businessModel);
             this.parseProperties(db, transaction, instanceTag, businessModel, data, mappingModels, instanceTags);
             this.parseRelations(db, transaction, instanceTag, businessModel, data, mappingModels, instanceTags);
             result.push(instanceTag);

@@ -123,6 +123,7 @@ export default class List extends VisualBrick {
             [renderer, elements], orientation, muiSxJson,
             borderColor, borderRadius, borderWidth, cssProperty, defaultColor, hidden
         ] = properties;
+        const data = $.get('Data');
 
         // Item position and size
         const observeItemSize = $.observe('Item Width or Height');
@@ -161,7 +162,7 @@ export default class List extends VisualBrick {
                     ...jsonToSxProps(muiSxJson)
                 }}
             >
-                {(($.get('Data') && renderer) || !$.get(GlobalProperties.EDITION, true))
+                {((data !== null && renderer) || !$.get(GlobalProperties.EDITION, true))
                     // Only render if there is a list and a renderer, OR if we are not in draw
                     ? elements.map((item, rank) => {
                         return (
@@ -177,22 +178,27 @@ export default class List extends VisualBrick {
                                 // Item rendering
                                 ref={el => {
                                     if(el && renderer) {
-                                        // Create renderer
-                                        const renderer$ = $.runner(renderer)
-                                            .set('Current Item', item)
-                                            .set('Current Rank', rank)
-                                            .set('Current List', $.get('Data'))
-                                            .setParentElement(el);
+                                        // Create renderer: first create the child and run it
+                                        const renderer$ = $.runner(renderer);
 
-                                        // Item size (we need to set the parent also to have a correct layout)
-                                        observeItemWidth.subscribe(width => {
-                                            renderer$.set('Width', width);
+                                        // Repeat the item size (we need to set the parent also to have a correct layout)
+                                        renderer$.repeat('Height', observeItemHeight);
+                                        renderer$.repeat('Width', observeItemWidth);
+
+                                        renderer$.observe('Width').subscribe(width => {
                                             el.style.width = `${width}px`;
                                         });
-                                        observeItemHeight.subscribe(height => {
-                                            renderer$.set('Height', height);
+
+                                        renderer$.observe('Height').subscribe(height => {
                                             el.style.height = `${height}px`;
                                         });
+
+                                        // Finally set the item and its rank so that we know that when it gets a value, we can consume
+                                        // it and potentially override the "width" or "height" properties (custom size of renderer)
+                                        renderer$.set('Current Item', item)
+                                            .set('Current Rank', rank)
+                                            .set('Current List', data)
+                                            .setParentElement(el);
 
                                         // Item position (offset in this case)
                                         observeItemPosition(rank).subscribe(position => {

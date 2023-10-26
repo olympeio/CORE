@@ -14,7 +14,15 @@
  * limitations under the License.
  */
 
-import {Brick, registerBrick, Transaction, CloudObject, instanceToTag, DBView, PropertyModel} from 'olympe';
+import {
+    Brick,
+    registerBrick,
+    Transaction,
+    CloudObject,
+    tagToString,
+    DBView,
+    PropertyModel,
+} from 'olympe';
 import {getLogger} from 'logging';
 import {castPrimitiveValue} from "../transaction/_helpers";
 
@@ -34,9 +42,14 @@ export default class SetObjectProperty extends Brick {
         const castedValue = castPrimitiveValue(value);
 
         // Validate arguments
+        if (tagToString(object) === '') {
+            throw new Error('No object input specified');
+        }
+        if (tagToString(property) === '') {
+            throw new Error('No property input specified');
+        }
         if (castedValue instanceof CloudObject) {
-            logger.error('Complex properties are not supported');
-            return;
+            throw new Error('Complex properties are not supported');
         }
         if (castedValue === undefined || castedValue === null) {
             logger.info('Ignoring null value');
@@ -44,17 +57,10 @@ export default class SetObjectProperty extends Brick {
             return;
         }
 
-        if (instanceToTag(property) === '') {
-            logger.error('No property object specified');
-            return;
-        }
-
         const db = DBView.get();
-
-        const objectModel = db.model(object);
-        if (!objectModel || !db.isExtending(objectModel, db.getUniqueRelated(instanceToTag(property), PropertyModel.definingModelRel))) {
-            logger.error(`Cannot update property, the property ${db.name(instanceToTag(property))} is not valid for this object (${db.name(objectModel)}).`);
-            return;
+        const objectModel = typeof object === 'string' ? transaction.model(object) : db.model(object);
+        if (!db.isExtending(objectModel, db.getUniqueRelated(tagToString(property), PropertyModel.definingModelRel))) {
+            throw new Error(`Cannot update property, the property ${db.name(tagToString(property))} is not valid for this object (${db.name(objectModel)}).`);
         }
 
         // Start isolated local transaction

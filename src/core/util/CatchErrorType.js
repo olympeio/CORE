@@ -15,26 +15,8 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, Context, ErrorFlow } from 'olympe';
+import { Brick, registerBrick, BrickContext, ErrorFlow } from 'olympe';
 
-/**
-## Description
-Catching an error from an error-flow, and if the given code is the same than the error code, it allows you to access
-its details and trigger a control-flow. If the codes are different, it simply forward the error-flow.
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Error Flow | Error Flow | The error flow from which to catch errors. |
-| Code | Number | The error code that is accepted. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Control Flow | Control FLow | The output control flow. |
-| Error Flow | Error Flow | The input error flow, if the input code and the error code are different. |
-| Message | String | The error message. |
-
-**/
 export default class CatchErrorType extends Brick {
 
     /**
@@ -45,10 +27,12 @@ export default class CatchErrorType extends Brick {
      * @param {function(number)} forwardEvent
      * @param {function(ErrorFlow)} setErrorFlow
      * @param {function(string)} setMessage
+     * @param {function(string)} setStack
      */
-    update(context, [errorFlow, code], [forwardEvent, setErrorFlow, setMessage]) {
+    update(context, [errorFlow, code], [forwardEvent, setErrorFlow, setMessage, setStack]) {
         if (code === errorFlow.getCode()) {
             setMessage(errorFlow.getMessage());
+            setStack(errorFlow.getStack());
             forwardEvent(Date.now());
         } else {
             setErrorFlow(errorFlow);

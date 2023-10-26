@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { registerBrick, File, Transaction, CloudObject } from 'olympe';
+import { registerBrick, File as OFile, Transaction, CloudObject } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
 import { cssToSxProps, ifNotTransparent, ifNotNull } from 'helpers/mui';
 import { dataUrlToBinary } from 'helpers/binaryConverters';
 import { getLogger } from 'logging';
 
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Webcam from 'react-webcam';
 import { Box } from "@mui/material";
 
@@ -139,7 +139,7 @@ Camera.Component = ({ $, width, height, borderWidth }) => {
 function WebcamWithRef(props) {
     const ua = navigator.userAgent.toLowerCase();
     const isAndroid = ua.indexOf('android') > -1;
-    const webcamRef = React.useRef();
+    const webcamRef = useRef(null);
     const [constraints, setConstraints] = useState(null);
     const [hasMultiCamera, setHasMultiCamera] = useState(false);
 
@@ -178,21 +178,21 @@ function WebcamWithRef(props) {
 
         // Take screenshot => observe must be called in the "useEffect" to avoid recalling it everytime React re-render the component
         props.context.observe('Take Screenshot').subscribe(() => {
-            const t = new Transaction();
 
             const screenshotFormat = props.screenshotFormat || props.context.get('Screenshot Format') || '.png';
-            const screenshotAsBase64 = webcamRef.current.getScreenshot();
-            if (screenshotAsBase64 === null) {
+            const screenshotAsBase64 = webcamRef.current?.getScreenshot();
+            if (screenshotAsBase64 === undefined) {
                 return;
             }
             const screenshotAsArrayBuffer = dataUrlToBinary(screenshotAsBase64);
             const screenshotName = `screenshot_${Date.now()}${screenshotFormat}`;
-            const tag = File.createFromContent(t, screenshotName, screenshotAsArrayBuffer, screenshotFormat);
-            t.persistInstance(tag, false);
-            t.execute().catch(message => getLogger('Camera').warn('The application encountered a problem while taking a screenshot. The transaction failed.', message));
+            const transaction = new Transaction(false);
+            const fileTag = transaction.create(OFile);
+            OFile.setContent(transaction, fileTag, screenshotName, screenshotAsArrayBuffer, screenshotFormat);
+            transaction.execute().catch(message => getLogger('Camera').warn('The application encountered a problem while taking a screenshot. The transaction failed.', message));
             // Set the screenshot property synchronously in the context, instead of calling it inside the transaction callback
             // because that component needs to get the screenshot directly for its usage in Draw. Moreover, it is a local, synchronous transaction that has no reason to fail
-            props.context.set('Screenshot', CloudObject.get(tag));
+            props.context.set('Screenshot', CloudObject.get(fileTag));
         });
     }, []);
 

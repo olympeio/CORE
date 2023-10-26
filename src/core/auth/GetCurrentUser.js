@@ -32,7 +32,7 @@ export default class GetCurrentUser extends Brick {
      * @param {function(!User)} setUser
      */
     async update($, [userTag], [setUser]) {
-        const result = await Query.fromTag(userTag, User).execute($);
+        const result = await Query.fromTag(userTag, User).execute();
         setUser(result.getFirst());
     }
 }

@@ -29,7 +29,7 @@ export default class CreateFileFromBase64 extends ActionBrick {
      * @param {function(!File)} setFile
      */
     update($, [fileName, mimeType, base64Content], [forwardEvent, setErrorFlow, setFile]) {
-        const transaction = new Transaction();
+        const transaction = new Transaction(false);
         const isDataURL = base64Content.startsWith('data:');
 
         let finalMimeType = mimeType;
@@ -47,7 +47,6 @@ export default class CreateFileFromBase64 extends ActionBrick {
             isDataURL ? dataUrlToBinary(base64Content) : fromBase64(base64Content),
             finalMimeType
         );
-        transaction.persistInstance(file, false);
         transaction.execute().then(() => {
             setFile(CloudObject.get(file));
             forwardEvent();

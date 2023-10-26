@@ -29,7 +29,7 @@ export default class CreateFileFromURL extends ActionBrick {
      * @param {function(!File)} setFile
      */
     update($, [fileName, mimeType, url], [forwardEvent, setErrorFlow, setFile]) {
-        const transaction = new Transaction();
+        const transaction = new Transaction(false);
         const file = transaction.create(OFile);
         OFile.setURLContent(
             transaction,
@@ -38,7 +38,6 @@ export default class CreateFileFromURL extends ActionBrick {
             url,
             mimeType ?? 'text/plain'
         );
-        transaction.persistInstance(file, false);
         transaction.execute().then(() => {
             setFile(CloudObject.get(file));
             forwardEvent();

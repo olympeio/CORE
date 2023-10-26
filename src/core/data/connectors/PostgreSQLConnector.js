@@ -28,12 +28,18 @@ export default class PostgreSQLConnector extends DataSource {
          * @type {!SchemaObserver}
          */
         this.schemaObserver = new SchemaObserver(this.logger);
+
+        /**
+         * @private
+         * @type {SQLTransactionWriter}
+         */
+        this.writer = null;
     }
 
     /**
      * @override
      */
-    async init(context) {
+    async init(_context) {
         this.logger.info(`Initialization of PostgresqlConnector ${this.getId()}...`);
         const host = this.getConfig(config.host) ?? 'localhost';
         const database = this.getConfig(config.database);
@@ -65,12 +71,15 @@ export default class PostgreSQLConnector extends DataSource {
             acquireConnectionTimeout: this.getConfig(config.connectionsTimeout) ?? 10000,
         });
 
+        // Initialize the writer
+        this.writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaObserver);
+
         // Check the connection to SQL database is established
         await this.healthCheck();
         this.logger.info(`SQLConnector ${this.getId()} started with host ${host}, database ${database} on schema ${schema}`);
 
         // Initialize the schema observer that fulfill the cache with all the existing tables with their associated data types.
-        await this.schemaObserver.init(this.knex, schema, context);
+        await this.schemaObserver.init(this.knex, schema);
         this.logger.info(`Schema of SQLConnector ${this.getId()} has been initialized`);
     }
 
@@ -106,9 +115,8 @@ export default class PostgreSQLConnector extends DataSource {
     /**
      * @override
      */
-    async applyTransaction(operations, { batch = false }) {
-        const writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaObserver);
-        await writer.applyOperations(operations, batch);
+    applyTransaction(operations, { batch = false }) {
+        return this.writer ? this.writer.applyOperations(operations, batch) : Promise.reject('Writer is not ready, you probably need to call init() first');
     }
 
     /**

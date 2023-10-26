@@ -129,7 +129,7 @@ export function base64UrlToBase64(str: string): string
 export class ReactBrick extends VisualBrick {
     /**
      * Specify your React function component by overriding this method
-     * 
+     *
      * @param {BrickContext} $
      * @return {function(Object): ReactElement}
      */
@@ -145,3 +145,15 @@ export class ReactBrick extends VisualBrick {
  * @return {*} a stateful value usable in JSX
  */
 export function useProperty($: BrickContext, property: string, waitForValue: boolean): any
+
+/**
+ * Execute an action lambda and return its outputs as an array when the control flow output gets a value.
+ * In case of the error flow output gets an error, the promise is rejected with that error.
+ *
+ * @param {BrickContext} $
+ * @param {string} lambda name of the lambda to be executed
+ * @param {!Array<*>} inputsValues input values except for control flow, in order of the function signature.
+ * @param {number} customErrorCode
+ * @return {Promise<!Array<*>>}
+ */
+export function executeLambda($: BrickContext, lambda: string, inputsValues: any[], customErrorCode: number): Promise<any[]>

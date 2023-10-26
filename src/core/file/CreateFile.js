@@ -36,7 +36,7 @@ export default class CreateFile extends ActionBrick {
             return;
         }
 
-        const transaction = new Transaction();
+        const transaction = new Transaction(false);
         const file = transaction.create(OFile)
         OFile.setContent(
             transaction,
@@ -45,7 +45,6 @@ export default class CreateFile extends ActionBrick {
             content instanceof ArrayBuffer ? content : stringToBinary(content),
             mimeType ?? 'text/plain'
         );
-        transaction.persistInstance(file, false);
         transaction.execute().then(() => {
             setFile(CloudObject.get(file));
             forwardEvent();

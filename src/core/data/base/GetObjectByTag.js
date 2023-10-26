@@ -28,7 +28,7 @@ export default class GetObjectByTag extends Brick {
         if (!CloudObject.exists(tag)) {
             throw new Error(`Try to get a CloudObject from a tag that does not exist in the local database: ${tag}. Try to use the brick \`QueryObject\` instead.`);
         }
-        const object = await QuerySingle.from(tag).execute($);
+        const object = await QuerySingle.from(tag).execute();
         setObject(object);
     }
 }

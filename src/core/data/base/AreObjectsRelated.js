@@ -30,7 +30,7 @@ export default class AreObjectsRelated extends Brick {
         Query.from(origin)
             .follow(new Relation(relation, Direction.DESTINATION))
             .filter(Predicate.in(destination))
-            .execute($)
+            .execute()
             .then((queryResult) => setRelated(queryResult.size() > 0));
     }
 }

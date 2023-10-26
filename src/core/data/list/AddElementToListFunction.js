@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {Brick, registerBrick, ListDef, CloudObject, instanceToTag, QueryResult} from 'olympe';
+import {Brick, registerBrick, ListDef, CloudObject, tagToString, QueryResult} from 'olympe';
 import {getLogger} from 'logging';
 
 /**
@@ -44,7 +44,7 @@ export const addElementToList = (list, object) => {
     } else if(list instanceof QueryResult) {
         return list.push(object);
     } else {
-        return list.union(new ListDef(instanceToTag(object), [])); // New listdef: union of the previous + 1 instance.
+        return list.union(new ListDef(tagToString(object), [])); // New listdef: union of the previous + 1 instance.
     }
 };
 

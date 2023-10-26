@@ -18,33 +18,6 @@ import { ActionBrick, registerBrick, ErrorFlow } from 'olympe';
 import {httpRequest} from "helpers/httpRequest";
 import {forwardEventOrErrorFlow, handleData, handleStatusAndHeaders} from "../utils/httpResponseHandlers";
 
-/**
-## Description
-Sends an HTTP PATCH request to the specified URL and provide the results.
-
-The HTTP PATCH request method applies partial modifications to a resource.
-The HTTP PUT method only allows complete replacement of a document. Unlike PUT, PATCH is not idempotent, meaning
-successive identical patch requests may have different effects. However, it is possible to issue PATCH requests in
-such a way as to be idempotent.
-
-Additional headers can be provided and returned in a string that has to be in JSON format.
-
-**Example:** '{"Content-Type": "text/html; charset=UTF-8",  "Content-Length": 1024 }'
-
-## Inputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| URL | String | The URL to query. |
-| Headers | String | Optional HTTP headers in a JSON parsable string. |
-| Body | String | The body of the request. |
-## Outputs
-| Name | Type | Description |
-| --- | :---: | --- |
-| Response Status Code | Number | The response status code. |
-| Response Body | String | The body (i.e. the content) of the response. |
-| Response Headers | String | The response headers. |
-
-**/
 export default class HTTPPatch extends ActionBrick {
 
     /**

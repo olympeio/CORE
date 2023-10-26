@@ -74,10 +74,7 @@ const contains = (builder, column, objectPredicate) => {
     const wildcard = translateWildcard('.*');
     // match substring by using .* wildcard at the start and end of the values being searched
     const matchSubstring = `${wildcard}${objectPredicate.value}${wildcard}`;
-    let queryString = '?? LIKE ?';
-    if (objectPredicate.caseSensitive) {
-        queryString = 'LOWER(??) LIKE LOWER(?)';
-    }
+    const queryString = objectPredicate.caseSensitive ? '?? LIKE ?' : 'LOWER(??) LIKE LOWER(?)';
     builder.whereRaw(queryString, [column, matchSubstring,]);
 }
 /**
@@ -89,11 +86,8 @@ const contains = (builder, column, objectPredicate) => {
 const regex = (builder, column, objectPredicate) => {
     const regexJS = (/** @type {!RegExp} */ objectPredicate.pattern);
     const sqlRegex = toSQLRegex(regexJS, builder.client.dialect);
-    let queryString = '?? LIKE ?';
-    if (objectPredicate.caseSensitive) {
-        queryString = 'LOWER(??) LIKE LOWER(?)';
-    }
-    builder.whereRaw(queryString, [column, sqlRegex]);
+    const queryString = objectPredicate.caseSensitive ? '?? LIKE ?' : 'LOWER(??) LIKE ?';
+    builder.whereRaw(queryString, [column, objectPredicate.caseSensitive ? sqlRegex : sqlRegex.toLowerCase()]);
 }
 /**
  * @private
@@ -120,7 +114,7 @@ const toSQLRegex = (regex, dialect) => {
     let end = '';
 
     // are translated as such
-    const normalChar = /^([-œŒæÆåÅøØ&/ß¡¿=àÀâÂäÄáÁéÉèÈêÊëËìÌîÎïÏòÒôÔöÖùÙûÛüÜçÇ’ñãõÃÕÑ]|\w|\s|\d|\\\\)/;
+    const normalChar = /^([-œŒæÆåÅøØ&/ß¡¿=àÀâÂäÄáÁéÉèÈêÊëËìÌîÎïÏòÒôÔöÖùÙûÛüÜçÇ’ñãõÃÕÑ:@,;]|\w|\s|\d|\\\\)/;
 
     // are escaped before translation
     const sqlSpecial = /^[%_'"]/;

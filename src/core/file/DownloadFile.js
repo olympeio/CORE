@@ -21,12 +21,12 @@ export default class DownloadFile extends ActionBrick {
 
     /**
      * @protected
-     * @param {!BrickContext} context
-     * @param {string} name
+     * @param {!BrickContext} $
      * @param {File} file
+     * @param {string} name
      * @param {function()} forwardEvent
      */
-    update(context, [name, file], [forwardEvent]) {
+    update($, [file, name], [forwardEvent]) {
         file.saveAs(name ?? file.get(OFile.fileNameProp));
         forwardEvent();
     }

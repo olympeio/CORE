@@ -35,13 +35,14 @@ export const testEqual = (brick, inputs, expectedOutputs, controlFlowIndex) => {
     }
 
     // If necessary, add control flow output tester
+    let controlFlowOutputSetter;
     if (controlFlowIndex !== undefined) {
-        outputs.splice(controlFlowIndex, 0, (controlFlow) => {
-            expect(controlFlow).toBeLessThanOrEqual(Date.now())
-        });
+        controlFlowOutputSetter = jasmine.createSpy();
+        outputs.splice(controlFlowIndex, 0, controlFlowOutputSetter);
     }
 
     brick.update(rootCtx.createChild(), inputs, outputs);
+    controlFlowOutputSetter && expect(controlFlowOutputSetter).toHaveBeenCalled();
 };
 
 export default testEqual;

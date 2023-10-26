@@ -45,6 +45,14 @@ export default class SetObjectProperty extends ActionBrick {
         const returnError = (message, code) => setErrorFlow(ErrorFlow.create(`Set Object Property :${message}`, code));
 
         // Validate arguments
+        if (tagToString(object) === '') {
+            returnError('No object input specified', 3);
+            return;
+        }
+        if (tagToString(property) === '') {
+            returnError('No property input specified', 2);
+            return;
+        }
         if (castedValue instanceof CloudObject) {
             returnError('Complex properties are not supported', 1);
             return;
@@ -53,11 +61,6 @@ export default class SetObjectProperty extends ActionBrick {
             getLogger('Set Object Property').info('Ignoring null value');
             setObject(object);
             forwardEvent();
-            return;
-        }
-
-        if (tagToString(property) === '') {
-            returnError('No property object specified', 2);
             return;
         }
 

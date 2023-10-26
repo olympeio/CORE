@@ -23,7 +23,7 @@ import {
     comparators,
     transformers,
     valuedefs,
-    instanceToTag,
+    tagToString,
     StringModel,
     NumberModel,
     DatetimeModel,
@@ -67,16 +67,16 @@ export default class SortList extends Brick {
              let comparator = null;
 
              // String
-             if (type === instanceToTag(StringModel)) {
+             if (type === tagToString(StringModel)) {
                  comparator = new comparators.String(new valuedefs.StringProperty(property));
                  // Number
-             } else if (type === instanceToTag(NumberModel)) {
+             } else if (type === tagToString(NumberModel)) {
                  comparator = new comparators.Number(new valuedefs.NumberProperty(property));
                  // Datetime
-             } else if (type === instanceToTag(DatetimeModel)) {
+             } else if (type === tagToString(DatetimeModel)) {
                  comparator = new comparators.DateTime(new valuedefs.DateTimeProperty(property));
                  // Boolean
-             } else if (type === instanceToTag(BooleanModel)) {
+             } else if (type === tagToString(BooleanModel)) {
                  comparator = new comparators.Number(new valuedefs.BooleanProperty(property));
              }
 

@@ -15,25 +15,8 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, Context, ErrorFlow } from 'olympe';
+import { Brick, registerBrick, BrickContext, ErrorFlow } from 'olympe';
 
-/**
- ## Description
- Catching an error from an error-flow allows you to access its details and trigger a control-flow every time an
- error is thrown.
-
- ## Inputs
- | Name | Type | Description |
- | --- | :---: | --- |
- | Error Flow | Error Flow | The error flow from which to catch errors. |
- ## Outputs
- | Name | Type | Description |
- | --- | :---: | --- |
- | Message | String | The error message. |
- | Code | Number | The error code. |
- | Control Flow | Control FLow | The output control flow. |
-
- **/
 export default class CatchErrors extends Brick {
 
     /**
@@ -43,10 +26,12 @@ export default class CatchErrors extends Brick {
      * @param {function(number)} forwardEvent
      * @param {function(string)} setMessage
      * @param {function(number)} setCode
+     * @param {function(string)} setStack
      */
-    update(context, [ errorFlow], [ forwardEvent, setMessage, setCode ]) {
+    update(context, [ errorFlow], [ forwardEvent, setMessage, setCode, setStack ]) {
         setMessage(errorFlow.getMessage());
         setCode(errorFlow.getCode());
+        setStack(errorFlow.getStack());
         forwardEvent(Date.now());
     }
 }
