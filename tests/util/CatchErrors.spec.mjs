@@ -29,13 +29,13 @@ describe('CatchErrors brick', () => {
         const forwardEventSpy = jasmine.createSpy();
         const setMessageSpy = jasmine.createSpy();
         const setCodeSpy = jasmine.createSpy();
+        const setStackSpy = jasmine.createSpy();
 
-        brick.update(
-            context, [errorFlow], [forwardEventSpy, setMessageSpy, setCodeSpy]
-        );
+        brick.update(context, [errorFlow], [forwardEventSpy, setMessageSpy, setCodeSpy, setStackSpy]);
 
         expect(forwardEventSpy).toHaveBeenCalled();
         expect(setCodeSpy).toHaveBeenCalledWith(code);
         expect(setMessageSpy).toHaveBeenCalledWith(message);
+        expect(setStackSpy).toHaveBeenCalledWith('');
     });
 });

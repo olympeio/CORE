@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { registerBrick, File, Transaction, CloudObject } from 'olympe';
+import { registerBrick, File, Transaction, CloudObject, BrickContext } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
 import { jsonToSxProps, ifNotNull, ifNotTransparent, cssToSxProps, useMUITheme } from 'helpers/mui';
 import { getLogger } from 'logging';
@@ -23,8 +23,8 @@ import React, {useRef, useEffect} from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 
-import { combineLatestWith } from 'rxjs/operators';
 import { ThemeProvider } from "@mui/material/styles";
+import {combineLatest} from "rxjs";
 
 /**
  * Provides a File Upload component using MUI
@@ -34,15 +34,9 @@ export default class FileUpload extends ReactBrick {
     /**
      * @override
      */
-    init($) {
-        $.set('Files', []);
-    }
-
-    /**
-     * @override
-     */
     setupExecution($) {
-        return $.observe('Hidden').pipe(combineLatestWith($.observe('Custom Renderer', false)));
+        $.set('Files', []);
+        return combineLatest([$.observe('Hidden'), $.observe('Custom Renderer', false)]);
     }
 
     /**
@@ -243,7 +237,7 @@ export default class FileUpload extends ReactBrick {
     static uploadFiles($, files) {
         // Local transaction
         const tags = [];
-        const t = new Transaction();
+        const t = new Transaction(false);
 
         // Loop over all files
         for (const file of files) {
@@ -251,29 +245,28 @@ export default class FileUpload extends ReactBrick {
             const reader = new FileReader();
             reader.onloadend = () => {
                 // Find file model and create it locally
-                const tag = File.createFromContent(t, file.name, /** @type {!ArrayBuffer} */ (reader['result']), file.type);
-                t.persistInstance(tag, false);
-                tags.push(tag);
+                const fileTag = t.create(File);
+                File.setContent(t, fileTag, file.name, /** @type {!ArrayBuffer} */ (reader['result']), file.type);
+                tags.push(fileTag);
 
                 // Only call when all files have been loaded.
                 if (tags.length === files.length) {
                     // Execute transaction
-                    t.persist(false);
-                    t.execute()
-                        .then(() => {
-                            // All good, we notice the user
-                            $.set('Files', tags.map(CloudObject.get));
-                            $.trigger('On Files Added');
-                            $.trigger('On Change');
-                        })
-                        .catch(message => getLogger('FileUpload').warn('The application encountered a problem while uploading files. The transaction failed.', message));
+                    t.execute().then(() => {
+                        // All good, we notice the user
+                        $.set('Files', tags.map(CloudObject.get));
+                        $.trigger('On Files Added');
+                        $.trigger('On Change');
+                    }).catch((message) => {
+                        getLogger('FileUpload').warn('The application encountered a problem while uploading files. The transaction failed.', message);
+                    });
                 }
             };
             reader.readAsArrayBuffer(file);
         }
 
         // No file case
-        if(files.length === 0) {
+        if (files.length === 0) {
             $.set('Files', []);
             $.trigger('On Change');
         }

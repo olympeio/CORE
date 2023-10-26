@@ -39,12 +39,6 @@ export default class SchemaObserver {
 
         /**
          * @private
-         * @type {Context}
-         */
-        this.context = null;
-
-        /**
-         * @private
          * @type {string}
          */
         this.schema = '';
@@ -91,13 +85,11 @@ export default class SchemaObserver {
 
      * @param {!Knex} client
      * @param {string} schema
-     * @param {!Context} context
      * @return {!Promise<void>}
      */
-    init(client, schema, context) {
+    init(client, schema) {
         this.knex = client;
         this.schema = schema;
-        this.context = context;
 
         // What to apply on the schema for the tables to consider:
         const tableModifier = async (currentName, finalName, finalTag) => {
@@ -301,7 +293,7 @@ export default class SchemaObserver {
         if (!this.tables.has(dataType)) {
             this.tables.set(dataType, table);
             this.pushOperation(async () => {
-                await table.create(this.getSchemaBuilder(), this.context);
+                await table.create(this.getSchemaBuilder());
                 this.tableNames.set(table.getName(), dataType);
             }, `Create new table for data type ${dataType}`);
         }
@@ -310,7 +302,7 @@ export default class SchemaObserver {
             table.addColumns(properties);
             // Ensure all the required columns exist for properties.
             this.pushOperation(
-                () => table.ensureColumns(this.getSchemaBuilder(), this.context),
+                () => table.ensureColumns(this.getSchemaBuilder()),
                 `Ensure properties columns exists for ${dataType}`
             );
         }
@@ -342,7 +334,7 @@ export default class SchemaObserver {
             this.pushOperation(async () => {
                 const from = `${this.schema}.${fromTable.getName()}`;
                 const to = `${this.schema}.${toTable.getName()}`;
-                await table.createRelation(this.getSchemaBuilder(), from, to, this.context);
+                await table.createRelation(this.getSchemaBuilder(), from, to);
                 this.tableNames.set(table.getName(), globalTag);
             }, `Ensure relation table exists for ${fromTag}-[${relationTag}]->${toTag}`);
         }
@@ -624,11 +616,10 @@ class Table {
      * Create the table associated to this "Table Object" in the database
      *
      * @param {!Knex.SchemaBuilder} builder
-     * @param {!Context} context
      * @return {!Promise<Table>} this
      */
-    async create(builder, context) {
-        const dataType = await QuerySingle.from(this.tag).execute(context);
+    async create(builder) {
+        const dataType = await QuerySingle.from(this.tag).execute();
 
         if (dataType === null) {
             throw new Error(`Try to create a table for a non-existing data type: ${this.tag}`);
@@ -729,10 +720,9 @@ class Table {
 
     /**
      * @param {!Knex.SchemaBuilder} builder
-     * @param {!Context} context
      * @return {!Promise<void>}
      */
-    async ensureColumns(builder, context) {
+    async ensureColumns(builder) {
         if (this.pendingColumns.size === 0) {
             return;
         }
@@ -745,7 +735,7 @@ class Table {
             .followRecursively(CloudObject.extendRel, true)
             .follow(CloudObject.propertyRel).andReturn()
             .follow(PropertyModel.typeRel).andReturn()
-            .execute(context))
+            .execute())
             .reduce((props, pair) => props.set(pair[0].getTag(), pair), new Map());
 
         await builder.table(this.name, (tableBuilder) => {
@@ -792,7 +782,7 @@ class Table {
      * @param {!Context} context
      * @return {!Promise<void>}
      */
-    async createRelation(builder, fromName, toName, context) {
+    async createRelation(builder, fromName, toName) {
         if (this.pendingColumns.size === 0) {
             return;
         }
@@ -805,7 +795,7 @@ class Table {
             .back(2)
             .follow(RelationModel.destinationModelRel).followRecursively(CloudObject.extendedByRel, true)
             .filter(Predicate.in(toTag)).andReturn()
-            .execute(context))
+            .execute())
             .getFirst();
 
         if (relationTuple === null) {

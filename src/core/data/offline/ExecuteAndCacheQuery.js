@@ -15,32 +15,37 @@
  */
 
 import { ActionBrick, registerBrick, ErrorFlow, Query } from 'olympe';
+import { getLogger } from 'logging';
 
-export default class ExecuteQuery extends ActionBrick {
+export default class ExecuteAndCacheQuery extends ActionBrick {
 
     /**
      * @override
      * @protected
      * @param {!BrickContext} $
      * @param {!Query} query
+     * @param {string=} cacheId
      * @param {function()} forwardEvent
      * @param {function(!QueryResult)} setQueryResult
      * @param {function(ErrorFlow)} setErrorFlow
      */
-    update($, [query], [forwardEvent, setQueryResult, setErrorFlow]) {
+    update($, [query, cacheId], [forwardEvent, setQueryResult, setErrorFlow]) {
         if (query instanceof Query) {
-            query.execute()
+            query.execute({cacheId: cacheId ? cacheId : undefined})
                 .then(queryResult => {
                     setQueryResult(queryResult);
                     forwardEvent();
                 })
-                .catch((error) => {
-                    setErrorFlow(ErrorFlow.create(`${error}`, 1));
+                .catch(message => {
+                    getLogger('ExecuteQuery').error(`Failed execute query with error : ${message}`);
+                    setErrorFlow(ErrorFlow.create(message, 1));
                 });
         } else {
-            setErrorFlow(ErrorFlow.create(`The provided Query is not a Query object: ${query}`, 2));
+            const message = `The provided Query is not a Query object`;
+            getLogger('ExecuteQuery').error(message);
+            setErrorFlow(ErrorFlow.create(message, 2));
         }
     }
 }
 
-registerBrick('017ee95dc502afc0c8db', ExecuteQuery);
+registerBrick('0189f81388d3b55d8209', ExecuteAndCacheQuery);

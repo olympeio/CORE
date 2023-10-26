@@ -1,4 +1,4 @@
-import {Brick, Color, DBView, registerBrick, CloudObject, tagToString, StringModel, BooleanModel, NumberModel, DatetimeModel, ColorModel} from 'olympe';
+import {Brick, Color, Predicate, Query, registerBrick, CloudObject, tagToString, StringModel, BooleanModel, NumberModel, DatetimeModel, ColorModel} from 'olympe';
 
 export default class IsInstanceOf extends Brick {
 
@@ -18,11 +18,12 @@ export default class IsInstanceOf extends Brick {
         const modelTag = model.getTag();
         // Object can be a CloudObject or could be a tag if it is a string.
         if ((object instanceof CloudObject || (typeof object === 'string') && CloudObject.exists(object))) {
-            const models = Query.from(object)
+            setResult(Query.from(object)
                 .follow(CloudObject.modelRel)
-                .followRecursively(CloudObject.extendsRel, true)
-                .executeFromCache();
-            setResult(models.has(model));
+                .followRecursively(CloudObject.extendRel, true)
+                .filter(Predicate.in(model))
+                .executeFromCache().size() > 0
+            );
         }
         // Handle primitive types
         else if (modelTag === tagToString(StringModel)) {

@@ -5,11 +5,12 @@ import {
     Query,
     Order,
     tagToString,
+    CloudObject,
     Color,
     QuerySingle,
     PropertyModel,
     ColorModel,
-    DatetimeModel
+    DatetimeModel, NumberModel, BooleanModel
 } from 'olympe';
 import {Knex} from "knex";
 import {parsePredicate} from './SQLPredicateBuilder';
@@ -54,6 +55,12 @@ export default class SQLQueryExecutor {
          * @type {!SchemaProvider}
          */
         this.schema = schemaProvider;
+
+        /**
+         * @private
+         * @type {!Map<string, string>}
+         */
+        this.propertyTypes = new Map();
 
         /**
          * @private
@@ -113,7 +120,7 @@ export default class SQLQueryExecutor {
         }
 
         // Parse parts of the query to transform them into a single array, to build SQL query with joins.
-        const rootColumns = new Map(returned ? this.schema.getAllColumns(...initTables) : [[COLUMNS.TAG, COLUMNS.TAG]]);
+        const rootColumns = this.getRequiredColumns(rootPart, initTables);
         const finalFilter = root ? [[{name: 'IS', tags: [root]}]] : filter; // Filter with the root tag if defined.
         const rootLevel = { columns: rootColumns, filter: finalFilter, sort, optional: false, tables: initTables, index: 0 };
         const parsedParts = next.reduce((acc, part) => {
@@ -132,13 +139,15 @@ export default class SQLQueryExecutor {
         // ]
         let paths = initTables.map((table) => [[table]]);
         for (const {parentIndex, tables} of parsedRelationParts) {
-            paths = tables.flatMap((relTable) => {
-                return paths.map((path) => {
-                    if (path[parentIndex].at(-1) === relTable.at(0)) { // Ensure concordance of path (toTable of parent == fromTable of current level)
-                        return [...path, relTable];
-                    }
-                    throw new Error(`Path does not match: ${path[parentIndex][0]} !== ${relTable[0]}`);
-                });
+            paths = paths.flatMap((path) => {
+                const previousLevel = path[parentIndex].at(-1);
+                const validTables = tables.filter((relTable) => relTable.at(0) === previousLevel);
+                return validTables.length > 0
+                    // If at least 1 table exist for that relation, with the previous data type, add them to the path
+                    // generate multiple new paths if more than 1 table is "valid".
+                    ? validTables.map((relTable) => [...path, relTable])
+                    // Otherwise, fulfil the path with null section => all paths must have the same length to apply unions.
+                    : [[...path, [previousLevel, null, null]]];
             });
         }
 
@@ -159,6 +168,11 @@ export default class SQLQueryExecutor {
 
                 // Select the required column for the next level
                 builder.select(this.selectColumns(i, toTable, columns));
+
+                // If relTable is null, only keep select and do not do join
+                if (relTable === null) {
+                    continue;
+                }
 
                 // Apply potential filters
                 filter && this.buildPredicate(builder, i, toTable, filter);
@@ -238,14 +252,44 @@ export default class SQLQueryExecutor {
         if (relationTables.length === 0) {
             return [];
         }
-        const toTables = relationTables.map((t) => t[2]);
-        const columns = new Map(returned ? this.schema.getAllColumns(...toTables) : [[COLUMNS.TAG, COLUMNS.TAG]]);
+        // Ensure we do not have duplicates (eg: can happen with inheritance, with relations defined on ancestor)
+        const toTables = Array.from(new Set(relationTables.map((t) => t[2])));
+        const columns = this.getRequiredColumns(part, toTables);
         const currentLevel = { columns, filter, sort, optional, relation, tables: relationTables, index: partIndex, parentIndex };
 
         return next.reduce((acc, part) => {
             acc.push(...this.parsePart(part, toTables, partIndex + acc.length, partIndex));
             return acc;
         }, [currentLevel]);
+    }
+
+    /**
+     * Return the list of properties / columns to select from the database based for the given query part.
+     *
+     * @private
+     * @param {!QueryPart} part
+     * @param {!string[]} destinationTables
+     * @return {!Map<string, string>}
+     */
+    getRequiredColumns(part, destinationTables) {
+        // In case the current part is part of the "returned" part, we return all the available columns
+        if (part.returned) {
+            return new Map(this.schema.getAllColumns(...destinationTables));
+        }
+
+        // Otherwise, extract the tag, and potential required properties to apply filters and/or sort.
+        const {filter, sort} = part;
+        const properties = new Set([COLUMNS.TAG, sort?.property?.getTag()]
+            .concat(filter.flatMap((andPredicates) => andPredicates.map((predicate) => predicate?.property)))
+            .filter((prop) => !!prop));
+
+        return properties.reduce((map, prop) => {
+            destinationTables.some((table) => {
+                const column = this.schema.getColumn(table, prop);
+                return Boolean(column && map.set(prop, column));
+            });
+            return map;
+        }, new Map());
     }
 
     /**
@@ -287,18 +331,60 @@ export default class SQLQueryExecutor {
     /**
      * @private
      * @param {number} index
-     * @param {string} table
+     * @param {?string} table
      * @param {!Map<string, string>} columns
      * @return {!Knex.Raw[]}
      */
     selectColumns(index, table, columns) {
+        if (table === null) {
+            // Return all the columns as null
+            return Array.from(columns.keys()).map((propTag) => {
+                return this.client.raw(`${this.castNull(propTag)} as ??`, [this.getColumnAlias(index, propTag)]);
+            }).concat(this.client.raw(`null as ??`, [this.getModelAlias(index, null)]));
+        }
+
         const existingColumns = new Map(this.schema.getAllColumns(table));
         const modelTag = this.schema.getTableTag(table);
         return Array.from(columns).map(([propTag, column]) => {
             return existingColumns.has(propTag)
                 ? this.client.raw('??.?? as ??', [this.getTableAlias(index, table), column, this.getColumnAlias(index, propTag)])
-                : this.client.raw('null as ??', [this.getColumnAlias(index, propTag)]);
+                : this.client.raw(`${this.castNull(propTag)} as ??`, [this.getColumnAlias(index, propTag)]);
         }).concat(this.client.raw(`'${modelTag}' as ??`, [this.getModelAlias(index, modelTag)]));
+    }
+
+    /**
+     * @private
+     * @param {string} propertyOrTag
+     * @return {string}
+     */
+    castNull(propertyOrTag) {
+        if (propertyOrTag === COLUMNS.TAG) {
+            return 'NULL';
+        }
+        switch (this.getPropertyType(propertyOrTag)) {
+            case tagToString(NumberModel):
+                return 'CAST(NULL AS FLOAT)';
+            case tagToString(BooleanModel):
+                return 'CAST(NULL AS BOOL)';
+            case tagToString(DatetimeModel):
+                return 'CAST(NULL AS TIMESTAMP)';
+            default:
+                return 'NULL';
+        }
+    }
+
+    /**
+     * @private
+     * @param {string} property
+     * @return {string}
+     */
+    getPropertyType(property) {
+        let type = this.propertyTypes.get(property);
+        if (!type) {
+            type = QuerySingle.from(property).follow(PropertyModel.typeRel).executeFromCache()?.getTag();
+            this.propertyTypes.set(property, type);
+        }
+        return type;
     }
 
     /**
@@ -345,7 +431,7 @@ export default class SQLQueryExecutor {
     /**
      * @private
      * @param {number} index
-     * @param {string} modelTag
+     * @param {?string} modelTag
      * @return {string}
      */
     getModelAlias(index, modelTag) {
@@ -367,7 +453,7 @@ export default class SQLQueryExecutor {
         for (const [alias, value] of this.reverseAliases) {
             if (alias.startsWith(PREFIXES.COLUMN)) {
                 // Extract DateTime and Color properties to cast primitive values coming from SQL to Date or Color objects
-                const typeTag = QuerySingle.from(value).follow(PropertyModel.typeRel).executeFromCache()?.getTag();
+                const typeTag = this.getPropertyType(value);
                 typeTag === colorModelTag && colorProperties.add(value);
                 typeTag === datetimeModelTag && datetimeProperties.add(value);
             }
@@ -408,7 +494,6 @@ export default class SQLQueryExecutor {
 
             currentRowInstances.forEach((instance, index) => {
                 if (!instance.tag || !instance.model) {
-                    this.logger.warn(`An instance is missing its tag (${instance.tag}) or model  (${instance.model}) => ignore that instance`);
                     return;
                 }
 
@@ -434,11 +519,11 @@ export default class SQLQueryExecutor {
      * @private
      * @param {number} index
      * @param {string} prefix
-     * @param {string} name
+     * @param {?string} name
      * @return {string}
      */
     getAlias(index, prefix, name) {
-        const value = index + name;
+        const value = `${index}${name}`;
         let alias = this.aliases.get(value);
         if (typeof alias !== 'string') {
             alias = prefix + this.aliases.size;

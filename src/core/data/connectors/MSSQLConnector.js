@@ -81,7 +81,7 @@ export default class MSSQLConnector extends DataSource {
         });
 
         // Initialize the writer
-        this.writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaObserver);
+        this.writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaReader);
 
         // Check the connection to SQL database is established
         await this.healthCheck();

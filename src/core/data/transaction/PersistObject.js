@@ -37,7 +37,7 @@ export default class PersistObject extends ActionBrick {
         }
 
         const transaction = Transaction.from(context);
-        transaction.persistInstance(objectIn, true);
+        transaction.persist(objectIn);
         Transaction.process(context, transaction).then(() => {
             setObjectOut(objectIn);
             forwardEvent();

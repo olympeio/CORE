@@ -22,15 +22,15 @@ export default class PersistObject extends Brick {
     /**
      * @protected
      * @param {!BrickContext} context
-     * @param {InstanceTag} objectIn
-     * @param {function(InstanceTag)} setObjectOut
+     * @param {InstanceOrTag} objectIn
+     * @param {function(InstanceOrTag)} setObjectOut
      */
     update(context, [objectIn], [setObjectOut]) {
         const transaction = new Transaction();
         const logger = getLogger('Persist Object');
 
         if (typeof objectIn === 'string' || tagToString(objectIn) !== '') {
-            transaction.persistInstance(objectIn, true);
+            transaction.persist(objectIn);
             transaction.execute()
                 .catch(message => logger.error(message))
                 .finally(() => setObjectOut(objectIn));

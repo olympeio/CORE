@@ -102,7 +102,6 @@ function createMapper(objectType, mapperConfig) {
         // Else -> create object and update cache
         else {
             objectTag = transaction.create(objectType);
-            transaction.persistInstance(objectTag, false);
             config.forEach(mapping => {
                 const propertyName = mapping.get(MapperConfig.propertyProp);
                 const propertyTag = propertiesNameToTag.get(propertyName);

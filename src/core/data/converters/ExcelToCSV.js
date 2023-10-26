@@ -32,7 +32,7 @@ export default class ExcelToCSV extends Brick {
         const logger = getLogger('Excel to CSV');
         if (source instanceof OFile) {
             source.getContentAsBinary(
-                (data) => this.convertToCSV($, source.get(OFile.nameProp), data, sheetName, separator, setResult, setErrorFlow, logger),
+                (data) => this.convertToCSV($, source.get(OFile.fileNameProp), data, sheetName, separator, setResult, setErrorFlow, logger),
                 (message) => {
                     logger.error('Error while reading content as binary: ' + message);
                     setErrorFlow(ErrorFlow.create('Error while reading content as binary: ' + message, 1));
@@ -70,16 +70,16 @@ export default class ExcelToCSV extends Brick {
             } else {
                 fileName = fileName.substring(0, fileName.lastIndexOf(".")) + ".csv";
                 const transaction = Transaction.from($);
-                const fileTag = OFile.createFromContent(transaction, fileName, stringToBinary(csv), 'text/csv');
-                transaction.persistInstance(fileTag, false);
-                Transaction.process($, transaction)
-                    .then(() => {
-                        setResult(CloudObject.get(fileTag));
-                    })
-                    .catch(message => {
-                        logger.error(message)
-                        setErrorFlow(ErrorFlow.create(message, 1));
-                    });
+                const fileTag = transaction.create(OFile);
+                transaction.persist(fileTag, false);
+                OFile.setContent(transaction, fileTag, fileName, stringToBinary(csv), 'text/csv');
+
+                Transaction.process($, transaction).then(() => {
+                    setResult(CloudObject.get(fileTag));
+                }).catch(message => {
+                    logger.error(message)
+                    setErrorFlow(ErrorFlow.create(message, 1));
+                });
             }
         } catch (error) {
             logger.error('Error while converting content to CSV: ' + error.message);

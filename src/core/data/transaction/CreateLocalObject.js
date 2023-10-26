@@ -36,8 +36,8 @@ export default class CreateLocalObject extends ActionBrick {
 
         // Transaction
         const transaction = Transaction.from(context);
-        const instanceTag = transaction.create(model)
-        transaction.persistInstance(instanceTag, false);
+        const instanceTag = transaction.create(model);
+        transaction.persist(instanceTag, false);
         Transaction.process(context, transaction).then((executed) => {
             setObject(executed ? CloudObject.get(instanceTag) : instanceTag);
             forwardEvent();

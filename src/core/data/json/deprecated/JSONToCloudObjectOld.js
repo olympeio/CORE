@@ -51,8 +51,7 @@ export default class JSONToCloudObject extends Brick {
         }
 
         const db = DBView.get();
-        const transaction = Transaction.from($);
-        transaction.persist(persist);
+        const transaction = new Transaction(persist);
 
         // Check if the instance exists already in db or if it has been processed before to avoid duplication
         const instance = transaction.create(businessModel);
@@ -83,20 +82,15 @@ export default class JSONToCloudObject extends Brick {
             result = instance;
         }
 
-        // Place a callback "afterExecution" to ensure that the transaction
-        // has been executed before to call CloudObject.get()
-        transaction.afterExecution(() => {
-            if(Array.isArray(result)){
+        transaction.execute().then(() => {
+            if (Array.isArray(result)){
                 setResult(result.map(CloudObject.get));
             } else {
                 setResult(CloudObject.get(result));
             }
+        }).catch(message => {
+            setErrorFlow(ErrorFlow.create('Transaction failed: ' + message, 1));
         });
-
-        Transaction.process($, transaction)
-            .catch(message => {
-                setErrorFlow(ErrorFlow.create('Transaction failed: ' + message, 1));
-            });
     }
 
     /**
