@@ -50,7 +50,7 @@ export default class List extends VisualBrick {
         const observeList = $.observe('Data', false);
         const observeListAsArray = observeList.pipe(switchMap((list) => {
             // Set no data warning message in development mode.
-            if (list === null && !$.get(GlobalProperties.PRODUCTION, true)) {
+            if (list === null && $.get(GlobalProperties.EDITION, true)) {
                 noDataTimeout = setTimeout(() => getLogger('List component').warn('Data property of List has not been set after 5s.'), 5000);
                 return of([]);
             }

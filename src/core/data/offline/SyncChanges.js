@@ -1,5 +1,5 @@
 import { Brick, Cache, ErrorFlow, registerBrick } from 'olympe';
-import { BehaviorSubject } from "rxjs";
+import { Observable } from "rxjs";
 
 export default class SyncChanges extends Brick {
 
@@ -16,7 +16,7 @@ export default class SyncChanges extends Brick {
      * @param {function(*)} setError
      */
     async update($, [], [setOnSuccess, setTotalChanges, setNbCompleted, setError]) {
-        const progress = /** @type {BehaviorSubject<[number, number]>} */ (Cache.synchroniseChanges());
+        const progress = /** @type {Observable<[number, number]>} */ (Cache.synchroniseChanges());
         progress.subscribe({
             next: ([nbPatches, nbSyncedPatches]) => {
                 setTotalChanges(nbPatches);

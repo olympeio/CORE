@@ -22,28 +22,20 @@ export default class GetFirstObjectInList extends Brick {
     /**
      * @protected
      * @param {!BrickContext} $
-     * @param {!ListDef|!List} list
+     * @param {!ListDef | !Array | !QueryResult} list
      * @param {function(!*)} setObject
      */
     update($, [list], [setObject]) {
         const logger = getLogger('Get First Object In List');
 
-        if(Array.isArray(list)) {
-            if (list.length > 0) {
-                setObject(list[0]);
-            } else {
-                logger.warn('OutOfBound: trying to return the first element of an empty array!');
-            }
+        if (Array.isArray(list)) {
+            setObject(list[0] ?? null);
+        } else if (list instanceof QueryResult) {
+            setObject(list.getFirst() ?? null);
         } else if (list instanceof ListDef) {
             list.observeFirst().subscribe(_object => {
                 setObject(_object);
             });
-        } else if(list instanceof QueryResult) {
-            if (list.size() > 0) {
-                setObject(list.getFirst());
-            } else {
-                logger.warn('OutOfBound: trying to return the first element of an empty QueryResult!');
-            }
         } else {
             logger.error('TypeError: The list should be of type ListDef, Array or QueryResult');
         }
