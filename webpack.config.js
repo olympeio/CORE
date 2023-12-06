@@ -87,7 +87,7 @@ const node = {
     entry: './src/main-node.js',
     output: { filename: 'main-node.js' },
     resolve: { alias: { helpers: path.resolve(__dirname, 'src/helpers/node') } },
-    externals: ['os']
+    externalsPresets: { node: true },
 };
 
 const web = {

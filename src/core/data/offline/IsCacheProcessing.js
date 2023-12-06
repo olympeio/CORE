@@ -1,4 +1,5 @@
 import { Brick, registerBrick, Cache } from 'olympe';
+import {map} from "rxjs/operators";
 
 export default class IsCacheProcessing extends Brick {
 
@@ -6,7 +7,7 @@ export default class IsCacheProcessing extends Brick {
      * @override
      */
     setupExecution($) {
-        return Cache.isProcessing();
+        return Cache.getProcessingStatus().pipe(map((status) => !!status.processing));
     }
 
     /**
