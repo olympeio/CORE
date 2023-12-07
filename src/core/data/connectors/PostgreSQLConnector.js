@@ -92,7 +92,7 @@ export default class PostgreSQLConnector extends DataSource {
         await this.schemaObserver.init(this.knex, schema);
         this.logger.info(`Schema of SQLConnector ${this.getId()} has been initialized`);
 
-        if (this.getConfig('moveFileToVolume')) {
+        if (this.getConfig('moveFilesToVolume') && this.getConfig(config.filePath)) {
             this.migrateFiles().catch((e) => {
                 this.logger.error(`Error while migrating files to file-service: ${e}`);
             });
@@ -172,7 +172,8 @@ export default class PostgreSQLConnector extends DataSource {
         if (typeof this.filePath === 'string') {
             const folder = this.getFilePath(fileTag);
             await fsp.mkdir(folder, {recursive: true});
-            await fsp.writeFile(path.join(folder, fileTag), binary);
+            // encoding "null" means binary file
+            await fsp.writeFile(path.join(folder, fileTag), binary, {encoding: null});
         } else {
             const properties = new Map([[COLUMNS.FILE_CONTENT, binary]]);
             await this.applyTransaction([{type: 'CREATE', object: fileTag, model: dataType, properties}], {});
@@ -187,10 +188,11 @@ export default class PostgreSQLConnector extends DataSource {
             const filePath = path.join(this.getFilePath(fileTag), fileTag);
             try {
                 await fsp.access(filePath, fsp.constants.F_OK);
-                return fs.createReadStream(filePath, 'binary');
             } catch(e) {
                 throw new Error(`File ${filePath} does not exist so it cannot be downloaded`);
             }
+            // encoding "null" means binary file
+            return fs.createReadStream(filePath, {encoding: null});
         } else {
             const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaObserver);
             return await executor.downloadFileContent(fileTag, dataType);
