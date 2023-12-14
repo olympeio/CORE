@@ -91,10 +91,6 @@ export default class DebugLog extends Brick {
             value = Array.from(rawValue);
         }
 
-        else if (rawValue instanceof QueryResult) {
-            value = rawValue.toArray();
-        }
-
         else if (rawValue instanceof ListDef) {
             value = [];
             rawValue.forEachCurrentValue((item) => { value.push(item); });
