@@ -13,14 +13,11 @@ export default class SetInContext extends ActionBrick {
      * @param {function()} forwardEvent
      */
     update($, [context, key, value], [forwardEvent]) {
-        const logger = getLogger('SetInContext');
         if (!(context instanceof BrickContext)) {
-            logger.warn('Invalid context provided');
-            return;
+            throw new Error('Invalid context provided');
         }
         if (typeof key !== 'string' && !(key instanceof CloudObject)) {
-            logger.warn('Invalid key provided. Must be a string or a CloudObject.');
-            return;
+            throw new Error('Invalid key provided. Must be a string or a CloudObject.');
         }
         context.set(tagToString(key), value);
         forwardEvent();

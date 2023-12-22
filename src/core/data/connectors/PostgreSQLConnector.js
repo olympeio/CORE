@@ -1,10 +1,14 @@
-import {DataSource, register} from 'olympe';
+import {DataSource, register, tagToString, File as OFile} from 'olympe';
 import {knex, Knex} from 'knex';
 import {getLogger} from "logging";
 import SQLQueryExecutor, {COLUMNS} from "./sql/SQLQueryExecutor";
 import SchemaObserver from "./sql/schema/SchemaObserver";
 import {HEALTH_CHECK_QUERY, config} from "./sql/_statics";
 import SQLTransactionWriter from "./sql/SQLTransactionWriter";
+import {promises as fsp} from 'fs';
+import fs from 'fs';
+import path from 'path';
+import {hashcode} from "../../../helpers/common/hash";
 
 export default class PostgreSQLConnector extends DataSource {
 
@@ -34,6 +38,12 @@ export default class PostgreSQLConnector extends DataSource {
          * @type {SQLTransactionWriter}
          */
         this.writer = null;
+
+        /**
+         * @private
+         * @type {?string}
+         */
+        this.filePath = this.getConfig(config.filePath);
     }
 
     /**
@@ -81,6 +91,42 @@ export default class PostgreSQLConnector extends DataSource {
         // Initialize the schema observer that fulfill the cache with all the existing tables with their associated data types.
         await this.schemaObserver.init(this.knex, schema);
         this.logger.info(`Schema of SQLConnector ${this.getId()} has been initialized`);
+
+        if (this.getConfig('moveFilesToVolume') && this.getConfig(config.filePath)) {
+            this.migrateFiles().catch((e) => {
+                this.logger.error(`Error while migrating files to file-service: ${e}`);
+            });
+        }
+    }
+
+    /**
+     * @private
+     * @return {Promise<void>}
+     */
+    async migrateFiles() {
+        this.logger.info('Migrating files...');
+        const {FILE_CONTENT, TAG} = COLUMNS;
+        const schema = this.schemaObserver.getSchema();
+        const fileModelTag = tagToString(OFile);
+        const tableName = this.schemaObserver.getTableName(fileModelTag);
+        try {
+            const fileList = await this.knex.queryBuilder().withSchema(schema).from(tableName).select(TAG);
+            this.logger.info(`Detected ${fileList.length} files`);
+            for (let i = 0; i < fileList.length; i++) {
+                const fileTag = fileList[i][TAG];
+                const file = await this.knex.queryBuilder().withSchema(schema).from(tableName).select(FILE_CONTENT).where(TAG, fileTag);
+                const content = file[0][FILE_CONTENT];
+                if (content instanceof Uint8Array) {
+                    typeof this.filePath === 'string' && await this.uploadFileContent(fileTag, fileModelTag, content);
+                    this.logger.info(`Processed file ${fileTag} (${i+1}/${fileList.length}), size: ${content.byteLength}`);
+                } else {
+                    this.logger.info(`Processed file ${fileTag} (${i+1}/${fileList.length}), NO CONTENT`);
+                }
+            }
+            this.logger.info(`Finished`);
+        } catch(e) {
+            this.logger.error(`Error while migrating files: ${e}`);
+        }
     }
 
     /**
@@ -123,24 +169,61 @@ export default class PostgreSQLConnector extends DataSource {
      * @override
      */
     async uploadFileContent(fileTag, dataType, binary) {
-        const properties = new Map([[COLUMNS.FILE_CONTENT, binary]]);
-        await this.applyTransaction([{type: 'CREATE', object: fileTag, model: dataType, properties}], {});
+        if (typeof this.filePath === 'string') {
+            const folder = this.getFilePath(fileTag);
+            await fsp.mkdir(folder, {recursive: true});
+            // encoding "null" means binary file
+            await fsp.writeFile(path.join(folder, fileTag), binary, {encoding: null});
+        } else {
+            const properties = new Map([[COLUMNS.FILE_CONTENT, binary]]);
+            await this.applyTransaction([{type: 'CREATE', object: fileTag, model: dataType, properties}], {});
+        }
     }
 
     /**
      * @override
      */
     async downloadFileContent(fileTag, dataType) {
-        const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaObserver);
-        return await executor.downloadFileContent(fileTag, dataType);
+        if (typeof this.filePath === 'string') {
+            const filePath = path.join(this.getFilePath(fileTag), fileTag);
+            try {
+                await fsp.access(filePath, fsp.constants.F_OK);
+            } catch(e) {
+                throw new Error(`File ${filePath} does not exist so it cannot be downloaded`);
+            }
+            // encoding "null" means binary file
+            return fs.createReadStream(filePath, {encoding: null});
+        } else {
+            const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaObserver);
+            return await executor.downloadFileContent(fileTag, dataType);
+        }
     }
 
     /**
      * @override
      */
     async deleteFileContent(fileTag, dataType) {
-        const properties = new Map([[COLUMNS.FILE_CONTENT, null]]);
-        await this.applyTransaction([{type: 'UPDATE', object: fileTag, model: dataType, properties}], {});
+        if (typeof this.filePath === 'string') {
+            const folder = this.getFilePath(fileTag);
+            await fsp.rm(path.join(folder, fileTag));
+        } else {
+            const properties = new Map([[COLUMNS.FILE_CONTENT, null]]);
+            await this.applyTransaction([{type: 'UPDATE', object: fileTag, model: dataType, properties}], {});
+        }
+    }
+
+    /**
+     * Generate the path of directories for the specified file, based on its tag.
+     *
+     * @private
+     * @param {string} fileTag
+     * @return {string}
+     */
+    getFilePath(fileTag) {
+        const hash = hashcode(fileTag);
+        const first = String(hash & 255).padStart(3, '0');
+        const second = String((hash >> 8) & 255).padStart(3, '0');
+        return path.join(this.filePath, first, second);
     }
 }
 

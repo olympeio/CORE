@@ -53,11 +53,22 @@ export default class DebugLog extends Brick {
             const validMethods = ['trace', 'debug', 'info', 'log', 'warn', 'error'];
             const method = validMethods[validMethods.indexOf(loglevel?.toLowerCase())] ?? 'info';
             const showPrefix = ((prefix !== null && prefix !== undefined ) ? prefix + ': ' : '')
-            const serializedValue = DebugLog.serialize(value);
-            logger[method](showPrefix + JSON.stringify(serializedValue, undefined, 4));
+            logger[method](showPrefix + DebugLog.serialize(value));
         } catch(err) {
             logger.error(`Something went wrong: ${err}`)
         }
+    }
+
+    /**
+     * @param {*} rawValue
+     * @return {string}
+     */
+    static serialize(rawValue) {
+        const serialized = DebugLog.serializeRec(rawValue);
+        if (typeof serialized !== 'string') {
+            return JSON.stringify(serialized, undefined, 4);
+        }
+        return serialized;
     }
 
     /**
@@ -65,13 +76,9 @@ export default class DebugLog extends Brick {
      * @param {*} rawValue
      * @return {!Object | !Array | string | number | boolean | null | undefined}
      */
-    static serialize(rawValue) {
+    static serializeRec(rawValue) {
         if (rawValue !== Object(rawValue)) { // check isPrimitive
             return rawValue;
-        }
-
-        else if (rawValue instanceof CloudObject) { // check isCloudObject
-            return Object.assign(rawValue.toObject(true, true), {'tag': rawValue.getTag()});
         }
 
         // Handle collections
@@ -84,17 +91,13 @@ export default class DebugLog extends Brick {
             value = Array.from(rawValue);
         }
 
-        else if (rawValue instanceof QueryResult) {
-            value = rawValue.toArray();
-        }
-
         else if (rawValue instanceof ListDef) {
             value = [];
             rawValue.forEachCurrentValue((item) => { value.push(item); });
         }
 
         if (Array.isArray(value)) {
-            return value.map((item) => this.serialize(item));
+            return value.map((item) => DebugLog.serializeRec(item));
         }
 
         // Check if the object does override toJSON method (used by stringify)
@@ -110,7 +113,7 @@ export default class DebugLog extends Brick {
         // Finally, if the object is a simple collection of key-values, serialize all the values recursively
         else if (value.constructor === Object) {
             return Object.entries(/** @type {!Object}*/ (value)).reduce((serialized, [k, v]) => {
-                serialized[k] = this.serialize(v);
+                serialized[k] = DebugLog.serializeRec(v);
                 return serialized;
             }, {});
         }

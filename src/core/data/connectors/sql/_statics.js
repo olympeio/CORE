@@ -106,6 +106,7 @@ export const config = {
     host: 'host',
     port: 'port',
     user: 'user',
+    filePath: 'filePath',
     password: 'password',
     database: 'database',
     dbOptions: 'dbOptions',

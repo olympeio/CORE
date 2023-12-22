@@ -13,7 +13,7 @@ export default class GoOnline extends ActionBrick {
     async update($, inputs, [forwardEvent, setError]) {
         try {
             await Process.connect();
-            forwardEvent()
+            forwardEvent();
         } catch (error) {
             setError(ErrorFlow.create(`Failed to Go Online: ${error}`, 0));
         }

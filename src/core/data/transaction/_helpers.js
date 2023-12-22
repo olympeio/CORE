@@ -2,7 +2,7 @@
  * Created by Sym on 28.10.2021
  */
 
-import {DBView, CloudObject, StringModel, NumberModel, BooleanModel, DatetimeModel, ColorModel} from 'olympe';
+import {CloudObject, StringModel, NumberModel, BooleanModel, DatetimeModel, ColorModel} from 'olympe';
 
 const primitiveTypes = [
     StringModel,
@@ -23,5 +23,5 @@ export const castPrimitiveValue = (value) => {
         return value;
     }
     const primitiveType = primitiveTypes.find((p) => value instanceof p);
-    return primitiveType ? DBView.get().getProperty(value, primitiveType.valueProp, true) : value;
+    return primitiveType ? value.get(primitiveType.valueProp) : value;
 }
