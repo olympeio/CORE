@@ -447,7 +447,7 @@ export default class SQLTransactionWriter {
             for (const [prop, value] of properties) {
                 const colName = this.schemaProvider.getColumn(tableName, prop);
                 if (colName !== null) {
-                    object[colName] = SQLTransactionWriter.serializeValue(value);
+                    object[colName] = SQLTransactionWriter.serializeValue(value, this.schemaProvider.getDBDialectName());
                 } else {
                     this.logger.error(`Could not set the property "${prop}" of data type in table "${tableName}"`);
                 }
@@ -458,15 +458,27 @@ export default class SQLTransactionWriter {
 
     /**
      * @param {string | number | boolean | !Date | !Color} val
+     * @param {string} dialect
      * @return {!Object}
      */
-    static serializeValue(val) {
+    static serializeValue(val, dialect) {
         let serialValue = val;
         // non primitive types
+        console.log('VALUE OF TYPE : à${}')
         if (val instanceof Date) {
             serialValue = val.toJSON();
         } else if (val instanceof Color) {
             serialValue = `${val.getRed()};${val.getGreen()};${val.getBlue()};${val.getAlpha()}`;
+        } else if (typeof val === 'boolean') {
+            console.log(`RETURNING SERIAL BOOLEAN ${val}`);
+            return serialValue;
+            // sqlite, mssql (azure), mysql and oracle use (bit) number
+            // only postgres accept boolean value as true, false
+            // we support number values but not any string representation
+            // implicit deserialization transform 0 to false, 1 to true
+            if (dialect !== DB_DIALECT_NAMES.POSTGRES) {
+                serialValue = Number(val);
+            }
         }
         return serialValue;
     }

@@ -99,8 +99,10 @@ export const DB_DIALECT_NAMES = {
     SQLITE3: 'sqlite3',
     MSSQL: 'mssql',
     MYSQL: 'mysql',
+    MYSQL2: 'mysql2',
     MARIADB: 'mysql',
-    ORACLE: 'oracledb'
+    ORACLE: 'oracledb',
+    BETTERSQLITE3: 'sqlite3'
 };
 export const config = {
     host: 'host',
