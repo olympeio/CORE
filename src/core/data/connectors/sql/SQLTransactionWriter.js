@@ -464,14 +464,11 @@ export default class SQLTransactionWriter {
     static serializeValue(val, dialect) {
         let serialValue = val;
         // non primitive types
-        console.log('VALUE OF TYPE : à${}')
         if (val instanceof Date) {
             serialValue = val.toJSON();
         } else if (val instanceof Color) {
             serialValue = `${val.getRed()};${val.getGreen()};${val.getBlue()};${val.getAlpha()}`;
         } else if (typeof val === 'boolean') {
-            console.log(`RETURNING SERIAL BOOLEAN ${val}`);
-            return serialValue;
             // sqlite, mssql (azure), mysql and oracle use (bit) number
             // only postgres accept boolean value as true, false
             // we support number values but not any string representation
