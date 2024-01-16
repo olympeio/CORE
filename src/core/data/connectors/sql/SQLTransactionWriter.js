@@ -459,7 +459,7 @@ export default class SQLTransactionWriter {
     /**
      * @param {string | number | boolean | !Date | !Color} val
      * @param {string} dialect
-     * @return {!Object}
+     * @return {string | number | boolean | Object}
      */
     static serializeValue(val, dialect) {
         let serialValue = val;

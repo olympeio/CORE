@@ -448,14 +448,20 @@ export default class SQLQueryExecutor {
         // Specific behaviour for Color type:
         const colorProperties = new Set();
         const datetimeProperties = new Set();
+        const booleanProperties = new Set();
         const colorModelTag = tagToString(ColorModel);
         const datetimeModelTag = tagToString(DatetimeModel);
+        const booleanModelTag = tagToString(BooleanModel);
         for (const [alias, value] of this.reverseAliases) {
             if (alias.startsWith(PREFIXES.COLUMN)) {
                 // Extract DateTime and Color properties to cast primitive values coming from SQL to Date or Color objects
                 const typeTag = this.getPropertyType(value);
-                typeTag === colorModelTag && colorProperties.add(value);
-                typeTag === datetimeModelTag && datetimeProperties.add(value);
+                switch (typeTag) {
+                    case colorModelTag: colorProperties.add(value); break;
+                    case datetimeModelTag: datetimeProperties.add(value); break;
+                    case booleanModelTag: booleanProperties.add(value); break;
+                    default:
+                }
             }
         }
 
@@ -483,6 +489,8 @@ export default class SQLQueryExecutor {
                             propVal = Color.create(...value.split(';'));
                         } else if (datetimeProperties.has(propTag) && typeof value === 'string') {
                             propVal = new Date(value);
+                        } else if (booleanProperties.has(propTag)) {
+                            propVal = Boolean(value);
                         } else {
                             propVal = value;
                         }
