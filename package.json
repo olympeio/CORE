@@ -17,9 +17,8 @@
     "package.json"
   ],
   "scripts": {
-    "prebuild": "npx gulp patches --core.modules=project",
+    "postbuild": "npx olympe buildCodeAsData -pmd project",
     "build": "npx webpack build",
-    "postbuild": "npx gulp clean",
     "add": "npm install",
     "postadd": "npx gulp rewrite && npm run reset",
     "prereset": "npx gulp snapshot --confirm",
@@ -30,7 +29,7 @@
     "test:debug": "npx karma start karma.conf.js --browsers=Chrome --single-run=false --debug"
   },
   "devDependencies": {
-    "@olympeio/dev-tools": "~2.5.0",
+    "@olympeio/olympe-toolkit": "1.0.4-dev",
     "@babel/core": "7.23.2",
     "@babel/preset-env": "7.22.20",
     "@babel/preset-react": "7.22.0",
