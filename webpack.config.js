@@ -68,13 +68,12 @@ const plugins = {
                 browser: 'main-web.js',
                 types: 'index.d.ts',
                 dependencies: npmPackage.dependencies,
-                dcInitConfig: 'import/dcInitConfig.json',
+                codeAsData: 'codeAsData',
                 homepage: 'https://github.com/olympeio/CORE',
             }
         ),
         new Copy({
             patterns: [
-                {from: '.dc-init', to: 'import', globOptions: {ignore: ['**/id_rsa']}},
                 {from: 'index.d.ts', to: 'index.d.ts'},
                 {from: 'README-package.md', to: 'README.md'}
             ]
