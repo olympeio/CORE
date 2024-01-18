@@ -7,7 +7,7 @@
     "url": "https://github.com/olympeio/CORE"
   },
   "files": [
-    "import",
+    "codeAsData",
     "README.md",
     "index.d.ts",
     "main-node.js",
