@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, CloudObject, QuerySingle } from 'olympe';
+import { Brick, registerBrick, CloudObject } from 'olympe';
 
 export default class GetObjectByTag extends Brick {
 
@@ -28,8 +28,9 @@ export default class GetObjectByTag extends Brick {
         if (!CloudObject.exists(tag)) {
             throw new Error(`Try to get a CloudObject from a tag that does not exist in the local database: ${tag}. Try to use the brick \`QueryObject\` instead.`);
         }
-        const object = await QuerySingle.from(tag).execute();
-        setObject(object);
+        // After checking the existence of the instance in the local cache,
+        // we can use CloudObject.get instead of using a query to stay synchronous .
+        setObject(CloudObject.get(tag));
     }
 }
 
