@@ -1,5 +1,5 @@
 import { ActionBrick, registerBrick, Auth, ErrorFlow } from 'olympe';
-import { getLogger } from '@olympeio/core';
+import { getLogger } from 'logging';
 
 export default class IDPLogin extends ActionBrick {
     /**
