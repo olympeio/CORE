@@ -17,6 +17,7 @@
 import { Remarkable } from 'remarkable';
 import React from 'react';
 import parse from 'html-react-parser';
+import { getLogger } from 'logging';
 
 /**
  * Provide a unique way of using Remarkable parser
@@ -104,6 +105,7 @@ export function markdownTextToReactElement(text, element) {
         );
     }
     catch(e) {
-        return React.createElement('span', {}, 'Format error: ' + e.message);
+        getLogger('markdownTextToReactElement').error('Improper input in text property, got type ' + typeof text + ' instead of string.', e);
+        return React.createElement('span', {}, 'Format error: invalid input');
     }
 }
