@@ -20,15 +20,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
 
+import { ThemeProvider } from '@mui/material/styles';
 import MUIDialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Icon from '@mui/material/Icon';
+import Button from '@mui/material/Button';
 
 import { createTransitionElement, createTransitionObject } from './CustomizeAlertDialog.jsx';
 import { markdownTextToReactElement } from 'helpers/remarkable';
-import { cssToSxProps, jsonToSxProps, ifNotTransparent } from 'helpers/mui';
+import { cssToSxProps, jsonToSxProps, ifNotTransparent, useMUITheme } from 'helpers/mui';
 import {map} from "rxjs";
 
 /**
@@ -78,6 +81,7 @@ export default class Dialog extends ReactBrick {
      */
     static getReactComponent($) {
         return (props) => {
+            const theme = useMUITheme($);
             const [contentRenderer] = props.values;
             const open = useProperty($, 'Open');
             const title = useProperty($, 'Title');
@@ -96,6 +100,7 @@ export default class Dialog extends ReactBrick {
             const transitionTimeout = useProperty($, 'Transition Timeout');
             const transitionExitEasing = useProperty($, 'Transition Exit Easing');
             const transitionExitTimeout = useProperty($, 'Transition Exit Timeout');
+            const displayCloseButton = useProperty($, 'Display close button');
             const muiSxJson = useProperty($, 'MUI sx [json]');
             const borderColor = useProperty($, 'Border Color');
             const borderRadius = useProperty($, 'Border Radius');
@@ -176,6 +181,23 @@ export default class Dialog extends ReactBrick {
                             <DialogTitle>
                                 {markdownTextToReactElement(title, 'span')}
                             </DialogTitle>
+                        )}
+                        {displayCloseButton && (
+                            <ThemeProvider theme={theme}>
+                                <Button 
+                                    onClick={() => $.trigger('Close Dialog')}
+                                    sx={{width: '24px', height: '24px', minWidth: '0px', position: 'absolute', top: '4px', right: '4px'}}
+                                >
+                                    <Icon
+                                        sx={{
+                                            width: 24,
+                                            height: 24,
+                                            fontSize: '24px',
+                                        
+                                        }}
+                                    >close</Icon>
+                                </Button>
+                            </ThemeProvider>
                         )}
                         {$renderer && (
                             <DialogContent
