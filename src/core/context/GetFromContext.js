@@ -1,5 +1,4 @@
-import { Brick, registerBrick, BrickContext, CloudObject, tagToString } from 'olympe';
-import { getLogger } from "logging";
+import { Brick, registerBrick, BrickContext, CloudObject, tagToString, ErrorFlow } from 'olympe';
 
 export default class GetFromContext extends Brick {
 
@@ -12,14 +11,14 @@ export default class GetFromContext extends Brick {
      * @param {function(*)} setValue
      */
     update($, [context, key], [setValue]) {
-        const logger = getLogger('GetFromContext');
         if (typeof key !== 'string' && !(key instanceof CloudObject)) {
-            logger.warn('Invalid key provided. Must be a string or a CloudObject.');
-            return;
+            throw ErrorFlow.create('Invalid key provided. Must be a string or a CloudObject.', 1);
         }
         if (context instanceof BrickContext) {
             const sub = context.observe(tagToString(key), false, true).subscribe(setValue);
             $.onClear(() => sub.unsubscribe());
+        } else {
+            throw ErrorFlow.create('Invalid context provided.', 2);
         }
     }
 }

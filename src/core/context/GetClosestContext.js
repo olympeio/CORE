@@ -1,5 +1,4 @@
-import { Brick, registerBrick } from 'olympe';
-import {getLogger} from "logging";
+import { Brick, registerBrick, ErrorFlow } from 'olympe';
 import { Application, Screen_, Runnable } from '../../helpers/common/tags';
 
 export default class GetClosestContext extends Brick {
@@ -12,10 +11,8 @@ export default class GetClosestContext extends Brick {
      * @param {function(*)} setContext
      */
     update($, [modelType], [setContext]) {
-        const logger = getLogger('GetClosestContext');
         if (typeof modelType !== 'string') {
-            logger.warn('Invalid modelType provided: must be a string');
-            return;
+            throw ErrorFlow.create('Invalid modelType provided: must be a string', 1);
         }
         const selector = {modelTag: modelType};
 
