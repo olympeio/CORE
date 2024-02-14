@@ -1,110 +1,110 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"fdff023000000000000011": "Cloud Object To Map",
-				"ff023000000000000011": "Object To Map",
-				"v": 41
-			},
-			"t": "01838977742c933a1bb1"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Control Flow",
-				"v": 1
-			},
-			"t": "01838977742ea9ed31fd"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Control Flow",
-				"v": 1
-			},
-			"t": "01838977742ef205dd36"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Object To Map",
-				"01703376c4a81c0e9d92": "Converts an object retrieved from the Data Cloud into a map where the object's properties become the keys and the property values become the corresponding values within the map\nExample: Person => {name: Bob}",
-				"v": 148
-			},
-			"t": "01838977c17e49895fbc"
-		},
-		{
-			"o": 1,
-			"p": {
-				"v": 1
-			},
-			"t": "01838977c25969ba18d3"
-		},
-		{
-			"o": 1,
-			"p": {
-				"v": 1
-			},
-			"t": "01838977c2adf5a2a2dc"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"ff023000000000000011": "object",
-				"v": 8
-			},
-			"t": "018389780f9ca45f341c"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The object to map",
-				"v": 21
-			},
-			"t": "01838978107288e96798"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"ff023000000000000011": "map",
-				"v": 7
-			},
-			"t": "018389784ec4bbb64b9e"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Contains the properties of the object where the key is the name of the property and the value is the value of the property.",
-				"v": 8
-			},
-			"t": "018389784f7f08cb65ae"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 2,
-				"ff023000000000000011": "Error Flow",
-				"v": 12
-			},
-			"t": "018389788839f8ef7b7e"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Triggered when provided source is not correct.",
-				"v": 13
-			},
-			"t": "0183897888b4705083e8"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "01838977742c933a1bb1"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Cloud Object To Map",
+    "ff023000000000000011": "Object To Map",
+    "v": 41
+   },
+   "t": "01838977742c933a1bb1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "01838977742ea9ed31fd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "01838977742ef205dd36"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Object To Map",
+    "01703376c4a81c0e9d92": "Converts an object retrieved from the Data Cloud into a map where the object's properties become the keys and the property values become the corresponding values within the map\nExample: Person => {name: Bob}",
+    "v": 148
+   },
+   "t": "01838977c17e49895fbc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "01838977c25969ba18d3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "01838977c2adf5a2a2dc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "object",
+    "v": 8
+   },
+   "t": "018389780f9ca45f341c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The object to map",
+    "v": 21
+   },
+   "t": "01838978107288e96798"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "map",
+    "v": 7
+   },
+   "t": "018389784ec4bbb64b9e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Contains the properties of the object where the key is the name of the property and the value is the value of the property.",
+    "v": 8
+   },
+   "t": "018389784f7f08cb65ae"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "Error Flow",
+    "v": 12
+   },
+   "t": "018389788839f8ef7b7e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Triggered when provided source is not correct.",
+    "v": 13
+   },
+   "t": "0183897888b4705083e8"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01838977742c933a1bb1"
 }

@@ -1,60 +1,60 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"01703376c4a81c0e9d94": "stable",
-				"fdff023000000000000011": "Refresh Application",
-				"ff023000000000000011": "Refresh Application",
-				"v": 2
-			},
-			"t": "017a622b296141ff6387"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Control Flow",
-				"v": 1
-			},
-			"t": "017a622b2962858c4e3c"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Control Flow",
-				"v": 1
-			},
-			"t": "017a622b2962af9f4bc9"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Initiates a browser refresh action.",
-				"01703376c4a81c0e9d92": "Starts the process of refreshing the web browser, reloading the current web page.",
-				"v": 1
-			},
-			"t": "017b9c8fe7326b54c6fa"
-		},
-		{
-			"o": 1,
-			"p": {
-				"v": 1
-			},
-			"t": "01804617fbcbb35ada12"
-		},
-		{
-			"o": 1,
-			"p": {
-				"v": 1
-			},
-			"t": "01804617fcae1b69e353"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "017a622b296141ff6387"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "Refresh Application",
+    "ff023000000000000011": "Refresh Application",
+    "v": 2
+   },
+   "t": "017a622b296141ff6387"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "017a622b2962858c4e3c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "017a622b2962af9f4bc9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Initiates a browser refresh action.",
+    "01703376c4a81c0e9d92": "Starts the process of refreshing the web browser, reloading the current web page.",
+    "v": 1
+   },
+   "t": "017b9c8fe7326b54c6fa"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "01804617fbcbb35ada12"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "01804617fcae1b69e353"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "017a622b296141ff6387"
 }

@@ -1,197 +1,197 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"fdff023000000000000011": "Get Touch Event Detail Attributes",
-				"ff023000000000000011": "Get Touch Event Details Attributes",
-				"v": 54
-			},
-			"t": "017ce630d0cabe1769d5"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Get attributes from a Touch Event Detail.",
-				"01703376c4a81c0e9d92": "Returns all the attributes of a touch event detail as returned by the `Get Touch Event Attributes` function.\n\nRelative positions give coordinates relatively to the component triggering the event.\n\nAbsolute positions give the coordinates relatively to the screen of the device.",
-				"v": 209
-			},
-			"t": "017ce6311447a4d82043"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Touch",
-				"v": 22
-			},
-			"t": "017ce631337b27ca3af0"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The `Touch Event Detail`.",
-				"v": 3
-			},
-			"t": "017ce63133baba445013"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Identifier",
-				"v": 16
-			},
-			"t": "017ce631ce451035b2ee"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The identifier for that detail.",
-				"v": 3
-			},
-			"t": "017ce631ce60279b1e3b"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"ff023000000000000011": "Relative Position X",
-				"v": 21
-			},
-			"t": "017ce631cf462321ef17"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Relative position on the X axis.",
-				"v": 51
-			},
-			"t": "017ce631cf5e65b19ca5"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 2,
-				"ff023000000000000011": "Relative Position Y",
-				"v": 23
-			},
-			"t": "017ce631d0113e727f08"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Relative position on the Y axis.",
-				"v": 3
-			},
-			"t": "017ce631d02ad3e72976"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 3,
-				"ff023000000000000011": "Absolute Position X",
-				"v": 23
-			},
-			"t": "017ce631d0f6d45de2ee"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Absolute position on the X axis.",
-				"v": 3
-			},
-			"t": "017ce631d10c6d513d6a"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 4,
-				"ff023000000000000011": "Absolute Position Y",
-				"v": 31
-			},
-			"t": "017ce631d20ddda5acf4"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Absolute position on the Y axis.",
-				"v": 3
-			},
-			"t": "017ce631d224bc6815e0"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 5,
-				"ff023000000000000011": "Radius X",
-				"v": 10
-			},
-			"t": "017ce631d2fbee939544"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The radius on the X axis.",
-				"v": 3
-			},
-			"t": "017ce631d3128b066fe8"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 6,
-				"ff023000000000000011": "Radius Y",
-				"v": 10
-			},
-			"t": "017ce631d40af62063d4"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The radius on the Y axis.",
-				"v": 3
-			},
-			"t": "017ce631d4230da636f6"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 7,
-				"ff023000000000000011": "Rotation Angle",
-				"v": 16
-			},
-			"t": "017ce631d4f1bc3a3cce"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The rotation angle, in radians.",
-				"v": 3
-			},
-			"t": "017ce631d512121c43f7"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 8,
-				"ff023000000000000011": "Force",
-				"v": 7
-			},
-			"t": "017ce631d5fb13a8fb7a"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The force of the touch.",
-				"v": 3
-			},
-			"t": "017ce631d613e4f14828"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "017ce630d0cabe1769d5"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Get Touch Event Detail Attributes",
+    "ff023000000000000011": "Get Touch Event Details Attributes",
+    "v": 54
+   },
+   "t": "017ce630d0cabe1769d5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Get attributes from a Touch Event Detail.",
+    "01703376c4a81c0e9d92": "Returns all the attributes of a touch event detail as returned by the `Get Touch Event Attributes` function.\n\nRelative positions give coordinates relatively to the component triggering the event.\n\nAbsolute positions give the coordinates relatively to the screen of the device.",
+    "v": 209
+   },
+   "t": "017ce6311447a4d82043"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Touch",
+    "v": 22
+   },
+   "t": "017ce631337b27ca3af0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The `Touch Event Detail`.",
+    "v": 3
+   },
+   "t": "017ce63133baba445013"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Identifier",
+    "v": 16
+   },
+   "t": "017ce631ce451035b2ee"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The identifier for that detail.",
+    "v": 3
+   },
+   "t": "017ce631ce60279b1e3b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Relative Position X",
+    "v": 21
+   },
+   "t": "017ce631cf462321ef17"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Relative position on the X axis.",
+    "v": 51
+   },
+   "t": "017ce631cf5e65b19ca5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "Relative Position Y",
+    "v": 23
+   },
+   "t": "017ce631d0113e727f08"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Relative position on the Y axis.",
+    "v": 3
+   },
+   "t": "017ce631d02ad3e72976"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "ff023000000000000011": "Absolute Position X",
+    "v": 23
+   },
+   "t": "017ce631d0f6d45de2ee"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Absolute position on the X axis.",
+    "v": 3
+   },
+   "t": "017ce631d10c6d513d6a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 4,
+    "ff023000000000000011": "Absolute Position Y",
+    "v": 31
+   },
+   "t": "017ce631d20ddda5acf4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Absolute position on the Y axis.",
+    "v": 3
+   },
+   "t": "017ce631d224bc6815e0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 5,
+    "ff023000000000000011": "Radius X",
+    "v": 10
+   },
+   "t": "017ce631d2fbee939544"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The radius on the X axis.",
+    "v": 3
+   },
+   "t": "017ce631d3128b066fe8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 6,
+    "ff023000000000000011": "Radius Y",
+    "v": 10
+   },
+   "t": "017ce631d40af62063d4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The radius on the Y axis.",
+    "v": 3
+   },
+   "t": "017ce631d4230da636f6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 7,
+    "ff023000000000000011": "Rotation Angle",
+    "v": 16
+   },
+   "t": "017ce631d4f1bc3a3cce"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The rotation angle, in radians.",
+    "v": 3
+   },
+   "t": "017ce631d512121c43f7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 8,
+    "ff023000000000000011": "Force",
+    "v": 7
+   },
+   "t": "017ce631d5fb13a8fb7a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The force of the touch.",
+    "v": 3
+   },
+   "t": "017ce631d613e4f14828"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "017ce630d0cabe1769d5"
 }

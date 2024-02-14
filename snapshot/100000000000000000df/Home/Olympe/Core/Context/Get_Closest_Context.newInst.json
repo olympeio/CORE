@@ -1,62 +1,62 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"01703376c4a81c0e9d94": "stable",
-				"fdff023000000000000011": "Get Closest Context",
-				"ff023000000000000011": "Get Closest Context",
-				"v": 27
-			},
-			"t": "01833b2bd5b1be12d776"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Return the closest parent context of the given type",
-				"01703376c4a81c0e9d92": "The returned context is the closest parent which match the given `model type`. The `model type` must be a tag, or it can be one of the following utility name:\n\n- `parent` : return the closest parent, avoiding returning a soft-coded context from a lambda for exemple. You can think of this parent context like the parent composition context.\n- `application` : return the context of the running Application\n- `screen` : in UI app, return the context of the running screen\n\nIf no context is found, it will return the highest parent in the tree.",
-				"v": 549
-			},
-			"t": "01833b30d55abea14d3c"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "model type",
-				"v": 12
-			},
-			"t": "01833b3107aa673da099"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Tag of the \"type\" of context that you are looking for. You can also provide the named value such as:\n\n- `parent` : return the closest parent, avoiding returning a soft-coded context from a lambda for exemple. You can think of this parent context like the parent composition context.\n- `application` : return the context of the running Application\n- `screen` : in UI app, return the context of the running screen\n",
-				"v": 15
-			},
-			"t": "01833b3107f625d9dc87"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "context",
-				"v": 9
-			},
-			"t": "01833b310d1c18bc6f6a"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The closest context found.",
-				"v": 32
-			},
-			"t": "01833b310d70619ce733"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "01833b2bd5b1be12d776"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "Get Closest Context",
+    "ff023000000000000011": "Get Closest Context",
+    "v": 27
+   },
+   "t": "01833b2bd5b1be12d776"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Return the closest parent context of the given type",
+    "01703376c4a81c0e9d92": "The returned context is the closest parent which match the given `model type`. The `model type` must be a tag, or it can be one of the following utility name:\n\n- `parent` : return the closest parent, avoiding returning a soft-coded context from a lambda for exemple. You can think of this parent context like the parent composition context.\n- `application` : return the context of the running Application\n- `screen` : in UI app, return the context of the running screen\n\nIf no context is found, it will return the highest parent in the tree.",
+    "v": 549
+   },
+   "t": "01833b30d55abea14d3c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "model type",
+    "v": 12
+   },
+   "t": "01833b3107aa673da099"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Tag of the \"type\" of context that you are looking for. You can also provide the named value such as:\n\n- `parent` : return the closest parent, avoiding returning a soft-coded context from a lambda for exemple. You can think of this parent context like the parent composition context.\n- `application` : return the context of the running Application\n- `screen` : in UI app, return the context of the running screen\n",
+    "v": 15
+   },
+   "t": "01833b3107f625d9dc87"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "context",
+    "v": 9
+   },
+   "t": "01833b310d1c18bc6f6a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The closest context found.",
+    "v": 32
+   },
+   "t": "01833b310d70619ce733"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01833b2bd5b1be12d776"
 }

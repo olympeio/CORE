@@ -1,98 +1,98 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"01703376c4a81c0e9d94": "stable",
-				"ff023000000000000011": "Is Smaller Than",
-				"v": 1
-			},
-			"t": "01633efc7f259c4d2147"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"01740c5d4ae4b520dd02": 0,
-				"ff023000000000000011": "a",
-				"v": 1
-			},
-			"t": "01633efc819acf9704d2"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"01740c5d4ae4b520dd02": 0,
-				"ff023000000000000011": "b",
-				"v": 1
-			},
-			"t": "01633efc82d610c927d1"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 2,
-				"01740c5d4ae4b520dd02": true,
-				"ff023000000000000011": "Strictly",
-				"v": 1
-			},
-			"t": "01633efc83cce8177169"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "a < b",
-				"v": 1
-			},
-			"t": "01633efc8497d2934604"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Checks if a number is smaller than another one.",
-				"01703376c4a81c0e9d92": "Returns `true` if `a` is smaller than `b`. If `strictly` is set to `false`, then it returns `true` if `a` is smaller or equal to `b`.",
-				"v": 1
-			},
-			"t": "017b35893b8c99f96c12"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Second operand.",
-				"v": 1
-			},
-			"t": "017b35893f8d299e0516"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "First operand.",
-				"v": 1
-			},
-			"t": "017b35893f8d3e47ff20"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "`true` to make a strict comparison.",
-				"v": 1
-			},
-			"t": "017b35893f8dd9904f81"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "`true` if `a` is smaller than `b`.",
-				"v": 4
-			},
-			"t": "017b3589427f10b184e9"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "01633efc7f259c4d2147"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "ff023000000000000011": "Is Smaller Than",
+    "v": 1
+   },
+   "t": "01633efc7f259c4d2147"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "01740c5d4ae4b520dd02": 0,
+    "ff023000000000000011": "a",
+    "v": 1
+   },
+   "t": "01633efc819acf9704d2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "01740c5d4ae4b520dd02": 0,
+    "ff023000000000000011": "b",
+    "v": 1
+   },
+   "t": "01633efc82d610c927d1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "01740c5d4ae4b520dd02": true,
+    "ff023000000000000011": "Strictly",
+    "v": 1
+   },
+   "t": "01633efc83cce8177169"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "a < b",
+    "v": 1
+   },
+   "t": "01633efc8497d2934604"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Checks if a number is smaller than another one.",
+    "01703376c4a81c0e9d92": "Returns `true` if `a` is smaller than `b`. If `strictly` is set to `false`, then it returns `true` if `a` is smaller or equal to `b`.",
+    "v": 1
+   },
+   "t": "017b35893b8c99f96c12"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Second operand.",
+    "v": 1
+   },
+   "t": "017b35893f8d299e0516"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "First operand.",
+    "v": 1
+   },
+   "t": "017b35893f8d3e47ff20"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "`true` to make a strict comparison.",
+    "v": 1
+   },
+   "t": "017b35893f8dd9904f81"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "`true` if `a` is smaller than `b`.",
+    "v": 4
+   },
+   "t": "017b3589427f10b184e9"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01633efc7f259c4d2147"
 }

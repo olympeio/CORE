@@ -1,90 +1,90 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01703376c4a81c0e9d94": "stable",
-				"fdff023000000000000011": "Get Application Context",
-				"ff023000000000000011": "Get Application Context",
-				"v": 30
-			},
-			"t": "01833b2bb0ffce4be285"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Return the Context of the Application",
-				"01703376c4a81c0e9d92": "This context is useful to store application state. The returned context will be the same wherever the brick is placed in the application.",
-				"v": 227
-			},
-			"t": "01833b2fb433a53b737d"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Ascender input",
-				"v": 1
-			},
-			"t": "01833b3055528f715ddc"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "application context",
-				"v": 21
-			},
-			"t": "01833b305552b7feac5a"
-		},
-		{
-			"o": 1,
-			"p": {
-				"v": 1
-			},
-			"t": "01833b305552d6b25401"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The application context",
-				"v": 25
-			},
-			"t": "01833b3055aa7e044bdb"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01621f6ab58c2f884654": 19886,
-				"01621f6ab6ac89348f20": 19990,
-				"v": 1
-			},
-			"t": "01833b379cab2180b016"
-		},
-		{
-			"o": 1,
-			"p": {
-				"v": 1
-			},
-			"t": "01833b379cabfd4c6218"
-		},
-		{
-			"o": 1,
-			"p": {
-				"0168a431d91f25780001": "application",
-				"v": 14
-			},
-			"t": "01833b379f9b691b786a"
-		},
-		{
-			"o": 1,
-			"p": {
-				"v": 1
-			},
-			"t": "01833b37b34ca0d11c2b"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "01833b2bb0ffce4be285"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "Get Application Context",
+    "ff023000000000000011": "Get Application Context",
+    "v": 30
+   },
+   "t": "01833b2bb0ffce4be285"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Return the Context of the Application",
+    "01703376c4a81c0e9d92": "This context is useful to store application state. The returned context will be the same wherever the brick is placed in the application.",
+    "v": 227
+   },
+   "t": "01833b2fb433a53b737d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Ascender input",
+    "v": 1
+   },
+   "t": "01833b3055528f715ddc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "application context",
+    "v": 21
+   },
+   "t": "01833b305552b7feac5a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "01833b305552d6b25401"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The application context",
+    "v": 25
+   },
+   "t": "01833b3055aa7e044bdb"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621f6ab58c2f884654": 19886,
+    "01621f6ab6ac89348f20": 19990,
+    "v": 1
+   },
+   "t": "01833b379cab2180b016"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "01833b379cabfd4c6218"
+  },
+  {
+   "o": 1,
+   "p": {
+    "0168a431d91f25780001": "application",
+    "v": 14
+   },
+   "t": "01833b379f9b691b786a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "01833b37b34ca0d11c2b"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01833b2bb0ffce4be285"
 }

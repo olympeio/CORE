@@ -1,111 +1,111 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"01703376c4a81c0e9d94": "stable",
-				"fdff023000000000000011": "Persist Object",
-				"ff023000000000000011": "Persist Object",
-				"v": 2
-			},
-			"t": "0162f670ececab67c134"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Control Flow",
-				"v": 1
-			},
-			"t": "0162f670ecedab67c134"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Control Flow",
-				"v": 1
-			},
-			"t": "0162f670eceeab67c134"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"ff023000000000000011": "object",
-				"v": 1
-			},
-			"t": "0162f6fc16a98161c1fa"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 2,
-				"ff023000000000000011": "object",
-				"v": 4
-			},
-			"t": "0162f6fc1a894b89151e"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Persist an object on the server.",
-				"01703376c4a81c0e9d92": "Store a local object into the database.\nUntil it is persisted, and object only exists in RAM, and is therefore destroyed when the app quits or is reloaded.",
-				"v": 8
-			},
-			"t": "017b35893b6bc404efe3"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The object to persist.",
-				"v": 1
-			},
-			"t": "017b35893f68a964e45a"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The persisted object.",
-				"v": 1
-			},
-			"t": "017b35894279a6199cf9"
-		},
-		{
-			"o": 1,
-			"p": {
-				"v": 1
-			},
-			"t": "018023055d7de04a85c2"
-		},
-		{
-			"o": 1,
-			"p": {
-				"v": 1
-			},
-			"t": "018023055dd002b178f8"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"ff023000000000000011": "Error Flow",
-				"v": 14
-			},
-			"t": "0182ab19e8707d2abdd3"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Triggered if the transaction was rejected.",
-				"v": 29
-			},
-			"t": "0182ab19e8d95ac0ea97"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "0162f670ececab67c134"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "Persist Object",
+    "ff023000000000000011": "Persist Object",
+    "v": 2
+   },
+   "t": "0162f670ececab67c134"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "0162f670ecedab67c134"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "0162f670eceeab67c134"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "object",
+    "v": 1
+   },
+   "t": "0162f6fc16a98161c1fa"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "object",
+    "v": 4
+   },
+   "t": "0162f6fc1a894b89151e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Persist an object on the server.",
+    "01703376c4a81c0e9d92": "Store a local object into the database.\nUntil it is persisted, and object only exists in RAM, and is therefore destroyed when the app quits or is reloaded.",
+    "v": 8
+   },
+   "t": "017b35893b6bc404efe3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The object to persist.",
+    "v": 1
+   },
+   "t": "017b35893f68a964e45a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The persisted object.",
+    "v": 1
+   },
+   "t": "017b35894279a6199cf9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "018023055d7de04a85c2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "018023055dd002b178f8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Error Flow",
+    "v": 14
+   },
+   "t": "0182ab19e8707d2abdd3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Triggered if the transaction was rejected.",
+    "v": 29
+   },
+   "t": "0182ab19e8d95ac0ea97"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0162f670ececab67c134"
 }

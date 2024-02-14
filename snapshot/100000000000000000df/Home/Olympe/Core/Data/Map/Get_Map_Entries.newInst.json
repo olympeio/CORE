@@ -1,94 +1,94 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Control Flow",
-				"v": 1
-			},
-			"t": "017bc4cf2ff93ce82302"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Control Flow",
-				"v": 1
-			},
-			"t": "017bc4cf2ff9764c4ab1"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"01703376c4a81c0e9d94": "stable",
-				"fdff023000000000000011": "Get Map Entries",
-				"ff023000000000000011": "Get Map Entries",
-				"v": 2
-			},
-			"t": "017bc4cf2ff993582f03"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Transforms a map to a list of elements",
-				"01703376c4a81c0e9d92": "Transforms a map (Map or Plain JS Object) to a list of Map Entries objects.\n\n## Example:\n- inputs\n  - Map = `{ \"user\": \"barney\",  \"age\": 36, \"active\": true }` \n\n- outputs\n   - List = `[\"user\": \"barney\",  \"age\": 36, \"active\": true ]` \n",
-				"v": 39
-			},
-			"t": "017bc4cf62df4f22c6d0"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"ff023000000000000011": "list",
-				"v": 1
-			},
-			"t": "017bc4cf69ae7311b6bf"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The list of Map Entries",
-				"v": 1
-			},
-			"t": "017bc4cf6a117f0a000b"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"ff023000000000000011": "map",
-				"v": 1
-			},
-			"t": "017bc4cf7d339520d5b7"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Supports Map and plain JS Object",
-				"v": 3
-			},
-			"t": "017bc4cf7d56346ee227"
-		},
-		{
-			"o": 1,
-			"p": {
-				"v": 1
-			},
-			"t": "017e589be18eb3ad45ba"
-		},
-		{
-			"o": 1,
-			"p": {
-				"v": 1
-			},
-			"t": "017e589be1e1a3ccef4b"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "017bc4cf2ff993582f03"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "017bc4cf2ff93ce82302"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "017bc4cf2ff9764c4ab1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "Get Map Entries",
+    "ff023000000000000011": "Get Map Entries",
+    "v": 2
+   },
+   "t": "017bc4cf2ff993582f03"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Transforms a map to a list of elements",
+    "01703376c4a81c0e9d92": "Transforms a map (Map or Plain JS Object) to a list of Map Entries objects.\n\n## Example:\n- inputs\n  - Map = `{ \"user\": \"barney\",  \"age\": 36, \"active\": true }` \n\n- outputs\n   - List = `[\"user\": \"barney\",  \"age\": 36, \"active\": true ]` \n",
+    "v": 39
+   },
+   "t": "017bc4cf62df4f22c6d0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "list",
+    "v": 1
+   },
+   "t": "017bc4cf69ae7311b6bf"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The list of Map Entries",
+    "v": 1
+   },
+   "t": "017bc4cf6a117f0a000b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "map",
+    "v": 1
+   },
+   "t": "017bc4cf7d339520d5b7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Supports Map and plain JS Object",
+    "v": 3
+   },
+   "t": "017bc4cf7d56346ee227"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "017e589be18eb3ad45ba"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "017e589be1e1a3ccef4b"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "017bc4cf2ff993582f03"
 }

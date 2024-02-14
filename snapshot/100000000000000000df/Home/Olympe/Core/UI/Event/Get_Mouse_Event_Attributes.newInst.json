@@ -1,197 +1,197 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"fdff023000000000000011": "Get Mouse Event Attributes",
-				"ff023000000000000011": "Get Mouse Event Attributes",
-				"v": 39
-			},
-			"t": "017ce658446aa5fa62ca"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Gets attributes of a mouse event.",
-				"01703376c4a81c0e9d92": "Extracts the properties associated with a mouse event.",
-				"v": 4
-			},
-			"t": "017ce6586c12980304e9"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Event",
-				"v": 8
-			},
-			"t": "017ce658a023bb7b8f0f"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The mouse event.",
-				"v": 3
-			},
-			"t": "017ce658a06565af00d7"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Timestamp",
-				"v": 21
-			},
-			"t": "017ce6590b94486a72a6"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The timestamp of the event.",
-				"v": 3
-			},
-			"t": "017ce6590bb1d3a6779c"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"ff023000000000000011": "Relative Position X",
-				"v": 22
-			},
-			"t": "017ce6590cc19903e0a9"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Relative position on the X axis.",
-				"v": 3
-			},
-			"t": "017ce6590cdc816e08db"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 2,
-				"ff023000000000000011": "Relative Position Y",
-				"v": 21
-			},
-			"t": "017ce6590e00ac0839b7"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Relative position on the Y axis.",
-				"v": 3
-			},
-			"t": "017ce6590e1539d7fcf8"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 3,
-				"ff023000000000000011": "Absolute Position X",
-				"v": 21
-			},
-			"t": "017ce6590f62f52431d6"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Absolute position on the X axis.",
-				"v": 3
-			},
-			"t": "017ce6590f78b2c3bc10"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 4,
-				"ff023000000000000011": "Absolute Position Y",
-				"v": 23
-			},
-			"t": "017ce659106f56146fe8"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Absolute position on the Y axis.",
-				"v": 3
-			},
-			"t": "017ce6591086e3150a5e"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 5,
-				"ff023000000000000011": "Ctrl Key Pressed",
-				"v": 18
-			},
-			"t": "017ce65911c19383f546"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "`true` if the Control key was pressed.",
-				"v": 3
-			},
-			"t": "017ce65911dab8a3e8d2"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 6,
-				"ff023000000000000011": "Shift Key Pressed",
-				"v": 19
-			},
-			"t": "017ce659130a0f3352fb"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "`true` if the Shift key was pressed.",
-				"v": 3
-			},
-			"t": "017ce6591320f8faf634"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 7,
-				"ff023000000000000011": "Alt Key Pressed",
-				"v": 17
-			},
-			"t": "017ce6591443db8ce52e"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "`true` if the Alt key was pressed.",
-				"v": 3
-			},
-			"t": "017ce659145e9a51fbd0"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 8,
-				"ff023000000000000011": "Meta Key Pressed",
-				"v": 22
-			},
-			"t": "017ce65915896312c771"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "`true` if the Meta key was pressed.",
-				"v": 3
-			},
-			"t": "017ce659159fbe5ec2d5"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "017ce658446aa5fa62ca"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Get Mouse Event Attributes",
+    "ff023000000000000011": "Get Mouse Event Attributes",
+    "v": 39
+   },
+   "t": "017ce658446aa5fa62ca"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Gets attributes of a mouse event.",
+    "01703376c4a81c0e9d92": "Extracts the properties associated with a mouse event.",
+    "v": 4
+   },
+   "t": "017ce6586c12980304e9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Event",
+    "v": 8
+   },
+   "t": "017ce658a023bb7b8f0f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The mouse event.",
+    "v": 3
+   },
+   "t": "017ce658a06565af00d7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Timestamp",
+    "v": 21
+   },
+   "t": "017ce6590b94486a72a6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The timestamp of the event.",
+    "v": 3
+   },
+   "t": "017ce6590bb1d3a6779c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Relative Position X",
+    "v": 22
+   },
+   "t": "017ce6590cc19903e0a9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Relative position on the X axis.",
+    "v": 3
+   },
+   "t": "017ce6590cdc816e08db"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "Relative Position Y",
+    "v": 21
+   },
+   "t": "017ce6590e00ac0839b7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Relative position on the Y axis.",
+    "v": 3
+   },
+   "t": "017ce6590e1539d7fcf8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "ff023000000000000011": "Absolute Position X",
+    "v": 21
+   },
+   "t": "017ce6590f62f52431d6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Absolute position on the X axis.",
+    "v": 3
+   },
+   "t": "017ce6590f78b2c3bc10"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 4,
+    "ff023000000000000011": "Absolute Position Y",
+    "v": 23
+   },
+   "t": "017ce659106f56146fe8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Absolute position on the Y axis.",
+    "v": 3
+   },
+   "t": "017ce6591086e3150a5e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 5,
+    "ff023000000000000011": "Ctrl Key Pressed",
+    "v": 18
+   },
+   "t": "017ce65911c19383f546"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "`true` if the Control key was pressed.",
+    "v": 3
+   },
+   "t": "017ce65911dab8a3e8d2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 6,
+    "ff023000000000000011": "Shift Key Pressed",
+    "v": 19
+   },
+   "t": "017ce659130a0f3352fb"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "`true` if the Shift key was pressed.",
+    "v": 3
+   },
+   "t": "017ce6591320f8faf634"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 7,
+    "ff023000000000000011": "Alt Key Pressed",
+    "v": 17
+   },
+   "t": "017ce6591443db8ce52e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "`true` if the Alt key was pressed.",
+    "v": 3
+   },
+   "t": "017ce659145e9a51fbd0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 8,
+    "ff023000000000000011": "Meta Key Pressed",
+    "v": 22
+   },
+   "t": "017ce65915896312c771"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "`true` if the Meta key was pressed.",
+    "v": 3
+   },
+   "t": "017ce659159fbe5ec2d5"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "017ce658446aa5fa62ca"
 }

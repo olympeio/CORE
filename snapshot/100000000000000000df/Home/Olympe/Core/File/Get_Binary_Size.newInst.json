@@ -1,83 +1,83 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"fdff023000000000000011": "Get Binary Size",
-				"ff023000000000000011": "Get Binary Size"
-			},
-			"t": "01882360578725c2593d"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Control Flow"
-			},
-			"t": "0188236057879637109e"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Control Flow"
-			},
-			"t": "0188236057880c6dbd2a"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Return the size of a Binary",
-				"01703376c4a81c0e9d92": "The brick is designed to calculate and return the size of a binary data input in bytes. It can handle various types of binary data, including File, ArrayBuffers, DataViews, or binary strings. By providing a binary input, the brick determines the size of the data in terms of the number of bytes it occupies.\n"
-			},
-			"t": "018823606136b0ce47ad"
-		},
-		{
-			"o": 1,
-			"p": {
-			},
-			"t": "01882360631dee3222c8"
-		},
-		{
-			"o": 1,
-			"p": {
-			},
-			"t": "018823606481cbbcbb47"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"ff023000000000000011": "Binary"
-			},
-			"t": "018823606a96055f1ef0"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "File, ArrayBuffer, DataView or Binary String"
-			},
-			"t": "018823606c0ae98a022b"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"ff023000000000000011": "Size"
-			},
-			"t": "018823606f29d4dbc2de"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The binary size in bytes\n"
-			},
-			"t": "018823606fc7a0031246"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "01882360578725c2593d"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Get Binary Size",
+    "ff023000000000000011": "Get Binary Size"
+   },
+   "t": "01882360578725c2593d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "0188236057879637109e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "0188236057880c6dbd2a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Return the size of a Binary",
+    "01703376c4a81c0e9d92": "The brick is designed to calculate and return the size of a binary data input in bytes. It can handle various types of binary data, including File, ArrayBuffers, DataViews, or binary strings. By providing a binary input, the brick determines the size of the data in terms of the number of bytes it occupies.\n"
+   },
+   "t": "018823606136b0ce47ad"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01882360631dee3222c8"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018823606481cbbcbb47"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Binary"
+   },
+   "t": "018823606a96055f1ef0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "File, ArrayBuffer, DataView or Binary String"
+   },
+   "t": "018823606c0ae98a022b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Size"
+   },
+   "t": "018823606f29d4dbc2de"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The binary size in bytes\n"
+   },
+   "t": "018823606fc7a0031246"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01882360578725c2593d"
 }

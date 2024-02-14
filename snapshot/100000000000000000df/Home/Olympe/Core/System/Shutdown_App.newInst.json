@@ -1,40 +1,40 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"fdff023000000000000011": "Shutdown App",
-				"ff023000000000000011": "Shutdown App"
-			},
-			"t": "0189317b9c6b081a41e4"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Causes the running process to exit",
-				"01703376c4a81c0e9d92": "Sends the SIGTERM signal to the running NodeJS process.\n<br>\n<br>\nThis can be used to shutdown a running service app. If the app is running on Kubernetes it will typically trigger a restart of the app."
-			},
-			"t": "0189317c4e548071152c"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "shutdown"
-			},
-			"t": "0189317c59cd66c7c082"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Sends the signal when triggered"
-			},
-			"t": "0189317c5a3eea443e4c"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "0189317b9c6b081a41e4"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Shutdown App",
+    "ff023000000000000011": "Shutdown App"
+   },
+   "t": "0189317b9c6b081a41e4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Causes the running process to exit",
+    "01703376c4a81c0e9d92": "Sends the SIGTERM signal to the running NodeJS process.\n<br>\n<br>\nThis can be used to shutdown a running service app. If the app is running on Kubernetes it will typically trigger a restart of the app."
+   },
+   "t": "0189317c4e548071152c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "shutdown"
+   },
+   "t": "0189317c59cd66c7c082"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Sends the signal when triggered"
+   },
+   "t": "0189317c5a3eea443e4c"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0189317b9c6b081a41e4"
 }

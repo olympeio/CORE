@@ -1,55 +1,55 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"fdff023000000000000011": "Is String Empty",
-				"ff023000000000000011": "Is String Empty"
-			},
-			"t": "018ad7390f6f70de24ec"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Check if string is empty",
-				"01703376c4a81c0e9d92": "Returns `true` if inputted string is null or undefined or trimmed input is empty. "
-			},
-			"t": "018ad7393db7a1f7da60"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "input"
-			},
-			"t": "018ad73a7af733f68ad7"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Input to be checked"
-			},
-			"t": "018ad73a7b4712295a14"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "is empty"
-			},
-			"t": "018ad73ac1e78be628b5"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Comes out as `true` if empty, or null or undefined, `false`otherwise."
-			},
-			"t": "018ad73ac22e76267e0d"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "018ad7390f6f70de24ec"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Is String Empty",
+    "ff023000000000000011": "Is String Empty"
+   },
+   "t": "018ad7390f6f70de24ec"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Check if string is empty",
+    "01703376c4a81c0e9d92": "Returns `true` if inputted string is null or undefined or trimmed input is empty. "
+   },
+   "t": "018ad7393db7a1f7da60"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "input"
+   },
+   "t": "018ad73a7af733f68ad7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Input to be checked"
+   },
+   "t": "018ad73a7b4712295a14"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "is empty"
+   },
+   "t": "018ad73ac1e78be628b5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Comes out as `true` if empty, or null or undefined, `false`otherwise."
+   },
+   "t": "018ad73ac22e76267e0d"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "018ad7390f6f70de24ec"
 }

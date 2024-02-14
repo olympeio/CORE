@@ -1,547 +1,547 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01609de3f292e3c2c6ff": "",
-				"01621fb84e320000f001": "public",
-				"fd01611d99ec0553b5926e": 100,
-				"fd01611d9a0452a179c68f": 20,
-				"fd017ccc09d80ae350139a": "primary",
-				"fd017ccc0d047094a13dd4": {
-					"a": 0,
-					"b": 0,
-					"c": 7,
-					"g": 0,
-					"r": 0
-				},
-				"fd017ccc0e39c319984246": false,
-				"fd017ccc0fb0f99ff7b22f": false,
-				"fd017ccc1103153d76c533": false,
-				"fd017ccc11c8fc7aaec612": 0,
-				"fd017ccc11c9b9da217eb7": 100,
-				"fd017ccc13ee8936fcb28c": "horizontal",
-				"fd017ccc1462458b36eda0": "medium",
-				"fd017ccc156dabd73ed151": 1,
-				"fd017ccc1630a6b54ea811": "{}",
-				"fd017ccc18499ad39b1f3e": "normal",
-				"fd017ccc19490de3278ee6": 30,
-				"fd017ccc194a11536a5987": 30,
-				"fd017ccc19fa91392f7c67": false,
-				"fd017ccc1d646379e265ce": "auto",
-				"fd017ccc75af283957d107": 1,
-				"fd017ccc75b1a1dbeb90bb": "allow-swap",
-				"fdff023000000000000011": "Slider",
-				"ff023000000000000011": "Slider",
-				"v": 74
-			},
-			"t": "017ccc0836d9bfb1e46f"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Sliders allow users to make selections from a range of values.",
-				"01703376c4a81c0e9d92": "Sliders reflect a range of values along a bar, from which users may select a single value. They are ideal for adjusting settings such as volume, brightness, or applying image filters.\n<br><br>\nThis component also support range slider, where `Value 1` is always the minimum and `Value 2` is always the maximum. You can also have different behaviors with the `Range Behavior` and `Range Min Distance` properties, more info <a href=\"https://mui.com/components/slider/#minimum-distance\" target=\"_blank\">here</a>.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.\n<br><br>\n<b>Note</b>: Slider is typically implemented using the <b>`Feed Object Property / Feed UI Property`</b> bricks (instead of Set Object Property/Set UI Property) due to their burst transactions nature which allows behaving more like a function rather than as an action, having a more efficient update mechanism.",
-				"v": 277
-			},
-			"t": "017ccc084e399b0a5b81"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 11,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 24
-			},
-			"t": "017ccc09d80a6b115ca3"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Color",
-				"v": 7
-			},
-			"t": "017ccc09d80ae350139a"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The color of the component. It supports those theme colors that make sense for this component.",
-				"v": 3
-			},
-			"t": "017ccc09d84b79980a0a"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Color Override",
-				"v": 16
-			},
-			"t": "017ccc0d047094a13dd4"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 12,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 18
-			},
-			"t": "017ccc0d047159a12ebd"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "If different than transparent, overrides the `Color` property.",
-				"v": 64
-			},
-			"t": "017ccc0d049632d8293d"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Disabled",
-				"v": 10
-			},
-			"t": "017ccc0e39c319984246"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 5,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 14
-			},
-			"t": "017ccc0e39c3e1809a93"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "If true, the component is disabled.",
-				"v": 3
-			},
-			"t": "017ccc0e39edccfd5e49"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Enable Marks",
-				"v": 14
-			},
-			"t": "017ccc1103153d76c533"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 9,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 16
-			},
-			"t": "017ccc110315fe168479"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Marks indicate predetermined values to which the user can move the slider. If true the marks are spaced according the value of the `Step` property.",
-				"v": 14
-			},
-			"t": "017ccc11033516202c0f"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Min",
-				"v": 5
-			},
-			"t": "017ccc11c8fc7aaec612"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 2,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 12
-			},
-			"t": "017ccc11c8fcac15c286"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The minimum allowed value of the slider. Should not be equal to max.",
-				"v": 3
-			},
-			"t": "017ccc11c91bcc08722f"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 3,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 12
-			},
-			"t": "017ccc11c9b93517cae4"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Max",
-				"v": 5
-			},
-			"t": "017ccc11c9b9da217eb7"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The maximum allowed value of the slider. Should not be equal to min.",
-				"v": 3
-			},
-			"t": "017ccc11c9f902588bc4"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 0,
-				"016d1bb681929c2cc3f3": false,
-				"0170beccaac4129d72a9": true,
-				"v": 3
-			},
-			"t": "017ccc12abc30261ae1e"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "On Change",
-				"v": 11
-			},
-			"t": "017ccc12abc34283feca"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Callback function that is fired when the slider's value changed.",
-				"v": 3
-			},
-			"t": "017ccc12abd0a0e6da2c"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "On Change Committed",
-				"v": 21
-			},
-			"t": "017ccc12aff676409627"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 1,
-				"016d1bb681929c2cc3f3": false,
-				"0170beccaac4129d72a9": true,
-				"v": 3
-			},
-			"t": "017ccc12aff71d72f1d1"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Callback function that is fired when the `mouseup` is triggered.",
-				"v": 23
-			},
-			"t": "017ccc12b004013ace24"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Orientation",
-				"v": 13
-			},
-			"t": "017ccc13ee8936fcb28c"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 10,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 14
-			},
-			"t": "017ccc13ee899bcf879d"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The component orientation.",
-				"v": 3
-			},
-			"t": "017ccc13eeb5a30b3825"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 13,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 12
-			},
-			"t": "017ccc1462456dbc56c9"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Size",
-				"v": 6
-			},
-			"t": "017ccc1462458b36eda0"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The size of the slider.",
-				"v": 3
-			},
-			"t": "017ccc1462692ace74e3"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 4,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 14
-			},
-			"t": "017ccc156daba42bc82c"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Step",
-				"v": 6
-			},
-			"t": "017ccc156dabd73ed151"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The granularity with which the slider can step through values. (A \"discrete\" slider.) The `Min` prop serves as the origin for the valid values. We recommend (max - min) to be evenly divisible by the step.",
-				"v": 9
-			},
-			"t": "017ccc156ddaf2fc383b"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "MUI sx [json]",
-				"v": 15
-			},
-			"t": "017ccc1630a6b54ea811"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 16,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 13
-			},
-			"t": "017ccc1630a6b64f45e8"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The system prop that allows defining MUI system overrides as well as additional CSS styles.<br><br>The `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.<br><br>**Example:** <br> `{\"backgroundColor\":\"red\", \"fontSize\":\"60px\"}`<br> which is the equivalent of the CSS style  <br>`background-color:red; font-size:60px;`<br> written with the camelCase syntax",
-				"v": 9
-			},
-			"t": "017ccc1630d5decf00e7"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 14,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 12
-			},
-			"t": "017ccc18499a4d0048b9"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Track",
-				"v": 7
-			},
-			"t": "017ccc18499ad39b1f3e"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The track presentation: \"Normal\" the track will render a bar representing the slider value. \"Inverted\" the track will render a bar representing the remaining slider value. \"No Track\" the track will render without a bar.",
-				"v": 27
-			},
-			"t": "017ccc1849bf17859e15"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 0,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 17
-			},
-			"t": "017ccc19490da4f0016d"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Value 1",
-				"v": 15
-			},
-			"t": "017ccc19490de3278ee6"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The value 1 of the slider.",
-				"v": 98
-			},
-			"t": "017ccc194935dfb8ea47"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Value 2",
-				"v": 11
-			},
-			"t": "017ccc194a11536a5987"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 1,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 17
-			},
-			"t": "017ccc194a116cc7239a"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The value 2 of the slider, only used when `Use Range` is true.",
-				"v": 79
-			},
-			"t": "017ccc194a348df5c048"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Use Range",
-				"v": 11
-			},
-			"t": "017ccc19fa91392f7c67"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 6,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 15
-			},
-			"t": "017ccc19fa91696e4601"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "If true, the slider will provide 2 values: `Value 1` and `Value 2`.",
-				"v": 83
-			},
-			"t": "017ccc19faada47187e8"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Label Display",
-				"v": 15
-			},
-			"t": "017ccc1d646379e265ce"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 15,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 9
-			},
-			"t": "017ccc1d6463a4c3aa34"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Controls when the value label is displayed: \"Auto\" the value label will display when the thumb is hovered or focused. \"On\" will display persistently. \"Off\" will never display.",
-				"v": 19
-			},
-			"t": "017ccc1d64b529e4eb14"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Range Min Distance",
-				"v": 20
-			},
-			"t": "017ccc75af283957d107"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 8,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 15
-			},
-			"t": "017ccc75af28b3083dee"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Minimum distance between values when `Use Range` is true and its `Range Behavior` is set to use it.",
-				"v": 85
-			},
-			"t": "017ccc75af4fe0b21d17"
-		},
-		{
-			"o": 1,
-			"p": {
-				"016d1bb681929c2cc3f1": 7,
-				"016d1bb681929c2cc3f3": true,
-				"0170beccaac4129d72a9": true,
-				"v": 15
-			},
-			"t": "017ccc75b1a15fcdfd60"
-		},
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "Range Behavior",
-				"v": 16
-			},
-			"t": "017ccc75b1a1dbeb90bb"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Range behavior when `Use Range` is true.",
-				"v": 44
-			},
-			"t": "017ccc75b1d27918c516"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "017ccc0836d9bfb1e46f"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01609de3f292e3c2c6ff": "",
+    "01621fb84e320000f001": "public",
+    "fd01611d99ec0553b5926e": 100,
+    "fd01611d9a0452a179c68f": 20,
+    "fd017ccc09d80ae350139a": "primary",
+    "fd017ccc0d047094a13dd4": {
+     "a": 0,
+     "b": 0,
+     "c": 7,
+     "g": 0,
+     "r": 0
+    },
+    "fd017ccc0e39c319984246": false,
+    "fd017ccc0fb0f99ff7b22f": false,
+    "fd017ccc1103153d76c533": false,
+    "fd017ccc11c8fc7aaec612": 0,
+    "fd017ccc11c9b9da217eb7": 100,
+    "fd017ccc13ee8936fcb28c": "horizontal",
+    "fd017ccc1462458b36eda0": "medium",
+    "fd017ccc156dabd73ed151": 1,
+    "fd017ccc1630a6b54ea811": "{}",
+    "fd017ccc18499ad39b1f3e": "normal",
+    "fd017ccc19490de3278ee6": 30,
+    "fd017ccc194a11536a5987": 30,
+    "fd017ccc19fa91392f7c67": false,
+    "fd017ccc1d646379e265ce": "auto",
+    "fd017ccc75af283957d107": 1,
+    "fd017ccc75b1a1dbeb90bb": "allow-swap",
+    "fdff023000000000000011": "Slider",
+    "ff023000000000000011": "Slider",
+    "v": 74
+   },
+   "t": "017ccc0836d9bfb1e46f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Sliders allow users to make selections from a range of values.",
+    "01703376c4a81c0e9d92": "Sliders reflect a range of values along a bar, from which users may select a single value. They are ideal for adjusting settings such as volume, brightness, or applying image filters.\n<br><br>\nThis component also support range slider, where `Value 1` is always the minimum and `Value 2` is always the maximum. You can also have different behaviors with the `Range Behavior` and `Range Min Distance` properties, more info <a href=\"https://mui.com/components/slider/#minimum-distance\" target=\"_blank\">here</a>.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.\n<br><br>\n<b>Note</b>: Slider is typically implemented using the <b>`Feed Object Property / Feed UI Property`</b> bricks (instead of Set Object Property/Set UI Property) due to their burst transactions nature which allows behaving more like a function rather than as an action, having a more efficient update mechanism.",
+    "v": 277
+   },
+   "t": "017ccc084e399b0a5b81"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 11,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 24
+   },
+   "t": "017ccc09d80a6b115ca3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Color",
+    "v": 7
+   },
+   "t": "017ccc09d80ae350139a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The color of the component. It supports those theme colors that make sense for this component.",
+    "v": 3
+   },
+   "t": "017ccc09d84b79980a0a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Color Override",
+    "v": 16
+   },
+   "t": "017ccc0d047094a13dd4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 12,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 18
+   },
+   "t": "017ccc0d047159a12ebd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "If different than transparent, overrides the `Color` property.",
+    "v": 64
+   },
+   "t": "017ccc0d049632d8293d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Disabled",
+    "v": 10
+   },
+   "t": "017ccc0e39c319984246"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 5,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 14
+   },
+   "t": "017ccc0e39c3e1809a93"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "If true, the component is disabled.",
+    "v": 3
+   },
+   "t": "017ccc0e39edccfd5e49"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Enable Marks",
+    "v": 14
+   },
+   "t": "017ccc1103153d76c533"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 9,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 16
+   },
+   "t": "017ccc110315fe168479"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Marks indicate predetermined values to which the user can move the slider. If true the marks are spaced according the value of the `Step` property.",
+    "v": 14
+   },
+   "t": "017ccc11033516202c0f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Min",
+    "v": 5
+   },
+   "t": "017ccc11c8fc7aaec612"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 2,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 12
+   },
+   "t": "017ccc11c8fcac15c286"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The minimum allowed value of the slider. Should not be equal to max.",
+    "v": 3
+   },
+   "t": "017ccc11c91bcc08722f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 3,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 12
+   },
+   "t": "017ccc11c9b93517cae4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Max",
+    "v": 5
+   },
+   "t": "017ccc11c9b9da217eb7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The maximum allowed value of the slider. Should not be equal to min.",
+    "v": 3
+   },
+   "t": "017ccc11c9f902588bc4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 0,
+    "016d1bb681929c2cc3f3": false,
+    "0170beccaac4129d72a9": true,
+    "v": 3
+   },
+   "t": "017ccc12abc30261ae1e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "On Change",
+    "v": 11
+   },
+   "t": "017ccc12abc34283feca"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Callback function that is fired when the slider's value changed.",
+    "v": 3
+   },
+   "t": "017ccc12abd0a0e6da2c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "On Change Committed",
+    "v": 21
+   },
+   "t": "017ccc12aff676409627"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 1,
+    "016d1bb681929c2cc3f3": false,
+    "0170beccaac4129d72a9": true,
+    "v": 3
+   },
+   "t": "017ccc12aff71d72f1d1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Callback function that is fired when the `mouseup` is triggered.",
+    "v": 23
+   },
+   "t": "017ccc12b004013ace24"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Orientation",
+    "v": 13
+   },
+   "t": "017ccc13ee8936fcb28c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 10,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 14
+   },
+   "t": "017ccc13ee899bcf879d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The component orientation.",
+    "v": 3
+   },
+   "t": "017ccc13eeb5a30b3825"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 13,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 12
+   },
+   "t": "017ccc1462456dbc56c9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Size",
+    "v": 6
+   },
+   "t": "017ccc1462458b36eda0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The size of the slider.",
+    "v": 3
+   },
+   "t": "017ccc1462692ace74e3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 4,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 14
+   },
+   "t": "017ccc156daba42bc82c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Step",
+    "v": 6
+   },
+   "t": "017ccc156dabd73ed151"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The granularity with which the slider can step through values. (A \"discrete\" slider.) The `Min` prop serves as the origin for the valid values. We recommend (max - min) to be evenly divisible by the step.",
+    "v": 9
+   },
+   "t": "017ccc156ddaf2fc383b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "MUI sx [json]",
+    "v": 15
+   },
+   "t": "017ccc1630a6b54ea811"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 16,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 13
+   },
+   "t": "017ccc1630a6b64f45e8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The system prop that allows defining MUI system overrides as well as additional CSS styles.<br><br>The `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.<br><br>**Example:** <br> `{\"backgroundColor\":\"red\", \"fontSize\":\"60px\"}`<br> which is the equivalent of the CSS style  <br>`background-color:red; font-size:60px;`<br> written with the camelCase syntax",
+    "v": 9
+   },
+   "t": "017ccc1630d5decf00e7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 14,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 12
+   },
+   "t": "017ccc18499a4d0048b9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Track",
+    "v": 7
+   },
+   "t": "017ccc18499ad39b1f3e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The track presentation: \"Normal\" the track will render a bar representing the slider value. \"Inverted\" the track will render a bar representing the remaining slider value. \"No Track\" the track will render without a bar.",
+    "v": 27
+   },
+   "t": "017ccc1849bf17859e15"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 0,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 17
+   },
+   "t": "017ccc19490da4f0016d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Value 1",
+    "v": 15
+   },
+   "t": "017ccc19490de3278ee6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The value 1 of the slider.",
+    "v": 98
+   },
+   "t": "017ccc194935dfb8ea47"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Value 2",
+    "v": 11
+   },
+   "t": "017ccc194a11536a5987"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 1,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 17
+   },
+   "t": "017ccc194a116cc7239a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The value 2 of the slider, only used when `Use Range` is true.",
+    "v": 79
+   },
+   "t": "017ccc194a348df5c048"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Use Range",
+    "v": 11
+   },
+   "t": "017ccc19fa91392f7c67"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 6,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 15
+   },
+   "t": "017ccc19fa91696e4601"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "If true, the slider will provide 2 values: `Value 1` and `Value 2`.",
+    "v": 83
+   },
+   "t": "017ccc19faada47187e8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Label Display",
+    "v": 15
+   },
+   "t": "017ccc1d646379e265ce"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 15,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 9
+   },
+   "t": "017ccc1d6463a4c3aa34"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Controls when the value label is displayed: \"Auto\" the value label will display when the thumb is hovered or focused. \"On\" will display persistently. \"Off\" will never display.",
+    "v": 19
+   },
+   "t": "017ccc1d64b529e4eb14"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Range Min Distance",
+    "v": 20
+   },
+   "t": "017ccc75af283957d107"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 8,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 15
+   },
+   "t": "017ccc75af28b3083dee"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Minimum distance between values when `Use Range` is true and its `Range Behavior` is set to use it.",
+    "v": 85
+   },
+   "t": "017ccc75af4fe0b21d17"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 7,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 15
+   },
+   "t": "017ccc75b1a15fcdfd60"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Range Behavior",
+    "v": 16
+   },
+   "t": "017ccc75b1a1dbeb90bb"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Range behavior when `Use Range` is true.",
+    "v": 44
+   },
+   "t": "017ccc75b1d27918c516"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "017ccc0836d9bfb1e46f"
 }

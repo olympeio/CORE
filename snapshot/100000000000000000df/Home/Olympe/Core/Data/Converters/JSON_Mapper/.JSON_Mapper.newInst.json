@@ -1,14 +1,14 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"ff023000000000000011": "JSON Mapper"
-			},
-			"t": "0188202eff16c1cec3ad"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "0188202eff16c1cec3ad"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "JSON Mapper"
+   },
+   "t": "0188202eff16c1cec3ad"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0188202eff16c1cec3ad"
 }

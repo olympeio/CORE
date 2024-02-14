@@ -1,79 +1,79 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"01703376c4a81c0e9d94": "deprecated",
-				"fdff023000000000000011": "Add Element To List",
-				"ff023000000000000011": "Add Element To List",
-				"v": 3
-			},
-			"t": "0179c7aee952dc922de1"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "list",
-				"v": 1
-			},
-			"t": "0179c7b143cdeb92f5a9"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"ff023000000000000011": "object",
-				"v": 1
-			},
-			"t": "0179c7b16cb445aeb5da"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "list",
-				"v": 1
-			},
-			"t": "0179c7b1d8846a15aae2"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Adds an element to a list.",
-				"01703376c4a81c0e9d92": "Use [Add To List](/#editedItem=017fbda3e482d527fe45) instead.\n\nReason:\n- The brick doesn't change the source list, but creates a copy with the added element.\n***\nAdds en element to a list.",
-				"v": 12
-			},
-			"t": "017b35893b5c2fddff97"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The list in which the element will be added.",
-				"v": 1
-			},
-			"t": "017b35893f547f8b6496"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The element to add.",
-				"v": 1
-			},
-			"t": "017b35893f55f7c72fcb"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The result list, with the added element.",
-				"v": 1
-			},
-			"t": "017b35894274625c14be"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "0179c7aee952dc922de1"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "deprecated",
+    "fdff023000000000000011": "Add Element To List",
+    "ff023000000000000011": "Add Element To List",
+    "v": 3
+   },
+   "t": "0179c7aee952dc922de1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "list",
+    "v": 1
+   },
+   "t": "0179c7b143cdeb92f5a9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "object",
+    "v": 1
+   },
+   "t": "0179c7b16cb445aeb5da"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "list",
+    "v": 1
+   },
+   "t": "0179c7b1d8846a15aae2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Adds an element to a list.",
+    "01703376c4a81c0e9d92": "Use [Add To List](/#editedItem=017fbda3e482d527fe45) instead.\n\nReason:\n- The brick doesn't change the source list, but creates a copy with the added element.\n***\nAdds en element to a list.",
+    "v": 12
+   },
+   "t": "017b35893b5c2fddff97"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The list in which the element will be added.",
+    "v": 1
+   },
+   "t": "017b35893f547f8b6496"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The element to add.",
+    "v": 1
+   },
+   "t": "017b35893f55f7c72fcb"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The result list, with the added element.",
+    "v": 1
+   },
+   "t": "017b35894274625c14be"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0179c7aee952dc922de1"
 }

@@ -1,78 +1,78 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"fdff023000000000000011": "List To Enum",
-				"ff023000000000000011": "List To Enum",
-				"v": 2
-			},
-			"t": "017cc6aff41ef19ebff3"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Create an enum object based on a list.",
-				"01703376c4a81c0e9d92": "Transforms a list into an enum.\n\n<br>The function creates a new local enum object, and iterates on each item of the provided list. For each item the `transformer` creates a new enum element.",
-				"v": 225
-			},
-			"t": "017cc6b017fdde5100cd"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "list",
-				"v": 1
-			},
-			"t": "017cc6b022360416c775"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The list to iterate on.",
-				"v": 1
-			},
-			"t": "017cc6b022730f5074f9"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"ff023000000000000011": "transformer",
-				"v": 1
-			},
-			"t": "017cc6b02396ca30d791"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The function that transforms a list item to an enum value.<br>Inputs:<br>- `item (Object)`: The current list item to transform.<br>- `rank (Number)`: The rank of the current item.<br><br>Outputs:<br>- `value (String)`: The key value of the enum element to be created.<br>- `name (String)`: The display name of the enum element.<br>- `rank (Number)`: The rank of the enum element.",
-				"v": 351
-			},
-			"t": "017cc6b023c8f6f6ba13"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "enum",
-				"v": 1
-			},
-			"t": "017cc6b06436fcf69f10"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The created enum.",
-				"v": 1
-			},
-			"t": "017cc6b06451c3fdce2d"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "017cc6aff41ef19ebff3"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "List To Enum",
+    "ff023000000000000011": "List To Enum",
+    "v": 2
+   },
+   "t": "017cc6aff41ef19ebff3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Create an enum object based on a list.",
+    "01703376c4a81c0e9d92": "Transforms a list into an enum.\n\n<br>The function creates a new local enum object, and iterates on each item of the provided list. For each item the `transformer` creates a new enum element.",
+    "v": 225
+   },
+   "t": "017cc6b017fdde5100cd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "list",
+    "v": 1
+   },
+   "t": "017cc6b022360416c775"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The list to iterate on.",
+    "v": 1
+   },
+   "t": "017cc6b022730f5074f9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "transformer",
+    "v": 1
+   },
+   "t": "017cc6b02396ca30d791"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The function that transforms a list item to an enum value.<br>Inputs:<br>- `item (Object)`: The current list item to transform.<br>- `rank (Number)`: The rank of the current item.<br><br>Outputs:<br>- `value (String)`: The key value of the enum element to be created.<br>- `name (String)`: The display name of the enum element.<br>- `rank (Number)`: The rank of the enum element.",
+    "v": 351
+   },
+   "t": "017cc6b023c8f6f6ba13"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "enum",
+    "v": 1
+   },
+   "t": "017cc6b06436fcf69f10"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The created enum.",
+    "v": 1
+   },
+   "t": "017cc6b06451c3fdce2d"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "017cc6aff41ef19ebff3"
 }

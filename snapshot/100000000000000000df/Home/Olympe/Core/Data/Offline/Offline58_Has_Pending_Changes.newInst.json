@@ -1,41 +1,41 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"01703376c4a81c0e9d94": "stable",
-				"fdff023000000000000011": "Offline: Has Pending Changes",
-				"ff023000000000000011": "Offline: Has Pending Changes"
-			},
-			"t": "018a183dd3b7debf3dbd"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Indicate if changes have been made while offline and are not yet synced",
-				"01703376c4a81c0e9d92": "Indicate if changes have been made while offline and are not yet synced\n\nIf the output is true, you can use the brick \"Sync Changes\" to apply the changes"
-			},
-			"t": "018a183dfae98996b009"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "changes pending"
-			},
-			"t": "018a183e0b8be2dde8e5"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Has made changes while being offline"
-			},
-			"t": "018a183e0be61ae523ea"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "018a183dd3b7debf3dbd"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "Offline: Has Pending Changes",
+    "ff023000000000000011": "Offline: Has Pending Changes"
+   },
+   "t": "018a183dd3b7debf3dbd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Indicate if changes have been made while offline and are not yet synced",
+    "01703376c4a81c0e9d92": "Indicate if changes have been made while offline and are not yet synced\n\nIf the output is true, you can use the brick \"Sync Changes\" to apply the changes"
+   },
+   "t": "018a183dfae98996b009"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "changes pending"
+   },
+   "t": "018a183e0b8be2dde8e5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Has made changes while being offline"
+   },
+   "t": "018a183e0be61ae523ea"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "018a183dd3b7debf3dbd"
 }

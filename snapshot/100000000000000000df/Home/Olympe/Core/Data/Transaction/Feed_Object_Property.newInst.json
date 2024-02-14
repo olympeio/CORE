@@ -1,130 +1,130 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"01703376c4a81c0e9d94": "stable",
-				"fdff023000000000000011": "Update Property",
-				"ff023000000000000011": "Feed Object Property",
-				"v": 2
-			},
-			"t": "017b9bbd4e0b670170ad"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Update a primitive property continuously with provided values.",
-				"01703376c4a81c0e9d92": "Update the specified property of the object continuously with the flow of values. \nIt is designed to handle multiple updates by second and generate ordered notifications to ensure smooth animations.\n\nIt has the same effect as `Set Object Property`, but behaves as a function rather than as an action, and has a more efficient update mechanism.",
-				"v": 162
-			},
-			"t": "017b9bbd888d8f52170d"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"ff023000000000000011": "object",
-				"v": 1
-			},
-			"t": "017b9bbfedb9da410abc"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The object to update.",
-				"v": 1
-			},
-			"t": "017b9bbfede96aa39207"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 2,
-				"ff023000000000000011": "property",
-				"v": 1
-			},
-			"t": "017b9bc048306cae842b"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The property of the object to update.",
-				"v": 1
-			},
-			"t": "017b9bc04871dade0f00"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 3,
-				"ff023000000000000011": "value",
-				"v": 1
-			},
-			"t": "017b9bc19197b4d3500e"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The value to set.",
-				"v": 29
-			},
-			"t": "017b9bc191c5c836d9b8"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"ff023000000000000011": "object",
-				"v": 1
-			},
-			"t": "017b9bc5ac2098a9f91c"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The updated object.",
-				"v": 1
-			},
-			"t": "017b9bc5ac40eca5b04f"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "control flow",
-				"v": 1
-			},
-			"t": "017b9c2a230c465001af"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Trigger the update.",
-				"v": 1
-			},
-			"t": "017b9c2a23375a5626c5"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "control flow",
-				"v": 1
-			},
-			"t": "017b9c2d221a718f2278"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Triggered after the update has been sent.",
-				"v": 1
-			},
-			"t": "017b9c2d223c2d6ce799"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "017b9bbd4e0b670170ad"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "Update Property",
+    "ff023000000000000011": "Feed Object Property",
+    "v": 2
+   },
+   "t": "017b9bbd4e0b670170ad"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Update a primitive property continuously with provided values.",
+    "01703376c4a81c0e9d92": "Update the specified property of the object continuously with the flow of values. \nIt is designed to handle multiple updates by second and generate ordered notifications to ensure smooth animations.\n\nIt has the same effect as `Set Object Property`, but behaves as a function rather than as an action, and has a more efficient update mechanism.",
+    "v": 162
+   },
+   "t": "017b9bbd888d8f52170d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "object",
+    "v": 1
+   },
+   "t": "017b9bbfedb9da410abc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The object to update.",
+    "v": 1
+   },
+   "t": "017b9bbfede96aa39207"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "property",
+    "v": 1
+   },
+   "t": "017b9bc048306cae842b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The property of the object to update.",
+    "v": 1
+   },
+   "t": "017b9bc04871dade0f00"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "ff023000000000000011": "value",
+    "v": 1
+   },
+   "t": "017b9bc19197b4d3500e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The value to set.",
+    "v": 29
+   },
+   "t": "017b9bc191c5c836d9b8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "object",
+    "v": 1
+   },
+   "t": "017b9bc5ac2098a9f91c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The updated object.",
+    "v": 1
+   },
+   "t": "017b9bc5ac40eca5b04f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "control flow",
+    "v": 1
+   },
+   "t": "017b9c2a230c465001af"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Trigger the update.",
+    "v": 1
+   },
+   "t": "017b9c2a23375a5626c5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "control flow",
+    "v": 1
+   },
+   "t": "017b9c2d221a718f2278"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Triggered after the update has been sent.",
+    "v": 1
+   },
+   "t": "017b9c2d223c2d6ce799"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "017b9bbd4e0b670170ad"
 }

@@ -1,62 +1,62 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"01703376c4a81c0e9d94": "deprecated",
-				"fdff023000000000000011": "List For Each Entries",
-				"ff023000000000000011": "List For Each Entries",
-				"v": 3
-			},
-			"t": "01718897a585de88f500"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "List",
-				"v": 1
-			},
-			"t": "01718897a585de88f510"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Entry",
-				"v": 1
-			},
-			"t": "01718897a585de88f520"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Get all existing entries of a list and watch for new entries.",
-				"01703376c4a81c0e9d92": "The brick outputs one object for each entry in the input list.\n\nFirst, get all entries existing before the execution of this function. Then, continuously outputs all new entries added to the watched list.",
-				"v": 1
-			},
-			"t": "017b35893b5fb715e2ec"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The list from which to get entries.",
-				"v": 1
-			},
-			"t": "017b35893f59d0fa2773"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "A single list entry.",
-				"v": 1
-			},
-			"t": "017b35894275cb940728"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "01718897a585de88f500"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "deprecated",
+    "fdff023000000000000011": "List For Each Entries",
+    "ff023000000000000011": "List For Each Entries",
+    "v": 3
+   },
+   "t": "01718897a585de88f500"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "List",
+    "v": 1
+   },
+   "t": "01718897a585de88f510"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Entry",
+    "v": 1
+   },
+   "t": "01718897a585de88f520"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Get all existing entries of a list and watch for new entries.",
+    "01703376c4a81c0e9d92": "The brick outputs one object for each entry in the input list.\n\nFirst, get all entries existing before the execution of this function. Then, continuously outputs all new entries added to the watched list.",
+    "v": 1
+   },
+   "t": "017b35893b5fb715e2ec"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The list from which to get entries.",
+    "v": 1
+   },
+   "t": "017b35893f59d0fa2773"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "A single list entry.",
+    "v": 1
+   },
+   "t": "017b35894275cb940728"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01718897a585de88f500"
 }

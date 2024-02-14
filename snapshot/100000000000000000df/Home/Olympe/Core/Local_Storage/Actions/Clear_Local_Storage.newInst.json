@@ -1,60 +1,60 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Control Flow",
-				"v": 1
-			},
-			"t": "017c262d269b8f4275e1"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"01703376c4a81c0e9d94": "stable",
-				"fdff023000000000000011": "Clear Local Storage",
-				"ff023000000000000011": "Clear Local Storage",
-				"v": 2
-			},
-			"t": "017c262d269bc6bed265"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Control Flow",
-				"v": 1
-			},
-			"t": "017c262d269cfb07067e"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Clear all the values stored",
-				"01703376c4a81c0e9d92": "Clear all the key/value pairs stored in the browser local storage",
-				"v": 1
-			},
-			"t": "017c263616cce09c72d1"
-		},
-		{
-			"o": 1,
-			"p": {
-				"v": 1
-			},
-			"t": "017d810ce7dee60a5dc9"
-		},
-		{
-			"o": 1,
-			"p": {
-				"v": 1
-			},
-			"t": "017d810ce808a90f8842"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "017c262d269bc6bed265"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "017c262d269b8f4275e1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "Clear Local Storage",
+    "ff023000000000000011": "Clear Local Storage",
+    "v": 2
+   },
+   "t": "017c262d269bc6bed265"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "017c262d269cfb07067e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Clear all the values stored",
+    "01703376c4a81c0e9d92": "Clear all the key/value pairs stored in the browser local storage",
+    "v": 1
+   },
+   "t": "017c263616cce09c72d1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "017d810ce7dee60a5dc9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "017d810ce808a90f8842"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "017c262d269bc6bed265"
 }

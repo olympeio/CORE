@@ -1,17 +1,17 @@
 {
-	"operations": [
-		{
-			"o": 2,
-			"p": {
-				"0168a431d91f25780001": {
-					"c": 8,
-					"t": "0183fa9ea1e5a2c3c3bd"
-				}
-			},
-			"t": "0183fa9e80400fc0087e"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "0183fa9c7c646881130b"
+ "operations": [
+  {
+   "o": 2,
+   "p": {
+    "0168a431d91f25780001": {
+     "c": 8,
+     "t": "0183fa9ea1e5a2c3c3bd"
+    }
+   },
+   "t": "0183fa9e80400fc0087e"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0183fa9c7c646881130b"
 }

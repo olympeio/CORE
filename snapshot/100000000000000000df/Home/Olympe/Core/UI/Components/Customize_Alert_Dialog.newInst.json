@@ -1,206 +1,206 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"fdff023000000000000011": "Create Transition",
-				"ff023000000000000011": "Customize Alert Dialog",
-				"v": 49
-			},
-			"t": "017cdfc8be25238c71ee"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Allows to customize an alert dialog created with the action `Show Alert Dialog`.",
-				"01703376c4a81c0e9d92": "Allows to customize an alert dialog created with the action `Show Alert Dialog`.\n<br><br>\nProvides transitions that can be used to introduce some basic motion to your applications. \n\nSee <a href=\"https://mui.com/components/transitions/\" target=\"_blank\">here</a> for more details.",
-				"v": 166
-			},
-			"t": "017cdfc8e45ba71791ac"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 3,
-				"01740c5d4ae4b520dd02": "fade",
-				"ff023000000000000011": "Transition Type",
-				"v": 23
-			},
-			"t": "017cdfd3804cadf6031f"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The transition type.",
-				"v": 28
-			},
-			"t": "017cdfd38084e6213a51"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 4,
-				"01740c5d4ae4b520dd02": "down",
-				"ff023000000000000011": "Transition Direction",
-				"v": 19
-			},
-			"t": "017cdfdbadf4241745ec"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Direction/orientation of the transition.",
-				"v": 34
-			},
-			"t": "017cdfdbae1365f4f060"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 5,
-				"01740c5d4ae4b520dd02": "none",
-				"ff023000000000000011": "Transition Easing",
-				"v": 27
-			},
-			"t": "017cdfdbb018f7e45f49"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The transition timing function.",
-				"v": 3
-			},
-			"t": "017cdfdbb037cda02189"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 7,
-				"01740c5d4ae4b520dd02": "none",
-				"ff023000000000000011": "Transition Exit Easing",
-				"v": 22
-			},
-			"t": "017cdfdbb256b91354cd"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The optional transition timing function for the exit.",
-				"v": 44
-			},
-			"t": "017cdfdbb27243763357"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 6,
-				"01740c5d4ae4b520dd02": "default",
-				"ff023000000000000011": "Transition Timeout",
-				"v": 26
-			},
-			"t": "017cdfdc11a9d4950e8c"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The duration for the transition, in milliseconds.",
-				"v": 3
-			},
-			"t": "017cdfdc11c3cfc34ca3"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 8,
-				"01740c5d4ae4b520dd02": "default",
-				"ff023000000000000011": "Transition Exit Timeout",
-				"v": 22
-			},
-			"t": "017cdfdc125ab7beda4b"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The optional duration for the exit transition, in milliseconds.",
-				"v": 18
-			},
-			"t": "017cdfdc12755483a7b4"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "Customization",
-				"v": 26
-			},
-			"t": "017cdfdff5a1c95bb0c9"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The resulting customization object.",
-				"v": 50
-			},
-			"t": "017cdfdff5b8ab3732a2"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"01740c5d4ae4b520dd02": false,
-				"ff023000000000000011": "Full Width",
-				"v": 21
-			},
-			"t": "017ce169483a0e0a3f11"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "If true, the dialog stretches to `Max Width`.",
-				"v": 3
-			},
-			"t": "017ce169487ad4e0495b"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"01740c5d4ae4b520dd02": "sm",
-				"ff023000000000000011": "Max Width",
-				"v": 19
-			},
-			"t": "017ce1694922bf27f4db"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Determine the max-width of the dialog. The dialog width grows with the size of the screen.",
-				"v": 3
-			},
-			"t": "017ce169494323fc6a0c"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 2,
-				"01740c5d4ae4b520dd02": "paper",
-				"ff023000000000000011": "Scroll",
-				"v": 16
-			},
-			"t": "017ce1694a409a5ae0c7"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "Determine the container for scrolling the dialog.",
-				"v": 3
-			},
-			"t": "017ce1694a5d83d5c874"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "017cdfc8be25238c71ee"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Create Transition",
+    "ff023000000000000011": "Customize Alert Dialog",
+    "v": 49
+   },
+   "t": "017cdfc8be25238c71ee"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Allows to customize an alert dialog created with the action `Show Alert Dialog`.",
+    "01703376c4a81c0e9d92": "Allows to customize an alert dialog created with the action `Show Alert Dialog`.\n<br><br>\nProvides transitions that can be used to introduce some basic motion to your applications. \n\nSee <a href=\"https://mui.com/components/transitions/\" target=\"_blank\">here</a> for more details.",
+    "v": 166
+   },
+   "t": "017cdfc8e45ba71791ac"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "01740c5d4ae4b520dd02": "fade",
+    "ff023000000000000011": "Transition Type",
+    "v": 23
+   },
+   "t": "017cdfd3804cadf6031f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The transition type.",
+    "v": 28
+   },
+   "t": "017cdfd38084e6213a51"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 4,
+    "01740c5d4ae4b520dd02": "down",
+    "ff023000000000000011": "Transition Direction",
+    "v": 19
+   },
+   "t": "017cdfdbadf4241745ec"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Direction/orientation of the transition.",
+    "v": 34
+   },
+   "t": "017cdfdbae1365f4f060"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 5,
+    "01740c5d4ae4b520dd02": "none",
+    "ff023000000000000011": "Transition Easing",
+    "v": 27
+   },
+   "t": "017cdfdbb018f7e45f49"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The transition timing function.",
+    "v": 3
+   },
+   "t": "017cdfdbb037cda02189"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 7,
+    "01740c5d4ae4b520dd02": "none",
+    "ff023000000000000011": "Transition Exit Easing",
+    "v": 22
+   },
+   "t": "017cdfdbb256b91354cd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The optional transition timing function for the exit.",
+    "v": 44
+   },
+   "t": "017cdfdbb27243763357"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 6,
+    "01740c5d4ae4b520dd02": "default",
+    "ff023000000000000011": "Transition Timeout",
+    "v": 26
+   },
+   "t": "017cdfdc11a9d4950e8c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The duration for the transition, in milliseconds.",
+    "v": 3
+   },
+   "t": "017cdfdc11c3cfc34ca3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 8,
+    "01740c5d4ae4b520dd02": "default",
+    "ff023000000000000011": "Transition Exit Timeout",
+    "v": 22
+   },
+   "t": "017cdfdc125ab7beda4b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The optional duration for the exit transition, in milliseconds.",
+    "v": 18
+   },
+   "t": "017cdfdc12755483a7b4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Customization",
+    "v": 26
+   },
+   "t": "017cdfdff5a1c95bb0c9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The resulting customization object.",
+    "v": 50
+   },
+   "t": "017cdfdff5b8ab3732a2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "01740c5d4ae4b520dd02": false,
+    "ff023000000000000011": "Full Width",
+    "v": 21
+   },
+   "t": "017ce169483a0e0a3f11"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "If true, the dialog stretches to `Max Width`.",
+    "v": 3
+   },
+   "t": "017ce169487ad4e0495b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "01740c5d4ae4b520dd02": "sm",
+    "ff023000000000000011": "Max Width",
+    "v": 19
+   },
+   "t": "017ce1694922bf27f4db"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Determine the max-width of the dialog. The dialog width grows with the size of the screen.",
+    "v": 3
+   },
+   "t": "017ce169494323fc6a0c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "01740c5d4ae4b520dd02": "paper",
+    "ff023000000000000011": "Scroll",
+    "v": 16
+   },
+   "t": "017ce1694a409a5ae0c7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Determine the container for scrolling the dialog.",
+    "v": 3
+   },
+   "t": "017ce1694a5d83d5c874"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "017cdfc8be25238c71ee"
 }

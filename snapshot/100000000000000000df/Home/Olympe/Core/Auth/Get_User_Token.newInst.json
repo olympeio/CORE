@@ -1,96 +1,96 @@
 {
-	"operations": [
-		{
-			"o": 1,
-			"p": {
-				"01621fb84e320000f001": "public",
-				"01692aa71f3108454479": true,
-				"01703376c4a81c0e9d94": "stable",
-				"fdff023000000000000011": "Get User Token",
-				"ff023000000000000011": "Get User Token",
-				"v": 6
-			},
-			"t": "017a34a31064c3fc1dee"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 0,
-				"ff023000000000000011": "token",
-				"v": 1
-			},
-			"t": "017a34a367fc3cd59965"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d91": "Gets the authentication token of the current Olympe user.",
-				"01703376c4a81c0e9d92": "Returns the authentication token currently used to identify the current Olympe session.",
-				"v": 8
-			},
-			"t": "017b35893b7fb409c6af"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The user's authentication token. Also known as 'Nonce'.",
-				"v": 32
-			},
-			"t": "017b35893f7ba0ba1a31"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 1,
-				"ff023000000000000011": "protocol",
-				"v": 10
-			},
-			"t": "018655e76256b816a6e5"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The protocol used by the IDP. e.g. 'saml'.",
-				"v": 50
-			},
-			"t": "018655e762a57d459cbc"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 2,
-				"ff023000000000000011": "IDP Name",
-				"v": 10
-			},
-			"t": "018655e77e1ef6f85c6c"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The name of the IDP, if any. e.g. 'olympe'.",
-				"v": 49
-			},
-			"t": "018655e77e62a136be6a"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01740c5d4ae4b520dd01": 3,
-				"ff023000000000000011": "Payload",
-				"v": 9
-			},
-			"t": "018655e7da1bd8c05035"
-		},
-		{
-			"o": 1,
-			"p": {
-				"01703376c4a81c0e9d92": "The payload returned by the IDP. Could be considered as the \"full token\".",
-				"v": 85
-			},
-			"t": "018655e7da68deabb22b"
-		}
-	],
-	"optionalOperations": [
-	],
-	"rootTag": "017a34a31064c3fc1dee"
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "Get User Token",
+    "ff023000000000000011": "Get User Token",
+    "v": 6
+   },
+   "t": "017a34a31064c3fc1dee"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "token",
+    "v": 1
+   },
+   "t": "017a34a367fc3cd59965"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Gets the authentication token of the current Olympe user.",
+    "01703376c4a81c0e9d92": "Returns the authentication token currently used to identify the current Olympe session.",
+    "v": 8
+   },
+   "t": "017b35893b7fb409c6af"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The user's authentication token. Also known as 'Nonce'.",
+    "v": 32
+   },
+   "t": "017b35893f7ba0ba1a31"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "protocol",
+    "v": 10
+   },
+   "t": "018655e76256b816a6e5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The protocol used by the IDP. e.g. 'saml'.",
+    "v": 50
+   },
+   "t": "018655e762a57d459cbc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "IDP Name",
+    "v": 10
+   },
+   "t": "018655e77e1ef6f85c6c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The name of the IDP, if any. e.g. 'olympe'.",
+    "v": 49
+   },
+   "t": "018655e77e62a136be6a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "ff023000000000000011": "Payload",
+    "v": 9
+   },
+   "t": "018655e7da1bd8c05035"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The payload returned by the IDP. Could be considered as the \"full token\".",
+    "v": 85
+   },
+   "t": "018655e7da68deabb22b"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "017a34a31064c3fc1dee"
 }
