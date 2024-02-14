@@ -1,1 +1,97 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"stable","fdff023000000000000011":"Decode URI Component","ff023000000000000011":"Decode URI Component","v":2},"t":"0179c79a6fb65e17624d"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"str","v":1},"t":"0179c79af682bb9dc031"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"decoded","v":1},"t":"0179c79b074bfd81208a"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"01740c5d4ae4b520dd02":false,"ff023000000000000011":"entire URL","v":1},"t":"0179c7c7dabd55cdd2a5"},{"o":1,"p":{"01703376c4a81c0e9d91":"Decodes a URI or URI component","01703376c4a81c0e9d92":"Calls the Javascript <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI\" target=\"_blank\">decodeURI</a> or <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent\" target=\"_blank\">decodeURIComponent</a> function.\n\n**Example**\n\n`This%20has%20a%20%25%20character%20` is decoded into `This has a % character`","v":69},"t":"017b5b1759c032ec7e4f"},{"o":1,"p":{"01703376c4a81c0e9d92":"The URI to be decoded.","v":1},"t":"017b5b175a1e0860ca44"},{"o":1,"p":{"01703376c4a81c0e9d92":"If `true`, `decodeURI` is called.","v":1},"t":"017b5b175a4c51869499"},{"o":1,"p":{"01703376c4a81c0e9d92":"The decoded URI.","v":1},"t":"017b5b175a8b5ecf764e"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"Error Flow","v":12},"t":"01811e67249f368e52eb"},{"o":1,"p":{"01703376c4a81c0e9d92":"Triggered by URI malformed input","v":32},"t":"01811e67250aefa770e0"}],"optionalOperations":[],"rootTag":"0179c79a6fb65e17624d"}
+{
+	"operations": [
+		{
+			"o": 1,
+			"p": {
+				"01621fb84e320000f001": "public",
+				"01692aa71f3108454479": true,
+				"01703376c4a81c0e9d94": "stable",
+				"fdff023000000000000011": "Decode URI Component",
+				"ff023000000000000011": "Decode URI Component",
+				"v": 2
+			},
+			"t": "0179c79a6fb65e17624d"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "str",
+				"v": 1
+			},
+			"t": "0179c79af682bb9dc031"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "decoded",
+				"v": 1
+			},
+			"t": "0179c79b074bfd81208a"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 1,
+				"01740c5d4ae4b520dd02": false,
+				"ff023000000000000011": "entire URL",
+				"v": 1
+			},
+			"t": "0179c7c7dabd55cdd2a5"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d91": "Decodes a URI or URI component",
+				"01703376c4a81c0e9d92": "Calls the Javascript <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI\" target=\"_blank\">decodeURI</a> or <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent\" target=\"_blank\">decodeURIComponent</a> function.\n\n**Example**\n\n`This%20has%20a%20%25%20character%20` is decoded into `This has a % character`",
+				"v": 69
+			},
+			"t": "017b5b1759c032ec7e4f"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The URI to be decoded.",
+				"v": 1
+			},
+			"t": "017b5b175a1e0860ca44"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "If `true`, `decodeURI` is called.",
+				"v": 1
+			},
+			"t": "017b5b175a4c51869499"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The decoded URI.",
+				"v": 1
+			},
+			"t": "017b5b175a8b5ecf764e"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 1,
+				"ff023000000000000011": "Error Flow",
+				"v": 12
+			},
+			"t": "01811e67249f368e52eb"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "Triggered by URI malformed input",
+				"v": 32
+			},
+			"t": "01811e67250aefa770e0"
+		}
+	],
+	"optionalOperations": [
+	],
+	"rootTag": "0179c79a6fb65e17624d"
+}

@@ -1,1 +1,132 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01703376c4a81c0e9d94":"stable","fdff023000000000000011":"Defaults Empty String","ff023000000000000011":"Defaults Empty String","v":26},"t":"01779a3618cd987de475"},{"o":1,"p":{"01621f6ab58c2f884654":20026,"01621f6ab6ac89348f20":19897,"v":1},"t":"01779a364ac1347201e2"},{"o":1,"p":{"01621fb84e320000f001":"private","v":1},"t":"01779a364ac1f5c41a9e"},{"o":1,"p":{"v":1},"t":"01779a3663ba06d15aff"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"New output","v":1},"t":"01779a3663ba67962343"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"s","v":1},"t":"01779a3663bac0c354da"},{"o":1,"p":{"v":1},"t":"01779a3689cb1586351b"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"New input","v":1},"t":"01779a3689cb8fd81edd"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"s","v":1},"t":"01779a3689cbf4912fa4"},{"o":1,"p":{"v":1},"t":"01779a368fb404b48b41"},{"o":1,"p":{"v":1},"t":"017a852f2998db707daa"},{"o":1,"p":{"0168a431d91f25780001":"","v":1},"t":"017a852f2bb42d9d6ab6"},{"o":1,"p":{"01703376c4a81c0e9d91":"Defaults the value block to an empty string","01703376c4a81c0e9d92":"Defaults the value block to an empty string","v":28},"t":"017ba1a642a10cd497d2"},{"o":1,"p":{"01703376c4a81c0e9d92":"The string to be checked if it is defined or not","v":74},"t":"017ba1a64347e1ae23b1"},{"o":1,"p":{"01703376c4a81c0e9d92":"The result","v":87},"t":"017ba1a6437a13e3f390"}],"optionalOperations":[],"rootTag":"01779a3618cd987de475"}
+{
+	"operations": [
+		{
+			"o": 1,
+			"p": {
+				"01621fb84e320000f001": "public",
+				"01703376c4a81c0e9d94": "stable",
+				"fdff023000000000000011": "Defaults Empty String",
+				"ff023000000000000011": "Defaults Empty String",
+				"v": 26
+			},
+			"t": "01779a3618cd987de475"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01621f6ab58c2f884654": 20026,
+				"01621f6ab6ac89348f20": 19897,
+				"v": 1
+			},
+			"t": "01779a364ac1347201e2"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01621fb84e320000f001": "private",
+				"v": 1
+			},
+			"t": "01779a364ac1f5c41a9e"
+		},
+		{
+			"o": 1,
+			"p": {
+				"v": 1
+			},
+			"t": "01779a3663ba06d15aff"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "New output",
+				"v": 1
+			},
+			"t": "01779a3663ba67962343"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "s",
+				"v": 1
+			},
+			"t": "01779a3663bac0c354da"
+		},
+		{
+			"o": 1,
+			"p": {
+				"v": 1
+			},
+			"t": "01779a3689cb1586351b"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "New input",
+				"v": 1
+			},
+			"t": "01779a3689cb8fd81edd"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "s",
+				"v": 1
+			},
+			"t": "01779a3689cbf4912fa4"
+		},
+		{
+			"o": 1,
+			"p": {
+				"v": 1
+			},
+			"t": "01779a368fb404b48b41"
+		},
+		{
+			"o": 1,
+			"p": {
+				"v": 1
+			},
+			"t": "017a852f2998db707daa"
+		},
+		{
+			"o": 1,
+			"p": {
+				"0168a431d91f25780001": "",
+				"v": 1
+			},
+			"t": "017a852f2bb42d9d6ab6"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d91": "Defaults the value block to an empty string",
+				"01703376c4a81c0e9d92": "Defaults the value block to an empty string",
+				"v": 28
+			},
+			"t": "017ba1a642a10cd497d2"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The string to be checked if it is defined or not",
+				"v": 74
+			},
+			"t": "017ba1a64347e1ae23b1"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The result",
+				"v": 87
+			},
+			"t": "017ba1a6437a13e3f390"
+		}
+	],
+	"optionalOperations": [
+	],
+	"rootTag": "01779a3618cd987de475"
+}

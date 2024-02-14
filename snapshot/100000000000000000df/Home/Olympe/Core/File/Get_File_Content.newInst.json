@@ -1,1 +1,109 @@
-{"operations":[{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow","v":1},"t":"0179e54f2f4b5630399a"},{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"stable","fdff023000000000000011":"Get File Content","ff023000000000000011":"Get File Content","v":2},"t":"0179e54f2f4c25c47003"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow","v":1},"t":"0179e54f2f4d621b7223"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"file","v":1},"t":"0179e54f2f4e4037de0f"},{"o":1,"p":{"01740c5d4ae4b520dd01":2,"ff023000000000000011":"content","v":1},"t":"0179e54f2f4fd4e331ed"},{"o":1,"p":{"01703376c4a81c0e9d91":"Get the text or Base64 content of a file","01703376c4a81c0e9d92":"Get the file content, as a plain string for MIME types text/* and application/json. For other MIME types, a string encoded in Base64 is returned.","v":1},"t":"017b35893b331432e499"},{"o":1,"p":{"01703376c4a81c0e9d92":"The file to be read.","v":1},"t":"017b35893f1407ccb273"},{"o":1,"p":{"01703376c4a81c0e9d92":"The text or Base64 content of the file.","v":1},"t":"017b3589426f62cfaf08"},{"o":1,"p":{"v":1},"t":"018041c90f5fa903488c"},{"o":1,"p":{"v":1},"t":"018041c90fe2363cf947"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"Error Flow"},"t":"0189224fb30f5f0bfe2a"},{"o":1,"p":{"01703376c4a81c0e9d92":"Propagate an error if an issue occurs while getting the binary content"},"t":"0189224fb37bb78334ba"}],"optionalOperations":[],"rootTag":"0179e54f2f4c25c47003"}
+{
+	"operations": [
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "Control Flow",
+				"v": 1
+			},
+			"t": "0179e54f2f4b5630399a"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01621fb84e320000f001": "public",
+				"01692aa71f3108454479": true,
+				"01703376c4a81c0e9d94": "stable",
+				"fdff023000000000000011": "Get File Content",
+				"ff023000000000000011": "Get File Content",
+				"v": 2
+			},
+			"t": "0179e54f2f4c25c47003"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "Control Flow",
+				"v": 1
+			},
+			"t": "0179e54f2f4d621b7223"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 1,
+				"ff023000000000000011": "file",
+				"v": 1
+			},
+			"t": "0179e54f2f4e4037de0f"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 2,
+				"ff023000000000000011": "content",
+				"v": 1
+			},
+			"t": "0179e54f2f4fd4e331ed"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d91": "Get the text or Base64 content of a file",
+				"01703376c4a81c0e9d92": "Get the file content, as a plain string for MIME types text/* and application/json. For other MIME types, a string encoded in Base64 is returned.",
+				"v": 1
+			},
+			"t": "017b35893b331432e499"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The file to be read.",
+				"v": 1
+			},
+			"t": "017b35893f1407ccb273"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The text or Base64 content of the file.",
+				"v": 1
+			},
+			"t": "017b3589426f62cfaf08"
+		},
+		{
+			"o": 1,
+			"p": {
+				"v": 1
+			},
+			"t": "018041c90f5fa903488c"
+		},
+		{
+			"o": 1,
+			"p": {
+				"v": 1
+			},
+			"t": "018041c90fe2363cf947"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 1,
+				"ff023000000000000011": "Error Flow"
+			},
+			"t": "0189224fb30f5f0bfe2a"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "Propagate an error if an issue occurs while getting the binary content"
+			},
+			"t": "0189224fb37bb78334ba"
+		}
+	],
+	"optionalOperations": [
+	],
+	"rootTag": "0179e54f2f4c25c47003"
+}

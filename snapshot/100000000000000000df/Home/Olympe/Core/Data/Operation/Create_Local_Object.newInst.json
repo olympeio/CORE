@@ -1,1 +1,62 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"stable","fdff023000000000000011":"Create Local Object","ff023000000000000011":"Create Local Object","v":2},"t":"016778ac951d2b536b23"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"object","v":1},"t":"016778ac9e05c7adc095"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"data type","v":1},"t":"016778b236638293bbc2"},{"o":1,"p":{"01703376c4a81c0e9d91":"Create a Local Object of the specified type.","01703376c4a81c0e9d92":"Creates an instance of the specified data type. It is said to be `local` because it is not yet persisted in the main database. See `Persist Object` for how to persist in the database a newly created local object.","v":1},"t":"017b35893b39c55eedb4"},{"o":1,"p":{"01703376c4a81c0e9d92":"The model of the instance.","v":1},"t":"017b35893f18640a0130"},{"o":1,"p":{"01703376c4a81c0e9d92":"The created instance.","v":1},"t":"017b35894270e9f488b0"}],"optionalOperations":[],"rootTag":"016778ac951d2b536b23"}
+{
+	"operations": [
+		{
+			"o": 1,
+			"p": {
+				"01621fb84e320000f001": "public",
+				"01692aa71f3108454479": true,
+				"01703376c4a81c0e9d94": "stable",
+				"fdff023000000000000011": "Create Local Object",
+				"ff023000000000000011": "Create Local Object",
+				"v": 2
+			},
+			"t": "016778ac951d2b536b23"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "object",
+				"v": 1
+			},
+			"t": "016778ac9e05c7adc095"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "data type",
+				"v": 1
+			},
+			"t": "016778b236638293bbc2"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d91": "Create a Local Object of the specified type.",
+				"01703376c4a81c0e9d92": "Creates an instance of the specified data type. It is said to be `local` because it is not yet persisted in the main database. See `Persist Object` for how to persist in the database a newly created local object.",
+				"v": 1
+			},
+			"t": "017b35893b39c55eedb4"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The model of the instance.",
+				"v": 1
+			},
+			"t": "017b35893f18640a0130"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The created instance.",
+				"v": 1
+			},
+			"t": "017b35894270e9f488b0"
+		}
+	],
+	"optionalOperations": [
+	],
+	"rootTag": "016778ac951d2b536b23"
+}

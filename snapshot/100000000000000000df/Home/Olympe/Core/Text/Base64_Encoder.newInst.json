@@ -1,1 +1,80 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"stable","fdff023000000000000011":"Base64 Encoder","ff023000000000000011":"Base64 Encoder","v":2},"t":"016cb9162263a22bcaba"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"input","v":1},"t":"016cb9162263a22bcabb"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"01740c5d4ae4b520dd02":"UTF-8","ff023000000000000011":"encoding","v":1},"t":"016cb9162263a22bcabc"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"base64 string","v":1},"t":"016cb9162263a22bcabd"},{"o":1,"p":{"01703376c4a81c0e9d91":"Encode to Base64","01703376c4a81c0e9d92":"Encode a UTF-8 or binary string into Base64","v":1},"t":"017b35893b9b2d5e3375"},{"o":1,"p":{"01703376c4a81c0e9d92":"The string to encode","v":1},"t":"017b35893f9e3092c47d"},{"o":1,"p":{"01703376c4a81c0e9d92":"The encoding of the input (`UTF-8`or `binary`)","v":1},"t":"017b35893f9e8ee7541a"},{"o":1,"p":{"01703376c4a81c0e9d92":"","v":1},"t":"017b3589429530fa2bfc"}],"optionalOperations":[],"rootTag":"016cb9162263a22bcaba"}
+{
+	"operations": [
+		{
+			"o": 1,
+			"p": {
+				"01621fb84e320000f001": "public",
+				"01692aa71f3108454479": true,
+				"01703376c4a81c0e9d94": "stable",
+				"fdff023000000000000011": "Base64 Encoder",
+				"ff023000000000000011": "Base64 Encoder",
+				"v": 2
+			},
+			"t": "016cb9162263a22bcaba"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "input",
+				"v": 1
+			},
+			"t": "016cb9162263a22bcabb"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 1,
+				"01740c5d4ae4b520dd02": "UTF-8",
+				"ff023000000000000011": "encoding",
+				"v": 1
+			},
+			"t": "016cb9162263a22bcabc"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "base64 string",
+				"v": 1
+			},
+			"t": "016cb9162263a22bcabd"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d91": "Encode to Base64",
+				"01703376c4a81c0e9d92": "Encode a UTF-8 or binary string into Base64",
+				"v": 1
+			},
+			"t": "017b35893b9b2d5e3375"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The string to encode",
+				"v": 1
+			},
+			"t": "017b35893f9e3092c47d"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The encoding of the input (`UTF-8`or `binary`)",
+				"v": 1
+			},
+			"t": "017b35893f9e8ee7541a"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "",
+				"v": 1
+			},
+			"t": "017b3589429530fa2bfc"
+		}
+	],
+	"optionalOperations": [
+	],
+	"rootTag": "016cb9162263a22bcaba"
+}

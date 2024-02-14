@@ -1,1 +1,79 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"stable","fdff023000000000000011":"Index Of","ff023000000000000011":"Index Of","v":2},"t":"01626bffe70e5120c69c"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"s1","v":1},"t":"01626c0147e6fbba2cb8"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"s2","v":1},"t":"01626c02364ed0bc99b4"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"s1.indexOf(s2)","v":1},"t":"01626c02b5e42f5083b8"},{"o":1,"p":{"01703376c4a81c0e9d91":"Gets the position of a string inside another one.","01703376c4a81c0e9d92":"Gets the position of string s2 in string s1. The index starts at zero, and is set to -1 if the substring is not present.","v":1},"t":"017b35893b99e306b098"},{"o":1,"p":{"01703376c4a81c0e9d92":"The substring to search for.","v":1},"t":"017b35893f9d3ff7ab6f"},{"o":1,"p":{"01703376c4a81c0e9d92":"The string to search in.","v":1},"t":"017b35893f9d77462011"},{"o":1,"p":{"01703376c4a81c0e9d92":"The index.","v":1},"t":"017b35894294973aff6f"}],"optionalOperations":[],"rootTag":"01626bffe70e5120c69c"}
+{
+	"operations": [
+		{
+			"o": 1,
+			"p": {
+				"01621fb84e320000f001": "public",
+				"01692aa71f3108454479": true,
+				"01703376c4a81c0e9d94": "stable",
+				"fdff023000000000000011": "Index Of",
+				"ff023000000000000011": "Index Of",
+				"v": 2
+			},
+			"t": "01626bffe70e5120c69c"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "s1",
+				"v": 1
+			},
+			"t": "01626c0147e6fbba2cb8"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 1,
+				"ff023000000000000011": "s2",
+				"v": 1
+			},
+			"t": "01626c02364ed0bc99b4"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "s1.indexOf(s2)",
+				"v": 1
+			},
+			"t": "01626c02b5e42f5083b8"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d91": "Gets the position of a string inside another one.",
+				"01703376c4a81c0e9d92": "Gets the position of string s2 in string s1. The index starts at zero, and is set to -1 if the substring is not present.",
+				"v": 1
+			},
+			"t": "017b35893b99e306b098"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The substring to search for.",
+				"v": 1
+			},
+			"t": "017b35893f9d3ff7ab6f"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The string to search in.",
+				"v": 1
+			},
+			"t": "017b35893f9d77462011"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The index.",
+				"v": 1
+			},
+			"t": "017b35894294973aff6f"
+		}
+	],
+	"optionalOperations": [
+	],
+	"rootTag": "01626bffe70e5120c69c"
+}

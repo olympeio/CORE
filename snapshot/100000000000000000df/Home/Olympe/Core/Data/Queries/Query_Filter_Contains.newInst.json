@@ -1,1 +1,114 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"stable","fdff023000000000000011":"Query Filter Contains","ff023000000000000011":"Query Filter Contains","v":31},"t":"0186b13a4d0fac5488a2"},{"o":1,"p":{"01703376c4a81c0e9d91":"Adds a contains filter clause onto a query","01703376c4a81c0e9d92":"Adds a `contains` predicate to the given query. This predicate indicates to the query to filter out the objects whose the specified property does not contain the provided value.","v":301},"t":"0186b13a6fdd2eb76537"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"query","v":7},"t":"0186b13a76439992b38d"},{"o":1,"p":{"01703376c4a81c0e9d92":"The query to which the contains filter must be added","v":56},"t":"0186b13a769cf0fb5949"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"property","v":12},"t":"0186b13aa15192b54cdb"},{"o":1,"p":{"01703376c4a81c0e9d92":"The property used by the filter to execute the predicate to check if that property contains the given value.","v":134},"t":"0186b13aa1aa46aac82f"},{"o":1,"p":{"01740c5d4ae4b520dd01":3,"01740c5d4ae4b520dd02":true,"ff023000000000000011":"case sensitive","v":20},"t":"0186b13b7b60d5bdfb71"},{"o":1,"p":{"01703376c4a81c0e9d92":"If true, take care of the case, otherwise apply the filter on lower case strings.","v":151},"t":"0186b13b7bbf0216d5b9"},{"o":1,"p":{"01740c5d4ae4b520dd01":2,"ff023000000000000011":"value","v":8},"t":"0186b13bc7156bd31afa"},{"o":1,"p":{"01703376c4a81c0e9d92":"The value to which the property is compared. Check if the property contains that value.","v":108},"t":"0186b13bc76871290f60"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"query","v":13},"t":"0186b13bfc25355c74b0"},{"o":1,"p":{"01703376c4a81c0e9d92":"The query including the `contains` filter","v":91},"t":"0186b13bfc6698526d20"}],"optionalOperations":[],"rootTag":"0186b13a4d0fac5488a2"}
+{
+	"operations": [
+		{
+			"o": 1,
+			"p": {
+				"01621fb84e320000f001": "public",
+				"01692aa71f3108454479": true,
+				"01703376c4a81c0e9d94": "stable",
+				"fdff023000000000000011": "Query Filter Contains",
+				"ff023000000000000011": "Query Filter Contains",
+				"v": 31
+			},
+			"t": "0186b13a4d0fac5488a2"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d91": "Adds a contains filter clause onto a query",
+				"01703376c4a81c0e9d92": "Adds a `contains` predicate to the given query. This predicate indicates to the query to filter out the objects whose the specified property does not contain the provided value.",
+				"v": 301
+			},
+			"t": "0186b13a6fdd2eb76537"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "query",
+				"v": 7
+			},
+			"t": "0186b13a76439992b38d"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The query to which the contains filter must be added",
+				"v": 56
+			},
+			"t": "0186b13a769cf0fb5949"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 1,
+				"ff023000000000000011": "property",
+				"v": 12
+			},
+			"t": "0186b13aa15192b54cdb"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The property used by the filter to execute the predicate to check if that property contains the given value.",
+				"v": 134
+			},
+			"t": "0186b13aa1aa46aac82f"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 3,
+				"01740c5d4ae4b520dd02": true,
+				"ff023000000000000011": "case sensitive",
+				"v": 20
+			},
+			"t": "0186b13b7b60d5bdfb71"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "If true, take care of the case, otherwise apply the filter on lower case strings.",
+				"v": 151
+			},
+			"t": "0186b13b7bbf0216d5b9"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 2,
+				"ff023000000000000011": "value",
+				"v": 8
+			},
+			"t": "0186b13bc7156bd31afa"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The value to which the property is compared. Check if the property contains that value.",
+				"v": 108
+			},
+			"t": "0186b13bc76871290f60"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "query",
+				"v": 13
+			},
+			"t": "0186b13bfc25355c74b0"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The query including the `contains` filter",
+				"v": 91
+			},
+			"t": "0186b13bfc6698526d20"
+		}
+	],
+	"optionalOperations": [
+	],
+	"rootTag": "0186b13a4d0fac5488a2"
+}

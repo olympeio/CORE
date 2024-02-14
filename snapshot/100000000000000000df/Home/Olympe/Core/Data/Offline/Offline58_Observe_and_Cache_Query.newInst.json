@@ -1,1 +1,79 @@
-{"operations":[{"o":1,"p":{"01703376c4a81c0e9d91":"Executes the query and cache its result for future offline use and listens to updates","01703376c4a81c0e9d92":"Runs the query and listens to further updates. The queried data is saved in the cache entry specified by its id for offline usage. (see `Offline: Clear Cache Entry` to clear the entry).\n\nThe output `query result` contains an ordered list of objects matching the query. The list is refreshed every time the resulting list gets changed in the database.\n\nUnlike `Execute Query`, `Observe Query` produces multiple results, as the set of objects matching the query evolves.","v":233},"t":"018aacb25166102cb23b"},{"o":1,"p":{"01703376c4a81c0e9d92":"The continuously updated list of objects matching the query","v":70},"t":"018aacb2516611aa5a21"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"query","v":7},"t":"018aacb25166440ad077"},{"o":1,"p":{"01703376c4a81c0e9d92":"The query to be observed","v":26},"t":"018aacb2516649867c38"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"query result","v":14},"t":"018aacb251666e6f98c1"},{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"stable","fd?ff023000000000000011":"Observe Query","fdff023000000000000011":"Offline: Observe and Cache Query","ff023000000000000011":"Offline: Observe and Cache Query","v":20},"t":"018aacb251666f17cc4d"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"01740c5d4ae4b520dd02":"default","ff023000000000000011":"cache id"},"t":"018aacb296c26cc2f3e2"},{"o":1,"p":{"01703376c4a81c0e9d92":"If provided, will keep the result of this query in the cache with the given name."},"t":"018aacb2972e353deca1"}],"optionalOperations":[],"rootTag":"018aacb251666f17cc4d"}
+{
+	"operations": [
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d91": "Executes the query and cache its result for future offline use and listens to updates",
+				"01703376c4a81c0e9d92": "Runs the query and listens to further updates. The queried data is saved in the cache entry specified by its id for offline usage. (see `Offline: Clear Cache Entry` to clear the entry).\n\nThe output `query result` contains an ordered list of objects matching the query. The list is refreshed every time the resulting list gets changed in the database.\n\nUnlike `Execute Query`, `Observe Query` produces multiple results, as the set of objects matching the query evolves.",
+				"v": 233
+			},
+			"t": "018aacb25166102cb23b"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The continuously updated list of objects matching the query",
+				"v": 70
+			},
+			"t": "018aacb2516611aa5a21"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "query",
+				"v": 7
+			},
+			"t": "018aacb25166440ad077"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The query to be observed",
+				"v": 26
+			},
+			"t": "018aacb2516649867c38"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "query result",
+				"v": 14
+			},
+			"t": "018aacb251666e6f98c1"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01621fb84e320000f001": "public",
+				"01692aa71f3108454479": true,
+				"01703376c4a81c0e9d94": "stable",
+				"fd?ff023000000000000011": "Observe Query",
+				"fdff023000000000000011": "Offline: Observe and Cache Query",
+				"ff023000000000000011": "Offline: Observe and Cache Query",
+				"v": 20
+			},
+			"t": "018aacb251666f17cc4d"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 1,
+				"01740c5d4ae4b520dd02": "default",
+				"ff023000000000000011": "cache id"
+			},
+			"t": "018aacb296c26cc2f3e2"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "If provided, will keep the result of this query in the cache with the given name."
+			},
+			"t": "018aacb2972e353deca1"
+		}
+	],
+	"optionalOperations": [
+	],
+	"rootTag": "018aacb251666f17cc4d"
+}

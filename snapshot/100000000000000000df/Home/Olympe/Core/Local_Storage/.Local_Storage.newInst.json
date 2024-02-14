@@ -1,1 +1,14 @@
-{"operations":[{"o":1,"p":{"ff023000000000000011":"Local Storage"},"t":"018ad6dd3218698e4bd1"}],"optionalOperations":[],"rootTag":"018ad6dd3218698e4bd1"}
+{
+	"operations": [
+		{
+			"o": 1,
+			"p": {
+				"ff023000000000000011": "Local Storage"
+			},
+			"t": "018ad6dd3218698e4bd1"
+		}
+	],
+	"optionalOperations": [
+	],
+	"rootTag": "018ad6dd3218698e4bd1"
+}

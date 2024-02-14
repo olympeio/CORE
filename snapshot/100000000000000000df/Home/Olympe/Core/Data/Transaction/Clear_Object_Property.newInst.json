@@ -1,1 +1,128 @@
-{"operations":[{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow","v":1},"t":"017a382f3df94a54c4b0"},{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"stable","fdff023000000000000011":"Clear Object Property","ff023000000000000011":"Clear Object Property","v":2},"t":"017a382f3df9e2dcb12a"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow","v":1},"t":"017a382f3dfac5e70848"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"object","v":1},"t":"017a382f9cbe02a1fb64"},{"o":1,"p":{"01740c5d4ae4b520dd01":2,"ff023000000000000011":"property","v":1},"t":"017a38331ad650b0704b"},{"o":1,"p":{"01740c5d4ae4b520dd01":2,"ff023000000000000011":"object","v":2},"t":"017a38348618543799d5"},{"o":1,"p":{"01703376c4a81c0e9d91":"Clear an Object property.","01703376c4a81c0e9d92":"Clear a specific property of an object. This removes the value altogether.\n\nIf a property has been cleared, as a consequence, calling `Get Object Property` on that property will not produce any result.","v":190},"t":"017b35893b6fe3fcfde8"},{"o":1,"p":{"01703376c4a81c0e9d92":"The object.","v":1},"t":"017b35893f6f51d688d5"},{"o":1,"p":{"01703376c4a81c0e9d92":"The property to clear.","v":1},"t":"017b35893f6feb4124bd"},{"o":1,"p":{"01703376c4a81c0e9d92":"The result object.","v":1},"t":"017b3589427947ee32e5"},{"o":1,"p":{"v":1},"t":"018041c15dcdd7ecc12f"},{"o":1,"p":{"v":1},"t":"018041c15e56ce16a0bd"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"Error Flow","v":12},"t":"0186636cea21ea2f27e1"},{"o":1,"p":{"01703376c4a81c0e9d92":"Triggered if an error occurred","v":54},"t":"0186636cead8b03ae3b3"}],"optionalOperations":[],"rootTag":"017a382f3df9e2dcb12a"}
+{
+	"operations": [
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "Control Flow",
+				"v": 1
+			},
+			"t": "017a382f3df94a54c4b0"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01621fb84e320000f001": "public",
+				"01692aa71f3108454479": true,
+				"01703376c4a81c0e9d94": "stable",
+				"fdff023000000000000011": "Clear Object Property",
+				"ff023000000000000011": "Clear Object Property",
+				"v": 2
+			},
+			"t": "017a382f3df9e2dcb12a"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "Control Flow",
+				"v": 1
+			},
+			"t": "017a382f3dfac5e70848"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 1,
+				"ff023000000000000011": "object",
+				"v": 1
+			},
+			"t": "017a382f9cbe02a1fb64"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 2,
+				"ff023000000000000011": "property",
+				"v": 1
+			},
+			"t": "017a38331ad650b0704b"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 2,
+				"ff023000000000000011": "object",
+				"v": 2
+			},
+			"t": "017a38348618543799d5"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d91": "Clear an Object property.",
+				"01703376c4a81c0e9d92": "Clear a specific property of an object. This removes the value altogether.\n\nIf a property has been cleared, as a consequence, calling `Get Object Property` on that property will not produce any result.",
+				"v": 190
+			},
+			"t": "017b35893b6fe3fcfde8"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The object.",
+				"v": 1
+			},
+			"t": "017b35893f6f51d688d5"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The property to clear.",
+				"v": 1
+			},
+			"t": "017b35893f6feb4124bd"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The result object.",
+				"v": 1
+			},
+			"t": "017b3589427947ee32e5"
+		},
+		{
+			"o": 1,
+			"p": {
+				"v": 1
+			},
+			"t": "018041c15dcdd7ecc12f"
+		},
+		{
+			"o": 1,
+			"p": {
+				"v": 1
+			},
+			"t": "018041c15e56ce16a0bd"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 1,
+				"ff023000000000000011": "Error Flow",
+				"v": 12
+			},
+			"t": "0186636cea21ea2f27e1"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "Triggered if an error occurred",
+				"v": 54
+			},
+			"t": "0186636cead8b03ae3b3"
+		}
+	],
+	"optionalOperations": [
+	],
+	"rootTag": "017a382f3df9e2dcb12a"
+}

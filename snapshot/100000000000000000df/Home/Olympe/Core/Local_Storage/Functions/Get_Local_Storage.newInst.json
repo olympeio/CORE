@@ -1,1 +1,62 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"stable","fdff023000000000000011":"Get Local Storage","ff023000000000000011":"Get Local Storage","v":2},"t":"017c263ad2cf51e19947"},{"o":1,"p":{"01703376c4a81c0e9d91":"Get a stored value","01703376c4a81c0e9d92":"Returns the value stored in the browser local storage","v":1},"t":"017c263af6068da9bafc"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Key","v":1},"t":"017c26eb24a7a9802614"},{"o":1,"p":{"01703376c4a81c0e9d92":"The key associated with the value","v":1},"t":"017c26eb2552544685af"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Value","v":1},"t":"017c26ebb1ab78197a68"},{"o":1,"p":{"01703376c4a81c0e9d92":"The stored value","v":1},"t":"017c26ebb1cd20294502"}],"optionalOperations":[],"rootTag":"017c263ad2cf51e19947"}
+{
+	"operations": [
+		{
+			"o": 1,
+			"p": {
+				"01621fb84e320000f001": "public",
+				"01692aa71f3108454479": true,
+				"01703376c4a81c0e9d94": "stable",
+				"fdff023000000000000011": "Get Local Storage",
+				"ff023000000000000011": "Get Local Storage",
+				"v": 2
+			},
+			"t": "017c263ad2cf51e19947"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d91": "Get a stored value",
+				"01703376c4a81c0e9d92": "Returns the value stored in the browser local storage",
+				"v": 1
+			},
+			"t": "017c263af6068da9bafc"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "Key",
+				"v": 1
+			},
+			"t": "017c26eb24a7a9802614"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The key associated with the value",
+				"v": 1
+			},
+			"t": "017c26eb2552544685af"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "Value",
+				"v": 1
+			},
+			"t": "017c26ebb1ab78197a68"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The stored value",
+				"v": 1
+			},
+			"t": "017c26ebb1cd20294502"
+		}
+	],
+	"optionalOperations": [
+	],
+	"rootTag": "017c263ad2cf51e19947"
+}

@@ -1,1 +1,79 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"stable","fdff023000000000000011":"Get Unique Related Object","ff023000000000000011":"Get Unique Related Object","v":2},"t":"0167c09126e60d1955fe"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Object","v":1},"t":"0167c09126e618b2e712"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"Relation","v":1},"t":"0167c09126e6773d2351"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Value","v":1},"t":"0167c09126e6cb0613e2"},{"o":1,"p":{"01703376c4a81c0e9d91":"Gets the first object connected to the specified object by a relation.","01703376c4a81c0e9d92":"Retrieves the first object connected to the specified object via the specified relation (see `Query Follow Relation From Object`).\n<br>\nThis is a shortcut for `Query Follow Relation From Object` -> `Observe Query` -> `Get First Object In List`.\n<br>\nNote: The relation can be followed in any direction, so if we have A -> B we can retrieve the first instance of A linked to a given instance of B, or the first instance of B linked to a given instance of A.\n","v":84},"t":"017b35893b4e290377f6"},{"o":1,"p":{"01703376c4a81c0e9d92":"The origin object.","v":1},"t":"017b35893f2212aeb91a"},{"o":1,"p":{"01703376c4a81c0e9d92":"The relation to follow.","v":1},"t":"017b35893f239f726210"},{"o":1,"p":{"01703376c4a81c0e9d92":"The object at the other side of the relation.","v":1},"t":"017b35a17a774574ddbf"}],"optionalOperations":[],"rootTag":"0167c09126e60d1955fe"}
+{
+	"operations": [
+		{
+			"o": 1,
+			"p": {
+				"01621fb84e320000f001": "public",
+				"01692aa71f3108454479": true,
+				"01703376c4a81c0e9d94": "stable",
+				"fdff023000000000000011": "Get Unique Related Object",
+				"ff023000000000000011": "Get Unique Related Object",
+				"v": 2
+			},
+			"t": "0167c09126e60d1955fe"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "Object",
+				"v": 1
+			},
+			"t": "0167c09126e618b2e712"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 1,
+				"ff023000000000000011": "Relation",
+				"v": 1
+			},
+			"t": "0167c09126e6773d2351"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01740c5d4ae4b520dd01": 0,
+				"ff023000000000000011": "Value",
+				"v": 1
+			},
+			"t": "0167c09126e6cb0613e2"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d91": "Gets the first object connected to the specified object by a relation.",
+				"01703376c4a81c0e9d92": "Retrieves the first object connected to the specified object via the specified relation (see `Query Follow Relation From Object`).\n<br>\nThis is a shortcut for `Query Follow Relation From Object` -> `Observe Query` -> `Get First Object In List`.\n<br>\nNote: The relation can be followed in any direction, so if we have A -> B we can retrieve the first instance of A linked to a given instance of B, or the first instance of B linked to a given instance of A.\n",
+				"v": 84
+			},
+			"t": "017b35893b4e290377f6"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The origin object.",
+				"v": 1
+			},
+			"t": "017b35893f2212aeb91a"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The relation to follow.",
+				"v": 1
+			},
+			"t": "017b35893f239f726210"
+		},
+		{
+			"o": 1,
+			"p": {
+				"01703376c4a81c0e9d92": "The object at the other side of the relation.",
+				"v": 1
+			},
+			"t": "017b35a17a774574ddbf"
+		}
+	],
+	"optionalOperations": [
+	],
+	"rootTag": "0167c09126e60d1955fe"
+}
