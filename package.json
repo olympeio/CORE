@@ -29,7 +29,7 @@
     "test:debug": "npx karma start karma.conf.js --browsers=Chrome --single-run=false --debug"
   },
   "devDependencies": {
-    "@olympeio/olympe-toolkit": "1.0.4-dev",
+    "@olympeio/toolkit": "1.0.0",
     "@babel/core": "7.23.2",
     "@babel/preset-env": "7.22.20",
     "@babel/preset-react": "7.22.0",
