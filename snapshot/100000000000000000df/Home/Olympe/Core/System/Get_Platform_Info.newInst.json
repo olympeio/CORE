@@ -88,6 +88,21 @@
     "v": 1
    },
    "t": "017b35893f85e7b88110"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 4,
+    "ff023000000000000011": "Is Mobile"
+   },
+   "t": "018dae7fc7792f1b7bc1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Detect mobile device"
+   },
+   "t": "018dae7fc84a2b5d97e3"
   }
  ],
  "optionalOperations": [
