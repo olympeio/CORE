@@ -100,7 +100,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "Detect mobile device"
+    "01703376c4a81c0e9d92": "Detects if device is mobile"
    },
    "t": "018dae7fc84a2b5d97e3"
   }
