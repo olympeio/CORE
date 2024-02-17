@@ -52,7 +52,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Get platform information.",
-    "01703376c4a81c0e9d92": "Retrieves information about the underlying platform, like operating system and browser name.",
+    "01703376c4a81c0e9d92": "Retrieves information about the underlying platform, like operating system and browser name, and detects if a device is mobile.",
     "v": 1
    },
    "t": "017b35893b85be27a3e8"
