@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {createTheme, Theme as MUITheme, Palette} from "@mui/material/styles";
+import { createTheme, Theme as MUITheme, Palette } from "@mui/material/styles";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { Theme } from 'olympe';
@@ -188,4 +188,33 @@ export function useMUITheme($) {
         };
     }, []);
     return value;
+}
+
+
+/**
+ * Check if color exists in the palette
+ *
+ * @param {MUITheme} theme
+ * @param {string} color
+ * @return {Boolean}
+ */
+export function colorExists (theme, color) {
+    const logger = getLogger('Button');
+
+    if (color !== undefined) {
+        if (typeof color !== 'string') {
+            logger.error(`Invalid color provided. Must be a string.`);
+            return false;
+        }
+
+        const colorValues = ['primary', 'secondary', 'error', 'warning', 'info', 'success'];
+        if (colorValues.some((item) => item === color) && theme.palette.hasOwnProperty(color)) {
+            return true;
+        } else {
+            logger.error(`Color "${color}" was not found in palette. Must be one of ${colorValues.join(', ')}.`);
+            return false;
+        }
+    } else {
+        return false;
+    }
 }
