@@ -6,7 +6,7 @@ export default class IsStringEmpty extends Brick {
      */
     setupExecution($) {
         const [value] = this.getInputs();
-        return $.observe(value).pipe(map((value) => [value]));
+        return $.observe(value, false).pipe(map((value) => [value]));
     }
 
     /**
