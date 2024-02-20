@@ -27,8 +27,9 @@ export default class GetPlatformInfo extends Brick {
      * @param {function(string)} setOS
      * @param {function(string)} setBrowserVersion
      * @param {function(string)} setBrowser
+     * @param {function(boolean)} setIsMobile
      */
-    update(_, inputs, [setOSVersion, setOS, setBrowserVersion, setBrowser]) {
+    update(_, inputs, [setOSVersion, setOS, setBrowserVersion, setBrowser, setIsMobile]) {
         const [osName, osVersion] = getOSInfo();
         const [browserName, browserVersion] = getBrowserInfo();
 
@@ -36,6 +37,7 @@ export default class GetPlatformInfo extends Brick {
         setBrowserVersion(browserVersion);
         setOS(osName);
         setOSVersion(osVersion);
+        setIsMobile(navigator.userAgent.toLowerCase().match(/mobile/i) ? true : false);
     }
 
 }
