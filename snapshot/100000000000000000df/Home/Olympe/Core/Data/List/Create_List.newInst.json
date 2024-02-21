@@ -43,7 +43,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Creates a list",
-    "01703376c4a81c0e9d92": "Creates a list as an empty JavaScript array",
+    "01703376c4a81c0e9d92": "Creates a new list as an empty JavaScript array",
     "v": 7
    },
    "t": "017b35893b6129119c45"
