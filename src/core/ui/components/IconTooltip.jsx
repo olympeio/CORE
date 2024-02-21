@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Icon from '@mui/material/Icon';
-import {cssToSxProps, ifNotNull, ifNotTransparent, useMUITheme} from "helpers/mui";
+import { cssToSxProps, ifNotNull, ifNotTransparent, useMUITheme, getColorDefinition, validateIcon } from "helpers/mui";
 import { markdownTextToReactElement } from 'helpers/remarkable';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
 
@@ -23,6 +23,14 @@ export default class IconTooltip extends ReactBrick {
     /**
      * @override
      */
+    updateParent(parent, element) {
+        parent.style.overflow = 'visible'; // Allow overflow
+        return super.updateParent(parent, element);
+    }
+
+    /**
+     * @override
+     */
     static getReactComponent($) {
         return (props) => {
             const [hidden] = props.values;
@@ -36,6 +44,9 @@ export default class IconTooltip extends ReactBrick {
             const width = useProperty($, 'Width');
             const fontSize = useProperty($, 'Font Size');
             const borderRadius = useProperty($, 'Border Radius');
+            const borderColor = useProperty($, 'Border Color');
+            const borderWidth = useProperty($, 'Border Width');
+            const backgroundColor = useProperty($, 'Default Color');
             const cssProperty = useProperty($, 'CSS Property');
 
             // Tooltip properties
@@ -48,8 +59,8 @@ export default class IconTooltip extends ReactBrick {
                 <Tooltip {...props} classes={{ popper: className }}  />
             ))(() => ({
                 [`& .${tooltipClasses.tooltip}`]: {
-                    color: textColor?.toHexString(),
-                    backgroundColor: tooltipColor?.toHexString(),
+                    color: getColorDefinition(textColor, 'Icon Tooltip'),
+                    backgroundColor: getColorDefinition(tooltipColor, 'Icon Tooltip'),
                     fontSize: fontSize
                 }
             }));
@@ -58,17 +69,22 @@ export default class IconTooltip extends ReactBrick {
                 <ThemeProvider theme={theme}>
                     <StyledTooltip title={title}>
                         <Icon
+                            // Events
+                            onClick={() => $.trigger('On Click')}
                             sx={{
                                 width: width,
                                 height: height,
-                                fontSize: `${Math.min(width, height)}px`,
-                                color: iconColor?.toHexString(),
-                                ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
-                                ...ifNotTransparent('color', useProperty($, 'Border Color')),
+                                fontSize: `${Math.min(width, height)}px !important`,
+                                color: getColorDefinition(iconColor, 'Icon Tooltip'),
+                                backgroundColor: getColorDefinition(backgroundColor, 'Icon Tooltip'),
                                 ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
+                                ...ifNotNull('borderWidth', borderWidth),
+                                ...ifNotTransparent('borderStyle', 'solid', borderColor),
+                                ...ifNotTransparent('borderColor', borderColor),
+                                boxSizing: 'border-box',
                                 ...cssToSxProps(cssProperty)
                             }}
-                        >{icon}</Icon>
+                        >{validateIcon(icon, 'Icon Tooltip')}</Icon>
                     </StyledTooltip>
                 </ThemeProvider>
             );
