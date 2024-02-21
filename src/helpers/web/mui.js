@@ -17,7 +17,7 @@
 import { createTheme, Theme as MUITheme, Palette } from "@mui/material/styles";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
-import { Theme } from 'olympe';
+import { Theme, Color as ColorAPI } from 'olympe';
 import { themePropertiesObserver } from "helpers/ThemeObserver";
 import { getLogger } from 'logging';
 import { Color } from "@mui/material";
@@ -196,10 +196,11 @@ export function useMUITheme($) {
  *
  * @param {MUITheme} theme
  * @param {string} color
+ * @param { string } loggerName
  * @return {Boolean}
  */
-export function colorExists (theme, color) {
-    const logger = getLogger('Button');
+export function colorExists (theme, color, loggerName) {
+    const logger = getLogger(loggerName);
 
     if (color !== undefined) {
         if (typeof color !== 'string') {
@@ -218,3 +219,42 @@ export function colorExists (theme, color) {
         return false;
     }
 }
+
+
+/**
+ * @param { Color } iconColor
+ * @param { string } loggerName
+ * @return { string | undefined }
+ */
+export const getColorDefinition = (iconColor, loggerName) => {
+    const logger = getLogger(loggerName);
+    
+    if (iconColor !== undefined) {
+        if (iconColor instanceof ColorAPI) {
+            return iconColor.toHexString();
+        } else {
+            logger.error(`Invalid color provided. Must be of type Color: ${iconColor}`);
+            return;
+        }
+    } 
+    return;
+};
+
+/**
+ * @param { icon } string
+ * @param { string } loggerName
+ * @return { string }
+ */
+export const validateIcon = (icon, loggerName) => {
+    const logger = getLogger(loggerName);
+    
+    if (icon !== undefined) {
+        if( typeof icon !== 'string') {
+            logger.error(`Invalid icon provided. Must be of type string: ${icon}`);
+            return 'help_outline'; // default value
+        } else {
+            return icon;
+        }
+    }
+    return 'help_outline'; // default value
+};

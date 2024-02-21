@@ -78,7 +78,7 @@ export default class Button extends ReactBrick {
                         <MUIButton
                             // Properties
                             variant={useProperty($, 'Variant')}
-                            color={colorExists(theme, color) ? color : 'primary'}
+                            color={colorExists(theme, color, 'Button') ? color : 'primary'}
                             startIcon={startIcon && <Icon>{startIcon}</Icon>}
                             endIcon={endIcon && <Icon>{endIcon}</Icon>}
                             disabled={useProperty($, 'Disabled')}
