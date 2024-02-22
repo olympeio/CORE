@@ -19,6 +19,8 @@ import { ActionBrick, registerBrick } from 'olympe';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { ThemeProvider } from '@mui/material/styles';
+import { useMUITheme } from 'helpers/mui';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -49,7 +51,7 @@ export default class ShowAlertDialog extends ActionBrick {
      * @param {function()} onCancel
      * @param {function(string)} setTextFieldValue
      */
-     update(context, [textContent, title, confirmText, cancelText, textFieldType, customization], [forwardEvent, onConfirm, onCancel, setTextFieldValue]) {
+    update(context, [textContent, title, confirmText, cancelText, textFieldType, customization], [forwardEvent, onConfirm, onCancel, setTextFieldValue]) {
         // Dialog closing
         const handleClose = (confirm) => {
             context.set('open', false);
@@ -67,9 +69,9 @@ export default class ShowAlertDialog extends ActionBrick {
 
         // Create optional customization
         const custom = customization ? {
-            fullWidth: customization.fullWidth,
-            maxWidth: customization.maxWidth !== 'disabled' ? customization.maxWidth : false,
-            scroll: customization.scroll,
+                  fullWidth: customization.fullWidth,
+                  maxWidth: customization.maxWidth !== 'disabled' ? customization.maxWidth : false,
+                  scroll: customization.scroll,
             TransitionComponent: createTransitionElement(customization.transition)
         } : {};
 
@@ -81,17 +83,19 @@ export default class ShowAlertDialog extends ActionBrick {
         context.set('open', true);
         context.observe('open').subscribe(open => {
             // Rendering
+            const CustomShowAlertDialog = ShowAlertDialog.getThemeWrapper(context);
             const elementDom = context.get('elementDom');
-            ReactDOM.render((
-                <Dialog
-                    // Dialog properties
-                    open={open}
-                    {...custom}
-                    onClose={() => {
-                        // Only close here if cancel text is defined
+            ReactDOM.render(
+                <CustomShowAlertDialog>
+                    <Dialog
+                        // Dialog properties
+                        open={open}
+                        {...custom}
+                        onClose={() => {
+                            // Only close here if cancel text is defined
                         if(cancelText) {
-                            handleClose(false);
-                        }
+                                handleClose(false);
+                            }
                     }}
                 >
                     {title && (
@@ -99,31 +103,33 @@ export default class ShowAlertDialog extends ActionBrick {
                             {titleElement}
                         </DialogTitle>
                     )}
-                    <DialogContent>
+                        <DialogContent>
                         <DialogContentText>
                             {textContentElement}
                         </DialogContentText>
-                        {textFieldType && (
-                            <TextField
-                                autoFocus={true}
-                                margin={'dense'}
-                                type={textFieldType}
-                                fullWidth={true}
-                                variant={'standard'}
-                                onChange={(event) => {
-                                    context.set('value', event.target.value);
+                            {textFieldType && (
+                                <TextField
+                                    autoFocus={true}
+                                    margin={'dense'}
+                                    type={textFieldType}
+                                    fullWidth={true}
+                                    variant={'standard'}
+                                    onChange={(event) => {
+                                        context.set('value', event.target.value);
                                 }}
                             ></TextField>
-                        )}
-                    </DialogContent>
-                    <DialogActions>
+                            )}
+                        </DialogContent>
+                        <DialogActions>
                         {cancelText && (
                             <Button onClick={() => handleClose(false)}>{cancelText}</Button>
                         )}
-                        <Button onClick={() => handleClose(true)}>{confirmText}</Button>
-                    </DialogActions>
-                </Dialog>
-            ), elementDom);
+                            <Button onClick={() => handleClose(true)}>{confirmText}</Button>
+                        </DialogActions>
+                    </Dialog>
+                </CustomShowAlertDialog>,
+                elementDom
+            );
         });
     }
 
@@ -150,6 +156,17 @@ export default class ShowAlertDialog extends ActionBrick {
         const elementDom = context.get('elementDom');
         ReactDOM.unmountComponentAtNode(elementDom);
         document.body.removeChild(elementDom);
+    }
+
+    /**
+     * @param {!BrickContext} context
+     * @param {ReactElement} children
+     */
+    static getThemeWrapper(context) {
+        return (props) => {
+            const theme = useMUITheme(context);
+            return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
+        };
     }
 }
 
