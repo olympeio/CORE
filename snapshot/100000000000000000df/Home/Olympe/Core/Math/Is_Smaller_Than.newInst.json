@@ -54,7 +54,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Checks if a number is smaller than another one.",
-    "01703376c4a81c0e9d92": "Returns `true` if `a` is smaller than `b`. If `strictly` is set to `false`, then it returns `true` if `a` is smaller or equal to `b`.",
+    "01703376c4a81c0e9d92": "Returns `true` if `a` is smaller / lower than `b`. If `strictly` is set to `false`, then it returns `true` if `a` is smaller or equal to `b`.",
     "v": 1
    },
    "t": "017b35893b8c99f96c12"
