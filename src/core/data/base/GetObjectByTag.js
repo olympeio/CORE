@@ -26,7 +26,7 @@ export default class GetObjectByTag extends Brick {
      */
     async update($, [tag], [setObject]) {
         if (!CloudObject.exists(tag)) {
-            throw ErrorFlow.create(`Get Object by Tag: tag ${tag} does not exist in the local database.`, 1)
+            throw ErrorFlow.create(`Get Object by Tag: tag ${tag} does not exist in the local database. To fetch the object from the database, use Query Object with Execute or Observe instead.`, 1)
         }
         // After checking the existence of the instance in the local cache,
         // we can use CloudObject.get instead of using a query to stay synchronous .
