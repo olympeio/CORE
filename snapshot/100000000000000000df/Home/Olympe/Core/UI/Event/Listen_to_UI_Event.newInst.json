@@ -12,6 +12,8 @@
   {
    "o": 1,
    "p": {
+    "01703376c4a81c0e9d91": "Listen to a UI Event",
+    "01703376c4a81c0e9d92": "Listen to a UI Event and trigger the output Control Flow when the UI Event is triggered"
    },
    "t": "018d18445a70db7964f0"
   },
@@ -26,6 +28,7 @@
   {
    "o": 1,
    "p": {
+    "01703376c4a81c0e9d92": "UI Event from a Visual Component"
    },
    "t": "018d18445ffec50ea26f"
   },
