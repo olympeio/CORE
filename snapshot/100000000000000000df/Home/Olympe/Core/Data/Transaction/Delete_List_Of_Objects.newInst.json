@@ -33,7 +33,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Deletes List Of Objects",
-    "01703376c4a81c0e9d92": "Deletes a list of objects in the datacloud.\n\nIt is not possible to delete objects in a static data cloud. Attempting to delete static data will result in a permission error",
+    "01703376c4a81c0e9d92": "Deletes a list of objects in the datacloud.\n\nIt is not possible to delete objects in a static data cloud. Attempting to delete static data will result in a permission error.\n\nExecute atomically a transaction at the data source and return the transaction result if succeeds. The large mode sends the transaction over HTTP.",
     "v": 175
    },
    "t": "017d22d4643faa04e264"
