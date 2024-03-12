@@ -1,1 +1,595 @@
-{"operations":[{"o":1,"p":{"01609de3f292e3c2c6ff":"","01621fb84e320000f001":"public","fd01611d99ec0553b5926e":250,"fd01611d9a0452a179c68f":90,"fd0162e2bd70fb607442d4":-1300,"fd0163ba9e1428240acec7":4,"fd017ce682434b819e08c7":"","fd017ce683f99b04ca6f87":false,"fd017ce683fadcbaabef81":false,"fd017ce683fc2f42be9da9":"sm","fd017ce68404082de1ba1b":"paper","fd017ce6851d48b32f2cf8":false,"fd017ce6851e714fbe101f":"fade","fd017ce6851ffa22776d85":"down","fd017ce6852174112b50e8":"none","fd017ce68522e791ddb477":"default","fd017ce685246b0a79bc3b":"default","fd017ce685320fee178d3d":"none","fd017ce68adf1b16124668":true,"fd017cea6ff57aa0f354ed":false,"fd017cea7ba14a4ca1e74d":"{}","fd017ceb0448e9b564327a":false,"fd017d03bdabe94ed9e0a7":false,"fd017d03bdac8b7ce53e63":false,"fd017d03bdde7591758637":"sm","fd017d03c616f039499469":500,"fd017d03c61794ac8f80c7":300,"fd017d040782c7d5f04c2c":false,"fd018afac4edde1446628a":20,"fdff023000000000000011":"Dialog","ff023000000000000011":"Dialog","v":123},"t":"017ce674618b030841a7"},{"o":1,"p":{"01703376c4a81c0e9d91":"Open a popup window on top of the current screen.","01703376c4a81c0e9d92":"Dialogs inform users about a task and can contain critical information, require decisions, or involve multiple tasks.\n<br><br>\nA Dialog is a type of modal window that appears in front of app content to provide critical information or ask for a decision. Dialogs disable all app functionality when they appear and remain on screen until a confirm, dismiss, or any required action has been taken. Dialogs purposefully interrupt the app flow, so should be used sparingly.\n<br><br>\nTrigger `Open Dialog` event to show up the dialog and `Close Dialog` to hide it. Set `Keep Mounted` property to hide the dialog instead of destroying it when it gets closed. `Hidden` property has no effect.\n<br><br>\nThe size of the dialog is determined by properties `Content Width` and `Content Height` (and not by properties `Width` and `Height`) or `Full Screen`. The dialog is always centered.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.","v":497},"t":"017ce67495cabe4bfe4b"},{"o":1,"p":{"016d1bb681929c2cc3f1":4,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true,"v":13},"t":"017ce682434b7e4da14d"},{"o":1,"p":{"ff023000000000000011":"Title","v":7},"t":"017ce682434b819e08c7"},{"o":1,"p":{"01703376c4a81c0e9d92":"Optional title of the dialog.","v":3},"t":"017ce682437cd6ebf9cf"},{"o":1,"p":{"ff023000000000000011":"Scroll","v":8},"t":"017ce68404082de1ba1b"},{"o":1,"p":{"016d1bb681929c2cc3f1":8,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true,"v":26},"t":"017ce684040950bd743b"},{"o":1,"p":{"01703376c4a81c0e9d92":"Determine the container for scrolling the dialog.","v":3},"t":"017ce684042eea118ae9"},{"o":1,"p":{"ff023000000000000011":"Transition Type","v":17},"t":"017ce6851e714fbe101f"},{"o":1,"p":{"016d1bb681929c2cc3f1":11,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true,"v":27},"t":"017ce6851e7173c1c0ea"},{"o":1,"p":{"01703376c4a81c0e9d92":"The transition type.","v":3},"t":"017ce6851e9a8158fb5a"},{"o":1,"p":{"016d1bb681929c2cc3f1":12,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true,"v":27},"t":"017ce6851ffa1af60294"},{"o":1,"p":{"ff023000000000000011":"Transition Direction","v":22},"t":"017ce6851ffa22776d85"},{"o":1,"p":{"01703376c4a81c0e9d92":"Direction/orientation of the transition.","v":3},"t":"017ce6852023ace4954d"},{"o":1,"p":{"ff023000000000000011":"Transition Easing","v":19},"t":"017ce6852174112b50e8"},{"o":1,"p":{"016d1bb681929c2cc3f1":13,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true,"v":27},"t":"017ce6852174a080e80f"},{"o":1,"p":{"01703376c4a81c0e9d92":"The transition timing function.","v":3},"t":"017ce68521a0d9d8ec6e"},{"o":1,"p":{"016d1bb681929c2cc3f1":14,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true,"v":27},"t":"017ce68522e766233223"},{"o":1,"p":{"ff023000000000000011":"Transition Timeout","v":28},"t":"017ce68522e791ddb477"},{"o":1,"p":{"01703376c4a81c0e9d92":"The duration for the transition, in milliseconds.","v":3},"t":"017ce685230bdb44f989"},{"o":1,"p":{"ff023000000000000011":"Transition Exit Timeout","v":25},"t":"017ce685246b0a79bc3b"},{"o":1,"p":{"016d1bb681929c2cc3f1":16,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true,"v":28},"t":"017ce685246be19f6474"},{"o":1,"p":{"01703376c4a81c0e9d92":"The optional duration for the exit transition, in milliseconds.","v":3},"t":"017ce685248f3ac1de21"},{"o":1,"p":{"016d1bb681929c2cc3f1":15,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true,"v":28},"t":"017ce685320f5358c33c"},{"o":1,"p":{"ff023000000000000011":"Transition Exit Easing","v":24},"t":"017ce685320fee178d3d"},{"o":1,"p":{"01703376c4a81c0e9d92":"The optional transition timing function for the exit.","v":3},"t":"017ce685325bcc0e25a2"},{"o":1,"p":{"ff023000000000000011":"Enable Backdrop Click","v":110},"t":"017ce68adf1b16124668"},{"o":1,"p":{"016d1bb681929c2cc3f1":6,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true,"v":33},"t":"017ce68adf1bf3e52a0c"},{"o":1,"p":{"01703376c4a81c0e9d92":"If true, clicking outside of the dialog or hitting the ESC key will dispatch the `Close Dialog` event automatically.","v":160},"t":"017ce68adf6f2b8a7fe2"},{"o":1,"p":{"016d1bb681929c2cc3f1":10,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true,"v":29},"t":"017cea6ff57a0b51386d"},{"o":1,"p":{"ff023000000000000011":"Keep Mounted","v":14},"t":"017cea6ff57aa0f354ed"},{"o":1,"p":{"01703376c4a81c0e9d92":"If true, the dialog is hidden instead of being destroyed when closed. Then subsequent openings of the dialog simply \"unhide\" the dialog instead of recreating it from scratch. This can help the dialog open faster if it includes some complex rendering.","v":5},"t":"017cea6ff5abcc7155cf"},{"o":1,"p":{"016d1bb681929c2cc3f1":17,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true,"v":22},"t":"017cea7ba14a3389c97c"},{"o":1,"p":{"ff023000000000000011":"MUI sx [json]","v":15},"t":"017cea7ba14a4ca1e74d"},{"o":1,"p":{"01703376c4a81c0e9d92":"The system prop that allows defining MUI system overrides as well as additional CSS styles.<br><br>The `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.<br><br>**Example:** <br> `{\"backgroundColor\":\"red\", \"fontSize\":\"60px\"}`<br> which is the equivalent of the CSS style  <br>`background-color:red; font-size:60px;`<br> written with the camelCase syntax","v":9},"t":"017cea7ba1730b388495"},{"o":1,"p":{"ff023000000000000011":"Hide Backdrop","v":15},"t":"017ceb0448e9b564327a"},{"o":1,"p":{"016d1bb681929c2cc3f1":9,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true,"v":30},"t":"017ceb0448e9ea89c588"},{"o":1,"p":{"01703376c4a81c0e9d92":"If true, the backdrop is not rendered.","v":3},"t":"017ceb044934d2b84301"},{"o":1,"p":{"016d1bb681929c2cc3f1":7,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true,"v":29},"t":"017d03bdabe93293651a"},{"o":1,"p":{"ff023000000000000011":"Full Screen","v":13},"t":"017d03bdabe94ed9e0a7"},{"o":1,"p":{"01703376c4a81c0e9d92":"If true, the dialog is full-screen.","v":3},"t":"017d03bdac1dcaa56941"},{"o":1,"p":{"016d1bb681929c2cc3f1":1,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true,"v":23},"t":"017d03c616f001e61033"},{"o":1,"p":{"ff023000000000000011":"Content Width","v":15},"t":"017d03c616f039499469"},{"o":1,"p":{"01703376c4a81c0e9d92":"The width that the content renderer will use.","v":55},"t":"017d03c61746405b39b5"},{"o":1,"p":{"ff023000000000000011":"Content Height","v":16},"t":"017d03c61794ac8f80c7"},{"o":1,"p":{"016d1bb681929c2cc3f1":2,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true,"v":23},"t":"017d03c61794ca523538"},{"o":1,"p":{"01703376c4a81c0e9d92":"The height that the content renderer will use.","v":48},"t":"017d03c6182382e11420"},{"o":1,"p":{"016d1bb681929c2cc3f1":5,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true,"v":22},"t":"017d040782c7a8b0b7a6"},{"o":1,"p":{"ff023000000000000011":"Show Divider","v":28},"t":"017d040782c7d5f04c2c"},{"o":1,"p":{"01703376c4a81c0e9d92":"Display the top divider.","v":9},"t":"017d040782fb59262271"},{"o":1,"p":{"016d1bb681929c2cc3f1":0,"016d1bb681929c2cc3f3":false,"0170beccaac4129d72a9":true,"v":4},"t":"017da4ca0ce87bce031d"},{"o":1,"p":{"ff023000000000000011":"Open Dialog","v":13},"t":"017da4ca0ce8cd228408"},{"o":1,"p":{"01703376c4a81c0e9d92":"Dispatch this event to open the dialog.","v":82},"t":"017da4ca0cf650516d1f"},{"o":1,"p":{"ff023000000000000011":"Close Dialog","v":16},"t":"017da4ca0d95406ef0d6"},{"o":1,"p":{"016d1bb681929c2cc3f1":1,"016d1bb681929c2cc3f3":false,"0170beccaac4129d72a9":true,"v":4},"t":"017da4ca0d95bb96b83d"},{"o":1,"p":{"01703376c4a81c0e9d92":"Dispatch this event to close the dialog.","v":28},"t":"017da4ca0da1f5d7a69d"},{"o":1,"p":{"016d1bb681929c2cc3f1":0,"016d1bb681929c2cc3f3":false,"0170beccaac4129d72a9":false,"v":22},"t":"017db924f1981db77a24"},{"o":1,"p":{"ff023000000000000011":"Content Renderer","v":3},"t":"017db924f198cd1a02c0"},{"o":1,"p":{"01703376c4a81c0e9d92":"The content of the dialog.","v":30},"t":"017db924f1bde227f91a"},{"o":1,"p":{"ff023000000000000011":"Content Padding"},"t":"018afac4edde1446628a"},{"o":1,"p":{"016d1bb681929c2cc3f1":3,"016d1bb681929c2cc3f3":true,"0170beccaac4129d72a9":true},"t":"018afac4edde87ac5369"},{"o":1,"p":{"01703376c4a81c0e9d92":"The padding around the content of the dialog"},"t":"018afac4ee3eddd029db"}],"optionalOperations":[],"rootTag":"017ce674618b030841a7"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01609de3f292e3c2c6ff": "",
+    "01621fb84e320000f001": "public",
+    "fd01611d99ec0553b5926e": 250,
+    "fd01611d9a0452a179c68f": 90,
+    "fd0162e2bd70fb607442d4": -1300,
+    "fd0163ba9e1428240acec7": 4,
+    "fd017ce682434b819e08c7": "",
+    "fd017ce683f99b04ca6f87": false,
+    "fd017ce683fadcbaabef81": false,
+    "fd017ce683fc2f42be9da9": "sm",
+    "fd017ce68404082de1ba1b": "paper",
+    "fd017ce6851d48b32f2cf8": false,
+    "fd017ce6851e714fbe101f": "fade",
+    "fd017ce6851ffa22776d85": "down",
+    "fd017ce6852174112b50e8": "none",
+    "fd017ce68522e791ddb477": "default",
+    "fd017ce685246b0a79bc3b": "default",
+    "fd017ce685320fee178d3d": "none",
+    "fd017ce68adf1b16124668": true,
+    "fd017cea6ff57aa0f354ed": false,
+    "fd017cea7ba14a4ca1e74d": "{}",
+    "fd017ceb0448e9b564327a": false,
+    "fd017d03bdabe94ed9e0a7": false,
+    "fd017d03bdac8b7ce53e63": false,
+    "fd017d03bdde7591758637": "sm",
+    "fd017d03c616f039499469": 500,
+    "fd017d03c61794ac8f80c7": 300,
+    "fd017d040782c7d5f04c2c": false,
+    "fd018afac4edde1446628a": 20,
+    "fd018d8cedec2b12bb2e24": false,
+    "fdff023000000000000011": "Dialog",
+    "ff023000000000000011": "Dialog",
+    "v": 123
+   },
+   "t": "017ce674618b030841a7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Open a popup window on top of the current screen.",
+    "01703376c4a81c0e9d92": "Dialogs inform users about a task and can contain critical information, require decisions, or involve multiple tasks.\n<br><br>\nA Dialog is a type of modal window that appears in front of app content to provide critical information or ask for a decision. Dialogs disable all app functionality when they appear and remain on screen until a confirm, dismiss, or any required action has been taken. Dialogs purposefully interrupt the app flow, so should be used sparingly.\n<br><br>\nTrigger `Open Dialog` event to show up the dialog and `Close Dialog` to hide it. Set `Keep Mounted` property to hide the dialog instead of destroying it when it gets closed. `Hidden` property has no effect.\n<br><br>\nThe size of the dialog is determined by properties `Content Width` and `Content Height` (and not by properties `Width` and `Height`) or `Full Screen`. The dialog is always centered.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.",
+    "v": 497
+   },
+   "t": "017ce67495cabe4bfe4b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 4,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 13
+   },
+   "t": "017ce682434b7e4da14d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Title",
+    "v": 7
+   },
+   "t": "017ce682434b819e08c7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Optional title of the dialog.",
+    "v": 3
+   },
+   "t": "017ce682437cd6ebf9cf"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Scroll",
+    "v": 8
+   },
+   "t": "017ce68404082de1ba1b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 8,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 26
+   },
+   "t": "017ce684040950bd743b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Determine the container for scrolling the dialog.",
+    "v": 3
+   },
+   "t": "017ce684042eea118ae9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Transition Type",
+    "v": 17
+   },
+   "t": "017ce6851e714fbe101f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 11,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 27
+   },
+   "t": "017ce6851e7173c1c0ea"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The transition type.",
+    "v": 3
+   },
+   "t": "017ce6851e9a8158fb5a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 12,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 27
+   },
+   "t": "017ce6851ffa1af60294"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Transition Direction",
+    "v": 22
+   },
+   "t": "017ce6851ffa22776d85"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Direction/orientation of the transition.",
+    "v": 3
+   },
+   "t": "017ce6852023ace4954d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Transition Easing",
+    "v": 19
+   },
+   "t": "017ce6852174112b50e8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 13,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 27
+   },
+   "t": "017ce6852174a080e80f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The transition timing function.",
+    "v": 3
+   },
+   "t": "017ce68521a0d9d8ec6e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 14,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 27
+   },
+   "t": "017ce68522e766233223"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Transition Timeout",
+    "v": 28
+   },
+   "t": "017ce68522e791ddb477"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The duration for the transition, in milliseconds.",
+    "v": 3
+   },
+   "t": "017ce685230bdb44f989"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Transition Exit Timeout",
+    "v": 25
+   },
+   "t": "017ce685246b0a79bc3b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 16,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 28
+   },
+   "t": "017ce685246be19f6474"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The optional duration for the exit transition, in milliseconds.",
+    "v": 3
+   },
+   "t": "017ce685248f3ac1de21"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 15,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 28
+   },
+   "t": "017ce685320f5358c33c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Transition Exit Easing",
+    "v": 24
+   },
+   "t": "017ce685320fee178d3d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The optional transition timing function for the exit.",
+    "v": 3
+   },
+   "t": "017ce685325bcc0e25a2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Enable Backdrop Click",
+    "v": 110
+   },
+   "t": "017ce68adf1b16124668"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 6,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 33
+   },
+   "t": "017ce68adf1bf3e52a0c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "If true, clicking outside of the dialog or hitting the ESC key will dispatch the `Close Dialog` event automatically.",
+    "v": 160
+   },
+   "t": "017ce68adf6f2b8a7fe2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 10,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 29
+   },
+   "t": "017cea6ff57a0b51386d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Keep Mounted",
+    "v": 14
+   },
+   "t": "017cea6ff57aa0f354ed"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "If true, the dialog is hidden instead of being destroyed when closed. Then subsequent openings of the dialog simply \"unhide\" the dialog instead of recreating it from scratch. This can help the dialog open faster if it includes some complex rendering.",
+    "v": 5
+   },
+   "t": "017cea6ff5abcc7155cf"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 17,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 22
+   },
+   "t": "017cea7ba14a3389c97c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "MUI sx [json]",
+    "v": 15
+   },
+   "t": "017cea7ba14a4ca1e74d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The system prop that allows defining MUI system overrides as well as additional CSS styles.<br><br>The `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.<br><br>**Example:** <br> `{\"backgroundColor\":\"red\", \"fontSize\":\"60px\"}`<br> which is the equivalent of the CSS style  <br>`background-color:red; font-size:60px;`<br> written with the camelCase syntax",
+    "v": 9
+   },
+   "t": "017cea7ba1730b388495"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Hide Backdrop",
+    "v": 15
+   },
+   "t": "017ceb0448e9b564327a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 9,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 30
+   },
+   "t": "017ceb0448e9ea89c588"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "If true, the backdrop is not rendered.",
+    "v": 3
+   },
+   "t": "017ceb044934d2b84301"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 7,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 29
+   },
+   "t": "017d03bdabe93293651a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Full Screen",
+    "v": 13
+   },
+   "t": "017d03bdabe94ed9e0a7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "If true, the dialog is full-screen.",
+    "v": 3
+   },
+   "t": "017d03bdac1dcaa56941"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 1,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 23
+   },
+   "t": "017d03c616f001e61033"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Content Width",
+    "v": 15
+   },
+   "t": "017d03c616f039499469"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The width that the content renderer will use.",
+    "v": 55
+   },
+   "t": "017d03c61746405b39b5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Content Height",
+    "v": 16
+   },
+   "t": "017d03c61794ac8f80c7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 2,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 23
+   },
+   "t": "017d03c61794ca523538"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The height that the content renderer will use.",
+    "v": 48
+   },
+   "t": "017d03c6182382e11420"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 5,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true,
+    "v": 22
+   },
+   "t": "017d040782c7a8b0b7a6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Show Divider",
+    "v": 28
+   },
+   "t": "017d040782c7d5f04c2c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Display the top divider.",
+    "v": 9
+   },
+   "t": "017d040782fb59262271"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 0,
+    "016d1bb681929c2cc3f3": false,
+    "0170beccaac4129d72a9": true,
+    "v": 4
+   },
+   "t": "017da4ca0ce87bce031d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Open Dialog",
+    "v": 13
+   },
+   "t": "017da4ca0ce8cd228408"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Dispatch this event to open the dialog.",
+    "v": 82
+   },
+   "t": "017da4ca0cf650516d1f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Close Dialog",
+    "v": 16
+   },
+   "t": "017da4ca0d95406ef0d6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 1,
+    "016d1bb681929c2cc3f3": false,
+    "0170beccaac4129d72a9": true,
+    "v": 4
+   },
+   "t": "017da4ca0d95bb96b83d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Dispatch this event to close the dialog.",
+    "v": 28
+   },
+   "t": "017da4ca0da1f5d7a69d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 0,
+    "016d1bb681929c2cc3f3": false,
+    "0170beccaac4129d72a9": false,
+    "v": 22
+   },
+   "t": "017db924f1981db77a24"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Content Renderer",
+    "v": 3
+   },
+   "t": "017db924f198cd1a02c0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The content of the dialog.",
+    "v": 30
+   },
+   "t": "017db924f1bde227f91a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Content Padding"
+   },
+   "t": "018afac4edde1446628a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 3,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true
+   },
+   "t": "018afac4edde87ac5369"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The padding around the content of the dialog"
+   },
+   "t": "018afac4ee3eddd029db"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Display close button"
+   },
+   "t": "018d8cedec2b12bb2e24"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 18,
+    "016d1bb681929c2cc3f3": true,
+    "0170beccaac4129d72a9": true
+   },
+   "t": "018d8cedec2b99e8d391"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "If set to 'true', allows closing the dialog by clicking on the cross icon in the top-right corner of the popup"
+   },
+   "t": "018d8cedecf07c814468"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "017ce674618b030841a7"
+}

@@ -1,1 +1,94 @@
-{"operations":[{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow","v":1},"t":"017c262ecca715f35bbb"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow","v":1},"t":"017c262ecca723e87991"},{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"stable","fdff023000000000000011":"Set Local Storage","ff023000000000000011":"Set Local Storage","v":2},"t":"017c262ecca7e515c0ca"},{"o":1,"p":{"01703376c4a81c0e9d91":"Store a value in browser","01703376c4a81c0e9d92":"Set a value associated with the given key in the browser local storage.\nIf a value already exists for that key, the value is replaced.","v":1},"t":"017c263735ef3d5fda67"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"Key","v":1},"t":"017c2638d2a42cba695c"},{"o":1,"p":{"01703376c4a81c0e9d92":"The key used to identify the value","v":1},"t":"017c2638d33eb311fa1e"},{"o":1,"p":{"01740c5d4ae4b520dd01":2,"ff023000000000000011":"Value","v":1},"t":"017c2639403027dff903"},{"o":1,"p":{"01703376c4a81c0e9d92":"The value to store","v":1},"t":"017c2639405a0bcadb00"},{"o":1,"p":{"v":1},"t":"017d810be1f69bdd1608"},{"o":1,"p":{"v":1},"t":"017d810be2248421965c"}],"optionalOperations":[],"rootTag":"017c262ecca7e515c0ca"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "017c262ecca715f35bbb"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "017c262ecca723e87991"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "Set Local Storage",
+    "ff023000000000000011": "Set Local Storage",
+    "v": 2
+   },
+   "t": "017c262ecca7e515c0ca"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Store a value in browser",
+    "01703376c4a81c0e9d92": "Set a value associated with the given key in the browser local storage.\nIf a value already exists for that key, the value is replaced.",
+    "v": 1
+   },
+   "t": "017c263735ef3d5fda67"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Key",
+    "v": 1
+   },
+   "t": "017c2638d2a42cba695c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The key used to identify the value",
+    "v": 1
+   },
+   "t": "017c2638d33eb311fa1e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "Value",
+    "v": 1
+   },
+   "t": "017c2639403027dff903"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The value to store",
+    "v": 1
+   },
+   "t": "017c2639405a0bcadb00"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "017d810be1f69bdd1608"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "017d810be2248421965c"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "017c262ecca7e515c0ca"
+}

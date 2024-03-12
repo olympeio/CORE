@@ -1,1 +1,129 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"stable","ff023000000000000011":"Login","v":1},"t":"0163d01778b931d801dd"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow","v":1},"t":"0163d01778ba31d801dd"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"on success","v":1},"t":"0163d01778bb31d801dd"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"username","v":1},"t":"0163d01798a931804d48"},{"o":1,"p":{"01740c5d4ae4b520dd01":2,"ff023000000000000011":"password","v":1},"t":"0163d017ad3222b9683c"},{"o":1,"p":{"01740c5d4ae4b520dd01":2,"ff023000000000000011":"Error Flow","v":1},"t":"01783bc16f72a6a3214d"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"on failure","v":1},"t":"01783bc1d91dd3c19fa4"},{"o":1,"p":{"01703376c4a81c0e9d91":"Logs in a user with username/password.","01703376c4a81c0e9d92":"This brick can be used to control access to an app with a login page.\n\nOlympe user authentication, based on username and password. This only works if users have been created on the local environment. If an Identity Provider (IDP) has been configured on the environment, use `Login with SSO` instead.\n\nSimilarly, on the Olympe community you must use `Login with SSO` to control access.\n\nThe authentication is attempted only once when the input control flow is triggered.","v":466},"t":"017b35893b80b4d3d6f4"},{"o":1,"p":{"01703376c4a81c0e9d92":"The matching password","v":1},"t":"017b35893f7b0989c628"},{"o":1,"p":{"01703376c4a81c0e9d92":"The username to login with","v":1},"t":"017b35893f7baca69ebd"},{"o":1,"p":{"01703376c4a81c0e9d92":"1: The server is unreachable<br />2: Authentication error","v":1},"t":"017b3589427cef9463e1"},{"o":1,"p":{"01703376c4a81c0e9d92":"Triggers the execution of the brick","v":1},"t":"017b5abed57194c17dd9"},{"o":1,"p":{"01703376c4a81c0e9d92":"Triggered if the authentication is successful","v":1},"t":"017b5abed614f2f43a58"},{"o":1,"p":{"01703376c4a81c0e9d92":"Triggered if the authentication fails","v":1},"t":"017b5abed63866e606c3"}],"optionalOperations":[],"rootTag":"0163d01778b931d801dd"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "ff023000000000000011": "Login",
+    "v": 1
+   },
+   "t": "0163d01778b931d801dd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "0163d01778ba31d801dd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "on success",
+    "v": 1
+   },
+   "t": "0163d01778bb31d801dd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "username",
+    "v": 1
+   },
+   "t": "0163d01798a931804d48"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "password",
+    "v": 1
+   },
+   "t": "0163d017ad3222b9683c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "Error Flow",
+    "v": 1
+   },
+   "t": "01783bc16f72a6a3214d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "on failure",
+    "v": 1
+   },
+   "t": "01783bc1d91dd3c19fa4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Logs in a user with username/password.",
+    "01703376c4a81c0e9d92": "This brick can be used to control access to an app with a login page.\n\nOlympe user authentication, based on username and password. This only works if users have been created on the local environment. If an Identity Provider (IDP) has been configured on the environment, use `Login with SSO` instead.\n\nSimilarly, on the Olympe community you must use `Login with SSO` to control access.\n\nThe authentication is attempted only once when the input control flow is triggered.",
+    "v": 466
+   },
+   "t": "017b35893b80b4d3d6f4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The matching password",
+    "v": 1
+   },
+   "t": "017b35893f7b0989c628"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The username to login with",
+    "v": 1
+   },
+   "t": "017b35893f7baca69ebd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "1: The server is unreachable<br />2: Authentication error",
+    "v": 1
+   },
+   "t": "017b3589427cef9463e1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Triggers the execution of the brick",
+    "v": 1
+   },
+   "t": "017b5abed57194c17dd9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Triggered if the authentication is successful",
+    "v": 1
+   },
+   "t": "017b5abed614f2f43a58"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Triggered if the authentication fails",
+    "v": 1
+   },
+   "t": "017b5abed63866e606c3"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0163d01778b931d801dd"
+}

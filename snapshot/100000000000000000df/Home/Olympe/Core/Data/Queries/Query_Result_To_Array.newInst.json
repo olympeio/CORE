@@ -1,1 +1,61 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"fdff023000000000000011":"Query Result To List","ff023000000000000011":"Query Result To Array","v":40},"t":"0186174bea3609b086fa"},{"o":1,"p":{"01703376c4a81c0e9d91":"Transforms the olympe Query Result object to a standard javascript array","01703376c4a81c0e9d92":"Transforms the olympe Query Result object to a standard javascript array","v":79},"t":"0186174c15769f9608db"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"query result","v":15},"t":"0186174c1c97d58577e8"},{"o":1,"p":{"01703376c4a81c0e9d92":"The Query Result to transform","v":31},"t":"0186174c1d71a59fee49"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"array","v":18},"t":"0186174c30bf0d424f10"},{"o":1,"p":{"01703376c4a81c0e9d92":"The resulting array","v":23},"t":"0186174c31363dd43d0a"}],"optionalOperations":[],"rootTag":"0186174bea3609b086fa"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Query Result To List",
+    "ff023000000000000011": "Query Result To Array",
+    "v": 40
+   },
+   "t": "0186174bea3609b086fa"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Transforms the olympe Query Result object to a standard javascript array",
+    "01703376c4a81c0e9d92": "Transforms the olympe Query Result object to a standard javascript array",
+    "v": 79
+   },
+   "t": "0186174c15769f9608db"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "query result",
+    "v": 15
+   },
+   "t": "0186174c1c97d58577e8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The Query Result to transform",
+    "v": 31
+   },
+   "t": "0186174c1d71a59fee49"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "array",
+    "v": 18
+   },
+   "t": "0186174c30bf0d424f10"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The resulting array",
+    "v": 23
+   },
+   "t": "0186174c31363dd43d0a"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0186174bea3609b086fa"
+}

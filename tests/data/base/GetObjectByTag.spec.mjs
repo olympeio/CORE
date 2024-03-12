@@ -25,6 +25,6 @@ describe('GetObject brick', () => {
     it('should throw an error if the object with the given tag does not exist', async () => {
         const getObject = new GetObjectByTag();
         const promise = getObject.update(new BrickContext().createChild(), ['this tag does not exist'], [(_v) => {}]);
-        await expectAsync(promise).toBeRejectedWithError(/Try to get a CloudObject from a tag that does not exist in the local database/);
+        await expectAsync(promise).toBeRejectedWithError(/Get Object by Tag: tag this tag does not exist does not exist in the local database. To fetch the object from the database, use Query Object with Execute or Observe instead./);
     });
 });

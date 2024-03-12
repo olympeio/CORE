@@ -1,1 +1,79 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"stable","fdff023000000000000011":"Get Geolocation","ff023000000000000011":"Get Geolocation","v":2},"t":"0162d8ec885fdf7a6b69"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Longitude","v":1},"t":"0162d8ec8b4c40c47989"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"Latitude","v":1},"t":"0162d8ec8d7ecc432126"},{"o":1,"p":{"01740c5d4ae4b520dd01":2,"ff023000000000000011":"Altitude","v":1},"t":"0162d8ec8f79ccbdc487"},{"o":1,"p":{"01703376c4a81c0e9d91":"Obtain the current geo-location.","01703376c4a81c0e9d92":"This function creates 3 data-flows from the geo-location of the device.\n\nThis is updated in real time, but can require a permission check with the user.","v":1},"t":"017b35893b8670fe7fef"},{"o":1,"p":{"01703376c4a81c0e9d92":"The longitude.","v":1},"t":"017b35893f851dd7bb4a"},{"o":1,"p":{"01703376c4a81c0e9d92":"The altitude.","v":1},"t":"017b35893f851e023b53"},{"o":1,"p":{"01703376c4a81c0e9d92":"The latitude.","v":1},"t":"017b35893f85607047e6"}],"optionalOperations":[],"rootTag":"0162d8ec885fdf7a6b69"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "Get Geolocation",
+    "ff023000000000000011": "Get Geolocation",
+    "v": 2
+   },
+   "t": "0162d8ec885fdf7a6b69"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Longitude",
+    "v": 1
+   },
+   "t": "0162d8ec8b4c40c47989"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Latitude",
+    "v": 1
+   },
+   "t": "0162d8ec8d7ecc432126"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "Altitude",
+    "v": 1
+   },
+   "t": "0162d8ec8f79ccbdc487"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Obtain the current geo-location.",
+    "01703376c4a81c0e9d92": "This function creates 3 data-flows from the geo-location of the device.\n\nThis is updated in real time, but can require a permission check with the user.",
+    "v": 1
+   },
+   "t": "017b35893b8670fe7fef"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The longitude.",
+    "v": 1
+   },
+   "t": "017b35893f851dd7bb4a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The altitude.",
+    "v": 1
+   },
+   "t": "017b35893f851e023b53"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The latitude.",
+    "v": 1
+   },
+   "t": "017b35893f85607047e6"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0162d8ec885fdf7a6b69"
+}

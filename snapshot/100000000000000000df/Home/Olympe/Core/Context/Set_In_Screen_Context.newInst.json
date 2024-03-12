@@ -1,1 +1,221 @@
-{"operations":[{"o":1,"p":{"v":1},"t":"0184388be45f013f9d9d"},{"o":1,"p":{"v":1},"t":"0184388be45f2d17acfc"},{"o":1,"p":{"v":1},"t":"0184388be45f338b1d4b"},{"o":1,"p":{"01621fb84e320000f001":"public","01703376c4a81c0e9d94":"stable","fd?ff023000000000000011":"Set In Application Context","fdff023000000000000011":"Set In Screen Context","ff023000000000000011":"Set In Screen Context","v":60},"t":"0184388be45f58f7a907"},{"o":1,"p":{"v":1},"t":"0184388be45f6a1682b1"},{"o":1,"p":{"v":1},"t":"0184388be45f8851d138"},{"o":1,"p":{"01703376c4a81c0e9d91":"Set a value assigned to the given key in the Screen Context","01703376c4a81c0e9d92":"Set a value assigned to the given key in the Screen Context. This is especially useful to store application state. \n\nYou can observe the value by using `Get From Screen Context` or `Get From Context` with the same key from a nested context.","v":617},"t":"0184388be45f977244dd"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow","v":1},"t":"0184388be45fa3a3f40d"},{"o":1,"p":{"v":1},"t":"0184388be45fa93d6705"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"key","v":6},"t":"0184388be46001183f67"},{"o":1,"p":{"01703376c4a81c0e9d92":"The key where to assigne the value","v":52},"t":"0184388be46014da4c8e"},{"o":1,"p":{"v":1},"t":"0184388be460159b9dd2"},{"o":1,"p":{"ff023000000000000011":"Descender output","v":1},"t":"0184388be46050e85add"},{"o":1,"p":{"01740c5d4ae4b520dd01":2,"ff023000000000000011":"value","v":7},"t":"0184388be46063c80cf0"},{"o":1,"p":{"v":1},"t":"0184388be46077271b15"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow","v":1},"t":"0184388be4607fec1ff9"},{"o":1,"p":{"v":1},"t":"0184388be46082201aa4"},{"o":1,"p":{"ff023000000000000011":"Descender output","v":1},"t":"0184388be4608b5e97ed"},{"o":1,"p":{"v":1},"t":"0184388be460bba922c0"},{"o":1,"p":{"ff023000000000000011":"Descender output","v":1},"t":"0184388be460c8fb8db7"},{"o":1,"p":{"v":1},"t":"0184388be460d1787c00"},{"o":1,"p":{"01703376c4a81c0e9d92":"The value to assign to the key","v":36},"t":"0184388be460e8041406"},{"o":1,"p":{"01621f6ab58c2f884654":19986,"01621f6ab6ac89348f20":20125,"v":235},"t":"0184388be460ee87ddcc"},{"o":1,"p":{"ff023000000000000011":"Ascender input","v":1},"t":"0184388be460fd8500c8"},{"o":1,"p":{"01621f6ab58c2f884654":19987,"01621f6ab6ac89348f20":19973,"v":71},"t":"0184388c2606808242f4"},{"o":1,"p":{"v":1},"t":"0184388c2606b7467b90"},{"o":1,"p":{"v":1},"t":"0184388c2c2836bdf352"}],"optionalOperations":[],"rootTag":"0184388be45f58f7a907"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0184388be45f013f9d9d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0184388be45f2d17acfc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0184388be45f338b1d4b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01703376c4a81c0e9d94": "stable",
+    "fd?ff023000000000000011": "Set In Application Context",
+    "fdff023000000000000011": "Set In Screen Context",
+    "ff023000000000000011": "Set In Screen Context",
+    "v": 60
+   },
+   "t": "0184388be45f58f7a907"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0184388be45f6a1682b1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0184388be45f8851d138"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Set a value assigned to the given key in the Screen Context",
+    "01703376c4a81c0e9d92": "Set a value assigned to the given key in the Screen Context. This is especially useful to store application state. \n\nYou can observe the value by using `Get From Screen Context` or `Get From Context` with the same key from a nested context.",
+    "v": 617
+   },
+   "t": "0184388be45f977244dd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "0184388be45fa3a3f40d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0184388be45fa93d6705"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "key",
+    "v": 6
+   },
+   "t": "0184388be46001183f67"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The key where to assigne the value",
+    "v": 52
+   },
+   "t": "0184388be46014da4c8e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0184388be460159b9dd2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Descender output",
+    "v": 1
+   },
+   "t": "0184388be46050e85add"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "value",
+    "v": 7
+   },
+   "t": "0184388be46063c80cf0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0184388be46077271b15"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "0184388be4607fec1ff9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0184388be46082201aa4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Descender output",
+    "v": 1
+   },
+   "t": "0184388be4608b5e97ed"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0184388be460bba922c0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Descender output",
+    "v": 1
+   },
+   "t": "0184388be460c8fb8db7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0184388be460d1787c00"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The value to assign to the key",
+    "v": 36
+   },
+   "t": "0184388be460e8041406"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621f6ab58c2f884654": 19986,
+    "01621f6ab6ac89348f20": 20125,
+    "v": 235
+   },
+   "t": "0184388be460ee87ddcc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Ascender input",
+    "v": 1
+   },
+   "t": "0184388be460fd8500c8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621f6ab58c2f884654": 19987,
+    "01621f6ab6ac89348f20": 19973,
+    "v": 71
+   },
+   "t": "0184388c2606808242f4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0184388c2606b7467b90"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0184388c2c2836bdf352"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0184388be45f58f7a907"
+}

@@ -1,1 +1,146 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"fdff023000000000000011":"Get Gyroscope Coordinates","ff023000000000000011":"Get Gyroscope Coordinates","v":31},"t":"01860d82085ba1872dc0"},{"o":1,"p":{"01703376c4a81c0e9d91":"Get the coordinates of the device","01703376c4a81c0e9d92":"Get the coordinates of the device.\n\nThis HAS to be triggered on a user action (typically a Onclick) otherwise it won't work for Safari IOS\n\n\n\nAcceleration X, Y & Z are described <a target=\"_blank\" href=\"https://developer.mozilla.org/fr/docs/Web/API/Window/devicemotion_event\">here</a>\n\nAlpha, beta & gamma are described <a target=\"_blank\" href=\"https://developer.mozilla.org/fr/docs/Web/API/Window/deviceorientation_event\">here</a>","v":215},"t":"01860d8228e5eca576bb"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"alpha","v":7},"t":"01860d83a8353b9d62aa"},{"o":1,"p":{"01703376c4a81c0e9d92":"Coordinates versus Earth coordinates computed from the magnetometer of the device ","v":116},"t":"01860d83a8b2a9fb6ab8"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"beta","v":6},"t":"01860d83ac3a451a3fed"},{"o":1,"p":{"01703376c4a81c0e9d92":"Coordinates versus Earth coordinates computed from the magnetometer of the device ","v":3},"t":"01860d83acf56a864b2a"},{"o":1,"p":{"01740c5d4ae4b520dd01":2,"ff023000000000000011":"gamma","v":7},"t":"01860d83b04b2151e3cd"},{"o":1,"p":{"01703376c4a81c0e9d92":"Coordinates versus Earth coordinates computed from the magnetometer of the device ","v":3},"t":"01860d83b0c4f20ece21"},{"o":1,"p":{"01740c5d4ae4b520dd01":3,"ff023000000000000011":"acceleration X","v":16},"t":"01860d83d6559affeb01"},{"o":1,"p":{"01703376c4a81c0e9d92":"Acceleration on X axis. Expressed in m/s2","v":43},"t":"01860d83da85d1ddae2e"},{"o":1,"p":{"01740c5d4ae4b520dd01":4,"ff023000000000000011":"acceleration Y","v":18},"t":"01860d83db167890d1e3"},{"o":1,"p":{"01703376c4a81c0e9d92":"Acceleration on Y axis. Expressed in m/s2","v":4},"t":"01860d83db97aff8e6d9"},{"o":1,"p":{"01740c5d4ae4b520dd01":5,"ff023000000000000011":"acceleration Z","v":17},"t":"01860d83e1766c128f1c"},{"o":1,"p":{"01703376c4a81c0e9d92":"Acceleration on Z axis. Expressed in m/s2","v":5},"t":"01860d83e249cd957d90"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Trigger","v":10},"t":"01860d8517cac4dd82e9"},{"o":1,"p":{"01703376c4a81c0e9d92":"This HAS to be triggered on a user action (typically a Onclick) otherwise it won't work for Safari IOS","v":3},"t":"01860d851849df601d76"}],"optionalOperations":[],"rootTag":"01860d82085ba1872dc0"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Get Gyroscope Coordinates",
+    "ff023000000000000011": "Get Gyroscope Coordinates",
+    "v": 31
+   },
+   "t": "01860d82085ba1872dc0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Get the coordinates of the device",
+    "01703376c4a81c0e9d92": "Get the coordinates of the device.\n\nThis HAS to be triggered on a user action (typically a Onclick) otherwise it won't work for Safari IOS\n\n\n\nAcceleration X, Y & Z are described <a target=\"_blank\" href=\"https://developer.mozilla.org/fr/docs/Web/API/Window/devicemotion_event\">here</a>\n\nAlpha, beta & gamma are described <a target=\"_blank\" href=\"https://developer.mozilla.org/fr/docs/Web/API/Window/deviceorientation_event\">here</a>",
+    "v": 215
+   },
+   "t": "01860d8228e5eca576bb"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "alpha",
+    "v": 7
+   },
+   "t": "01860d83a8353b9d62aa"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Coordinates versus Earth coordinates computed from the magnetometer of the device ",
+    "v": 116
+   },
+   "t": "01860d83a8b2a9fb6ab8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "beta",
+    "v": 6
+   },
+   "t": "01860d83ac3a451a3fed"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Coordinates versus Earth coordinates computed from the magnetometer of the device ",
+    "v": 3
+   },
+   "t": "01860d83acf56a864b2a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "gamma",
+    "v": 7
+   },
+   "t": "01860d83b04b2151e3cd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Coordinates versus Earth coordinates computed from the magnetometer of the device ",
+    "v": 3
+   },
+   "t": "01860d83b0c4f20ece21"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "ff023000000000000011": "acceleration X",
+    "v": 16
+   },
+   "t": "01860d83d6559affeb01"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Acceleration on X axis. Expressed in m/s2",
+    "v": 43
+   },
+   "t": "01860d83da85d1ddae2e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 4,
+    "ff023000000000000011": "acceleration Y",
+    "v": 18
+   },
+   "t": "01860d83db167890d1e3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Acceleration on Y axis. Expressed in m/s2",
+    "v": 4
+   },
+   "t": "01860d83db97aff8e6d9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 5,
+    "ff023000000000000011": "acceleration Z",
+    "v": 17
+   },
+   "t": "01860d83e1766c128f1c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Acceleration on Z axis. Expressed in m/s2",
+    "v": 5
+   },
+   "t": "01860d83e249cd957d90"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Trigger",
+    "v": 10
+   },
+   "t": "01860d8517cac4dd82e9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "This HAS to be triggered on a user action (typically a Onclick) otherwise it won't work for Safari IOS",
+    "v": 3
+   },
+   "t": "01860d851849df601d76"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01860d82085ba1872dc0"
+}

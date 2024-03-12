@@ -1,1 +1,114 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"stable","fdff023000000000000011":"Filter List Equals","ff023000000000000011":"Filter List Equals","v":2},"t":"01674138206e8fde93fb"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Object list","v":1},"t":"0167413827e44cfc8c67"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"Property","v":1},"t":"016741382b450057d5b8"},{"o":1,"p":{"01740c5d4ae4b520dd01":2,"ff023000000000000011":"Filter","v":1},"t":"016741382d5e8a926075"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Filtered list","v":1},"t":"016741382f05baf24b56"},{"o":1,"p":{"01740c5d4ae4b520dd01":3,"01740c5d4ae4b520dd02":false,"ff023000000000000011":"Not","v":1},"t":"017a15000721099833b6"},{"o":1,"p":{"01703376c4a81c0e9d91":"Filter on a specific property being equal to the specified value.","01703376c4a81c0e9d92":"This function filters out a list by comparing a specific object's property to a given value. It generates a new list that contains only the objects whose property is equal to the filtering value.\n\nThe following property types are supported: `string`, `number`, `boolean`, and `datetime`.\n\n**Example**: All the customers who are not married.\n","v":1},"t":"017b35893b642859691d"},{"o":1,"p":{"01703376c4a81c0e9d92":"The property to test.","v":1},"t":"017b35893f5eadc17e2e"},{"o":1,"p":{"01703376c4a81c0e9d92":"The value to compare with.","v":1},"t":"017b35893f5f9ad3a192"},{"o":1,"p":{"01703376c4a81c0e9d92":"The list to filter.","v":1},"t":"017b3590fcc489a63b1d"},{"o":1,"p":{"01703376c4a81c0e9d92":"If `true`, acts as `Filter List Different`.","v":1},"t":"017b3590fcd6c44dd46e"},{"o":1,"p":{"01703376c4a81c0e9d92":"The resulting filtered list.","v":1},"t":"017b3590fcdfd304e222"}],"optionalOperations":[],"rootTag":"01674138206e8fde93fb"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "Filter List Equals",
+    "ff023000000000000011": "Filter List Equals",
+    "v": 2
+   },
+   "t": "01674138206e8fde93fb"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Object list",
+    "v": 1
+   },
+   "t": "0167413827e44cfc8c67"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Property",
+    "v": 1
+   },
+   "t": "016741382b450057d5b8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "Filter",
+    "v": 1
+   },
+   "t": "016741382d5e8a926075"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Filtered list",
+    "v": 1
+   },
+   "t": "016741382f05baf24b56"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "01740c5d4ae4b520dd02": false,
+    "ff023000000000000011": "Not",
+    "v": 1
+   },
+   "t": "017a15000721099833b6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Filter on a specific property being equal to the specified value.",
+    "01703376c4a81c0e9d92": "This function filters out a list by comparing a specific object's property to a given value. It generates a new list that contains only the objects whose property is equal to the filtering value.\n\nThe following property types are supported: `string`, `number`, `boolean`, and `datetime`.\n\n**Example**: All the customers who are not married.\n",
+    "v": 1
+   },
+   "t": "017b35893b642859691d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The property to test.",
+    "v": 1
+   },
+   "t": "017b35893f5eadc17e2e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The value to compare with.",
+    "v": 1
+   },
+   "t": "017b35893f5f9ad3a192"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The list to filter.",
+    "v": 1
+   },
+   "t": "017b3590fcc489a63b1d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "If `true`, acts as `Filter List Different`.",
+    "v": 1
+   },
+   "t": "017b3590fcd6c44dd46e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The resulting filtered list.",
+    "v": 1
+   },
+   "t": "017b3590fcdfd304e222"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01674138206e8fde93fb"
+}

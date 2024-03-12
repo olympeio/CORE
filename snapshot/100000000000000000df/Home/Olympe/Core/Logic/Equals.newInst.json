@@ -1,1 +1,78 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"stable","ff023000000000000011":"Equals","v":1},"t":"01633f061f44e5e36b06"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"a","v":1},"t":"01633f06232c5a0cb658"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"b","v":1},"t":"01633f06245d7520ebf3"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"a == b","v":1},"t":"01633f0625605b83d379"},{"o":1,"p":{"01703376c4a81c0e9d91":"Checks if two objects are equal.","01703376c4a81c0e9d92":"Compares two objects (e.g. numbers) and returns `true` if they are equal. Returns `false` otherwise.\n\nNotes: \n\n- This function is only executed if both inputs are defined. So it returns `null` if at least one of the two input is not defined.\n- If the two objects are not comparable (e.g. a number and a color) the result will be `false`.","v":177},"t":"017b35893baf718527b9"},{"o":1,"p":{"01703376c4a81c0e9d92":"The first object to compare.","v":1},"t":"017b35893fc720971b0b"},{"o":1,"p":{"01703376c4a81c0e9d92":"The second object to compare.","v":1},"t":"017b35893fc7c725249a"},{"o":1,"p":{"01703376c4a81c0e9d92":"`true` if `a` and `b` are equal.","v":1},"t":"017b358942f180d0068c"}],"optionalOperations":[],"rootTag":"01633f061f44e5e36b06"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "ff023000000000000011": "Equals",
+    "v": 1
+   },
+   "t": "01633f061f44e5e36b06"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "a",
+    "v": 1
+   },
+   "t": "01633f06232c5a0cb658"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "b",
+    "v": 1
+   },
+   "t": "01633f06245d7520ebf3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "a == b",
+    "v": 1
+   },
+   "t": "01633f0625605b83d379"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Checks if two objects are equal.",
+    "01703376c4a81c0e9d92": "Compares two objects (e.g. numbers) and returns `true` if they are equal. Returns `false` otherwise.\n\nNotes: \n\n- This function is only executed if both inputs are defined. So it returns `null` if at least one of the two input is not defined.\n- If the two objects are not comparable (e.g. a number and a color) the result will be `false`.",
+    "v": 177
+   },
+   "t": "017b35893baf718527b9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The first object to compare.",
+    "v": 1
+   },
+   "t": "017b35893fc720971b0b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The second object to compare.",
+    "v": 1
+   },
+   "t": "017b35893fc7c725249a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "`true` if `a` and `b` are equal.",
+    "v": 1
+   },
+   "t": "017b358942f180d0068c"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01633f061f44e5e36b06"
+}

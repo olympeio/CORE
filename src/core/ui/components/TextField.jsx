@@ -82,102 +82,105 @@ export default class TextField extends ReactBrick {
             const actualInputHeight = Math.max((brickHeight - (hasHelperText ? 20 : 0)), 40);
             let translateY = (actualInputHeight - 23) / 2; // 23 is height of label
             const hasValue = !!value;
-            if (hasEmptyText || hasValue) {
+
+            const  isLabelOnTop = hasEmptyText || hasValue || type === 'date' || type === 'datetime-local' || type === 'color' || type === 'time';
+
+            if (isLabelOnTop) {
                 translateY = -8;
             }
 
             let customSx = {
                 '.MuiInputLabel-formControl:not(.Mui-focused)': {
-                    transform: `translate(14px, ${translateY}px) scale(${hasEmptyText || hasValue ? 0.75 : 1})`
+                    transform: `translate(14px, ${translateY}px) scale(${isLabelOnTop? 0.75 : 1})`
                 }
             };
 
             return !hidden && (
                 <ThemeProvider theme={theme}><MUITextField
-                    // Properties
-                    value={value || ''}
-                    placeholder={useProperty($, 'Placeholder')}
-                    {...ifNotNull('label', label, label && label.trim() !== '')}
-                    helperText={useProperty($, 'Helper Text')}
-                    type={type}
-                    variant={useProperty($, 'Variant')}
-                    color={useProperty($, 'Color')}
-                    size={useProperty($, 'Min Size')}
-                    disabled={useProperty($, 'Disabled')}
-                    autoFocus={useProperty($, 'Auto Focus')}
-                    required={useProperty($, 'Required')}
-                    error={error}
-                    multiline={multiLine}
+                            // Properties
+                            value={value || ''}
+                            placeholder={useProperty($, 'Placeholder')}
+                            {...ifNotNull('label', label, label && label.trim() !== '')}
+                            helperText={useProperty($, 'Helper Text')}
+                            type={type}
+                            variant={useProperty($, 'Variant')}
+                            color={useProperty($, 'Color')}
+                            size={useProperty($, 'Min Size')}
+                            disabled={useProperty($, 'Disabled')}
+                            autoFocus={useProperty($, 'Auto Focus')}
+                            required={useProperty($, 'Required')}
+                            error={error}
+                            multiline={multiLine}
 
-                    // Events
-                    onClick={() => $.trigger('On Click')}
-                    onChange={(event) => {
-                        // Set the Value property before triggering the event
-                        $.set('Value', event.target.value);
-                        $.trigger('On Change');
-                    }}
+                            // Events
+                            onClick={() => $.trigger('On Click')}
+                            onChange={(event) => {
+                                // Set the Value property before triggering the event
+                                $.set('Value', event.target.value);
+                                $.trigger('On Change');
+                            }}
 
-                    // UI
+                            // UI
 
-                    // Affects the input component (wrapper of <input> or <textarea>)
-                    // see: https://mui.com/api/text-field/#props
-                    InputProps={{
-                        sx: {
-                            ...ifNotNull('flex', 'auto', !multiLine),
-                            ...ifNotNull('display', 'flex', multiLine),
-                            ...ifNotNull('flexDirection', 'column', multiLine),
-                            ...ifNotNull('justifyContent', justifyContent, multiLine),
-                            fontFamily: fontFamily,
+                            // Affects the input component (wrapper of <input> or <textarea>)
+                            // see: https://mui.com/api/text-field/#props
+                            InputProps={{
+                                sx: {
+                                    ...ifNotNull('flex', 'auto', !multiLine),
+                                    ...ifNotNull('display', 'flex', multiLine),
+                                    ...ifNotNull('flexDirection', 'column', multiLine),
+                                    ...ifNotNull('justifyContent', justifyContent, multiLine),
+                                    fontFamily: fontFamily,
                             ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
-                            ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
-                            ...ifNotNull('borderWidth', borderWidth, showBorder),
-                            ...ifNotNull('borderStyle', 'solid', showBorder),
-                            ...ifNotNull('boxSizing', 'border-box', showBorder),
-                            ...ifNotTransparent('borderColor', borderColor),
+                                    ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
+                                    ...ifNotNull('borderWidth', borderWidth, showBorder),
+                                    ...ifNotNull('borderStyle', 'solid', showBorder),
+                                    ...ifNotNull('boxSizing', 'border-box', showBorder),
+                                    ...ifNotTransparent('borderColor', borderColor),
                             ...ifNotNull('color', textColorOverflow && textColorOverflow.toHexString(), showTextColorOverflow)
-                        },
+                                },
 
-                        style: {
-                            height: '100%',
-                        },
+                                style: {
+                                    height: '100%',
+                                },
 
-                        // On Enter key pressed
-                        onKeyDown: (event) => {
+                                // On Enter key pressed
+                                onKeyDown: (event) => {
                             if(event.key === 'Enter') {
-                                $.trigger('On Enter Pressed');
-                            }
+                                        $.trigger('On Enter Pressed');
+                                    }
                         }
-                    }}
-                    // Affects the <input> or <textarea> element of the input component
-                    // see: https://mui.com/api/text-field/#props
-                    inputProps={{
-                        ...ifNotNull('min', useProperty($, 'Min Val'), type === 'number'),
-                        ...ifNotNull('max', useProperty($, 'Max Val'), type === 'number'),
-                        ...ifNotNull('step', useProperty($, 'Step'), type === 'number'),
-                        style: {
-                            maxHeight: '100%',
+                            }}
+                            // Affects the <input> or <textarea> element of the input component
+                            // see: https://mui.com/api/text-field/#props
+                            inputProps={{
+                                ...ifNotNull('min', useProperty($, 'Min Val'), type === 'number'),
+                                ...ifNotNull('max', useProperty($, 'Max Val'), type === 'number'),
+                                ...ifNotNull('step', useProperty($, 'Step'), type === 'number'),
+                                style: {
+                                    maxHeight: '100%',
                             overflow: 'auto'
-                        },
-                        tabIndex: useProperty($, 'Tab Index'),
-                    }}
-                    FormHelperTextProps={{
-                        sx: {
-                            fontFamily: fontFamily,
+                                },
+                                tabIndex: useProperty($, 'Tab Index'),
+                            }}
+                            FormHelperTextProps={{
+                                sx: {
+                                    fontFamily: fontFamily,
                             ...ifNotTransparent('color', borderColor)
                         }
-                    }}
-                    InputLabelProps={{
-                        ...ifNotNull('shrink', true, type === 'date' || type === 'datetime-local' || type === 'color'),
-                        sx: {
-                            fontFamily: fontFamily,
+                            }}
+                            InputLabelProps={{
+                        ...ifNotNull('shrink', true, type === 'date' || type === 'datetime-local' || type === 'color' || type === 'time'),
+                                sx: {
+                                    fontFamily: fontFamily,
                             ...ifNotTransparent('color', borderColor)
                         }
-                    }}
-                    sx={{
-                        width: 1,
-                        height: 1,
-                        ...cssToSxProps(useProperty($, 'CSS Property')),
-                        ...jsonToSxProps(useProperty($, 'MUI sx [json]')),
+                            }}
+                            sx={{
+                                width: 1,
+                                height: 1,
+                                ...cssToSxProps(useProperty($, 'CSS Property')),
+                                ...jsonToSxProps(useProperty($, 'MUI sx [json]')),
                         ...customSx
                     }}
                 ></MUITextField></ThemeProvider>

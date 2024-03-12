@@ -1,5 +1,5 @@
 import {Logger} from 'loglevel';
-import {BrickContext, VisualBrick} from "@olympeio/runtime-web";
+import {BrickContext, VisualBrick, Brick} from "@olympeio/runtime-web";
 import {ReactElement} from "react";
 
 /**
@@ -151,9 +151,9 @@ export function useProperty($: BrickContext, property: string, waitForValue: boo
  * In case of the error flow output gets an error, the promise is rejected with that error.
  *
  * @param {BrickContext} $
- * @param {string} lambda name of the lambda to be executed
+ * @param {!Brick} lambda lambda to be executed
  * @param {!Array<*>} inputsValues input values except for control flow, in order of the function signature.
  * @param {number} customErrorCode
  * @return {Promise<!Array<*>>}
  */
-export function executeLambda($: BrickContext, lambda: string, inputsValues: any[], customErrorCode: number): Promise<any[]>
+export function executeLambda($: BrickContext, lambda: Brick, inputsValues: any[], customErrorCode: number): Promise<any[]>

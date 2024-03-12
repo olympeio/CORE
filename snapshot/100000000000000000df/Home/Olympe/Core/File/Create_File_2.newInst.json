@@ -1,1 +1,356 @@
-{"operations":[{"o":1,"p":{"ff023000000000000011":"Descender output","v":1},"t":"0186bb8c2d530c8166b8"},{"o":1,"p":{"v":1},"t":"0186bb8c2d530e3f42be"},{"o":1,"p":{"01621fb84e320000f001":"public","01703376c4a81c0e9d94":"stable","fdff023000000000000011":"Create File","ff023000000000000011":"Create File","v":22},"t":"0186bb8c2d531f799bd5"},{"o":1,"p":{"ff023000000000000011":"Ascender input","v":1},"t":"0186bb8c2d5358577a17"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow","v":1},"t":"0186bb8c2d535d97a132"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow","v":1},"t":"0186bb8c2d5398c53702"},{"o":1,"p":{"v":1},"t":"0186bb8c2d53c802869f"},{"o":1,"p":{"01703376c4a81c0e9d91":"Create a file from a text content","01703376c4a81c0e9d92":"## Description\nCreate a file instance in the local database from a text content.\n\nThe newly created file is not persisted. Use the brick `Persist Object` to do so.","v":30},"t":"0186bdd954c5f55ea2e9"},{"o":1,"p":{"v":1},"t":"0186bdd95503d6938b4f"},{"o":1,"p":{"v":1},"t":"0186bdd95534f88b1aa8"},{"o":1,"p":{"ff023000000000000011":"Descender output","v":1},"t":"0186bdd96cb003c7682f"},{"o":1,"p":{"v":1},"t":"0186bdd96cb064f8eb81"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"file name","v":11},"t":"0186bdd96cb070d4ee6b"},{"o":1,"p":{"01703376c4a81c0e9d92":"The name of the file to be created.","v":3},"t":"0186bdd96d153f72f4ef"},{"o":1,"p":{"v":1},"t":"0186bdd96f8018d315e1"},{"o":1,"p":{"01740c5d4ae4b520dd01":3,"ff023000000000000011":"content","v":9},"t":"0186bdd96f802ddf4dae"},{"o":1,"p":{"ff023000000000000011":"Descender output","v":1},"t":"0186bdd96f80d74c3bc4"},{"o":1,"p":{"01703376c4a81c0e9d92":"The content of the file.","v":3},"t":"0186bdd96ff65793dcc6"},{"o":1,"p":{"v":1},"t":"0186bdd971b48544d014"},{"o":1,"p":{"ff023000000000000011":"Descender output","v":1},"t":"0186bdd971b4e1727d13"},{"o":1,"p":{"01740c5d4ae4b520dd01":2,"ff023000000000000011":"mime type","v":12},"t":"0186bdd971b4edf565b1"},{"o":1,"p":{"01703376c4a81c0e9d92":"The MIME type of the file to be created.","v":3},"t":"0186bdd97229fab01321"},{"o":1,"p":{"ff023000000000000011":"Ascender input","v":1},"t":"0186bdd9efaa0e32bd6f"},{"o":1,"p":{"v":1},"t":"0186bdd9efaa18a442c5"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"Error Flow","v":14},"t":"0186bdd9efaaa1020370"},{"o":1,"p":{"v":1},"t":"0186bdd9f018d3a4952c"},{"o":1,"p":{"ff023000000000000011":"Ascender input","v":1},"t":"0186bdd9f6b20c434b08"},{"o":1,"p":{"v":1},"t":"0186bdd9f6b27af87b14"},{"o":1,"p":{"01740c5d4ae4b520dd01":2,"ff023000000000000011":"file","v":6},"t":"0186bdd9f6b2f2ec5446"},{"o":1,"p":{"v":1},"t":"0186bdd9f72c4c6f052d"},{"o":1,"p":{"01621f6ab58c2f884654":19868,"01621f6ab6ac89348f20":20154.5,"v":1},"t":"0186bdda772f83d79006"},{"o":1,"p":{"v":1},"t":"0186bdda772fef9aca4a"},{"o":1,"p":{"v":1},"t":"0186bdda8cc02aa184d1"},{"o":1,"p":{"01621f6ab58c2f884654":20156,"01621f6ab6ac89348f20":20238,"v":207},"t":"0186bdda8cc0c5541b8a"},{"o":1,"p":{"v":1},"t":"0186bddaa10ebe2bde10"},{"o":1,"p":{"v":2},"t":"0186bddaa2a53bfe0594"},{"o":1,"p":{"v":1},"t":"0186bddab2ba97fbf707"},{"o":1,"p":{"v":1},"t":"0186bddacb095e665d45"},{"o":1,"p":{"v":1},"t":"0186bddad249c29e83e0"},{"o":1,"p":{"v":1},"t":"0186bddad7f611a2b06c"},{"o":1,"p":{"v":1},"t":"0186bddadde84e2587f9"},{"o":1,"p":{"v":1},"t":"0186bddae37205880d1a"},{"o":1,"p":{"v":1},"t":"0186bdde2e10b763f809"},{"o":1,"p":{"v":1},"t":"0186bdde3186c3c5cc0d"},{"o":1,"p":{"v":1},"t":"0186bdde366d4341d3bf"}],"optionalOperations":[],"rootTag":"0186bb8c2d531f799bd5"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Descender output",
+    "v": 1
+   },
+   "t": "0186bb8c2d530c8166b8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bb8c2d530e3f42be"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "Create File",
+    "ff023000000000000011": "Create File",
+    "v": 22
+   },
+   "t": "0186bb8c2d531f799bd5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Ascender input",
+    "v": 1
+   },
+   "t": "0186bb8c2d5358577a17"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "0186bb8c2d535d97a132"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "0186bb8c2d5398c53702"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bb8c2d53c802869f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Create a file from a text content",
+    "01703376c4a81c0e9d92": "## Description\nCreate a file instance in the local database from a text content.\n\nThe newly created file is not persisted. Use the brick `Persist Object` to do so.",
+    "v": 30
+   },
+   "t": "0186bdd954c5f55ea2e9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bdd95503d6938b4f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bdd95534f88b1aa8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Descender output",
+    "v": 1
+   },
+   "t": "0186bdd96cb003c7682f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bdd96cb064f8eb81"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "file name",
+    "v": 11
+   },
+   "t": "0186bdd96cb070d4ee6b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The name of the file to be created.",
+    "v": 3
+   },
+   "t": "0186bdd96d153f72f4ef"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bdd96f8018d315e1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "ff023000000000000011": "content",
+    "v": 9
+   },
+   "t": "0186bdd96f802ddf4dae"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Descender output",
+    "v": 1
+   },
+   "t": "0186bdd96f80d74c3bc4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The content of the file.",
+    "v": 3
+   },
+   "t": "0186bdd96ff65793dcc6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bdd971b48544d014"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Descender output",
+    "v": 1
+   },
+   "t": "0186bdd971b4e1727d13"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "mime type",
+    "v": 12
+   },
+   "t": "0186bdd971b4edf565b1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The MIME type of the file to be created.",
+    "v": 3
+   },
+   "t": "0186bdd97229fab01321"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Ascender input",
+    "v": 1
+   },
+   "t": "0186bdd9efaa0e32bd6f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bdd9efaa18a442c5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Error Flow",
+    "v": 14
+   },
+   "t": "0186bdd9efaaa1020370"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bdd9f018d3a4952c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Ascender input",
+    "v": 1
+   },
+   "t": "0186bdd9f6b20c434b08"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bdd9f6b27af87b14"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "file",
+    "v": 6
+   },
+   "t": "0186bdd9f6b2f2ec5446"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bdd9f72c4c6f052d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621f6ab58c2f884654": 19868,
+    "01621f6ab6ac89348f20": 20154.5,
+    "v": 1
+   },
+   "t": "0186bdda772f83d79006"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bdda772fef9aca4a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bdda8cc02aa184d1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621f6ab58c2f884654": 20156,
+    "01621f6ab6ac89348f20": 20238,
+    "v": 207
+   },
+   "t": "0186bdda8cc0c5541b8a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bddaa10ebe2bde10"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 2
+   },
+   "t": "0186bddaa2a53bfe0594"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bddab2ba97fbf707"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bddacb095e665d45"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bddad249c29e83e0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bddad7f611a2b06c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bddadde84e2587f9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bddae37205880d1a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bdde2e10b763f809"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bdde3186c3c5cc0d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "0186bdde366d4341d3bf"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0186bb8c2d531f799bd5"
+}

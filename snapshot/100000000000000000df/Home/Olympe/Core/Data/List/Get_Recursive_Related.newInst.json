@@ -1,1 +1,96 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"deprecated","fdff023000000000000011":"Get Recursive Related","ff023000000000000011":"Get Recursive Related","v":3},"t":"0178265fcf5008c4d726"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Origin","v":1},"t":"017826601ee84f0ff1f9"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"Relation","v":1},"t":"0178266037124b9bf475"},{"o":1,"p":{"01740c5d4ae4b520dd01":2,"ff023000000000000011":"IncludeSelf","v":1},"t":"017826609794d340daef"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"List","v":1},"t":"01782660b3f85d5a5d6a"},{"o":1,"p":{"01703376c4a81c0e9d91":"Follows the given relation recursively and returns all objects visited flattened into a list","01703376c4a81c0e9d92":"**This can be replaced by `Query Object` followed by `Query Follow Relation Recursively**  \n<br>\nIf we have a chain or tree of objects of the same type (or with the same parent type in case of inheritance), e.g. a1->a2->a3 and a2->a4, the function returns all the objects as a single list {a1, a2, a3, a4}","v":123},"t":"017b35893b67a9a9349e"},{"o":1,"p":{"01703376c4a81c0e9d92":"Include origin object in the output list of related objects","v":1},"t":"017b35893f63da3a277c"},{"o":1,"p":{"01703376c4a81c0e9d92":"Relation to follow","v":1},"t":"017b35893f648594fa8c"},{"o":1,"p":{"01703376c4a81c0e9d92":"Object from which to recursively follow the relation","v":1},"t":"017b35893f6583bc8294"},{"o":1,"p":{"01703376c4a81c0e9d92":"List of related objects","v":1},"t":"017b358942777062fabf"}],"optionalOperations":[],"rootTag":"0178265fcf5008c4d726"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "deprecated",
+    "fdff023000000000000011": "Get Recursive Related",
+    "ff023000000000000011": "Get Recursive Related",
+    "v": 3
+   },
+   "t": "0178265fcf5008c4d726"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Origin",
+    "v": 1
+   },
+   "t": "017826601ee84f0ff1f9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Relation",
+    "v": 1
+   },
+   "t": "0178266037124b9bf475"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "IncludeSelf",
+    "v": 1
+   },
+   "t": "017826609794d340daef"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "List",
+    "v": 1
+   },
+   "t": "01782660b3f85d5a5d6a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Follows the given relation recursively and returns all objects visited flattened into a list",
+    "01703376c4a81c0e9d92": "**This can be replaced by `Query Object` followed by `Query Follow Relation Recursively**  \n<br>\nIf we have a chain or tree of objects of the same type (or with the same parent type in case of inheritance), e.g. a1->a2->a3 and a2->a4, the function returns all the objects as a single list {a1, a2, a3, a4}",
+    "v": 123
+   },
+   "t": "017b35893b67a9a9349e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Include origin object in the output list of related objects",
+    "v": 1
+   },
+   "t": "017b35893f63da3a277c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Relation to follow",
+    "v": 1
+   },
+   "t": "017b35893f648594fa8c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Object from which to recursively follow the relation",
+    "v": 1
+   },
+   "t": "017b35893f6583bc8294"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "List of related objects",
+    "v": 1
+   },
+   "t": "017b358942777062fabf"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0178265fcf5008c4d726"
+}

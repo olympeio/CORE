@@ -1,1 +1,55 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"fdff023000000000000011":"Is List Empty","ff023000000000000011":"Is List Empty"},"t":"018acccf1b81f83184bf"},{"o":1,"p":{"01703376c4a81c0e9d91":"Checks if a list is empty","01703376c4a81c0e9d92":"Checks whether a given list is an empty Array, empty QueryResult or null."},"t":"018acccf546eda755beb"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"list"},"t":"018acccf674a5455bbed"},{"o":1,"p":{"01703376c4a81c0e9d92":"The input list"},"t":"018acccf67ac5adec4eb"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"is empty"},"t":"018acccfc101b2b7c8fb"},{"o":1,"p":{"01703376c4a81c0e9d92":"`true` if the list is null or empty, `false` otherwise"},"t":"018acccfc1513017fd9b"}],"optionalOperations":[],"rootTag":"018acccf1b81f83184bf"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Is List Empty",
+    "ff023000000000000011": "Is List Empty"
+   },
+   "t": "018acccf1b81f83184bf"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Checks if a list is empty",
+    "01703376c4a81c0e9d92": "Checks whether a given list is an empty Array, empty QueryResult or null."
+   },
+   "t": "018acccf546eda755beb"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "list"
+   },
+   "t": "018acccf674a5455bbed"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The input list"
+   },
+   "t": "018acccf67ac5adec4eb"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "is empty"
+   },
+   "t": "018acccfc101b2b7c8fb"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "`true` if the list is null or empty, `false` otherwise"
+   },
+   "t": "018acccfc1513017fd9b"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "018acccf1b81f83184bf"
+}

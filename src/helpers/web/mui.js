@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import {createTheme, Theme as MUITheme, Palette} from "@mui/material/styles";
+import { createTheme, Theme as MUITheme, Palette } from "@mui/material/styles";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
-import { Theme } from 'olympe';
+import { Theme, Color as ColorAPI } from 'olympe';
 import { themePropertiesObserver } from "helpers/ThemeObserver";
 import { getLogger } from 'logging';
 import { Color } from "@mui/material";
@@ -189,3 +189,72 @@ export function useMUITheme($) {
     }, []);
     return value;
 }
+
+
+/**
+ * Check if color exists in the palette
+ *
+ * @param {MUITheme} theme
+ * @param {string} color
+ * @param { string } loggerName
+ * @return {Boolean}
+ */
+export function colorExists (theme, color, loggerName) {
+    const logger = getLogger(loggerName);
+
+    if (color !== undefined) {
+        if (typeof color !== 'string') {
+            logger.error(`Invalid color provided. Must be a string.`);
+            return false;
+        }
+
+        const colorValues = ['primary', 'secondary', 'error', 'warning', 'info', 'success'];
+        if (colorValues.some((item) => item === color) && theme.palette.hasOwnProperty(color)) {
+            return true;
+        } else {
+            logger.error(`Color "${color}" was not found in palette. Must be one of ${colorValues.join(', ')}.`);
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+
+/**
+ * @param { Color } iconColor
+ * @param { string } loggerName
+ * @return { string | undefined }
+ */
+export const getColorDefinition = (iconColor, loggerName) => {
+    const logger = getLogger(loggerName);
+    
+    if (iconColor !== undefined) {
+        if (iconColor instanceof ColorAPI) {
+            return iconColor.toHexString();
+        } else {
+            logger.error(`Invalid color provided. Must be of type Color: ${iconColor}`);
+            return;
+        }
+    } 
+    return;
+};
+
+/**
+ * @param { icon } string
+ * @param { string } loggerName
+ * @return { string }
+ */
+export const validateIcon = (icon, loggerName) => {
+    const logger = getLogger(loggerName);
+    
+    if (icon !== undefined) {
+        if( typeof icon !== 'string') {
+            logger.error(`Invalid icon provided. Must be of type string: ${icon}`);
+            return 'help_outline'; // default value
+        } else {
+            return icon;
+        }
+    }
+    return 'help_outline'; // default value
+};

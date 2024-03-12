@@ -1,1 +1,96 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"fdff023000000000000011":"JSON To XML","ff023000000000000011":"JSON To XML","v":22},"t":"017fbc4a23d3b8b55945"},{"o":1,"p":{"01703376c4a81c0e9d91":"Converts JSON object or string into XML ","01703376c4a81c0e9d92":"Converts a JSON object and a JSON string to a XML string.\n\nThe JSON properties will be used as tags.\n\nJSON should be in the form of object to be correctly parsed.\n","v":30},"t":"017fbc4a431ecc9c4672"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Source","v":8},"t":"017fbc4a4de2c2131d5b"},{"o":1,"p":{"01703376c4a81c0e9d92":"JSON object or string","v":3},"t":"017fbc4a4e570cee2e62"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Result","v":10},"t":"017fbc4a555a17bceb8e"},{"o":1,"p":{"01703376c4a81c0e9d92":"XML string","v":6},"t":"017fbc4a55bee2d87df1"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"Error Flow","v":16},"t":"017fbc4a59bd45b69790"},{"o":1,"p":{"01703376c4a81c0e9d92":"Triggered by providing incorrect json","v":3},"t":"017fbc4a5a260fc87505"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"01740c5d4ae4b520dd02":"root","ff023000000000000011":"Root Tag","v":21},"t":"017fda9da982ffb5fad9"},{"o":1,"p":{"01703376c4a81c0e9d92":"The tag to wrap the resulting xml. Default: root","v":120},"t":"017fda9da9f0fc6f255a"}],"optionalOperations":[],"rootTag":"017fbc4a23d3b8b55945"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "JSON To XML",
+    "ff023000000000000011": "JSON To XML",
+    "v": 22
+   },
+   "t": "017fbc4a23d3b8b55945"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Converts JSON object or string into XML ",
+    "01703376c4a81c0e9d92": "Converts a JSON object and a JSON string to a XML string.\n\nThe JSON properties will be used as tags.\n\nJSON should be in the form of object to be correctly parsed.\n",
+    "v": 30
+   },
+   "t": "017fbc4a431ecc9c4672"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Source",
+    "v": 8
+   },
+   "t": "017fbc4a4de2c2131d5b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "JSON object or string",
+    "v": 3
+   },
+   "t": "017fbc4a4e570cee2e62"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Result",
+    "v": 10
+   },
+   "t": "017fbc4a555a17bceb8e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "XML string",
+    "v": 6
+   },
+   "t": "017fbc4a55bee2d87df1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Error Flow",
+    "v": 16
+   },
+   "t": "017fbc4a59bd45b69790"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Triggered by providing incorrect json",
+    "v": 3
+   },
+   "t": "017fbc4a5a260fc87505"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "01740c5d4ae4b520dd02": "root",
+    "ff023000000000000011": "Root Tag",
+    "v": 21
+   },
+   "t": "017fda9da982ffb5fad9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The tag to wrap the resulting xml. Default: root",
+    "v": 120
+   },
+   "t": "017fda9da9f0fc6f255a"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "017fbc4a23d3b8b55945"
+}

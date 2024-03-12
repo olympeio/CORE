@@ -1,1 +1,76 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"fdff023000000000000011":"Delete List Of Objects","ff023000000000000011":"Delete List Of Objects","v":2},"t":"017d22d3f9193248714d"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow","v":1},"t":"017d22d3f919680e0c11"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow","v":1},"t":"017d22d3f919e7ae59bc"},{"o":1,"p":{"01703376c4a81c0e9d91":"Deletes List Of Objects","01703376c4a81c0e9d92":"Deletes a list of objects in the datacloud.\n\nIt is not possible to delete objects in a static data cloud. Attempting to delete static data will result in a permission error","v":175},"t":"017d22d4643faa04e264"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"List","v":1},"t":"017d22d46a8a6a9fd70e"},{"o":1,"p":{"01703376c4a81c0e9d92":"The ListDef, Array or QueryResult of local objects","v":30},"t":"017d22d46b46f77df005"},{"o":1,"p":{"v":1},"t":"017ebfac099db4d8cb09"},{"o":1,"p":{"v":1},"t":"017ebfac09fd5a344642"}],"optionalOperations":[],"rootTag":"017d22d3f9193248714d"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Delete List Of Objects",
+    "ff023000000000000011": "Delete List Of Objects",
+    "v": 2
+   },
+   "t": "017d22d3f9193248714d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "017d22d3f919680e0c11"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "017d22d3f919e7ae59bc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Deletes List Of Objects",
+    "01703376c4a81c0e9d92": "Deletes a list of objects in the datacloud.\n\nIt is not possible to delete objects in a static data cloud. Attempting to delete static data will result in a permission error.\n\nExecute atomically a transaction at the data source and return the transaction result if succeeds. The large mode sends the transaction over HTTP.",
+    "v": 175
+   },
+   "t": "017d22d4643faa04e264"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "List",
+    "v": 1
+   },
+   "t": "017d22d46a8a6a9fd70e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The ListDef, Array or QueryResult of local objects",
+    "v": 30
+   },
+   "t": "017d22d46b46f77df005"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "017ebfac099db4d8cb09"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "017ebfac09fd5a344642"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "017d22d3f9193248714d"
+}

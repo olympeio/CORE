@@ -43,7 +43,7 @@ export default class DispatchEvent extends ActionBrick {
         if (scope && event) {
             const scopeContext = context.getOtherContext(scope);
             if (scopeContext === null) {
-                logger.error('The scope where to set the UI Property has not been found.\n',
+                logger.error('The scope where to dispatch the event has not been found.\n',
                     '\tIt could be because you try to write on a scope of a model without adding the proper alias:', scope,
                     '\n\tOr because the context was not started at the time of the property was set.');
                 return;

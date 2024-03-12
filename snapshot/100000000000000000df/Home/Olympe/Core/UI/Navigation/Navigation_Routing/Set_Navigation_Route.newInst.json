@@ -1,1 +1,218 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","fdff023000000000000011":"Set Navigation Route","ff023000000000000011":"Set Navigation Route"},"t":"018823123cc3bb1e9fb7"},{"o":1,"p":{},"t":"018823123cc40472a78d"},{"o":1,"p":{"ff023000000000000011":"Descender output"},"t":"018823123cc40572f1dc"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow"},"t":"018823123cc443e448a1"},{"o":1,"p":{},"t":"018823123cc44b0c499b"},{"o":1,"p":{"ff023000000000000011":"Ascender input"},"t":"018823123cc4552f91a7"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow"},"t":"018823123cc4884eb10f"},{"o":1,"p":{"01621f6ab58c2f884654":20401,"01621f6ab6ac89348f20":19886},"t":"01882314b9aac97fed36"},{"o":1,"p":{},"t":"01882314b9aafba540e2"},{"o":1,"p":{},"t":"01882314bf8cfc1e4640"},{"o":1,"p":{"01621f6ab58c2f884654":20131,"01621f6ab6ac89348f20":19779},"t":"01882314d6659ccbea9f"},{"o":1,"p":{},"t":"01882314d665efef100d"},{"o":1,"p":{},"t":"01882314dc5bb628e265"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"key"},"t":"018823150bf2456a34e3"},{"o":1,"p":{},"t":"018823150bf24cac340f"},{"o":1,"p":{"ff023000000000000011":"Descender output"},"t":"018823150bf29e84542c"},{"o":1,"p":{"ff023000000000000011":"Descender output"},"t":"018823151b2625208e70"},{"o":1,"p":{"01740c5d4ae4b520dd01":2,"ff023000000000000011":"value"},"t":"018823151b26840db264"},{"o":1,"p":{},"t":"018823151b26f3ee8c85"},{"o":1,"p":{},"t":"01882315203d1a438cff"},{"o":1,"p":{},"t":"0188231525f30388cd49"},{"o":1,"p":{},"t":"018823157a683b74ae96"},{"o":1,"p":{"01621f6ab58c2f884654":20746,"01621f6ab6ac89348f20":19892},"t":"018823157a6895a008c7"},{"o":1,"p":{},"t":"0188231582a2ee77a0cb"},{"o":1,"p":{},"t":"01882315877d65c20376"},{"o":1,"p":{},"t":"018823158b93388b7b48"},{"o":1,"p":{"01703376c4a81c0e9d91":"Updates the URL state with a 'key-value'","01703376c4a81c0e9d92":"Allows to update or add a new key-value pair in the URL state, thereby modifying the route<br><br>\nIf the provided key already exists in the state, the brick will replace the existing value with the new one. However, if the key is not found in the state, the function will insert the key-value pair into the URL.\nThe brick also pushes a new navigation state. \n\n## Examples:\n1. \n- State: `tab=first`\n- Inputs:\n  * key = `menu`\n  * value =  `demand`\n- Pushed state: `menu=demand;tab=first`\n\n2. \n- State: `menu=demand;tab=first`\n- Inputs:\n   * key = `menu`<br>\n   * value =  `balance`<br>\n- Pushed state: `menu=balance;tab=first`\n"},"t":"0188234d9362f29cd600"},{"o":1,"p":{"01703376c4a81c0e9d92":"A string representing the key to be inserted or updated in the state. This key specifies the location in the URL where the value will be placed or modified. For example, in the state \"menu=demand;tab=first\", \"menu\" is a possible key."},"t":"0188234d9475e736b642"},{"o":1,"p":{"01703376c4a81c0e9d92":"A string representing the value associated with the provided key. This value will be inserted or updated in the URL state according to the given key. For instance, if the key is \"menu\" and the value is \"balance\", the state will be modified to \"menu=balance;tab=first\"."},"t":"0188234d94f45ff15956"},{"o":1,"p":{},"t":"0188234d95634a256f2b"},{"o":1,"p":{},"t":"0188234d95c92d5a491d"}],"optionalOperations":[],"rootTag":"018823123cc3bb1e9fb7"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "fdff023000000000000011": "Set Navigation Route",
+    "ff023000000000000011": "Set Navigation Route"
+   },
+   "t": "018823123cc3bb1e9fb7"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018823123cc40472a78d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Descender output"
+   },
+   "t": "018823123cc40572f1dc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "018823123cc443e448a1"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018823123cc44b0c499b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Ascender input"
+   },
+   "t": "018823123cc4552f91a7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "018823123cc4884eb10f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621f6ab58c2f884654": 20401,
+    "01621f6ab6ac89348f20": 19886
+   },
+   "t": "01882314b9aac97fed36"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01882314b9aafba540e2"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01882314bf8cfc1e4640"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621f6ab58c2f884654": 20131,
+    "01621f6ab6ac89348f20": 19779
+   },
+   "t": "01882314d6659ccbea9f"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01882314d665efef100d"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01882314dc5bb628e265"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "key"
+   },
+   "t": "018823150bf2456a34e3"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018823150bf24cac340f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Descender output"
+   },
+   "t": "018823150bf29e84542c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Descender output"
+   },
+   "t": "018823151b2625208e70"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "value"
+   },
+   "t": "018823151b26840db264"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018823151b26f3ee8c85"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01882315203d1a438cff"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0188231525f30388cd49"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018823157a683b74ae96"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621f6ab58c2f884654": 20746,
+    "01621f6ab6ac89348f20": 19892
+   },
+   "t": "018823157a6895a008c7"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0188231582a2ee77a0cb"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01882315877d65c20376"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018823158b93388b7b48"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Updates the URL state with a 'key-value'",
+    "01703376c4a81c0e9d92": "Allows to update or add a new key-value pair in the URL state, thereby modifying the route<br><br>\nIf the provided key already exists in the state, the brick will replace the existing value with the new one. However, if the key is not found in the state, the function will insert the key-value pair into the URL.\nThe brick also pushes a new navigation state. \n\n## Examples:\n1. \n- State: `tab=first`\n- Inputs:\n  * key = `menu`\n  * value =  `demand`\n- Pushed state: `menu=demand;tab=first`\n\n2. \n- State: `menu=demand;tab=first`\n- Inputs:\n   * key = `menu`<br>\n   * value =  `balance`<br>\n- Pushed state: `menu=balance;tab=first`\n"
+   },
+   "t": "0188234d9362f29cd600"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "A string representing the key to be inserted or updated in the state. This key specifies the location in the URL where the value will be placed or modified. For example, in the state \"menu=demand;tab=first\", \"menu\" is a possible key."
+   },
+   "t": "0188234d9475e736b642"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "A string representing the value associated with the provided key. This value will be inserted or updated in the URL state according to the given key. For instance, if the key is \"menu\" and the value is \"balance\", the state will be modified to \"menu=balance;tab=first\"."
+   },
+   "t": "0188234d94f45ff15956"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0188234d95634a256f2b"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0188234d95c92d5a491d"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "018823123cc3bb1e9fb7"
+}

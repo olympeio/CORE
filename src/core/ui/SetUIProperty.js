@@ -27,24 +27,20 @@ export default class SetUIProperty extends ActionBrick {
      * @param {*} _
      * @param {*} value
      * @param {function()} forwardEvent
-     * @param {function(ErrorFlow)} dispatchErrorFlow
      */
-    update(context, [_, value], [forwardEvent, dispatchErrorFlow]) {
+    update(context, [_, value], [forwardEvent]) {
         const [scope, property] = getScopeContext(this, this.getInputs()[1]);
         if (scope && property) {
             const scopeContext = context.getOtherContext(scope);
             if (scopeContext === null) {
-                getLogger('Set UI Property').error('The scope where to set the UI Property has not been found.\n',
-                    '\tIt could be because you try to write on a scope of a model without adding the proper alias:', scope,
-                    '\n\tOr because the context was not started at the time of the property was set.');
-                dispatchErrorFlow(ErrorFlow.create('Unknown scope', 2));
-                return;
+                throw ErrorFlow.create('Set UI Property couldn’t find the property to set. This may be because it is not yet ready, because Set UI Property is executing too early, for instance after using an “On Value” on a property of a brick without waiting for the “onLoad” event.', 2);
             }
             scopeContext.set(property, castPrimitiveValue(value));
             forwardEvent();
 
         } else {
-            dispatchErrorFlow(ErrorFlow.create('Unknown Property', 1));
+            throw ErrorFlow.create('Unknown Property', 1);
+
         }
     }
 }

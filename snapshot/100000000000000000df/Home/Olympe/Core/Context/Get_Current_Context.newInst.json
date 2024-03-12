@@ -1,1 +1,45 @@
-{"operations":[{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"01703376c4a81c0e9d94":"stable","fdff023000000000000011":"Get Current Context","ff023000000000000011":"Get Current Context","v":27},"t":"01833b2bfcd0eaa694b9"},{"o":1,"p":{"01703376c4a81c0e9d91":"Return the current context in which this brick is placed.","01703376c4a81c0e9d92":"Return the current context in which this brick is placed.","v":15},"t":"01833b315c2993e68675"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"current context","v":22},"t":"01833b3189dddb3c3b39"},{"o":1,"p":{"01703376c4a81c0e9d92":"The current context","v":21},"t":"01833b318a25958c031b"}],"optionalOperations":[],"rootTag":"01833b2bfcd0eaa694b9"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "Get Current Context",
+    "ff023000000000000011": "Get Current Context",
+    "v": 27
+   },
+   "t": "01833b2bfcd0eaa694b9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Return the current context in which this brick is placed.",
+    "01703376c4a81c0e9d92": "Return the current context in which this brick is placed.",
+    "v": 15
+   },
+   "t": "01833b315c2993e68675"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "current context",
+    "v": 22
+   },
+   "t": "01833b3189dddb3c3b39"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The current context",
+    "v": 21
+   },
+   "t": "01833b318a25958c031b"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01833b2bfcd0eaa694b9"
+}

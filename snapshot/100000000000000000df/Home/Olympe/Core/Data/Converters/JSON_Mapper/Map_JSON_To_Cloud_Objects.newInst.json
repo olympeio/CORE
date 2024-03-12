@@ -1,1 +1,160 @@
-{"operations":[{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow"},"t":"0188202f59258c994d7e"},{"o":1,"p":{"01621fb84e320000f001":"public","01692aa71f3108454479":true,"fdff023000000000000011":"Map JSON To Objects","ff023000000000000011":"Map JSON To Cloud Objects"},"t":"0188202f5925ed8be613"},{"o":1,"p":{"01740c5d4ae4b520dd01":0,"ff023000000000000011":"Control Flow"},"t":"0188202f59260f8cc0dd"},{"o":1,"p":{"01703376c4a81c0e9d91":"Map JSON data to a CloudObject array","01703376c4a81c0e9d92":"Maps JSON data to a CloudObject array.<br><br>\nThe brick will return the values for the keys in the provided JSON that match to the props in the Data Type you provide.<br><br>\nYou can use the brick with \"Auto Mapping\" set to TRUE, so the brick will output only the values which exactly match the keys in the JSON to the props in the data type. <br>\nOR  <br> \nYou can set up the \"Mapper Config\" for mapping configuration to act as a 'converter', so the JSON keys that do not match to any of your Data Type's properties names can be used.<br><br>\nIf the configuration defines at least one property as a key, then this action will use caching to avoid creating multiple times the same object.\n\n## Configuring the Mapper\n\n1. Create a Config Data Type and drag and drop the `Mapper Config` to its \"Inheritance\" area\n2. Create an instance of this Config Data Type\n3. Set up the Map JSON To Objects input as follows:<br><ol>\n  - Provide the JSON<br>\n  - Set the Object type to your destination data type<br>\n  - Set the Mapper Config with the name of the Config Data type in which you placed the Mapper Config inheritance<br>\n  - OPTIONAL:  Set 'false' on the Auto Mapping input if you want only the MAPPER CONFIG values to be taken from the JSON\n</ol>"},"t":"0188202f5fa9d0fd88b0"},{"o":1,"p":{},"t":"0188202f602c76a4d0da"},{"o":1,"p":{},"t":"0188202f60aba6f52c47"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"json"},"t":"0188202f76e6fd136c35"},{"o":1,"p":{"01703376c4a81c0e9d92":"JSON data. Can be in the form of string, object, array"},"t":"0188202f77b8164447ba"},{"o":1,"p":{"01740c5d4ae4b520dd01":2,"ff023000000000000011":"data type"},"t":"0188202f78202e6a5d90"},{"o":1,"p":{"01740c5d4ae4b520dd01":3,"ff023000000000000011":"mapper config"},"t":"0188202f7889aacbb45a"},{"o":1,"p":{"01703376c4a81c0e9d92":"Output object type, i.e. the data type"},"t":"0188202f78f12a06223c"},{"o":1,"p":{"01740c5d4ae4b520dd01":4,"01740c5d4ae4b520dd02":true,"ff023000000000000011":"auto mapping"},"t":"0188202f7952f4f2d300"},{"o":1,"p":{"01703376c4a81c0e9d92":"Mapping configuration"},"t":"0188202f79de66e3174a"},{"o":1,"p":{"01740c5d4ae4b520dd01":5,"01740c5d4ae4b520dd02":true,"ff023000000000000011":"unique"},"t":"0188202f7a2734fef975"},{"o":1,"p":{"01703376c4a81c0e9d92":"If true, properties that are not defined in the config will be auto-mapped 1-to-1"},"t":"0188202f7a8c6c9575d0"},{"o":1,"p":{"01703376c4a81c0e9d92":"If true, remove objects with the same tag in the output list"},"t":"0188202f7aec5e39c0da"},{"o":1,"p":{"01740c5d4ae4b520dd01":1,"ff023000000000000011":"cloud objects"},"t":"01882030a50119f96f49"},{"o":1,"p":{"01703376c4a81c0e9d92":"Array of CloudObject"},"t":"01882030a5bba243e81f"},{"o":1,"p":{"01740c5d4ae4b520dd01":6,"ff023000000000000011":"persist"},"t":"018ad0b0fd64b4313a9c"},{"o":1,"p":{"01703376c4a81c0e9d92":"Indicates if the instance should be persisted, default: false"},"t":"018ad0b0fdb96418881f"}],"optionalOperations":[],"rootTag":"0188202f5925ed8be613"}
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "0188202f59258c994d7e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Map JSON To Objects",
+    "ff023000000000000011": "Map JSON To Cloud Objects"
+   },
+   "t": "0188202f5925ed8be613"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "0188202f59260f8cc0dd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Map JSON data to a CloudObject array",
+    "01703376c4a81c0e9d92": "Maps JSON data to a CloudObject array.<br><br>\nThe brick will return the values for the keys in the provided JSON that match to the props in the Data Type you provide.<br><br>\nYou can use the brick with \"Auto Mapping\" set to TRUE, so the brick will output only the values which exactly match the keys in the JSON to the props in the data type. <br>\nOR  <br> \nYou can set up the \"Mapper Config\" for mapping configuration to act as a 'converter', so the JSON keys that do not match to any of your Data Type's properties names can be used.<br><br>\nIf the configuration defines at least one property as a key, then this action will use caching to avoid creating multiple times the same object.\n\n## Configuring the Mapper\n\n1. Create a Config Data Type and drag and drop the `Mapper Config` to its \"Inheritance\" area\n2. Create an instance of this Config Data Type\n3. Set up the Map JSON To Objects input as follows:<br><ol>\n  - Provide the JSON<br>\n  - Set the Object type to your destination data type<br>\n  - Set the Mapper Config with the name of the Config Data type in which you placed the Mapper Config inheritance<br>\n  - OPTIONAL:  Set 'false' on the Auto Mapping input if you want only the MAPPER CONFIG values to be taken from the JSON\n</ol>"
+   },
+   "t": "0188202f5fa9d0fd88b0"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0188202f602c76a4d0da"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0188202f60aba6f52c47"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "json"
+   },
+   "t": "0188202f76e6fd136c35"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "JSON data. Can be in the form of string, object, array"
+   },
+   "t": "0188202f77b8164447ba"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "data type"
+   },
+   "t": "0188202f78202e6a5d90"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "ff023000000000000011": "mapper config"
+   },
+   "t": "0188202f7889aacbb45a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Output object type, i.e. the data type"
+   },
+   "t": "0188202f78f12a06223c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 4,
+    "01740c5d4ae4b520dd02": true,
+    "ff023000000000000011": "auto mapping"
+   },
+   "t": "0188202f7952f4f2d300"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Mapping configuration"
+   },
+   "t": "0188202f79de66e3174a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 5,
+    "01740c5d4ae4b520dd02": true,
+    "ff023000000000000011": "unique"
+   },
+   "t": "0188202f7a2734fef975"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "If true, properties that are not defined in the config will be auto-mapped 1-to-1"
+   },
+   "t": "0188202f7a8c6c9575d0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "If true, remove objects with the same tag in the output list"
+   },
+   "t": "0188202f7aec5e39c0da"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "cloud objects"
+   },
+   "t": "01882030a50119f96f49"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Array of CloudObject"
+   },
+   "t": "01882030a5bba243e81f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 6,
+    "ff023000000000000011": "persist"
+   },
+   "t": "018ad0b0fd64b4313a9c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Indicates if the instance should be persisted, default: false"
+   },
+   "t": "018ad0b0fdb96418881f"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0188202f5925ed8be613"
+}
