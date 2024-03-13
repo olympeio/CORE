@@ -17,7 +17,7 @@ export default class DeleteListOfObjects extends ActionBrick {
             throw new Error('Input provided is not a ListDef, an Array or a QueryResult');
         }
 
-        const transaction = Transaction.from(context);
+        const transaction = new Transaction();
         const deleteInstance = (objectIn) => {
             if (tagToString(objectIn) !== '') {
                 transaction.delete(objectIn);
@@ -27,7 +27,7 @@ export default class DeleteListOfObjects extends ActionBrick {
         }
 
         const execute = () => {
-            Transaction.process(context, transaction).then(() => {
+            transaction.executeAsLarge().then(() => {
                 forwardEvent();
             }).catch((message) => {
                 logger.error(`Could not execute transaction. ${message}`);
