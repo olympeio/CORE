@@ -133,6 +133,7 @@ export default class TextField extends ReactBrick {
                             required={useProperty($, 'Required')}
                             error={error}
                             multiline={multiLine}
+                            autoFocus={autoFocus}
 
                             // Events
                             onClick={() => $.trigger('On Click')}
