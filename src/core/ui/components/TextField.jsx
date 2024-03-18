@@ -62,11 +62,20 @@ export default class TextField extends ReactBrick {
             const inputRef = React.useRef(null);
 
             React.useEffect(() => {
+                let timeout;
                 if (autoFocus && inputRef.current) {
-                    inputRef.current.focus();
+                    timeout = setTimeout(() => {
+                        inputRef.current?.focus();
+                      });
                 } else if (autoFocus === false && inputRef.current) {
                     inputRef.current.blur();
                 }
+
+                return () => {
+                    if (timeout) {
+                      clearTimeout(timeout);
+                    }
+                  };
               }, [autoFocus]);
 
             let justifyContent;
