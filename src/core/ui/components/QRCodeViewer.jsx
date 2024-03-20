@@ -20,7 +20,7 @@
 
 import { registerBrick, Color } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
-import { cssToSxProps, ifNotTransparent } from 'helpers/mui';
+import { cssToSxProps, ifNotTransparent, validateVariant } from 'helpers/mui';
 
 import React from 'react';
 import QRCode from 'qrcode.react';
@@ -58,6 +58,8 @@ export default class QRCodeViewer extends ReactBrick {
             const foregroundColor = useProperty($, 'Foreground Color') || Color.create(0, 0, 0);
             const cssProps = cssToSxProps(useProperty($, 'CSS Property'));
             const bw = parseInt(cssProps.borderWidth) || useProperty($, 'Border Width') || 0;
+            const level = useProperty($, 'Level');
+            const qrCodeLevelVariants = ['L', 'M', 'Q', 'H'];
             return !hidden && (
                 <QRCode
                     // Properties + UI
@@ -66,7 +68,7 @@ export default class QRCodeViewer extends ReactBrick {
                     size={Math.min(useProperty($, 'Height') || 0, useProperty($, 'Width') || 0) - bw * 2}
                     bgColor={defaultColor.toHexString()}
                     fgColor={foregroundColor.toHexString()}
-                    level={useProperty($, 'Level')}
+                    level={validateVariant(level, 'Level', 'QRCodeViewer', qrCodeLevelVariants)}
                     includeMargin={useProperty($, 'Include Margin')}
                     style={{
                         borderStyle: bw > 0 ? 'solid' : 'none',

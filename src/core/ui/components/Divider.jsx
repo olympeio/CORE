@@ -16,7 +16,7 @@
 
  import { registerBrick } from 'olympe';
  import { ReactBrick, useProperty } from 'helpers/react.jsx';
- import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent } from 'helpers/mui';
+ import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent, validateString, getColorDefinition } from 'helpers/mui';
 
 import React, { useLayoutEffect, useRef } from 'react';
 import MUIDivider from '@mui/material/Divider';
@@ -58,7 +58,10 @@ export default class Divider extends ReactBrick {
             const borderRadius = useProperty($, 'Border Radius');
             const allowContentOverflow = useProperty($, 'Allow Content Overflow');
             const muiSx = jsonToSxProps(useProperty($, 'MUI sx [json]'));
-
+            const text = useProperty($, 'Text');
+            const textColor = useProperty($, 'Text Color');
+            const isColorValid = Boolean(getColorDefinition(textColor, 'Divider'));
+           
             useLayoutEffect(() => {
                 if (dividerRef && dividerRef.current) {
                     dividerRef.current.parentElement.style.overflow = allowContentOverflow ? "visible" : "hidden";
@@ -118,7 +121,7 @@ export default class Divider extends ReactBrick {
                     sx={{
                         ...finalBorderColor,
                         fontFamily: useProperty($, 'Font Family'),
-                        ...ifNotTransparent('color', useProperty($, 'Text Color')),
+                        ...ifNotTransparent('color', isColorValid ? textColor : undefined),
                         borderBottomWidth: borderWidth,
                         borderRightWidth: borderWidth,
                         ...ifNotNull('borderRadius', borderRadius),
@@ -133,7 +136,7 @@ export default class Divider extends ReactBrick {
                         }
                     }}
                 >
-                    {useProperty($, 'Text')}
+                    {validateString(text)}
                 </MUIDivider>
             );
         };

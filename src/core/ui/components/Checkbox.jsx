@@ -16,7 +16,7 @@
 
 import { registerBrick } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
-import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull, useMUITheme } from 'helpers/mui';
+import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull, useMUITheme, colorExists, validateString } from 'helpers/mui';
 import { ThemeProvider } from '@mui/material/styles';
 
 import React from 'react';
@@ -64,6 +64,11 @@ export default class Checkbox extends ReactBrick {
 
             // Icon props
             const borderRadius = useProperty($, 'Border Radius');
+            const color = useProperty($, 'Color');
+            const checkedIcon = useProperty($, 'Checked Icon');
+            const uncheckedIcon = useProperty($, 'Unchecked Icon');
+            const indeterminateIcon = useProperty($, 'Indeterminate Icon');
+
             const iconSxProps = {
                 fontSize: iconSize,
                 ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
@@ -77,10 +82,10 @@ export default class Checkbox extends ReactBrick {
                     checked={useProperty($, 'Checked') || false}
                     indeterminate={useProperty($, 'Indeterminate')}
                     disabled={useProperty($, 'Disabled')}
-                    color={useProperty($, 'Color')}
-                    checkedIcon={(<Icon sx={{...iconSxProps}}>{useProperty($, 'Checked Icon')}</Icon>)}
-                    icon={(<Icon sx={{...iconSxProps}}>{useProperty($, 'Unchecked Icon')}</Icon>)}
-                    indeterminateIcon={(<Icon sx={{...iconSxProps}}>{useProperty($, 'Indeterminate Icon')}</Icon>)}
+                    color={colorExists(theme, color, 'Checkbox') ? color : 'primary'}
+                    checkedIcon={(<Icon sx={{...iconSxProps}}>{validateString(checkedIcon)}</Icon>)}
+                    icon={(<Icon sx={{...iconSxProps}}>{validateString(uncheckedIcon)}</Icon>)}
+                    indeterminateIcon={(<Icon sx={{...iconSxProps}}>{validateString(indeterminateIcon)}</Icon>)}
 
                     // Events
                     onChange={(event) => {

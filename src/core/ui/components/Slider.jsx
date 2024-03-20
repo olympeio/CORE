@@ -16,7 +16,7 @@
 
 import { registerBrick } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
-import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent, useMUITheme } from 'helpers/mui';
+import { jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent, useMUITheme, colorExists, validateVariant } from 'helpers/mui';
 import { ThemeProvider } from '@mui/material/styles';
 
 import React from 'react';
@@ -66,6 +66,11 @@ export default class Slider extends ReactBrick {
             const rangeMinDistance = useProperty($, 'Range Min Distance');
             const borderWidth = useProperty($, 'Border Width');
             const borderRadius = useProperty($, 'Border Radius');
+            const color = useProperty($, 'Color');
+            const size = useProperty($, 'Size');
+            const orientation = useProperty($, 'Orientation');
+            const sliderSizeVariants = ['small', 'medium'];
+            const sliderOrientationVariants = ['horizontal', 'vertical'];
 
             // Handle range slider
             const muiValue = useRange ? [value1, value2] : value1;
@@ -80,9 +85,9 @@ export default class Slider extends ReactBrick {
                     disabled={useProperty($, 'Disabled')}
                     disableSwap={rangeBehavior !== 'allow-swap'}
                     marks={useProperty($, 'Enable Marks')}
-                    orientation={useProperty($, 'Orientation')}
-                    color={useProperty($, 'Color')}
-                    size={useProperty($, 'Size')}
+                    orientation={validateVariant(orientation, 'Orientation', 'Slider', sliderOrientationVariants)}
+                    color={colorExists(theme, color, 'Slider') ? color : 'primary'}
+                    size={validateVariant(size, 'Size', 'Slider', sliderSizeVariants)}
                     track={track === 'no-track' ? false : track}
                     valueLabelDisplay={useProperty($, 'Label Display')}
                     tabIndex={useProperty($, 'Tab Index')}
