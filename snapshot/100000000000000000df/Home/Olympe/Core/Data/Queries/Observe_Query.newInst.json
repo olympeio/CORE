@@ -16,7 +16,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Executes the query and listens to updates",
-    "01703376c4a81c0e9d92": "Runs the query and listens to further updates.\n\nThe output `query result` contains the ordered list of objects matching the query. The list is refreshed if users are \n\nUnlike `Execute Query`, `Observe Query` produces multiple results, as the set of objects matching the query evolves.",
+    "01703376c4a81c0e9d92": "Runs the query and listens to further updates.\n\nThe output `query result` contains the ordered list of objects matching the query. The list is refreshed each time a new result matches the query: the list of items changed or order of items in the list changed.\n\nUnlike `Execute Query`, `Observe Query` produces multiple results, as the set of objects matching the query evolves.",
     "v": 233
    },
    "t": "017ee96000896fb86617"
