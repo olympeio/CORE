@@ -16,7 +16,7 @@
 
 import { registerBrick, File, Transaction, CloudObject, BrickContext } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
-import { jsonToSxProps, ifNotNull, ifNotTransparent, cssToSxProps, useMUITheme } from 'helpers/mui';
+import { jsonToSxProps, ifNotNull, ifNotTransparent, cssToSxProps, useMUITheme, validateString, validateVariant, colorExists } from 'helpers/mui';
 import { getLogger } from 'logging';
 
 import React, {useRef, useEffect} from 'react';
@@ -82,7 +82,7 @@ export default class FileUpload extends ReactBrick {
             }
             const element = renderer
                 ? FileUpload.renderCustom($, renderer, uploadTextField, textFieldLastEvent)
-                : FileUpload.renderTextField($, uploadTextField, textFieldLastEvent);
+                : FileUpload.renderTextField($, uploadTextField, textFieldLastEvent, theme);
             return (
                 <ThemeProvider theme={theme}>
                     {element}
@@ -97,23 +97,29 @@ export default class FileUpload extends ReactBrick {
      * @param {!BrickContext} $
      * @param {MutableRefObject} uploadTextField
      * @param {MutableRefObject} textFieldLastEvent
+     * @param {MUITheme} theme
      * @return {!ReactElement}
      */
-    static renderTextField($, uploadTextField, textFieldLastEvent) {
-        const label = useProperty($, 'Label');
+    static renderTextField($, uploadTextField, textFieldLastEvent, theme) {
+        const label = validateString(useProperty($, 'Label'));
+        const helperText = validateString(useProperty($, 'Helper Text'));
         const fontFamily = useProperty($, 'Font Family');
         const borderWidth = useProperty($, 'Border Width');
         const borderColor = useProperty($, 'Border Color');
         const borderRadius = useProperty($, 'Border Radius');
         const showBorder = borderWidth > 0 && borderColor.toHexString() !== '#00000000';
+        const variant = useProperty($, 'Variant');
+        const color = useProperty($, 'Color');
+
+        const textFieldVariants = ['outlined', 'standard', 'filled'];
         return (
             <TextField
                 // Properties
                 label={label}
-                helperText={useProperty($, 'Helper Text')}
+                helperText={helperText}
                 type={'file'}
-                variant={useProperty($, 'Variant')}
-                color={useProperty($, 'Color')}
+                variant={validateVariant(variant, 'Variant', 'FileUpload', textFieldVariants)}
+                color={colorExists(theme, color, 'FileUpload') ? color : 'primary'}
                 disabled={useProperty($, 'Disabled')}
                 required={useProperty($, 'Required')}
                 error={useProperty($, 'Error')}
