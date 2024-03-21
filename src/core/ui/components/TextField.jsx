@@ -71,13 +71,20 @@ export default class TextField extends ReactBrick {
             const inputRef = React.useRef(null);
 
             React.useEffect(() => {
+                // It seems to be a bug in the "restore focus" functionality -- focus goes very briefly to the text field and then returns to the body.
+                // In strict mode with the dev react build, the FocusTrap component is being mounted twice, and the unmount after the first mount causes focus to be restored to the body.
+                // The second mount brings focus back, but the text field auto-focus functionality doesn't re-execute since it was never removed/re-added to the DOM.
+                // This doesn't seem to be as much a bug in FocusTrap as it is an unfortunate side effect of the React dev build strict mode behavior.
+                // https://github.com/mui/material-ui/issues/33004
                 let timeout;
                 if (autoFocus && inputRef.current) {
                     timeout = setTimeout(() => {
-                        inputRef.current?.focus();
-                      });
+                        inputRef.current.focus();
+                      }, 200);
                 } else if (autoFocus === false && inputRef.current) {
-                    inputRef.current.blur();
+                    timeout = setTimeout(() => {
+                        inputRef.current.blur();
+                      }, 200);
                 }
 
                 return () => {
@@ -198,7 +205,7 @@ export default class TextField extends ReactBrick {
                                 ...ifNotNull('step', useProperty($, 'Step'), type === 'number'),
                                 style: {
                                     maxHeight: '100%',
-                                    overflow: 'auto'
+                                    overflow: multiLine ? 'auto' : 'hidden'
                                 },
                                 tabIndex: useProperty($, 'Tab Index'),
                             }}
