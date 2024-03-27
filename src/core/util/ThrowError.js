@@ -17,14 +17,21 @@
 import { Brick, registerBrick, ErrorFlow } from 'olympe';
 import {map} from "rxjs/operators";
 
+// This brick extends Brick, and not ActionBrick, because it has not output control flow
 export default class ThrowError extends Brick {
 
     /**
      * @override
+     * This brick extends "Brick", but we want it to behave like an action, i.e. to be executed
+     * when the input control flow is triggered, and not when all inputs are defined.
+     * We must therefore override the setupExecution to change this behavior.
      */
     setupExecution($) {
         const [eventInput, message, code] = this.getInputs();
+        // We observe the eventInput only
         return $.observe(eventInput).pipe(map((event) => {
+            // Give default values to the message and the code number if none are provided
+            // (this could have been done within the brick's update method as well)
             return event !== null
                 ? [$.has(message) ? String($.get(message)) : '', $.has(code) ? Number($.get(code)) : 0]
                 : null;
@@ -39,7 +46,7 @@ export default class ThrowError extends Brick {
      * @param {function(ErrorFlow)} setErrorFlow
      */
     update(context, [message, code], [setErrorFlow]) {
-        setErrorFlow(ErrorFlow.create(message, code));
+        throw ErrorFlow.create(message, code);
     }
 }
 
