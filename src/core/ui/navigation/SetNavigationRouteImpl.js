@@ -1,4 +1,4 @@
-import { ActionBrick, registerBrick, BrickContext } from 'olympe';
+import { ActionBrick, registerBrick, BrickContext, GlobalProperties } from 'olympe';
 
 /*
  Hardcoded part of implementation used in the soft-coded brick SetNavigationRoute
@@ -16,6 +16,13 @@ export default class SetNavigationRouteImpl extends ActionBrick {
      * @param {function(string)} setState
      */
     update(_$, [state, key, value], [forwardEvent, setState]) {
+        if (_$.get(GlobalProperties.EDITION, true)) {
+            // In case we are in edition mode, do nothing
+            setState(state);
+            forwardEvent();
+            return;
+        }
+
         const keys = key.split(';');
         const values = value.split(';');
 
