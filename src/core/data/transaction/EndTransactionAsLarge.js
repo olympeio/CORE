@@ -15,7 +15,7 @@
  */
 
 import { ActionBrick, registerBrick, ErrorFlow, GlobalProperties, CloudObject, BrickContext } from 'olympe';
-import { getLogger } from '@olympeio/core';
+import { getLogger } from 'logging';
 
 export default class EndTransactionAsLarge extends ActionBrick {
 
