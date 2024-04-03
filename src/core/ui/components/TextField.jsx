@@ -24,7 +24,8 @@ import {
     useMUITheme, 
     validateString, 
     getColorDefinition,
-    validateVariant
+    validateVariant,
+    colorExists
  } from 'helpers/mui';
 import { ThemeProvider } from '@mui/material/styles';
 
@@ -116,9 +117,10 @@ export default class TextField extends ReactBrick {
             const value = useProperty($, 'Value');
             const brickHeight = useProperty($, 'Height');
             const helperText = useProperty($, 'Helper Text');
-            const validatedHelperText = validateString(helperText);
+            const validatedHelperText = validateString(helperText,  'Helper Text', 'TextField');
             const hasHelperText = !!validatedHelperText;
             const hasEmptyText = !!useProperty($, 'Placeholder');
+            const color = useProperty($, 'Color');
             // 20 is height of helper text, 40 is the min height of the component (by MUI)
             const actualInputHeight = Math.max((brickHeight - (hasHelperText ? 20 : 0)), 40);
             let translateY = (actualInputHeight - 23) / 2; // 23 is height of label
@@ -135,7 +137,7 @@ export default class TextField extends ReactBrick {
                     transform: `translate(14px, ${translateY}px) scale(${isLabelOnTop? 0.75 : 1})`
                 }
             };
-            const validatedLabel = validateString(label);
+            const validatedLabel = validateString(label, 'Label', 'TextField');        
             const textFieldVariants = ['outlined', 'standard', 'filled'];
             const validatedTextFieldVariant = validateVariant(useProperty($, 'Variant'), 'Variant', 'TextField', textFieldVariants);
 
@@ -145,12 +147,12 @@ export default class TextField extends ReactBrick {
                             // Properties
                             value={value || ''}
                             inputRef={inputRef}
-                            placeholder={useProperty($, 'Placeholder')}
-                            {...ifNotNull('label', label, validatedLabel && label.trim() !== '')}
-                            helperText={useProperty($, 'Helper Text')}
+                            placeholder={validateString(useProperty($, 'Placeholder'), 'Placeholder', 'TextField')}
+                            {...ifNotNull('label', validatedLabel, validatedLabel && validatedLabel.trim() !== '')}
+                            helperText={validatedHelperText}
                             type={type}
                             variant={validatedTextFieldVariant}
-                            color={useProperty($, 'Color')}
+                            color={colorExists(theme, color, 'TextField') ? color : 'primary'}
                             size={useProperty($, 'Min Size')}
                             disabled={useProperty($, 'Disabled')}
                             required={useProperty($, 'Required')}
@@ -183,7 +185,7 @@ export default class TextField extends ReactBrick {
                                     ...ifNotNull('borderStyle', 'solid', showBorder),
                                     ...ifNotNull('boxSizing', 'border-box', showBorder),
                                     ...ifNotTransparent('borderColor', borderColor),
-                                    ...ifNotNull('color', textColorOverflow && textColorOverflow.toHexString(), showTextColorOverflow)
+                                    ...ifNotNull('color', validatedTextColorOverflow, showTextColorOverflow)
                                 },
 
                                 style: {

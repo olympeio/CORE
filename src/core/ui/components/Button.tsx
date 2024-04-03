@@ -96,8 +96,8 @@ export default class Button extends ReactBrick {
                             // Properties
                             variant={useProperty($, 'Variant')}
                             color={colorExists(theme, color, 'Button') ? color : 'primary'}
-                            startIcon={validateString(startIcon) && <Icon>{startIcon}</Icon>}
-                            endIcon={validateString(endIcon) && <Icon>{endIcon}</Icon>}
+                            startIcon={validateString(startIcon, 'Start Icon', 'Button') && <Icon>{startIcon}</Icon>}
+                            endIcon={validateString(endIcon, 'End Icon', 'Button') && <Icon>{endIcon}</Icon>}
                             disabled={useProperty($, 'Disabled')}
                             size={validatedSizeVariant as ButtonPropsSizeOverrides}
                             // Events
@@ -114,7 +114,7 @@ export default class Button extends ReactBrick {
                                 ...jsonToSxProps(useProperty($, 'MUI sx [json]')),
                             }}
                         >
-                            {validateString(useProperty($, 'Text')) ?? 'New Button'}
+                            {validateString(useProperty($, 'Text'), 'Text', 'Button') ?? 'New Button'}
                         </MUIButton>
                     </ThemeProvider>
                 )

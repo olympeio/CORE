@@ -261,10 +261,19 @@ export const validateIcon = (icon, loggerName, initialIcon = 'help_outline') => 
 
 /**
  * @param {string} text
+ * @param {string} property
+ * @param {string} loggerName
  * @return {string|undefined}
  */
-export const validateString = (text) => {
+export const validateString = (text,  property, loggerName) => {
+    const logger = getLogger(loggerName);
     if (text !== undefined && text !== null) {
+        if(typeof text === 'object') {
+            logger.warn(
+                `Invalid type was provided to property ${property}. The expected type is String.`
+            );
+            return;
+        }
         return String(text);
     }
 };
@@ -279,7 +288,7 @@ export const validateString = (text) => {
 export const validateVariant = (variant, property, loggerName, variants) => {
     const logger = getLogger(loggerName);
 
-    const validatedVariant = validateString(variant);
+    const validatedVariant = validateString(variant, property, loggerName);
     if (variant) {
         if (validatedVariant && variants.includes(validatedVariant)) {
             return validatedVariant;
