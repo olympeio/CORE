@@ -304,9 +304,9 @@ export default class Dropdown extends ReactBrick {
     static selectComponent($, options, multiple, values) {
         const label = useProperty($, 'Label');
         const brickHeight = useProperty($, 'Height');
-        const validatedHelperText = validateString(useProperty($, 'Helper Text'));
+        const validatedHelperText = validateString(useProperty($, 'Helper Text'), 'Helper Text', 'Dropdown');
         const hasHelperText = !!validatedHelperText;
-        const validatedEmptyText = validateString(useProperty($, 'Empty Text'));
+        const validatedEmptyText = validateString(useProperty($, 'Empty Text'), 'Empty Text', 'Dropdown');
         const hasEmptyText = !!validatedEmptyText;
         const selectedValue = useProperty($, 'Selected Value');
         const variant = useProperty($, 'Variant');
@@ -451,9 +451,9 @@ export default class Dropdown extends ReactBrick {
         const width = useProperty($, 'Width');
 
         const variant = useProperty($, 'Variant');
-        const validatedHelperText = validateString(useProperty($, 'Helper Text'));
+        const validatedHelperText = validateString(useProperty($, 'Helper Text'),  'Helper Text', 'Dropdown');
         const hasHelperText = !!validatedHelperText;
-        const validatedEmptyText = validateString(useProperty($, 'Empty Text'));
+        const validatedEmptyText = validateString(useProperty($, 'Empty Text'),  'Empty Text', 'Dropdown');
         const hasEmptyText = !!validatedEmptyText;
 
         const [open, setOpen] = useState(false);
@@ -780,7 +780,7 @@ export default class Dropdown extends ReactBrick {
      */
     static getTextFieldProps($, hasInput, params = {InputProps: {}, InputLabelProps: {}}) {
         const label = useProperty($, 'Label');
-        const emptyText = validateString(useProperty($, 'Empty Text'));
+        const emptyText = validateString(useProperty($, 'Empty Text'),  'Empty Text', 'Dropdown');
         const fontFamily = useProperty($, 'Font Family');
         const borderWidth = useProperty($, 'Border Width');
         const borderColor = useProperty($, 'Border Color');
@@ -822,7 +822,7 @@ export default class Dropdown extends ReactBrick {
             // MUI Properties
             label: typeof label === 'string' ? label.trim() : '',
             placeholder: emptyText,
-            helperText: validateString(useProperty($, 'Helper Text')),
+            helperText: validateString(useProperty($, 'Helper Text'), 'Helper Text', 'Dropdown'),
             variant: validateVariant(variant, 'Variant', 'Dropdown', dropdownFieldVariants),
             color: colorExists(theme, color, 'Dropdown') ? color : 'primary',
             size: useProperty($, 'Min Size'),

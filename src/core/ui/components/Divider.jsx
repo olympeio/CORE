@@ -136,7 +136,7 @@ export default class Divider extends ReactBrick {
                         }
                     }}
                 >
-                    {validateString(text)}
+                    {validateString(text, 'Text', 'Divider')}
                 </MUIDivider>
             );
         };

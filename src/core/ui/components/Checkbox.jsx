@@ -83,9 +83,9 @@ export default class Checkbox extends ReactBrick {
                     indeterminate={useProperty($, 'Indeterminate')}
                     disabled={useProperty($, 'Disabled')}
                     color={colorExists(theme, color, 'Checkbox') ? color : 'primary'}
-                    checkedIcon={(<Icon sx={{...iconSxProps}}>{validateString(checkedIcon)}</Icon>)}
-                    icon={(<Icon sx={{...iconSxProps}}>{validateString(uncheckedIcon)}</Icon>)}
-                    indeterminateIcon={(<Icon sx={{...iconSxProps}}>{validateString(indeterminateIcon)}</Icon>)}
+                    checkedIcon={(<Icon sx={{...iconSxProps}}>{validateString(checkedIcon, 'Checked Icon', 'Checkbox')}</Icon>)}
+                    icon={(<Icon sx={{...iconSxProps}}>{validateString(uncheckedIcon, 'Unchecked Icon', 'Checkbox')}</Icon>)}
+                    indeterminateIcon={(<Icon sx={{...iconSxProps}}>{validateString(indeterminateIcon, 'Indeterminate Icon', 'Checkbox')}</Icon>)}
 
                     // Events
                     onChange={(event) => {

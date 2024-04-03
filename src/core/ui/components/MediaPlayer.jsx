@@ -56,7 +56,7 @@ export default class MediaPlayer extends ReactBrick {
     static getReactComponent($) {
         return (props) => {
             const [hidden, url] = props.values;
-            const isValidURL = Boolean(validateString(url));
+            const isValidURL = Boolean(validateString(url, 'Media URL', 'MediaPlayer'));
 
             // Can play
             if(isValidURL && ReactPlayer.canPlay(url)) {

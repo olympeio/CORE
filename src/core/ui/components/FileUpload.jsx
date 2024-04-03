@@ -101,8 +101,8 @@ export default class FileUpload extends ReactBrick {
      * @return {!ReactElement}
      */
     static renderTextField($, uploadTextField, textFieldLastEvent, theme) {
-        const label = validateString(useProperty($, 'Label'));
-        const helperText = validateString(useProperty($, 'Helper Text'));
+        const label = validateString(useProperty($, 'Label'), 'Label', 'FileUpload');
+        const helperText = validateString(useProperty($, 'Helper Text'), 'Helper Text', 'FileUpload');
         const fontFamily = useProperty($, 'Font Family');
         const borderWidth = useProperty($, 'Border Width');
         const borderColor = useProperty($, 'Border Color');
