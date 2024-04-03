@@ -16,7 +16,7 @@
 
  import { registerBrick } from 'olympe';
  import { ReactBrick, useProperty } from 'helpers/react.jsx';
- import { cssToSxProps, ifNotTransparent } from "helpers/mui";
+ import { cssToSxProps, ifNotTransparent, validateNumber, validateString } from "helpers/mui";
 
 import ReactPlayer from 'react-player'
 import React from 'react'
@@ -56,10 +56,12 @@ export default class MediaPlayer extends ReactBrick {
     static getReactComponent($) {
         return (props) => {
             const [hidden, url] = props.values;
+            const isValidURL = Boolean(validateString(url, 'Media URL', 'MediaPlayer'));
 
             // Can play
-            if(ReactPlayer.canPlay(url)) {
-                const clampedVolume = Math.min(Math.max(0, useProperty($, 'Volume [%]')), 100); // 0 <= volume <= 100
+            if(isValidURL && ReactPlayer.canPlay(url)) {
+                const validatedVolume = validateNumber(useProperty($, 'Volume [%]'), 'Volume', 'MediaPlayer');
+                const clampedVolume = Math.min(Math.max(0, validatedVolume), 100); // 0 <= volume <= 100
                 const cssProps = cssToSxProps(useProperty($, 'CSS Property'));
                 const bw = parseInt(cssProps.borderWidth) || useProperty($, 'Border Width') || 0;
                 return !hidden && (
@@ -117,7 +119,7 @@ export default class MediaPlayer extends ReactBrick {
                         <Typography sx={{ color: 'black', padding: 1 }}>
                             <b>Media Player</b><br/>
                             Please enter a playable <code>Media URL</code> for the component to render.<br/>
-                            Current value: {url ? url : '<no value>'}
+                            Current value: {isValidURL ? url : '<no value>'}
                         </Typography>
                     </Box>
                 );

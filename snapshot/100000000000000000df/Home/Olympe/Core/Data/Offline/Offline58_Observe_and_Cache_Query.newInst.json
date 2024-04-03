@@ -4,7 +4,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Executes the query and cache its result for future offline use and listens to updates",
-    "01703376c4a81c0e9d92": "Runs the query and listens to further updates. The queried data is saved in the cache entry specified by its id for offline usage. (see `Offline: Clear Cache Entry` to clear the entry).\n\nThe output `query result` contains an ordered list of objects matching the query. The list is refreshed every time the resulting list gets changed in the database.\n\nUnlike `Execute Query`, `Observe Query` produces multiple results, as the set of objects matching the query evolves.",
+    "01703376c4a81c0e9d92": "Runs the query and listens to further updates. The queried data is saved in the cache entry specified by its id for offline usage. (see `Offline: Clear Cache Entry` to clear the entry).\n\nThe output `query result` contains an ordered list of objects matching the query. The list is refreshed every time the resulting list gets changed in the database.\n\nUnlike `Execute Query`, `Observe Query` produces multiple results, as the set of objects matching the query evolves.<br><br>\n\nFeel free to explore the demo app showcasing main offline concepts in this <a href=\"#editedItem=018e5b730217546bb956\">demo application</a><br><br>",
     "v": 233
    },
    "t": "018aacb25166102cb23b"

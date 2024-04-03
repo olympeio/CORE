@@ -16,7 +16,7 @@
 
  import { registerBrick } from 'olympe';
  import { ReactBrick, useProperty } from 'helpers/react.jsx';
- import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull, useMUITheme } from 'helpers/mui';
+ import { jsonToSxProps, cssToSxProps, ifNotTransparent, ifNotNull, useMUITheme, colorExists, validateVariant } from 'helpers/mui';
 import { ThemeProvider } from '@mui/material/styles';
 
 import React from 'react';
@@ -57,13 +57,18 @@ export default class Switch extends ReactBrick {
             const [hidden] = props.values;
             const theme = useMUITheme($);
             const borderRadius = useProperty($, 'Border Radius');
+            const color = useProperty($, 'Color');
+            const size = useProperty($, 'Size');
+
+            const switchSizeVariants = ['small', 'medium'];
+
             return !hidden && (
                 <ThemeProvider theme={theme}><MUISwitch
                     // Properties
                     checked={useProperty($, 'Checked') || false}
                     disabled={useProperty($, 'Disabled')}
-                    color={useProperty($, 'Color')}
-                    size={useProperty($, 'Size')}
+                    color={colorExists(theme, color, 'Switch') ? color : 'primary'}
+                    size={validateVariant(size, 'Size', 'Switch', switchSizeVariants)}
                     tabIndex={useProperty($, 'Tab Index')}
 
                     // UI

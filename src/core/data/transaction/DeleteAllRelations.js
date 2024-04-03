@@ -33,14 +33,14 @@ export default class DeleteAllRelations extends ActionBrick {
             return;
         }
         // Get current transaction
-        const transaction = Transaction.from(context);
+        const transaction = new Transaction();
 
         // Delete the specified relations
         // WARNING : it does not propagate the deletion !
         transaction.deleteAllRelations(relation, origin);
 
         // Release or execute the transaction
-        Transaction.process(context, transaction).then(() => {
+        transaction.executeAsLarge().then(() => {
             setOrigin(origin);
             forwardEvent();
         }).catch((message) => {

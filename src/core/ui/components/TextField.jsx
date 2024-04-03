@@ -16,7 +16,17 @@
 
 import { registerBrick } from 'olympe';
 import { ReactBrick, useProperty } from 'helpers/react.jsx';
-import { jsonToSxProps, ifNotNull, ifNotTransparent, cssToSxProps, useMUITheme } from 'helpers/mui';
+import { 
+    jsonToSxProps, 
+    ifNotNull, 
+    ifNotTransparent, 
+    cssToSxProps, 
+    useMUITheme, 
+    validateString, 
+    getColorDefinition,
+    validateVariant,
+    colorExists
+ } from 'helpers/mui';
 import { ThemeProvider } from '@mui/material/styles';
 
 import React from 'react';
@@ -57,6 +67,34 @@ export default class TextField extends ReactBrick {
             const borderRadius = useProperty($, 'Border Radius');
             const fontFamily = useProperty($, 'Font Family');
             const vertAlign = useProperty($, 'Vertical Alignment');
+            const autoFocus = useProperty($, 'Auto Focus');
+
+            const inputRef = React.useRef(null);
+
+            React.useEffect(() => {
+                // It seems to be a bug in the "restore focus" functionality -- focus goes very briefly to the text field and then returns to the body.
+                // In strict mode with the dev react build, the FocusTrap component is being mounted twice, and the unmount after the first mount causes focus to be restored to the body.
+                // The second mount brings focus back, but the text field auto-focus functionality doesn't re-execute since it was never removed/re-added to the DOM.
+                // This doesn't seem to be as much a bug in FocusTrap as it is an unfortunate side effect of the React dev build strict mode behavior.
+                // https://github.com/mui/material-ui/issues/33004
+                let timeout;
+                if (autoFocus && inputRef.current) {
+                    timeout = setTimeout(() => {
+                        inputRef.current.focus();
+                      }, 200);
+                } else if (autoFocus === false && inputRef.current) {
+                    timeout = setTimeout(() => {
+                        inputRef.current.blur();
+                      }, 200);
+                }
+
+                return () => {
+                    if (timeout) {
+                      clearTimeout(timeout);
+                    }
+                  };
+              }, [autoFocus]);
+
             let justifyContent;
             switch (vertAlign) {
                 case 'top':
@@ -72,12 +110,17 @@ export default class TextField extends ReactBrick {
             const multiLine = useProperty($, 'Multiline');
             const textColorOverflow = useProperty($, 'Text Color Override');
             const showBorder = borderColor && borderWidth > 0 && borderColor.toHexString() !== '#00000000';
-            const showTextColorOverflow = textColorOverflow && !error && textColorOverflow.toHexString() !== '#00000000';
+            const validatedTextColorOverflow = getColorDefinition(textColorOverflow, 'TextField');
+
+            const showTextColorOverflow = validatedTextColorOverflow && !error && validatedTextColorOverflow !== '#00000000';
 
             const value = useProperty($, 'Value');
             const brickHeight = useProperty($, 'Height');
-            const hasHelperText = !!useProperty($, 'Helper Text');
+            const helperText = useProperty($, 'Helper Text');
+            const validatedHelperText = validateString(helperText,  'Helper Text', 'TextField');
+            const hasHelperText = !!validatedHelperText;
             const hasEmptyText = !!useProperty($, 'Placeholder');
+            const color = useProperty($, 'Color');
             // 20 is height of helper text, 40 is the min height of the component (by MUI)
             const actualInputHeight = Math.max((brickHeight - (hasHelperText ? 20 : 0)), 40);
             let translateY = (actualInputHeight - 23) / 2; // 23 is height of label
@@ -94,23 +137,28 @@ export default class TextField extends ReactBrick {
                     transform: `translate(14px, ${translateY}px) scale(${isLabelOnTop? 0.75 : 1})`
                 }
             };
+            const validatedLabel = validateString(label, 'Label', 'TextField');        
+            const textFieldVariants = ['outlined', 'standard', 'filled'];
+            const validatedTextFieldVariant = validateVariant(useProperty($, 'Variant'), 'Variant', 'TextField', textFieldVariants);
 
             return !hidden && (
-                <ThemeProvider theme={theme}><MUITextField
+                <ThemeProvider theme={theme}>
+                    <MUITextField
                             // Properties
                             value={value || ''}
-                            placeholder={useProperty($, 'Placeholder')}
-                            {...ifNotNull('label', label, label && label.trim() !== '')}
-                            helperText={useProperty($, 'Helper Text')}
+                            inputRef={inputRef}
+                            placeholder={validateString(useProperty($, 'Placeholder'), 'Placeholder', 'TextField')}
+                            {...ifNotNull('label', validatedLabel, validatedLabel && validatedLabel.trim() !== '')}
+                            helperText={validatedHelperText}
                             type={type}
-                            variant={useProperty($, 'Variant')}
-                            color={useProperty($, 'Color')}
+                            variant={validatedTextFieldVariant}
+                            color={colorExists(theme, color, 'TextField') ? color : 'primary'}
                             size={useProperty($, 'Min Size')}
                             disabled={useProperty($, 'Disabled')}
-                            autoFocus={useProperty($, 'Auto Focus')}
                             required={useProperty($, 'Required')}
                             error={error}
                             multiline={multiLine}
+                            autoFocus={autoFocus}
 
                             // Events
                             onClick={() => $.trigger('On Click')}
@@ -131,13 +179,13 @@ export default class TextField extends ReactBrick {
                                     ...ifNotNull('flexDirection', 'column', multiLine),
                                     ...ifNotNull('justifyContent', justifyContent, multiLine),
                                     fontFamily: fontFamily,
-                            ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
+                                    ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
                                     ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
                                     ...ifNotNull('borderWidth', borderWidth, showBorder),
                                     ...ifNotNull('borderStyle', 'solid', showBorder),
                                     ...ifNotNull('boxSizing', 'border-box', showBorder),
                                     ...ifNotTransparent('borderColor', borderColor),
-                            ...ifNotNull('color', textColorOverflow && textColorOverflow.toHexString(), showTextColorOverflow)
+                                    ...ifNotNull('color', validatedTextColorOverflow, showTextColorOverflow)
                                 },
 
                                 style: {
@@ -146,10 +194,10 @@ export default class TextField extends ReactBrick {
 
                                 // On Enter key pressed
                                 onKeyDown: (event) => {
-                            if(event.key === 'Enter') {
+                                    if(event.key === 'Enter') {
                                         $.trigger('On Enter Pressed');
                                     }
-                        }
+                                }
                             }}
                             // Affects the <input> or <textarea> element of the input component
                             // see: https://mui.com/api/text-field/#props
@@ -159,31 +207,33 @@ export default class TextField extends ReactBrick {
                                 ...ifNotNull('step', useProperty($, 'Step'), type === 'number'),
                                 style: {
                                     maxHeight: '100%',
-                            overflow: 'auto'
+                                    overflow: multiLine ? 'auto' : 'hidden'
                                 },
                                 tabIndex: useProperty($, 'Tab Index'),
                             }}
                             FormHelperTextProps={{
                                 sx: {
                                     fontFamily: fontFamily,
-                            ...ifNotTransparent('color', borderColor)
-                        }
+                                    ...ifNotTransparent('color', borderColor)
+                                }
                             }}
                             InputLabelProps={{
-                        ...ifNotNull('shrink', true, type === 'date' || type === 'datetime-local' || type === 'color' || type === 'time'),
+                                ...ifNotNull('shrink', true, type === 'date' || type === 'datetime-local' || type === 'color' || type === 'time' || hasEmptyText),
                                 sx: {
                                     fontFamily: fontFamily,
-                            ...ifNotTransparent('color', borderColor)
-                        }
+                                     ...ifNotTransparent('color', borderColor)
+                                }
                             }}
                             sx={{
                                 width: 1,
                                 height: 1,
                                 ...cssToSxProps(useProperty($, 'CSS Property')),
                                 ...jsonToSxProps(useProperty($, 'MUI sx [json]')),
-                        ...customSx
-                    }}
-                ></MUITextField></ThemeProvider>
+                                ...customSx
+                            }}
+                        >
+                    </MUITextField>
+                </ThemeProvider>
             );
         };
     }

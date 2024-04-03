@@ -64,7 +64,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "JSON object or string",
+    "01703376c4a81c0e9d92": "JSON object or string (Can be an array of objects)",
     "v": 3
    },
    "t": "018162fd720bdcd7e2a1"

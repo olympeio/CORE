@@ -16,7 +16,7 @@
 
 import {registerBrick, EnumValue, QueryResult, BrickContext, Brick, ListDef, CloudObject, Enum} from 'olympe';
 import {ReactBrick, useProperty} from 'helpers/react.jsx';
-import {jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent, useMUITheme} from 'helpers/mui';
+import {jsonToSxProps, cssToSxProps, ifNotNull, ifNotTransparent, useMUITheme, validateString, validateVariant, colorExists} from 'helpers/mui';
 import {getLogger} from 'logging';
 
 import {map, switchMap} from 'rxjs/operators';
@@ -304,8 +304,10 @@ export default class Dropdown extends ReactBrick {
     static selectComponent($, options, multiple, values) {
         const label = useProperty($, 'Label');
         const brickHeight = useProperty($, 'Height');
-        const hasHelperText = !!useProperty($, 'Helper Text');
-        const hasEmptyText = !!useProperty($, 'Empty Text');
+        const validatedHelperText = validateString(useProperty($, 'Helper Text'), 'Helper Text', 'Dropdown');
+        const hasHelperText = !!validatedHelperText;
+        const validatedEmptyText = validateString(useProperty($, 'Empty Text'), 'Empty Text', 'Dropdown');
+        const hasEmptyText = !!validatedEmptyText;
         const selectedValue = useProperty($, 'Selected Value');
         const variant = useProperty($, 'Variant');
         /**
@@ -449,8 +451,10 @@ export default class Dropdown extends ReactBrick {
         const width = useProperty($, 'Width');
 
         const variant = useProperty($, 'Variant');
-        const hasHelperText = !!useProperty($, 'Helper Text');
-        const hasEmptyText = !!useProperty($, 'Empty Text');
+        const validatedHelperText = validateString(useProperty($, 'Helper Text'),  'Helper Text', 'Dropdown');
+        const hasHelperText = !!validatedHelperText;
+        const validatedEmptyText = validateString(useProperty($, 'Empty Text'),  'Empty Text', 'Dropdown');
+        const hasEmptyText = !!validatedEmptyText;
 
         const [open, setOpen] = useState(false);
         const [selectedValue, setSelectedValue] = useState(multiple ? [] : null);
@@ -729,8 +733,9 @@ export default class Dropdown extends ReactBrick {
      * @return {Object}
      */
     static getTheme($) {
-        const overrideColor = useProperty($, 'Color') || 'primary';
+        const color = useProperty($, 'Color');
         const originalTheme = useMUITheme($);
+        const overrideColor = colorExists (originalTheme, color, 'Dropdown') ? color : 'primary';
         return createTheme({
             palette: {
                 primary: {
@@ -775,7 +780,7 @@ export default class Dropdown extends ReactBrick {
      */
     static getTextFieldProps($, hasInput, params = {InputProps: {}, InputLabelProps: {}}) {
         const label = useProperty($, 'Label');
-        const emptyText = useProperty($, 'Empty Text');
+        const emptyText = validateString(useProperty($, 'Empty Text'),  'Empty Text', 'Dropdown');
         const fontFamily = useProperty($, 'Font Family');
         const borderWidth = useProperty($, 'Border Width');
         const borderColor = useProperty($, 'Border Color');
@@ -790,6 +795,11 @@ export default class Dropdown extends ReactBrick {
         // i.e. when the list of data changes, and we still want to keep the focus while typing in the input
         const [focused, setFocused] = useState($.get(Dropdown.FOCUSED_KEY) || false);
         const shrink = (hasInput || emptyText !== '') && label !== '';
+        const dropdownFieldVariants = ['filled', 'outlined', 'standard'];
+        const variant =  useProperty($, 'Variant');
+        const color = useProperty($, 'Color');
+        const theme = Dropdown.getTheme($);
+
 
         /**
          * @param {string} key
@@ -812,9 +822,9 @@ export default class Dropdown extends ReactBrick {
             // MUI Properties
             label: typeof label === 'string' ? label.trim() : '',
             placeholder: emptyText,
-            helperText: useProperty($, 'Helper Text'),
-            variant: useProperty($, 'Variant'),
-            color: useProperty($, 'Color'),
+            helperText: validateString(useProperty($, 'Helper Text'), 'Helper Text', 'Dropdown'),
+            variant: validateVariant(variant, 'Variant', 'Dropdown', dropdownFieldVariants),
+            color: colorExists(theme, color, 'Dropdown') ? color : 'primary',
             size: useProperty($, 'Min Size'),
             disabled: useProperty($, 'Disabled'),
             required: useProperty($, 'Required'),

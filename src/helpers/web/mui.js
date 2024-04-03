@@ -76,7 +76,7 @@ export function cssToSxProps(css) {
 export function ifNotTransparent(key, value, color) {
     const valueHex = value && value.toHexString ? value.toHexString() : '#00000000';
     const colorHex = color ? color.toHexString() : valueHex;
-    return colorHex !== '#00000000' ? {[key]:color?value:colorHex} : {};
+    return colorHex !== '#00000000' ? {[key]: color ? value : colorHex} : {};
 }
 
 /**
@@ -113,17 +113,17 @@ export const emptyTheme = createTheme({});
  */
 export const observeMUITheme = ($) => {
     return themePropertiesObserver($).pipe(map(([theme, property, value, versionNumber]) => {
-        if (!theme) {
-            return emptyTheme;
-        }
-        const themeTag = theme.getTag();
+            if (!theme) {
+                return emptyTheme;
+            }
+            const themeTag = theme.getTag();
         const [cachedVersionNumber, cachedValue] = cachedMuiThemes.get(themeTag) || [null, null];
-        if (cachedVersionNumber === versionNumber) {
-            return cachedValue;
-        }
-        const muiTheme = getMuiTheme(theme);
-        cachedMuiThemes.set(themeTag, [versionNumber, muiTheme]);
-        return muiTheme;
+            if (cachedVersionNumber === versionNumber) {
+                return cachedValue;
+            }
+            const muiTheme = getMuiTheme(theme);
+            cachedMuiThemes.set(themeTag, [versionNumber, muiTheme]);
+            return muiTheme;
     }));
 };
 
@@ -199,7 +199,7 @@ export function useMUITheme($) {
  * @param { string } loggerName
  * @return {Boolean}
  */
-export function colorExists (theme, color, loggerName) {
+export function colorExists(theme, color, loggerName) {
     const logger = getLogger(loggerName);
 
     if (color !== undefined) {
@@ -222,39 +222,99 @@ export function colorExists (theme, color, loggerName) {
 
 
 /**
- * @param { Color } iconColor
+ * @param { Color } color
  * @param { string } loggerName
  * @return { string | undefined }
  */
-export const getColorDefinition = (iconColor, loggerName) => {
+export const getColorDefinition = (color, loggerName) => {
     const logger = getLogger(loggerName);
-    
-    if (iconColor !== undefined) {
-        if (iconColor instanceof ColorAPI) {
-            return iconColor.toHexString();
+
+    if (color !== undefined) {
+        if (color instanceof ColorAPI) {
+            return color.toHexString();
         } else {
-            logger.error(`Invalid color provided. Must be of type Color: ${iconColor}`);
+            logger.error(`Invalid color provided. Must be of type Color: ${color}`);
             return;
         }
-    } 
+    }
     return;
 };
 
 /**
- * @param { icon } string
- * @param { string } loggerName
- * @return { string }
+ * @param {string=} icon
+ * @param {string} loggerName
+ * @return {string}
  */
-export const validateIcon = (icon, loggerName) => {
+export const validateIcon = (icon, loggerName, initialIcon = 'help_outline') => {
     const logger = getLogger(loggerName);
-    
+
     if (icon !== undefined) {
-        if( typeof icon !== 'string') {
+        if (typeof icon !== 'string') {
             logger.error(`Invalid icon provided. Must be of type string: ${icon}`);
-            return 'help_outline'; // default value
+            return initialIcon; // default value
         } else {
             return icon;
         }
     }
-    return 'help_outline'; // default value
+    return initialIcon; // default value
+};
+
+/**
+ * @param {string} text
+ * @param {string} property
+ * @param {string} loggerName
+ * @return {string|undefined}
+ */
+export const validateString = (text,  property, loggerName) => {
+    const logger = getLogger(loggerName);
+    if (text !== undefined && text !== null) {
+        if(typeof text === 'object') {
+            logger.warn(
+                `Invalid type was provided to property ${property}. The expected type is String.`
+            );
+            return;
+        }
+        return String(text);
+    }
+};
+
+/**
+ * @param {string} variant
+ * @param {string} property
+ * @param {string} loggerName
+ * @param {Array<string>} variants
+ * @return {string}
+ */
+export const validateVariant = (variant, property, loggerName, variants) => {
+    const logger = getLogger(loggerName);
+
+    const validatedVariant = validateString(variant, property, loggerName);
+    if (variant) {
+        if (validatedVariant && variants.includes(validatedVariant)) {
+            return validatedVariant;
+        } else {
+            logger.warn(
+                `Invalid ${property} provided: ${variant}. Must be one of ${variants.join(', ')}.`
+            );
+            return variants[0];
+        }
+    }
+};
+
+/**
+ * @param {number} value
+ * @param {string} property
+ * @param {string} loggerName
+ * @param {?number} initialValue
+ * @return {number}
+ */
+export const validateNumber = (value, property, loggerName, initialValue = 0) => {
+    const logger = getLogger(loggerName);
+
+    if (typeof value === 'number' && !isNaN(value)) {
+        return value;
+    } else {
+        logger.error(`Invalid ${property} provided. Must be a number.`);
+        return initialValue;
+    }
 };

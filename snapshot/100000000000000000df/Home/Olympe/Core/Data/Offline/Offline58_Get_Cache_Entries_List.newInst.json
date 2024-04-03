@@ -15,7 +15,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Return the list of active cache ids",
-    "01703376c4a81c0e9d92": "Return the list of active cache ids. They come either from an \"Execute and Cache Query\" or \"Observe and Cache Query\". \n\nCache Ids can be cleared using the \"Offline: Clear Cache Entry\" brick."
+    "01703376c4a81c0e9d92": "Return the list of active cache ids. They come either from an \"Execute and Cache Query\" or \"Observe and Cache Query\". \n\nCache Ids can be cleared using the \"Offline: Clear Cache Entry\" brick.<br><br>\n\nFeel free to explore the demo app showcasing main offline concepts in this <a href=\"#editedItem=018e5b730217546bb956\">demo application</a><br><br>"
    },
    "t": "018a406a2b82492ea0b7"
   },
