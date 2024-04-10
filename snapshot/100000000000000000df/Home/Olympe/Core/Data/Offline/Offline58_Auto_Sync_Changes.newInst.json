@@ -1,0 +1,226 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "fdff023000000000000011": "Offline: Auto Sync Changes",
+    "ff023000000000000011": "Offline: Auto Sync Changes"
+   },
+   "t": "018ec2a774d1929c6742"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621f6ab58c2f884654": 20391.5,
+    "01621f6ab6ac89348f20": 19992.5
+   },
+   "t": "018ec2a7b2833c99513c"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec2a7b2833f021716"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec2a7b28344b53f92"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec2a7b28362f321be"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec2a7b2836b70b8e4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621f6ab58c2f884654": 19360,
+    "01621f6ab6ac89348f20": 20123
+   },
+   "t": "018ec2a7b28370482ec6"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec2a7b28374845ab0"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec2a7b283c0070fcc"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec2a7b283c406c61e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621f6ab58c2f884654": 19617,
+    "01621f6ab6ac89348f20": 20126
+   },
+   "t": "018ec2a7b283cb11c308"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621f6ab58c2f884654": 19866,
+    "01621f6ab6ac89348f20": 20121
+   },
+   "t": "018ec2a7b283f97d83cd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Ascender input"
+   },
+   "t": "018ec2a83b120e463fa1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "On Success"
+   },
+   "t": "018ec2a83b1279539cc4"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec2a83b12a7ddf392"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Error Flow"
+   },
+   "t": "018ec2a84f5f0830a858"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Ascender input"
+   },
+   "t": "018ec2a84f5f6eb6a942"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec2a84f5fc7bda5bf"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec2a8562d3c94283c"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec2a85b1ddf06b76e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Triggers automatically a synchronisation each time the connexion is found",
+    "01703376c4a81c0e9d92": "Triggers automatically a synchronisation each time the connexion is found"
+   },
+   "t": "018ec2a860723931faf4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "After a synchronisation succeed (even if no changes had to be synced)"
+   },
+   "t": "018ec2a860d32fdcf62f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "If an error occurs during the synchronisation"
+   },
+   "t": "018ec2a8611345c07822"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "First Sync."
+   },
+   "t": "018ec2abf8ca1564bf2b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Descender output"
+   },
+   "t": "018ec2abf8ca55757b9e"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec2abf8ca8f1af1bd"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec2ac108082a44ce2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621f6ab58c2f884654": 20122,
+    "01621f6ab6ac89348f20": 19994
+   },
+   "t": "018ec2ac1081e46e0fd3"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec2ac3297649a15a4"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec2ac37d2e1b841b7"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec2ac3c52af4a9217"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Should be dispatched when the synchronisation can start (typically an onload event)"
+   },
+   "t": "018ec2ac9a593ecb96b4"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "018ec2a774d1929c6742"
+}
