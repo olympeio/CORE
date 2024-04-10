@@ -7,7 +7,6 @@
     "01621fb84e320000f001": "public",
     "fd01611d99ec0553b5926e": 100,
     "fd01611d9a0452a179c68f": 20,
-    "fd017ccc09d80ae350139a": "primary",
     "fd017ccc0d047094a13dd4": {
      "a": 0,
      "b": 0,
@@ -20,17 +19,12 @@
     "fd017ccc1103153d76c533": false,
     "fd017ccc11c8fc7aaec612": 0,
     "fd017ccc11c9b9da217eb7": 100,
-    "fd017ccc13ee8936fcb28c": "horizontal",
-    "fd017ccc1462458b36eda0": "medium",
     "fd017ccc156dabd73ed151": 1,
     "fd017ccc1630a6b54ea811": "{}",
-    "fd017ccc18499ad39b1f3e": "normal",
     "fd017ccc19490de3278ee6": 30,
     "fd017ccc194a11536a5987": 30,
     "fd017ccc19fa91392f7c67": false,
-    "fd017ccc1d646379e265ce": "auto",
     "fd017ccc75af283957d107": 1,
-    "fd017ccc75b1a1dbeb90bb": "allow-swap",
     "fdff023000000000000011": "Slider",
     "ff023000000000000011": "Slider",
     "v": 74
@@ -539,6 +533,42 @@
     "v": 44
    },
    "t": "017ccc75b1d27918c516"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e242621aeb46d0"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e24bb5c47aeefb"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e25324c62a5b25"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e254b148d72e41"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e254b22d6b9f73"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e26b5fbed652a2"
   }
  ],
  "optionalOperations": [

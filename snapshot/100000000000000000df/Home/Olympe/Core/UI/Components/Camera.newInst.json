@@ -7,14 +7,11 @@
     "01621fb84e320000f001": "public",
     "fd01611d99ec0553b5926e": 300,
     "fd01611d9a0452a179c68f": 200,
-    "fd017cef3f9905016577a7": "back",
     "fd017cef42031eceeeeec8": false,
     "fd017cef423c9794dbdeba": true,
     "fd017cef428fce7afca4dc": false,
     "fd017cef436364b41b3586": false,
-    "fd017cef438e75fe47f713": "image/png",
     "fd017cef4451a33878f793": 100,
-    "fd018455cd333853d4839d": "contain",
     "fdff023000000000000011": "Cam",
     "ff023000000000000011": "Camera",
     "v": 64
@@ -315,6 +312,24 @@
     "v": 235
    },
    "t": "01850f9b0174e99c1931"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e25641c6c3a9ac"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e26af6d3c8d94b"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e26af6f3cea325"
   }
  ],
  "optionalOperations": [

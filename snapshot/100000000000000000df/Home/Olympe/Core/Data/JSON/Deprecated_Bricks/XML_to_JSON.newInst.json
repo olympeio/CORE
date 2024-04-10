@@ -52,7 +52,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Parse a XML string into a JSON",
-    "01703376c4a81c0e9d92": "Use [XML To JSON](/#editedItem=017fbc594a3b3b32e812) instead.\n\nReason:\n- returns result in the form of json string, not json object\n***\nParses a XML string into a JSON, extracting the object or array specified by the path (if any).",
+    "01703376c4a81c0e9d92": "Use [XML To JSON](/#item=017fbc594a3b3b32e812) instead.\n\nReason:\n- returns result in the form of json string, not json object\n***\nParses a XML string into a JSON, extracting the object or array specified by the path (if any).",
     "v": 111
    },
    "t": "017b35893b71b299599e"

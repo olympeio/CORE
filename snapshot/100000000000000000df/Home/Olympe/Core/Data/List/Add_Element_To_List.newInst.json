@@ -43,7 +43,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Adds an element to a list.",
-    "01703376c4a81c0e9d92": "Use [Add To List](/#editedItem=017fbda3e482d527fe45) instead.\n\nReason:\n- The brick doesn't change the source list, but creates a copy with the added element.\n***\nAdds en element to a list.",
+    "01703376c4a81c0e9d92": "Use [Add To List](/#item=017fbda3e482d527fe45) instead.\n\nReason:\n- The brick doesn't change the source list, but creates a copy with the added element.\n***\nAdds en element to a list.",
     "v": 12
    },
    "t": "017b35893b5c2fddff97"

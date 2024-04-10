@@ -8,7 +8,6 @@
     "fd01611d99ec0553b5926e": 200,
     "fd01611d9a0452a179c68f": 240,
     "fd017d7af6e0cffe5328c0": 0,
-    "fd017d7af704b68e916e25": "vertical",
     "fd017d7af78d88900eaccd": false,
     "fd017d7af7dbc9cd2920df": false,
     "fd017d7af87c8edce90f79": 40,
@@ -209,6 +208,12 @@
     "v": 16
    },
    "t": "017d7b2f104a6e3fab69"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e25324f67c418f"
   }
  ],
  "optionalOperations": [

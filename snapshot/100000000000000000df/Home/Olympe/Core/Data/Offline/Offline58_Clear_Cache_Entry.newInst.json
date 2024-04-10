@@ -31,7 +31,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Clear the Cache Entry from the local offline database",
-    "01703376c4a81c0e9d92": "When using the bricks `Offline: Execute and Cache Query` and `Offline: Observe and Cache Query`, the developer chooses an identifier to specify in which `cache entry` the query should be saved.\n<br><br>\n`Offline: Clear Cache Entry` brick is designed to clear and remove all the queries that have been saved into the specified cache entry.<br><br>\n\nFeel free to explore the demo app showcasing main offline concepts in this <a href=\"#editedItem=018e5b730217546bb956\">demo application</a><br><br>"
+    "01703376c4a81c0e9d92": "When using the bricks `Offline: Execute and Cache Query` and `Offline: Observe and Cache Query`, the developer chooses an identifier to specify in which `cache entry` the query should be saved.\n<br><br>\n`Offline: Clear Cache Entry` brick is designed to clear and remove all the queries that have been saved into the specified cache entry.<br><br>\n\nFeel free to explore the demo app showcasing main offline concepts in this <a href=\"#item=018e5b730217546bb956\">demo application</a><br><br>"
    },
    "t": "0189f81b3200ae09f4cd"
   },

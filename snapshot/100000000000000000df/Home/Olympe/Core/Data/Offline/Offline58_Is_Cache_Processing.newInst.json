@@ -15,7 +15,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Return true if the Cache is processing incoming requests and is saving them in the local offline database",
-    "01703376c4a81c0e9d92": "Return true if the Cache is processing incoming requests and is saving them in the local offline database<br><br>\n\nFeel free to explore the demo app showcasing main offline concepts in this <a href=\"#editedItem=018e5b730217546bb956\">demo application</a><br><br>"
+    "01703376c4a81c0e9d92": "Return true if the Cache is processing incoming requests and is saving them in the local offline database<br><br>\n\nFeel free to explore the demo app showcasing main offline concepts in this <a href=\"#item=018e5b730217546bb956\">demo application</a><br><br>"
    },
    "t": "018ab2c1af137d615c0b"
   },

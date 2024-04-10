@@ -8,9 +8,7 @@
     "fd01611d99ec0553b5926e": 100,
     "fd01611d9a0452a179c68f": 50,
     "fd017cdff387102d3aaf5f": "",
-    "fd017cdffce99ec1179de7": "svg",
     "fd017cdffd202df5d4be8f": 128,
-    "fd017ce0005723e8aef658": "L",
     "fd017ce000ec1e86429920": false,
     "fd017ce001406982e9353b": false,
     "fd017ce02bc7c655463b07": {
@@ -164,6 +162,18 @@
     "v": 31
    },
    "t": "017ce02bc7f0c8728c44"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e1f75c93decefa"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e24c1adee32336"
   }
  ],
  "optionalOperations": [
