@@ -104,21 +104,6 @@
     "01703376c4a81c0e9d92": "The name of the resulting Excel file. The extension (.xlsx) is added if missing."
    },
    "t": "018eb828ccd2beaad0aa"
-  },
-  {
-   "o": 1,
-   "p": {
-    "01740c5d4ae4b520dd01": 3,
-    "ff023000000000000011": "separator"
-   },
-   "t": "018ec2d173bcfd9a2679"
-  },
-  {
-   "o": 1,
-   "p": {
-    "01703376c4a81c0e9d92": "Separator, defaults to \",\""
-   },
-   "t": "018ec2d1745339baaf11"
   }
  ],
  "optionalOperations": [

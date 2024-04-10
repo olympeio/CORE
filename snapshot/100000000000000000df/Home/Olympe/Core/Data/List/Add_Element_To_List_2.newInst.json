@@ -61,7 +61,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Adds an element to a list.",
-    "01703376c4a81c0e9d92": "Use [Add To List](/#editedItem=017fcfbd64e6222bf79f) instead.\n\n\nReason:\n- The brick doesn't change the source list, but creates a copy with the added element\n***\n\nAdds en element to a list. If no list is provided, it is created.",
+    "01703376c4a81c0e9d92": "Use [Add To List](/#item=017fcfbd64e6222bf79f) instead.\n\n\nReason:\n- The brick doesn't change the source list, but creates a copy with the added element\n***\n\nAdds en element to a list. If no list is provided, it is created.",
     "v": 283
    },
    "t": "017b35893b60f071c778"

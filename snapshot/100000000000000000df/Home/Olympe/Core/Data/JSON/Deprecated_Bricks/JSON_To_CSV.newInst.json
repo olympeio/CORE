@@ -16,7 +16,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Parses a JSON string and turns it into a CSV string.",
-    "01703376c4a81c0e9d92": "Use [JSON To CSV](/#editedItem=017fbc2cb6fc62c9002a) instead.\n\nReason:\n- The brick doesn't support parsing json object, but json string only\n***\n\nParses a JSON string and turns it into a CSV string.\n\n",
+    "01703376c4a81c0e9d92": "Use [JSON To CSV](/#item=017fbc2cb6fc62c9002a) instead.\n\nReason:\n- The brick doesn't support parsing json object, but json string only\n***\n\nParses a JSON string and turns it into a CSV string.\n\n",
     "v": 174
    },
    "t": "017d907203aa6bfa1308"

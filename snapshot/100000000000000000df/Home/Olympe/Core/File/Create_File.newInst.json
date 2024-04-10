@@ -79,7 +79,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Create a file from a text content",
-    "01703376c4a81c0e9d92": "## Note\nUse the new `Create File` brick from [core](#editedItem=0186bb8c2d531f799bd5) instead.\n\n## Description\nCreate a file instance in the local database from a text content.\n\nThe newly created file is not persisted. Use the brick `Persist Object` to do so.",
+    "01703376c4a81c0e9d92": "## Note\nUse the new `Create File` brick from [core](#item=0186bb8c2d531f799bd5) instead.\n\n## Description\nCreate a file instance in the local database from a text content.\n\nThe newly created file is not persisted. Use the brick `Persist Object` to do so.",
     "v": 143
    },
    "t": "017b35893b38f34abe05"

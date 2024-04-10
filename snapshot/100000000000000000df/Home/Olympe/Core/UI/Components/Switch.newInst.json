@@ -8,9 +8,7 @@
     "fd01611d99ec0553b5926e": 64,
     "fd01611d9a0452a179c68f": 42,
     "fd017c9e0e9f719c35839d": false,
-    "fd017c9e0e9f78c3147d37": "primary",
     "fd017c9e0e9f7bec54aaee": false,
-    "fd017c9e2adcb889ea129c": "medium",
     "fd017ca2e8859ca35b3d42": "{}",
     "fdff023000000000000011": "Checkbox",
     "ff023000000000000011": "Switch",
@@ -182,6 +180,18 @@
     "v": 7
    },
    "t": "017ca2e885efe71c62fd"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e24daf142c0383"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e254b4e8ccfded"
   }
  ],
  "optionalOperations": [

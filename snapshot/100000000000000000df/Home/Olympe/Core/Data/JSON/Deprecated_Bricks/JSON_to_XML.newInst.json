@@ -53,7 +53,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Parses a JSON string and turns it into an XML string.",
-    "01703376c4a81c0e9d92": "Use [JSON To XML](/#editedItem=017fbc4a23d3b8b55945) instead.\n\nReason:\n- The brick doesn't support parsing json object, but json string only\n***\nParses a JSON string and turns it into an XML string, wrapping the result in a series of tags specified by the path (if any).",
+    "01703376c4a81c0e9d92": "Use [JSON To XML](/#item=017fbc4a23d3b8b55945) instead.\n\nReason:\n- The brick doesn't support parsing json object, but json string only\n***\nParses a JSON string and turns it into an XML string, wrapping the result in a series of tags specified by the path (if any).",
     "v": 58
    },
    "t": "017b35893b74c948b4f7"

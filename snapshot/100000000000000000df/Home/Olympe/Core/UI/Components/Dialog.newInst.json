@@ -13,14 +13,7 @@
     "fd017ce683f99b04ca6f87": false,
     "fd017ce683fadcbaabef81": false,
     "fd017ce683fc2f42be9da9": "sm",
-    "fd017ce68404082de1ba1b": "paper",
     "fd017ce6851d48b32f2cf8": false,
-    "fd017ce6851e714fbe101f": "fade",
-    "fd017ce6851ffa22776d85": "down",
-    "fd017ce6852174112b50e8": "none",
-    "fd017ce68522e791ddb477": "default",
-    "fd017ce685246b0a79bc3b": "default",
-    "fd017ce685320fee178d3d": "none",
     "fd017ce68adf1b16124668": true,
     "fd017cea6ff57aa0f354ed": false,
     "fd017cea7ba14a4ca1e74d": "{}",
@@ -587,6 +580,48 @@
     "01703376c4a81c0e9d92": "If set to 'true', allows closing the dialog by clicking on the cross icon in the top-right corner of the popup"
    },
    "t": "018d8cedecf07c814468"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e2783f598f4bbc"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e2783fc9a73c34"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e2796a53da2677"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e2796afc63ef88"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e281a04173795d"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e281a0b4c78b6c"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e282c9b05323f8"
   }
  ],
  "optionalOperations": [

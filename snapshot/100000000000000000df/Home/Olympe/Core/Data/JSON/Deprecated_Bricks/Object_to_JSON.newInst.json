@@ -52,7 +52,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Parse an Object into a stringified JSON",
-    "01703376c4a81c0e9d92": "Use [Cloud Object To JSON](/#editedItem=017fc0743bebe690bfef) instead.\n\nReason:\n- The brick doesn't return json object, but json in the form of string\n***\nSerializes an object into a JSON representation of that object.",
+    "01703376c4a81c0e9d92": "Use [Cloud Object To JSON](/#item=017fc0743bebe690bfef) instead.\n\nReason:\n- The brick doesn't return json object, but json in the form of string\n***\nSerializes an object into a JSON representation of that object.",
     "v": 11
    },
    "t": "017b35893b7271f1aa98"

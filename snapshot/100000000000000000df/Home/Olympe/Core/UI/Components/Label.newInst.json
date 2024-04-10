@@ -7,8 +7,6 @@
     "01621fb84e320000f001": "public",
     "fd01611d99ec0553b5926e": 300,
     "fd01611d9a0452a179c68f": 50,
-    "fd017c79ac35f16efcc04e": "left",
-    "fd017c79ac3cdbea85dae7": "body1",
     "fd017c79ac3f64dbd14bee": false,
     "fd017c79ac41677479d327": "New Label",
     "fd017c79ac45c70be23d93": false,
@@ -19,7 +17,6 @@
      "g": 128,
      "r": 128
     },
-    "fd017c7ef54d5acbbdca49": "center",
     "fd017ca2e83d2afc4283e7": "{}",
     "fd018af46cc25ae09b59f3": false,
     "fdff023000000000000011": "Label",
@@ -293,6 +290,24 @@
     "01703376c4a81c0e9d92": "If this property is set to true, the component itself will override the Height property according to the space it needs"
    },
    "t": "018af46cc31354c22293"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e278a105d49c90"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e27b5de32ad59c"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e2826a5f3c4d25"
   }
  ],
  "optionalOperations": [

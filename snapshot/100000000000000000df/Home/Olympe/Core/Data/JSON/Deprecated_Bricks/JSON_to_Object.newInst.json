@@ -71,7 +71,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Parses a JSON string and turn it into an instance of business model.",
-    "01703376c4a81c0e9d92": "Use [JSON To Cloud Object](/#editedItem=017fc07bf104e6ce60b7) instead.\n\nReason:\n- The brick doesn't support parsing json object, but json string only\n***\n\nParses a JSON string and turn it into an instance of business model.\n\nThe format of the json string is typically what the \"Object to JSON\" brick would output.\n\nExamples\n-----------------\n\nIf we input the json `{\"Latitude\":15,\"Longitude\":25,\"name\":\"GPS Coordinate\"}`, the output will be an instance of a `GPS Coordinate` object.\n",
+    "01703376c4a81c0e9d92": "Use [JSON To Cloud Object](/#item=017fc07bf104e6ce60b7) instead.\n\nReason:\n- The brick doesn't support parsing json object, but json string only\n***\n\nParses a JSON string and turn it into an instance of business model.\n\nThe format of the json string is typically what the \"Object to JSON\" brick would output.\n\nExamples\n-----------------\n\nIf we input the json `{\"Latitude\":15,\"Longitude\":25,\"name\":\"GPS Coordinate\"}`, the output will be an instance of a `GPS Coordinate` object.\n",
     "v": 292
    },
    "t": "017b35893b762cf28be5"

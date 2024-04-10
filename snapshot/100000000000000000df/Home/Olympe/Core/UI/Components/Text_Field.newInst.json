@@ -8,7 +8,6 @@
     "fd01611d99ec0553b5926e": 200,
     "fd01611d9a0452a179c68f": 40,
     "fd017c9d035c9f917350a4": false,
-    "fd017c9d053bbc55b148c3": "primary",
     "fd017c9d05b15a59138ee0": false,
     "fd017c9d062b2d2b8c92c2": false,
     "fd017c9d068df331c97360": "",
@@ -16,10 +15,7 @@
     "fd017c9d092eecb4b73529": false,
     "fd017c9d09da0e29c463a5": "",
     "fd017c9d0a57c99ef3ac74": false,
-    "fd017c9d106f97b95801bb": "text",
     "fd017c9d1070cdab547492": "",
-    "fd017c9d1072a515f0e200": "outlined",
-    "fd017c9d7db0c5f58cb595": "small",
     "fd017c9d86d623a200d40e": -1,
     "fd017c9d86d6c7f8cde51f": 3,
     "fd017c9d86d77090e7e2ba": 3,
@@ -32,7 +28,6 @@
      "r": 0
     },
     "fd01828202453fed4def1b": 1,
-    "fd018282024b7377edb80d": "top",
     "fdff023000000000000011": "Text Field",
     "ff023000000000000011": "Text Field",
     "v": 17
@@ -697,6 +692,36 @@
     "v": 3
    },
    "t": "018282024be0fcb187d6"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e259c5bfef7f8a"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e2688e3a49de70"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e26a2e3717a0d6"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e27776705cfcb8"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e282656c0008e1"
   }
  ],
  "optionalOperations": [

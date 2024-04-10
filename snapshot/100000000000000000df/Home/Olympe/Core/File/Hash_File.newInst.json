@@ -91,7 +91,6 @@
    "o": 1,
    "p": {
     "01740c5d4ae4b520dd01": 2,
-    "01740c5d4ae4b520dd02": "sha256",
     "ff023000000000000011": "hash method"
    },
    "t": "018ad6b6132d154ffdbc"
@@ -102,6 +101,12 @@
     "01703376c4a81c0e9d92": "Can be sha256, sha384 or sha512"
    },
    "t": "018ad6b613787165f095"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec7e222b2cf96202b"
   }
  ],
  "optionalOperations": [

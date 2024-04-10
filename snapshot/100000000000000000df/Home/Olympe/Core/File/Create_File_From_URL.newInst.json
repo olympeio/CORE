@@ -34,7 +34,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Create a file object with a distant content based on a URL.",
-    "01703376c4a81c0e9d92": "## Note\nUse the equivalent new version of Create File From URL in [Core](#editedItem=0186bde313208daec3e0)\n\n## Description\nCreate a new file instance in the local database which references a remote file. The file content is therefore not stored locally, but it is remotely available through the specified external URL.\n\nA common use of this brick is to combine it with `Get File Content` and `Download File`, or as a source of an `Image` visual component. This allows using files which are only available as URLs.\n\nThe newly created file is not persisted. Use the brick `Persist Object` to do so.",
+    "01703376c4a81c0e9d92": "## Note\nUse the equivalent new version of Create File From URL in [Core](#item=0186bde313208daec3e0)\n\n## Description\nCreate a new file instance in the local database which references a remote file. The file content is therefore not stored locally, but it is remotely available through the specified external URL.\n\nA common use of this brick is to combine it with `Get File Content` and `Download File`, or as a source of an `Image` visual component. This allows using files which are only available as URLs.\n\nThe newly created file is not persisted. Use the brick `Persist Object` to do so.",
     "v": 363
    },
    "t": "017bc1ea636f43f03d98"

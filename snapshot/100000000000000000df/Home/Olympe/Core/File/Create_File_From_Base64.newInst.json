@@ -79,7 +79,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Creates a file based from a Base64 content.",
-    "01703376c4a81c0e9d92": "## Note\nUse the equivalent new version of Create File From Base64 in [Core](#editedItem=0186bde332e3044abad0)\n\n## Description\nCreate a new file instance in the local database based on a content base64-encoded. The MIME-type value specifies the content-type of the file. \nThe content must either be a base64 string or a DataURL (base64 string of the form `data:[<mediatype>][;base64],<base64 content>`).\n\nThe newly created file is not persisted. Use the brick `Persist Object` to do so.\n",
+    "01703376c4a81c0e9d92": "## Note\nUse the equivalent new version of Create File From Base64 in [Core](#item=0186bde332e3044abad0)\n\n## Description\nCreate a new file instance in the local database based on a content base64-encoded. The MIME-type value specifies the content-type of the file. \nThe content must either be a base64 string or a DataURL (base64 string of the form `data:[<mediatype>][;base64],<base64 content>`).\n\nThe newly created file is not persisted. Use the brick `Persist Object` to do so.\n",
     "v": 132
    },
    "t": "017b35893b33d8586f9c"
