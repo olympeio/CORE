@@ -1,0 +1,127 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Excel to CSV",
+    "ff023000000000000011": "Excel to CSV"
+   },
+   "t": "018ecd37ac6f34045515"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "018ecd37ac708519dbf1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "018ecd37ac70c934b2f0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Converts an Excel File into a CSV File",
+    "01703376c4a81c0e9d92": "Converts an Excel File into a CSV File"
+   },
+   "t": "018ecd37b457f2033705"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ecd37b4f0f71989c1"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ecd37b568ff5e0d8f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Source"
+   },
+   "t": "018ecd38325215db01d5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Excel Source File"
+   },
+   "t": "018ecd383307a461f43d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "Sheet Name"
+   },
+   "t": "018ecd386d70a6c1ec2d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Name of the sheet, defaults to \"Sheet1\""
+   },
+   "t": "018ecd386e17694f4d87"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "ff023000000000000011": "separator"
+   },
+   "t": "018ecd38b48f83bc6c63"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Separator, defaults to \",\""
+   },
+   "t": "018ecd38b660597cff83"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Result"
+   },
+   "t": "018ecd391faebaeba2f2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "CSV File"
+   },
+   "t": "018ecd392067b377635f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "Error Flow"
+   },
+   "t": "018ecd394520a78ebac8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Error Flow"
+   },
+   "t": "018ecd3945a21bd04ac3"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "018ecd37ac6f34045515"
+}

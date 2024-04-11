@@ -1,0 +1,114 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Cloud Objects To JSON",
+    "ff023000000000000011": "Cloud Objects To JSON"
+   },
+   "t": "018ecac077f5ecb07375"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "018ecac077f61d26994e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "018ecac077f6cb0ce275"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Transform a Cloud Object to JSON",
+    "01703376c4a81c0e9d92": "Transform an instance of a Cloud Object or list of instances to JSON.\n\nThe properties of the related business model are used as properties of the json.\n\n## Example\nCloudObjectToJSON(`GPS Coordinate` object) -> <br> \"Latitude\":15, \"Longitude\": 25,\" name\": \"GPS Coordinate\" }\n<br><br>\nCloudObjectToJSON(`List of GPS Coordinate` objects) -> <br>[ { \"Latitude\":15, \"Longitude\": 25, \"name\": \"GPS Coordinate\"},<br> { \"Latitude\": 13, \"Longitude\": 22, \" name\" : \"GPS Coordinate\" } ] \n\n\n"
+   },
+   "t": "018ecac0b4e4dc1e9a61"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ecac0b552ec9b1122"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ecac0b5958514cc6b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Cloud Object"
+   },
+   "t": "018ecac1115bafcd7d6c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Instance of Cloud Object or List"
+   },
+   "t": "018ecac111c70c4856d3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "01740c5d4ae4b520dd02": true,
+    "ff023000000000000011": "Properties only"
+   },
+   "t": "018ecac1505c4395f018"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "If true, will only serialize the properties of the objects, otherwise will include the related objects"
+   },
+   "t": "018ecac150bc9fd7fc41"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Result"
+   },
+   "t": "018ecac1c1f135efebe0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "JSON object or array of objects"
+   },
+   "t": "018ecac1c248b9cb7c83"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "Error Flow"
+   },
+   "t": "018ecac21b08b1232a58"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Triggered if provided source is not a correct Cloud Object of List of Cloud Objects"
+   },
+   "t": "018ecac21b679d5ff2d3"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "018ecac077f5ecb07375"
+}
