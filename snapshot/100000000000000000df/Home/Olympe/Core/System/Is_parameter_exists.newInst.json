@@ -1,0 +1,85 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Is parameter exists",
+    "ff023000000000000011": "Is parameter exists"
+   },
+   "t": "018edf7bc99f1785838a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Get the parameter and check if its value is not null or undefined.",
+    "01703376c4a81c0e9d92": "Gets the value of a system parameter given its name. This is typically used with environment-specific parameters such as API endpoints, API keys, etc.\n\nIn a Service App, this is read from the configuration file.\n\nIn a UI App, this can come either from the configuration file, or from the URL (e.g. `&my_parameter=my_value`).\n\nFor example, the parameter `sc.app` contains the application identifier.\n"
+   },
+   "t": "018edf7c2ace40a482fe"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Param name"
+   },
+   "t": "018edf7c5b4f7008e7a5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The name of the parameter to check."
+   },
+   "t": "018edf7c5bd247e1eb17"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Param exists"
+   },
+   "t": "018ee0ae482028e39e3c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Triggered if the parameter exists and its value truly."
+   },
+   "t": "018ee0ae48d497508c31"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Param  not exists"
+   },
+   "t": "018ee0ae5c3dab2f4f37"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Triggered if the parameter does not exist or its value is null or undefined."
+   },
+   "t": "018ee0ae5d10c6c4674d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "018ee0aedbfce8dbfadd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Triggers the execution of the brick"
+   },
+   "t": "018ee0aedcd841c59feb"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "018edf7bc99f1785838a"
+}
