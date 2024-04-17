@@ -23,18 +23,20 @@ export default class CheckParameter extends Brick {
      * @override
      * @protected
      * @param {!BrickContext} $
-     * @param {string} parameterName
+     * @param {string} name
      * @param {function()} setParamExists
-     * @param {function()} setParamNotExists
+     * @param {function()} setNoParam
+     * @param {function(*)} setParamValue
      */
-    update($, [parameterName], [setParamExists, setParamNotExists]) {
+    update($, [name], [setParamExists, setNoParam, setParamValue]) {
         // // Retrieve the parameter value from the configuration
-        const parameterValue = Config.getParameter(parameterName);
+        const parameterValue = Config.getParameter(name);
 
         if (parameterValue !== null && parameterValue !== undefined) {
+            setParamValue(parameterValue);
             setParamExists();
         } else {
-            setParamNotExists();
+            setNoParam();
         }
     }
 }
