@@ -475,7 +475,7 @@ export const handleJsonToXML = (source, rootTag) => {
         const wrappedJson = {[rootTag]: json};
         return builder.build(wrappedJson);
     } catch (error) {
-        throw new Error(errorMsg);
+        throw new Error(error.message);
     }
 };
 
