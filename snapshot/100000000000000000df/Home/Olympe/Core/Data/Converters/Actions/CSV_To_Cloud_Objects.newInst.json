@@ -1,0 +1,128 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "CSV To Cloud Objects",
+    "ff023000000000000011": "CSV To Cloud Objects"
+   },
+   "t": "018ecae7fa6a15640ad0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "018ecae7fa6b3c3533d9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "018ecae7fa6b7909caa0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Converts a CSV File to a Cloud Object /Cloud Object List",
+    "01703376c4a81c0e9d92": "Converts a CSV file to a Cloud Object / Cloud Object List\nEach line on the CSV will be represented as a single Cloud Object matching the `Business Model` input\n\n## Example\n\n(For readability purposes, the Cloud Object List is represented as a JSON)\n<br><br>\nCSV file input:\n```\nfirstname,lastname\njohn,doe\njane,doe\n```\n<br>\nResulting Cloud Objects: \n```\n[\n  {\"firstname\":\"john\", \"lastname\":\"doe\"},\n  {\"firstname\":\"jane\", \"lastname\":\"doe\"}\n]\n```\n"
+   },
+   "t": "018ecae8044bbd567894"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ecae804e6e499fc18"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ecae8055ca407a83e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "source"
+   },
+   "t": "018ecae8d614f288c25c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The CSV input file"
+   },
+   "t": "018ecae8d6b7fb8d6241"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "data type"
+   },
+   "t": "018ecae90774653326db"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The Business Model matching the resulting Cloud Object"
+   },
+   "t": "018ecae90805a4682d1f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "01740c5d4ae4b520dd02": false,
+    "ff023000000000000011": "persist"
+   },
+   "t": "018ecae9a4826c11ff8b"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ecae9a52913a12c40"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "cloud objects"
+   },
+   "t": "018ecaea0fa35b3053cc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The resulting Cloud Object / Cloud Object List"
+   },
+   "t": "018ecaea104837706484"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "Error Flow"
+   },
+   "t": "018ecaea342dce6079ca"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Error Flow"
+   },
+   "t": "018ecaea34c04b9748f2"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "018ecae7fa6a15640ad0"
+}

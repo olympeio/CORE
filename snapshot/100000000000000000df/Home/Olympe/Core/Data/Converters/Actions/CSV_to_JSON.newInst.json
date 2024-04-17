@@ -1,0 +1,98 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "CSV to JSON",
+    "ff023000000000000011": "CSV to JSON"
+   },
+   "t": "018ecc9c95e6c434a6e3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "018ecc9c95e73f77d2c2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "018ecc9c95e79a430ea3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Converts a CSV string or File into JSON",
+    "01703376c4a81c0e9d92": "Converts a CSV string or File into JSON object.\n\nThe CSV headers will be used as JSON properties.\n\n"
+   },
+   "t": "018ecc9e8bcfd5045598"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ecc9e8c7dfd5ddae0"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ecc9e8cf55e3b74f6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "source"
+   },
+   "t": "018ecc9ec5b208c4a0f4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "CSV string or File"
+   },
+   "t": "018ecc9ec656ccb75bd4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "result"
+   },
+   "t": "018ecc9f15b03a140ca8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "JSON object"
+   },
+   "t": "018ecc9f1642f4acb6ea"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "Error Flow"
+   },
+   "t": "018ecc9f5ba7cbd711ed"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Triggered by providing incorrect CSV"
+   },
+   "t": "018ecc9f5c43db9e5ea3"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "018ecc9c95e6c434a6e3"
+}
