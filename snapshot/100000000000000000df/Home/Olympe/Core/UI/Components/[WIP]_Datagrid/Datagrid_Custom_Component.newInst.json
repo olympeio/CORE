@@ -1,0 +1,22 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "fdff023000000000000011": "Datagrid Custom Component",
+    "ff023000000000000011": "Datagrid Custom Component",
+    "ff023000000000000012": true
+   },
+   "t": "018f05ef98b13eaf97f9"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018f05f06cc4b133d49d"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "018f05ef98b13eaf97f9"
+}
