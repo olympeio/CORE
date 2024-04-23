@@ -17,14 +17,14 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Shows a Datagrid",
-    "01703376c4a81c0e9d92": "Implementation of the [MUI Free Datagrid](https://mui.com/x/react-data-grid/) in DRAW and extensible with CODE.\n\n### Content Data\nSet the content of the **Datagrid** using the `rows` property. This property is a list of _objects_. It can be of type `Array` or `Query Result`. The _objects_ can be of type `Object`, `Cloud Object`, `Map` or `JSON (String)`. The _objects_ can also be tuples (e.g.: `[first, second]`).\n\n### Columns Configuration\nCreate a new _Data Type_ inheriting from `Datagrid Column` and use it to set the `columns` property. Create instances of it to override the default automatic columns configuration of the **Datagrid**.\n\n#### Datagrid Column\nTODO\n\n#### Custom Transformers\nTODO"
+    "01703376c4a81c0e9d92": "Implementation of the [MUI Free Datagrid](https://mui.com/x/react-data-grid/) in DRAW and extensible with CODE.\n\n### Content Data\nSet the content of the **Datagrid** using the `rows` property. This property is a list of _objects_. It can be of type `Array` or `Query Result`. The _objects_ can be of type `Object`, `Cloud Object`, `Map` or `JSON (String)`. The _objects_ can also be tuples (e.g.: `[first, second]`).\n\n### Columns Configuration\nCreate a new _Data Type_ inheriting from `Datagrid Column` and use it to set the `columns` property. Create instances of it to override the default automatic columns configuration of the **Datagrid**.\n\n#### Datagrid Column\nTODO\n\n#### Custom Types\nTODO"
    },
    "t": "018f051930e49375da35"
   },
   {
    "o": 1,
    "p": {
-    "ff023000000000000011": "data"
+    "ff023000000000000011": "rows"
    },
    "t": "018f052e57c4152d1af9"
   },
@@ -56,7 +56,7 @@
   {
    "o": 1,
    "p": {
-    "ff023000000000000011": "config"
+    "ff023000000000000011": "columns"
    },
    "t": "018f0535846362ed70cb"
   },
@@ -86,7 +86,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "The _API Reference_ allows to interact with the **Datagrid**. See `Datagrid API ...` bricks."
+    "01703376c4a81c0e9d92": "The _API Reference_ allows to interact with the **Datagrid**. See `Datagrid: API ...` bricks."
    },
    "t": "018f059e557ddf9b4290"
   },
@@ -139,7 +139,7 @@
   {
    "o": 1,
    "p": {
-    "ff023000000000000011": "sub-components"
+    "ff023000000000000011": "custom toolbar"
    },
    "t": "018f05e91ad4a999c3ed"
   },
@@ -158,6 +158,29 @@
     "01703376c4a81c0e9d92": "TODO"
    },
    "t": "018f05e91b6b9a84605b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "custom footer"
+   },
+   "t": "018f05fbee6b65bcce10"
+  },
+  {
+   "o": 1,
+   "p": {
+    "016d1bb681929c2cc3f1": 6,
+    "016d1bb681929c2cc3f3": false,
+    "0170beccaac4129d72a9": false
+   },
+   "t": "018f05fbee6b83bc6e48"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "TODO"
+   },
+   "t": "018f05fbeee00096a3f3"
   }
  ],
  "optionalOperations": [
