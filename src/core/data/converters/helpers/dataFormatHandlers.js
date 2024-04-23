@@ -488,7 +488,15 @@ export const handleJsonToXML = (source, rootTag) => {
 export const handleXMLToJson = async (source) => {
     let xml;
     if (source instanceof OFile) {
-        xml = await source.getContentAsString();
+        xml = await new Promise((resolve, reject) => {
+            source.getContentAsString((data, error) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
     } else if (typeof source === 'string') {
         xml = source;
     } else {
@@ -496,6 +504,7 @@ export const handleXMLToJson = async (source) => {
     }
 
     const parser = new XMLParser();
+
     try {
         return parser.parse(xml);
     } catch (e) {
