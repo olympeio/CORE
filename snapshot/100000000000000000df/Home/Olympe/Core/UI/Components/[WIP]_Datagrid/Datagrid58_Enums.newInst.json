@@ -24,24 +24,6 @@
   {
    "o": 1,
    "p": {
-    "017a7690c915975ea995": 7,
-    "ff023000000000000011": "TODO",
-    "ff023000000000000026": "TODO"
-   },
-   "t": "018f05aedd0c43dbdc33"
-  },
-  {
-   "o": 1,
-   "p": {
-    "017a7690c915975ea995": 7,
-    "ff023000000000000011": "TODO",
-    "ff023000000000000026": "TODO"
-   },
-   "t": "018f05af0296213fb746"
-  },
-  {
-   "o": 1,
-   "p": {
     "ff023000000000000011": "Datagrid: Property"
    },
    "t": "018f05d1f1bc768fe6a7"
@@ -187,24 +169,6 @@
     "ff023000000000000026": "DISABLE COLUMN FILTER"
    },
    "t": "018f06453041b9446b11"
-  },
-  {
-   "o": 1,
-   "p": {
-    "017a7690c915975ea995": 8,
-    "ff023000000000000011": "TODO",
-    "ff023000000000000026": "TODO"
-   },
-   "t": "018f064530ed0e800ab7"
-  },
-  {
-   "o": 1,
-   "p": {
-    "017a7690c915975ea995": 7,
-    "ff023000000000000011": "TODO",
-    "ff023000000000000026": "TODO"
-   },
-   "t": "018f0647a72d3627df2e"
   },
   {
    "o": 1,
@@ -369,11 +333,1865 @@
   {
    "o": 1,
    "p": {
-    "017a7690c915975ea995": 3,
-    "ff023000000000000011": "TODO",
-    "ff023000000000000026": "TODO"
+    "017a7690c915975ea995": 7,
+    "ff023000000000000011": "CELL MOUSE OVER",
+    "ff023000000000000026": "CELL MOUSE OVER"
    },
-   "t": "018f09f3e9d662eedf5c"
+   "t": "018f0ff271d7f77fc0a3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 8,
+    "ff023000000000000011": "CELL MOUSE UP",
+    "ff023000000000000026": "CELL MOUSE UP"
+   },
+   "t": "018f0ff27281dc1db7d8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 9,
+    "ff023000000000000011": "CLIPBOARD COPY",
+    "ff023000000000000026": "CLIPBOARD COPY"
+   },
+   "t": "018f0ff273460fc03c5e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 10,
+    "ff023000000000000011": "COLUMN GROUP HEADER KEY DOWN",
+    "ff023000000000000026": "COLUMN GROUP HEADER KEY DOWN"
+   },
+   "t": "018f0ff273f6f1057f66"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 11,
+    "ff023000000000000011": "COLUMN HEADER CLICK",
+    "ff023000000000000026": "COLUMN HEADER CLICK"
+   },
+   "t": "018f0ff27488490e3d5a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 12,
+    "ff023000000000000011": "COLUMN HEADER DOUBLE CLICK",
+    "ff023000000000000026": "COLUMN HEADER DOUBLE CLICK"
+   },
+   "t": "018f0ff2753351b66801"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 13,
+    "ff023000000000000011": "COLUMN HEADER KEY DOWN",
+    "ff023000000000000026": "COLUMN HEADER KEY DOWN"
+   },
+   "t": "018f0ff275e141dca02b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 14,
+    "ff023000000000000011": "COLUMN ORDER CHANGE",
+    "ff023000000000000026": "COLUMN ORDER CHANGE"
+   },
+   "t": "018f0ff2768a6809176a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 15,
+    "ff023000000000000011": "COLUMN RESIZE",
+    "ff023000000000000026": "COLUMN RESIZE"
+   },
+   "t": "018f0ff27752c4b3b6d3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 16,
+    "ff023000000000000011": "COLUMN RESIZE START",
+    "ff023000000000000026": "COLUMN RESIZE START"
+   },
+   "t": "018f0ff277fd4cd1e773"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 17,
+    "ff023000000000000011": "COLUMN RESIZE STOP",
+    "ff023000000000000026": "COLUMN RESIZE STOP"
+   },
+   "t": "018f0ff2788d022d45f3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 18,
+    "ff023000000000000011": "COLUMNS CHANGE",
+    "ff023000000000000026": "COLUMNS CHANGE"
+   },
+   "t": "018f0ff279bfa7403c1d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 19,
+    "ff023000000000000011": "COLUMN VISIBILITY MODEL CHANGE",
+    "ff023000000000000026": "COLUMN VISIBILITY MODEL CHANGE"
+   },
+   "t": "018f0ff27a34c43e215e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 20,
+    "ff023000000000000011": "COLUM WIDTH CHANGE",
+    "ff023000000000000026": "COLUM WIDTH CHANGE"
+   },
+   "t": "018f0ff27aff32722f48"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 21,
+    "ff023000000000000011": "DEBOUNCED RESIZE",
+    "ff023000000000000026": "DEBOUNCED RESIZE"
+   },
+   "t": "018f0ff46e4723caa899"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 22,
+    "ff023000000000000011": "DENSITY CHANGE",
+    "ff023000000000000026": "DENSITY CHANGE"
+   },
+   "t": "018f0ff46efaba48fe3d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 23,
+    "ff023000000000000011": "FILTER MODEL CHANGE",
+    "ff023000000000000026": "FILTER MODEL CHANGE"
+   },
+   "t": "018f0ff46f9974310e5d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 24,
+    "ff023000000000000011": "HEADER SELECTION CHECKBOX CHANGE",
+    "ff023000000000000026": "HEADER SELECTION CHECKBOX CHANGE"
+   },
+   "t": "018f0ff4703c0587a5df"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 25,
+    "ff023000000000000011": "MENU CLOSE",
+    "ff023000000000000026": "MENU CLOSE"
+   },
+   "t": "018f0ff470d410d81c4d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 26,
+    "ff023000000000000011": "MENU OPEN",
+    "ff023000000000000026": "MENU OPEN"
+   },
+   "t": "018f0ff4716fe8ba2474"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 27,
+    "ff023000000000000011": "PAGINATION META CHANGE",
+    "ff023000000000000026": "PAGINATION META CHANGE"
+   },
+   "t": "018f0ff4721259221741"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 28,
+    "ff023000000000000011": "PAGINATION MODEL CHANGE",
+    "ff023000000000000026": "PAGINATION MODEL CHANGE"
+   },
+   "t": "018f0ff472c6feac90e9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 29,
+    "ff023000000000000011": "PREFERENCE PANEL CLOSE",
+    "ff023000000000000026": "PREFERENCE PANEL CLOSE"
+   },
+   "t": "018f0ff5ca929a04a122"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 30,
+    "ff023000000000000011": "PREFERENCE PANEL OPEN",
+    "ff023000000000000026": "PREFERENCE PANEL OPEN"
+   },
+   "t": "018f0ff5cb252634e0ad"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 31,
+    "ff023000000000000011": "RENDERED ROWS INTERVAL CHANGE",
+    "ff023000000000000026": "RENDERED ROWS INTERVAL CHANGE"
+   },
+   "t": "018f0ff5cbd669456c37"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 32,
+    "ff023000000000000011": "RESIZE",
+    "ff023000000000000026": "RESIZE"
+   },
+   "t": "018f0ff5cc86074204ac"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 33,
+    "ff023000000000000011": "ROW CLICK",
+    "ff023000000000000026": "ROW CLICK"
+   },
+   "t": "018f0ff5cd1a75d16681"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 34,
+    "ff023000000000000011": "ROW COUNT CHANGE",
+    "ff023000000000000026": "ROW COUNT CHANGE"
+   },
+   "t": "018f0ff5cd9f81dceb12"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 35,
+    "ff023000000000000011": "ROW DOUBLE CLICK",
+    "ff023000000000000026": "ROW DOUBLE CLICK"
+   },
+   "t": "018f0ff5ce4959620af4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 36,
+    "ff023000000000000011": "ROW EDIT START",
+    "ff023000000000000026": "ROW EDIT START"
+   },
+   "t": "018f0ff5cef5627fa144"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 37,
+    "ff023000000000000011": "ROW EDIT STOP",
+    "ff023000000000000026": "ROW EDIT STOP"
+   },
+   "t": "018f0ff5cf9bc1a345b0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 38,
+    "ff023000000000000011": "ROW EXPENSION CHANGE",
+    "ff023000000000000026": "ROW EXPENSION CHANGE"
+   },
+   "t": "018f0ff5d07ecdd35ad5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 39,
+    "ff023000000000000011": "ROW MODES MODEL CHANGE",
+    "ff023000000000000026": "ROW MODES MODEL CHANGE"
+   },
+   "t": "018f0ff5d0ec838243aa"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 40,
+    "ff023000000000000011": "ROW MOUSE ENTER",
+    "ff023000000000000026": "ROW MOUSE ENTER"
+   },
+   "t": "018f0ff739eb1d4f5261"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 41,
+    "ff023000000000000011": "ROW MOUSE LEAVE",
+    "ff023000000000000026": "ROW MOUSE LEAVE"
+   },
+   "t": "018f0ff73aab079cd231"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 42,
+    "ff023000000000000011": "ROW SELECTION CHANGE",
+    "ff023000000000000026": "ROW SELECTION CHANGE"
+   },
+   "t": "018f0ff73b58058c4649"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 43,
+    "ff023000000000000011": "ROW SELECTION CHECKBOX CHANGE",
+    "ff023000000000000026": "ROW SELECTION CHECKBOX CHANGE"
+   },
+   "t": "018f0ff73bf523341d3a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 44,
+    "ff023000000000000011": "SCROLL POSITION CHANGE",
+    "ff023000000000000026": "SCROLL POSITION CHANGE"
+   },
+   "t": "018f0ff73c9fbdae8877"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 45,
+    "ff023000000000000011": "SORT MODEL CHANGE",
+    "ff023000000000000026": "SORT MODEL CHANGE"
+   },
+   "t": "018f0ff73d54f8ad092d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 46,
+    "ff023000000000000011": "STATE CHANGE",
+    "ff023000000000000026": "STATE CHANGE"
+   },
+   "t": "018f0ff73e01abac6d73"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 47,
+    "ff023000000000000011": "UNMOUNT",
+    "ff023000000000000026": "UNMOUNT"
+   },
+   "t": "018f0ff73eaac25b4a02"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 48,
+    "ff023000000000000011": "VIEWPORT INNER SIZE CHANGE",
+    "ff023000000000000026": "VIEWPORT INNER SIZE CHANGE"
+   },
+   "t": "018f0ff73fa2b084ef95"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 7,
+    "ff023000000000000011": "GET ALL COLUMNS",
+    "ff023000000000000026": "GET ALL COLUMNS"
+   },
+   "t": "018f0ff9d0d1d9c5f402"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 8,
+    "ff023000000000000011": "GET ALL GROUP DETAILS",
+    "ff023000000000000026": "GET ALL GROUP DETAILS"
+   },
+   "t": "018f0ff9d17d2ac2ac70"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 9,
+    "ff023000000000000011": "GET ALL ROW IDS",
+    "ff023000000000000026": "GET ALL ROW IDS"
+   },
+   "t": "018f0ff9d21fcd01cce4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 10,
+    "ff023000000000000011": "GET CELL ELEMENT",
+    "ff023000000000000026": "GET CELL ELEMENT"
+   },
+   "t": "018f0ff9d2bddd2218a5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 11,
+    "ff023000000000000011": "GET CELL MODE",
+    "ff023000000000000026": "GET CELL MODE"
+   },
+   "t": "018f0ff9d3549eb856b1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 12,
+    "ff023000000000000011": "GET CELL PARAMS",
+    "ff023000000000000026": "GET CELL PARAMS"
+   },
+   "t": "018f0ff9d3f24f06e187"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 13,
+    "ff023000000000000011": "GET CELL VALUE",
+    "ff023000000000000026": "GET CELL VALUE"
+   },
+   "t": "018f0ff9d49531913813"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 14,
+    "ff023000000000000011": "GET COLUMN",
+    "ff023000000000000026": "GET COLUMN"
+   },
+   "t": "018f0ff9d534697d4918"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 15,
+    "ff023000000000000011": "GET COLUMN GROUP PATH",
+    "ff023000000000000026": "GET COLUMN GROUP PATH"
+   },
+   "t": "018f0ff9d607718a7883"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 16,
+    "ff023000000000000011": "GET COLUMN HEADER ELEMENT",
+    "ff023000000000000026": "GET COLUMN HEADER ELEMENT"
+   },
+   "t": "018f0ff9d68ba714acde"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 17,
+    "ff023000000000000011": "GET COLUMN HEADER PARAMS",
+    "ff023000000000000026": "GET COLUMN HEADER PARAMS"
+   },
+   "t": "018f0ff9d70ed0fc95e3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 18,
+    "ff023000000000000011": "GET COLUMN INDEX",
+    "ff023000000000000026": "GET COLUMN INDEX"
+   },
+   "t": "018f0ff9d7af91649bcc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 19,
+    "ff023000000000000011": "GET COLUMN INDEX RELATIVE TO VISIBLE COLUMNS",
+    "ff023000000000000026": "GET COLUMN INDEX RELATIVE TO VISIBLE COLUMNS"
+   },
+   "t": "018f0ff9d8d508c7bcbc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 20,
+    "ff023000000000000011": "GET COLUMN POSITION",
+    "ff023000000000000026": "GET COLUMN POSITION"
+   },
+   "t": "018f0ff9d9ed33dec7ba"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 21,
+    "ff023000000000000011": "GET DATA AS CSV",
+    "ff023000000000000026": "GET DATA AS CSV"
+   },
+   "t": "018f0ff9da9e51a1aeb4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 22,
+    "ff023000000000000011": "GET LOCALE TEXT",
+    "ff023000000000000026": "GET LOCALE TEXT"
+   },
+   "t": "018f0ff9db6b14075a08"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 23,
+    "ff023000000000000011": "GET ROOT DIMENSIONS",
+    "ff023000000000000026": "GET ROOT DIMENSIONS"
+   },
+   "t": "018f0ffc0afe4bc89318"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 24,
+    "ff023000000000000011": "GET ROW",
+    "ff023000000000000026": "GET ROW"
+   },
+   "t": "018f0ffc0ba2f8c08e7a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 25,
+    "ff023000000000000011": "GET ROW ELEMENT",
+    "ff023000000000000026": "GET ROW ELEMENT"
+   },
+   "t": "018f0ffc0c503e98b6c6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 26,
+    "ff023000000000000011": "GET ROW ID",
+    "ff023000000000000026": "GET ROW ID"
+   },
+   "t": "018f0ffc0cfa2b9e27a7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 27,
+    "ff023000000000000011": "GET ROW ID FROM ROW INDEX",
+    "ff023000000000000026": "GET ROW ID FROM ROW INDEX"
+   },
+   "t": "018f0ffc0d9aeefb63ee"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 28,
+    "ff023000000000000011": "GET ROW INDEX RELATIVE TO VISIBLE ROWS",
+    "ff023000000000000026": "GET ROW INDEX RELATIVE TO VISIBLE ROWS"
+   },
+   "t": "018f0ffc0e33048a7f8d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 29,
+    "ff023000000000000011": "GET ROW MODE",
+    "ff023000000000000026": "GET ROW MODE"
+   },
+   "t": "018f0ffc0edebb09d773"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 30,
+    "ff023000000000000011": "GET ROW MODELS",
+    "ff023000000000000026": "GET ROW MODELS"
+   },
+   "t": "018f0ffc0f8f7642c5cc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 31,
+    "ff023000000000000011": "GET ROW NODE",
+    "ff023000000000000026": "GET ROW NODE"
+   },
+   "t": "018f0ffc104554c69987"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 32,
+    "ff023000000000000011": "GET ROW PARAMS",
+    "ff023000000000000026": "GET ROW PARAMS"
+   },
+   "t": "018f0ffc10e48ce99743"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 33,
+    "ff023000000000000011": "GET ROWS COUNT",
+    "ff023000000000000026": "GET ROWS COUNT"
+   },
+   "t": "018f0ffc11ee70711e69"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 34,
+    "ff023000000000000011": "GET ROW WITH UPDATED VALUES",
+    "ff023000000000000026": "GET ROW WITH UPDATED VALUES"
+   },
+   "t": "018f0ffd69b39c5ff528"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 35,
+    "ff023000000000000011": "GET SCROLL POSITION",
+    "ff023000000000000026": "GET SCROLL POSITION"
+   },
+   "t": "018f0ffd6a76b64c1b4a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 36,
+    "ff023000000000000011": "GET SELECTED ROWS",
+    "ff023000000000000026": "GET SELECTED ROWS"
+   },
+   "t": "018f0ffd6b388ecc949b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 37,
+    "ff023000000000000011": "GET SORTED ROW IDS",
+    "ff023000000000000026": "GET SORTED ROW IDS"
+   },
+   "t": "018f0ffd6bc969c76a6c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 38,
+    "ff023000000000000011": "GET SORTED ROWS",
+    "ff023000000000000026": "GET SORTED ROWS"
+   },
+   "t": "018f0ffd6c5d77c031e2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 39,
+    "ff023000000000000011": "GET SORT MODEL",
+    "ff023000000000000026": "GET SORT MODEL"
+   },
+   "t": "018f0ffd6cf8b04b055c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 40,
+    "ff023000000000000011": "GET VISIBLE COLUMNS",
+    "ff023000000000000026": "GET VISIBLE COLUMNS"
+   },
+   "t": "018f0ffd6ecab476e89f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 41,
+    "ff023000000000000011": "HIDE COLUMN MENU",
+    "ff023000000000000026": "HIDE COLUMN MENU"
+   },
+   "t": "018f0ffd6f49da3cd9f3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 42,
+    "ff023000000000000011": "HIDE FILTER PANEL",
+    "ff023000000000000026": "HIDE FILTER PANEL"
+   },
+   "t": "018f0ffd7044e4e26702"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 43,
+    "ff023000000000000011": "HIDE HEADER FILTER MENU",
+    "ff023000000000000026": "HIDE HEADER FILTER MENU"
+   },
+   "t": "018f0ffd71727d575ee2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 44,
+    "ff023000000000000011": "HIDE PREFERENCES",
+    "ff023000000000000026": "HIDE PREFERENCES"
+   },
+   "t": "018f0ffd725cf38ac9f1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 45,
+    "ff023000000000000011": "IGNORE DIACRITICS",
+    "ff023000000000000026": "IGNORE DIACRITICS"
+   },
+   "t": "018f0ffd73bf9c9d8f1b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 46,
+    "ff023000000000000011": "IS CELL EDITABLE",
+    "ff023000000000000026": "IS CELL EDITABLE"
+   },
+   "t": "018f0fff1833c2a5b15a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 47,
+    "ff023000000000000011": "IS ROW SELECTABLE",
+    "ff023000000000000026": "IS ROW SELECTABLE"
+   },
+   "t": "018f0fff18c2fc03210d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 48,
+    "ff023000000000000011": "IS ROW SELECTED",
+    "ff023000000000000026": "IS ROW SELECTED"
+   },
+   "t": "018f0fff1959e331a0b2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 49,
+    "ff023000000000000011": "PUBLISH EVENT",
+    "ff023000000000000026": "PUBLISH EVENT"
+   },
+   "t": "018f0fff19f6028bc5f5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 50,
+    "ff023000000000000011": "RESET ROW HEIGHTS",
+    "ff023000000000000026": "RESET ROW HEIGHTS"
+   },
+   "t": "018f0fff1a92a8ff951f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 51,
+    "ff023000000000000011": "RESIZE",
+    "ff023000000000000026": "RESIZE"
+   },
+   "t": "018f0fff1b6b6561c4a6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 52,
+    "ff023000000000000011": "RESTORE STATE",
+    "ff023000000000000026": "RESTORE STATE"
+   },
+   "t": "018f0fff1c6757dcf8d1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 53,
+    "ff023000000000000011": "SCROLL",
+    "ff023000000000000026": "SCROLL"
+   },
+   "t": "018f0fff1e9cc980397b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 54,
+    "ff023000000000000011": "SCROLL TO INDEXES",
+    "ff023000000000000026": "SCROLL TO INDEXES"
+   },
+   "t": "018f0fff1f216011fad2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 55,
+    "ff023000000000000011": "SELECT ROW",
+    "ff023000000000000026": "SELECT ROW"
+   },
+   "t": "018f0fff1fbf1c55c341"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 56,
+    "ff023000000000000011": "SET CELL FOCUS",
+    "ff023000000000000026": "SET CELL FOCUS"
+   },
+   "t": "018f10009db56f06c58e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 57,
+    "ff023000000000000011": "SET COLUMN HEADER FILTER FOCUS",
+    "ff023000000000000026": "SET COLUMN HEADER FILTER FOCUS"
+   },
+   "t": "018f10009e635a3d3d8f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 58,
+    "ff023000000000000011": "SET COLUMN HEADER FOCUS",
+    "ff023000000000000026": "SET COLUMN HEADER FOCUS"
+   },
+   "t": "018f10009ef6a430e0f7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 59,
+    "ff023000000000000011": "SET COLUMN VISIBILITY",
+    "ff023000000000000026": "SET COLUMN VISIBILITY"
+   },
+   "t": "018f10009f92e81e9232"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 60,
+    "ff023000000000000011": "SET COLUMN VISIBILITY MODEL",
+    "ff023000000000000026": "SET COLUMN VISIBILITY MODEL"
+   },
+   "t": "018f1000a0298b6a4e85"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 61,
+    "ff023000000000000011": "SET COLUMN WIDTH",
+    "ff023000000000000026": "SET COLUMN WIDTH"
+   },
+   "t": "018f1000a0c3b32e211a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 62,
+    "ff023000000000000011": "SET DENSITY",
+    "ff023000000000000026": "SET DENSITY"
+   },
+   "t": "018f1000a2533d800876"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 63,
+    "ff023000000000000011": "SET EDIT CELL VALUE",
+    "ff023000000000000026": "SET EDIT CELL VALUE"
+   },
+   "t": "018f1000a325b1c918b9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 64,
+    "ff023000000000000011": "SET FILTER LOGIC OPERATOR",
+    "ff023000000000000026": "SET FILTER LOGIC OPERATOR"
+   },
+   "t": "018f1001d1ac5fde6f46"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 65,
+    "ff023000000000000011": "SET FILTER MODEL",
+    "ff023000000000000026": "SET FILTER MODEL"
+   },
+   "t": "018f1001d2549a488da3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 66,
+    "ff023000000000000011": "SET PAGE",
+    "ff023000000000000026": "SET PAGE"
+   },
+   "t": "018f1001d300c0fb99db"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 67,
+    "ff023000000000000011": "SET PAGE SIZE",
+    "ff023000000000000026": "SET PAGE SIZE"
+   },
+   "t": "018f1001d392eefcc0a8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 68,
+    "ff023000000000000011": "SET PAGINATION META",
+    "ff023000000000000026": "SET PAGINATION META"
+   },
+   "t": "018f1001d42e695ae4ec"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 69,
+    "ff023000000000000011": "SET PAGINATION MODEL",
+    "ff023000000000000026": "SET PAGINATION MODEL"
+   },
+   "t": "018f1001d57dfe3d4c10"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 70,
+    "ff023000000000000011": "SET QUICK FILTER VALUES",
+    "ff023000000000000026": "SET QUICK FILTER VALUES"
+   },
+   "t": "018f1001d6874547e4aa"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 71,
+    "ff023000000000000011": "SET ROW COUNT",
+    "ff023000000000000026": "SET ROW COUNT"
+   },
+   "t": "018f1001d728ddb8d89e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 72,
+    "ff023000000000000011": "SET ROWS",
+    "ff023000000000000026": "SET ROWS"
+   },
+   "t": "018f1001d837f22cb5b0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 73,
+    "ff023000000000000011": "SET ROW SELECTION MODEL",
+    "ff023000000000000026": "SET ROW SELECTION MODEL"
+   },
+   "t": "018f1002d3dce9386ebd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 74,
+    "ff023000000000000011": "SET SORT MODEL",
+    "ff023000000000000026": "SET SORT MODEL"
+   },
+   "t": "018f1002d49cdcb337aa"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 75,
+    "ff023000000000000011": "SHOW COLUMN MENU",
+    "ff023000000000000026": "SHOW COLUMN MENU"
+   },
+   "t": "018f1002d54bb409fb2e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 76,
+    "ff023000000000000011": "SHOW FILTER PANEL",
+    "ff023000000000000026": "SHOW FILTER PANEL"
+   },
+   "t": "018f1002d5ebfc000bd7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 77,
+    "ff023000000000000011": "SHOW HEADER FILTER MENU",
+    "ff023000000000000026": "SHOW HEADER FILTER MENU"
+   },
+   "t": "018f1002d690ee936bce"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 78,
+    "ff023000000000000011": "SHOW PREFERENCES",
+    "ff023000000000000026": "SHOW PREFERENCES"
+   },
+   "t": "018f1002d73b2cd50fd6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 79,
+    "ff023000000000000011": "SORT COLUMN",
+    "ff023000000000000026": "SORT COLUMN"
+   },
+   "t": "018f1002d874b77b98c9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 80,
+    "ff023000000000000011": "START CELL EDIT MODE",
+    "ff023000000000000026": "START CELL EDIT MODE"
+   },
+   "t": "018f1002da14ce33553b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 81,
+    "ff023000000000000011": "START HEADER FILTER EDIT MODE",
+    "ff023000000000000026": "START HEADER FILTER EDIT MODE"
+   },
+   "t": "018f1002db39a2e871eb"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 82,
+    "ff023000000000000011": "START ROW EDIT MODE",
+    "ff023000000000000026": "START ROW EDIT MODE"
+   },
+   "t": "018f1002dc4045cd2deb"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 83,
+    "ff023000000000000011": "STOP CELL EDIT MODE",
+    "ff023000000000000026": "STOP CELL EDIT MODE"
+   },
+   "t": "018f1002dfdf5bc7228a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 84,
+    "ff023000000000000011": "STOP HEADER FILTER EDIT MODE",
+    "ff023000000000000026": "STOP HEADER FILTER EDIT MODE"
+   },
+   "t": "018f10043a7da142979d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 85,
+    "ff023000000000000011": "STOP ROW EDIT MODE",
+    "ff023000000000000026": "STOP ROW EDIT MODE"
+   },
+   "t": "018f10043b5a7aa91c93"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 86,
+    "ff023000000000000011": "TOGGLE COLUMN MENU",
+    "ff023000000000000026": "TOGGLE COLUMN MENU"
+   },
+   "t": "018f10043c24cd871583"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 87,
+    "ff023000000000000011": "UPDATE COLUMNS",
+    "ff023000000000000026": "UPDATE COLUMNS"
+   },
+   "t": "018f10043cebe70c8a72"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 88,
+    "ff023000000000000011": "UPDATE ROWS",
+    "ff023000000000000026": "UPDATE ROWS"
+   },
+   "t": "018f10043ecba760e20a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 89,
+    "ff023000000000000011": "UPSERT FILTER ITEM",
+    "ff023000000000000026": "UPSERT FILTER ITEM"
+   },
+   "t": "018f10043fba51726571"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 90,
+    "ff023000000000000011": "UPSERT FILTER ITEMS",
+    "ff023000000000000026": "UPSERT FILTER ITEMS"
+   },
+   "t": "018f10057a11087f182c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 8,
+    "ff023000000000000011": "DISABLE COLUMN MENU",
+    "ff023000000000000026": "DISABLE COLUMN MENU"
+   },
+   "t": "018f1006d618556f3c58"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 9,
+    "ff023000000000000011": "DISABLE COLUMN RESIZE",
+    "ff023000000000000026": "DISABLE COLUMN RESIZE"
+   },
+   "t": "018f1006d6ba47584d5d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 10,
+    "ff023000000000000011": "DISABLE COLUMN SELECTOR",
+    "ff023000000000000026": "DISABLE COLUMN SELECTOR"
+   },
+   "t": "018f1006d7564fb492e6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 11,
+    "ff023000000000000011": "DISABLE COLUMN SORTING",
+    "ff023000000000000026": "DISABLE COLUMN SORTING"
+   },
+   "t": "018f1006d7f9e398f9b9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 12,
+    "ff023000000000000011": "DISABLE DENSITY SELECTOR",
+    "ff023000000000000026": "DISABLE DENSITY SELECTOR"
+   },
+   "t": "018f1006d895f916dc2c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 13,
+    "ff023000000000000011": "DISABLE EVAL",
+    "ff023000000000000026": "DISABLE EVAL"
+   },
+   "t": "018f1006d935ee553710"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 14,
+    "ff023000000000000011": "DISABLE MULTIPLE ROW SELECTION",
+    "ff023000000000000026": "DISABLE MULTIPLE ROW SELECTION"
+   },
+   "t": "018f1006d9ddb604cd64"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 15,
+    "ff023000000000000011": "DISABLE ROW SELECTION ON CLICK",
+    "ff023000000000000026": "DISABLE ROW SELECTION ON CLICK"
+   },
+   "t": "018f1006da704e92cdea"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 16,
+    "ff023000000000000011": "DISABLE VIRTUALIZATION",
+    "ff023000000000000026": "DISABLE VIRTUALIZATION"
+   },
+   "t": "018f1006db0abcffcdb4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 17,
+    "ff023000000000000011": "EDIT MODE",
+    "ff023000000000000026": "EDIT MODE"
+   },
+   "t": "018f1006dbc4ea295580"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 18,
+    "ff023000000000000011": "ESTIMATED ROW COUNT",
+    "ff023000000000000026": "ESTIMATED ROW COUNT"
+   },
+   "t": "018f1006dc631b9c6011"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 19,
+    "ff023000000000000011": "FILTER DEBOUNCE MS",
+    "ff023000000000000026": "FILTER DEBOUNCE MS"
+   },
+   "t": "018f1006dd23b0be6ef9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 20,
+    "ff023000000000000011": "FILTER MODE",
+    "ff023000000000000026": "FILTER MODE"
+   },
+   "t": "018f1006dddaed6d2fce"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 21,
+    "ff023000000000000011": "FILTER MODEL",
+    "ff023000000000000026": "FILTER MODEL"
+   },
+   "t": "018f1006de8a88841320"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 22,
+    "ff023000000000000011": "HIDE FOOTER",
+    "ff023000000000000026": "HIDE FOOTER"
+   },
+   "t": "018f1006df3d5c1ee659"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 23,
+    "ff023000000000000011": "HIDE FOOTER PAGINATION",
+    "ff023000000000000026": "HIDE FOOTER PAGINATION"
+   },
+   "t": "018f1006dfddc585d27d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 24,
+    "ff023000000000000011": "HIDE FOOTER SELECTED ROW COUNT",
+    "ff023000000000000026": "HIDE FOOTER SELECTED ROW COUNT"
+   },
+   "t": "018f1006e094c8e1745b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 25,
+    "ff023000000000000011": "IGNORE DIACRITICS",
+    "ff023000000000000026": "IGNORE DIACRITICS"
+   },
+   "t": "018f1006e13fa21b5082"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 26,
+    "ff023000000000000011": "IGNORE VALUE FORMATTER DURING EXPORT",
+    "ff023000000000000026": "IGNORE VALUE FORMATTER DURING EXPORT"
+   },
+   "t": "018f1006e1f2ecca1653"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 27,
+    "ff023000000000000011": "INITIAL STATE",
+    "ff023000000000000026": "INITIAL STATE"
+   },
+   "t": "018f1006e3374105e869"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 28,
+    "ff023000000000000011": "KEEP NON EXISTENT ROWS SELECTED",
+    "ff023000000000000026": "KEEP NON EXISTENT ROWS SELECTED"
+   },
+   "t": "018f1006e3a52fd16d32"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 29,
+    "ff023000000000000011": "LOADING",
+    "ff023000000000000026": "LOADING"
+   },
+   "t": "018f1006e4a02cf2f4e4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 30,
+    "ff023000000000000011": "LOCALE TEXT",
+    "ff023000000000000026": "LOCALE TEXT"
+   },
+   "t": "018f1006e53927048477"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 31,
+    "ff023000000000000011": "LOG LEVEL",
+    "ff023000000000000026": "LOG LEVEL"
+   },
+   "t": "018f100c24af352a9d8b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 32,
+    "ff023000000000000011": "NONCE",
+    "ff023000000000000026": "NONCE"
+   },
+   "t": "018f100c254c1c0977ee"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 33,
+    "ff023000000000000011": "PAGE SIZE OPTIONS",
+    "ff023000000000000026": "PAGE SIZE OPTIONS"
+   },
+   "t": "018f100c25f63ec3596f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 34,
+    "ff023000000000000011": "PAGINATION META",
+    "ff023000000000000026": "PAGINATION META"
+   },
+   "t": "018f100c2692de4c1599"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 35,
+    "ff023000000000000011": "PAGINATION MODE",
+    "ff023000000000000026": "PAGINATION MODE"
+   },
+   "t": "018f100c2730414ba2bc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 36,
+    "ff023000000000000011": "PAGINATION MODEL",
+    "ff023000000000000026": "PAGINATION MODEL"
+   },
+   "t": "018f100c27d217cd7f8b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 37,
+    "ff023000000000000011": "RESIZE THROTTLE MS",
+    "ff023000000000000026": "RESIZE THROTTLE MS"
+   },
+   "t": "018f100c2a08641acfb6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 38,
+    "ff023000000000000011": "ROW BUFFER PX",
+    "ff023000000000000026": "ROW BUFFER PX"
+   },
+   "t": "018f100c2a8c92bb158e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 39,
+    "ff023000000000000011": "ROW COUNT",
+    "ff023000000000000026": "ROW COUNT"
+   },
+   "t": "018f100e10f84133c02b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 40,
+    "ff023000000000000011": "ROW HEIGHT",
+    "ff023000000000000026": "ROW HEIGHT"
+   },
+   "t": "018f100e11a11374bc03"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 41,
+    "ff023000000000000011": "ROW MODES MODEL",
+    "ff023000000000000026": "ROW MODES MODEL"
+   },
+   "t": "018f100e123533e6d5a5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 42,
+    "ff023000000000000011": "ROW POSITION DEBOUNCE MS",
+    "ff023000000000000026": "ROW POSITION DEBOUNCE MS"
+   },
+   "t": "018f100e12d48af97330"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 43,
+    "ff023000000000000011": "ROW SELECTION",
+    "ff023000000000000026": "ROW SELECTION"
+   },
+   "t": "018f100e1376cbb8992c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 44,
+    "ff023000000000000011": "ROW SELECTION MODEL",
+    "ff023000000000000026": "ROW SELECTION MODEL"
+   },
+   "t": "018f100e141c2d284184"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 45,
+    "ff023000000000000011": "ROW SPACING TYPE",
+    "ff023000000000000026": "ROW SPACING TYPE"
+   },
+   "t": "018f100e14d8362e1e0c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 46,
+    "ff023000000000000011": "SCROLLBAR SIZE",
+    "ff023000000000000026": "SCROLLBAR SIZE"
+   },
+   "t": "018f100e15a9138d0c3b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 47,
+    "ff023000000000000011": "SHOW CELL VERTICAL BORDER",
+    "ff023000000000000026": "SHOW CELL VERTICAL BORDER"
+   },
+   "t": "018f100e162b7ded3671"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 48,
+    "ff023000000000000011": "SHOW COLUMN VERTICAL BORDER",
+    "ff023000000000000026": "SHOW COLUMN VERTICAL BORDER"
+   },
+   "t": "018f100e17af35963db3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 49,
+    "ff023000000000000011": "SORTING MODE",
+    "ff023000000000000026": "SORTING MODE"
+   },
+   "t": "018f100f68f30c678030"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 50,
+    "ff023000000000000011": "SORTING ORDER",
+    "ff023000000000000026": "SORTING ORDER"
+   },
+   "t": "018f100f699386925f91"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 51,
+    "ff023000000000000011": "SORT MODEL",
+    "ff023000000000000026": "SORT MODEL"
+   },
+   "t": "018f100f6a2fb7cca13e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 52,
+    "ff023000000000000011": "SX",
+    "ff023000000000000026": "SX"
+   },
+   "t": "018f100f6ad19d4084b1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 3,
+    "ff023000000000000011": "COLUMN FIELDS",
+    "ff023000000000000026": "COLUMN FIELDS"
+   },
+   "t": "018f1010a755f93557cb"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 4,
+    "ff023000000000000011": "COLUMN LOOKUP",
+    "ff023000000000000026": "COLUMN LOOKUP"
+   },
+   "t": "018f1010a7fab61779aa"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 5,
+    "ff023000000000000011": "COLUMNS STATE",
+    "ff023000000000000026": "COLUMNS STATE"
+   },
+   "t": "018f1010a8a1339f5405"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 6,
+    "ff023000000000000011": "FILTERABLE COLUMN DEFINITIONS",
+    "ff023000000000000026": "FILTERABLE COLUMN DEFINITIONS"
+   },
+   "t": "018f1010a9da66c5b594"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 7,
+    "ff023000000000000011": "FILTERABLE COLUMN LOOKUP",
+    "ff023000000000000026": "FILTERABLE COLUMN LOOKUP"
+   },
+   "t": "018f1010aa7234ee1b70"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 8,
+    "ff023000000000000011": "COLUMN POSITIONS",
+    "ff023000000000000026": "COLUMN POSITIONS"
+   },
+   "t": "018f1010ab14f298a1ae"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 9,
+    "ff023000000000000011": "COLUMN VISIBILITY MODEL",
+    "ff023000000000000026": "COLUMN VISIBILITY MODEL"
+   },
+   "t": "018f1010abd873ab4354"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 10,
+    "ff023000000000000011": "COLUMNS TOTAL WIDTH",
+    "ff023000000000000026": "COLUMNS TOTAL WIDTH"
+   },
+   "t": "018f1010ac48f4be110c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 11,
+    "ff023000000000000011": "PINNED COLUMNS",
+    "ff023000000000000026": "PINNED COLUMNS"
+   },
+   "t": "018f1010ad1aac46c03f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 12,
+    "ff023000000000000011": "VISIBLE COLUMN DEFINITIONS",
+    "ff023000000000000026": "VISIBLE COLUMN DEFINITIONS"
+   },
+   "t": "018f1010ae355206cd9b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 13,
+    "ff023000000000000011": "VISIBLE COLUMN FIELDS",
+    "ff023000000000000026": "VISIBLE COLUMN FIELDS"
+   },
+   "t": "018f1010af014c1adb28"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 14,
+    "ff023000000000000011": "VISIBLE PINNED COLUMN DEFINITIONS",
+    "ff023000000000000026": "VISIBLE PINNED COLUMN DEFINITIONS"
+   },
+   "t": "018f1010af7ebcebe670"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 15,
+    "ff023000000000000011": "EXPANDED ROW COUNT",
+    "ff023000000000000026": "EXPANDED ROW COUNT"
+   },
+   "t": "018f1010b0264f3a26fd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 16,
+    "ff023000000000000011": "EXPANDED SORTED ROW ENTRIES",
+    "ff023000000000000026": "EXPANDED SORTED ROW ENTRIES"
+   },
+   "t": "018f1010b0e830eaadd7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 17,
+    "ff023000000000000011": "EXPANDED SORTED ROW IDS",
+    "ff023000000000000026": "EXPANDED SORTED ROW IDS"
+   },
+   "t": "018f1010b1b58335b3bc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 18,
+    "ff023000000000000011": "FILTER MODEL",
+    "ff023000000000000026": "FILTER MODEL"
+   },
+   "t": "018f1010b22670587f52"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 19,
+    "ff023000000000000011": "FILTERED SORTED ROW ENTRIES",
+    "ff023000000000000026": "FILTERED SORTED ROW ENTRIES"
+   },
+   "t": "018f1010b2e01528bf85"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 20,
+    "ff023000000000000011": "FILTERED SORTED ROW IDS",
+    "ff023000000000000026": "FILTERED SORTED ROW IDS"
+   },
+   "t": "018f101407b592b29172"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 21,
+    "ff023000000000000011": "FILTERED SORTED TOP LEVEL ROW ENTRIES",
+    "ff023000000000000026": "FILTERED SORTED TOP LEVEL ROW ENTRIES"
+   },
+   "t": "018f10140866da94bb23"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 22,
+    "ff023000000000000011": "FILTERED TOP LEVEL ROW COUNT",
+    "ff023000000000000026": "FILTERED TOP LEVEL ROW COUNT"
+   },
+   "t": "018f1014090722d9077e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 23,
+    "ff023000000000000011": "QUICK FILTER VALUES",
+    "ff023000000000000026": "QUICK FILTER VALUES"
+   },
+   "t": "018f1014099d079dfcb2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 24,
+    "ff023000000000000011": "PAGE COUNT",
+    "ff023000000000000026": "PAGE COUNT"
+   },
+   "t": "018f10140a3da052dec3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 25,
+    "ff023000000000000011": "PAGE",
+    "ff023000000000000026": "PAGE"
+   },
+   "t": "018f10140ad51622cb87"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 26,
+    "ff023000000000000011": "PAGE SIZE",
+    "ff023000000000000026": "PAGE SIZE"
+   },
+   "t": "018f10140b5f0b5ccc4e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 27,
+    "ff023000000000000011": "PAGINATED VISIBLE SORTED GRID ROW ENTRIES",
+    "ff023000000000000026": "PAGINATED VISIBLE SORTED GRID ROW ENTRIES"
+   },
+   "t": "018f10140c0149a451a1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 28,
+    "ff023000000000000011": "PAGINATED VISIBLE SORTED GRID ROW IDS",
+    "ff023000000000000026": "PAGINATED VISIBLE SORTED GRID ROW IDS"
+   },
+   "t": "018f10152eb90b02f885"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 29,
+    "ff023000000000000011": "PAGINATION META",
+    "ff023000000000000026": "PAGINATION META"
+   },
+   "t": "018f10152f702971ebf5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 30,
+    "ff023000000000000011": "PAGINATION MODEL",
+    "ff023000000000000026": "PAGINATION MODEL"
+   },
+   "t": "018f1015300d29ca3fc2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 31,
+    "ff023000000000000011": "PAGINATION ROW COUNT",
+    "ff023000000000000026": "PAGINATION ROW COUNT"
+   },
+   "t": "018f101530bca66b04ad"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 32,
+    "ff023000000000000011": "PAGINATION ROW RANGE",
+    "ff023000000000000026": "PAGINATION ROW RANGE"
+   },
+   "t": "018f10153152ba853d31"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 33,
+    "ff023000000000000011": "SORT MODEL",
+    "ff023000000000000026": "SORT MODEL"
+   },
+   "t": "018f101531fa00418e1e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 34,
+    "ff023000000000000011": "SORTED ROW ENTRIES",
+    "ff023000000000000026": "SORTED ROW ENTRIES"
+   },
+   "t": "018f101532abaf40d0f2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 35,
+    "ff023000000000000011": "SORTED ROW IDS",
+    "ff023000000000000026": "SORTED ROW IDS"
+   },
+   "t": "018f1015333f23f71fb5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 36,
+    "ff023000000000000011": "VIRTUALIZATION COLUMN ENABLED",
+    "ff023000000000000026": "VIRTUALIZATION COLUMN ENABLED"
+   },
+   "t": "018f101533d8d423b693"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 37,
+    "ff023000000000000011": "VIRTUALIZATION ENABLED",
+    "ff023000000000000026": "VIRTUALIZATION ENABLED"
+   },
+   "t": "018f1016a8eb46cc179e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "017a7690c915975ea995": 38,
+    "ff023000000000000011": "VIRTUALIZATION",
+    "ff023000000000000026": "VIRTUALIZATION"
+   },
+   "t": "018f1016a98392e6d80d"
   }
  ],
  "optionalOperations": [
