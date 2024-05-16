@@ -1,0 +1,310 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Switch 8",
+    "ff023000000000000011": "Switch 8"
+   },
+   "t": "018f7de0dbb9e5f84201"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Switch/case implementation",
+    "01703376c4a81c0e9d92": "Switch/case implementation"
+   },
+   "t": "018f7de13ba2c132c947"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Comparator"
+   },
+   "t": "018f7de19f7ee9def28d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The object to be used for comparing each switch case"
+   },
+   "t": "018f7de1a03401672016"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "case 1"
+   },
+   "t": "018f7de1d27d50f60456"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Case 1  object to compare"
+   },
+   "t": "018f7de1d32f6f2eb409"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "value 1"
+   },
+   "t": "018f7de206748712317f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The object to return if case 1 is true"
+   },
+   "t": "018f7de20718a1813f12"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "ff023000000000000011": "case 2"
+   },
+   "t": "018f7de277a6754817a9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Case 2  object to compare"
+   },
+   "t": "018f7de278520f4bfe40"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 4,
+    "ff023000000000000011": "value 2"
+   },
+   "t": "018f7de2a21f58af16bb"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The object to return if case 2 is true"
+   },
+   "t": "018f7de2a2c792fedb1b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 5,
+    "ff023000000000000011": "case 3"
+   },
+   "t": "018f7de2e2c4ee10be5b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Case 3 object to compare"
+   },
+   "t": "018f7de2e3682038d368"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 6,
+    "ff023000000000000011": "value 3"
+   },
+   "t": "018f7de30826057bce61"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The object to return if case 3 is true"
+   },
+   "t": "018f7de308cc93ad9728"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 7,
+    "ff023000000000000011": "case 4"
+   },
+   "t": "018f7de3511703e6018d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Case 4 object to compare"
+   },
+   "t": "018f7de351c337cd985e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 8,
+    "ff023000000000000011": "value 4"
+   },
+   "t": "018f7de38170431da748"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The object to return if case 4 is true"
+   },
+   "t": "018f7de3821f47bf8663"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 9,
+    "ff023000000000000011": "case 5"
+   },
+   "t": "018f7de3cee7c0b92927"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Case 5  object to compare"
+   },
+   "t": "018f7de3cf8c9b58a5bc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 10,
+    "ff023000000000000011": "value 5"
+   },
+   "t": "018f7de3d969357b07fe"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The object to return if case 5 is true"
+   },
+   "t": "018f7de3da1d72e7837b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 11,
+    "ff023000000000000011": "case 6"
+   },
+   "t": "018f7de3da95534f7606"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Case 6  object to compare"
+   },
+   "t": "018f7de3db3a5b865049"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 12,
+    "ff023000000000000011": "value 6"
+   },
+   "t": "018f7de3dbb3db91ae61"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 13,
+    "ff023000000000000011": "case 7"
+   },
+   "t": "018f7de3dc5640f260b1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The object to return if case 6 is true"
+   },
+   "t": "018f7de3dcedf88f1917"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 14,
+    "ff023000000000000011": "value 7"
+   },
+   "t": "018f7de3dd65fc2bb7da"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Case 7 object to compare"
+   },
+   "t": "018f7de3de0e519ce376"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The object to return if case 7 is true"
+   },
+   "t": "018f7de3de86fa8d2763"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 15,
+    "ff023000000000000011": "case 8"
+   },
+   "t": "018f7de3deff3efaa588"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Case 8  object to compare"
+   },
+   "t": "018f7de3df9f1ab3d976"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 16,
+    "ff023000000000000011": "value 8"
+   },
+   "t": "018f7de4bd15281dc7b5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The object to return if case 8 is true"
+   },
+   "t": "018f7de4bdbba1356f50"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 17,
+    "ff023000000000000011": "defaults"
+   },
+   "t": "018f7de4be34929d0d31"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The default object to return"
+   },
+   "t": "018f7de4bed9bb63d5a0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "return"
+   },
+   "t": "018f7de856a2a62735bd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The object of the switch case that is true"
+   },
+   "t": "018f7de8575443401ce8"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "018f7de0dbb9e5f84201"
+}
