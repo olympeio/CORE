@@ -1,9 +1,8 @@
-import {Brick, BrickContext, registerBrick, Transaction, ErrorFlow, CloudObject, File as OFile} from 'olympe';
-import {getLogger} from 'logging';
-import * as XLSX from 'xlsx';
-import {stringToBinary} from 'helpers/binaryConverters';
-import {merge} from "rxjs";
-import {map} from "rxjs/operators";
+import {Brick, BrickContext, registerBrick} from 'olympe';
+import {merge} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {handleExcelToCSV} from './helpers/dataFormatHandlers';
+import { handleError } from './helpers/handleError';
 
 export default class ExcelToCSV extends Brick {
 
@@ -25,65 +24,16 @@ export default class ExcelToCSV extends Brick {
      * @param {File} source
      * @param {string} sheetName
      * @param {string} separator
+     * @param {string} range
      * @param {function(File)} setResult
-     * @param {function(*)} setErrorFlow
      */
-    update($, [source, sheetName, separator], [setResult, setErrorFlow]) {
-        const logger = getLogger('Excel to CSV');
-        if (source instanceof OFile) {
-            source.getContentAsBinary(
-                (data) => this.convertToCSV($, source.get(OFile.fileNameProp), data, sheetName, separator, setResult, setErrorFlow, logger),
-                (message) => {
-                    logger.error('Error while reading content as binary: ' + message);
-                    setErrorFlow(ErrorFlow.create('Error while reading content as binary: ' + message, 1));
-                });
-        } else {
-            logger.error('Provided source is not a File');
-            setErrorFlow(ErrorFlow.create('Provided source is not a File', 1));
-        }
-    }
-
-    /**
-     * @param {BrickContext} $
-     * @param {string} fileName
-     * @param {function(!ArrayBuffer)} data
-     * @param {string} sheetName
-     * @param {string} separator
-     * @param {function(File)} setResult
-     * @param {function(*)} setErrorFlow
-     * @param {Logger} logger
-     */
-    convertToCSV($, fileName, data, sheetName, separator, setResult, setErrorFlow, logger) {
+    async update($, [source, sheetName, separator, range], [setResult]) {
+        const componentName = 'Excel To CSV';
         try {
-            const worksheet = XLSX.read(data, {
-                type: 'buffer',
-                cellDates: true,
-            });
-            sheetName = sheetName !== null && sheetName.trim() !== '' ? sheetName : worksheet.SheetNames[0];
-            separator = separator ?? ",";
-            const csv = XLSX.utils.sheet_to_csv(worksheet.Sheets[sheetName], {FS: separator});
-
-            if (csv.length === 0) {
-                const errorMsg = `${sheetName !== '' ? 'Cannot read from sheet "' + sheetName + '"' : 'Cannot read from first sheet of provided file'}`
-                logger.error(errorMsg);
-                setErrorFlow(ErrorFlow.create(errorMsg, 1));
-            } else {
-                fileName = fileName.substring(0, fileName.lastIndexOf(".")) + ".csv";
-                const transaction = Transaction.from($);
-                const fileTag = transaction.create(OFile);
-                transaction.persist(fileTag, false);
-                OFile.setContent(transaction, fileTag, fileName, stringToBinary(csv), 'text/csv');
-
-                Transaction.process($, transaction).then(() => {
-                    setResult(CloudObject.get(fileTag));
-                }).catch(message => {
-                    logger.error(message)
-                    setErrorFlow(ErrorFlow.create(message, 1));
-                });
-            }
+            const result = await handleExcelToCSV($, source, sheetName, separator, range);
+            setResult(result);
         } catch (error) {
-            logger.error('Error while converting content to CSV: ' + error.message);
-            setErrorFlow(ErrorFlow.create('Error while converting content to CSV: ' + error.message, 1));
+            handleError(componentName, `Error converting Excel to CSV`, error);
         }
     }
 }

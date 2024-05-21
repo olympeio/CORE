@@ -15,7 +15,6 @@
  */
 
 import { Query, ActionBrick, PropertyModel, BrickContext, registerBrick, CloudObject, Transaction, RelationModel, ErrorFlow, DBView, StringModel, NumberModel, DatetimeModel, BooleanModel } from 'olympe';
-
 export default class JSONToCloudObject extends ActionBrick {
 
     /**
@@ -48,7 +47,7 @@ export default class JSONToCloudObject extends ActionBrick {
             // Try to parse the json if it is a string or keep the object otherwise.
             json = (typeof source === 'string') ? JSON.parse(source) : source;
         } catch(e) {
-            setErrorFlow(ErrorFlow.create(`Error while parsing the source string: ${e.message}`, 1));
+            setErrorFlow(ErrorFlow.create(`Error while parsing the source string: ${e.message}`, 2));
             return;
         }
 
@@ -63,7 +62,7 @@ export default class JSONToCloudObject extends ActionBrick {
             setResult(Array.isArray(result) ? result.map(CloudObject.get) : CloudObject.get(result));
             forwardEvent();
         }).catch(message => {
-            setErrorFlow(ErrorFlow.create('Transaction failed: ' + message, 1));
+            setErrorFlow(ErrorFlow.create('Transaction failed: ' + message, 4));
         });
     }
 

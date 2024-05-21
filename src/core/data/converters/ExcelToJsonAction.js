@@ -9,17 +9,18 @@ export default class ExcelToJSON extends ActionBrick {
      * @param {!BrickContext} $
      * @param {File} source
      * @param {string} sheetName
+     * @param {string} range
      * @param {function()} forwardEvent
      * @param {function(ListDef)} setOutput
      */
-    async update($, [source, sheetName], [forwardEvent, setOutput]) {
+    async update($, [source, sheetName, range], [forwardEvent, setOutput]) {
         const componentName = 'Excel To JSON';
         try {
-            const result = await handleExcelToJSON(source, sheetName);
+            const result = await handleExcelToJSON(source, sheetName, range);
             setOutput(result);
             forwardEvent();
         } catch (error) {
-            handleError(componentName, `Error converting Excel to JSON: ${error.message}`, error);
+            handleError(componentName, `Error converting Excel to JSON`, error);
         }
     }
 }
