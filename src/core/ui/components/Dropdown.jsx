@@ -503,13 +503,6 @@ export default class Dropdown extends ReactBrick {
         }, [options, values]);
 
         const isMultipleSelected = multiple && values && values.length > 0;
-        const commonSx = {
-            height: height,
-            'input': {
-                color: isMultipleSelected ? 'transparent' : '', // prevent helper text and input text overflow
-            },
-            textOverflow: 'ellipsis',
-        };
 
         const maxChipWidth = `calc(100% - ${(values && values.length > 1 ? 32 : 6)}px)`; // padding for number of tags label + buttons
         const focusedSx = {
@@ -527,6 +520,15 @@ export default class Dropdown extends ReactBrick {
         if (hasEmptyText || hasSelectedValue || autocompleteText) {
             translateY = -8;
         }
+
+        const commonSx = {
+            height: actualInputHeight,
+            'input': {
+                color: isMultipleSelected ? 'transparent' : '', // prevent helper text and input text overflow
+            },
+            textOverflow: 'ellipsis',
+        };
+
         customSx = {
             '.MuiInputLabel-formControl': {
                 transform: `translate(14px, ${translateY}px) scale(${hasEmptyText || hasSelectedValue || autocompleteText ? 0.75 : 1})`
