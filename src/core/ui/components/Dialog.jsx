@@ -114,9 +114,10 @@ export default class Dialog extends ReactBrick {
             const [$renderer, set$Renderer] = React.useState(null);
 
             React.useEffect(() => {
-                if (!editionMode && (open || keepMounted) && $renderer === null) {
+                if (!editionMode && open && $renderer === null) {
                     set$Renderer((contentRenderer) ? $.runner(contentRenderer) : null);
-                } else {
+                    
+                } else if(!keepMounted) {
                     $renderer?.destroy();
                     set$Renderer(null);
                 }
