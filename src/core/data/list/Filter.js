@@ -48,9 +48,7 @@ export default class Filter extends ActionBrick {
         this.process($, array, predicate).then((outputList) => {
             setList(outputList);
             forwardEvent();
-        }).catch((error) => {
-            getLogger('Filter').error(error.message);
-        });
+        }).catch((error) => $.throw(error));
     }
 
     /**

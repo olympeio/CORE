@@ -48,9 +48,7 @@ export default class MapBrick extends ActionBrick {
         this.process($, array, mapper).then(mappedArray => {
             setList(mappedArray);
             forwardEvent();
-        }).catch((error) => {
-            getLogger('Map').error(error.message);
-        });
+        }).catch((error) => $.throw(error));
     }
 
     /**
