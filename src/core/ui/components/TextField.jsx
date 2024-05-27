@@ -179,12 +179,7 @@ export default class TextField extends ReactBrick {
                                     ...ifNotNull('flexDirection', 'column', multiLine),
                                     ...ifNotNull('justifyContent', justifyContent, multiLine),
                                     fontFamily: fontFamily,
-                                    ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
-                                    ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
-                                    ...ifNotNull('borderWidth', borderWidth, showBorder),
-                                    ...ifNotNull('borderStyle', 'solid', showBorder),
                                     ...ifNotNull('boxSizing', 'border-box', showBorder),
-                                    ...ifNotTransparent('borderColor', borderColor),
                                     ...ifNotNull('color', validatedTextColorOverflow, showTextColorOverflow)
                                 },
 
@@ -227,6 +222,18 @@ export default class TextField extends ReactBrick {
                             sx={{
                                 width: 1,
                                 height: 1,
+                                '& .MuiOutlinedInput-root': {
+                                    '& fieldset': {
+                                        ...ifNotTransparent('borderColor', borderColor),
+                                        ...ifNotNull('borderStyle', 'solid', borderWidth > 0),
+                                        ...ifNotNull('borderWidth', borderWidth, borderWidth > 0),
+                                        ...ifNotNull('borderRadius', `${borderRadius}px`, borderRadius),
+                                        ...ifNotTransparent('backgroundColor', useProperty($, 'Default Color')),
+                                    },
+                                    '& .MuiInputBase-input': {
+                                       zIndex: 1
+                                    },
+                                  },
                                 ...cssToSxProps(useProperty($, 'CSS Property')),
                                 ...jsonToSxProps(useProperty($, 'MUI sx [json]')),
                                 ...customSx
