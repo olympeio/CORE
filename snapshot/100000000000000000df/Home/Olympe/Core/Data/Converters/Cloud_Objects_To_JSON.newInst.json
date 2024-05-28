@@ -76,7 +76,7 @@
    "p": {
     "01740c5d4ae4b520dd01": 1,
     "01740c5d4ae4b520dd02": true,
-    "ff023000000000000011": "Properties only",
+    "ff023000000000000011": "name as key",
     "v": 18
    },
    "t": "018022f0ca9ef4ad49fa"
@@ -84,7 +84,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "If true, will only serialize the properties of the objects, otherwise will include the related objects",
+    "01703376c4a81c0e9d92": "If true, use the property name instead of the property tag as keys of the generated object.",
     "v": 114
    },
    "t": "018022f0cb05dedda5eb"
