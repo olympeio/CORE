@@ -330,7 +330,7 @@ const parseInstanceProperties = (model, data) => {
         .flatMap((model) => model.follow(CloudObject.propertyRel).executeFromCache().toArray())
         .reduce((map, property) => {
             const value = data[property.name()];
-            if (value !== undefined && !(value instanceof Array) && !(value instanceof Object)) {
+            if (value !== undefined && !(value instanceof Array) && (!(value instanceof Object) || value instanceof Date)) {
                 map.set(property, formatValue(value, property));
             }
             return map;
@@ -450,9 +450,11 @@ const convertExcelToJSON = (data, sheetName, range) => {
         throw new Error(`Invalid range: "${range}"`);
     }
     const originalRange = sheet['!ref'];
-    sheet['!ref'] = updateRange(originalRange, range);
+    const updatedRange = updateRange(originalRange, range);
 
-    const json = XLSX.utils.sheet_to_json(sheet, {});
+    const json = XLSX.utils.sheet_to_json(sheet, {
+        range: updatedRange,
+    });
 
     if (json.length === 0) {
         const errorMsg = `Cannot read from sheet "${finalSheetName}" in range ${range}`;
@@ -568,4 +570,3 @@ export const handleXMLToJson = async (source) => {
         throw new Error('Error while parsing the source: ' + e.message);
     }
 };
-
