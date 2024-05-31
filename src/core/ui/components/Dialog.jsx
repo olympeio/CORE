@@ -187,7 +187,7 @@ export default class Dialog extends ReactBrick {
                             <ThemeProvider theme={theme}>
                                 <Button 
                                     onClick={() => $.trigger('Close Dialog')}
-                                    sx={{width: '24px', height: '24px', minWidth: '0px', position: 'absolute', top: '4px', right: '4px'}}
+                                    sx={{width: '24px', height: '24px', minWidth: '0px', position: 'absolute', top: '4px', right: '4px', zIndex: 1}}
                                 >
                                     <Icon
                                         sx={{
