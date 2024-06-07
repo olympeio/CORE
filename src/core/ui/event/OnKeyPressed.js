@@ -16,21 +16,22 @@ export default class OnKeyPressed extends Brick {
      */
     update($, [key, ctrlKey, metaKey, altKey, shiftKey], [setControlFlow]) {
 
-        const exists = $.get('event-already-added') ?? false;
-        if(exists === false) {
-            document.addEventListener("keydown", (event) => {
-                if (event.key === key
-                    && event.ctrlKey === ctrlKey
-                    && event.metaKey === metaKey
-                    && event.altKey === altKey
-                    && event.shiftKey === shiftKey)
-                {
-                    event.preventDefault();
-                    setControlFlow(Date.now());
-                }
-            });
-            $.set('event-already-added', true);
-        }
+        const handler = (event) => {
+            if (event.key === key
+                && event.ctrlKey === ctrlKey
+                && event.metaKey === metaKey
+                && event.altKey === altKey
+                && event.shiftKey === shiftKey)
+            {
+                event.preventDefault();
+                setControlFlow(Date.now());
+            }
+        };
+
+        document.addEventListener("keydown", handler);
+        $.onClear(() => {
+            document.removeEventListener("keydown", handler);
+        })
     }
 }
 
