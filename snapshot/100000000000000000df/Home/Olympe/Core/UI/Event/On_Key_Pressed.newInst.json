@@ -109,7 +109,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "Set this to true if you need the user to hold Shift+Key"
+    "01703376c4a81c0e9d92": "Set this to true if you need the user to hold Shift+Key.<br>Consider using a capital letter in the input, so the user will not have to press CAPS LOCK first"
    },
    "t": "018ff1d7b1c0d4477b36"
   }
