@@ -5,7 +5,7 @@
    "p": {
     "01621fb84e320000f001": "public",
     "01692aa71f3108454479": true,
-    "01703376c4a81c0e9d94": "experimental",
+    "01703376c4a81c0e9d94": "stable",
     "fdff023000000000000011": "On Key Pressed",
     "ff023000000000000011": "On Key Pressed"
    },
@@ -15,7 +15,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Triggers an event if the selected combination of key is pressed",
-    "01703376c4a81c0e9d92": "On key pressed can be used to set keyboard shortcuts\n\nFor more information about how to use the `key` property, please refer to: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key"
+    "01703376c4a81c0e9d92": "On key pressed can be used to set keyboard shortcuts\n\nFor more information about how to use the `key` property, please refer to: <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key\" target = \"_blank\">https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key</a>"
    },
    "t": "018ff1bdbdf5188a3060"
   },
