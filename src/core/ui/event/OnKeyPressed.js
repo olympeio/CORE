@@ -15,9 +15,9 @@ export default class OnKeyPressed extends Brick {
      * @param {function(*)} setControlFlow
      */
     update($, [key, ctrlKey, metaKey, altKey, shiftKey], [setControlFlow]) {
-
+        const lowerKey = key?.toLowerCase();
         const handler = (event) => {
-            if (event.key === key
+            if (event.key?.toLowerCase() === lowerKey
                 && event.ctrlKey === ctrlKey
                 && event.metaKey === metaKey
                 && event.altKey === altKey
