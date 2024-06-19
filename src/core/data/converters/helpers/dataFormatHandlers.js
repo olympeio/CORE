@@ -1,8 +1,4 @@
 import {
-    BrickContext,
-    ListDef,
-    QueryResult,
-    ErrorFlow,
     CloudObject,
     Transaction,
     File as OFile,
@@ -20,95 +16,94 @@ import {XMLBuilder, XMLParser} from 'fast-xml-parser';
 import {stringToBinary} from 'helpers/binaryConverters';
 
 /**
- * Convert Cloud Object To JSON
- * @param {ListDef} source
- * @param {boolean} propertiesOnly
- * @return {Object}
- */
-
-export const handleCloudObjectToJson = (source, propertiesOnly) => {
-    const processItem = (item) => parseProperties(item, propertiesOnly);
-    try {
-        if (source instanceof ListDef || source instanceof Array || source instanceof QueryResult) {
-            const processCollection = (collection) => collection.map((item) => processItem(item));
-            return source instanceof ListDef ? processCollection(Array.from(source, processItem)) : processCollection(source);
-        } else if (source instanceof CloudObject) {
-            return processItem(source);
-        } else {
-            throw new Error('Provided source is not a Cloud Object or List of Cloud Objects');
-        }
-    } catch (error) {
-        const errorMsg = `Error converting source to JSON. Provided source is not a correct Cloud Object or List of Cloud Objects: ${error.message}`;
-        throw new Error(errorMsg);
-    }
-};
-
-/**
- * Handle parse Cloud Object property
- * @param {string | CloudObject} instance
- * @param {boolean=} propertiesOnly
- * @return {Object}
- */
-function parseProperties(instance, propertiesOnly = true) {
-    if (CloudObject.exists(instance)) {
-        return instance.toObject(propertiesOnly, true);
-    } else {
-        throw new Error(`Provided Cloud Object "${instance}" does not exist`);
-    }
-}
-
-/**
  * Convert Excel File to CSV
- * @param {BrickContext} $
+ *
  * @param {File} file
- * @param {string} sheetName
- * @param {string} separator
+ * @param {string=} sheetName
+ * @param {string=} separator
+ * @param {?string=} range
+ * @return {Promise<File>}
  */
-
-export const handleExcelToCSV = async ($, file, sheetName, separator) => {
+export const handleExcelToCSV = async (file, sheetName, separator, range) => {
     if (!(file instanceof OFile)) {
         throw new Error('Provided source is not a File');
     }
     try {
         const data = await getSourceContent(file);
-        return convertToCSV($, file.get(OFile.fileNameProp), data, sheetName, separator);
+        return convertToCSV(file.get(OFile.fileNameProp), data, sheetName, separator, range);
     } catch (error) {
         throw new Error('Error while reading content as binary: ' + error.message);
     }
 };
 
 /**
+ * Checks if the given cell reference is a valid Excel header or is empty (defaulting to 'A1').
+ * @param {?string=} range
+ * @return {boolean}
+ */
+const isValidExcelRange = (range) => {
+    if (!range) {
+        return true; // Treat null or empty as default 'A1'
+    }
+    const splitted = range.split(':');
+    const regex = /^[A-Za-z]+[0-9]+$/;
+    return splitted.every((item) => regex.test(item));
+};
+
+/**
+ * Updates the range of cells to start from a new cell or defaults to 'A1' if not specified.
+ * @param {string} originalRange
+ * @param {string} range
+ * @returns {string} Updated range.
+ */
+const updateRange = (originalRange, range) => {
+    if (range) {
+        const [startCell, endCell] = originalRange.split(':');
+        const [rangeStart, rangeEnd] = range.split(':');
+        const newStartCell = (rangeStart || startCell).toUpperCase();
+        const newEndCell = (rangeEnd || endCell).toUpperCase();
+        return `${newStartCell}:${newEndCell}`;
+    }
+    return originalRange;
+};
+
+/**
  * Converts binary Excel data to CSV and saves it as a file.
- * @param {BrickContext} $
+ *
  * @param {string} fileName
- * @param {function(!ArrayBuffer)} data
+ * @param {ArrayBuffer} data
  * @param {string} sheetName
  * @param {string} separator
+ * @param {?string=} range
+ * @return {Promise<File>}
  */
-const convertToCSV = ($, fileName, data, sheetName, separator) => {
-    try {
-        const worksheet = XLSX.read(data, {type: 'buffer', cellDates: true});
-        const finalSheetName = getFinalSheetName(worksheet, sheetName);
-        separator = separator ?? ',';
-        const csv = XLSX.utils.sheet_to_csv(worksheet.Sheets[finalSheetName], {FS: separator});
+const convertToCSV = async (fileName, data, sheetName, separator, range) => {
+    const worksheet = XLSX.read(data, {type: 'buffer', cellDates: true});
+    const finalSheetName = getFinalSheetName(worksheet, sheetName);
+    separator = separator ?? ',';
 
-        if (csv.length === 0) {
-            const errorMsg = `Cannot read from sheet "${sheetName}"`;
-            throw new Error(errorMsg);
-        } else {
-            const transaction = Transaction.from($);
-            const fileTag = transaction.create(OFile);
-            transaction.persist(fileTag, false);
-            OFile.setContent(transaction, fileTag, fileName.substring(0, fileName.lastIndexOf('.')) + '.csv', stringToBinary(csv), 'text/csv');
+    const sheet = worksheet.Sheets[finalSheetName];
+    if (!sheet) {
+        throw new Error(`Sheet "${finalSheetName}" not found`);
+    }
 
-            Transaction.process($, transaction).catch((message) => {
-                throw new Error('The transaction failed.' + message);
-            });
+    if (!isValidExcelRange(range)) {
+        throw new Error(`Invalid start position: "${range}"`);
+    }
+    const originalRange = sheet['!ref'];
+    sheet['!ref'] = updateRange(originalRange, range);
 
-            return CloudObject.get(fileTag);
-        }
-    } catch (error) {
-        throw ErrorFlow.create(`Error while converting content to CSV: ${error.message}`, 2);
+    const csv = XLSX.utils.sheet_to_csv(sheet, {FS: separator});
+
+    if (csv.trim().length === 0) {
+        const errorMsg = `Cannot read from sheet "${finalSheetName}" in range ${range}`;
+        throw new Error(errorMsg);
+    } else {
+        const transaction = new Transaction(false);
+        const fileTag = transaction.create(OFile);
+        OFile.setContent(transaction, fileTag, fileName.substring(0, fileName.lastIndexOf('.')) + '.csv', stringToBinary(csv), 'text/csv');
+        const res = await transaction.execute();
+        return /** @type {File} */ (res.getCreatedObjects()[0]);
     }
 };
 
@@ -116,9 +111,9 @@ const convertToCSV = ($, fileName, data, sheetName, separator) => {
  * Convert JSON to Excel
  * @param {Array} jsonSource
  * @param {string} excelFileName
- * @return {File}
+ * @return {Promise<File>}
  */
-export const handleJsonToExcel = (jsonSource, excelFileName) => {
+export const handleJsonToExcel = async (jsonSource, excelFileName) => {
     try {
         // Ensure the file name has the correct extension
         const excelFile = excelFileName.endsWith('.xlsx') ? excelFileName : excelFileName + '.xlsx';
@@ -135,19 +130,15 @@ export const handleJsonToExcel = (jsonSource, excelFileName) => {
         const binary = XLSX.writeXLSX(workbook, {type: 'array'});
 
         // Preparing to save the Excel file
-        const transaction = new Transaction();
+        const transaction = new Transaction(false);
         const fileTag = transaction.create(OFile);
-        transaction.persist(fileTag, false);
         const mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
         // Setting the content of the file object and executing the transaction
         OFile.setContent(transaction, fileTag, excelFile, binary, mimeType);
 
-        transaction.execute().catch((message) => {
-            throw new Error(`The transaction failed: ${message}`);
-        });
-
-        return CloudObject.get(fileTag);
+        const res = await transaction.execute();
+        return /** @type {File} */ (res.getCreatedObjects()[0]);
     } catch (error) {
         throw new Error(`JSON couldn't be added to spreadsheet: ${error.message}`);
     }
@@ -156,7 +147,7 @@ export const handleJsonToExcel = (jsonSource, excelFileName) => {
 /**
  * Convert CSV file to JSON
  * @param {File} source
- * @return {string}
+ * @return {Promise<string[]>}
  */
 export const handleCSVToJSON = async (source) => {
     try {
@@ -207,24 +198,25 @@ const getSourceData = (source) => {
 
 /**
  * Convert JSON to Cloud Objects
- * @param {Object | string} source
+ * @param {Object | string | Array} source
  * @param {!CloudObject} businessModel
  * @param {boolean} persist
- * @return {Object}
+ * @return {CloudObject | CloudObject[]}
  */
 export const handleJsonToCloudObjects = (source, businessModel, persist) => {
     validateJsonToCloudObjectInputs(source, businessModel);
 
     let json;
-
     try {
-        json = parseJson(source);
+        json = typeof source === 'string' ? JSON.parse(source) : source;
     } catch (e) {
         throw new Error(`Error while parsing the source string: ${e.message}`);
     }
 
     const transaction = new Transaction(persist);
+
     // Result is either an array of tags or a single tag depending on the JSON source.
+
     const result = Array.isArray(json) ? json.map((data) => parseInstance(transaction, businessModel, data)) : parseInstance(transaction, businessModel, json);
 
     transaction.execute().catch((message) => {
@@ -249,15 +241,6 @@ const validateJsonToCloudObjectInputs = (source, businessModel) => {
     if (!(businessModel instanceof CloudObject)) {
         throw new Error('Provided model is not a Type');
     }
-};
-
-/**
- * Parse JSON
- * @param {Object | string} source
- * @return {Object}
- */
-const parseJson = (source) => {
-    return typeof source === 'string' ? JSON.parse(source) : source;
 };
 
 /**
@@ -288,7 +271,7 @@ const parseInstanceProperties = (model, data) => {
         .flatMap((model) => model.follow(CloudObject.propertyRel).executeFromCache().toArray())
         .reduce((map, property) => {
             const value = data[property.name()];
-            if (value !== undefined && !(value instanceof Array) && !(value instanceof Object)) {
+            if (value !== undefined && !(value instanceof Array) && (!(value instanceof Object) || value instanceof Date)) {
                 map.set(property, formatValue(value, property));
             }
             return map;
@@ -354,16 +337,17 @@ const parseRelations = (transaction, instance, model, data) => {
  * Convert Excel file to JSON
  * @param {File} source
  * @param {string} sheetName
- * @returns {Object}
+ * @param {string} range
+ * @returns {Promise<Object>}
  */
-export const handleExcelToJSON = async (source, sheetName) => {
+export const handleExcelToJSON = async (source, sheetName, range) => {
     if (!(source instanceof OFile)) {
         throw new Error('Provided source is not a File');
     }
 
     try {
         const data = await getSourceContent(source);
-        return convertExcelToJSON(data, sheetName);
+        return convertExcelToJSON(data, sheetName, range);
     } catch (error) {
         throw new Error('Error while reading content as binary: ' + error.message);
     }
@@ -387,18 +371,34 @@ const getSourceContent = (source) => {
  * Convert Excel to JSON
  * @param {!ArrayBuffer} data
  * @param {string} sheetName
+ * @param {string} range
  * @returns {Object}
  */
-const convertExcelToJSON = (data, sheetName) => {
+const convertExcelToJSON = (data, sheetName, range) => {
     const workbook = XLSX.read(data, {
         type: 'buffer',
         cellDates: true,
     });
+
     const finalSheetName = getFinalSheetName(workbook, sheetName);
-    const json = XLSX.utils.sheet_to_json(workbook.Sheets[finalSheetName]);
+    const sheet = workbook.Sheets[finalSheetName];
+
+    if (!sheet) {
+        throw new Error(`Sheet "${finalSheetName}" not found`);
+    }
+
+    if (!isValidExcelRange(range)) {
+        throw new Error(`Invalid range: "${range}"`);
+    }
+    const originalRange = sheet['!ref'];
+    const updatedRange = updateRange(originalRange, range);
+
+    const json = XLSX.utils.sheet_to_json(sheet, {
+        range: updatedRange,
+    });
 
     if (json.length === 0) {
-        const errorMsg = sheetName !== '' ? `Cannot read from sheet "${sheetName}"` : 'Cannot read from the first sheet of the provided file';
+        const errorMsg = `Cannot read from sheet "${finalSheetName}" in range ${range}`;
         throw new Error(errorMsg);
     }
     return json;
@@ -482,13 +482,20 @@ export const handleJsonToXML = (source, rootTag) => {
 /**
  * Converts XML input to JSON format.
  * @param {Object} source
- * @return {Object}
+ * @return {Promise<Object>}
  */
-
 export const handleXMLToJson = async (source) => {
     let xml;
     if (source instanceof OFile) {
-        xml = await source.getContentAsString();
+        xml = await new Promise((resolve, reject) => {
+            source.getContentAsString((data, error) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
     } else if (typeof source === 'string') {
         xml = source;
     } else {
@@ -496,6 +503,7 @@ export const handleXMLToJson = async (source) => {
     }
 
     const parser = new XMLParser();
+
     try {
         return parser.parse(xml);
     } catch (e) {

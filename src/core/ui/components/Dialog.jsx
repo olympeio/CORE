@@ -114,9 +114,10 @@ export default class Dialog extends ReactBrick {
             const [$renderer, set$Renderer] = React.useState(null);
 
             React.useEffect(() => {
-                if (!editionMode && (open || keepMounted) && $renderer === null) {
+                if (!editionMode && open && $renderer === null) {
                     set$Renderer((contentRenderer) ? $.runner(contentRenderer) : null);
-                } else {
+                    
+                } else if(!keepMounted) {
                     $renderer?.destroy();
                     set$Renderer(null);
                 }
@@ -186,7 +187,7 @@ export default class Dialog extends ReactBrick {
                             <ThemeProvider theme={theme}>
                                 <Button 
                                     onClick={() => $.trigger('Close Dialog')}
-                                    sx={{width: '24px', height: '24px', minWidth: '0px', position: 'absolute', top: '4px', right: '4px'}}
+                                    sx={{width: '24px', height: '24px', minWidth: '0px', position: 'absolute', top: '4px', right: '4px', zIndex: 1}}
                                 >
                                     <Icon
                                         sx={{

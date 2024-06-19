@@ -1,5 +1,6 @@
 import {Brick, registerBrick, Config} from 'olympe';
 import {map} from 'rxjs/operators';
+import { getLogger } from 'logging';
 
 export default class CheckParameter extends Brick {
     /**
@@ -29,7 +30,10 @@ export default class CheckParameter extends Brick {
      * @param {function(*)} setParamValue
      */
     update($, [name], [setParamExists, setNoParam, setParamValue]) {
-        // // Retrieve the parameter value from the configuration
+        if (typeof name !== 'string') {
+            getLogger('CheckParameter').error(`Provided parameter name is not a string: ${name}`);
+            return;
+        }
         const parameterValue = Config.getParameter(name);
 
         if (parameterValue !== null && parameterValue !== undefined) {

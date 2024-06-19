@@ -51,8 +51,8 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d91": "Open an URL.",
-    "01703376c4a81c0e9d92": "Opens an URL in a separate tab or window depending on the environment.",
+    "01703376c4a81c0e9d91": "Open an internal or external link",
+    "01703376c4a81c0e9d92": "Opens a link (a.k.a. url, weblink, webpage, page) in the same tab, or optionally in a separate tab.\n\nThis can be used with full URLs (`https://olympe.io`), as well as anchors (`#summary`).\n\nSee also: `Set Navigation Route`",
     "v": 1
    },
    "t": "017b35893b3248aa1b5f"
@@ -77,6 +77,7 @@
    "o": 1,
    "p": {
     "01740c5d4ae4b520dd01": 2,
+    "01740c5d4ae4b520dd02": false,
     "ff023000000000000011": "Open in same tab",
     "v": 1
    },
@@ -92,7 +93,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "If true, the url will be opened within the same tab as the current page",
+    "01703376c4a81c0e9d92": "If `true`, the URL will open within the same tab as the current page.",
     "v": 1
    },
    "t": "017b59ce000ae4bac388"

@@ -1,5 +1,5 @@
 import { Brick, registerBrick, Predicate } from 'olympe';
-
+import { getLogger } from 'logging';
 export default class QueryFilter extends Brick {
 
     /**
@@ -33,10 +33,24 @@ export default class QueryFilter extends Brick {
             case 'smaller than': return Predicate.smallerThan(property, value, true);
             case 'smaller or equals': return Predicate.smallerThan(property, value, false);
             case 'regexp': return Predicate.regex(property, value, true);
-
+            case 'in': return QueryFilter.getInPredicate(property, value);
             // Should never happen
             default: throw new Error('[QueryFilter] unknown filter type "' + filterType + '"');
         }
+    }
+
+     /**
+     * Returns a 'in' predicate for the given property and value.
+     * @param {!Property<*>} property
+     * @param {Array<*>} value
+     * @returns {!Predicate}
+     */
+     static getInPredicate(property, value) {
+        if (!Array.isArray(value)) {
+            getLogger('QueryFilter').warn(`Type of value should be array instead of ${typeof value}`);
+            value = [];
+        }
+        return Predicate.or(...value.map(item => Predicate.equals(property, item)));
     }
 }
 

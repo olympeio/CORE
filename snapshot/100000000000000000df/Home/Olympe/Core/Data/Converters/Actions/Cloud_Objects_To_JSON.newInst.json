@@ -73,7 +73,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "If true, will only serialize the properties of the objects, otherwise will include the related objects"
+    "01703376c4a81c0e9d92": "If true, only consider the properties of cloud objects. <br><br>Otherwise, includes the relations and serialize the related cloudobjects recursively. <br><u>Warning</u>: only consider the cloudobjects already loaded in the local database."
    },
    "t": "018ecac150bc9fd7fc41"
   },

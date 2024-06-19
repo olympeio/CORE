@@ -49,9 +49,7 @@ export default class Reduce extends ActionBrick {
         this.process($, array, reducer, initialValue).then((result) => {
             setResult(result);
             forwardEvent();
-        }).catch((error) => {
-            getLogger('Reduce').error(error.message);
-        });
+        }).catch((error) => $.throw(error));
     }
 
     /**

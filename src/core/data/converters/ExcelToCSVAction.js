@@ -1,5 +1,4 @@
-import {ActionBrick, registerBrick} from 'olympe';
-import {handleError} from './helpers/handleError';
+import {ActionBrick, ErrorFlow, registerBrick} from 'olympe';
 import {handleExcelToCSV} from './helpers/dataFormatHandlers';
 
 export default class ExcelToCSV extends ActionBrick {
@@ -10,17 +9,16 @@ export default class ExcelToCSV extends ActionBrick {
      * @param {File} source
      * @param {string} sheetName
      * @param {string} separator
+     * @param {?string} range
      * @param {function()} forwardEvent
      * @param {function(File)} setResult
      */
-    async update($, [source, sheetName, separator], [forwardEvent, setResult]) {
-        const componentName = 'Excel To CSV';
+    async update($, [source, sheetName, separator, range], [forwardEvent, setResult]) {
         try {
-            const result = await handleExcelToCSV($, source, sheetName, separator);
-            setResult(result);
+            setResult(await handleExcelToCSV(source, sheetName, separator, range));
             forwardEvent();
         } catch (error) {
-            handleError(componentName, `Error converting Excel to CSV: ${error.message}`, error);
+            throw ErrorFlow.create(`Excel To CSV: Error converting Excel to CSV: ${error.message}`, 1);
         }
     }
 }

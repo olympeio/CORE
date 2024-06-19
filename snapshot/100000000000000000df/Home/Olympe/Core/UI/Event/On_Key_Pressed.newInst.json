@@ -1,0 +1,120 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "On Key Pressed",
+    "ff023000000000000011": "On Key Pressed"
+   },
+   "t": "018ff1bda452dbac0041"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Triggers an event if the selected combination of key is pressed",
+    "01703376c4a81c0e9d92": "On key pressed can be used to set keyboard shortcuts\n\nFor more information about how to use the `key` property, please refer to: <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key\" target = \"_blank\">https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key</a>"
+   },
+   "t": "018ff1bdbdf5188a3060"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "key"
+   },
+   "t": "018ff1bdc52a290ceb90"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The key that must be pressed to trigger the event. "
+   },
+   "t": "018ff1bdc58b3232211c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "018ff1c1b643172f76d6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Triggered when the selected combination is pressed"
+   },
+   "t": "018ff1c1b698274f5c8d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "01740c5d4ae4b520dd02": false,
+    "ff023000000000000011": "Ctrl key"
+   },
+   "t": "018ff1d71adcf4baca4b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Set this to true if you need the user to hold Ctrl+Key"
+   },
+   "t": "018ff1d71b31a1155004"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "01740c5d4ae4b520dd02": false,
+    "ff023000000000000011": "Meta key"
+   },
+   "t": "018ff1d760f694d65f6d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Set this to true if you need the user to hold Meta+Key (Also called cmd on mac os)"
+   },
+   "t": "018ff1d7614faf90bcdb"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "01740c5d4ae4b520dd02": false,
+    "ff023000000000000011": "Alt key"
+   },
+   "t": "018ff1d762c5cc45f4e1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Set this to true if you need the user to hold Alt+Key"
+   },
+   "t": "018ff1d7631fcb3db91c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 4,
+    "01740c5d4ae4b520dd02": false,
+    "ff023000000000000011": "Shift key"
+   },
+   "t": "018ff1d7b163e0b67a15"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Set this to true if you need the user to hold Shift+Key."
+   },
+   "t": "018ff1d7b1c0d4477b36"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "018ff1bda452dbac0041"
+}

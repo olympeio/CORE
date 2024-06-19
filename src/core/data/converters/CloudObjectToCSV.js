@@ -1,6 +1,6 @@
-import {BrickContext, registerBrick, ListDef, ActionBrick} from 'olympe';
-import {handleCloudObjectToJson, handleExcelToCSV, handleJsonToExcel} from './helpers/dataFormatHandlers';
-import {handleError} from './helpers/handleError';
+import {BrickContext, registerBrick, ListDef, ActionBrick, ErrorFlow} from 'olympe';
+import {handleExcelToCSV, handleJsonToExcel} from './helpers/dataFormatHandlers';
+import CloudObjectsToJSONAction from "./CloudObjectsToJSONAction";
 
 export default class CloudObjectToCSV extends ActionBrick {
     /**
@@ -13,20 +13,14 @@ export default class CloudObjectToCSV extends ActionBrick {
      * @param {function(File)} setResult
      */
     async update($, [source, excelFileName], [forwardEvent, setResult]) {
-        const componentName = 'Cloud Object To CSV';
         try {
-            const json = handleCloudObjectToJson(source);
-
-            if (json) {
-                const file = handleJsonToExcel(json, excelFileName);
-                if (file) {
-                    const result = await handleExcelToCSV($, file);
-                    setResult(result);
-                    forwardEvent();
-                }
-            }
+            const json = CloudObjectsToJSONAction.convertCloudObjectsToJson(source, false);
+            const excelFile = await handleJsonToExcel(json, excelFileName);
+            const csvFile = await handleExcelToCSV(excelFile);
+            setResult(csvFile);
+            forwardEvent();
         } catch (error) {
-            handleError(componentName, `Error converting Cloud Objects to CSV: ${error.message}`, error);
+            throw ErrorFlow.create(`CloudObject To CSV: Error converting Cloud Objects to CSV: ${error.message}`, 1);
         }
     }
 }

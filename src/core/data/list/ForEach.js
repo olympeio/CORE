@@ -44,9 +44,9 @@ export default class ForEach extends ActionBrick {
             return;
         }
 
-        this.process($, array, iterator).then(forwardEvent).catch((error) => {
-            getLogger('For Each').error(error.message);
-        });
+        this.process($, array, iterator)
+            .then(forwardEvent)
+            .catch((error) => $.throw(error));
     }
 
     /**

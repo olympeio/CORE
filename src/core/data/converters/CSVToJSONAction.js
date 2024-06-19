@@ -1,5 +1,4 @@
-import {ActionBrick, registerBrick} from 'olympe';
-import {handleError} from './helpers/handleError';
+import {ActionBrick, ErrorFlow, registerBrick} from 'olympe';
 import {handleCSVToJSON} from './helpers/dataFormatHandlers';
 
 export default class CSVToJSON extends ActionBrick {
@@ -9,16 +8,14 @@ export default class CSVToJSON extends ActionBrick {
      * @param {!BrickContext} $
      * @param {File} source
      * @param {function()} forwardEvent
-     * @param {function(ListDef)} setResult
+     * @param {function(Object | Object[])} setResult
      */
     async update($, [source], [forwardEvent, setResult]) {
-        const componentName = 'CSV To JSON';
         try {
-            const json = await handleCSVToJSON(source);
-            setResult(json);
+            setResult(await handleCSVToJSON(source));
             forwardEvent();
         } catch (error) {
-            handleError(componentName, `Error converting CSV to JSON: ${error.message}`, error);
+            throw ErrorFlow.create(`CSV To JSON: Error converting CSV to JSON: ${error.message}`, 1);
         }
     }
 }

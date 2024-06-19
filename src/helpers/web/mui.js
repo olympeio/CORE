@@ -310,11 +310,12 @@ export const validateVariant = (variant, property, loggerName, variants) => {
  */
 export const validateNumber = (value, property, loggerName, initialValue = 0) => {
     const logger = getLogger(loggerName);
-
-    if (typeof value === 'number' && !isNaN(value)) {
-        return value;
-    } else {
-        logger.error(`Invalid ${property} provided. Must be a number.`);
-        return initialValue;
+    if (value !== undefined && value !== null) {
+        if (typeof value === 'number' && !isNaN(value)) {
+            return value;
+        } else {
+            logger.error(`Invalid ${property} provided. Must be a number.`);
+            return initialValue;
+        }
     }
 };

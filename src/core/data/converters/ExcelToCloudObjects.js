@@ -1,5 +1,4 @@
-import {ActionBrick, registerBrick} from 'olympe';
-import {handleError} from './helpers/handleError';
+import {CloudObject, ActionBrick, registerBrick, ErrorFlow} from 'olympe';
 import {handleExcelToJSON, handleJsonToCloudObjects} from './helpers/dataFormatHandlers';
 
 export default class ExcelToCloudObjects extends ActionBrick {
@@ -8,21 +7,21 @@ export default class ExcelToCloudObjects extends ActionBrick {
      * @protected
      * @param {!BrickContext} $
      * @param {File} excelFile
-     * @param {Type} dataType
+     * @param {CloudObject} dataType
      * @param {string} sheetName
      * @param {boolean} persist
+     * @param {string} range
      * @param {function()} forwardEvent
-     * @param {function(ListDef)} setCloudObjects
+     * @param {function(CloudObject | CloudObject[])} setCloudObjects
      */
-    async update($, [excelFile, dataType, sheetName, persist], [forwardEvent, setCloudObjects]) {
-        const componentName = 'Excel To Cloud Objects';
+    async update($, [excelFile, dataType, sheetName, persist, range], [forwardEvent, setCloudObjects]) {
         try {
-            const json = await handleExcelToJSON(excelFile, sheetName);
-            const objectsList = handleJsonToCloudObjects(json, dataType, persist, componentName);
+            const json = await handleExcelToJSON(excelFile, sheetName, range);
+            const objectsList = handleJsonToCloudObjects(json, dataType, persist);
             setCloudObjects(objectsList);
             forwardEvent();
         } catch (error) {
-            handleError(componentName, `Error converting Excel to Cloud Objects: ${error.message}`, error);
+            throw ErrorFlow.create(`Excel To CloudObjects: Error converting Excel to Cloud Objects: ${error.message}`, 1);
         }
     }
 }

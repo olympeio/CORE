@@ -1,6 +1,6 @@
-import {ActionBrick, registerBrick} from 'olympe';
-import {handleCloudObjectToJson, handleJsonToExcel} from './helpers/dataFormatHandlers';
-import {handleError} from './helpers/handleError';
+import {ActionBrick, ErrorFlow, registerBrick} from 'olympe';
+import {handleJsonToExcel} from './helpers/dataFormatHandlers';
+import CloudObjectsToJSONAction from "./CloudObjectsToJSONAction";
 
 export default class CloudObjectToExcel extends ActionBrick {
     /**
@@ -12,18 +12,14 @@ export default class CloudObjectToExcel extends ActionBrick {
      * @param {function()} forwardEvent
      * @param {function(File)} setResult
      */
-    update($, [cloudObjects, excelFileName], [forwardEvent, setResult]) {
-        const componentName = 'Cloud Object To Excel';
-
+    async update($, [cloudObjects, excelFileName], [forwardEvent, setResult]) {
         try {
-            const json = handleCloudObjectToJson(cloudObjects);
-            if (json) {
-                const file = handleJsonToExcel(json, excelFileName);
-                setResult(file);
-                forwardEvent();
-            }
+            const json = CloudObjectsToJSONAction.convertCloudObjectsToJson(cloudObjects, false);
+            const file = await handleJsonToExcel(json, excelFileName);
+            setResult(file);
+            forwardEvent();
         } catch (error) {
-            handleError(componentName, `Error converting Cloud Object to Excel`, error);
+            throw ErrorFlow.create(`CloudObject To Excel: Error converting Cloud Object to Excel: ${error.message}`, 1);
         }
     }
 }
