@@ -1,8 +1,7 @@
-import {Brick, BrickContext, registerBrick} from 'olympe';
+import {Brick, BrickContext, ErrorFlow, registerBrick} from 'olympe';
 import {merge} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {handleExcelToCSV} from './helpers/dataFormatHandlers';
-import { handleError } from './helpers/handleError';
 
 export default class ExcelToCSV extends Brick {
 
@@ -28,12 +27,11 @@ export default class ExcelToCSV extends Brick {
      * @param {function(File)} setResult
      */
     async update($, [source, sheetName, separator, range], [setResult]) {
-        const componentName = 'Excel To CSV';
         try {
-            const result = await handleExcelToCSV($, source, sheetName, separator, range);
+            const result = await handleExcelToCSV(source, sheetName, separator, range);
             setResult(result);
         } catch (error) {
-            handleError(componentName, `Error converting Excel to CSV`, error);
+            throw ErrorFlow.create(`Excel To CSV: Error converting Excel to CSV: ${error.message}`, 1);
         }
     }
 }

@@ -1,5 +1,4 @@
-import {ActionBrick, registerBrick} from 'olympe';
-import {handleError} from './helpers/handleError';
+import {CloudObject, ActionBrick, registerBrick, ErrorFlow} from 'olympe';
 import {handleCSVToJSON, handleJsonToCloudObjects} from './helpers/dataFormatHandlers';
 
 export default class CSVToCloudObjects extends ActionBrick {
@@ -8,20 +7,19 @@ export default class CSVToCloudObjects extends ActionBrick {
      * @protected
      * @param {!BrickContext} $
      * @param {File} CSVFile
-     * @param {Type} dataType
+     * @param {CloudObject} dataType
      * @param {boolean} persist
      * @param {function()} forwardEvent
-     * @param {function(ListDef)} setCloudObjects
+     * @param {function(CloudObject | CloudObject[])} setCloudObjects
      */
     async update($, [CSVFile, dataType, persist], [forwardEvent, setCloudObjects]) {
-        const componentName = 'CSV To Cloud Objects';
         try {
             const json = await handleCSVToJSON(CSVFile);
-            const objectsList = handleJsonToCloudObjects(json, dataType, persist, componentName);
+            const objectsList = handleJsonToCloudObjects(json, dataType, persist);
             setCloudObjects(objectsList);
             forwardEvent();
         } catch (error) {
-            handleError(componentName, `Error converting CSV to Cloud Objects: ${error.message}`, error);
+            throw ErrorFlow.create(`CSV To Cloud Objects: Error converting CSV to Cloud Objects: ${error.message}`, 1);
         }
     }
 }
