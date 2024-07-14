@@ -72,7 +72,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "The name of the sheet in the Excel File (defaults to the first one)"
+    "01703376c4a81c0e9d92": "The name of the sheet in the Excel File. If not specified, the first sheet is read."
    },
    "t": "018ed03e4aed51cd3b2c"
   },
@@ -118,7 +118,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "A specific range within the Excel sheet to read from. If not specified, the entire sheet is processed.<br>Ex.: 'A1:F4'"
+    "01703376c4a81c0e9d92": "Where the data should be read from, and optionally where it should be read until. If not specified, the entire sheet is processed. Ex: 'A2' reads from line 2, 'A2:F4' reads from cell A2 until cell F4."
    },
    "t": "018ef9a8bbc02e16a37d"
   }
