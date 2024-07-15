@@ -1,0 +1,114 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "deprecated",
+    "fdff023000000000000011": "Add Form-Data",
+    "ff023000000000000011": "Add to Form-Data"
+   },
+   "t": "0190b59fa8be07d45d8a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "0190b59fa8be2ec6e7b6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "0190b59fa8be82700036"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0190b59fa8be84266d63"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0190b59fa8beb7bf813d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Create & Append data to a FormData object",
+    "01703376c4a81c0e9d92": "Append some data to the FormData object when needed to interface with an API that requires it. The output is supposed to go to the body of an HTTP brick.\n\nYou can chain several data in a single FormData object by chaining the form-data output to the input of the next instance"
+   },
+   "t": "0190b59fdcfa77d12bd1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The identifier of the data to sent"
+   },
+   "t": "0190b59fe671a17f477d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "name"
+   },
+   "t": "0190b59fe671cb906540"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The content of the data to sent"
+   },
+   "t": "0190b5a00aa20d0b666c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "value"
+   },
+   "t": "0190b5a00aa230f9b8f5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "ff023000000000000011": "form-data"
+   },
+   "t": "0190b5a0535bba3449b4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "optional. If not provided will create a new one"
+   },
+   "t": "0190b5a0535c2e2c81b2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The form-data object. Can be sent to another Add to Fom-Data brick, or an http brick."
+   },
+   "t": "0190b5a077d961ee2d2a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "form-data"
+   },
+   "t": "0190b5a077d9d834f159"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0190b59fa8be07d45d8a"
+}
