@@ -52,7 +52,7 @@ export const getByJSONPath = (data, path) => {
 
     let results = null;
     try {
-        results = JSONPath({path, json, wrap: false});
+        results = JSONPath({ path, json, wrap: false });
         return { results: results, resultsError: null };
     } catch (e) {
         return { results: null, resultsError: e };
@@ -65,7 +65,7 @@ export const getByJSONPath = (data, path) => {
  * @param {function(*)} onSuccess
  */
 export const processResults = (results, logger, onSuccess) => {
-    if (results === undefined || results === null || results.length < 1) {
+    if (results === undefined || results === null) {
         logger.warn('No result found matching provided path');
         onSuccess(null);
     } else {
