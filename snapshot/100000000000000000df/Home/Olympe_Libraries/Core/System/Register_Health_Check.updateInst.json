@@ -1,0 +1,17 @@
+{
+ "operations": [
+  {
+   "o": 2,
+   "p": {
+    "01740c5d4ae4b520dd02": {
+     "c": 8,
+     "t": "0190e96597473fe661fb"
+    }
+   },
+   "t": "0190e9656f1f4b55c98b"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0185792773abd926fe83"
+}

@@ -104,6 +104,33 @@
     "v": 193
    },
    "t": "01857bda3810af54f05d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 4,
+    "ff023000000000000011": "Probe type"
+   },
+   "t": "0190e9656f1f4b55c98b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Defines when this check should be used to check the health of the process: <br>- `liveness` means that it will be called to verify if the process is alive. <br>- `readiness` means that it is called to verify if the process is ready to operate <br>- `all` combines both liveness and readiness behaviours. <br> Default value is `all`."
+   },
+   "t": "0190e9656f1f8d902d02"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0190e96597473fe661fb"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0190e9a3695796f4987f"
   }
  ],
  "optionalOperations": [
