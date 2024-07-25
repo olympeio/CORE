@@ -28,9 +28,10 @@ export default class RegisterHealthCheck extends ActionBrick {
      * @param {!Brick} check
      * @param {?number} timeout
      * @param {?string} name
+     * @param {?string} probeType
      * @param {function()} forwardEvent
      */
-    update($, [check, timeout, name], [forwardEvent]) {
+    update($, [check, timeout, name, probeType], [forwardEvent]) {
         if (!(check instanceof Brick)) {
             getLogger('RegisterHealthCheck').warn('No health check implementation provided.');
             forwardEvent();
@@ -39,7 +40,7 @@ export default class RegisterHealthCheck extends ActionBrick {
         const finalName = typeof name === 'string' ? name : 'Custom health check';
         const finalTimeout = typeof timeout === 'number' ? Math.max(timeout, 0) : 1000;
 
-        const off = Process.onHealthCheck(() => this.process($, check, finalTimeout, finalName));
+        const off = Process.onHealthCheck(() => this.process($, check, finalTimeout, finalName), {type: probeType});
         $.onClear(off);
         forwardEvent();
     }
@@ -50,6 +51,7 @@ export default class RegisterHealthCheck extends ActionBrick {
      * @param {!Brick} check
      * @param {number} timeout
      * @param {string} name
+     * @return {!Promise<string>}
      */
     process($, check, timeout, name) {
         const [startInput] = check.getInputs();
