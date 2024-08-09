@@ -11,7 +11,7 @@ export default class GetBinarySize extends ActionBrick {
      * @param {function()} forwardEvent
      * @param {function(number)} setSize
      */
-    update($, [binary], [forwardEvent, setSize]) {
+    async update($, [binary], [forwardEvent, setSize]) {
         const logger = getLogger('GetBinarySize');
 
         const terminate = (size) => {
@@ -24,12 +24,13 @@ export default class GetBinarySize extends ActionBrick {
         } else if (typeof binary === 'string') {
             terminate(binary.length); // Consider that string a binary string
         } else if (binary instanceof OFile) {
-            binary.getContentAsBinary((content) => {
+            try {
+                const content = await binary.getContentAsBinary();
                 terminate(content.byteLength);
-            }, (errorMessage) => {
-                logger.error(errorMessage);
+            } catch (error) {
+                logger.error(`Failed to retrive the binary size of the given file: ${binary.getTag()}`);
                 terminate(0);
-            });
+            }
         } else {
             logger.error('Try to get the size of a binary with a not supported object. Supported once are ArrayBuffer, DataView (eg: Uint8Array), File or binary strings.');
             terminate(0);
