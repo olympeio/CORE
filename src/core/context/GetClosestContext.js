@@ -1,6 +1,5 @@
 import { Brick, registerBrick, ErrorFlow } from 'olympe';
 import { Application, Screen_, Runnable } from '../../helpers/common/tags';
-import { getLogger } from 'logging';
 
 export default class GetClosestContext extends Brick {
 
@@ -27,11 +26,7 @@ export default class GetClosestContext extends Brick {
                 selector.modelTag = Screen_;
                 break
         }
-        const closestContext = $.getParent()?.getClosest(selector);
-        if(!closestContext) {
-            getLogger('GetClosestContext').warn(`Cannot find the closest context for model: ${modelType}`);
-        }
-        setContext(closestContext);
+        setContext($.getParent()?.getClosest(selector));
     }
 }
 
