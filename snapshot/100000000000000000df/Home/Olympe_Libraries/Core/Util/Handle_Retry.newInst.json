@@ -1,0 +1,100 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "experimental",
+    "fdff023000000000000011": "Handle Retry",
+    "ff023000000000000011": "Handle Retry"
+   },
+   "t": "01915a2c7e516ff295f3"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "01915a2c7e517f4be8ed"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01915a2c7e51b5c33e49"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "01915a2c7e51e7bfcc75"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01915a2c7e51ee57b2cc"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Handles a retry strategy initiated by the \"Start Retry\" brick",
+    "01703376c4a81c0e9d92": "By plugging the output \"Control Flow\" and \"Error Flow\" of the wrapped action, you can apply the given retry strategy.\n\nThis brick will either trigger its \"Control Flow\" as soon as one of the retried action has succeeded or an \"Error Flow\" if all attempts have failed and the max retry count has been reached"
+   },
+   "t": "01915a32613e10fe3cdd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Error flow coming from the wrapped action"
+   },
+   "t": "01915a32ab66d0fee3a7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Error Flow"
+   },
+   "t": "01915a32ab66eefd5340"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Comma separated list of error code which should be retried. By default this brick retry for HTTP 503 Error code which represent \"Service Unavailable\" and suppose that a retry can help. \n\nLeave empty or null to retry all errors"
+   },
+   "t": "01915a32aedb97a32db4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "01740c5d4ae4b520dd02": "503",
+    "ff023000000000000011": "Retry for code"
+   },
+   "t": "01915a32aedb9af4d281"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Forward the latest error from the wrapped action if no attempt has succeeded"
+   },
+   "t": "01915a32b2b753b2bcfe"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Failed Error Flow"
+   },
+   "t": "01915a32b2b79cef3c06"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01915a2c7e516ff295f3"
+}

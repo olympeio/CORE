@@ -1,0 +1,116 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "experimental",
+    "fdff023000000000000011": "Start Retry",
+    "ff023000000000000011": "Start Retry"
+   },
+   "t": "01915a2c6ac7c2575f31"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "01915a2c6ac8313bd156"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "01915a2c6ac8696a7cb5"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01915a2c6ac88cfea69d"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01915a2c6ac8f34bceb0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Initiate a retry cycle where an action can be attempted multiple times in case of error",
+    "01703376c4a81c0e9d92": "Use this brick in combination with \"Handle Retry\".\n\n1. Initiate the retry cycle with \"Start Retry\" and provide an interval configuration to instruct how many times and with which delay the retries must be performed when the wrapped action encounters an error\n2. Use the \"Handle Retry\" after the action effectively apply the retry strategy\n\nNotes:\n- You can only have one active retry per scope (context). Concurrency is not supported inside the same scope.\n- If you use the \"Start Retry\" brick you MUST place a \"Handle Retry\" following the control/error flows"
+   },
+   "t": "01915a2c909e06442f22"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Instructs the delays of retries when an error occurs. You must provide comma-separated numbers representing the interval in seconds. \n\nDefault is \"3,6,15\" which means that the action will be performed at max 4 times:\n- immediately\n- 3 seconds after the 1st error\n- 6 seconds after the 2nd error\n- 15 seconds after the 3rd error"
+   },
+   "t": "01915a2cf3d92c28edda"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "01740c5d4ae4b520dd02": "3,6,15",
+    "ff023000000000000011": "Retry Intervals"
+   },
+   "t": "01915a2cf3d97fa2ab41"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "01740c5d4ae4b520dd02": 30,
+    "ff023000000000000011": "Timeout"
+   },
+   "t": "01915a2cfa7bb108611f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Time in seconds that the brick waits for the \"Handle Retry\" to effectively handle the flow. Will throw an error if no handling has been detected after this timeout"
+   },
+   "t": "01915a2cfa7cbbdee7e5"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The current retry number, starting at 1 for the immediate call and incrementing by 1 for each retry."
+   },
+   "t": "01915a2d8022043591e7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Retry Count"
+   },
+   "t": "01915a2d8022cd1d2d56"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "Error flow"
+   },
+   "t": "01915a2d838c9d9673ab"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "This brick can throw\n- timeout error (see timeout description)\n- concurrency error, if an input Control Flow is triggered before the previous one is completely handled"
+   },
+   "t": "01915a2d838cc7d3c6b9"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01915a2c6ac7c2575f31"
+}
