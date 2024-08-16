@@ -91,7 +91,7 @@ export default class StartRetry extends ActionBrick {
             },
             complete: () => {
                 clearTimeout(noHandlingTimeout);
-                parent$(StartRetry.RetryContextKey, null);
+                parent$.set(StartRetry.RetryContextKey, null);
             },
         };
 
