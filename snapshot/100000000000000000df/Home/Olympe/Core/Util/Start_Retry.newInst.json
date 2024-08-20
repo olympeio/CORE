@@ -50,7 +50,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "Instructs the delays of retries when an error occurs. You must provide comma-separated numbers representing the interval in seconds. \n\nDefault is \"3,6,15\" which means that the action will be performed at max 4 times:\n- immediately\n- 3 seconds after the 1st error\n- 6 seconds after the 2nd error\n- 15 seconds after the 3rd error"
+    "01703376c4a81c0e9d92": "Instructs the delays of retries when an error occurs. You must provide comma-separated numbers representing the interval in seconds. Default is \"3,6,15\" which means that the action will be performed at max 4 times (immediately, 3 seconds after the 1st error, 6 seconds after the 2nd error, 15 seconds after the 3rd error)"
    },
    "t": "01915a2cf3d92c28edda"
   },
