@@ -15,7 +15,6 @@ export default class GetClosestContext extends Brick {
             throw ErrorFlow.create('Invalid modelType provided: must be a string', 1);
         }
         const selector = {modelTag: modelType};
-
         switch (modelType) {
             case 'parent':
                 selector.modelTag = Runnable;
@@ -27,8 +26,7 @@ export default class GetClosestContext extends Brick {
                 selector.modelTag = Screen_;
                 break
         }
-        const closestContext = $.getParent()?.getClosest(selector);
-        setContext(closestContext);
+        setContext($.getParent()?.getClosest(selector));
     }
 }
 
