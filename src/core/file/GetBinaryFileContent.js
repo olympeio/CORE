@@ -26,7 +26,7 @@ export default class GetBinaryFileContent extends ActionBrick {
      * @param {function(ErrorFlow)} setErrorFlow
      * @param {function(ArrayBuffer)} setContent
      */
-    update(context, [file], [forwardEvent, setErrorFlow, setContent]) {
+    async update(context, [file], [forwardEvent, setErrorFlow, setContent]) {
         const logger = getLogger('Get Binary File Content');
 
         if (!(file instanceof OFile)) {
@@ -35,14 +35,15 @@ export default class GetBinaryFileContent extends ActionBrick {
             return;
         }
 
-        file.getContentAsBinary((content) => {
+        try {
+            const content = await file.getContentAsBinary();
             setContent(content);
             forwardEvent();
-        }, (message) => {
+        } catch (error) {
             const errMsg = `Could not retrieve content of ${file}\n${message}`;
             logger.error(errMsg);
             setErrorFlow(ErrorFlow.create(errMsg, 1));
-        });
+        }
     }
 }
 
