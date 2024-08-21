@@ -59,7 +59,7 @@
    "p": {
     "01740c5d4ae4b520dd01": 1,
     "01740c5d4ae4b520dd02": "3,6,15",
-    "ff023000000000000011": "Retry Intervals"
+    "ff023000000000000011": "Intervals"
    },
    "t": "01915a2cf3d97fa2ab41"
   },
@@ -105,7 +105,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "This brick can throw\n- timeout error (see timeout description)\n- concurrency error, if an input Control Flow is triggered before the previous one is completely handled"
+    "01703376c4a81c0e9d92": "This brick can throw a \"timeout error\" (see timeout description) or a \"concurrency error\", if an input Control Flow is triggered before the previous one is completely handled"
    },
    "t": "01915a2d838cc7d3c6b9"
   }
