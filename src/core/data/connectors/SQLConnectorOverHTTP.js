@@ -201,7 +201,8 @@ export default class SQLConnectorOverHTTP extends DataSource {
 
         const response = await fetch(`${this.url}/${path}`, { method, body, headers });
         if (!response.ok) {
-            throw new Error(`Error while sending request to the database: HTTP Code: ${response.statusCode}, Error: ${response.statusText}`);
+            const body = await response.json();
+            throw new Error(`Error while sending request to the database, received code ${response.status} (${response.statusText}): ${JSON.stringify(body)}`);
         }
         return response;
     }
