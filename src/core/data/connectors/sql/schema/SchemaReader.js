@@ -79,7 +79,7 @@ export default class SchemaReader {
 
         /**
          * @private
-         * @type {!Array<Promise>}
+         * @type {!Array<string>}
          */
         this.errors = [];
 
@@ -93,11 +93,11 @@ export default class SchemaReader {
         // schema reader won't create any missing table
         const tableName = this.getTableName(dataType);
         if (!tableName) {
-            this.errors.push(Promise.reject(`No table name defined for the following tag: ${dataType}`));
+            this.errors.push(`No table name defined for the following tag: ${dataType}`);
         } else {
             for (const tag of properties) {
                 if (!this.getColumn(tableName, tag)) {
-                    this.errors.push(Promise.reject(`No column was found within table ${tableName} for property tag ${tag}`));
+                    this.errors.push(`No column was found within table ${tableName} for property tag ${tag}`);
                 }
             }
         }
@@ -116,7 +116,7 @@ export default class SchemaReader {
 
         // 2. check that the global tag has a corresponding table
         if (!this.getRelationTableName(relationTag, fromTag, toTag)) {
-            this.errors.push(Promise.reject(`No table name defined for the relation ${relationTag} from ${fromTag} to ${toTag}`))
+            this.errors.push(`No table name defined for the relation ${relationTag} from ${fromTag} to ${toTag}`);
         }
     }
 
@@ -145,7 +145,7 @@ export default class SchemaReader {
     getColumn(table, property) {
         const columnName = this.tableColumnsMap[table][property];
         if (!columnName) {
-            this.errors.push(Promise.reject(`Column name ${columnName} is falsy for table ${table}, property ${property}`))
+            this.errors.push(`Column name ${columnName} is falsy for table ${table}, property ${property}`);
         }
         return columnName ?? '';
     }
@@ -158,8 +158,7 @@ export default class SchemaReader {
         const globalTag = SchemaProvider.getRelGlobalTag(fromTag, toTag, relationTag)
         const relationName = this.relationNameMap[globalTag];
         if (!relationName) {
-            this.errors.push(Promise.reject(`Relation name ${relationName} is falsy
-             for tag ${relationTag} from ${fromTag} to ${toTag}`));
+            this.errors.push(`Relation name ${relationName} is falsy for tag ${relationTag} from ${fromTag} to ${toTag}`);
 
         }
         return relationName;
@@ -213,7 +212,7 @@ export default class SchemaReader {
     getTableName(dataType) {
         const tableName = this.dataTypeNameMap[dataType];
         if (!tableName) {
-            this.errors.push(Promise.reject(`No table name defined for the following tag: ${dataType}`));
+            this.errors.push(`No table name defined for the following tag: ${dataType}`);
             return '';
         }
         return tableName;
@@ -230,7 +229,7 @@ export default class SchemaReader {
                 return key;
             }
         }
-        this.errors.push(Promise.reject(`Did not find any tag for table name ${table}, check the oConfig schemaReader config`));
+        this.errors.push(`Did not find any tag for table name ${table}, check the oConfig schemaReader config`);
         return null;
     }
 
@@ -248,7 +247,7 @@ export default class SchemaReader {
             try {
                 tableName = this.getTableName(model.getTag()) ?? null;
             } catch (e) {
-                this.errors.push(Promise.reject(`Try to get the name of a table not defined in Schema Reader config`));
+                this.errors.push(`Try to get the name of a table not defined in Schema Reader config`);
             }
             return tableName;
         }).filter((v) => v !== null);
@@ -278,7 +277,7 @@ export default class SchemaReader {
         // 3. check data type configs has at least one element
         if (!dataTypeConfigs || !Array.isArray(dataTypeConfigs) || dataTypeConfigs.length === 0) {
             const errorMsg = `Data type config should be a non empty array, but found ${dataTypeConfigs}`;
-            this.errors.push(Promise.reject(errorMsg));
+            this.errors.push(errorMsg);
             return Promise.reject(errorMsg);
         }
 
@@ -344,18 +343,14 @@ export default class SchemaReader {
      *  @inheritDoc
      */
     waitForFree() {
-        return Promise.allSettled(this.errors).then((errorPromises) => {
-            // capture all errors reasons
-            const errorMsg = errorPromises.reduce(
-                (acc, errorPromise) => errorPromise.status === 'rejected'
-                    ? acc + `Error : ${errorPromise.reason}\n`
-                    : acc, '');
-            // clear errors promises array
-            this.errors = [];
+        return new Promise((resolve) => {
             // log if any error happened, but never fails => wrong/incomplete config should not make the backend crash.
-            if (errorMsg.length > 0) {
+            if (this.errors.length > 0) {
+                const errorMsg = this.errors.map(e => `Error : ${e}`).join('\n');
                 this.logger.error(`Schema reader failed with reason(s): \n${errorMsg}`);
+                this.errors = [];
             }
+            resolve();
         });
     }
 }

@@ -38,7 +38,7 @@ export default class StartRetry extends ActionBrick {
             return;
         }
 
-        if (!retryIntervals.match(/^[0-9,]*$/)) {
+        if (!retryIntervals.match(/^[0-9\s,]*$/)) {
             logger.error(
                 'Invalid retry intervals format, you must provide a comma separated list of integers, got:',
                 retryIntervals
@@ -54,12 +54,13 @@ export default class StartRetry extends ActionBrick {
         }
 
         // Format inputs
-        const retryIntervalsArray = retryIntervals.split(',').map((interval) => parseInt(interval));
+        const retryIntervalsArray = retryIntervals.split(',').map((interval) => parseInt(interval.trim()));
         logger.debug('Initiate retry with intervals', retryIntervalsArray);
 
         // Retry logic
         let count = 1;
         let noHandlingTimeout;
+        let isActive = true;
 
         // If no handling occurs within the timeout, we should consider that the retry is badly implemented
         const initNoHandlingTimeout = () => {
@@ -79,17 +80,20 @@ export default class StartRetry extends ActionBrick {
             shouldRetry: () => count <= retryIntervalsArray.length,
             retry: () => {
                 clearTimeout(noHandlingTimeout);
-                const interval = retryIntervalsArray[count - 1];
-                logger.debug(`Will retry in ${interval} seconds`);
-                setTimeout(() => {
-                    count++;
-                    setRetryCount(count);
-                    initNoHandlingTimeout();
-                    logger.debug(`Triggering a retry`);
-                    forwardEvent();
-                }, interval * 1000);
+                if (isActive) {
+                    const interval = retryIntervalsArray[count - 1];
+                    logger.debug(`Will retry in ${interval} seconds`);
+                    noHandlingTimeout = setTimeout(() => {
+                        count++;
+                        setRetryCount(count);
+                        initNoHandlingTimeout();
+                        logger.debug(`Triggering a retry`);
+                        forwardEvent();
+                    }, interval * 1000);
+                }
             },
             complete: () => {
+                isActive = false;
                 clearTimeout(noHandlingTimeout);
                 parent$.set(StartRetry.RetryContextKey, null);
             },
@@ -101,6 +105,14 @@ export default class StartRetry extends ActionBrick {
         initNoHandlingTimeout();
         setRetryCount(count);
         forwardEvent();
+
+        $.onDestroy(() => {
+            clearTimeout(noHandlingTimeout);
+            if (isActive) {
+                parent$.set(StartRetry.RetryContextKey, null);
+                isActive = false;
+            }
+        });
     }
 }
 

@@ -28,7 +28,7 @@ export default class GetFileContent extends ActionBrick {
      * @param {function(ErrorFlow)} setErrorFlow
      * @param {function(string)} setContent
      */
-    update(context, [file], [forwardEvent, setErrorFlow, setContent]) {
+    async update(context, [file], [forwardEvent, setErrorFlow, setContent]) {
         const logger = getLogger('Get File Content');
 
         if (!(file instanceof OFile)) {
@@ -44,17 +44,20 @@ export default class GetFileContent extends ActionBrick {
         };
 
         const mimeType = file.get(OFile.mimeTypeProp) ?? '';
-        if (isMimeTypeText(mimeType)) {
-            file.getContentAsString((content) => {
+        try {
+            if (isMimeTypeText(mimeType)) {
+                const content = await file.getContentAsString();
                 setContent(content);
                 forwardEvent();
-            }, onFailure);
-        } else {
-            file.getContentAsBinary((content) => {
+            } else {
+                const content = await file.getContentAsBinary();
                 setContent(toBase64(content));
                 forwardEvent();
-            }, onFailure);
+            }
+        } catch (error) {
+            onFailure(error.message);
         }
+        
     }
 }
 
