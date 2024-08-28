@@ -182,15 +182,7 @@ const getSourceData = (source) => {
     if (typeof source === 'string') {
         return Promise.resolve(source);
     } else if (source instanceof OFile) {
-        return new Promise((resolve, reject) => {
-            source.getContentAsString((data) => {
-                if (data) {
-                    resolve(data);
-                } else {
-                    reject(new Error('Failed to read content from OFile'));
-                }
-            });
-        });
+        return source.getContentAsString();
     } else {
         return Promise.reject(new Error('Provided source is not a string or a File'));
     }
@@ -359,12 +351,7 @@ export const handleExcelToJSON = async (source, sheetName, range) => {
  * @returns {Promise<ArrayBuffer>}
  */
 const getSourceContent = (source) => {
-    return new Promise((resolve, reject) => {
-        source.getContentAsBinary(
-            (data) => resolve(data),
-            (message) => reject(new Error('Error while reading content as binary: ' + message))
-        );
-    });
+    return source.getContentAsBinary();
 };
 
 /**
@@ -487,15 +474,7 @@ export const handleJsonToXML = (source, rootTag) => {
 export const handleXMLToJson = async (source) => {
     let xml;
     if (source instanceof OFile) {
-        xml = await new Promise((resolve, reject) => {
-            source.getContentAsString((data, error) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(data);
-                }
-            });
-        });
+        xml = await source.getContentAsString();
     } else if (typeof source === 'string') {
         xml = source;
     } else {
