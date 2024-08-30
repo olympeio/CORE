@@ -3,6 +3,7 @@
   {
    "o": 1,
    "p": {
+    "01621fb84e320000f001": "public",
     "01692aa71f3108454479": true,
     "fdff023000000000000011": "Format Number",
     "ff023000000000000011": "Format Number"
@@ -65,7 +66,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "Additional customization added on top of `format`. Possible options are documented as per <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options\" target=\"_blank\">Intl.NumberFormat</a>"
+    "01703376c4a81c0e9d92": "Additional customization added on top of `format`. Possible options are documented as per <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options\" target=\"_blank\">Intl.NumberFormat</a>.<br> Provide as a JSON, e.g.\" { \"style\": \"unit\", \"unit\": \"liter\" }."
    },
    "t": "019155a448e50d5803aa"
   },
@@ -73,6 +74,7 @@
    "o": 1,
    "p": {
     "01740c5d4ae4b520dd01": 3,
+    "01740c5d4ae4b520dd02": "{}",
     "ff023000000000000011": "customization"
    },
    "t": "019155a448e5c936d214"
