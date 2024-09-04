@@ -51,8 +51,8 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d91": "Downloads a file.",
-    "01703376c4a81c0e9d92": "Downloads a file and save it locally.",
+    "01703376c4a81c0e9d91": "Downloads a file",
+    "01703376c4a81c0e9d92": "Download a file and save it locally.",
     "v": 1
    },
    "t": "017b35893b3940dfbcfb"
@@ -68,7 +68,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "(optional) The name for the save file.",
+    "01703376c4a81c0e9d92": "(optional) The name of the saved file.",
     "v": 1
    },
    "t": "017b35893f17c15f3592"

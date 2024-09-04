@@ -19,7 +19,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d91": "Shows an image file.",
+    "01703376c4a81c0e9d91": "Shows an image file",
     "01703376c4a81c0e9d92": "The Image component allows to show an image and to define which aspect ratio it should use.\n<br><br>\nFind more information about supported format <a href=\"https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types\" target=\"_blank\">here</a>.\n<br><br>\nThe `Image Fit` property may be a little bit confusing, you can see example <a href=\"https://www.w3schools.com/css/css3_object-fit.asp\" target=\"_blank\">here</a>.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.\n",
     "v": 34
    },
