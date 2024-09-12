@@ -15,7 +15,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Allows to customize an alert dialog created with the action `Show Alert Dialog`.",
-    "01703376c4a81c0e9d92": "Allows to customize an alert dialog created with the action `Show Alert Dialog`.\n<br><br>\nProvides transitions that can be used to introduce some basic motion to your applications. \n\nSee <a href=\"https://mui.com/components/transitions/\" target=\"_blank\">here</a> for more details.",
+    "01703376c4a81c0e9d92": "Allows to customize an alert dialog created with the action `Show Alert Dialog`.\n<br>\nProvides transitions that can be used to introduce some basic motion to your applications. \n\nSee <a href=\"https://mui.com/components/transitions/\" target=\"_blank\">here</a> for more details.",
     "v": 166
    },
    "t": "017cdfc8e45ba71791ac"

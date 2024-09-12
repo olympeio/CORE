@@ -16,7 +16,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Adds a regex filter clause onto a query",
-    "01703376c4a81c0e9d92": "Adds a `regex` predicate to the given query. This predicate indicates to the query to filter out the objects whose the specified property does not match the provided regular expression.<br><br>\nThe OR operator ( | ) is not supported",
+    "01703376c4a81c0e9d92": "Adds a `regex` predicate to the given query. This predicate indicates to the query to filter out the objects whose the specified property does not match the provided regular expression.<br>\nThe OR operator ( | ) is not supported",
     "v": 159
    },
    "t": "0186b14d2d9cda4c0faa"

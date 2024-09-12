@@ -22,7 +22,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Displays a list of objects.",
-    "01703376c4a81c0e9d92": "Takes a dynamic list of objects as a property (`Data`) and renders each item in a vertical/horizontal layout. The Data can be based on a simple enum.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.\n",
+    "01703376c4a81c0e9d92": "Takes a dynamic list of objects as a property (`Data`) and renders each item in a vertical/horizontal layout. The Data can be based on a simple enum.\n<br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.\n",
     "v": 568
    },
    "t": "017d7af2366d6b9817c8"

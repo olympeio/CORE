@@ -16,7 +16,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Adds an `in` filter clause onto a query",
-    "01703376c4a81c0e9d92": "Adds a `in` predicate to the given query. This predicate indicates to the query to filter out the objects that are not part of the given list of this brick.\n<br>\nNotice that it can be a simple unique object, an array of objects or even tags (string unique identifiers of objects).",
+    "01703376c4a81c0e9d92": "Adds a `in` predicate to the given query. This predicate indicates to the query to filter out the objects that are not part of the given list of this brick.\n\nNotice that it can be a simple unique object, an array of objects or even tags (string unique identifiers of objects).",
     "v": 249
    },
    "t": "0186b15ac0e7681541f3"

@@ -16,7 +16,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Adds a filter clause onto a query",
-    "01703376c4a81c0e9d92": "In SQL terms the Query Filter corresponds to adding a `WHERE` clause.\n<br><br>\nFor filter types `Contains` and `Regex`, it sets case sensitivity to `true`. In case you need to apply those filters without case sensitivity, use specific bricks (aka: `Query Filter Contains` and `Query Filter Regex`).\n\nExample\n-------\nIf we want to keep only objects for which `myProperty = 14`, then we would set `property` to `myProperty`, `filter type` to `equals`, and `value` to the number 14.\n",
+    "01703376c4a81c0e9d92": "In SQL terms the Query Filter corresponds to adding a `WHERE` clause.\n<br>\nFor filter types `Contains` and `Regex`, it sets case sensitivity to `true`. In case you need to apply those filters without case sensitivity, use specific bricks (aka: `Query Filter Contains` and `Query Filter Regex`).\n\nExample\n-------\nIf we want to keep only objects for which `myProperty = 14`, then we would set `property` to `myProperty`, `filter type` to `equals`, and `value` to the number 14.\n",
     "v": 399
    },
    "t": "017ee96014274b82cddc"

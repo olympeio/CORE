@@ -42,7 +42,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Compare a string with another one.",
-    "01703376c4a81c0e9d92": "Returns a number indicating whether the reference string s2 comes before, after, or is equivalent to s1 string in sort order.\n\nUses the `localeCompare` JavaScript` function. <br>\nSee <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String\" target=\"_blank\">string object</a>.",
+    "01703376c4a81c0e9d92": "Returns a number indicating whether the reference string s2 comes before, after, or is equivalent to s1 string in sort order.\n\nUses the `localeCompare` JavaScript` function. \nSee <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String\" target=\"_blank\">string object</a>.",
     "v": 15
    },
    "t": "017b35893bb2b525d9dc"

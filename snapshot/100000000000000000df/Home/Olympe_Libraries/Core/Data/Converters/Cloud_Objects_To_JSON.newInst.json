@@ -15,7 +15,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Transform a Cloud Object to JSON",
-    "01703376c4a81c0e9d92": "Transform an instance of a Cloud Object or list of instances to JSON.\n\nThe properties of the related business model are used as properties of the json.\n\n## Example\nCloudObjectToJSON(`GPS Coordinate` object) -> <br> \"Latitude\":15, \"Longitude\": 25,\" name\": \"GPS Coordinate\" }\n<br><br>\nCloudObjectToJSON(`List of GPS Coordinate` objects) -> <br>[ { \"Latitude\":15, \"Longitude\": 25, \"name\": \"GPS Coordinate\"},<br> { \"Latitude\": 13, \"Longitude\": 22, \" name\" : \"GPS Coordinate\" } ] \n\n\n",
+    "01703376c4a81c0e9d92": "Transform an instance of a Cloud Object or list of instances to JSON.\n\nThe properties of the related business model are used as properties of the json.\n\n## Example\nCloudObjectToJSON(`GPS Coordinate` object) -> <br> \"Latitude\":15, \"Longitude\": 25,\" name\": \"GPS Coordinate\" }\n<br>\nCloudObjectToJSON(`List of GPS Coordinate` objects) -> <br>[ { \"Latitude\":15, \"Longitude\": 25, \"name\": \"GPS Coordinate\"},<br> { \"Latitude\": 13, \"Longitude\": 22, \" name\" : \"GPS Coordinate\" } ] \n\n\n",
     "v": 15
    },
    "t": "017fc0746a2d407ea34b"

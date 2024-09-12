@@ -40,7 +40,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Icon with a tooltip on hover",
-    "01703376c4a81c0e9d92": "A tooltip that displays some informative text when the user hovers over, focuses on, or taps on the element.<br><br>\n\nMore Info: <a href=\"https://mui.com/material-ui/react-tooltip/\" target=\"_blank\">MUI Tooltip</a>"
+    "01703376c4a81c0e9d92": "A tooltip that displays some informative text when the user hovers over, focuses on, or taps on the element.<br>\n\nMore Info: <a href=\"https://mui.com/material-ui/react-tooltip/\" target=\"_blank\">MUI Tooltip</a>"
    },
    "t": "01881e66bd0344cbd060"
   },

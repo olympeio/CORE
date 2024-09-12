@@ -124,7 +124,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Get the list of instances of a data type, with continuous updates.",
-    "01703376c4a81c0e9d92": "Gets a list of all the instances of a given data type. It is a shorthand for `Query Instances Of` followed by `Observe Query`.  \n<br>\nThe list is continuously refreshed. This may impact performance when large number of instances are present. In such scenarios, consider using `Fetch Object List` instead.  \n<br>\nIf other data types inherit from the selected, instances of those data types are returned as well (for example: asking for `Vehicle` will include `Car` and `Truck`).  \n<br>\n*Since v2.4, this replaces the `Get Object List` brick*\n",
+    "01703376c4a81c0e9d92": "Gets a list of all the instances of a given data type. It is a shorthand for `Query Instances Of` followed by `Observe Query`.  \n\nThe list is continuously refreshed. This may impact performance when large number of instances are present. In such scenarios, consider using `Fetch Object List` instead.  \n\nIf other data types inherit from the selected, instances of those data types are returned as well (for example: asking for `Vehicle` will include `Car` and `Truck`).  \n\n*Since v2.4, this replaces the `Get Object List` brick*\n",
     "v": 783
    },
    "t": "01872f10d659bdd8f5c3"

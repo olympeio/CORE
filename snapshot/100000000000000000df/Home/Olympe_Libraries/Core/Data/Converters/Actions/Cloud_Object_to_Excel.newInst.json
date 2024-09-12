@@ -29,7 +29,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "Converts a Cloud Object or a Cloud Object List to an Excel file.\nEach Cloud Object will be represented on a single line in the Excel file.\n\n## Example\n\n(For readability purposes, the Cloud Object List is represented as a JSON, and the Excel file as a CSV)\n<br><br>\nCloud Objects: \n```\n[\n  {\"firstname\":\"john\", \"lastname\":\"doe\"},\n  {\"firstname\":\"jane\", \"lastname\":\"doe\"}\n]\n```\nResulting Excel:\n```\nfirstname,lastname\njohn,doe\njane,doe\n```"
+    "01703376c4a81c0e9d92": "Converts a Cloud Object or a Cloud Object List to an Excel file.\nEach Cloud Object will be represented on a single line in the Excel file.\n\n## Example\n\n(For readability purposes, the Cloud Object List is represented as a JSON, and the Excel file as a CSV)\n<br>\nCloud Objects: \n```\n[\n  {\"firstname\":\"john\", \"lastname\":\"doe\"},\n  {\"firstname\":\"jane\", \"lastname\":\"doe\"}\n]\n```\nResulting Excel:\n```\nfirstname,lastname\njohn,doe\njane,doe\n```"
    },
    "t": "018ec6e237cf24da830d"
   },

@@ -44,7 +44,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Converts a string to a datetime using provided format",
-    "01703376c4a81c0e9d92": "Converts a string to a datetime using the provided <a href=\"https://date-fns.org/v2.29.3/docs/parse/\" target=\"_blank\">format</a>.\n\n<br>\n**Examples:**\n\n- \"2010-10-20 04:30:22\" can be parsed using format \"yyyy-MM-dd HH:mm:ss\"\n- \"2024-05-29T00:00:00.000Z\" can be parsed using format \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"\n",
+    "01703376c4a81c0e9d92": "Converts a string to a datetime using the provided <a href=\"https://date-fns.org/v2.29.3/docs/parse/\" target=\"_blank\">format</a>.\n\n\n**Examples:**\n\n- \"2010-10-20 04:30:22\" can be parsed using format \"yyyy-MM-dd HH:mm:ss\"\n- \"2024-05-29T00:00:00.000Z\" can be parsed using format \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"\n",
     "v": 129
    },
    "t": "017b35893b30ca73b85e"

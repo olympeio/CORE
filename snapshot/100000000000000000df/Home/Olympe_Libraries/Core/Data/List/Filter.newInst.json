@@ -33,7 +33,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Creates a new list with all items that pass the test of the predicate function.",
-    "01703376c4a81c0e9d92": "The filter brick creates a new list that contains all items for which the provided function (predicate) returns `true` and so pass the test.\n\n<br>\nThe output control flow is triggered when all items have been processed.\n\n<br>\nIn other words, `Filter` selects some elements of a list and is equivalent to Javascript's <a href=\"https://medium.com/@JeffLombardJr/understanding-foreach-map-filter-and-find-in-javascript-f91da93b9f2c\" target=\"_blank\">filter()</a>\n\n\n## Example:\n- inputs\n  1. list = `[\"spray\", \"limit\", \"elite\", \"exuberant\", \"destruction\", \"present\"]`\n  2. predicate = `(word) => word.length > 6`\n\n- outputs\n  1. filtered list = `[\"exuberant\", \"destruction\", \"present\"]`\n",
+    "01703376c4a81c0e9d92": "The filter brick creates a new list that contains all items for which the provided function (predicate) returns `true` and so pass the test.\n\n\nThe output control flow is triggered when all items have been processed.\n\n\nIn other words, `Filter` selects some elements of a list and is equivalent to Javascript's <a href=\"https://medium.com/@JeffLombardJr/understanding-foreach-map-filter-and-find-in-javascript-f91da93b9f2c\" target=\"_blank\">filter()</a>\n\n\n## Example:\n- inputs\n  1. list = `[\"spray\", \"limit\", \"elite\", \"exuberant\", \"destruction\", \"present\"]`\n  2. predicate = `(word) => word.length > 6`\n\n- outputs\n  1. filtered list = `[\"exuberant\", \"destruction\", \"present\"]`\n",
     "v": 265
    },
    "t": "017cbcf9acf65126e1d0"

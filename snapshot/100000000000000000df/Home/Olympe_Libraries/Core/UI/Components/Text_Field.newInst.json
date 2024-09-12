@@ -38,7 +38,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Text Field lets users enter and edit text.",
-    "01703376c4a81c0e9d92": "Text Field lets users enter and edit text.\nThe component supports specific types, such as number or email but also can also be used as a date picker, color picker (see the `Type` property).\n\n<br><br>\nThe Text Field wrapper component is a complete form control including a label, input, and help text. It comes with three variants: outlined (default), filled, and standard.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.\n<br><br>\nUsing `Border ...` properties may not work as expected with some `Variant` and other combination of properties. In this case use the `MUI sx [json]` property or CODE directly.",
+    "01703376c4a81c0e9d92": "Text Field lets users enter and edit text.\nThe component supports specific types, such as number or email but also can also be used as a date picker, color picker (see the `Type` property).\n\n<br>\nThe Text Field wrapper component is a complete form control including a label, input, and help text. It comes with three variants: outlined (default), filled, and standard.\n<br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.\n<br>\nUsing `Border ...` properties may not work as expected with some `Variant` and other combination of properties. In this case use the `MUI sx [json]` property or CODE directly.",
     "v": 210
    },
    "t": "017c9cfe75c3c934c1eb"

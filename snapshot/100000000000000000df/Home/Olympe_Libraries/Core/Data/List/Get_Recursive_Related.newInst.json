@@ -52,7 +52,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Follows the given relation recursively and returns all objects visited flattened into a list",
-    "01703376c4a81c0e9d92": "**This can be replaced by `Query Object` followed by `Query Follow Relation Recursively**  \n<br>\nIf we have a chain or tree of objects of the same type (or with the same parent type in case of inheritance), e.g. a1->a2->a3 and a2->a4, the function returns all the objects as a single list {a1, a2, a3, a4}",
+    "01703376c4a81c0e9d92": "**This can be replaced by `Query Object` followed by `Query Follow Relation Recursively**  \n\nIf we have a chain or tree of objects of the same type (or with the same parent type in case of inheritance), e.g. a1->a2->a3 and a2->a4, the function returns all the objects as a single list {a1, a2, a3, a4}",
     "v": 123
    },
    "t": "017b35893b67a9a9349e"

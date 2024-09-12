@@ -31,7 +31,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Return a JSON string containing all pending changes",
-    "01703376c4a81c0e9d92": "Return a JSON string containing all pending changes\n\nUseful to make a \"backup\" of the pending changes<br><br>\n\nFeel free to explore the demo app showcasing main offline concepts in this <a href=\"#item=018e5b730217546bb956\">demo application</a><br><br>"
+    "01703376c4a81c0e9d92": "Return a JSON string containing all pending changes\n\nUseful to make a \"backup\" of the pending changes<br>\n\nFeel free to explore the demo app showcasing main offline concepts in this <a href=\"#item=018e5b730217546bb956\">demo application</a><br><br>"
    },
    "t": "018aac9910b69287e7ee"
   },

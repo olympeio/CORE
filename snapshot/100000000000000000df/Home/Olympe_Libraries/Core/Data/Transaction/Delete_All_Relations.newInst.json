@@ -61,7 +61,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Deletes all relations from an object",
-    "01703376c4a81c0e9d92": "Deletes all the relations of the specified type originating from an object. The object the relations to which are being deleted must already exist in the database.\n<br><br>\nLet's take the following data model with two data types, and one relation between them:  \n<br>\n**Data type: Person**\n- Attribute 1: name (string)\n- Relation 1: owns (Car)\n<br>\n**Data type: Car**\n- Attribute 1: brand (string)\n<br>\n\nIf a Person `p` `owns` two cars `c1` and `c2`, both relations can be deleted at once by setting the following inputs:\n- origin: `p`\n- relation: `Person -> owns`\n\n<br>\nExecute atomically a transaction at the data source and return the transaction result if succeeds. The large mode sends the transaction over HTTP.\n",
+    "01703376c4a81c0e9d92": "Deletes all the relations of the specified type originating from an object. The object the relations to which are being deleted must already exist in the database.\n<br>\nLet's take the following data model with two data types, and one relation between them:  \n\n**Data type: Person**\n- Attribute 1: name (string)\n- Relation 1: owns (Car)\n\n**Data type: Car**\n- Attribute 1: brand (string)\n\n\nIf a Person `p` `owns` two cars `c1` and `c2`, both relations can be deleted at once by setting the following inputs:\n- origin: `p`\n- relation: `Person -> owns`\n\n\nExecute atomically a transaction at the data source and return the transaction result if succeeds. The large mode sends the transaction over HTTP.\n",
     "v": 108
    },
    "t": "017b35893b6c85c7ff84"

@@ -15,7 +15,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Execute a function for each element of a list.",
-    "01703376c4a81c0e9d92": "Execute the specified function to each element of the list. Unlike `For Each`, `Continuous For Each` keeps all elements in memory and reacts to changes in the content of the list. It will therefore run the `iterator` function on *current* and *future* elements of the list.\n\n<br>\nThis functions similarly to Javascript's <a href=\"https://medium.com/@JeffLombardJr/understanding-foreach-map-filter-and-find-in-javascript-f91da93b9f2c\" target=\"_blank\">forEach()</a>\n\n",
+    "01703376c4a81c0e9d92": "Execute the specified function to each element of the list. Unlike `For Each`, `Continuous For Each` keeps all elements in memory and reacts to changes in the content of the list. It will therefore run the `iterator` function on *current* and *future* elements of the list.\n\n\nThis functions similarly to Javascript's <a href=\"https://medium.com/@JeffLombardJr/understanding-foreach-map-filter-and-find-in-javascript-f91da93b9f2c\" target=\"_blank\">forEach()</a>\n\n",
     "v": 368
    },
    "t": "017c9e052156780cfb63"

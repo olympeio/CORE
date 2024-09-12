@@ -39,7 +39,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Dropdown is used for collecting value from a list of options.",
-    "01703376c4a81c0e9d92": "The Dropdown component are used for collecting user provided information from a list of options. It can either take an `Enum`, or a list of Objects together with an `Object to String` conversion function.\n<br><br>\nThe Dropdown also supports multiple selection, see property `Multiple` below.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.\n<br><br>\nUsing `Border ...` properties may not work as expected with some `Variant` and other combination of properties. In this case use the `MUI sx [json]` property or CODE directly.",
+    "01703376c4a81c0e9d92": "The Dropdown component are used for collecting user provided information from a list of options. It can either take an `Enum`, or a list of Objects together with an `Object to String` conversion function.\n<br>\nThe Dropdown also supports multiple selection, see property `Multiple` below.\n<br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.\n<br>\nUsing `Border ...` properties may not work as expected with some `Variant` and other combination of properties. In this case use the `MUI sx [json]` property or CODE directly.",
     "v": 3
    },
    "t": "017c9dc1ef9ad716dc6f"

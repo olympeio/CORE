@@ -319,7 +319,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Updates the URL state with 2 'key-value' pairs",
-    "01703376c4a81c0e9d92": "Allows to update or add 2 key-value pairs in the URL state, thereby modifying the route<br><br>\nIf the provided keys already exist in the state, the brick will replace the existing values with the new ones. However, if the key is not found in the state, the function will insert the key-value pair into the URL.\n\nThe brick also pushes a new navigation state. \n\n**Examples**:\n1. state: tab=first<ol>\n- key1: menu<br>\n- value1: demand<br>\n- key2: category<br>\n- value2: contracts</ol>\nPushed state: tab=first;menu=demand;category=contracts\n\n2. state: tab=first<ol>\n- key1: menu<br>\n- value1: balance<br>\n- key2: category<br>\n- value2: models</ol>\nPushed state: tab=first;menu=balance;category=models\n"
+    "01703376c4a81c0e9d92": "Allows to update or add 2 key-value pairs in the URL state, thereby modifying the route<br>\nIf the provided keys already exist in the state, the brick will replace the existing values with the new ones. However, if the key is not found in the state, the function will insert the key-value pair into the URL.\n\nThe brick also pushes a new navigation state. \n\n**Examples**:\n1. state: tab=first<ol>\n- key1: menu\n- value1: demand\n- key2: category\n- value2: contracts</ol>\nPushed state: tab=first;menu=demand;category=contracts\n\n2. state: tab=first<ol>\n- key1: menu\n- value1: balance\n- key2: category\n- value2: models</ol>\nPushed state: tab=first;menu=balance;category=models\n"
    },
    "t": "0188234d7095a855f62a"
   },

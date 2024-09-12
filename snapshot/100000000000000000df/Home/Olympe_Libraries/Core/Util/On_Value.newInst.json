@@ -43,7 +43,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Triggers a control-flow on value change.",
-    "01703376c4a81c0e9d92": "This functions triggers the output control flow every time the value of the input data flow changes.  \n<br>\n*Advanced Usage Note: changes are detected in the vast majority of cases, but some exceptions may occur. This can happen when the brick providing the `Value` input modifies a given object instead of generating new objects (ex: the same Array is sent multiple times, but with updated content). Make sure that a new object is sent each time.*\n  ",
+    "01703376c4a81c0e9d92": "This functions triggers the output control flow every time the value of the input data flow changes.  \n\n*Advanced Usage Note: changes are detected in the vast majority of cases, but some exceptions may occur. This can happen when the brick providing the `Value` input modifies a given object instead of generating new objects (ex: the same Array is sent multiple times, but with updated content). Make sure that a new object is sent each time.*\n  ",
     "v": 1267
    },
    "t": "017b35893ba124cf483c"

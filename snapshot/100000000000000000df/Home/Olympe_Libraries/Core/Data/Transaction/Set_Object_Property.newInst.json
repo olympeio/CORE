@@ -70,7 +70,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Set an Object property",
-    "01703376c4a81c0e9d92": "Updates the value of a property of an object<br><br>\n\n`Set Object Property` with:\n- `object`: p\n- `property`: Person.name\n- `value`: 'John'\n\nis equivalent in code to:\n```\n// p is of type Person;\np.name = 'John';\n```\n",
+    "01703376c4a81c0e9d92": "Updates the value of a property of an object<br>\n\n`Set Object Property` with:\n- `object`: p\n- `property`: Person.name\n- `value`: 'John'\n\nis equivalent in code to:\n```\n// p is of type Person;\np.name = 'John';\n```\n",
     "v": 109
    },
    "t": "017b35893b6a6eca66c0"

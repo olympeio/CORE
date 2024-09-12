@@ -40,7 +40,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "A divider is a thin line.",
-    "01703376c4a81c0e9d92": "A divider is a thin line that groups content in lists and layouts. You can change the color with the `Border Color` property.\n<br><br>\n`Border Radius` defines the radius at the corners of the divider\n`Border Width` defines the thickness of the divider\n`On Click` event is not triggered on this component.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.",
+    "01703376c4a81c0e9d92": "A divider is a thin line that groups content in lists and layouts. You can change the color with the `Border Color` property.\n<br>\n`Border Radius` defines the radius at the corners of the divider\n`Border Width` defines the thickness of the divider\n`On Click` event is not triggered on this component.\n<br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.",
     "v": 520
    },
    "t": "017ccb7280a2ca3b5e12"

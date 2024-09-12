@@ -33,7 +33,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Remove an item from the json by path",
-    "01703376c4a81c0e9d92": "Removes an element from a JSON object or string specified by the property path.\n\nThe path is specified in dotted form. To remove an element inside an array, the property needs to be included inside brackets, e.g. '[name]'.\n<br>\n<br>\n**Examples**:\n```\nRemoveFromJSON({ \"a\": { \"b\": \"hello\"}, \"c\": \"coucou\" }, 'a.b') -> { \"a\": { }, \"c\": \"coucou\" }\n\nRemoveFromJSON({ \"a\": [ { \"b\": \"hello\", c: \"boo 1\" }, { \"b\": \"coucou\" , c: \"boo 2\"  } ] }, 'a.[b]') -> { \"a\": [ { c: \"boo 1\" }, { c: \"boo 2\"  } ] }\n\nRemoveFromJSON([{ \"name\" : \"House\", \"doors\" : 2 } ,  { \"name\" : \"House\", \"doors\" : 4 }], [name] ) -> [ {\"doors\": 2} ,  { \"doors\": 4 } ]\n```\n\nIf the path was not found the result would be null and Error Flow would be triggered.\n",
+    "01703376c4a81c0e9d92": "Removes an element from a JSON object or string specified by the property path.\n\nThe path is specified in dotted form. To remove an element inside an array, the property needs to be included inside brackets, e.g. '[name]'.\n\n\n**Examples**:\n```\nRemoveFromJSON({ \"a\": { \"b\": \"hello\"}, \"c\": \"coucou\" }, 'a.b') -> { \"a\": { }, \"c\": \"coucou\" }\n\nRemoveFromJSON({ \"a\": [ { \"b\": \"hello\", c: \"boo 1\" }, { \"b\": \"coucou\" , c: \"boo 2\"  } ] }, 'a.[b]') -> { \"a\": [ { c: \"boo 1\" }, { c: \"boo 2\"  } ] }\n\nRemoveFromJSON([{ \"name\" : \"House\", \"doors\" : 2 } ,  { \"name\" : \"House\", \"doors\" : 4 }], [name] ) -> [ {\"doors\": 2} ,  { \"doors\": 4 } ]\n```\n\nIf the path was not found the result would be null and Error Flow would be triggered.\n",
     "v": 39
    },
    "t": "017fb761f7b3e999b9ba"

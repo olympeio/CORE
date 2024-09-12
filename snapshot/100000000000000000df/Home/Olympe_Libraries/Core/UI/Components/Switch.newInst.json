@@ -20,7 +20,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Switch toggles the state of a single setting on or off.",
-    "01703376c4a81c0e9d92": "Switches are the preferred way to adjust settings on mobile. The option that the switch controls, as well as the state it's in, should be made clear from the corresponding inline label.\n<br><br>\nIf you have multiple options appearing in a list, you can preserve space by using checkboxes instead of on/off switches. If you have a single option, avoid using a checkbox and use an on/off switch instead.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.\n<br><br>\n`Border Color` and `Border Width` have no effect on this component.",
+    "01703376c4a81c0e9d92": "Switches are the preferred way to adjust settings on mobile. The option that the switch controls, as well as the state it's in, should be made clear from the corresponding inline label.\n<br>\nIf you have multiple options appearing in a list, you can preserve space by using checkboxes instead of on/off switches. If you have a single option, avoid using a checkbox and use an on/off switch instead.\n<br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.\n<br>\n`Border Color` and `Border Width` have no effect on this component.",
     "v": 3
    },
    "t": "017c9e0e9f70d344d595"

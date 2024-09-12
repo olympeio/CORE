@@ -33,7 +33,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Execute a provided function once for each list item.",
-    "01703376c4a81c0e9d92": "Executes the provided iterator function once for each item of the provided list.\n\n<br>\nThe output control flow is triggered when all items have been processed.\n\n<br>\nThis functions similarly to Javascript's <a href=\"https://medium.com/@JeffLombardJr/understanding-foreach-map-filter-and-find-in-javascript-f91da93b9f2c\" target=\"_blank\">forEach()</a>",
+    "01703376c4a81c0e9d92": "Executes the provided iterator function once for each item of the provided list.\n\n\nThe output control flow is triggered when all items have been processed.\n\n\nThis functions similarly to Javascript's <a href=\"https://medium.com/@JeffLombardJr/understanding-foreach-map-filter-and-find-in-javascript-f91da93b9f2c\" target=\"_blank\">forEach()</a>",
     "v": 360
    },
    "t": "017cbcf7d28c61973e41"

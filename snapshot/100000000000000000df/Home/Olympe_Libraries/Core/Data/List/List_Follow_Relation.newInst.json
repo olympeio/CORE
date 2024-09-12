@@ -52,7 +52,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Returns the list of objects linked via the given relation for all elements in the list.",
-    "01703376c4a81c0e9d92": "**This can be replaced by `Query Follow Relation`**  \n<br>\nThis is the list equivalent of Get Related Objects. If we have a list containing {a1,a2, a3}, and we have a1->b1, a2->b2, a2->b3, a3->b4, this function returns {b1, b2, b3, b4}.",
+    "01703376c4a81c0e9d92": "**This can be replaced by `Query Follow Relation`**  \n\nThis is the list equivalent of Get Related Objects. If we have a list containing {a1,a2, a3}, and we have a1->b1, a2->b2, a2->b3, a3->b4, this function returns {b1, b2, b3, b4}.",
     "v": 26
    },
    "t": "017b35893b5348842379"

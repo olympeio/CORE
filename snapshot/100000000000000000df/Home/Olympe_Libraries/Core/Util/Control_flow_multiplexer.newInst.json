@@ -42,7 +42,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Joins two control flows into one.",
-    "01703376c4a81c0e9d92": "Creates a new control flow by joining two different control flows. The resulting flow is triggered whenever one of the inputs is triggered.\n\nSee also `Combine Latest Events`.\n\n<br>\n<details style=\"border: 1px solid #aaa; border-radius: 4px; padding: .5em .5em;\">\n<summary>Source Code Implementation</summary>\n<br>\n<a href=\"https://github.com/olympeio/CORE/blob/master/src/core/util/ControlFlowMultiplexer.js\" target=\"_blank\">Open it in a new tab</a>\n<iframe style=\"display: block; margin-top:1em; margin-left:auto; margin-right:auto; border-style: none; height:400px; width:97%;\" src=\"\nhttps://git-repo-gist.herokuapp.com/framed/olympeio/CORE/master/src/core/util/ControlFlowMultiplexer.js\"></iframe>\n</details>\n",
+    "01703376c4a81c0e9d92": "Creates a new control flow by joining two different control flows. The resulting flow is triggered whenever one of the inputs is triggered.\n\nSee also `Combine Latest Events`.\n\n\n<details style=\"border: 1px solid #aaa; border-radius: 4px; padding: .5em .5em;\">\n<summary>Source Code Implementation</summary>\n\n<a href=\"https://github.com/olympeio/CORE/blob/master/src/core/util/ControlFlowMultiplexer.js\" target=\"_blank\">Open it in a new tab</a>\n<iframe style=\"display: block; margin-top:1em; margin-left:auto; margin-right:auto; border-style: none; height:400px; width:97%;\" src=\"\nhttps://git-repo-gist.herokuapp.com/framed/olympeio/CORE/master/src/core/util/ControlFlowMultiplexer.js\"></iframe>\n</details>\n",
     "v": 625
    },
    "t": "017b35893ba19617f52d"

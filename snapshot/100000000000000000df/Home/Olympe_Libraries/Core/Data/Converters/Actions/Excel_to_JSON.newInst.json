@@ -30,7 +30,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Converts an Excel file to JSON",
-    "01703376c4a81c0e9d92": "Converts an Excel file to JSON. Each line of the Excel file in `Sheet Name` sheet will be represented as a JSON object.\n\n## Example\n\n(For readability purposes, the Excel file is represented as CSV)\n<br><br>\nExcel file:\n```\nfirstname,lastname\njohn,doe\njane,doe\n```\nResulting JSON: \n```\n[\n  {\"firstname\":\"john\", \"lastname\":\"doe\"},\n  {\"firstname\":\"jane\", \"lastname\":\"doe\"}\n]\n```\n"
+    "01703376c4a81c0e9d92": "Converts an Excel file to JSON. Each line of the Excel file in `Sheet Name` sheet will be represented as a JSON object.\n\n## Example\n\n(For readability purposes, the Excel file is represented as CSV)\n<br>\nExcel file:\n```\nfirstname,lastname\njohn,doe\njane,doe\n```\nResulting JSON: \n```\n[\n  {\"firstname\":\"john\", \"lastname\":\"doe\"},\n  {\"firstname\":\"jane\", \"lastname\":\"doe\"}\n]\n```\n"
    },
    "t": "018ed03de64cdb42cd39"
   },

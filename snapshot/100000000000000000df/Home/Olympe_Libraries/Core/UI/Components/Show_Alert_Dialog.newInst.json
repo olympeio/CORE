@@ -33,7 +33,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Alerts are urgent interruptions, requiring acknowledgement, that inform the user about a situation.",
-    "01703376c4a81c0e9d92": "Alerts are urgent interruptions, requiring acknowledgement, that inform the user about a situation.\n<br><br>\nMost alerts don't need titles. They summarize a decision in a sentence or two.\n<br><br>\nUse title bar alerts only for high-risk situations, such as the potential loss of connectivity. Users should be able to understand the choices based on the title and button text alone.\n<br><br>\nThis action `Title` and `Text Content` properties accept markdown formatting, see the `Label` component documentation for more information.\n<br><br>\nYou can do 3 kind of dialog with this action:\n1. Alert: `Cancel Text` must be empty\n2. Confirm: `Cancel Text` must be defined\n3. Form: `TextField Type` must be defined",
+    "01703376c4a81c0e9d92": "Alerts are urgent interruptions, requiring acknowledgement, that inform the user about a situation.\n<br>\nMost alerts don't need titles. They summarize a decision in a sentence or two.\n<br>\nUse title bar alerts only for high-risk situations, such as the potential loss of connectivity. Users should be able to understand the choices based on the title and button text alone.\n<br>\nThis action `Title` and `Text Content` properties accept markdown formatting, see the `Label` component documentation for more information.\n<br>\nYou can do 3 kind of dialog with this action:\n1. Alert: `Cancel Text` must be empty\n2. Confirm: `Cancel Text` must be defined\n3. Form: `TextField Type` must be defined",
     "v": 436
    },
    "t": "017cdfb8ed32ca1ad167"

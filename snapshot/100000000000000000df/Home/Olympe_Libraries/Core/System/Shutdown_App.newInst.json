@@ -14,7 +14,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Causes the running process to exit",
-    "01703376c4a81c0e9d92": "Sends the SIGTERM signal to the running NodeJS process.\n<br>\n<br>\nThis can be used to shutdown a running service app. If the app is running on Kubernetes it will typically trigger a restart of the app."
+    "01703376c4a81c0e9d92": "Sends the SIGTERM signal to the running NodeJS process.\n\n\nThis can be used to shutdown a running service app. If the app is running on Kubernetes it will typically trigger a restart of the app."
    },
    "t": "0189317c4e548071152c"
   },

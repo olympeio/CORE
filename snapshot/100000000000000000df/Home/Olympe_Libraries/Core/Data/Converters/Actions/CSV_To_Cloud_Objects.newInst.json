@@ -30,7 +30,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Converts a CSV File to a Cloud Object /Cloud Object List",
-    "01703376c4a81c0e9d92": "Converts a CSV file to a Cloud Object / Cloud Object List\nEach line on the CSV will be represented as a single Cloud Object matching the `Business Model` input\n\n## Example\n\n(For readability purposes, the Cloud Object List is represented as a JSON)\n<br><br>\nCSV file input:\n```\nfirstname,lastname\njohn,doe\njane,doe\n```\n<br>\nResulting Cloud Objects: \n```\n[\n  {\"firstname\":\"john\", \"lastname\":\"doe\"},\n  {\"firstname\":\"jane\", \"lastname\":\"doe\"}\n]\n```\n"
+    "01703376c4a81c0e9d92": "Converts a CSV file to a Cloud Object / Cloud Object List\nEach line on the CSV will be represented as a single Cloud Object matching the `Business Model` input\n\n## Example\n\n(For readability purposes, the Cloud Object List is represented as a JSON)\n<br>\nCSV file input:\n```\nfirstname,lastname\njohn,doe\njane,doe\n```\n\nResulting Cloud Objects: \n```\n[\n  {\"firstname\":\"john\", \"lastname\":\"doe\"},\n  {\"firstname\":\"jane\", \"lastname\":\"doe\"}\n]\n```\n"
    },
    "t": "018ecae8044bbd567894"
   },

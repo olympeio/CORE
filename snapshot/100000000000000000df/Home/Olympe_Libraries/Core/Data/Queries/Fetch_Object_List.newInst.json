@@ -217,7 +217,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Fetch instances of a data type.",
-    "01703376c4a81c0e9d92": "Gets a list of all the instances of a given data type. It is a shorthand for `Query Instances Of` followed by `Execute Query`.  \n<br>\nThe list is refreshed every time the control flow is triggered. If you need continuous updates, consider using `Get Object List` instead.  \n<br>\nIf other data types inherit from the selected, instances of those data types are returned as well (for example: asking for `Vehicle` will include `Car` and `Truck`)",
+    "01703376c4a81c0e9d92": "Gets a list of all the instances of a given data type. It is a shorthand for `Query Instances Of` followed by `Execute Query`.  \n\nThe list is refreshed every time the control flow is triggered. If you need continuous updates, consider using `Get Object List` instead.  \n\nIf other data types inherit from the selected, instances of those data types are returned as well (for example: asking for `Vehicle` will include `Car` and `Truck`)",
     "v": 926
    },
    "t": "01872f10aec7c911af6e"

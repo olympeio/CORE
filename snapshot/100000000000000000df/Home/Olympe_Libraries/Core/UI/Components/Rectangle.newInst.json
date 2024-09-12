@@ -25,7 +25,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "An empty component.",
-    "01703376c4a81c0e9d92": "An empty component that can be used as a rectangle, a spacer, an empty `div`, ...\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.",
+    "01703376c4a81c0e9d92": "An empty component that can be used as a rectangle, a spacer, an empty `div`, ...\n<br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.",
     "v": 3
    },
    "t": "017cc0cfaca690f2f83d"

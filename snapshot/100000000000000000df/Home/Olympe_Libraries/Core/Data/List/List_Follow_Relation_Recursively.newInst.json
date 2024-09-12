@@ -61,7 +61,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Returns the list of objects linked via the given relation recursively for all elements in the list.",
-    "01703376c4a81c0e9d92": "**This can be replaced by `Query Follow Relation Recursively**  \n<br>\nThis is the list equivalent of Get Recursive Related. ",
+    "01703376c4a81c0e9d92": "**This can be replaced by `Query Follow Relation Recursively**  \n\nThis is the list equivalent of Get Recursive Related. ",
     "v": 5
    },
    "t": "017b35893b58956481f0"

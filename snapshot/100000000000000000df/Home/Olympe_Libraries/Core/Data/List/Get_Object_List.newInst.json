@@ -34,7 +34,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Get instances of a model.",
-    "01703376c4a81c0e9d92": "**This can be replaced either by the action `Fetch Object List` or by the function `Get Object List`.**  \n<br>\nGets a list of all the instances of a given model.",
+    "01703376c4a81c0e9d92": "**This can be replaced either by the action `Fetch Object List` or by the function `Get Object List`.**  \n\nGets a list of all the instances of a given model.",
     "v": 186
    },
    "t": "017b35893b680b22bcfe"

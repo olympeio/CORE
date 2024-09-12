@@ -33,7 +33,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Clickable component to trigger an action",
-    "01703376c4a81c0e9d92": "Buttons allow users to take actions and make choices with a single tap.\n<br><br>\nAvailable start and end icons can be found in the list of <a href=\"https://fonts.google.com/icons?selected=Material+Icons:home\" target=\"_blank\">Material Icons</a>. Click on the desired icon and copy its name in one of the `Start Icon` or `End Icon` property.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more \n<a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.",
+    "01703376c4a81c0e9d92": "Buttons allow users to take actions and make choices with a single tap.\n<br>\nAvailable start and end icons can be found in the list of <a href=\"https://fonts.google.com/icons?selected=Material+Icons:home\" target=\"_blank\">Material Icons</a>. Click on the desired icon and copy its name in one of the `Start Icon` or `End Icon` property.\n<br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more \n<a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.",
     "v": 111
    },
    "t": "017c9cdd2caf8fd9f7fb"

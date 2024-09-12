@@ -18,7 +18,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "A touchpad component.",
-    "01703376c4a81c0e9d92": "Allows capturing mouse movements and multi-touch movements.\n<br><br>\n<b>Note</b>: Touchpad is typically implemented using the <b>`Feed Object Property / Feed UI Property`</b> bricks (instead of Set Object Property/Set UI Property) due to their burst transactions nature which allows behaving more like a function rather than as an action, having a more efficient update mechanism.",
+    "01703376c4a81c0e9d92": "Allows capturing mouse movements and multi-touch movements.\n<br>\n<b>Note</b>: Touchpad is typically implemented using the <b>`Feed Object Property / Feed UI Property`</b> bricks (instead of Set Object Property/Set UI Property) due to their burst transactions nature which allows behaving more like a function rather than as an action, having a more efficient update mechanism.",
     "v": 333
    },
    "t": "017ce5f4bb13d6367577"

@@ -52,7 +52,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Get platform information.",
-    "01703376c4a81c0e9d92": "Retrieves information about the underlying platform, like operating system and browser name, and detects if a device is mobile. Gets data from navigator.userAgent (a Navigator object can be retrieved using the read-only window.navigator property).\n<br>\n<b><u><i>Exampe:</b></u></i><br>If userAgent is:<br> <b>Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1</b>, \n<br>The brick will output:<br>\nOS Version = 16.6.0\n<br>\nOS = IOS\n<br>\nBrowser Version = 16.6\n<br>\nBrowser = Safari\n<br>\nisMobile = true",
+    "01703376c4a81c0e9d92": "Retrieves information about the underlying platform, like operating system and browser name, and detects if a device is mobile. Gets data from navigator.userAgent (a Navigator object can be retrieved using the read-only window.navigator property).\n\n<b><u><i>Exampe:</b></u></i><br>If userAgent is:<br> <b>Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1</b>, \n<br>The brick will output:\nOS Version = 16.6.0\n\nOS = IOS\n\nBrowser Version = 16.6\n\nBrowser = Safari\n\nisMobile = true",
     "v": 1
    },
    "t": "017b35893b85be27a3e8"

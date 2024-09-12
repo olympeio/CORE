@@ -92,7 +92,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Triggers the execution of a query and cache its result for future offline use.",
-    "01703376c4a81c0e9d92": "Runs the query. The output `query result` contains an ordered list of objects matching the query.\n\nUnlike `Offline: Observe and Cache Query`, `Offline: Execute and Cache Query` produces a single result, valid at the time of execution.\n\nIf the query is done when online, the result is saved in the cache entry using the `cache id` if provided. This allow the data to be queryable in the future even offline. (see `Offline: Clear Cache Entry` to clear the entry). <br><br>\n\nFeel free to explore the demo app showcasing main offline concepts in this <a href=\"#item=018e5b730217546bb956\">demo application</a><br><br>",
+    "01703376c4a81c0e9d92": "Runs the query. The output `query result` contains an ordered list of objects matching the query.\n\nUnlike `Offline: Observe and Cache Query`, `Offline: Execute and Cache Query` produces a single result, valid at the time of execution.\n\nIf the query is done when online, the result is saved in the cache entry using the `cache id` if provided. This allow the data to be queryable in the future even offline. (see `Offline: Clear Cache Entry` to clear the entry). <br>\n\nFeel free to explore the demo app showcasing main offline concepts in this <a href=\"#item=018e5b730217546bb956\">demo application</a><br><br>",
     "v": 371
    },
    "t": "0189f81388d3da351e4a"

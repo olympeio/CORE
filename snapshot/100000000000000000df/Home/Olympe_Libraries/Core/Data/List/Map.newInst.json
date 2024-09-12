@@ -33,7 +33,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Creates a new list with the results the provided function called for every item of the list.",
-    "01703376c4a81c0e9d92": "The `Map` brick creates a new list which items are the result values of the provided function (mapper) execution on every item of the original provided list.\n\n<br>\nIn other words, `Map` transforms each element of a list and is equivalent to Javascript's <a href=\"https://medium.com/@JeffLombardJr/understanding-foreach-map-filter-and-find-in-javascript-f91da93b9f2c\" target=\"_blank\">map()</a>\n\n<br>\nThe output control flow is triggered when all items have been processed.\n\n## Example:\n- inputs:\n  1. list: `[1, 4, 9, 16]`\n  2. mapper: `(x) => x * 2`\n\n- outputs:\n  1. resulting list: [2, 8, 18, 32]\n",
+    "01703376c4a81c0e9d92": "The `Map` brick creates a new list which items are the result values of the provided function (mapper) execution on every item of the original provided list.\n\n\nIn other words, `Map` transforms each element of a list and is equivalent to Javascript's <a href=\"https://medium.com/@JeffLombardJr/understanding-foreach-map-filter-and-find-in-javascript-f91da93b9f2c\" target=\"_blank\">map()</a>\n\n\nThe output control flow is triggered when all items have been processed.\n\n## Example:\n- inputs:\n  1. list: `[1, 4, 9, 16]`\n  2. mapper: `(x) => x * 2`\n\n- outputs:\n  1. resulting list: [2, 8, 18, 32]\n",
     "v": 214
    },
    "t": "017cbcf6e6de26dd42dd"

@@ -42,7 +42,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Concatenates two strings.",
-    "01703376c4a81c0e9d92": "Produces a new string that is the result of concatenating the two provided strings.  \n<br>\n**Example:**\n<br>  \ns1 = \"Hello\"  \ns2 = \" World\"  \nConcat s1+s2 = \"Hello World\"\n\n",
+    "01703376c4a81c0e9d92": "Produces a new string that is the result of concatenating the two provided strings.  \n\n**Example:**\n<br>  \ns1 = \"Hello\"  \ns2 = \" World\"  \nConcat s1+s2 = \"Hello World\"\n\n",
     "v": 90
    },
    "t": "017b35893b9b4a3b28e8"

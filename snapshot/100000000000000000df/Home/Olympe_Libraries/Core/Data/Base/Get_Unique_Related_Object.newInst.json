@@ -43,7 +43,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Gets the first object connected to the specified object by a relation.",
-    "01703376c4a81c0e9d92": "Retrieves the first object connected to the specified object via the specified relation (see `Query Follow Relation From Object`).\n<br>\nThis is a shortcut for `Query Follow Relation From Object` -> `Observe Query` -> `Get First Object In List`.\n<br>\nNote: The relation can be followed in any direction, so if we have A -> B we can retrieve the first instance of A linked to a given instance of B, or the first instance of B linked to a given instance of A.\n",
+    "01703376c4a81c0e9d92": "Retrieves the first object connected to the specified object via the specified relation (see `Query Follow Relation From Object`).\n\nThis is a shortcut for `Query Follow Relation From Object` -> `Observe Query` -> `Get First Object In List`.\n\nNote: The relation can be followed in any direction, so if we have A -> B we can retrieve the first instance of A linked to a given instance of B, or the first instance of B linked to a given instance of A.\n",
     "v": 84
    },
    "t": "017b35893b4e290377f6"

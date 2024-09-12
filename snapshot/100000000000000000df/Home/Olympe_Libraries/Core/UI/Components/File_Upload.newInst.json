@@ -28,7 +28,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": " Let the user choose one or more files from their device storage.",
-    "01703376c4a81c0e9d92": "Let the user choose one or more files from their device storage. Either by clicking on the component or by drag&drop.\n<br><br>\nThe `Custom Renderer` property allow you to fully customise the File Upload component.\n<br><br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.\n<br><br>\nUsing `Border ...` properties may not work as expected with some `Variant` and other combination of properties. In this case use the `MUI sx [json]` property or CODE directly.",
+    "01703376c4a81c0e9d92": "Let the user choose one or more files from their device storage. Either by clicking on the component or by drag&drop.\n<br>\nThe `Custom Renderer` property allow you to fully customise the File Upload component.\n<br>\nThe `MUI sx [json]` property is for advanced customization of the underlying MUI component, see more <a href=\"https://mui.com/system/the-sx-prop/\" target=\"_blank\">here</a>.\n<br>\nUsing `Border ...` properties may not work as expected with some `Variant` and other combination of properties. In this case use the `MUI sx [json]` property or CODE directly.",
     "v": 184
    },
    "t": "017d23e8d1eddeaf9693"

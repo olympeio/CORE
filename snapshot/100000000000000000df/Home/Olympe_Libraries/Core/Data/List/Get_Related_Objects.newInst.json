@@ -43,7 +43,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Get a list of objects connected to the specified object by a relation.",
-    "01703376c4a81c0e9d92": "**This can be replaced by `Query Follow Relation From Object`**  \n<br>\nGenerates a list of all the objects that are connected to the specified object via a relation.",
+    "01703376c4a81c0e9d92": "**This can be replaced by `Query Follow Relation From Object`**  \n\nGenerates a list of all the objects that are connected to the specified object via a relation.",
     "v": 26
    },
    "t": "017b35893b55534cfb04"

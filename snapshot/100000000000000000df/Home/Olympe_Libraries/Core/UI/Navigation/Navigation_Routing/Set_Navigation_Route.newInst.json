@@ -181,7 +181,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Updates the URL state with a 'key-value'",
-    "01703376c4a81c0e9d92": "Allows to update or add a new key-value pair in the URL state, thereby modifying the route<br><br>\nIf the provided key already exists in the state, the brick will replace the existing value with the new one. However, if the key is not found in the state, the function will insert the key-value pair into the URL.\nThe brick also pushes a new navigation state. \n\n## Examples:\n1. \n- State: `tab=first`\n- Inputs:\n  * key = `menu`\n  * value =  `demand`\n- Pushed state: `menu=demand;tab=first`\n\n2. \n- State: `menu=demand;tab=first`\n- Inputs:\n   * key = `menu`<br>\n   * value =  `balance`<br>\n- Pushed state: `menu=balance;tab=first`\n"
+    "01703376c4a81c0e9d92": "Allows to update or add a new key-value pair in the URL state, thereby modifying the route<br>\nIf the provided key already exists in the state, the brick will replace the existing value with the new one. However, if the key is not found in the state, the function will insert the key-value pair into the URL.\nThe brick also pushes a new navigation state. \n\n## Examples:\n1. \n- State: `tab=first`\n- Inputs:\n  * key = `menu`\n  * value =  `demand`\n- Pushed state: `menu=demand;tab=first`\n\n2. \n- State: `menu=demand;tab=first`\n- Inputs:\n   * key = `menu`\n   * value =  `balance`\n- Pushed state: `menu=balance;tab=first`\n"
    },
    "t": "0188234d9362f29cd600"
   },
