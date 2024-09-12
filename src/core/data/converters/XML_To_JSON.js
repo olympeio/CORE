@@ -17,11 +17,11 @@ export default class XMLToJSON extends Brick {
 
         let xml;
         if (source instanceof OFile) {
-            xml = await new Promise((resolve) => {
-                source.getContentAsString((data) => {
-                    resolve(data);
-                });
-            });
+            try {
+                xml = await source.getContentAsString();
+            } catch (error) {
+                throw ErrorFlow.create('Failed to retrieve the file content: ' + error.message, 1);
+            }
         } else if (typeof source === 'string') {
             xml = source;
         } else {

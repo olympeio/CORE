@@ -1,0 +1,83 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "018aac99052f05cd1afe"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "Offline: Download Pending Changes",
+    "ff023000000000000011": "Offline: Get Pending Changes"
+   },
+   "t": "018aac99052f20328070"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "018aac99052f5aeeb99b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Return a JSON string containing all pending changes",
+    "01703376c4a81c0e9d92": "Return a JSON string containing all pending changes\n\nUseful to make a \"backup\" of the pending changes<br>\n\nFeel free to explore the demo app showcasing main offline concepts in this <a href=\"#item=018e5b730217546bb956\">demo application</a><br><br>"
+   },
+   "t": "018aac9910b69287e7ee"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018aac991111fa4605e3"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018aac99114a5bbb2079"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "changes"
+   },
+   "t": "018aac991eb74a15f388"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Pending changes in a JSON string"
+   },
+   "t": "018aac991f243d1ef697"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "error"
+   },
+   "t": "018aacafecb98b2bba2b"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018aacafed09c850e9a6"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "018aac99052f20328070"
+}

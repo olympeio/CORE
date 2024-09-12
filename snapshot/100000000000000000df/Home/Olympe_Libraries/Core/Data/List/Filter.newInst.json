@@ -1,0 +1,110 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Filter",
+    "ff023000000000000011": "Filter",
+    "v": 2
+   },
+   "t": "017cbcf45dbd504928a2"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "017cbcf45dbeedb9fdde"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow",
+    "v": 1
+   },
+   "t": "017cbcf45dbfe6ddd6b6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Creates a new list with all items that pass the test of the predicate function.",
+    "01703376c4a81c0e9d92": "The filter brick creates a new list that contains all items for which the provided function (predicate) returns `true` and so pass the test.\n\n\nThe output control flow is triggered when all items have been processed.\n\n\nIn other words, `Filter` selects some elements of a list and is equivalent to Javascript's <a href=\"https://medium.com/@JeffLombardJr/understanding-foreach-map-filter-and-find-in-javascript-f91da93b9f2c\" target=\"_blank\">filter()</a>\n\n\n## Example:\n- inputs\n  1. list = `[\"spray\", \"limit\", \"elite\", \"exuberant\", \"destruction\", \"present\"]`\n  2. predicate = `(word) => word.length > 6`\n\n- outputs\n  1. filtered list = `[\"exuberant\", \"destruction\", \"present\"]`\n",
+    "v": 265
+   },
+   "t": "017cbcf9acf65126e1d0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "017cbcf9ad319bb6b12c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "017cbcf9ad56bf386b25"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "list",
+    "v": 1
+   },
+   "t": "017cbcf9b6cfd5447b7f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The original list to iterate on.",
+    "v": 1
+   },
+   "t": "017cbcf9b6fc95a9094d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "predicate",
+    "v": 1
+   },
+   "t": "017cbcf9dffdd70c4b0b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The predicate function that test whether an item is present in the filtered list.<br>Inputs:<br>- `start (Control Flow)`: Triggered when the item is to be processed.<br>- `item (Object)`: The current item of the list.<br>- `rank (Number)`: The rank of the current item.<br>- `list (List)`: The full list being iterated.<br><br>Outputs:<br>- `end (Control Flow)`: Triggered when the processing is completed.<br>- `result (Boolean)`: Set it to `true` if `item` is to be selected by the filter and should be kept in `filtered list`.",
+    "v": 203
+   },
+   "t": "017cbcf9e0215440c84f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "filtered list",
+    "v": 1
+   },
+   "t": "017cbcfa0450f323caf7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The created list with items that pass the test.",
+    "v": 1
+   },
+   "t": "017cbcfa046c638f59d6"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "017cbcf45dbd504928a2"
+}

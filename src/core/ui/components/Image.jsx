@@ -37,11 +37,7 @@ export default class Image extends ReactBrick {
             switchMap(([image, url]) => {
                 // Image file
                 if(image && image instanceof File) {
-                    return from(new Promise((resolve, reject) => {
-                        image.getContentUrl(_url => {
-                            resolve(_url);
-                        }, reject);
-                    }));
+                    return from(image.getContentUrl());
                 }
 
                 // URL
@@ -51,12 +47,8 @@ export default class Image extends ReactBrick {
 
                 // Default image
                 else {
-                    return from(new Promise((resolve, reject) => {
-                        const defaultImage = /** @type {File} */(CloudObject.get('016eb13ba1388f7bdd71'));
-                        defaultImage.getContentUrl(_url => {
-                            resolve(_url);
-                        }, reject);
-                    }));
+                    const defaultImage = /** @type {File} */(CloudObject.get('016eb13ba1388f7bdd71'));
+                    return from(defaultImage.getContentUrl());
                 }
             })
         );

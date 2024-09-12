@@ -10,40 +10,39 @@ export default class CSVToJSON extends Brick {
      * @param {!BrickContext} $
      * @param {*} source
      * @param {function(*)} setResult
-     * @param {function(*)} setErrorFlow
      */
-    async update($, [source], [setResult, setErrorFlow]) {
+    async update($, [source], [setResult]) {
         const logger = getLogger('CSV To JSON');
-
-        let worksheet;
-        if (typeof source == 'string') {
-            // read csv as excel
-            worksheet = XLSX.read(source, {
-                type: 'string',
-                raw: true,
-            });
-        } else if (source instanceof OFile) {
-            worksheet = await new Promise((resolve) => {
-                source.getContentAsString((data) => {
-                    const workbook = XLSX.read(data, {
-                        type: 'string',
-                        cellDates: true,
-                    });
-                    resolve(workbook);
+        
+        try {
+            let worksheet;
+            if (typeof source == 'string') {
+                // read csv as excel
+                worksheet = XLSX.read(source, {
+                    type: 'string',
+                    raw: true,
                 });
-            });
-        } else {
-            logger.error('Provided source is not a string or a File');
-            return;
-        }
+            } else if (source instanceof OFile) {
+                const data = await source.getContentAsString(data);
+                worksheet = XLSX.read(data, {
+                    type: 'string',
+                    cellDates: true,
+                });
+            } else {
+                throw new Error('Provided source is not a string or a File');
+            }
 
-        const csv = worksheet.Sheets.Sheet1;
-        const json = XLSX.utils.sheet_to_json(csv, {});
+            const csv = worksheet.Sheets.Sheet1;
+            const json = XLSX.utils.sheet_to_json(csv, {});
 
-        if (json.length === 0) {
-            setErrorFlow(ErrorFlow.create('Provided source is not a correct csv', 1));
-        } else {
-            setResult(json);
+            if (json.length === 0) {
+                throw new Error('Provided source is not a correct csv');
+            } else {
+                setResult(json);
+            }
+        } catch (error) {
+            logger.error(error);
+            throw ErrorFlow.create(error.message, 1);
         }
     }
 }

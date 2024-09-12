@@ -1,0 +1,160 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Excel to Cloud Objects",
+    "ff023000000000000011": "Excel to Cloud Objects"
+   },
+   "t": "018ecca79692eb5c229e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "018ecca7969389b8405f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "018ecca79693cfaa655a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Converts an Excel file to a Cloud Object / Cloud Object List",
+    "01703376c4a81c0e9d92": "Convert an Excel file to a Cloud Object or a Cloud Object List.\nEach line of the Excel file will be converted into a single Cloud Object instance matching the `Data Type` input.\n\nThe function assumes that the headers in the Excel file are equal to the property names of the Data Type. If you need to convert between them, take a look at [Map JSON to Object](#item=0188202f5925ed8be613)\n\n## Example\n\n(For readability purposes, the Excel File is represented as CSV, and the Cloud Object List is represented as a JSON)\n<br>\nExcel file:\n```\nfirstname,lastname\njohn,doe\njane,doe\n```\nResulting Cloud Object List (property names must match Excel headers)\n```\n[\n  {\"firstname\":\"john\", \"lastname\":\"doe\"},\n  {\"firstname\":\"jane\", \"lastname\":\"doe\"}\n]\n```\n\n"
+   },
+   "t": "018ecca7a03626c2ac2d"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ecca7a0cc04e4ff8c"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ecca7a14fe3da5eaa"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "excel file"
+   },
+   "t": "018ecca7f15cd10d1085"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The Excel file"
+   },
+   "t": "018ecca7f1f07bd8f320"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "data type"
+   },
+   "t": "018ecca8251b70ca916c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The Data Type of the Cloud Objects to be instantiated"
+   },
+   "t": "018ecca825b0fcea117d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "ff023000000000000011": "sheet name"
+   },
+   "t": "018ecca8677e9d5fc3b9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "the name of the sheet in the excel file (defaults to the first one)"
+   },
+   "t": "018ecca8681c79c6302c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 4,
+    "01740c5d4ae4b520dd02": false,
+    "ff023000000000000011": "persist"
+   },
+   "t": "018ecca88ae06b71bef7"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Persist result if the value is true"
+   },
+   "t": "018ecca88b7df44637b8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "cloud objects"
+   },
+   "t": "018ecca8c11556bd5b9d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The resulting Cloud Object / Cloud Object List"
+   },
+   "t": "018ecca8c1aa942197b0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "Error Flow"
+   },
+   "t": "018ecca8e4e44390451b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Error Flow"
+   },
+   "t": "018ecca8e570c78e990d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 5,
+    "01740c5d4ae4b520dd02": "A1",
+    "ff023000000000000011": "range"
+   },
+   "t": "018ef19d78f1ae9d5903"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "A specific range within the Excel sheet to read from. If not specified, the entire sheet is processed.<br>Ex.: 'A1:F4'"
+   },
+   "t": "018ef19d79899c92ec3a"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "018ecca79692eb5c229e"
+}

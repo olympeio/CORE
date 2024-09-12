@@ -1,0 +1,118 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01703376c4a81c0e9d94": "stable",
+    "fdff023000000000000011": "Get Theme From Current Context",
+    "ff023000000000000011": "Get Theme From Current Context",
+    "v": 39
+   },
+   "t": "01833b3f9d45f59eb332"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "theme",
+    "v": 1
+   },
+   "t": "01833b48b47b708dbee8"
+  },
+  {
+   "o": 1,
+   "p": {
+    "ff023000000000000011": "Ascender input",
+    "v": 1
+   },
+   "t": "01833b48b47b953caa1a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "01833b48b47be8c0a5bf"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621f6ab58c2f884654": 19788,
+    "01621f6ab6ac89348f20": 19873,
+    "v": 149
+   },
+   "t": "01833b48c4bd73b68678"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "01833b48c4bd8eee1199"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621f6ab58c2f884654": 20037,
+    "01621f6ab6ac89348f20": 19982,
+    "v": 34
+   },
+   "t": "01833b48d4f43e24c158"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "01833b48d4f465d98014"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "01833b48f033904adb0e"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 1
+   },
+   "t": "01833b49035d7a1a9cbe"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Return the Theme assigned to the current Context",
+    "01703376c4a81c0e9d92": "If a Theme has been assigned to this context or any of its parents, it will be returned by this brick. ",
+    "v": 109
+   },
+   "t": "01833b492022857fe159"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The Theme found in the current context or any of its parents",
+    "v": 68
+   },
+   "t": "01833b49209ec4a36393"
+  },
+  {
+   "o": 1,
+   "p": {
+    "v": 2
+   },
+   "t": "01844225090b366ec719"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "018ec81804d91456d8cc"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01833b3f9d45f59eb332"
+}

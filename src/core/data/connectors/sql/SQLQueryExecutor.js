@@ -307,7 +307,10 @@ export default class SQLQueryExecutor {
             for (const orClausePredicates of predicates) {
                 wrappedBuilder.orWhere((orClauseWrapper) => {
                     for (const objectPredicate of orClausePredicates) {
-                        const sqlColumnName = this.schema.getColumn(table, objectPredicate.property ?? COLUMNS.TAG);
+                        const property = objectPredicate.property // Simple case: predicate on a property
+                            ?? objectPredicate.predicate?.property       // NOT predicate: nested property
+                            ?? COLUMNS.TAG;                              // Tag predicate
+                        const sqlColumnName = this.schema.getColumn(table, property);
                         if (sqlColumnName !== null) {
                             orClauseWrapper.andWhere((andClauseWrapper) => {
                                 const column = this.client.raw('??.??', [this.getTableAlias(index, table), sqlColumnName]);
