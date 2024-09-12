@@ -6,7 +6,7 @@ export default class FormatNumber extends Brick {
      * @override
      * @protected
      * @param {!BrickContext} $
-     * @param {string} n
+     * @param {number} n
      * @param {string} locales
      * @param {*} format
      * @param {string} customization
