@@ -104,7 +104,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Return the value assigned to a given key in the Application Context",
-    "01703376c4a81c0e9d92": "Return the value assigned to a given key in the Application Context.",
+    "01703376c4a81c0e9d92": "Return the value assigned to a given key in the current context. Note that contexts are inherited, so a value assigned in a parent context is visible in the child contexts.",
     "v": 145
    },
    "t": "0184388d4444db4493d7"
