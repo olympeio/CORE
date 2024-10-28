@@ -1,11 +1,13 @@
 import {Knex} from 'knex';
+import { serializeValue } from './_helpers';
 
 /**
  * @param {Knex.QueryBuilder} builder
  * @param {Knex.Raw} column
  * @param {!Object} objectPredicate
+ * @param {string} dialect
  */
-export const parsePredicate = (builder, column, objectPredicate) => {
+export const parsePredicate = (builder, column, objectPredicate, dialect) => {
     switch (objectPredicate.name) {
         case 'CONTAINS':
             contains(builder, column, objectPredicate);
@@ -15,20 +17,20 @@ export const parsePredicate = (builder, column, objectPredicate) => {
             break;
         case 'NOT':
             builder.whereNot((notBuilder) => {
-                parsePredicate(notBuilder, column, objectPredicate.predicate);
+                parsePredicate(notBuilder, column, objectPredicate.predicate, dialect);
             });
             break;
         case 'REGEX':
             regex(builder, column, objectPredicate);
             break;
         case 'EQUALS':
-            equals(builder, column, objectPredicate.value);
+            equals(builder, column, objectPredicate.value, dialect);
             break;
         case 'IS':
             if (objectPredicate.tags.length > 0) {
                 objectPredicate.tags.length > 1
                     ? isIn(builder, column, objectPredicate.tags)
-                    : equals(builder, column, objectPredicate.tags[0]);
+                    : equals(builder, column, objectPredicate.tags[0], dialect);
             }
             break;
     }
@@ -49,9 +51,12 @@ const isIn = (builder, column, values) => {
  * @param {!Knex.QueryBuilder} builder
  * @param {Knex.Raw} column
  * @param {*} value
+ * @param {string} dialect
  */
-const equals = (builder, column, value) => {
-    value === null ? builder.whereNull(column) : builder.where(column, value);
+const equals = (builder, column, value, dialect) => {
+     value === null
+        ? builder.whereNull(column)
+        : builder.where(column, serializeValue(value, dialect));
 };
 
 /**

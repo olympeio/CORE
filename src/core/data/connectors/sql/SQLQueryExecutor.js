@@ -314,7 +314,7 @@ export default class SQLQueryExecutor {
                         if (sqlColumnName !== null) {
                             orClauseWrapper.andWhere((andClauseWrapper) => {
                                 const column = this.client.raw('??.??', [this.getTableAlias(index, table), sqlColumnName]);
-                                parsePredicate(andClauseWrapper, column, objectPredicate);
+                                parsePredicate(andClauseWrapper, column, objectPredicate, this.schema.getDBDialectName());
                             });
                         }
                     }
