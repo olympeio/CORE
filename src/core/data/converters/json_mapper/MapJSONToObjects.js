@@ -51,8 +51,8 @@ export default class MapJSONToObjects extends ActionBrick {
         });
 
         if (persist) {
-            const transaction = new Transaction(true);
-            tags.forEach((tag) => transaction.persistInstance(tag, true));
+            const transaction = new Transaction();
+            tags.forEach((tag) => transaction.persist(tag, true));
 
             try {
                 await transaction.execute();
