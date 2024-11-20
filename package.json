@@ -10,6 +10,7 @@
     "codeAsData",
     "README.md",
     "index.d.ts",
+    "mui.d.ts",
     "main-node.js",
     "main-node.js.map",
     "main-web.js",
