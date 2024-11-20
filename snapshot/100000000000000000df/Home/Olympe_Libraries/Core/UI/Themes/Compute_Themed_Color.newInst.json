@@ -5,16 +5,16 @@
    "p": {
     "01621fb84e320000f001": "public",
     "01692aa71f3108454479": true,
-    "fdff023000000000000011": "Get Theme Color",
-    "ff023000000000000011": "Get Theme Color"
+    "fdff023000000000000011": "Compute Themed Color",
+    "ff023000000000000011": "Compute Themed Color"
    },
    "t": "019344e79024e7ad586a"
   },
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d91": "Get a color according to the MUI Theme",
-    "01703376c4a81c0e9d92": "Get a color according to the MUI Theme"
+    "01703376c4a81c0e9d91": "Create a new color, based on the current theme and corresponding to given parameters",
+    "01703376c4a81c0e9d92": "Create a new color, based on the current theme and corresponding to given parameters"
    },
    "t": "019344e79838a9cfa80f"
   },
