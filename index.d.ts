@@ -147,6 +147,13 @@ export class ReactBrick extends VisualBrick {
 export function useProperty($: BrickContext, property: string, waitForValue: boolean): any
 
 /**
+ * @param {string} text
+ * @param {string} element
+ * @return {Element}
+ */
+export function markdownTextToReactElement(text: string, element: string): Element
+
+/**
  * Execute an action lambda and return its outputs as an array when the control flow output gets a value.
  * In case of the error flow output gets an error, the promise is rejected with that error.
  *
@@ -157,3 +164,5 @@ export function useProperty($: BrickContext, property: string, waitForValue: boo
  * @return {Promise<!Array<*>>}
  */
 export function executeLambda($: BrickContext, lambda: Brick, inputsValues: any[], customErrorCode: number): Promise<any[]>
+
+export * from './mui';
