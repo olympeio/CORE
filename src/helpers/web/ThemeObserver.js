@@ -76,7 +76,7 @@ const getThemeFromItem = (tag) => {
             }, new Map());
 
         const projectWithTheme = validProjects.find((project) => themes.has(project.getTag()));
-        defaultThemesByTag.set(tag, themes.get(projectWithTheme.getTag() ?? null));
+        defaultThemesByTag.set(tag, themes.get(projectWithTheme?.getTag() ?? null));
     }
     return defaultThemesByTag.get(tag);
 }
