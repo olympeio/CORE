@@ -144,7 +144,7 @@ export class ReactBrick extends VisualBrick {
  * @param {boolean=} [waitForValue=true]
  * @return {*} a stateful value usable in JSX
  */
-export function useProperty($: BrickContext, property: string, waitForValue: boolean): any
+export function useProperty($: BrickContext, property: string, waitForValue: boolean = true): any
 
 /**
  * @param {string} text
