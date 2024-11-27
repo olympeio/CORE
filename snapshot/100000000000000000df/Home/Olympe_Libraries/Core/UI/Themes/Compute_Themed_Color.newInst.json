@@ -68,12 +68,6 @@
    "o": 1,
    "p": {
    },
-   "t": "019344e99ed36b62b3a3"
-  },
-  {
-   "o": 1,
-   "p": {
-   },
    "t": "019344e9a5a56367b9d6"
   },
   {
@@ -120,6 +114,12 @@
     "01703376c4a81c0e9d92": "RGB string of the returned color"
    },
    "t": "019344e9ba3abc9d4f35"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01936e48058d61bca63b"
   }
  ],
  "optionalOperations": [
