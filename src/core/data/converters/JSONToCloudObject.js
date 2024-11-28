@@ -108,7 +108,7 @@ export default class JSONToCloudObject extends ActionBrick {
     formatValue(value, property) {
         const propType = property.followSingle(PropertyModel.typeRel).executeFromCache();
         switch (true) {
-            case propType === null || value === 'null':
+            case propType === null || value === null:
                 return null;
             case DBView.get().isExtending(propType, StringModel):
                 return String(value);

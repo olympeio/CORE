@@ -1,6 +1,6 @@
 {
   "name": "@olympeio/core",
-  "version": "2.9.2",
+  "version": "2.9.3-dev",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -10,6 +10,7 @@
     "codeAsData",
     "README.md",
     "index.d.ts",
+    "mui.d.ts",
     "main-node.js",
     "main-node.js.map",
     "main-web.js",

@@ -23,7 +23,7 @@ export default class CSVToJSON extends Brick {
                     raw: true,
                 });
             } else if (source instanceof OFile) {
-                const data = await source.getContentAsString(data);
+                const data = await source.getContentAsString();
                 worksheet = XLSX.read(data, {
                     type: 'string',
                     cellDates: true,

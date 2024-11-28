@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Olympe S.A.
+ * Copyright 2024 Olympe S.A.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,24 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import { Brick, registerBrick, BrickContext } from 'olympe';
+import { map, switchMap, first } from 'rxjs';
 import getScopeContext from "./util/updateContextProperty";
 import {castPrimitiveValue} from "../data/transaction/_helpers";
-import {map} from 'rxjs/operators'
 
-export default class FeedUIProperty extends Brick {
-
+export default class FeedUIPropertyWhenReady extends Brick {
     /**
      * @override
      */
     setupExecution($) {
-        // Ensure to resolve anytime a value comes, and propagate null too.
-        return $.observe(this.getInputs()[1]).pipe(map((v) => [v]));
+        const [readyInput, uIPropertyInput, valueInput] = this.getInputs();
+        // First wait that we get a ready signal
+        // Then ensure to resolve anytime a value comes, and propagate null too.
+        return $.observe(readyInput)
+            .pipe(
+                first(),
+                switchMap(() => $.observe(valueInput).pipe(map((v) => [v])))
+            );
     }
 
     /**
@@ -36,7 +41,7 @@ export default class FeedUIProperty extends Brick {
      * @param {!Array} outputs
      */
     update(context, [value], outputs) {
-        const [scope, property] = getScopeContext(this, this.getInputs()[0]);
+        const [scope, property] = getScopeContext(this, this.getInputs()[1]);
         if (scope && property) {
             context.onContext(scope, (scopeContext) => {
                 scopeContext.set(property, castPrimitiveValue(value));
@@ -45,4 +50,4 @@ export default class FeedUIProperty extends Brick {
     }
 }
 
-registerBrick('0179f157cb4687706403', FeedUIProperty);
+registerBrick('019343918366f39d71f1', FeedUIPropertyWhenReady);

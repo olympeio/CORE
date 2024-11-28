@@ -75,6 +75,7 @@ const plugins = {
         new Copy({
             patterns: [
                 {from: 'index.d.ts', to: 'index.d.ts'},
+                {from: 'mui.d.ts', to: 'mui.d.ts'},
                 {from: 'README-package.md', to: 'README.md'}
             ]
         }),

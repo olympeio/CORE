@@ -30,7 +30,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Transform a Cloud Object to JSON",
-    "01703376c4a81c0e9d92": "Transform an instance of a Cloud Object or list of instances to JSON.\n\nThe properties of the related business model are used as properties of the json.\n\n## Example\nCloudObjectToJSON(`GPS Coordinate` object) -> <br> \"Latitude\":15, \"Longitude\": 25,\" name\": \"GPS Coordinate\" }\n<br>\nCloudObjectToJSON(`List of GPS Coordinate` objects) -> <br>[ { \"Latitude\":15, \"Longitude\": 25, \"name\": \"GPS Coordinate\"},<br> { \"Latitude\": 13, \"Longitude\": 22, \" name\" : \"GPS Coordinate\" } ] \n\n\n"
+    "01703376c4a81c0e9d92": "Serialize an instance of a Cloud Object or list of instances to JSON.\n\nThe properties of the related data types are used as properties of the JSON.\n\n## Example\nCloudObjectToJSON(`GPS Coordinate` object) -> <br> \"Latitude\":15, \"Longitude\": 25,\" name\": \"GPS Coordinate\" }\n<br>\nCloudObjectToJSON(`List of GPS Coordinate` objects) -> <br>[ { \"Latitude\":15, \"Longitude\": 25, \"name\": \"GPS Coordinate\"},<br> { \"Latitude\": 13, \"Longitude\": 22, \" name\" : \"GPS Coordinate\" } ] \n\n\n"
    },
    "t": "018ecac0b4e4dc1e9a61"
   },
@@ -73,7 +73,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "If true, only consider the properties of cloud objects. <br><br>Otherwise, includes the relations and serialize the related cloudobjects recursively. <br><u>Warning</u>: only consider the cloudobjects already loaded in the local database."
+    "01703376c4a81c0e9d92": "If true, only consider the properties of cloud objects. <br><br>Otherwise, includes the relations and serialize the related cloud objects recursively. <br><u>Warning</u>: this only serializes the cloud objects already loaded in the local database."
    },
    "t": "018ecac150bc9fd7fc41"
   },
@@ -103,7 +103,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "Triggered if provided source is not a correct Cloud Object of List of Cloud Objects"
+    "01703376c4a81c0e9d92": "Triggered if provided source is not a cloud object or list of cloud objects"
    },
    "t": "018ecac21b679d5ff2d3"
   }

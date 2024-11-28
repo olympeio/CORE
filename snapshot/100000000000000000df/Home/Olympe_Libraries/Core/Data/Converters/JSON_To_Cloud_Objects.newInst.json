@@ -33,7 +33,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Transform a JSON to an instance of the related Business Model",
-    "01703376c4a81c0e9d92": "Transform a JSON to an instance of the related Data type and persist it if was selected.\n\nThe properties of the provided json are used as properties of the instance of the data type.\n\n## Example\n\n```\nJSONToCloudObject({\"Latitude\":15,\"Longitude\":25,\"name\":\"GPS Coordinate\"}, GPS Coordinate) ->`GPS Coordinate` object.\n\nJSONToCloudObject( [ { \"Latitude\":15, \"Longitude\": 25, \"name\": \"GPS Coordinate\"}, { \"Latitude\": 13, \"Longitude\": 22, \" name\" : \"GPS Coordinate\" } ] , GPS Coordinate) ->List of `GPS Coordinate` objects.\n```",
+    "01703376c4a81c0e9d92": "Transform a JSON to an instance of the related Data type and persist it if was selected.\n\nThe properties of the provided JSON are used as properties of the instance of the data type.\n\nIn the case where the JSON includes child objects, it attempts to instantiate those as well and creates the corresponding relations (see Cloud Objects to JSON).\n\n## Example\n\n```\nJSONToCloudObject({\"Latitude\":15,\"Longitude\":25,\"name\":\"GPS Coordinate\"}, GPS Coordinate) ->`GPS Coordinate` object.\n\nJSONToCloudObject( [ { \"Latitude\":15, \"Longitude\": 25, \"name\": \"GPS Coordinate\"}, { \"Latitude\": 13, \"Longitude\": 22, \" name\" : \"GPS Coordinate\" } ] , GPS Coordinate) ->List of `GPS Coordinate` objects.\n```",
     "v": 27
    },
    "t": "018162fcfecf785abdfb"

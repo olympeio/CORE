@@ -1,0 +1,24 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01703376c4a81c0e9d94": "experimental",
+    "fdff023000000000000011": "Neo4j Connector",
+    "ff023000000000000011": "Neo4j Connector"
+   },
+   "t": "0192fbc8a9066d47d177"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Connect datatypes to a Neo4j database"
+   },
+   "t": "0192fbc8cd36ec0297b9"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0192fbc8a9066d47d177"
+}

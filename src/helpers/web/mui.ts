@@ -17,7 +17,7 @@
 import { createTheme, Theme as MUITheme, Palette } from "@mui/material/styles";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
-import { Theme, Color as ColorAPI } from 'olympe';
+import { Theme, Color as ColorAPI, BrickContext, Property } from 'olympe';
 import { themePropertiesObserver } from "helpers/ThemeObserver";
 import { getLogger } from 'logging';
 import { Color } from "@mui/material";
@@ -29,7 +29,7 @@ import { useEffect, useState } from "react";
  * @param {string} json
  * @return {!Object}
  */
-export function jsonToSxProps(json) {
+export function jsonToSxProps(json: string): Object {
     let props = {};
     if (typeof json === 'string') {
         try {
@@ -48,9 +48,9 @@ export function jsonToSxProps(json) {
  * @param {string} css
  * @return {!Object}
  */
-export function cssToSxProps(css) {
-    const capitalize = s => s.length > 0 ? s[0].toUpperCase() + s.substr(1).toLowerCase() : s;
-    const props = {};
+export function cssToSxProps(css: string): Object {
+    const capitalize = (s: string): string => s.length > 0 ? s[0].toUpperCase() + s.substr(1).toLowerCase() : s;
+    const props: {[key: string]: any} = {};
     if (typeof css === 'string' && css.includes(':')) {
         css.split(';')
             .filter(e => e)
@@ -70,12 +70,12 @@ export function cssToSxProps(css) {
  * Get a value only if the color is not transparent
  * @param {string} key
  * @param {*} value
- * @param {Color=} color
+ * @param {ColorAPI=} color
  * @returns {!Object}
  */
-export function ifNotTransparent(key, value, color) {
+export function ifNotTransparent(key: string, value: any, color?: ColorAPI): Object {
     const valueHex = value && value.toHexString ? value.toHexString() : '#00000000';
-    const colorHex = color ? color.toHexString() : valueHex;
+    const colorHex = color?.toHexString() ?? valueHex;
     return colorHex !== '#00000000' ? {[key]: color ? value : colorHex} : {};
 }
 
@@ -86,7 +86,7 @@ export function ifNotTransparent(key, value, color) {
  * @param {boolean=} condition
  * @returns {!Object}
  */
-export function ifNotNull(key, value, condition) {
+export function ifNotNull(key: string, value: any, condition?: boolean): Object {
     const cond = condition !== undefined ? condition : value;
     return cond !== null && cond !== undefined && cond ? {[key]:value} : {};
 }
@@ -97,13 +97,13 @@ export function ifNotNull(key, value, condition) {
  * "version".
  * @type {Map<string, [number, MUITheme]>}
  */
-const cachedMuiThemes = new Map();
+const cachedMuiThemes: Map<string, [number, MUITheme]> = new Map();
 
 /**
  * Create once an empty theme that can be returned whenever we don't have a theme in context
  * @type {MUITheme}
  */
-export const emptyTheme = createTheme({});
+export const emptyTheme: MUITheme = createTheme({});
 
 /**
  * Returns an observer (which returns the MUI Theme), on the given context
@@ -111,12 +111,12 @@ export const emptyTheme = createTheme({});
  * @return {Observable<MUITheme>}
  *
  */
-export const observeMUITheme = ($) => {
+export const observeMUITheme = ($: BrickContext): Observable<MUITheme> => {
     return themePropertiesObserver($).pipe(map(([theme, property, value, versionNumber]) => {
-            if (!theme) {
-                return emptyTheme;
-            }
-            const themeTag = theme.getTag();
+        if (!theme) {
+            return emptyTheme;
+        }
+        const themeTag = theme.getTag();
         const [cachedVersionNumber, cachedValue] = cachedMuiThemes.get(themeTag) || [null, null];
             if (cachedVersionNumber === versionNumber) {
                 return cachedValue;
@@ -132,19 +132,19 @@ export const observeMUITheme = ($) => {
  * @param { Theme } theme
  * @return { MUITheme }
  */
-const getMuiTheme = (theme) => {
+export const getMuiTheme = (theme: Theme): MUITheme => {
     const logger = getLogger('MUI Theme');
     if (theme instanceof Theme) {
         /**
          * @param {string} prop
          * @return {{main: string | undefined}}
          */
-        const getPaletteColorDefinition = (prop) => {
-            const color = theme.get(prop);
-            return color ? {main: theme.get(prop)?.toHexString()} : undefined;
+        const getPaletteColorDefinition = (prop: Property<ColorAPI>): Object | undefined => {
+            const color: ColorAPI | null = theme.get(prop);
+            return color ? {main: color.toHexString()} : undefined;
         };
 
-        const colorValues = {
+        const colorValues: {[key: string]: Object} = {
             primary: getPaletteColorDefinition(Theme.primaryColorProp),
             secondary: getPaletteColorDefinition(Theme.secondaryColorProp),
             error: getPaletteColorDefinition(Theme.errorColorProp),
@@ -156,9 +156,9 @@ const getMuiTheme = (theme) => {
         /**
          * @type {Partial<Palette>}
          */
-        const palette = Object.keys(colorValues).reduce((p, key) => {
+        const palette: Partial<Palette> = Object.keys(colorValues).reduce((p, key) => {
             if (colorValues[key]) {
-                p[key] = colorValues[key];
+                (p as {[key: string]: any})[key] = colorValues[key] as unknown as Color;
             }
             return p;
         }, {});
@@ -179,7 +179,7 @@ const getMuiTheme = (theme) => {
  * @param {!BrickContext} $
  * @return {MUITheme} a stateful value usable in JSX
  */
-export function useMUITheme($) {
+export function useMUITheme($: BrickContext): MUITheme {
     const [value, setValue] = useState(emptyTheme);
     useEffect(() => {
         const subscription = observeMUITheme($).subscribe(setValue);
@@ -199,7 +199,7 @@ export function useMUITheme($) {
  * @param { string } loggerName
  * @return {Boolean}
  */
-export function colorExists(theme, color, loggerName) {
+export function colorExists(theme: MUITheme, color: string, loggerName: string): boolean {
     const logger = getLogger(loggerName);
 
     if (color !== undefined) {
@@ -222,11 +222,11 @@ export function colorExists(theme, color, loggerName) {
 
 
 /**
- * @param { Color } color
+ * @param { ColorAPI } color
  * @param { string } loggerName
  * @return { string | undefined }
  */
-export const getColorDefinition = (color, loggerName) => {
+export const getColorDefinition = (color: ColorAPI, loggerName: string): string | undefined => {
     const logger = getLogger(loggerName);
 
     if (color !== undefined) {
@@ -245,7 +245,7 @@ export const getColorDefinition = (color, loggerName) => {
  * @param {string} loggerName
  * @return {string}
  */
-export const validateIcon = (icon, loggerName, initialIcon = 'help_outline') => {
+export const validateIcon = (icon: string, loggerName: string, initialIcon = 'help_outline'): string => {
     const logger = getLogger(loggerName);
 
     if (icon !== undefined) {
@@ -265,7 +265,7 @@ export const validateIcon = (icon, loggerName, initialIcon = 'help_outline') => 
  * @param {string} loggerName
  * @return {string|undefined}
  */
-export const validateString = (text,  property, loggerName) => {
+export const validateString = (text: string,  property: string, loggerName: string): string | undefined => {
     const logger = getLogger(loggerName);
     if (text !== undefined && text !== null) {
         if(typeof text === 'object') {
@@ -285,7 +285,7 @@ export const validateString = (text,  property, loggerName) => {
  * @param {Array<string>} variants
  * @return {string}
  */
-export const validateVariant = (variant, property, loggerName, variants) => {
+export const validateVariant = (variant: string, property: string, loggerName: string, variants: string[]): string => {
     const logger = getLogger(loggerName);
 
     const validatedVariant = validateString(variant, property, loggerName);
@@ -308,7 +308,7 @@ export const validateVariant = (variant, property, loggerName, variants) => {
  * @param {?number} initialValue
  * @return {number}
  */
-export const validateNumber = (value, property, loggerName, initialValue = 0) => {
+export const validateNumber = (value: number, property: string, loggerName: string, initialValue = 0): number => {
     const logger = getLogger(loggerName);
     if (value !== undefined && value !== null) {
         if (typeof value === 'number' && !isNaN(value)) {
