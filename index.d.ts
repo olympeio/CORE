@@ -1,6 +1,7 @@
 import {Logger} from 'loglevel';
 import {BrickContext, VisualBrick, Brick} from "@olympeio/runtime-web";
 import {ReactElement} from "react";
+import {CloudObject, BrickContext} from "olympe";
 
 /**
  * Return the specified logger
@@ -145,6 +146,39 @@ export class ReactBrick extends VisualBrick {
  * @return {*} a stateful value usable in JSX
  */
 export function useProperty($: BrickContext, property: string, waitForValue: boolean = true): any
+
+/**
+ * Allows to bind a context property to a stateful react value.
+ * Provides a setter to update the property accordingly
+ *
+ * Warning: will replace `useProperty` in a future major version
+ *
+ * @beta
+ * @param {BrickContext} $
+ * @param {string} property
+ * @param {*=} initialValue
+ * @return {Array} a stateful value usable in JSX
+ */
+export function useProp($: BrickContext, property: string, initialValue?: any): [any, (newValue: any) => void]
+
+/**
+ * Allows to bind a context or object property to a stateful react value.
+ * Provides a setter to update the property accordingly
+ *
+ * Be aware that using the provided setter to update the property should be used for occasional updates only since
+ * it will perform a micro-transaction. Using it for large volumes of update is unrecommended and may lead to performance
+ * issues.
+ *
+ * If you need to update multiple values at once consider doing a grouped transaction instead.
+ * If you need to frequently update a value consider debouncing the setter.
+ *
+ * @param {BrickContext} $
+ * @param {string} property
+ * @param {CloudObject} cloudObject
+ * @param {*=} initialValue
+ * @return {Array} a stateful value usable in JSX
+ */
+export function useObjectProperty($: BrickContext, cloudObject: CloudObject, property: string, initialValue?: any): [any, (newValue: any) => void]
 
 /**
  * @param {string} text
