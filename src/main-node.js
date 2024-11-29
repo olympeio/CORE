@@ -29,6 +29,7 @@ import './core/data/**/*.js';
 import './core/datetime/**/*.js';
 import './core/file/**/*.js';
 import './core/net/**/*.js';
+import './core/performance/**/*.js';
 import './core/system/**/*.js';
 import './core/text/**/*.js';
 import './core/util/**/*.js';
@@ -37,6 +38,8 @@ import './core/logic/**/*.ts';
 import './core/math/**/*.ts';
 import './core/system/**/*.ts';
 
+import 'helpers/set-performance';
+export * from './helpers/common/perf-container';
 export {getLogger} from './helpers/logging';
 export {TimeoutMap, TimeoutSet} from './helpers/timeoutData';
 export * from './helpers/lambdaExecutor';
