@@ -1,0 +1,53 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "experimental",
+    "fdff023000000000000011": "Perf: clear marks",
+    "ff023000000000000011": "Perf: clear marks"
+   },
+   "t": "01937711a36078c25926"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "01937711a3611869f53b"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01937711a36153956866"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "01937711a36164c1d05e"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01937711a361fb4ca798"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Clear the marks registered in the Performance API"
+   },
+   "t": "01937712e1e985d9af16"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01937711a36078c25926"
+}

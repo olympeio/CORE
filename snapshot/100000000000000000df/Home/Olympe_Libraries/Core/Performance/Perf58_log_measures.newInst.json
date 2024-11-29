@@ -1,0 +1,68 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "01937711d3d717192acd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "01937711d3d7395d254e"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01937711d3d748d9b999"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01937711d3d793b20b98"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "experimental",
+    "fdff023000000000000011": "Perf: log measures",
+    "ff023000000000000011": "Perf: log measures"
+   },
+   "t": "01937711d3d7bd486e27"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Log the measures captured by the Performance API"
+   },
+   "t": "0193771270ecbdb1595b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "prefix"
+   },
+   "t": "0193771b23fc3cd171d1"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "Will prefix the log of each measure"
+   },
+   "t": "0193771b23fd8aa161e9"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01937711d3d7bd486e27"
+}
