@@ -33,6 +33,7 @@ import './core/data/map/**/*.js';
 import './core/datetime/**/*.js';
 import './core/file/**/*.js';
 import './core/localstorage/**/*.js';
+import './core/performance/**/*.js';
 import './core/net/**/*.js';
 import './core/system/**/*.js';
 import './core/text/**/*.js';
@@ -42,7 +43,8 @@ import './core/**/*.jsx';
 import './core/**/*.ts';
 import './core/**/*.tsx';
 
-
+import 'helpers/set-performance';
+export * from './helpers/common/perf-container';
 export { markdownTextToReactElement } from './helpers/web/remarkable';
 export { getLogger } from './helpers/logging';
 export {TimeoutMap, TimeoutSet} from './helpers/timeoutData';
@@ -54,3 +56,4 @@ export * from 'helpers/react.jsx';
 export * from 'helpers/ThemeObserver';
 export * from 'helpers/httpRequest';
 export * from 'helpers/platformInfo';
+
