@@ -1,0 +1,96 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "experimental",
+    "fdff023000000000000011": "Perf: measure",
+    "ff023000000000000011": "Perf: measure"
+   },
+   "t": "0193770ce50c12ef7410"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0193770ce50d10bcf12c"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "0193770ce50d7ff9fff6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "0193770ce50d9446f37e"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0193770ce50dbd74d5a4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Set a measure using the Performance API",
+    "01703376c4a81c0e9d92": "Equivalent to: https://developer.mozilla.org/en-US/docs/Web/API/Performance/measure"
+   },
+   "t": "0193770e6e4bba76c491"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0193770ea9ac0f61da44"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "measure name"
+   },
+   "t": "0193770ea9ace4521e37"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "start mark"
+   },
+   "t": "0193770ed994d711dfb5"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0193770ed9950d36ea68"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "ff023000000000000011": "end mark"
+   },
+   "t": "0193770edb26ab8cffbd"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0193770edb27691fb487"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0193770ce50c12ef7410"
+}

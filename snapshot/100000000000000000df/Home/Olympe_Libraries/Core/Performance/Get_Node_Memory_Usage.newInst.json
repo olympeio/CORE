@@ -1,0 +1,96 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "01703376c4a81c0e9d94": "experimental",
+    "fdff023000000000000011": "Get Node Memory Usage",
+    "ff023000000000000011": "Get Node Memory Usage"
+   },
+   "t": "01937713c6a321d8f5fe"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01937713c6a41f6f7318"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01937713c6a43bb78ab4"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "01937713c6a440333604"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "01937713c6a4a89b1ba6"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Return information about the current process memory usage",
+    "01703376c4a81c0e9d92": "Please refer to NodeJS documentation for more info: https://nodejs.org/api/process.html#processmemoryusage"
+   },
+   "t": "0193771403c733ea1665"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0193771414a1936cf7af"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "RSS"
+   },
+   "t": "0193771414a1c6035ab3"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0193771415a34424374d"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "Heap Total"
+   },
+   "t": "0193771415a3df792614"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 3,
+    "ff023000000000000011": "Heap Used"
+   },
+   "t": "0193771416c8c8d3a93c"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0193771416c8e7c1f735"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01937713c6a321d8f5fe"
+}
