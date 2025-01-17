@@ -6,6 +6,7 @@ import {DB_DIALECT_NAMES, MSSQL} from "./sql/_statics";
 import SQLQueryExecutor, {COLUMNS} from "./sql/SQLQueryExecutor";
 import SQLTransactionWriter from "./sql/SQLTransactionWriter";
 import {config} from "./sql/_statics";
+import FileConnectorsRegistry from './fileconnector/FileConnectorsRegistry';
 
 const httpConfig = {
     ssl: 'ssl',
@@ -54,6 +55,12 @@ export default class SQLConnectorOverHTTP extends DataSource {
          * @type {SQLTransactionWriter}
          */
         this.writer = null;
+
+        /**
+         * @private
+         * @type {?FileConnector}
+         */
+        this.fileConnector = null;
     }
 
     /**
@@ -92,6 +99,16 @@ export default class SQLConnectorOverHTTP extends DataSource {
         // Take the proper dialect to build the SQL strings
         this.knex = knex({client: dialect});
         this.logger.info(`HTTP SQL Connector ${this.getId()} started to send queries of dialect ${dialect} to ${this.url}, on schema ${schema}`);
+
+        // Determine the file connector based on the filePath or fileConnector.
+        const fileConnectorId = this.getConfig(config.filePath)
+            ? 'fileSystem'
+            : this.getConfig(config.fileConnector) || null;
+
+        // Set the file connector.
+        this.fileConnector = fileConnectorId
+            ? FileConnectorsRegistry.get(fileConnectorId, this.getConfig.bind(this))
+            : null;
 
         // Initialize the schema observer that fulfill the cache
         // with all the existing tables with their associated data types.
@@ -133,6 +150,10 @@ export default class SQLConnectorOverHTTP extends DataSource {
      * @override
      */
     async uploadFileContent(fileTag, dataType, binary) {
+        if(this.fileConnector !== null) {
+            return this.fileConnector.uploadFileContent(fileTag, dataType, binary);
+        }
+
         const tableName = this.schemaReader.getTablesOfType(dataType, false)?.[0];
 
         if (typeof tableName !== 'string') {
@@ -151,15 +172,20 @@ export default class SQLConnectorOverHTTP extends DataSource {
      * @override
      */
     async downloadFileContent(fileTag, dataType) {
+        if(this.fileConnector !== null) {
+            return this.fileConnector.downloadFileContent(fileTag, dataType);
+        }
+
         const tableName = this.schemaReader.getTablesOfType(dataType, false)?.[0];
 
         if (typeof tableName !== 'string') {
             throw new Error(`Table not found in schema reader for data type: ${dataType}`);
         }
 
-        const sql = this.knex.queryBuilder().withSchema(this.schemaReader.getSchema())
+        const sql = this.knex.queryBuilder()
+            .withSchema(this.schemaReader.getSchema())
             .from(tableName)
-            .select({'binary': COLUMNS.FILE_CONTENT})
+            .select({ 'binary': COLUMNS.FILE_CONTENT })
             .where(COLUMNS.TAG, fileTag)
             .toString();
 
@@ -172,12 +198,17 @@ export default class SQLConnectorOverHTTP extends DataSource {
      * @override
      */
     deleteFileContent(fileTag, dataType) {
+        if(this.fileConnector !== null) {
+            return this.fileConnector.deleteFileContent(fileTag, dataType);
+        }
+
         const properties = new Map([[COLUMNS.FILE_CONTENT, null]]);
         const operations = [{ type: 'UPDATE', object: fileTag, model: dataType, properties }];
-        return this.writer ? this.writer.applyOperations(operations, false, true, (operations) => {
-            // delete executor sends request over DELETE
-            return this.sendHTTPRequest('DELETE', 'transaction', operations[0]);
-        }) : Promise.reject('Writer is not ready, you probably need to call init() first');
+        return this.writer
+            ? this.writer.applyOperations(operations, false, true, (operations) => {
+                return this.sendHTTPRequest('DELETE', 'transaction', operations[0]);
+            })
+            : Promise.reject('Writer is not ready, you probably need to call init() first');
     }
 
     /**

@@ -113,6 +113,7 @@ export const config = {
     database: 'database',
     dbOptions: 'dbOptions',
     schema: 'schema',
+    fileConnector: 'fileConnector',
     minConnections: 'minConnections',
     maxConnections: 'maxConnections',
     connectionsTimeout: 'connectionsTimeout',
