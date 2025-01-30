@@ -5,6 +5,7 @@ import {HEALTH_CHECK_QUERY, config} from './sql/_statics';
 import SchemaReader from './sql/schema/SchemaReader';
 import SQLQueryExecutor, {COLUMNS} from './sql/SQLQueryExecutor';
 import SQLTransactionWriter from './sql/SQLTransactionWriter';
+import FileConnectorsRegistry from './fileconnector/FileConnectorsRegistry';
 
 export default class MSSQLConnector extends DataSource {
 
@@ -34,6 +35,12 @@ export default class MSSQLConnector extends DataSource {
          * @type {SQLTransactionWriter}
          */
         this.writer = null;
+
+        /**
+         * @private
+         * @type {?FileConnector}
+         */
+        this.fileConnector = null;
     }
 
     /**
@@ -82,6 +89,16 @@ export default class MSSQLConnector extends DataSource {
 
         // Initialize the writer
         this.writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaReader);
+
+        // Determine the file connector based on the filePath or fileConnector.
+        const fileConnectorId = this.getConfig(config.filePath)
+            ? 'fileSystem'
+            : this.getConfig(config.fileConnector) || null;
+
+        // Set the file connector.
+        this.fileConnector = fileConnectorId
+            ? FileConnectorsRegistry.get(fileConnectorId, this.getConfig.bind(this))
+            : null;
 
         // Check the connection to SQL database is established
         await this.healthCheck();
@@ -133,14 +150,22 @@ export default class MSSQLConnector extends DataSource {
      * @override
      */
     async uploadFileContent(fileTag, dataType, binary) {
+        if(this.fileConnector !== null) {
+            return this.fileConnector.uploadFileContent(fileTag, dataType, binary);
+        }
+
         const properties = new Map([[COLUMNS.FILE_CONTENT, binary]]);
-        await this.applyTransaction([{type: 'CREATE', object: fileTag, model: dataType, properties}], {});
+        await this.applyTransaction([{ type: 'CREATE', object: fileTag, model: dataType, properties }], {});
     }
 
     /**
      * @override
      */
     async downloadFileContent(fileTag, dataType) {
+        if(this.fileConnector !== null) {
+            return this.fileConnector.downloadFileContent(fileTag, dataType);
+        }
+
         const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaReader);
         return await executor.downloadFileContent(fileTag, dataType);
     }
@@ -149,8 +174,12 @@ export default class MSSQLConnector extends DataSource {
      * @override
      */
     async deleteFileContent(fileTag, dataType) {
+        if(this.fileConnector !== null) {
+            return this.fileConnector.deleteFileContent(fileTag, dataType);
+        }
+
         const properties = new Map([[COLUMNS.FILE_CONTENT, null]]);
-        await this.applyTransaction([{type: 'UPDATE', object: fileTag, model: dataType, properties}], {});
+        await this.applyTransaction([{ type: 'UPDATE', object: fileTag, model: dataType, properties }], {});
     }
 }
 register('01888ba7faaacebdb63b', MSSQLConnector);

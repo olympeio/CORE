@@ -37,6 +37,7 @@ import './core/util/**/*.js';
 import './core/logic/**/*.ts';
 import './core/math/**/*.ts';
 import './core/system/**/*.ts';
+import FileConnectorsRegistry from './core/data/connectors/fileconnector/FileConnectorsRegistry';
 
 import 'helpers/set-performance';
 export * from './helpers/common/perf-container';
@@ -46,3 +47,5 @@ export * from './helpers/lambdaExecutor';
 export * from 'helpers/binaryConverters';
 export * from 'helpers/httpRequest';
 export * from 'helpers/platformInfo';
+export { FileConnectorsRegistry };
+export {FileConnector} from './core/data/connectors/fileconnector/FileConnector'

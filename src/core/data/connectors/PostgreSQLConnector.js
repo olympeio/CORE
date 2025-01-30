@@ -5,10 +5,7 @@ import SQLQueryExecutor, {COLUMNS} from "./sql/SQLQueryExecutor";
 import SchemaObserver from "./sql/schema/SchemaObserver";
 import {HEALTH_CHECK_QUERY, config} from "./sql/_statics";
 import SQLTransactionWriter from "./sql/SQLTransactionWriter";
-import {promises as fsp} from 'fs';
-import fs from 'fs';
-import path from 'path';
-import {hashcode} from "../../../helpers/common/hash";
+import FileConnectorsRegistry from './fileconnector/FileConnectorsRegistry';
 
 export default class PostgreSQLConnector extends DataSource {
 
@@ -44,6 +41,12 @@ export default class PostgreSQLConnector extends DataSource {
          * @type {?string}
          */
         this.filePath = this.getConfig(config.filePath);
+
+        /**
+         * @private
+         * @type {?FileConnector}
+         */
+        this.fileConnector = null;
     }
 
     /**
@@ -54,7 +57,6 @@ export default class PostgreSQLConnector extends DataSource {
         const host = this.getConfig(config.host) ?? 'localhost';
         const database = this.getConfig(config.database);
         const schema = this.getConfig(config.schema);
-
         if (database === null || schema === null) {
             const errorMsg = 'Config error: Database or Schema is null.\n' +
             `Note that this data connector look for config from either data.${this.name().toLowerCase().replace(/\W/g, '_')}, data.${this.getTag()} or data.`;
@@ -83,6 +85,16 @@ export default class PostgreSQLConnector extends DataSource {
 
         // Initialize the writer
         this.writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaObserver);
+
+        // Determine the file connector based on the filePath or fileConnector.
+        const fileConnectorId = this.getConfig(config.filePath)
+            ? 'fileSystem'
+            : this.getConfig(config.fileConnector) || null;
+
+        // Set the file connector.
+        this.fileConnector = fileConnectorId
+            ? FileConnectorsRegistry.get(fileConnectorId, this.getConfig.bind(this))
+            : null;
 
         // Check the connection to SQL database is established
         await this.healthCheck();
@@ -136,7 +148,6 @@ export default class PostgreSQLConnector extends DataSource {
         if (this.knex === null) {
             throw new Error('SQL Connector: No knex client');
         }
-
         await this.knex.raw(HEALTH_CHECK_QUERY);
     }
 
@@ -169,61 +180,35 @@ export default class PostgreSQLConnector extends DataSource {
      * @override
      */
     async uploadFileContent(fileTag, dataType, binary) {
-        if (typeof this.filePath === 'string') {
-            const folder = this.getFilePath(fileTag);
-            await fsp.mkdir(folder, {recursive: true});
-            // encoding "null" means binary file
-            await fsp.writeFile(path.join(folder, fileTag), binary, {encoding: null});
-        } else {
-            const properties = new Map([[COLUMNS.FILE_CONTENT, binary]]);
-            await this.applyTransaction([{type: 'CREATE', object: fileTag, model: dataType, properties}], {});
+        if(this.fileConnector !== null) {
+            return this.fileConnector.uploadFileContent(fileTag, dataType, binary);
         }
+        const properties = new Map([[COLUMNS.FILE_CONTENT, binary]]);
+        await this.applyTransaction([{ type: 'CREATE', object: fileTag, model: dataType, properties }], {});
     }
 
     /**
      * @override
      */
     async downloadFileContent(fileTag, dataType) {
-        if (typeof this.filePath === 'string') {
-            const filePath = path.join(this.getFilePath(fileTag), fileTag);
-            try {
-                await fsp.access(filePath, fsp.constants.F_OK);
-            } catch(e) {
-                throw new Error(`File ${filePath} does not exist so it cannot be downloaded`);
-            }
-            // encoding "null" means binary file
-            return fs.createReadStream(filePath, {encoding: null});
-        } else {
-            const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaObserver);
-            return await executor.downloadFileContent(fileTag, dataType);
+        if(this.fileConnector !== null) {
+            return this.fileConnector.downloadFileContent(fileTag, dataType);
         }
+
+        const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaObserver);
+        return await executor.downloadFileContent(fileTag, dataType);
     }
 
     /**
      * @override
      */
     async deleteFileContent(fileTag, dataType) {
-        if (typeof this.filePath === 'string') {
-            const folder = this.getFilePath(fileTag);
-            await fsp.rm(path.join(folder, fileTag));
-        } else {
-            const properties = new Map([[COLUMNS.FILE_CONTENT, null]]);
-            await this.applyTransaction([{type: 'UPDATE', object: fileTag, model: dataType, properties}], {});
+        if(this.fileConnector !== null) {
+            return this.fileConnector.deleteFileContent(fileTag, dataType);
         }
-    }
 
-    /**
-     * Generate the path of directories for the specified file, based on its tag.
-     *
-     * @private
-     * @param {string} fileTag
-     * @return {string}
-     */
-    getFilePath(fileTag) {
-        const hash = hashcode(fileTag);
-        const first = String(hash & 255).padStart(3, '0');
-        const second = String((hash >> 8) & 255).padStart(3, '0');
-        return path.join(this.filePath, first, second);
+        const properties = new Map([[COLUMNS.FILE_CONTENT, null]]);
+        await this.applyTransaction([{ type: 'UPDATE', object: fileTag, model: dataType, properties }], {});
     }
 }
 
