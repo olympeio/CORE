@@ -254,12 +254,8 @@ export default class SchemaReader {
     }
 
     /**
-     * Initialize the schema reader with knex client to retrieve starting schema information
-
-     * @param {!Knex} client
-     * @param {string} schema
-     * @param {!Object} schemaConfig
-     * @return {!Promise<void>}
+     * @override
+     * @inheritDoc
      */
     init(client, schema, schemaConfig) {
         // 1. init field with parameters
