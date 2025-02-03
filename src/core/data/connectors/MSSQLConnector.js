@@ -2,6 +2,7 @@ import {DataSource, register} from 'olympe';
 import {getLogger} from 'logging';
 import {knex, Knex} from 'knex';
 import {HEALTH_CHECK_QUERY, config} from './sql/_statics';
+import SchemaObserver from './sql/schema/SchemaObserver';
 import SchemaReader from './sql/schema/SchemaReader';
 import SQLQueryExecutor, {COLUMNS} from './sql/SQLQueryExecutor';
 import SQLTransactionWriter from './sql/SQLTransactionWriter';
@@ -26,9 +27,9 @@ export default class MSSQLConnector extends DataSource {
 
         /**
          * @private
-         * @type {!SchemaReader}
+         * @type {SchemaProvider}
          */
-        this.schemaReader = new SchemaReader(this.logger);
+        this.schemaProvider = this.getConfig(config.schemaDescription) ? new SchemaReader(this.logger) : new SchemaObserver(this.logger);
 
         /**
          * @private
@@ -58,11 +59,6 @@ export default class MSSQLConnector extends DataSource {
             throw new Error(errorMsg);
         }
 
-        const schemaDesc = this.getConfig(config.schemaDescription);
-        if (!(schemaDesc instanceof Object)) {
-            throw new Error(`No schema description found for the data source ${this.getId()}. Please ensure the "schemaDescription" parameter has an Object value.`);
-        }
-
         if (this.knex !== null) {
             await this.knex.destroy();
         }
@@ -88,7 +84,7 @@ export default class MSSQLConnector extends DataSource {
         });
 
         // Initialize the writer
-        this.writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaReader);
+        this.writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaProvider);
 
         // Determine the file connector based on the filePath or fileConnector.
         const fileConnectorId = this.getConfig(config.filePath)
@@ -107,7 +103,15 @@ export default class MSSQLConnector extends DataSource {
 
         // Initialize the schema observer that fulfill the cache
         // with all the existing tables with their associated data types.
-        await this.schemaReader.init(this.knex, schema, schemaDesc);
+        if (this.schemaProvider instanceof SchemaReader) {
+            const schemaDesc = this.getConfig(config.schemaDescription);
+            if (!(schemaDesc instanceof Object)) {
+                throw new Error(`No schema description found for the data source ${this.getId()}. Please ensure the "schemaDescription" parameter has an Object value.`);
+            }
+            await this.schemaProvider.init(this.knex, schema, schemaDesc);
+        } else {
+            await this.schemaProvider.init(this.knex, schema);
+        }
         this.logger.info(`Schema of MSSql connector ${this.getId()} has been initialized`);
     }
 
@@ -135,7 +139,7 @@ export default class MSSQLConnector extends DataSource {
      * @override
      */
     async executeQuery(query) {
-        const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaReader);
+        const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaProvider);
         return await executor.executeQuery(query);
     }
 
@@ -166,7 +170,7 @@ export default class MSSQLConnector extends DataSource {
             return this.fileConnector.downloadFileContent(fileTag, dataType);
         }
 
-        const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaReader);
+        const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaProvider);
         return await executor.downloadFileContent(fileTag, dataType);
     }
 
