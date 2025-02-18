@@ -31,9 +31,10 @@ export function serializeValue(val, dialect) {
  * @param {string} dialect the dialect currently in use
  * @param {string} sqlCode the request code
  * @param {Object | Array} bindings to inject into the request
+ * @param {Function} executor used to execute the query
  * @return {Promise<[string, string][]>}
  */
-export const queryKnex = async (client, dialect, sqlCode, bindings) => {
+export const queryKnex = async (client, dialect, sqlCode, bindings, executor) => {
 
     let query;
     switch (dialect) {
@@ -41,7 +42,7 @@ export const queryKnex = async (client, dialect, sqlCode, bindings) => {
         default: query = PG[sqlCode];
     }
 
-    let response = await client.raw(query, bindings);
+    let response = await executor(client.raw(query, bindings));
     let rows;
     switch (dialect) {
         case DB_DIALECT_NAMES.MSSQL: rows = response; break;
