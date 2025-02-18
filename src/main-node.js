@@ -38,6 +38,11 @@ import './core/logic/**/*.ts';
 import './core/math/**/*.ts';
 import './core/system/**/*.ts';
 import FileConnectorsRegistry from './core/data/connectors/fileconnector/FileConnectorsRegistry';
+import SQLQueryExecutor from './core/data/connectors/sql/SQLQueryExecutor';
+import SQLTransactionWriter from './core/data/connectors/sql/SQLTransactionWriter';
+import SchemaReader from './core/data/connectors/sql/schema/SchemaReader';
+import SchemaObserver from './core/data/connectors/sql/schema/SchemaObserver';
+import SchemaProvider from './core/data/connectors/sql/schema/SchemaProvider';
 
 import 'helpers/set-performance';
 export * from './helpers/common/perf-container';
@@ -47,5 +52,6 @@ export * from './helpers/lambdaExecutor';
 export * from 'helpers/binaryConverters';
 export * from 'helpers/httpRequest';
 export * from 'helpers/platformInfo';
-export { FileConnectorsRegistry };
+
+export { FileConnectorsRegistry, SQLQueryExecutor, SQLTransactionWriter, SchemaReader, SchemaObserver, SchemaProvider };
 export {FileConnector} from './core/data/connectors/fileconnector/FileConnector'
