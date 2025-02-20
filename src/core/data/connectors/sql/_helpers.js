@@ -1,5 +1,6 @@
 import { Color } from 'olympe';
-import { DB_DIALECT_NAMES } from './_statics';
+import {DB_DIALECT_NAMES, MSSQL, PG} from './_statics';
+import {Knex} from "knex";
 
 /**
  * @param {string | number | boolean | !Date | !Color} val
@@ -23,4 +24,29 @@ export function serializeValue(val, dialect) {
         }
     }
     return serialValue;
+}
+
+/**
+ * @param {!Knex} client the knex client
+ * @param {string} dialect the dialect currently in use
+ * @param {string} sqlCode the request code
+ * @param {Object | Array} bindings to inject into the request
+ * @param {Function} executor used to execute the query
+ * @return {Promise<[string, string][]>}
+ */
+export const queryKnex = async (client, dialect, sqlCode, bindings, executor) => {
+
+    let query;
+    switch (dialect) {
+        case DB_DIALECT_NAMES.MSSQL: query = MSSQL[sqlCode]; break;
+        default: query = PG[sqlCode];
+    }
+
+    let response = await executor(client.raw(query, bindings));
+    let rows;
+    switch (dialect) {
+        case DB_DIALECT_NAMES.MSSQL: rows = response; break;
+        default: rows = response?.rows;
+    }
+    return rows ?? [];
 }

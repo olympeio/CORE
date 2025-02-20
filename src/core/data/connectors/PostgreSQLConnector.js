@@ -6,6 +6,7 @@ import SchemaObserver from "./sql/schema/SchemaObserver";
 import {HEALTH_CHECK_QUERY, config} from "./sql/_statics";
 import SQLTransactionWriter from "./sql/SQLTransactionWriter";
 import FileConnectorsRegistry from './fileconnector/FileConnectorsRegistry';
+import SchemaReader from "./sql/schema/SchemaReader";
 
 export default class PostgreSQLConnector extends DataSource {
 
@@ -26,9 +27,9 @@ export default class PostgreSQLConnector extends DataSource {
 
         /**
          * @private
-         * @type {!SchemaObserver}
+         * @type {SchemaProvider}
          */
-        this.schemaObserver = new SchemaObserver(this.logger);
+        this.schemaProvider = this.getConfig(config.schemaDescription) ? new SchemaReader(this.logger) : new SchemaObserver(this.logger);
 
         /**
          * @private
@@ -84,7 +85,7 @@ export default class PostgreSQLConnector extends DataSource {
         });
 
         // Initialize the writer
-        this.writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaObserver);
+        this.writer = new SQLTransactionWriter(this.logger, this.knex, this.schemaProvider);
 
         // Determine the file connector based on the filePath or fileConnector.
         const fileConnectorId = this.getConfig(config.filePath)
@@ -101,7 +102,16 @@ export default class PostgreSQLConnector extends DataSource {
         this.logger.info(`SQLConnector ${this.getId()} started with host ${host}, database ${database} on schema ${schema}`);
 
         // Initialize the schema observer that fulfill the cache with all the existing tables with their associated data types.
-        await this.schemaObserver.init(this.knex, schema);
+        if (this.schemaProvider instanceof SchemaReader) {
+            const schemaDesc = this.getConfig(config.schemaDescription);
+            if (!(schemaDesc instanceof Object)) {
+                throw new Error(`No schema description found for the data source ${this.getId()}. Please ensure the "schemaDescription" parameter has an Object value.`);
+            }
+            await this.schemaProvider.init(this.knex, schema, schemaDesc);
+        } else {
+            await this.schemaProvider.init(this.knex, schema);
+        }
+
         this.logger.info(`Schema of SQLConnector ${this.getId()} has been initialized`);
 
         if (this.getConfig('moveFilesToVolume') && this.getConfig(config.filePath)) {
@@ -118,9 +128,9 @@ export default class PostgreSQLConnector extends DataSource {
     async migrateFiles() {
         this.logger.info('Migrating files...');
         const {FILE_CONTENT, TAG} = COLUMNS;
-        const schema = this.schemaObserver.getSchema();
+        const schema = this.schemaProvider.getSchema();
         const fileModelTag = tagToString(OFile);
-        const tableName = this.schemaObserver.getTableName(fileModelTag);
+        const tableName = this.schemaProvider.getTableName(fileModelTag);
         try {
             const fileList = await this.knex.queryBuilder().withSchema(schema).from(tableName).select(TAG);
             this.logger.info(`Detected ${fileList.length} files`);
@@ -165,7 +175,7 @@ export default class PostgreSQLConnector extends DataSource {
      * @override
      */
     async executeQuery(query) {
-        const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaObserver);
+        const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaProvider);
         return await executor.executeQuery(query);
     }
 
@@ -195,7 +205,7 @@ export default class PostgreSQLConnector extends DataSource {
             return this.fileConnector.downloadFileContent(fileTag, dataType);
         }
 
-        const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaObserver);
+        const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaProvider);
         return await executor.downloadFileContent(fileTag, dataType);
     }
 

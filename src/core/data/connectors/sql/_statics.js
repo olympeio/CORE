@@ -59,6 +59,57 @@ PG.QUERY_COLUMNS= `${PG.QUERY_ALL_COLUMNS} AND col_description(class.oid, cols.a
 export {PG};
 
 const MSSQL = {};
+MSSQL.QUERY_ALL_TABLES=`
+    SELECT
+        t.name AS name,
+        ep.value AS comment
+    FROM sys.tables t
+         INNER JOIN sys.schemas s ON t.schema_id = s.schema_id
+         LEFT JOIN sys.extended_properties ep
+               ON ep.major_id = t.object_id
+                   AND ep.minor_id = 0
+                   AND ep.class = 1
+                   AND ep.name = 'MS_Description'
+    WHERE s.name = ? -- schema name
+`;
+MSSQL.QUERY_ALL_COLUMNS=`
+    SELECT
+        c.name AS name,
+        ep.value AS comment
+    FROM sys.columns c
+         INNER JOIN sys.tables t ON c.object_id = t.object_id
+         INNER JOIN sys.schemas s ON t.schema_id = s.schema_id
+         LEFT JOIN sys.extended_properties ep
+               ON ep.major_id = c.object_id
+                   AND ep.minor_id = c.column_id
+                   AND ep.class = 1
+                   AND ep.name = 'MS_Description'
+    WHERE s.name = :schemaName  -- Schema name filter
+      AND t.name = :tableName  -- Table name filter
+`;
+MSSQL.REMOVE_DUPLICATES=`
+    WITH DuplicateRows AS (
+        SELECT
+            tagOlympeOrig,
+            tagOlympeDest,
+            ROW_NUMBER() OVER (PARTITION BY tagOlympeOrig, tagOlympeDest ORDER BY tagOlympeOrig, tagOlympeDest) AS rn
+        FROM [schema1].[table1]
+    )
+    DELETE FROM [schema1].[table1]
+    WHERE EXISTS (
+        SELECT 1
+        FROM DuplicateRows d
+        WHERE d.rn > 1
+            AND d.tagOlympeOrig = [table1].tagOlympeOrig
+            AND d.tagOlympeDest = [table1].tagOlympeDest
+    );
+`;
+
+MSSQL.QUERY_DATA_TYPE_TABLES= `${MSSQL.QUERY_ALL_TABLES} AND CAST(ep.value AS NVARCHAR(MAX)) LIKE '${SCHEMA_PREFIXES.TYPE}:%'`;
+MSSQL.QUERY_RELATION_TABLES= `${MSSQL.QUERY_ALL_TABLES} AND CAST(ep.value AS NVARCHAR(MAX)) LIKE '${SCHEMA_PREFIXES.RELATION}:%'`;
+MSSQL.QUERY_COLUMNS= `${MSSQL.QUERY_ALL_COLUMNS} AND CAST(ep.value AS NVARCHAR(MAX)) LIKE '${SCHEMA_PREFIXES.PROPERTY}:%'`
+
+
 // bindings for INSERT_REL_IF_NOT_EXIST:
 // :schema:, :relationTable:, :tagOlympeOrig, :tagOlympeVal
 MSSQL.INSERT_REL_IF_NOT_EXIST = `MERGE into

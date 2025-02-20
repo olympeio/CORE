@@ -1,7 +1,7 @@
 import {Logger} from 'loglevel';
-import {BrickContext, VisualBrick, Brick} from "@olympeio/runtime-web";
 import {ReactElement} from "react";
-import {CloudObject, BrickContext} from "olympe";
+import {CloudObject, BrickContext, VisualBrick, Brick, Query, Operation} from "olympe";
+import {Knex} from "knex";
 
 /**
  * Return the specified logger
@@ -198,5 +198,123 @@ export function markdownTextToReactElement(text: string, element: string): Eleme
  * @return {Promise<!Array<*>>}
  */
 export function executeLambda($: BrickContext, lambda: Brick, inputsValues: any[], customErrorCode: number): Promise<any[]>
+
+/**
+ * Static class used to register file connectors for data connectors.
+ */
+export static class FileConnectorsRegistry {
+
+    /**
+     * Register file connector with the given identifier.
+     */
+    static register(connectorId: string, loader: (configGetter: (path: string) => any) => FileConnector);
+
+    /**
+     * Get file operations for a specific connector type.
+     */
+    static get(connectorId: string, configGetter: (path: string) => any): FileConnector;
+}
+
+/**
+ * The FileConnector class is an abstract class that provides the interface for file operations.
+ */
+export class FileConnector {
+
+    constructor(configGetter: (key: string) => any);
+
+    /**
+     * Upload file content.
+     */
+    async uploadFileContent(fileTag: string, dataType: string, binary: Uint8Array): Promise<void>
+
+    /**
+     * Download file content.
+     */
+    async downloadFileContent(fileTag: string, dataType: string): Promise<Uint8Array>
+
+    /**
+     * Delete file content.
+     */
+    async deleteFileContent(fileTag: string, dataType: string): Promise<void>
+}
+
+/**
+ * The class used to build SQL queries from Olympe Query objects.
+ */
+export class SQLQueryExecutor {
+
+    /**
+     * Set a function that will handle the execution of the SQL query once built, instead of being applied directly on a local database
+     */
+    delegateExecution(executor: (builder: Knex.QueryBuilder) => Promise<any>): SQLQueryExecutor
+
+    /**
+     * Transform a query to a knex query builder, ready to be executed.
+     */
+    async executeQuery(query: Query<CloudObject, any>): Promise<any>
+}
+
+/**
+ * A schema provider is used to interact with the database schema by SQL data connectors
+ */
+export abstract class SchemaProvider {
+    abstract init(client: Knex, schema: string, ...args: any[]): Promise<void>;
+    abstract getSchema(): string;
+    abstract getTablesOfType(dataType: string, includeInheritance?: boolean): string[];
+    abstract getDBDialectName(): string;
+}
+
+/**
+ * The schema reader is used to read the schema configuration and bridge the gap between the datamodel and the database schema.
+ * It never alters the schema.
+ */
+export class SchemaReader extends SchemaProvider {}
+
+/**
+ * The schema observer is used to observe changes in the datamodel and adapt automatically the database schema to correspond to it.
+ * It requires appropriate permissions to alter the schema.
+ */
+export class SchemaObserver extends SchemaProvider {}
+
+
+export type BatchInserts = Map<string, Array<object>>;
+
+/**
+ * Handles SQL transaction operations.
+ */
+export class SQLTransactionWriter {
+
+    /**
+     * @param logger - Logger instance for logging.
+     * @param client - Knex client instance for database operations.
+     * @param schemaProvider - Schema provider instance.
+     */
+    constructor(logger: Logger, client: Knex, schemaProvider: SchemaProvider);
+
+    /**
+     * Set a function that will handle the execution of the SQL query once built,
+     * instead of being applied directly on a local database.
+     *
+     * @param executor - Function to handle execution of SQL queries.
+     * @returns The instance of SQLTransactionWriter.
+     */
+    delegateExecution(executor: (queries: any[], batchInserts: BatchInserts | null) => Promise<any>): this;
+
+    /**
+     * Execute the list of operations.
+     *
+     * @param operations - List of operations to execute.
+     * @param batch - Whether to batch inserts (default: false).
+     * @param raw - Whether to execute raw queries (default: false).
+     * @param executor - Optional custom executor function.
+     * @returns A promise that resolves when operations are executed.
+     */
+    async applyOperations(
+        operations: Operation[],
+        batch?: boolean,
+        raw?: boolean,
+        executor?: ((queries: any[], batchInserts: BatchInserts | null) => Promise<any>) | null
+    ): Promise<void>;
+}
 
 export * from './mui';

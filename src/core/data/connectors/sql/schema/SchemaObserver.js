@@ -14,12 +14,12 @@ import {
     DBView,
     tagToString,
     File as OFile,
-    Context,
     Predicate
 } from 'olympe';
 import {COLUMNS} from "../SQLQueryExecutor";
-import {PG, SCHEMA_PREFIXES, MAX_NAME_LENGTH} from '../_statics';
+import {SCHEMA_PREFIXES, MAX_NAME_LENGTH, DB_DIALECT_NAMES} from '../_statics';
 import SchemaProvider from './SchemaProvider';
+import {queryKnex} from "../_helpers";
 
 /**
  * @implements {SchemaProvider}
@@ -28,8 +28,9 @@ export default class SchemaObserver {
 
     /**
      * @param {!log.Logger} logger
+     * @param {(function(!Knex.QueryBuilder):!Promise<*>)=} executor
      */
-    constructor(logger) {
+    constructor(logger, executor) {
 
         /**
          * @private
@@ -78,47 +79,52 @@ export default class SchemaObserver {
          * @type {!Array<function()>}
          */
         this.operationStack = [];
+
+
+        /**
+         * @private
+         * @type {function(!Knex.QueryBuilder):!Promise<*>}
+         */
+        this.executor = executor ?? (async (builder) => await builder);
     }
 
     /**
-     * Initialize the schema observer with knex client to retrieve starting schema information
-
-     * @param {!Knex} client
-     * @param {string} schema
-     * @return {!Promise<void>}
+     * @override
+     * @inheritDoc
      */
-    init(client, schema) {
+    init(client, schema, schemaConfig) {
         this.knex = client;
         this.schema = schema;
+        const dialect = this.getDBDialectName();
 
         // What to apply on the schema for the tables to consider:
         const tableModifier = async (currentName, finalName, finalTag) => {
             // Update the schema if necessary
             if (currentName !== finalName) {
-                await client.schema.withSchema(schema).renameTable(currentName, finalName);
+                await this.executor(client.schema.withSchema(schema).renameTable(currentName, finalName));
             }
 
-            const table = new Table(this.logger, finalTag, finalName);
-            await table.checkColumns(client, schema);
+            const table = new Table(this.logger, this.executor, finalTag, finalName);
+            await table.checkColumns(client, schema, dialect);
             this.tables.set(finalTag, table);
             this.tableNames.set(finalName, finalTag);
         };
 
         /**
-         * @param {string} sql
+         * @param {string} sqlCode
          * @return {Promise<[string, string][]>}
          */
-        const queryTables = async (sql) => (await client.raw(sql, [schema]))?.rows?.map((r) => [r.name, r.comment]) ?? [];
+        const queryTables = async (sqlCode) => (await queryKnex(client, dialect, sqlCode, [schema], this.executor)).map((r) => [r.name, r.comment]);
 
         // Initialize and validate the schema according to the data model.
         this.pushOperation(async () => {
             // List of data types tables from the database
-            const dataTypeTables = await queryTables(PG.QUERY_DATA_TYPE_TABLES);
+            const dataTypeTables = await queryTables('QUERY_DATA_TYPE_TABLES');
             this.logger.debug(`Found ${dataTypeTables.length} data type tables to be validated.`);
 
             // If no data type table, means that we are probably trying to migration to the new sql connector format.
             if (dataTypeTables.length === 0) {
-                const allTables = await queryTables(PG.QUERY_ALL_TABLES);
+                const allTables = await queryTables('QUERY_ALL_TABLES');
                 this.logger.debug(`No data type table, try a migration on ${allTables.length} tables`);
                 await this.migrate(allTables.map(([tableName]) => tableName));
                 return;
@@ -128,7 +134,7 @@ export default class SchemaObserver {
             await SchemaObserver.validateSchema(this.logger, SCHEMA_PREFIXES.TYPE, dataTypeTables, tableModifier);
 
             // List of relation tables from the database
-            const relationTables = await queryTables(PG.QUERY_RELATION_TABLES);
+            const relationTables = await queryTables('QUERY_RELATION_TABLES');
             this.logger.debug(`Found ${relationTables.length} relation tables to be validated.`);
             return SchemaObserver.validateRelationSchema(this.logger, relationTables, tableModifier);
         }, 'Initialize schema observer');
@@ -293,7 +299,7 @@ export default class SchemaObserver {
         if (!this.tables.has(dataType)) {
             this.tables.set(dataType, table);
             this.pushOperation(async () => {
-                await table.create(this.getSchemaBuilder());
+                await this.executor(table.create(this.getSchemaBuilder()));
                 this.tableNames.set(table.getName(), dataType);
             }, `Create new table for data type ${dataType}`);
         }
@@ -314,7 +320,7 @@ export default class SchemaObserver {
      * @return {!Table}
      */
     getTableForDataType(dataType) {
-        return this.tables.get(dataType) ?? new Table(this.logger, dataType).addColumns([COLUMNS.TAG]);
+        return this.tables.get(dataType) ?? new Table(this.logger, this.executor, dataType).addColumns([COLUMNS.TAG]);
     }
 
     /**
@@ -334,7 +340,7 @@ export default class SchemaObserver {
             this.pushOperation(async () => {
                 const from = `${this.schema}.${fromTable.getName()}`;
                 const to = `${this.schema}.${toTable.getName()}`;
-                await table.createRelation(this.getSchemaBuilder(), from, to);
+                await table.createRelation(this.getSchemaBuilder(), this.getDBDialectName(), from, to);
                 this.tableNames.set(table.getName(), globalTag);
             }, `Ensure relation table exists for ${fromTag}-[${relationTag}]->${toTag}`);
         }
@@ -346,7 +352,7 @@ export default class SchemaObserver {
      * @return {!Table}
      */
     getTableForRelation(globalTag) {
-        return this.tables.get(globalTag) ?? new Table(this.logger, globalTag).addColumns([COLUMNS.FROM, COLUMNS.TO]);
+        return this.tables.get(globalTag) ?? new Table(this.logger, this.executor, globalTag).addColumns([COLUMNS.FROM, COLUMNS.TO]);
     }
 
     /**
@@ -413,7 +419,8 @@ export default class SchemaObserver {
                     relationOperations.push(() => this.migrateRelation(tag, fromTag, toTag));
                 } else {
                     // tag is a name of DB table, tag is not a relation => tag is a data type
-                    const rawColumns = (await this.knex.raw(PG.QUERY_ALL_COLUMNS, {"schemaName":this.schema, "tableName":name}))?.rows?.map((r) => r.name)
+                    const cols = await queryKnex(this.knex, this.getDBDialectName(), 'QUERY_ALL_COLUMNS', {"schemaName":this.schema, "tableName":name}, this.executor)
+                    const rawColumns = cols.map((r) => r.name)
                     dataTypeOperations.push(() => this.migrateDataType(tag, rawColumns));
                 }
             }
@@ -438,15 +445,15 @@ export default class SchemaObserver {
             ?? SchemaProvider.relationTranslationToODBName(this.db.name(fromTag), this.db.name(relationTag), this.db.name(toTag), globalTag);
 
         if (!this.tableNames.has(tableName)) {
-            const table = new Table(this.logger, globalTag, tableName);
+            const table = new Table(this.logger, this.executor, globalTag, tableName);
             this.tables.set(globalTag, table);
             this.tableNames.set(tableName, globalTag);
 
             this.pushOperation(async () => {
-                await this.getSchemaBuilder().alterTable(relationTag, (builder) => {
+                await this.executor(this.getSchemaBuilder().alterTable(relationTag, (builder) => {
                     builder.dropForeign(COLUMNS.FROM).dropForeign(COLUMNS.TO)
                         .dropNullable(COLUMNS.FROM).dropNullable(COLUMNS.TO);
-                });
+                }));
             }, `[MIGRATION] Remove previous foreign keys constraints for relation table ${relationTag}`);
 
             this.pushOperation(
@@ -456,7 +463,7 @@ export default class SchemaObserver {
 
             // remove duplicates in relation tables
             this.pushOperation(
-                () => this.knex.raw(PG.REMOVE_DUPLICATES, {"schema1":this.schema,"table1": tableName}),
+                () => queryKnex(this.knex, this.getDBDialectName(), 'REMOVE_DUPLICATES', {"schema1":this.schema,"table1": tableName}, this.executor),
                 `[MIGRATION] Remove duplicates from relation table ${tableName}`
             );
 
@@ -481,7 +488,7 @@ export default class SchemaObserver {
         // Discriminate file model tag that changed with data source integration
         const newDataType = dataType === 'ff021000000000000030' ? tagToString(OFile) : dataType;
         const tableName = this.tableNames.get(newDataType) ?? SchemaProvider.tagTranslationToODBName(this.db.name(newDataType), newDataType);
-        const table = this.tables.get(newDataType) ?? new Table(this.logger, newDataType, tableName);
+        const table = this.tables.get(newDataType) ?? new Table(this.logger, this.executor, newDataType, tableName);
 
         if (!this.tableNames.has(tableName)) {
             this.tables.set(newDataType, table);
@@ -570,16 +577,22 @@ class Table {
 
     /**
      * @param {!log.Logger} logger
+     * @param {function(!Knex.QueryBuilder):!Promise<*>} executor
      * @param {string} tag
      * @param {string=} name
      */
-    constructor(logger, tag, name) {
+    constructor(logger, executor, tag, name) {
 
         /**
          * @private
          * @type {!log.Logger}
          */
         this.logger = logger;
+        /**
+         * @private
+         * @type {function(!Knex.QueryBuilder):!Promise<*>}
+         */
+        this.executor = executor;
 
         /**
          * @private
@@ -626,13 +639,13 @@ class Table {
         }
 
         this.name = this.name ?? SchemaProvider.tagTranslationToODBName(dataType.name(), this.tag);
-        await builder.createTable(this.name, (tableBuilder) => {
+        await this.executor(builder.createTable(this.name, (tableBuilder) => {
             tableBuilder.comment(`${SCHEMA_PREFIXES.TYPE}:${this.tag}`);
 
             tableBuilder.string(COLUMNS.TAG, 21)
                 .primary({constraintName: (`${this.name}_${COLUMNS.TAG}_pk`).slice(-MAX_NAME_LENGTH)})
                 .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TAG}`);
-        });
+        }));
         this.pendingColumns.delete(COLUMNS.TAG);
         this.columns.set(COLUMNS.TAG, COLUMNS.TAG);
     }
@@ -647,7 +660,7 @@ class Table {
      */
     async migratePropertyColumn(builder, tableName, columnTag) {
         const hardcodedTags = Array.from(Object.values(COLUMNS));
-        await builder.alterTable(tableName, (tableBuilder) => {
+        await this.executor(builder.alterTable(tableName, (tableBuilder) => {
             const comment = `${SCHEMA_PREFIXES.PROPERTY}:${columnTag}`
 
             // Exception for hardcoded columns: tags, and file content (binary content of files)
@@ -682,7 +695,7 @@ class Table {
             const columnName = SchemaProvider.tagTranslationToODBName(this.db.name(columnTag), columnTag);
             this.columns.set(columnTag, columnName);
             tableBuilder.renameColumn(columnTag, columnName);
-        });
+        }));
     }
 
     /**
@@ -694,7 +707,7 @@ class Table {
      * @return {Promise<void>}
      */
     async migrateRelationColumns(builder, tableName, fromTable, toTable, schema) {
-        await builder.alterTable(tableName, (builder) => {
+        await this.executor(builder.alterTable(tableName, (builder) => {
             builder.string(COLUMNS.FROM, 21).alter()
                 .notNullable()
                 .references(COLUMNS.TAG)
@@ -715,7 +728,7 @@ class Table {
 
             builder.primary([COLUMNS.FROM, COLUMNS.TO]).comment(`${SCHEMA_PREFIXES.RELATION}:${this.tag}`);
             this.columns.set(COLUMNS.FROM, COLUMNS.FROM).set(COLUMNS.TO, COLUMNS.TO);
-        });
+        }));
     }
 
     /**
@@ -738,7 +751,7 @@ class Table {
             .execute())
             .reduce((props, pair) => props.set(pair[0].getTag(), pair), new Map());
 
-        await builder.table(this.name, (tableBuilder) => {
+        await this.executor(builder.alterTable(this.name, (tableBuilder) => {
             this.pendingColumns.forEach((columnTag) => {
                 const comment = `${SCHEMA_PREFIXES.PROPERTY}:${columnTag}`
 
@@ -771,18 +784,18 @@ class Table {
                 }
                 this.columns.set(columnTag, columnName);
             });
-        });
+        }));
         this.pendingColumns.clear();
     }
 
     /**
      * @param {!Knex.SchemaBuilder} builder
      * @param {string} fromName
+     * @param {string} dialect
      * @param {string} toName
-     * @param {!Context} context
      * @return {!Promise<void>}
      */
-    async createRelation(builder, fromName, toName) {
+    async createRelation(builder, dialect, fromName, toName) {
         if (this.pendingColumns.size === 0) {
             return;
         }
@@ -805,31 +818,37 @@ class Table {
         // Build the name of this relation table
         const [rel, from, to] = relationTuple;
         this.name = this.name ?? SchemaProvider.relationTranslationToODBName(from.name(), rel.name(), to.name(), this.tag);
-        await builder.createTable(this.name, (tableBuilder) => {
-            tableBuilder.string(COLUMNS.FROM, 21)
+        await this.executor(builder.createTable(this.name, (tableBuilder) => {
+            const columnBuilderFrom = tableBuilder.string(COLUMNS.FROM, 21)
                 .notNullable()
                 .references(COLUMNS.TAG)
                 .inTable(fromName)
                 // Avoid name conflict when auto constraint name is too long
                 .withKeyName((`${this.name}_${COLUMNS.FROM}_fk`).slice(-MAX_NAME_LENGTH))
                 .onDelete('CASCADE')
-                .onUpdate('RESTRICT')
                 .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.FROM}`);
 
-            tableBuilder.string(COLUMNS.TO, 21)
+            if (dialect !== DB_DIALECT_NAMES.MSSQL) {
+                columnBuilderFrom.onUpdate('RESTRICT');
+            }
+
+            const columnBuilderTo = tableBuilder.string(COLUMNS.TO, 21)
                 .notNullable()
                 .references(COLUMNS.TAG)
                 .inTable(toName)
                 // Avoid name conflict when auto constraint name is too long
                 .withKeyName((`${this.name}_${COLUMNS.TO}_fk`).slice(-MAX_NAME_LENGTH))
                 .onDelete('CASCADE')
-                .onUpdate('RESTRICT')
                 .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TO}`);
+
+            if (dialect !== DB_DIALECT_NAMES.MSSQL) {
+                columnBuilderTo.onUpdate('RESTRICT');
+            }
 
             tableBuilder
                 .primary([COLUMNS.FROM, COLUMNS.TO])
                 .comment(`${SCHEMA_PREFIXES.RELATION}:${this.tag}`);
-        });
+        }));
         this.pendingColumns.clear();
         this.columns.set(COLUMNS.FROM, COLUMNS.FROM).set(COLUMNS.TO, COLUMNS.TO);
     }
@@ -837,15 +856,16 @@ class Table {
     /**
      * @param {!Knex} client
      * @param {string} schema
+     * @param {string} dialect
      * @return {!Promise<Table>} this
      */
-    async checkColumns(client, schema) {
+    async checkColumns(client, schema, dialect) {
         const hardcodedColumns = new Set(Object.values(COLUMNS));
         // List of columns (pairs of column name and column comments) to be validated.
-        const rawColumns = await client.raw(PG.QUERY_COLUMNS, {"schemaName": schema, "tableName": this.name});
-        this.logger.debug(`Found ${rawColumns.rowCount} columns to be validated in table ${this.name}`);
+        const rawColumns = await queryKnex(client, dialect, 'QUERY_COLUMNS', {"schemaName": schema, "tableName": this.name}, this.executor);
+        this.logger.debug(`Found ${rawColumns.length} columns to be validated in table ${this.name}`);
 
-        const columnsList = rawColumns?.rows?.map((row) => [row.name, row.comment]).filter(([name]) => {
+        const columnsList = rawColumns.map((row) => [row.name, row.comment]).filter(([name]) => {
             if (hardcodedColumns.has(name)) {
                 this.columns.set(name, name);
                 return false;
@@ -857,9 +877,9 @@ class Table {
         const modifier = async (currentColName, finalColName, finalColTag) => {
             this.columns.set(finalColTag, finalColName);
             if (finalColName !== currentColName) {
-                await client.schema.withSchema(schema).alterTable(this.name, (table) => {
+                await this.executor(client.schema.withSchema(schema).alterTable(this.name, (table) => {
                     table.renameColumn(currentColName, finalColName);
-                });
+                }));
             }
         };
 
