@@ -1,4 +1,4 @@
-import { promises as fsp } from 'fs';
+import { promises as fsp, createReadStream } from 'fs';
 import path from 'path';
 import {FileConnector} from "./FileConnector";
 import FileConnectorsRegistry from "./FileConnectorsRegistry";
@@ -39,7 +39,7 @@ export default class FileSystemConnector extends  FileConnector{
         } catch (e) {
             throw new Error(`File ${filePath} does not exist so it cannot be downloaded`);
         }
-        return fs.createReadStream(filePath, { encoding: null });
+        return createReadStream(filePath, { encoding: null });
     }
 
     /**
