@@ -283,7 +283,7 @@ export default class SQLQueryExecutor {
             .concat(filter.flatMap((andPredicates) => andPredicates.map((predicate) => predicate?.property)))
             .filter((prop) => !!prop));
 
-        return properties.reduce((map, prop) => {
+        return Array.from(properties).reduce((map, prop) => {
             destinationTables.some((table) => {
                 const column = this.schema.getColumn(table, prop);
                 return Boolean(column && map.set(prop, column));

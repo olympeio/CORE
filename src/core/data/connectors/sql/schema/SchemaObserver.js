@@ -95,17 +95,39 @@ export default class SchemaObserver {
     init(client, schema, schemaConfig) {
         this.knex = client;
         this.schema = schema;
+        this.initSchema();
+        return this.waitForFree();
+    }
+
+    /**
+     * @override
+     * @inheritDoc
+     */
+    waitForFree() {
+        return new Promise((resolve) => {
+            this.operationStack.length > 0 ? this.onReady.push(() => resolve()) : resolve();
+        });
+    }
+
+    /**
+     * Fetch the schema from the database and initialize the tables.
+     *
+     * @private
+     */
+    initSchema() {
+        this.tables.clear();
+        this.tableNames.clear();
         const dialect = this.getDBDialectName();
 
         // What to apply on the schema for the tables to consider:
         const tableModifier = async (currentName, finalName, finalTag) => {
             // Update the schema if necessary
             if (currentName !== finalName) {
-                await this.executor(client.schema.withSchema(schema).renameTable(currentName, finalName));
+                await this.executor(this.getSchemaBuilder().renameTable(currentName, finalName));
             }
 
             const table = new Table(this.logger, this.executor, finalTag, finalName);
-            await table.checkColumns(client, schema, dialect);
+            await table.checkColumns(this.knex, this.schema, dialect);
             this.tables.set(finalTag, table);
             this.tableNames.set(finalName, finalTag);
         };
@@ -114,7 +136,8 @@ export default class SchemaObserver {
          * @param {string} sqlCode
          * @return {Promise<[string, string][]>}
          */
-        const queryTables = async (sqlCode) => (await queryKnex(client, dialect, sqlCode, [schema], this.executor)).map((r) => [r.name, r.comment]);
+        const queryTables = async (sqlCode) => queryKnex(this.knex, dialect, sqlCode, [this.schema], this.executor)
+            .then((tables) => tables.map((t) => [t.name, t.comment]));
 
         // Initialize and validate the schema according to the data model.
         this.pushOperation(async () => {
@@ -138,18 +161,6 @@ export default class SchemaObserver {
             this.logger.debug(`Found ${relationTables.length} relation tables to be validated.`);
             return SchemaObserver.validateRelationSchema(this.logger, relationTables, tableModifier);
         }, 'Initialize schema observer');
-
-        return this.waitForFree();
-    }
-
-    /**
-     * @override
-     * @inheritDoc
-     */
-    waitForFree() {
-        return new Promise((resolve) => {
-            this.operationStack.length > 0 ? this.onReady.push(() => resolve()) : resolve();
-        });
     }
 
     /**
@@ -176,9 +187,11 @@ export default class SchemaObserver {
         const boundOperation = () => {
             operation().then(() => {
                 this.logger.debug(`Operation ${debugName} succeed`);
-                callNext();
             }).catch((r) => {
-                throw new Error(`Error with schema operation ${debugName}: ${r}`);
+                this.logger.warn(`Error with schema operation ${debugName}: ${r}, try to re-fetch schema from DB`);
+                this.initSchema();
+            }).finally(() => {
+                callNext();
             });
         };
 
@@ -360,7 +373,7 @@ export default class SchemaObserver {
      * @inheritDoc
      */
     getRelationTableName(relationTag, fromTag, toTag) {
-        return this.getTableForRelation( SchemaProvider.getRelGlobalTag(fromTag, toTag, relationTag))?.getName();
+        return this.getTableForRelation(SchemaProvider.getRelGlobalTag(fromTag, toTag, relationTag))?.getName();
     }
 
     /**
@@ -377,7 +390,7 @@ export default class SchemaObserver {
      * @inheritDoc
      */
     getTableName(dataType) {
-        return this.getTable(dataType).getName() ?? '';
+        return this.getTable(dataType)?.getName() ?? '';
     }
 
     /**
@@ -639,13 +652,18 @@ class Table {
         }
 
         this.name = this.name ?? SchemaProvider.tagTranslationToODBName(dataType.name(), this.tag);
-        await this.executor(builder.createTable(this.name, (tableBuilder) => {
-            tableBuilder.comment(`${SCHEMA_PREFIXES.TYPE}:${this.tag}`);
 
-            tableBuilder.string(COLUMNS.TAG, 21)
-                .primary({constraintName: (`${this.name}_${COLUMNS.TAG}_pk`).slice(-MAX_NAME_LENGTH)})
-                .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TAG}`);
-        }));
+        const tableExist = await this.executor(builder.hasTable(this.name));
+        if (!tableExist) {
+            await this.executor(builder.createTable(this.name, (tableBuilder) => {
+                tableBuilder.comment(`${SCHEMA_PREFIXES.TYPE}:${this.tag}`);
+
+                tableBuilder.string(COLUMNS.TAG, 21)
+                    .primary({constraintName: (`${this.name}_${COLUMNS.TAG}_pk`).slice(-MAX_NAME_LENGTH)})
+                    .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TAG}`);
+            }));
+        }
+
         this.pendingColumns.delete(COLUMNS.TAG);
         this.columns.set(COLUMNS.TAG, COLUMNS.TAG);
     }
@@ -818,37 +836,42 @@ class Table {
         // Build the name of this relation table
         const [rel, from, to] = relationTuple;
         this.name = this.name ?? SchemaProvider.relationTranslationToODBName(from.name(), rel.name(), to.name(), this.tag);
-        await this.executor(builder.createTable(this.name, (tableBuilder) => {
-            const columnBuilderFrom = tableBuilder.string(COLUMNS.FROM, 21)
-                .notNullable()
-                .references(COLUMNS.TAG)
-                .inTable(fromName)
-                // Avoid name conflict when auto constraint name is too long
-                .withKeyName((`${this.name}_${COLUMNS.FROM}_fk`).slice(-MAX_NAME_LENGTH))
-                .onDelete('CASCADE')
-                .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.FROM}`);
 
-            if (dialect !== DB_DIALECT_NAMES.MSSQL) {
-                columnBuilderFrom.onUpdate('RESTRICT');
-            }
+        const tableExist = await this.executor(builder.hasTable(this.name));
+        if (!tableExist) {
+            await this.executor(builder.createTable(this.name, (tableBuilder) => {
+                const columnBuilderFrom = tableBuilder.string(COLUMNS.FROM, 21)
+                    .notNullable()
+                    .references(COLUMNS.TAG)
+                    .inTable(fromName)
+                    // Avoid name conflict when auto constraint name is too long
+                    .withKeyName((`${this.name}_${COLUMNS.FROM}_fk`).slice(-MAX_NAME_LENGTH))
+                    .onDelete('CASCADE')
+                    .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.FROM}`);
 
-            const columnBuilderTo = tableBuilder.string(COLUMNS.TO, 21)
-                .notNullable()
-                .references(COLUMNS.TAG)
-                .inTable(toName)
-                // Avoid name conflict when auto constraint name is too long
-                .withKeyName((`${this.name}_${COLUMNS.TO}_fk`).slice(-MAX_NAME_LENGTH))
-                .onDelete('CASCADE')
-                .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TO}`);
+                if (dialect !== DB_DIALECT_NAMES.MSSQL) {
+                    columnBuilderFrom.onUpdate('RESTRICT');
+                }
 
-            if (dialect !== DB_DIALECT_NAMES.MSSQL) {
-                columnBuilderTo.onUpdate('RESTRICT');
-            }
+                const columnBuilderTo = tableBuilder.string(COLUMNS.TO, 21)
+                    .notNullable()
+                    .references(COLUMNS.TAG)
+                    .inTable(toName)
+                    // Avoid name conflict when auto constraint name is too long
+                    .withKeyName((`${this.name}_${COLUMNS.TO}_fk`).slice(-MAX_NAME_LENGTH))
+                    .onDelete('CASCADE')
+                    .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TO}`);
 
-            tableBuilder
-                .primary([COLUMNS.FROM, COLUMNS.TO])
-                .comment(`${SCHEMA_PREFIXES.RELATION}:${this.tag}`);
-        }));
+                if (dialect !== DB_DIALECT_NAMES.MSSQL) {
+                    columnBuilderTo.onUpdate('RESTRICT');
+                }
+
+                tableBuilder
+                    .primary([COLUMNS.FROM, COLUMNS.TO])
+                    .comment(`${SCHEMA_PREFIXES.RELATION}:${this.tag}`);
+            }));
+        }
+
         this.pendingColumns.clear();
         this.columns.set(COLUMNS.FROM, COLUMNS.FROM).set(COLUMNS.TO, COLUMNS.TO);
     }
