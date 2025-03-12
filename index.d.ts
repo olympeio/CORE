@@ -2,6 +2,7 @@ import {Logger} from 'loglevel';
 import {ReactElement} from "react";
 import {CloudObject, BrickContext, VisualBrick, Brick, Query, Operation} from "olympe";
 import {Knex} from "knex";
+import {Readable} from "stream";
 
 /**
  * Return the specified logger
@@ -230,7 +231,7 @@ export class FileConnector {
     /**
      * Download file content.
      */
-    async downloadFileContent(fileTag: string, dataType: string): Promise<Uint8Array>
+    async downloadFileContent(fileTag: string, dataType: string): Promise<Uint8Array | Readable>
 
     /**
      * Delete file content.

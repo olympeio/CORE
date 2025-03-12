@@ -1,0 +1,83 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Set Parameter",
+    "ff023000000000000011": "Set Parameter"
+   },
+   "t": "0195899061ff9975014b"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01958990620011edb23d"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "0195899062008035b595"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "0195899062008f4b0fb9"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "019589906200d3bb043f"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Set a value for a parameter to be retrieved at the global level",
+    "01703376c4a81c0e9d92": "To be used in conjunction with the <b>\"Get Parameter\"</b> brick, this brick allows setting and overriding the value of a specified parameter.\n\nIt is typically used when loading parameter values asynchronously from another source (e.g., a remote vault).\n\n⚠ <b>Use with caution</b>: Overriding parameters essential for core platform functionality may cause runtime issues."
+   },
+   "t": "01958990a2580e040b4b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "Name"
+   },
+   "t": "01958990a9f318e028dd"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The parameter name to update"
+   },
+   "t": "01958990a9f3efa62faa"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 2,
+    "ff023000000000000011": "Value"
+   },
+   "t": "01958990ab8e2e5c0877"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The value to set for the parameter."
+   },
+   "t": "01958990ab8ee7bba7d7"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "0195899061ff9975014b"
+}

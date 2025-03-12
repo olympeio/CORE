@@ -39,7 +39,7 @@ export class FileConnector {
      * @abstract
      * @param {string} fileTag - The tag of the file.
      * @param {string} dataType - The data type associated with the file.
-     * @returns {Promise<Uint8Array>} The binary file content.
+     * @return {Promise<Uint8Array | Readable>} The binary file content.
      */
     async downloadFileContent(fileTag, dataType) {
         throw new Error('downloadFileContent method must be implemented in subclasses');
