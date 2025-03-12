@@ -1,7 +1,7 @@
-import {ActionBrick, ErrorFlow, registerBrick} from 'olympe';
+import {Brick, ErrorFlow, registerBrick} from 'olympe';
 import {handleExcelToCSV} from './helpers/dataFormatHandlers';
 
-export default class ExcelToCSV extends ActionBrick {
+export default class ExcelToCSV extends Brick {
     /**
      * @override
      * @protected

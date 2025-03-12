@@ -1,9 +1,9 @@
-import { ActionBrick, registerBrick, BrickContext, ErrorFlow } from 'olympe';
+import { Brick, registerBrick, BrickContext, ErrorFlow } from 'olympe';
 import { getLogger } from 'logging';
 import StartRetry from './StartRetry';
 import { merge, map } from 'rxjs';
 
-export default class HandleRetry extends ActionBrick {
+export default class HandleRetry extends Brick {
 
     /**
      * Error codes

@@ -1,7 +1,7 @@
-import {ActionBrick, CloudObject, ErrorFlow, registerBrick} from 'olympe';
+import {Brick, CloudObject, ErrorFlow, registerBrick} from 'olympe';
 import {getLogger} from "logging";
 
-export default class ObjectToMap extends ActionBrick {
+export default class ObjectToMap extends Brick {
 
 
     /**

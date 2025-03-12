@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {ActionBrick, registerBrick, CloudObject, Transaction, tagToString, BrickContext, ErrorFlow} from 'olympe';
+import {Brick, registerBrick, CloudObject, Transaction, tagToString, BrickContext, ErrorFlow} from 'olympe';
 import {getLogger} from 'logging';
 
-export default class CreateLocalObject extends ActionBrick {
+export default class CreateLocalObject extends Brick {
 
     /**
      * @protected

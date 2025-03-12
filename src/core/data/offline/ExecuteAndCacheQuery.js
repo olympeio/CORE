@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, ErrorFlow, Query } from 'olympe';
+import { Brick, registerBrick, ErrorFlow, Query } from 'olympe';
 import { getLogger } from 'logging';
 
-export default class ExecuteAndCacheQuery extends ActionBrick {
+export default class ExecuteAndCacheQuery extends Brick {
 
     /**
      * @override

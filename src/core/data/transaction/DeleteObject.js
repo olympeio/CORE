@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, Transaction, CloudObject, BrickContext, ErrorFlow } from 'olympe';
+import { Brick, registerBrick, Transaction, CloudObject, BrickContext, ErrorFlow } from 'olympe';
 
-export default class DeleteObject extends ActionBrick {
+export default class DeleteObject extends Brick {
 
     /**
      * @protected

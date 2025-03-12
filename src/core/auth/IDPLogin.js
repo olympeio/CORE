@@ -1,7 +1,7 @@
-import { ActionBrick, registerBrick, Auth, ErrorFlow } from 'olympe';
+import { Brick, registerBrick, Auth, ErrorFlow } from 'olympe';
 import { getLogger } from 'logging';
 
-export default class IDPLogin extends ActionBrick {
+export default class IDPLogin extends Brick {
     /**
      * @protected
      * @param {!BrickContext} context

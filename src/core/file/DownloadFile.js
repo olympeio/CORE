@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, File as OFile} from 'olympe';
+import { Brick, registerBrick, File as OFile} from 'olympe';
 
-export default class DownloadFile extends ActionBrick {
+export default class DownloadFile extends Brick {
 
     /**
      * @protected

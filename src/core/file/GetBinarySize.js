@@ -1,7 +1,7 @@
-import { ActionBrick, registerBrick, BrickContext, File as OFile } from 'olympe';
+import { Brick, registerBrick, BrickContext, File as OFile } from 'olympe';
 import { getLogger } from 'logging';
 
-export default class GetBinarySize extends ActionBrick {
+export default class GetBinarySize extends Brick {
 
     /**
      * @override

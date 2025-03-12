@@ -1,7 +1,7 @@
-import {ActionBrick, ErrorFlow, registerBrick} from 'olympe';
+import {Brick, ErrorFlow, registerBrick} from 'olympe';
 import {handleCSVToJSON} from './helpers/dataFormatHandlers';
 
-export default class CSVToJSON extends ActionBrick {
+export default class CSVToJSON extends Brick {
     /**
      * @override
      * @protected

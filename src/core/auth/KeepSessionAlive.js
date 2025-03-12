@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, Auth } from 'olympe';
+import { Brick, registerBrick, Auth } from 'olympe';
 
 /**
  ## Description
  Notify the DC to keep the user session alive. This resets the time left until automatic logout.
  **/
-export default class KeepSessionAlive extends ActionBrick {
+export default class KeepSessionAlive extends Brick {
 
     /**
      * @protected

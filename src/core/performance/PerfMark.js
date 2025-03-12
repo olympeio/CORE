@@ -1,7 +1,7 @@
-import { ActionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import { performanceContainer } from '../../helpers/common/perf-container';
 
-export default class PerfMark extends ActionBrick {
+export default class PerfMark extends Brick {
 
     /**
      * @override

@@ -1,8 +1,8 @@
-import {ActionBrick, registerBrick} from 'olympe';
+import {Brick, registerBrick} from 'olympe';
 import {handleError} from './helpers/handleError';
 import {handleJsonToXML} from './helpers/dataFormatHandlers';
 
-export default class JSONToXML extends ActionBrick {
+export default class JSONToXML extends Brick {
     /**
      * @override
      * @protected
