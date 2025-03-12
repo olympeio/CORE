@@ -33,7 +33,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Get the value of a parameter.",
-    "01703376c4a81c0e9d92": "Gets the value of a system parameter given its name. This is typically used with environment-specific parameters such as API endpoints, API keys, etc.\n\nIn a Service App, this is read from the configuration file.\n\nIn a UI App, this can come either from the configuration file, or from the URL (e.g. `&my_parameter=my_value`).\n\nFor example, the parameter `sc.app` contains the application identifier.\n",
+    "01703376c4a81c0e9d92": "Retrieves the value of a system parameter based on its name. This is typically used for environment-specific parameters such as API endpoints, API keys, etc.\n\nIn a Service App, the value is read from the configuration file.\nIn a UI App, the value can come from either the configuration file or the URL (e.g., &my_parameter=my_value).\n\nFor example, the parameter sc.app contains the application identifier.",
     "v": 516
    },
    "t": "017d9580f2c9490b0468"
