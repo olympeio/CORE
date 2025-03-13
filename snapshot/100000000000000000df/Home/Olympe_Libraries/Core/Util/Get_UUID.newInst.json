@@ -1,0 +1,68 @@
+{
+ "operations": [
+  {
+   "o": 1,
+   "p": {
+    "01621fb84e320000f001": "public",
+    "01692aa71f3108454479": true,
+    "fdff023000000000000011": "Get UUID",
+    "ff023000000000000011": "Get UUID"
+   },
+   "t": "01958f7fda4d5e5a7f98"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "01958f7fda4e3c7dba69"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01958f7fda4ea52234ad"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 0,
+    "ff023000000000000011": "Control Flow"
+   },
+   "t": "01958f7fda4ead932bd9"
+  },
+  {
+   "o": 1,
+   "p": {
+   },
+   "t": "01958f7fda4ebc35544a"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d91": "Get an unique identifier",
+    "01703376c4a81c0e9d92": "Returns a random UUID at each execution. Based on the javascript crypto module."
+   },
+   "t": "01958f7ff1be1f1247c0"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01740c5d4ae4b520dd01": 1,
+    "ff023000000000000011": "UUID"
+   },
+   "t": "01958f7ffc09a43a3a5b"
+  },
+  {
+   "o": 1,
+   "p": {
+    "01703376c4a81c0e9d92": "The newly generated UUID"
+   },
+   "t": "01958f7ffc0a4e5a3ad3"
+  }
+ ],
+ "optionalOperations": [
+ ],
+ "rootTag": "01958f7fda4d5e5a7f98"
+}
