@@ -14,6 +14,8 @@ import {
 } from 'olympe';
 import {Knex} from "knex";
 import {parsePredicate} from './SQLPredicateBuilder';
+import {retryOnError} from "./_helpers";
+import {SchemaConcurrencyError} from "./schema/SchemaObserver";
 
 export const COLUMNS = {
     TAG: 'tagOlympe',
@@ -108,7 +110,7 @@ export default class SQLQueryExecutor {
      */
     async executeQuery(query) {
         // Wait for the schema observer to be ready before building a query.
-        await this.schema.waitForFree();
+        await retryOnError(() => this.schema.waitForFree(), [SchemaConcurrencyError], 3);
 
         const result = DataResult.fromQuery(query);
         const rootPart = query.parse();

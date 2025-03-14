@@ -28,15 +28,26 @@ export default class SchemaObserver {
 
     /**
      * @param {!log.Logger} logger
+     * @param {string} dataSourceTag
      * @param {(function(!Knex.QueryBuilder):!Promise<*>)=} executor
      */
-    constructor(logger, executor) {
+    constructor(logger, dataSourceTag, executor) {
+
+        if (typeof dataSourceTag !== 'string') {
+            throw new Error('SchemaObserver constructor: The data source tag must be a string.');
+        }
 
         /**
          * @private
          * @type {!log.Logger}
          */
         this.logger = logger;
+
+        /**
+         * @private
+         * @type {string}
+         */
+        this.dataSourceTag = dataSourceTag;
 
         /**
          * @private
@@ -80,10 +91,9 @@ export default class SchemaObserver {
          */
         this.operationStack = [];
 
-
         /**
          * @private
-         * @type {function(!Knex.QueryBuilder):!Promise<*>}
+         * @type {function(!Knex.QueryBuilder):Promise<*>}
          */
         this.executor = executor ?? (async (builder) => await builder);
     }
@@ -92,7 +102,7 @@ export default class SchemaObserver {
      * @override
      * @inheritDoc
      */
-    init(client, schema, schemaConfig) {
+    init(client, schema) {
         this.knex = client;
         this.schema = schema;
         this.initSchema();
@@ -103,10 +113,12 @@ export default class SchemaObserver {
      * @override
      * @inheritDoc
      */
-    waitForFree() {
-        return new Promise((resolve) => {
-            this.operationStack.length > 0 ? this.onReady.push(() => resolve()) : resolve();
-        });
+    async waitForFree() {
+        if (this.operationStack.length > 0) {
+            await new Promise((resolve, reject) => {
+                this.onReady.push((e) => e ? reject(e) : resolve());
+            });
+        }
     }
 
     /**
@@ -175,10 +187,12 @@ export default class SchemaObserver {
         const callNext = () => {
             stack.shift();
             if (stack.length === 0) {
-                this.logger.debug('Schema observer is free');
-                while (this.onReady.length > 0) {
-                    this.onReady.shift()();
-                }
+                this.releaseLock().then(() => {
+                    this.logger.debug('Schema observer is free');
+                    while (this.onReady.length > 0) {
+                        this.onReady.shift()();
+                    }
+                });
             } else {
                 stack[0]();
             }
@@ -187,20 +201,92 @@ export default class SchemaObserver {
         const boundOperation = () => {
             operation().then(() => {
                 this.logger.debug(`Operation ${debugName} succeed`);
-            }).catch((r) => {
-                this.logger.warn(`Error with schema operation ${debugName}: ${r}, try to re-fetch schema from DB`);
-                this.initSchema();
-            }).finally(() => {
                 callNext();
+            }).catch((error) => {
+                this.logger.warn(`Error with schema operation ${debugName}, clear operation stack: ${error}`);
+                // Clear the stack before propagating the error to restart the process cleanly
+                stack.length = 0;
+                // Re-init the schema after some delay to decrease the risk of concurrent operations
+                this.initSchema();
+                // Notify the waiting promises with an error, when schema as been
+                this.pushOperation(async () => {
+                    const castedError = this.castSchemaError(error, debugName);
+                    while (this.onReady.length > 0) {
+                        this.onReady.shift()(castedError);
+                    }
+                }, 'Notify error to waiting promises');
             });
         };
 
         stack.push(boundOperation);
         if (stack.length === 1) {
             this.logger.debug('Schema observer is busy');
-            boundOperation();
+            this.acquireLock().then(boundOperation);
         }
     }
+
+    /**
+     * From the original error, cast it to a SchemaConcurrencyError if it is a schema concurrency error.
+     *
+     * @private
+     * @param {Error | string} originalError
+     * @param {string=} operationDebugName
+     * @return {Error}
+     */
+    castSchemaError(originalError, operationDebugName) {
+        const msg = originalError instanceof Error ? originalError.message : originalError;
+        const dialect = this.getDBDialectName();
+
+        let match = null;
+        switch (dialect) {
+            case DB_DIALECT_NAMES.MSSQL: match = 'Column names in each table must be unique'; break;
+            case DB_DIALECT_NAMES.POSTGRES: match = 'already exists'; break;
+            case DB_DIALECT_NAMES.MYSQL: match = 'Duplicate column name'; break
+            case DB_DIALECT_NAMES.SQLITE3: match = 'duplicate column name'; break;
+            default:
+        }
+        if (match !== null && msg.includes(match)) {
+            return new SchemaConcurrencyError(`Schema concurrency error for operation ${operationDebugName}: ${msg}`);
+        }
+        return originalError;
+    }
+
+    /**
+     * Acquisition of a lock to ensure that the schema observer is not used concurrently.
+     *
+     * @private
+     * @return {Promise<void>}
+     */
+    async acquireLock(){
+        const dialect = this.getDBDialectName();
+        try {
+            // Get the lock id from the data source tag
+            const lockId = dialect === DB_DIALECT_NAMES.MSSQL ? this.dataSourceTag : BigInt.asUintN(64, BigInt(`0x${this.dataSourceTag}`));
+            this.logger.debug(`Schema observer ask for lock ${lockId}`);
+            await queryKnex(this.knex, dialect, 'ACQUIRE_LOCK', [lockId], this.executor);
+            this.logger.debug(`Schema observer acquired lock ${lockId}`);
+        } catch (e) {
+            throw new Error(`Error while acquiring lock: ${e}`);
+        }
+    }
+
+    /**
+     * Release the lock to allow other further operations in the schema observer of concurrent processes.
+     *
+     * @private
+     * @return {Promise<void>}
+     */
+    async releaseLock() {
+        const dialect = this.getDBDialectName();
+        try {
+            // Get the lock id from the data source tag
+            const lockId = dialect === DB_DIALECT_NAMES.MSSQL ? this.dataSourceTag : BigInt.asUintN(64, BigInt(`0x${this.dataSourceTag}`));
+            await queryKnex(this.knex, dialect, 'RELEASE_LOCK', [lockId], this.executor);
+            this.logger.debug(`Schema observer released lock ${lockId}`);
+        } catch (e) {
+            this.logger.error(`Error while releasing lock: ${e}`);
+        }
+    };
 
     /**
      * @override
@@ -405,7 +491,7 @@ export default class SchemaObserver {
      * @override
      * @inheritDoc
      */
-    getDBDialectName(){
+    getDBDialectName() {
         return this.knex.client.config.client;
     }
 
@@ -968,3 +1054,8 @@ class Table {
         return this.columns.get(property);
     }
 }
+
+/**
+ * An error type thrown when operations on the schema has been done concurrently.
+ */
+export class SchemaConcurrencyError extends Error { /* empty */ }

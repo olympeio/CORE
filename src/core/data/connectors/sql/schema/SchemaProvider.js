@@ -21,6 +21,7 @@ export default class SchemaProvider {
     /**
      * Concurrence handling: wait for operations being made on the schema
      * @abstract
+     * @throws {SchemaConcurrencyError}
      * @return {Promise<void>}
      */
     waitForFree() {

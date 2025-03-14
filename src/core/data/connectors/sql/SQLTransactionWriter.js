@@ -2,7 +2,8 @@ import {Knex} from 'knex';
 import {COLUMNS} from "./SQLQueryExecutor";
 import {CloudObject, File as OFile, Operation, Query, getUniqueTag} from 'olympe';
 import {DB_DIALECT_NAMES, MSSQL} from './_statics';
-import { serializeValue } from './_helpers';
+import {retryOnError, serializeValue} from './_helpers';
+import {SchemaConcurrencyError} from "./schema/SchemaObserver";
 
 /**
  * @typedef {(function(!Knex.QueryBuilder):Knex.QueryBuilder)} StackOperation
@@ -106,24 +107,30 @@ export default class SQLTransactionWriter {
      * @param {?function(*[], ?BatchInserts):!Promise<*>} executor
      * @return {!Promise<void>}
      */
-    async applyOperations(operations, batch = false, raw = false, executor = null) {
-        const batchInserts = batch ? new Map() : null;
+    applyOperations(operations, batch = false, raw = false, executor = null) {
+        // Ensure we catch schema concurrent errors and retry the operation, up to 5 times
+        return retryOnError(async () => {
+            const batchInserts = batch ? new Map() : null;
 
-        const operationId = getUniqueTag();
-        const [operationsList, affectedTags] = await this.buildStack(operations, batchInserts);
+            const operationId = getUniqueTag();
+            const [operationsList, affectedTags] = await this.buildStack(operations, batchInserts);
 
-        return new Promise((resolve, reject) => {
-            this.stack.push({
-                resolve,
-                reject,
-                operations: raw ? this.getRawOperations(operationsList) : operationsList,
-                affectedTags,
-                batchInserts,
-                operationId,
-                executor
+            // Wait if schema requires updates
+            await this.schemaProvider.waitForFree();
+
+            return new Promise((resolve, reject) => {
+                this.stack.push({
+                    resolve,
+                    reject,
+                    operations: raw ? this.getRawOperations(operationsList) : operationsList,
+                    affectedTags,
+                    batchInserts,
+                    operationId,
+                    executor
+                });
+                this.processNextStackOperation();
             });
-            this.processNextStackOperation();
-        });
+        }, [SchemaConcurrencyError], 3);
     }
 
     /**
@@ -277,9 +284,6 @@ export default class SQLTransactionWriter {
                     throw new Error(`Transaction error: operation type is unknown: ${op.type}`);
             }
         }
-
-        // Wait if schema requires updates
-        await this.schemaProvider.waitForFree();
         return [returnedOperations, affectedTags];
     }
 
