@@ -237,15 +237,15 @@ export default class SchemaObserver {
         const msg = originalError instanceof Error ? originalError.message : originalError;
         const dialect = this.getDBDialectName();
 
-        let match = null;
+        let matches = [];
         switch (dialect) {
-            case DB_DIALECT_NAMES.MSSQL: match = 'Column names in each table must be unique'; break;
-            case DB_DIALECT_NAMES.POSTGRES: match = 'already exists'; break;
-            case DB_DIALECT_NAMES.MYSQL: match = 'Duplicate column name'; break
-            case DB_DIALECT_NAMES.SQLITE3: match = 'duplicate column name'; break;
+            case DB_DIALECT_NAMES.MSSQL: matches.push('Column names in each table must be unique', 'Invalid object name', 'Invalid column name'); break;
+            case DB_DIALECT_NAMES.POSTGRES: matches.push('already exists', 'does not exist'); break;
+            case DB_DIALECT_NAMES.MYSQL: matches.push('Duplicate column name', 'doesn\'t exist', 'Unknown column'); break
+            case DB_DIALECT_NAMES.SQLITE3: matches.push('duplicate column name', 'no such table', 'no such column'); break;
             default:
         }
-        if (match !== null && msg.includes(match)) {
+        if (matches.some((match) => msg.includes(match))) {
             return new SchemaConcurrencyError(`Schema concurrency error for operation ${operationDebugName}: ${msg}`);
         }
         return originalError;
@@ -261,7 +261,7 @@ export default class SchemaObserver {
         const dialect = this.getDBDialectName();
         try {
             // Get the lock id from the data source tag
-            const lockId = dialect === DB_DIALECT_NAMES.MSSQL ? this.dataSourceTag : BigInt.asUintN(64, BigInt(`0x${this.dataSourceTag}`));
+            const lockId = dialect === DB_DIALECT_NAMES.MSSQL ? this.dataSourceTag : BigInt.asIntN(64, BigInt(`0x${this.dataSourceTag}`));
             this.logger.debug(`Schema observer ask for lock ${lockId}`);
             await queryKnex(this.knex, dialect, 'ACQUIRE_LOCK', [lockId], this.executor);
             this.logger.debug(`Schema observer acquired lock ${lockId}`);
@@ -280,7 +280,7 @@ export default class SchemaObserver {
         const dialect = this.getDBDialectName();
         try {
             // Get the lock id from the data source tag
-            const lockId = dialect === DB_DIALECT_NAMES.MSSQL ? this.dataSourceTag : BigInt.asUintN(64, BigInt(`0x${this.dataSourceTag}`));
+            const lockId = dialect === DB_DIALECT_NAMES.MSSQL ? this.dataSourceTag : BigInt.asIntN(64, BigInt(`0x${this.dataSourceTag}`));
             await queryKnex(this.knex, dialect, 'RELEASE_LOCK', [lockId], this.executor);
             this.logger.debug(`Schema observer released lock ${lockId}`);
         } catch (e) {

@@ -359,9 +359,12 @@ export default class SQLTransactionWriter {
      * @return {function(!Knex.QueryBuilder):!Knex.QueryBuilder}
      */
     delete(tag, dataType) {
-        const tableName = this.schemaProvider.getTableName(dataType);
-        // Delete the instance itself, auto cascade the deletion of relations.
-        return (builder) => tableName ? builder.table(tableName).where(COLUMNS.TAG, tag).del() : builder;
+        this.schemaProvider.ensureDataType(dataType);
+        return (builder) => {
+            // Delete the instance itself, auto cascade the deletion of relations.
+            const tableName = this.schemaProvider.getTableName(dataType);
+            builder.table(tableName).where(COLUMNS.TAG, tag).del();
+        };
     }
 
     /**
@@ -436,8 +439,12 @@ export default class SQLTransactionWriter {
         if (typeof fromModel !== 'string' || typeof toModel !== 'string') {
             throw new Error(`SQL connector: invalid transaction: missing origin or destination model to create the relation ${from}-[${relation}]->${to}`);
         }
-        const tableName = this.schemaProvider.getRelationTableName(relation, fromModel, toModel);
-        return (builder) => tableName ? builder.table(tableName).where({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).del() : builder;
+
+        this.schemaProvider.ensureRelation(relation, fromModel, toModel);
+        return (builder) => {
+            const tableName = this.schemaProvider.getRelationTableName(relation, fromModel, toModel);
+            builder.table(tableName).where({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).del();
+        }
     }
 
     /**
