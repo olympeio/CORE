@@ -359,7 +359,7 @@ export default class SQLTransactionWriter {
      * @return {function(!Knex.QueryBuilder):!Knex.QueryBuilder}
      */
     delete(tag, dataType) {
-        this.schemaProvider.ensureDataType(dataType);
+        this.schemaProvider.ensureDataType(dataType, []);
         return (builder) => {
             // Delete the instance itself, auto cascade the deletion of relations.
             const tableName = this.schemaProvider.getTableName(dataType);

@@ -261,7 +261,7 @@ export default class SchemaObserver {
         const dialect = this.getDBDialectName();
         try {
             // Get the lock id from the data source tag
-            const lockId = dialect === DB_DIALECT_NAMES.MSSQL ? this.dataSourceTag : BigInt.asIntN(64, BigInt(`0x${this.dataSourceTag}`));
+            const lockId = dialect === DB_DIALECT_NAMES.POSTGRES ? BigInt.asIntN(64, BigInt(`0x${this.dataSourceTag}`)) : this.dataSourceTag;
             this.logger.debug(`Schema observer ask for lock ${lockId}`);
             await queryKnex(this.knex, dialect, 'ACQUIRE_LOCK', [lockId], this.executor);
             this.logger.debug(`Schema observer acquired lock ${lockId}`);
@@ -280,7 +280,7 @@ export default class SchemaObserver {
         const dialect = this.getDBDialectName();
         try {
             // Get the lock id from the data source tag
-            const lockId = dialect === DB_DIALECT_NAMES.MSSQL ? this.dataSourceTag : BigInt.asIntN(64, BigInt(`0x${this.dataSourceTag}`));
+            const lockId = dialect === DB_DIALECT_NAMES.POSTGRES ? BigInt.asIntN(64, BigInt(`0x${this.dataSourceTag}`)) : this.dataSourceTag;
             await queryKnex(this.knex, dialect, 'RELEASE_LOCK', [lockId], this.executor);
             this.logger.debug(`Schema observer released lock ${lockId}`);
         } catch (e) {
