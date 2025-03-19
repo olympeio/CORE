@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { Brick, ActionBrick, registerBrick, Process, ErrorFlow } from 'olympe';
+import { Brick, registerBrick, Process, ErrorFlow } from 'olympe';
 import {tap} from "rxjs/operators";
 import {take, merge, timer} from "rxjs";
 import {getLogger} from "logging";
 
-export default class RegisterHealthCheck extends ActionBrick {
+export default class RegisterHealthCheck extends Brick {
 
     /**
      * @override

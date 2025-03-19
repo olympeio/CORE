@@ -1,7 +1,6 @@
-import { ActionBrick, registerBrick } from 'olympe';
-import {getLogger} from "logging";
+import { Brick, registerBrick } from 'olympe';
 
-export default class RemoveFromMap extends ActionBrick {
+export default class RemoveFromMap extends Brick {
 
     /**
      * @protected

@@ -15,7 +15,7 @@
  */
 
 import {
-    ActionBrick,
+    Brick,
     DBView,
     ErrorFlow,
     registerBrick,
@@ -28,7 +28,7 @@ import {
 import {getLogger} from 'logging';
 import {castPrimitiveValue} from "./_helpers";
 
-export default class SetObjectProperty extends ActionBrick {
+export default class SetObjectProperty extends Brick {
 
     /**
      * @protected

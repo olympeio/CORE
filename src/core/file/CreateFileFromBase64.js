@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, ErrorFlow, File as OFile, CloudObject, Transaction } from 'olympe';
+import { Brick, registerBrick, ErrorFlow, File as OFile, CloudObject, Transaction } from 'olympe';
 import { dataUrlToBinary, fromBase64 } from 'helpers/binaryConverters';
 
-export default class CreateFileFromBase64 extends ActionBrick {
+export default class CreateFileFromBase64 extends Brick {
 
     /**
      * @protected

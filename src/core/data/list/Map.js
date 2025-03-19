@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ActionBrick, registerBrick, ListDef, QueryResult } from 'olympe';
+import { Brick, registerBrick, ListDef, QueryResult } from 'olympe';
 import { getLogger } from 'logging';
 
-export default class MapBrick extends ActionBrick {
+export default class MapBrick extends Brick {
 
     /**
      * @protected

@@ -1,7 +1,7 @@
-import { ActionBrick, registerBrick, ListDef, CloudObject, BrickContext, tagToString, Transaction, QueryResult } from 'olympe';
+import { Brick, registerBrick, ListDef, CloudObject, BrickContext, tagToString, Transaction, QueryResult } from 'olympe';
 import {getLogger} from "logging";
 
-export default class DeleteListOfObjects extends ActionBrick {
+export default class DeleteListOfObjects extends Brick {
     
 
     /**

@@ -1,6 +1,6 @@
-import { ActionBrick, registerBrick, BrickContext, CloudObject, tagToString, ErrorFlow } from 'olympe';
+import { Brick, registerBrick, BrickContext, CloudObject, tagToString, ErrorFlow } from 'olympe';
 
-export default class SetInContext extends ActionBrick {
+export default class SetInContext extends Brick {
 
     /**
      * @override

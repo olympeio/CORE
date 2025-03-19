@@ -1,8 +1,8 @@
-import {BrickContext, registerBrick, ListDef, ActionBrick, ErrorFlow} from 'olympe';
+import {BrickContext, registerBrick, ListDef, Brick, ErrorFlow} from 'olympe';
 import {handleExcelToCSV, handleJsonToExcel} from './helpers/dataFormatHandlers';
 import CloudObjectsToJSONAction from "./CloudObjectsToJSONAction";
 
-export default class CloudObjectToCSV extends ActionBrick {
+export default class CloudObjectToCSV extends Brick {
     /**
      * @override
      * @protected

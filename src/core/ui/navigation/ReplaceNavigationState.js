@@ -1,9 +1,9 @@
 
-import { ActionBrick, registerBrick, BrickContext, GlobalProperties } from 'olympe';
+import { Brick, registerBrick, BrickContext, GlobalProperties } from 'olympe';
 import {updateNavigationState} from 'helpers/navigation';
 import {getLogger} from "logging";
 
-export default class ReplaceNavigationState extends ActionBrick {
+export default class ReplaceNavigationState extends Brick {
 
     /**
      * @protected

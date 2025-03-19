@@ -1,7 +1,7 @@
-import { ActionBrick, registerBrick, ErrorFlow } from 'olympe';
+import { Brick, registerBrick, ErrorFlow } from 'olympe';
 import { addElementToList } from './AddToListFunction';
 
-export default class AddToList extends ActionBrick {
+export default class AddToList extends Brick {
 
     /**
      * @override
