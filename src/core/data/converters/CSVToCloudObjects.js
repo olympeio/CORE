@@ -1,7 +1,7 @@
-import {CloudObject, Brick, registerBrick, ErrorFlow} from 'olympe';
+import {CloudObject, ActionBrick, registerBrick, ErrorFlow} from 'olympe';
 import {handleCSVToJSON, handleJsonToCloudObjects} from './helpers/dataFormatHandlers';
 
-export default class CSVToCloudObjects extends Brick {
+export default class CSVToCloudObjects extends ActionBrick {
     /**
      * @override
      * @protected

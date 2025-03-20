@@ -1,6 +1,6 @@
-import {Brick, registerBrick, BrickContext, GlobalProperties} from 'olympe';
+import {ActionBrick, registerBrick, BrickContext, GlobalProperties} from 'olympe';
 
-export default class ExecuteOnRuntimeOnly extends Brick {
+export default class ExecuteOnRuntimeOnly extends ActionBrick {
 
     /**
      * @override

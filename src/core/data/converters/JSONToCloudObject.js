@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Query, Brick, PropertyModel, BrickContext, registerBrick, CloudObject, Transaction, RelationModel, ErrorFlow, DBView, StringModel, NumberModel, DatetimeModel, BooleanModel } from 'olympe';
-export default class JSONToCloudObject extends Brick {
+import { Query, ActionBrick, PropertyModel, BrickContext, registerBrick, CloudObject, Transaction, RelationModel, ErrorFlow, DBView, StringModel, NumberModel, DatetimeModel, BooleanModel } from 'olympe';
+export default class JSONToCloudObject extends ActionBrick {
 
     /**
      * @override

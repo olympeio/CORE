@@ -1,7 +1,7 @@
-import { Brick, registerBrick } from 'olympe';
+import { ActionBrick, registerBrick } from 'olympe';
 import {getLogger} from "logging";
 
-export default class MapHasKey extends Brick {
+export default class MapHasKey extends ActionBrick {
 
     /**
      * @protected

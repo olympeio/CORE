@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import { ActionBrick, registerBrick } from 'olympe';
 import getScopeContext from "../util/updateContextProperty";
 import {getLogger} from 'logging';
 
@@ -29,7 +29,7 @@ Dispatches the provided event
 | false flow | Control flow | The control flow to trigger when condition is `false`. |
 
 **/
-export default class DispatchEvent extends Brick {
+export default class DispatchEvent extends ActionBrick {
 
     /**
      * @protected

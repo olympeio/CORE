@@ -28,26 +28,15 @@ export default class SchemaObserver {
 
     /**
      * @param {!log.Logger} logger
-     * @param {string} dataSourceTag
      * @param {(function(!Knex.QueryBuilder):!Promise<*>)=} executor
      */
-    constructor(logger, dataSourceTag, executor) {
-
-        if (typeof dataSourceTag !== 'string') {
-            throw new Error('SchemaObserver constructor: The data source tag must be a string.');
-        }
+    constructor(logger, executor) {
 
         /**
          * @private
          * @type {!log.Logger}
          */
         this.logger = logger;
-
-        /**
-         * @private
-         * @type {string}
-         */
-        this.dataSourceTag = dataSourceTag;
 
         /**
          * @private
@@ -91,9 +80,10 @@ export default class SchemaObserver {
          */
         this.operationStack = [];
 
+
         /**
          * @private
-         * @type {function(!Knex.QueryBuilder):Promise<*>}
+         * @type {function(!Knex.QueryBuilder):!Promise<*>}
          */
         this.executor = executor ?? (async (builder) => await builder);
     }
@@ -102,44 +92,20 @@ export default class SchemaObserver {
      * @override
      * @inheritDoc
      */
-    init(client, schema) {
+    init(client, schema, schemaConfig) {
         this.knex = client;
         this.schema = schema;
-        this.initSchema();
-        return this.waitForFree();
-    }
-
-    /**
-     * @override
-     * @inheritDoc
-     */
-    async waitForFree() {
-        if (this.operationStack.length > 0) {
-            await new Promise((resolve, reject) => {
-                this.onReady.push((e) => e ? reject(e) : resolve());
-            });
-        }
-    }
-
-    /**
-     * Fetch the schema from the database and initialize the tables.
-     *
-     * @private
-     */
-    initSchema() {
-        this.tables.clear();
-        this.tableNames.clear();
         const dialect = this.getDBDialectName();
 
         // What to apply on the schema for the tables to consider:
         const tableModifier = async (currentName, finalName, finalTag) => {
             // Update the schema if necessary
             if (currentName !== finalName) {
-                await this.executor(this.getSchemaBuilder().renameTable(currentName, finalName));
+                await this.executor(client.schema.withSchema(schema).renameTable(currentName, finalName));
             }
 
             const table = new Table(this.logger, this.executor, finalTag, finalName);
-            await table.checkColumns(this.knex, this.schema, dialect);
+            await table.checkColumns(client, schema, dialect);
             this.tables.set(finalTag, table);
             this.tableNames.set(finalName, finalTag);
         };
@@ -148,8 +114,7 @@ export default class SchemaObserver {
          * @param {string} sqlCode
          * @return {Promise<[string, string][]>}
          */
-        const queryTables = async (sqlCode) => queryKnex(this.knex, dialect, sqlCode, [this.schema], this.executor)
-            .then((tables) => tables.map((t) => [t.name, t.comment]));
+        const queryTables = async (sqlCode) => (await queryKnex(client, dialect, sqlCode, [schema], this.executor)).map((r) => [r.name, r.comment]);
 
         // Initialize and validate the schema according to the data model.
         this.pushOperation(async () => {
@@ -173,6 +138,18 @@ export default class SchemaObserver {
             this.logger.debug(`Found ${relationTables.length} relation tables to be validated.`);
             return SchemaObserver.validateRelationSchema(this.logger, relationTables, tableModifier);
         }, 'Initialize schema observer');
+
+        return this.waitForFree();
+    }
+
+    /**
+     * @override
+     * @inheritDoc
+     */
+    waitForFree() {
+        return new Promise((resolve) => {
+            this.operationStack.length > 0 ? this.onReady.push(() => resolve()) : resolve();
+        });
     }
 
     /**
@@ -187,12 +164,10 @@ export default class SchemaObserver {
         const callNext = () => {
             stack.shift();
             if (stack.length === 0) {
-                this.releaseLock().then(() => {
-                    this.logger.debug('Schema observer is free');
-                    while (this.onReady.length > 0) {
-                        this.onReady.shift()();
-                    }
-                });
+                this.logger.debug('Schema observer is free');
+                while (this.onReady.length > 0) {
+                    this.onReady.shift()();
+                }
             } else {
                 stack[0]();
             }
@@ -202,91 +177,17 @@ export default class SchemaObserver {
             operation().then(() => {
                 this.logger.debug(`Operation ${debugName} succeed`);
                 callNext();
-            }).catch((error) => {
-                this.logger.warn(`Error with schema operation ${debugName}, clear operation stack: ${error}`);
-                // Clear the stack before propagating the error to restart the process cleanly
-                stack.length = 0;
-                // Re-init the schema after some delay to decrease the risk of concurrent operations
-                this.initSchema();
-                // Notify the waiting promises with an error, when schema as been
-                this.pushOperation(async () => {
-                    const castedError = this.castSchemaError(error, debugName);
-                    while (this.onReady.length > 0) {
-                        this.onReady.shift()(castedError);
-                    }
-                }, 'Notify error to waiting promises');
+            }).catch((r) => {
+                throw new Error(`Error with schema operation ${debugName}: ${r}`);
             });
         };
 
         stack.push(boundOperation);
         if (stack.length === 1) {
             this.logger.debug('Schema observer is busy');
-            this.acquireLock().then(boundOperation);
+            boundOperation();
         }
     }
-
-    /**
-     * From the original error, cast it to a SchemaConcurrencyError if it is a schema concurrency error.
-     *
-     * @private
-     * @param {Error | string} originalError
-     * @param {string=} operationDebugName
-     * @return {Error}
-     */
-    castSchemaError(originalError, operationDebugName) {
-        const msg = originalError instanceof Error ? originalError.message : originalError;
-        const dialect = this.getDBDialectName();
-
-        let matches = [];
-        switch (dialect) {
-            case DB_DIALECT_NAMES.MSSQL: matches.push('Column names in each table must be unique', 'Invalid object name', 'Invalid column name'); break;
-            case DB_DIALECT_NAMES.POSTGRES: matches.push('already exists', 'does not exist'); break;
-            case DB_DIALECT_NAMES.MYSQL: matches.push('Duplicate column name', 'doesn\'t exist', 'Unknown column'); break
-            case DB_DIALECT_NAMES.SQLITE3: matches.push('duplicate column name', 'no such table', 'no such column'); break;
-            default:
-        }
-        if (matches.some((match) => msg.includes(match))) {
-            return new SchemaConcurrencyError(`Schema concurrency error for operation ${operationDebugName}: ${msg}`);
-        }
-        return originalError;
-    }
-
-    /**
-     * Acquisition of a lock to ensure that the schema observer is not used concurrently.
-     *
-     * @private
-     * @return {Promise<void>}
-     */
-    async acquireLock(){
-        const dialect = this.getDBDialectName();
-        try {
-            // Get the lock id from the data source tag
-            const lockId = dialect === DB_DIALECT_NAMES.POSTGRES ? BigInt.asIntN(64, BigInt(`0x${this.dataSourceTag}`)) : this.dataSourceTag;
-            this.logger.debug(`Schema observer ask for lock ${lockId}`);
-            await queryKnex(this.knex, dialect, 'ACQUIRE_LOCK', [lockId], this.executor);
-            this.logger.debug(`Schema observer acquired lock ${lockId}`);
-        } catch (e) {
-            throw new Error(`Error while acquiring lock: ${e}`);
-        }
-    }
-
-    /**
-     * Release the lock to allow other further operations in the schema observer of concurrent processes.
-     *
-     * @private
-     * @return {Promise<void>}
-     */
-    async releaseLock() {
-        const dialect = this.getDBDialectName();
-        try {
-            // Get the lock id from the data source tag
-            const lockId = dialect === DB_DIALECT_NAMES.POSTGRES ? BigInt.asIntN(64, BigInt(`0x${this.dataSourceTag}`)) : this.dataSourceTag;
-            await queryKnex(this.knex, dialect, 'RELEASE_LOCK', [lockId], this.executor);
-            this.logger.debug(`Schema observer released lock ${lockId}`);
-        } catch (e) {
-            this.logger.error(`Error while releasing lock: ${e}`);
-        }
-    };
 
     /**
      * @override
@@ -459,7 +360,7 @@ export default class SchemaObserver {
      * @inheritDoc
      */
     getRelationTableName(relationTag, fromTag, toTag) {
-        return this.getTableForRelation(SchemaProvider.getRelGlobalTag(fromTag, toTag, relationTag))?.getName();
+        return this.getTableForRelation( SchemaProvider.getRelGlobalTag(fromTag, toTag, relationTag))?.getName();
     }
 
     /**
@@ -476,7 +377,7 @@ export default class SchemaObserver {
      * @inheritDoc
      */
     getTableName(dataType) {
-        return this.getTable(dataType)?.getName() ?? '';
+        return this.getTable(dataType).getName() ?? '';
     }
 
     /**
@@ -491,7 +392,7 @@ export default class SchemaObserver {
      * @override
      * @inheritDoc
      */
-    getDBDialectName() {
+    getDBDialectName(){
         return this.knex.client.config.client;
     }
 
@@ -738,18 +639,13 @@ class Table {
         }
 
         this.name = this.name ?? SchemaProvider.tagTranslationToODBName(dataType.name(), this.tag);
+        await this.executor(builder.createTable(this.name, (tableBuilder) => {
+            tableBuilder.comment(`${SCHEMA_PREFIXES.TYPE}:${this.tag}`);
 
-        const tableExist = await this.executor(builder.hasTable(this.name));
-        if (!tableExist) {
-            await this.executor(builder.createTable(this.name, (tableBuilder) => {
-                tableBuilder.comment(`${SCHEMA_PREFIXES.TYPE}:${this.tag}`);
-
-                tableBuilder.string(COLUMNS.TAG, 21)
-                    .primary({constraintName: (`${this.name}_${COLUMNS.TAG}_pk`).slice(-MAX_NAME_LENGTH)})
-                    .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TAG}`);
-            }));
-        }
-
+            tableBuilder.string(COLUMNS.TAG, 21)
+                .primary({constraintName: (`${this.name}_${COLUMNS.TAG}_pk`).slice(-MAX_NAME_LENGTH)})
+                .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TAG}`);
+        }));
         this.pendingColumns.delete(COLUMNS.TAG);
         this.columns.set(COLUMNS.TAG, COLUMNS.TAG);
     }
@@ -922,42 +818,37 @@ class Table {
         // Build the name of this relation table
         const [rel, from, to] = relationTuple;
         this.name = this.name ?? SchemaProvider.relationTranslationToODBName(from.name(), rel.name(), to.name(), this.tag);
+        await this.executor(builder.createTable(this.name, (tableBuilder) => {
+            const columnBuilderFrom = tableBuilder.string(COLUMNS.FROM, 21)
+                .notNullable()
+                .references(COLUMNS.TAG)
+                .inTable(fromName)
+                // Avoid name conflict when auto constraint name is too long
+                .withKeyName((`${this.name}_${COLUMNS.FROM}_fk`).slice(-MAX_NAME_LENGTH))
+                .onDelete('CASCADE')
+                .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.FROM}`);
 
-        const tableExist = await this.executor(builder.hasTable(this.name));
-        if (!tableExist) {
-            await this.executor(builder.createTable(this.name, (tableBuilder) => {
-                const columnBuilderFrom = tableBuilder.string(COLUMNS.FROM, 21)
-                    .notNullable()
-                    .references(COLUMNS.TAG)
-                    .inTable(fromName)
-                    // Avoid name conflict when auto constraint name is too long
-                    .withKeyName((`${this.name}_${COLUMNS.FROM}_fk`).slice(-MAX_NAME_LENGTH))
-                    .onDelete('CASCADE')
-                    .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.FROM}`);
+            if (dialect !== DB_DIALECT_NAMES.MSSQL) {
+                columnBuilderFrom.onUpdate('RESTRICT');
+            }
 
-                if (dialect !== DB_DIALECT_NAMES.MSSQL) {
-                    columnBuilderFrom.onUpdate('RESTRICT');
-                }
+            const columnBuilderTo = tableBuilder.string(COLUMNS.TO, 21)
+                .notNullable()
+                .references(COLUMNS.TAG)
+                .inTable(toName)
+                // Avoid name conflict when auto constraint name is too long
+                .withKeyName((`${this.name}_${COLUMNS.TO}_fk`).slice(-MAX_NAME_LENGTH))
+                .onDelete('CASCADE')
+                .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TO}`);
 
-                const columnBuilderTo = tableBuilder.string(COLUMNS.TO, 21)
-                    .notNullable()
-                    .references(COLUMNS.TAG)
-                    .inTable(toName)
-                    // Avoid name conflict when auto constraint name is too long
-                    .withKeyName((`${this.name}_${COLUMNS.TO}_fk`).slice(-MAX_NAME_LENGTH))
-                    .onDelete('CASCADE')
-                    .comment(`${SCHEMA_PREFIXES.PROPERTY}:${COLUMNS.TO}`);
+            if (dialect !== DB_DIALECT_NAMES.MSSQL) {
+                columnBuilderTo.onUpdate('RESTRICT');
+            }
 
-                if (dialect !== DB_DIALECT_NAMES.MSSQL) {
-                    columnBuilderTo.onUpdate('RESTRICT');
-                }
-
-                tableBuilder
-                    .primary([COLUMNS.FROM, COLUMNS.TO])
-                    .comment(`${SCHEMA_PREFIXES.RELATION}:${this.tag}`);
-            }));
-        }
-
+            tableBuilder
+                .primary([COLUMNS.FROM, COLUMNS.TO])
+                .comment(`${SCHEMA_PREFIXES.RELATION}:${this.tag}`);
+        }));
         this.pendingColumns.clear();
         this.columns.set(COLUMNS.FROM, COLUMNS.FROM).set(COLUMNS.TO, COLUMNS.TO);
     }
@@ -1054,8 +945,3 @@ class Table {
         return this.columns.get(property);
     }
 }
-
-/**
- * An error type thrown when operations on the schema has been done concurrently.
- */
-export class SchemaConcurrencyError extends Error { /* empty */ }

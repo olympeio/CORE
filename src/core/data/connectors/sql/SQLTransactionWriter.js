@@ -2,8 +2,7 @@ import {Knex} from 'knex';
 import {COLUMNS} from "./SQLQueryExecutor";
 import {CloudObject, File as OFile, Operation, Query, getUniqueTag} from 'olympe';
 import {DB_DIALECT_NAMES, MSSQL} from './_statics';
-import {retryOnError, serializeValue} from './_helpers';
-import {SchemaConcurrencyError} from "./schema/SchemaObserver";
+import { serializeValue } from './_helpers';
 
 /**
  * @typedef {(function(!Knex.QueryBuilder):Knex.QueryBuilder)} StackOperation
@@ -107,30 +106,24 @@ export default class SQLTransactionWriter {
      * @param {?function(*[], ?BatchInserts):!Promise<*>} executor
      * @return {!Promise<void>}
      */
-    applyOperations(operations, batch = false, raw = false, executor = null) {
-        // Ensure we catch schema concurrent errors and retry the operation, up to 5 times
-        return retryOnError(async () => {
-            const batchInserts = batch ? new Map() : null;
+    async applyOperations(operations, batch = false, raw = false, executor = null) {
+        const batchInserts = batch ? new Map() : null;
 
-            const operationId = getUniqueTag();
-            const [operationsList, affectedTags] = await this.buildStack(operations, batchInserts);
+        const operationId = getUniqueTag();
+        const [operationsList, affectedTags] = await this.buildStack(operations, batchInserts);
 
-            // Wait if schema requires updates
-            await this.schemaProvider.waitForFree();
-
-            return new Promise((resolve, reject) => {
-                this.stack.push({
-                    resolve,
-                    reject,
-                    operations: raw ? this.getRawOperations(operationsList) : operationsList,
-                    affectedTags,
-                    batchInserts,
-                    operationId,
-                    executor
-                });
-                this.processNextStackOperation();
+        return new Promise((resolve, reject) => {
+            this.stack.push({
+                resolve,
+                reject,
+                operations: raw ? this.getRawOperations(operationsList) : operationsList,
+                affectedTags,
+                batchInserts,
+                operationId,
+                executor
             });
-        }, [SchemaConcurrencyError], 3);
+            this.processNextStackOperation();
+        });
     }
 
     /**
@@ -284,6 +277,9 @@ export default class SQLTransactionWriter {
                     throw new Error(`Transaction error: operation type is unknown: ${op.type}`);
             }
         }
+
+        // Wait if schema requires updates
+        await this.schemaProvider.waitForFree();
         return [returnedOperations, affectedTags];
     }
 
@@ -359,12 +355,9 @@ export default class SQLTransactionWriter {
      * @return {function(!Knex.QueryBuilder):!Knex.QueryBuilder}
      */
     delete(tag, dataType) {
-        this.schemaProvider.ensureDataType(dataType, []);
-        return (builder) => {
-            // Delete the instance itself, auto cascade the deletion of relations.
-            const tableName = this.schemaProvider.getTableName(dataType);
-            builder.table(tableName).where(COLUMNS.TAG, tag).del();
-        };
+        const tableName = this.schemaProvider.getTableName(dataType);
+        // Delete the instance itself, auto cascade the deletion of relations.
+        return (builder) => tableName ? builder.table(tableName).where(COLUMNS.TAG, tag).del() : builder;
     }
 
     /**
@@ -439,12 +432,8 @@ export default class SQLTransactionWriter {
         if (typeof fromModel !== 'string' || typeof toModel !== 'string') {
             throw new Error(`SQL connector: invalid transaction: missing origin or destination model to create the relation ${from}-[${relation}]->${to}`);
         }
-
-        this.schemaProvider.ensureRelation(relation, fromModel, toModel);
-        return (builder) => {
-            const tableName = this.schemaProvider.getRelationTableName(relation, fromModel, toModel);
-            builder.table(tableName).where({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).del();
-        }
+        const tableName = this.schemaProvider.getRelationTableName(relation, fromModel, toModel);
+        return (builder) => tableName ? builder.table(tableName).where({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).del() : builder;
     }
 
     /**

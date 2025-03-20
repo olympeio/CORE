@@ -14,9 +14,18 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import { ActionBrick, registerBrick } from 'olympe';
 
-export default class Pause extends Brick {
+/**
+## Description
+Pauses a control flow for a specified amount of time. This helps creating delayed actions.
+## Inputs
+| Name | Type | Description |
+| --- | :---: | --- |
+| duration | Number | Duration, in seconds. |
+
+**/
+export default class Pause extends ActionBrick {
 
     /**
      * The label used as key to save the timeout id

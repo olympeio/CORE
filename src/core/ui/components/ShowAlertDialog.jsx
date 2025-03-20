@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import { ActionBrick, registerBrick } from 'olympe';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -35,7 +35,7 @@ import { markdownTextToReactElement } from 'helpers/remarkable';
 /**
  * Show a basic MUI alert/confirm dialog
  */
-export default class ShowAlertDialog extends Brick {
+export default class ShowAlertDialog extends ActionBrick {
 
     /**
      * @protected

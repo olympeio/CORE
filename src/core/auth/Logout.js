@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, Auth, AuthState } from 'olympe';
+import { ActionBrick, registerBrick, Auth, AuthState } from 'olympe';
 
 /**
  ## Description
  Log out current user.
 **/
-export default class Logout extends Brick {
+export default class Logout extends ActionBrick {
 
     /**
      * @protected

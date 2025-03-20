@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import {Brick, registerBrick, ErrorFlow} from 'olympe';
+import {ActionBrick, registerBrick, ErrorFlow} from 'olympe';
 import {httpRequest} from "helpers/httpRequest";
 import {handleStatusAndHeaders, handleData, forwardEventOrErrorFlow} from "../utils/httpResponseHandlers";
 
-export default class HTTPGet extends Brick {
+export default class HTTPGet extends ActionBrick {
 
     /**
      * @protected

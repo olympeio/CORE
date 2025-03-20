@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {Brick, registerBrick, Transaction, File as OFile, CloudObject, ErrorFlow} from 'olympe';
+import {ActionBrick, registerBrick, Transaction, File as OFile, CloudObject, ErrorFlow} from 'olympe';
 
-export default class SetFileContentFromURL extends Brick {
+export default class SetFileContentFromURL extends ActionBrick {
 
     /**
      * @protected

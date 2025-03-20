@@ -1,6 +1,6 @@
-import { Brick, registerBrick } from 'olympe';
+import { ActionBrick, registerBrick } from 'olympe';
 
-export default class GetFromMap extends Brick {
+export default class GetFromMap extends ActionBrick {
 
     /**
      * @protected

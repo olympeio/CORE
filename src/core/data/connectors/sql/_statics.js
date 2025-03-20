@@ -56,9 +56,6 @@ PG.REMOVE_DUPLICATES=`WITH rows AS (
 PG.QUERY_DATA_TYPE_TABLES= `${PG.QUERY_ALL_TABLES} AND obj_description(class.oid) LIKE '${SCHEMA_PREFIXES.TYPE}:%'`;
 PG.QUERY_RELATION_TABLES= `${PG.QUERY_ALL_TABLES} AND obj_description(class.oid) LIKE '${SCHEMA_PREFIXES.RELATION}:%'`;
 PG.QUERY_COLUMNS= `${PG.QUERY_ALL_COLUMNS} AND col_description(class.oid, cols.attnum::int) LIKE '${SCHEMA_PREFIXES.PROPERTY}:%'`
-PG.ACQUIRE_LOCK = 'SELECT pg_advisory_lock(?)';
-PG.RELEASE_LOCK = 'SELECT pg_advisory_unlock(?)';
-
 export {PG};
 
 const MSSQL = {};
@@ -111,8 +108,7 @@ MSSQL.REMOVE_DUPLICATES=`
 MSSQL.QUERY_DATA_TYPE_TABLES= `${MSSQL.QUERY_ALL_TABLES} AND CAST(ep.value AS NVARCHAR(MAX)) LIKE '${SCHEMA_PREFIXES.TYPE}:%'`;
 MSSQL.QUERY_RELATION_TABLES= `${MSSQL.QUERY_ALL_TABLES} AND CAST(ep.value AS NVARCHAR(MAX)) LIKE '${SCHEMA_PREFIXES.RELATION}:%'`;
 MSSQL.QUERY_COLUMNS= `${MSSQL.QUERY_ALL_COLUMNS} AND CAST(ep.value AS NVARCHAR(MAX)) LIKE '${SCHEMA_PREFIXES.PROPERTY}:%'`
-MSSQL.ACQUIRE_LOCK = `EXEC sp_getapplock @Resource = ?, @LockMode = 'Exclusive'`;
-MSSQL.RELEASE_LOCK = 'EXEC sp_releaseapplock @Resource = ?';
+
 
 // bindings for INSERT_REL_IF_NOT_EXIST:
 // :schema:, :relationTable:, :tagOlympeOrig, :tagOlympeVal

@@ -1,9 +1,9 @@
-import { Brick, registerBrick, BrickContext, GlobalProperties } from 'olympe';
+import { ActionBrick, registerBrick, BrickContext, GlobalProperties } from 'olympe';
 
 /*
  Hardcoded part of implementation used in the soft-coded brick SetNavigationRoute
 */
-export default class SetNavigationRouteImpl extends Brick {
+export default class SetNavigationRouteImpl extends ActionBrick {
 
     /**
      * @override

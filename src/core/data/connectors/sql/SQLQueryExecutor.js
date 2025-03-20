@@ -14,8 +14,6 @@ import {
 } from 'olympe';
 import {Knex} from "knex";
 import {parsePredicate} from './SQLPredicateBuilder';
-import {retryOnError} from "./_helpers";
-import {SchemaConcurrencyError} from "./schema/SchemaObserver";
 
 export const COLUMNS = {
     TAG: 'tagOlympe',
@@ -110,7 +108,7 @@ export default class SQLQueryExecutor {
      */
     async executeQuery(query) {
         // Wait for the schema observer to be ready before building a query.
-        await retryOnError(() => this.schema.waitForFree(), [SchemaConcurrencyError], 3);
+        await this.schema.waitForFree();
 
         const result = DataResult.fromQuery(query);
         const rootPart = query.parse();
@@ -285,7 +283,7 @@ export default class SQLQueryExecutor {
             .concat(filter.flatMap((andPredicates) => andPredicates.map((predicate) => predicate?.property)))
             .filter((prop) => !!prop));
 
-        return Array.from(properties).reduce((map, prop) => {
+        return properties.reduce((map, prop) => {
             destinationTables.some((table) => {
                 const column = this.schema.getColumn(table, prop);
                 return Boolean(column && map.set(prop, column));

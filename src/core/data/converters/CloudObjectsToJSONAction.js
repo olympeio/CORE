@@ -1,5 +1,5 @@
 import {
-    Brick,
+    ActionBrick,
     CloudObject,
     ErrorFlow,
     ListDef,
@@ -9,7 +9,7 @@ import {
     RelationModel
 } from 'olympe';
 
-export default class CloudObjectsToJSONAction extends Brick {
+export default class CloudObjectsToJSONAction extends ActionBrick {
     /**
      * Convert CloudObjects To JSON
      *

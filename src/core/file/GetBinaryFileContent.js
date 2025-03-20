@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Brick, registerBrick, File as OFile, ErrorFlow } from 'olympe';
+import { ActionBrick, registerBrick, File as OFile, ErrorFlow } from 'olympe';
 import {getLogger} from 'logging';
 
-export default class GetBinaryFileContent extends Brick {
+export default class GetBinaryFileContent extends ActionBrick {
 
     /**
      * @protected

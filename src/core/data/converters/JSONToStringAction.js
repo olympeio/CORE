@@ -1,8 +1,8 @@
-import {Brick, registerBrick} from 'olympe';
+import {ActionBrick, registerBrick} from 'olympe';
 import {handleJsonToString} from './helpers/dataFormatHandlers';
 import {handleError} from './helpers/handleError';
 
-export default class JSONToString extends Brick {
+export default class JSONToString extends ActionBrick {
     /**
      * @override
      * @protected

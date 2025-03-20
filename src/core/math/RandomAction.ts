@@ -1,6 +1,6 @@
-import { Brick, BrickContext, registerBrick } from 'olympe';
+import { ActionBrick, BrickContext, registerBrick } from 'olympe';
 
-export default class RandomAction extends Brick {
+export default class RandomAction extends ActionBrick {
 
     /**
      * @override

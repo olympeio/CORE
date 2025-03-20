@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Brick, registerBrick, File as OFile, ErrorFlow } from 'olympe';
+import { ActionBrick, registerBrick, File as OFile, ErrorFlow } from 'olympe';
 import { toBase64 } from 'helpers/binaryConverters';
 import {getLogger} from 'logging';
 import {isMimeTypeText} from '../net/utils/httpResponseHandlers';
 
-export default class GetFileContent extends Brick {
+export default class GetFileContent extends ActionBrick {
 
     /**
      * @protected

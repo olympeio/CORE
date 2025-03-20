@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import {Brick, registerBrick} from 'olympe';
+import {ActionBrick, registerBrick} from 'olympe';
 import {addElementToList} from "./AddElementToListFunction";
 
-export default class AddElementToListAction extends Brick {
+export default class AddElementToListAction extends ActionBrick {
 
     /**
      * @protected

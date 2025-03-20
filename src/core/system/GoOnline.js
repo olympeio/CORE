@@ -1,6 +1,6 @@
-import { Brick, registerBrick, Process, ErrorFlow } from 'olympe';
+import { ActionBrick, registerBrick, Process, ErrorFlow } from 'olympe';
 
-export default class GoOnline extends Brick {
+export default class GoOnline extends ActionBrick {
 
     /**
      * @override

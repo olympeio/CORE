@@ -1,6 +1,6 @@
-import { Brick, registerBrick, Cache, ErrorFlow } from 'olympe';
+import { ActionBrick, registerBrick, Cache, ErrorFlow } from 'olympe';
 
-export default class LoadPendingChanges extends Brick {
+export default class LoadPendingChanges extends ActionBrick {
 
     /**
      * @override

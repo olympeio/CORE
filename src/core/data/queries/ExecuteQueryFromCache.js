@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick } from 'olympe';
+import { ActionBrick, registerBrick } from 'olympe';
 
-export default class ExecuteQueryFromCache extends Brick {
+export default class ExecuteQueryFromCache extends ActionBrick {
 
     /**
      * @override

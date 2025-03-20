@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {Brick, ErrorFlow, registerBrick, File as OFile, Transaction, CloudObject} from 'olympe';
+import {ActionBrick, ErrorFlow, registerBrick, File as OFile, Transaction, CloudObject} from 'olympe';
 import {stringToBinary} from "helpers/binaryConverters";
 
-export default class SetFileContent extends Brick {
+export default class SetFileContent extends ActionBrick {
 
     /**
      * @override

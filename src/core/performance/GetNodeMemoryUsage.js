@@ -1,6 +1,6 @@
-import { Brick, registerBrick } from 'olympe';
+import { ActionBrick, registerBrick } from 'olympe';
 
-export default class GetNodeMemoryUsage extends Brick {
+export default class GetNodeMemoryUsage extends ActionBrick {
 
     /**
      * @override

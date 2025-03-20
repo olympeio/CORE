@@ -1,6 +1,6 @@
-import { Brick, registerBrick } from 'olympe'
+import { ActionBrick, registerBrick } from 'olympe'
 
-export default class GetLocalStorage extends Brick {
+export default class GetLocalStorage extends ActionBrick {
   /**
    * @protected
    * @param {Context} context

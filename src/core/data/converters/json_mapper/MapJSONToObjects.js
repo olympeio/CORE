@@ -1,7 +1,7 @@
-import {Brick, registerBrick, BrickContext, CloudObject, Transaction} from 'olympe';
+import {ActionBrick, registerBrick, BrickContext, CloudObject, Transaction} from 'olympe';
 import {getMapper} from './MapperConfig';
 
-export default class MapJSONToObjects extends Brick {
+export default class MapJSONToObjects extends ActionBrick {
 
     /**
      * @override

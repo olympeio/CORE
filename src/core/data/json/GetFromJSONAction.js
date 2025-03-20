@@ -1,8 +1,8 @@
-import { Brick, BrickContext, registerBrick } from 'olympe';
+import { ActionBrick, BrickContext, registerBrick } from 'olympe';
 import { getLogger } from 'logging';
 import { performGetFromJSON, processResults } from './helper';
 
-export default class GetFromJSONAction extends Brick {
+export default class GetFromJSONAction extends ActionBrick {
 
     /**
      * @override

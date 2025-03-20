@@ -1,6 +1,6 @@
-import { Brick, registerBrick, ErrorFlow, Transaction, File as OFile, CloudObject } from 'olympe';
+import { ActionBrick, registerBrick, ErrorFlow, Transaction, File as OFile, CloudObject } from 'olympe';
 import * as XLSX from 'xlsx';
-export default class JSONToExcel extends Brick {
+export default class JSONToExcel extends ActionBrick {
 
     /**
      * @override

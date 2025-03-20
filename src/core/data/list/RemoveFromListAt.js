@@ -1,7 +1,7 @@
-import { Brick, registerBrick, QueryResult } from 'olympe';
+import { ActionBrick, registerBrick, QueryResult } from 'olympe';
 import {getLogger} from "logging";
 
-export default class RemoveFromListAt extends Brick {
+export default class RemoveFromListAt extends ActionBrick {
 
     /**
      * @protected

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Brick, registerBrick, ListDef, QueryResult } from 'olympe';
+import { ActionBrick, registerBrick, ListDef, QueryResult } from 'olympe';
 import { getLogger } from 'logging';
 
-export default class Reduce extends Brick {
+export default class Reduce extends ActionBrick {
 
     /**
      * @protected

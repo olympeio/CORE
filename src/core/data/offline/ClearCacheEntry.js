@@ -1,6 +1,6 @@
-import { Brick, Cache, ErrorFlow, registerBrick } from 'olympe';
+import { ActionBrick, Cache, ErrorFlow, registerBrick } from 'olympe';
 
-export default class ClearCacheEntry extends Brick {
+export default class ClearCacheEntry extends ActionBrick {
 
     /**
      * @override

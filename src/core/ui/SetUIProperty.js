@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, ErrorFlow } from "olympe";
+import { ActionBrick, registerBrick, ErrorFlow } from "olympe";
 import getScopeContext from "./util/updateContextProperty";
+import {getLogger} from 'logging';
 import {castPrimitiveValue} from "../data/transaction/_helpers";
 
-export default class SetUIProperty extends Brick {
+export default class SetUIProperty extends ActionBrick {
 
     /**
      * @protected

@@ -17,7 +17,7 @@
 import { Brick, registerBrick, ErrorFlow } from 'olympe';
 import {map} from "rxjs/operators";
 
-// This brick extends Brick, and not Brick, because it has not output control flow
+// This brick extends Brick, and not ActionBrick, because it has not output control flow
 export default class ThrowError extends Brick {
 
     /**

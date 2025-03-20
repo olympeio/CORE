@@ -1,6 +1,6 @@
-import { Brick, registerBrick } from 'olympe';
+import { ActionBrick, registerBrick } from 'olympe';
 
-export default class MapToURLParams extends Brick {
+export default class MapToURLParams extends ActionBrick {
 
     /**
      * @override

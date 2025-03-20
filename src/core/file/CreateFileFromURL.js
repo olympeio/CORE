@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { Brick, registerBrick, File as OFile, Transaction, ErrorFlow, CloudObject } from 'olympe';
+import { ActionBrick, registerBrick, File as OFile, Transaction, ErrorFlow, CloudObject } from 'olympe';
 
-export default class CreateFileFromURL extends Brick {
+export default class CreateFileFromURL extends ActionBrick {
 
     /**
      * @protected

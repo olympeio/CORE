@@ -1,7 +1,7 @@
-import { Brick, BrickContext, registerBrick, ErrorFlow } from 'olympe';
+import { ActionBrick, BrickContext, registerBrick, ErrorFlow } from 'olympe';
 import { getLogger } from 'logging';
 
-export default class StartRetry extends Brick {
+export default class StartRetry extends ActionBrick {
 
     /**
      * Name of the context key used to store the active retry object.

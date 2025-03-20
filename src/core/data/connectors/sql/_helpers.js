@@ -31,7 +31,7 @@ export function serializeValue(val, dialect) {
  * @param {string} dialect the dialect currently in use
  * @param {string} sqlCode the request code
  * @param {Object | Array} bindings to inject into the request
- * @param {function(!Knex.QueryBuilder):Promise<*>} executor used to execute the query
+ * @param {Function} executor used to execute the query
  * @return {Promise<[string, string][]>}
  */
 export const queryKnex = async (client, dialect, sqlCode, bindings, executor) => {
@@ -49,28 +49,4 @@ export const queryKnex = async (client, dialect, sqlCode, bindings, executor) =>
         default: rows = response?.rows;
     }
     return rows ?? [];
-}
-
-/**
- * @template T
- * @param {function(...*):Promise<T>} action
- * @param {(typeof Error)[]} errors
- * @param {number=} retries
- * @return {Promise<T>}
- */
-export const retryOnError = async (action, errors, retries = 3) => {
-    let attempt = 0;
-    let error;
-    while (attempt < retries) {
-        try {
-            return await action();
-        } catch (e) {
-            error = e;
-            if (!errors.some((errorType) => e instanceof errorType)) {
-                throw e;
-            }
-        }
-        attempt++;
-    }
-    throw error;
 }
