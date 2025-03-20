@@ -363,7 +363,7 @@ export default class SQLTransactionWriter {
         return (builder) => {
             // Delete the instance itself, auto cascade the deletion of relations.
             const tableName = this.schemaProvider.getTableName(dataType);
-            builder.table(tableName).where(COLUMNS.TAG, tag).del();
+            return builder.table(tableName).where(COLUMNS.TAG, tag).del();
         };
     }
 
@@ -443,7 +443,7 @@ export default class SQLTransactionWriter {
         this.schemaProvider.ensureRelation(relation, fromModel, toModel);
         return (builder) => {
             const tableName = this.schemaProvider.getRelationTableName(relation, fromModel, toModel);
-            builder.table(tableName).where({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).del();
+            return builder.table(tableName).where({ [COLUMNS.FROM]: from, [COLUMNS.TO]: to }).del();
         }
     }
 
