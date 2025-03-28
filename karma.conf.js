@@ -92,6 +92,12 @@ module.exports = function (config) {
           logging: loggingPath
         }
       },
+      fallback: {
+        AMQPClient: false,
+        buffer: false,
+        net: false,
+        tls: false
+      },
     },
     preprocessors: {
       //add webpack as preprocessor to support require() in test-suites .js files
