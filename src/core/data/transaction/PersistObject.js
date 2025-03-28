@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, BrickContext, tagToString, Transaction, ErrorFlow } from 'olympe';
+import { Brick, registerBrick, BrickContext, tagToString, Transaction, ErrorFlow } from 'olympe';
 import {getLogger} from 'logging';
 
-export default class PersistObject extends ActionBrick {
+export default class PersistObject extends Brick {
 
     /**
      * @protected

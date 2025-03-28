@@ -12,7 +12,7 @@ export default class SchemaProvider {
      * @param {!Knex} client
      * @param {string} schema
      * @param {...*} args
-     * @return {!Promise<void>}
+     * @return {Promise<void>}
      */
     init(client, schema, ...args) {
         /* empty */
@@ -21,7 +21,8 @@ export default class SchemaProvider {
     /**
      * Concurrence handling: wait for operations being made on the schema
      * @abstract
-     * @return {!Promise<void>}
+     * @throws {SchemaConcurrencyError}
+     * @return {Promise<void>}
      */
     waitForFree() {
         /* empty */

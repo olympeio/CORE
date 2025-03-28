@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import DebugLog from "./DebugLog";
 
-export default class Log extends ActionBrick {
+export default class Log extends Brick {
 
     /**
      * @protected

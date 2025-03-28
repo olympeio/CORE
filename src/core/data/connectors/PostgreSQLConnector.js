@@ -29,7 +29,7 @@ export default class PostgreSQLConnector extends DataSource {
          * @private
          * @type {SchemaProvider}
          */
-        this.schemaProvider = this.getConfig(config.schemaDescription) ? new SchemaReader(this.logger) : new SchemaObserver(this.logger);
+        this.schemaProvider = this.getConfig(config.schemaDescription) ? new SchemaReader(this.logger) : new SchemaObserver(this.logger, this.getTag());
 
         /**
          * @private

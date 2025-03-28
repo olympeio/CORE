@@ -1,7 +1,7 @@
-import {ActionBrick, registerBrick, BrickContext, ErrorFlow} from 'olympe';
+import {Brick, registerBrick, BrickContext, ErrorFlow} from 'olympe';
 import {getLogger} from "logging";
 
-export default class JSONToMap extends ActionBrick {
+export default class JSONToMap extends Brick {
 
     /**
      * @override

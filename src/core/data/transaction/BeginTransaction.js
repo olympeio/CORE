@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, Transaction, GlobalProperties, BrickContext } from 'olympe';
+import { Brick, registerBrick, Transaction, GlobalProperties, BrickContext } from 'olympe';
 import { getLogger } from 'logging';
 
-export default class BeginTransaction extends ActionBrick {
+export default class BeginTransaction extends Brick {
 
     /**
      * @protected

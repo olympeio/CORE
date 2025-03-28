@@ -1,7 +1,7 @@
-import { ActionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 import {getLogger} from "logging";
 
-export default class AddElementToMap extends ActionBrick {
+export default class AddElementToMap extends Brick {
 
     /**
      * @protected

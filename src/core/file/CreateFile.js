@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, Transaction, File as OFile, ErrorFlow, CloudObject } from 'olympe';
+import { Brick, registerBrick, Transaction, File as OFile, ErrorFlow, CloudObject } from 'olympe';
 import {stringToBinary} from 'helpers/binaryConverters';
 
-export default class CreateFile extends ActionBrick {
+export default class CreateFile extends Brick {
 
     /**
      * @protected

@@ -16,7 +16,7 @@
  */
 
 import {
-    ActionBrick,
+    Brick,
     BrickContext,
     InstanceTag,
     registerBrick,
@@ -30,7 +30,7 @@ import {
 import {getLogger} from 'logging';
 import JSONToCloudObject from "./JSONToCloudObjectOld";
 
-export default class JsonToObject extends ActionBrick {
+export default class JsonToObject extends Brick {
 
     /**
      * @protected

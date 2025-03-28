@@ -258,11 +258,11 @@ export class SQLQueryExecutor {
 /**
  * A schema provider is used to interact with the database schema by SQL data connectors
  */
-export abstract class SchemaProvider {
-    abstract init(client: Knex, schema: string, ...args: any[]): Promise<void>;
-    abstract getSchema(): string;
-    abstract getTablesOfType(dataType: string, includeInheritance?: boolean): string[];
-    abstract getDBDialectName(): string;
+export interface SchemaProvider {
+    init(client: Knex, schema: string, ...args: any[]): Promise<void>;
+    getSchema(): string;
+    getTablesOfType(dataType: string, includeInheritance?: boolean): string[];
+    getDBDialectName(): string;
 }
 
 /**

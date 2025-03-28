@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import {ActionBrick, registerBrick, Transaction, BrickContext, ErrorFlow} from 'olympe';
+import {Brick, registerBrick, Transaction, BrickContext, ErrorFlow} from 'olympe';
 
-export default class ClearObjectProperty extends ActionBrick {
+export default class ClearObjectProperty extends Brick {
 
     /**
      * @protected

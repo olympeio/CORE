@@ -1,6 +1,6 @@
 import { Brick, registerBrick } from 'olympe';
 
-export default class NewJsonObject extends Brick {
+export default class GetUUID extends Brick {
 
     /**
      * @override
@@ -8,12 +8,12 @@ export default class NewJsonObject extends Brick {
      * @param {!BrickContext} $
      * @param {!Array} inputs
      * @param {function()} forwardEvent
-     * @param {function(*)} setJson
+     * @param {function(string)} setUUID
      */
-    update($, inputs, [forwardEvent, setJson]) {
-        setJson({});
+    update($, inputs, [forwardEvent, setUUID]) {
+        setUUID(crypto.randomUUID());
         forwardEvent();
     }
 }
 
-registerBrick('0186303dacd585f4174c', NewJsonObject);
+registerBrick('01958f7fda4d5e5a7f98', GetUUID);

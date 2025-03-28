@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { ActionBrick, BrickContext, registerBrick, ListDef } from 'olympe';
+import { Brick, BrickContext, registerBrick, ListDef } from 'olympe';
 import ObjectToJson from "./ObjectToJson";
 
-export default class ObjectListToJson extends ActionBrick {
+export default class ObjectListToJson extends Brick {
 
     /**
      * @protected

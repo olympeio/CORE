@@ -1,8 +1,8 @@
-import { ActionBrick, BrickContext, registerBrick, ErrorFlow } from 'olympe';
+import { Brick, BrickContext, registerBrick, ErrorFlow } from 'olympe';
 import { getLogger } from 'logging';
 import { JSONPath } from 'jsonpath-plus';
 
-export default class UpdateJSONAction extends ActionBrick {
+export default class UpdateJSONAction extends Brick {
 
     /**
      * @override

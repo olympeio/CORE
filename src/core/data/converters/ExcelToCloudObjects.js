@@ -1,7 +1,7 @@
-import {CloudObject, ActionBrick, registerBrick, ErrorFlow} from 'olympe';
+import {CloudObject, Brick, registerBrick, ErrorFlow} from 'olympe';
 import {handleExcelToJSON, handleJsonToCloudObjects} from './helpers/dataFormatHandlers';
 
-export default class ExcelToCloudObjects extends ActionBrick {
+export default class ExcelToCloudObjects extends Brick {
     /**
      * @override
      * @protected

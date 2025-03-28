@@ -15,7 +15,7 @@
  */
 
 import {
-    ActionBrick,
+    Brick,
     registerBrick,
     ErrorFlow,
     DBView,
@@ -30,7 +30,7 @@ import {
     Tag
 } from 'olympe';
 
-export default class CreateRelation extends ActionBrick {
+export default class CreateRelation extends Brick {
 
     /**
      * @protected

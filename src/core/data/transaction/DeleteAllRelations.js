@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import {CloudObject, ActionBrick, registerBrick, Transaction, BrickContext, Relation, RelationModel, ErrorFlow} from 'olympe';
+import {CloudObject, Brick, registerBrick, Transaction, BrickContext, Relation, RelationModel, ErrorFlow} from 'olympe';
 
-export default class DeleteAllRelations extends ActionBrick {
+export default class DeleteAllRelations extends Brick {
 
     /**
      * @protected

@@ -1,7 +1,7 @@
-import { ActionBrick, registerBrick } from 'olympe'
+import { Brick, registerBrick } from 'olympe'
 import {LocalStorageManager} from '../LocalStorageManager';
 
-export default class SetLocalStorage extends ActionBrick {
+export default class SetLocalStorage extends Brick {
   /**
    * @protected
    * @param {Context} context

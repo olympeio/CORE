@@ -1,6 +1,6 @@
-import { ActionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
-export default class RefreshApp extends ActionBrick {
+export default class RefreshApp extends Brick {
 
     /**
      * @protected

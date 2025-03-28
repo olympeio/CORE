@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -28,7 +28,7 @@ Create an empty JavaScript Array.
 | --- | :---: | --- |
 | List | List | The created list. |
 **/
-export default class CreateListAction extends ActionBrick {
+export default class CreateListAction extends Brick {
 
     /**
      * @protected

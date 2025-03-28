@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick, BrickContext } from 'olympe';
+import { Brick, registerBrick, BrickContext } from 'olympe';
 
-export default class OpenURL extends ActionBrick {
+export default class OpenURL extends Brick {
 
     /**
      * @protected

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ActionBrick, registerBrick } from 'olympe';
+import { Brick, registerBrick } from 'olympe';
 
 /**
 ## Description
@@ -29,7 +29,7 @@ Returns `true` if the value passed is `null` or `undefined` at the time this act
 | result | Boolean | `true` if the value is either `null` or `undefined`. |
 | forwardEvent | ControlFlow |
 **/
-export default class IsNull extends ActionBrick {
+export default class IsNull extends Brick {
 
     /**
      * @protected
