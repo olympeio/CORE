@@ -90,13 +90,13 @@ module.exports = function (config) {
           olympe: runtimeWebPath,
           helpers: helpersPath,
           logging: loggingPath
-        }
-      },
-      fallback: {
-        AMQPClient: false,
-        buffer: false,
-        net: false,
-        tls: false
+        },
+        fallback: {
+          AMQPClient: false,
+          buffer: false,
+          net: false,
+          tls: false
+        },
       },
     },
     preprocessors: {
