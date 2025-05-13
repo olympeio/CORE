@@ -111,8 +111,8 @@ MSSQL.REMOVE_DUPLICATES=`
 MSSQL.QUERY_DATA_TYPE_TABLES= `${MSSQL.QUERY_ALL_TABLES} AND CAST(ep.value AS NVARCHAR(MAX)) LIKE '${SCHEMA_PREFIXES.TYPE}:%'`;
 MSSQL.QUERY_RELATION_TABLES= `${MSSQL.QUERY_ALL_TABLES} AND CAST(ep.value AS NVARCHAR(MAX)) LIKE '${SCHEMA_PREFIXES.RELATION}:%'`;
 MSSQL.QUERY_COLUMNS= `${MSSQL.QUERY_ALL_COLUMNS} AND CAST(ep.value AS NVARCHAR(MAX)) LIKE '${SCHEMA_PREFIXES.PROPERTY}:%'`
-MSSQL.ACQUIRE_LOCK = `EXEC sp_getapplock @Resource = ?, @LockMode = 'Exclusive'`;
-MSSQL.RELEASE_LOCK = 'EXEC sp_releaseapplock @Resource = ?';
+MSSQL.ACQUIRE_LOCK = `EXEC sp_getapplock @Resource = ?, @LockMode = 'Exclusive', @LockOwner = 'Session'`;
+MSSQL.RELEASE_LOCK = `EXEC sp_releaseapplock @Resource = ?, @LockOwner = 'Session'`;
 
 // bindings for INSERT_REL_IF_NOT_EXIST:
 // :schema:, :relationTable:, :tagOlympeOrig, :tagOlympeVal
