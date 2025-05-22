@@ -206,8 +206,8 @@ export default class SQLQueryExecutor {
                 queryBuilder.orderBy(this.getColumnAlias(index, sortPropTag), sort.order === Order.ASC ? 'ASC' : 'DESC');
             }
         }
-        limit > -1 && queryBuilder.limit(limit);
-        offset > 0 && queryBuilder.offset(offset);
+        // We need to add the offset to the limit to ensure all the values are added to the result in the local db
+        limit > -1 && queryBuilder.limit(offset + limit);
 
         // Execute the SQL Query on the database
         this.logger.debug(`SQL Query to be executed: ${queryBuilder.toString()}`);
