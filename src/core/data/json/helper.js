@@ -66,7 +66,7 @@ export const getByJSONPath = (data, path) => {
  */
 export const processResults = (results, logger, onSuccess) => {
     if (results === undefined || results === null) {
-        logger.warn('No result found matching provided path');
+        logger.debug('No result found matching provided path');
         onSuccess(null);
     } else {
         onSuccess(results);
