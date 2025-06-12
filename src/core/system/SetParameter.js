@@ -1,4 +1,4 @@
-import {Brick, ErrorFlow, registerBrick} from 'olympe';
+import {Config, Brick, ErrorFlow, registerBrick} from 'olympe';
 
 export default class SetParameter extends Brick {
 
@@ -15,7 +15,7 @@ export default class SetParameter extends Brick {
             throw ErrorFlow.create('Parameter name is not a string', 1);
         }
 
-        globalThis['updateConfig'](name, value);
+        Config.setParameter(name, value);
         forwardEvent();
     }
 }
