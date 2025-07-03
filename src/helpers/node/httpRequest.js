@@ -16,6 +16,7 @@
 
 import { getLogger } from "logging";
 import { convertStringToJson } from '../convertStringToJson';
+import FormDataFromLib from 'form-data';
 
 /**
  * @param {string} method
@@ -53,4 +54,13 @@ export const httpRequest = (method, url, headers, body, withCors) => {
     }
 
     return fetch.default(url, init);
+}
+
+/**
+ * Get the form data from a library to be used with node-fetch
+ *
+ * @returns {*} A FormData object to be passed as a POST body
+ */
+export const getFormData = () => {
+    return new FormDataFromLib();
 }
