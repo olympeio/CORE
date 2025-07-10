@@ -23,11 +23,13 @@ export default class AddToFormData extends Brick {
         if (value instanceof OFile) {
             try {
                 const content = await value.getContentUrl();
-                data.append(
-                    name,
-                    new Blob([fromBase64(content.substring(content.indexOf(';base64,')+8))], { type: value.get(File.mimeTypeProp) }),
-                    value.get(OFile.fileNameProp)
-                );
+                let serializedContent;
+                if (Buffer) {
+                    serializedContent = Buffer.from(fromBase64(content.substring(content.indexOf(';base64,')+8)))
+                } else {
+                    serializedContent = new Blob([fromBase64(content.substring(content.indexOf(';base64,')+8))], { type: value.get(OFile.mimeTypeProp) })
+                }
+                data.append(name, serializedContent, value.get(OFile.fileNameProp));
                 setFormData(data);
                 forwardEvent();
             } catch (e) {
