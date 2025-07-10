@@ -14,7 +14,7 @@ export default class AddToFormData extends ActionBrick {
      * @param {function()} forwardEvent
      * @param {function(*)} setFormData
      */
-    update($, [name, value, formData], [forwardEvent, setFormData]) {
+    update($, [formData, name, value], [forwardEvent, setFormData]) {
         let data = formData;
         if (!data) {
             data = getFormData();
