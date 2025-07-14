@@ -1,6 +1,7 @@
 import { Brick, registerBrick, File as OFile, ErrorFlow } from 'olympe';
 import {getFormData} from "helpers/httpRequest";
 import {fromBase64} from "helpers/binaryConverters";
+import {getLogger} from "logging";
 
 export default class AddToFormData extends Brick {
 
@@ -18,6 +19,14 @@ export default class AddToFormData extends Brick {
         let data = formData;
         if (!data) {
             data = getFormData();
+        }
+
+        // Sanity checks
+        if (!name || !value) {
+            getLogger('Add to form data').warn('Name and value are mandatory fields that were not provided. Ignoring the brick');
+            setFormData(data);
+            forwardEvent();
+            return;
         }
 
         if (value instanceof OFile) {
