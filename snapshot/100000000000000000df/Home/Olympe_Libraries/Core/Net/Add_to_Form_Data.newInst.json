@@ -43,7 +43,7 @@
    "o": 1,
    "p": {
     "01703376c4a81c0e9d91": "Create & Append data to a FormData object",
-    "01703376c4a81c0e9d92": "Append some data to the FormData object when needed to interface with an API that requires it. The output is supposed to go to the body of an HTTP brick.\n\nYou can chain several data in a single FormData object by chaining the form data output to the input of the next instance"
+    "01703376c4a81c0e9d92": "Append some data to the FormData object when needed to interface with an API that requires it. The output is supposed to go to the body of an HTTP brick.\n\nYou can chain several data in a single FormData object by chaining the form data output to the input of the next instance.\n\n<b>Note!</b> Form Data only supports strings. This block does not validate or transform values, so you are responsible for ensuring they are properly formatted."
    },
    "t": "0190b59fdcfa77d12bd1"
   },
@@ -88,7 +88,7 @@
   {
    "o": 1,
    "p": {
-    "01703376c4a81c0e9d92": "optional. If not provided will create a new one"
+    "01703376c4a81c0e9d92": "Optional. If not provided will create a new one"
    },
    "t": "0190b5a0535c2e2c81b2"
   },
