@@ -17,11 +17,25 @@ export function jenkinsOneAtATimeHash(keyString) {
 /**
  * @param {string} str
  * @return {number}
+ *
+ * @deprecated
+ */
+export function hashcodeOld(str) {
+    let hash = 0;
+    for (const char of str) {
+        hash = Math.imul(31, hash) + char | 0;
+    }
+    return hash;
+}
+
+/**
+ * @param {string} str
+ * @return {number}
  */
 export function hashcode(str) {
     let hash = 0;
     for (const char of str) {
-        hash = Math.imul(31, hash) + char | 0;
+        hash = Math.imul(31, hash) + char.charCodeAt(0) | 0;
     }
     return hash;
 }

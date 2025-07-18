@@ -57,3 +57,12 @@ export const httpRequest = (method, url, headers, body, withCors) => {
 
     return fetch(url, init);
 }
+
+/**
+ * Get the form data from the native browser library
+ *
+ * @returns {*} A FormData object to be passed as a POST body
+ */
+export const getFormData = () => {
+    return new FormData();
+}
