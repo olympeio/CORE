@@ -27,10 +27,12 @@ export const parsePredicate = (builder, column, objectPredicate, dialect) => {
             equals(builder, column, objectPredicate.value, dialect);
             break;
         case 'IS':
-            if (objectPredicate.tags.length > 0) {
-                objectPredicate.tags.length > 1
-                    ? isIn(builder, column, objectPredicate.tags)
-                    : equals(builder, column, objectPredicate.tags[0], dialect);
+        case 'IN':
+            const values = objectPredicate.tags ?? objectPredicate.values;
+            if (values.length > 0) {
+                values.length > 1
+                    ? isIn(builder, column, values)
+                    : equals(builder, column, values[0], dialect);
             }
             break;
     }
