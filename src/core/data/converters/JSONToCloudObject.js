@@ -15,8 +15,13 @@
  */
 
 import { Query, Brick, PropertyModel, BrickContext, registerBrick, CloudObject, Transaction, RelationModel, ErrorFlow, DBView, StringModel, NumberModel, DatetimeModel, BooleanModel } from 'olympe';
-export default class JSONToCloudObject extends Brick {
 
+// Caches to speed up conversion of large numbers of objects
+const TYPES = { STRING: 0, NUMBER: 1, BOOLEAN: 2, DATETIME: 3 };
+const modelPropsMap = new Map();
+const propTypesMap = new Map();
+
+export default class JSONToCloudObject extends Brick {
     /**
      * @override
      * @param {!BrickContext} $
@@ -87,16 +92,24 @@ export default class JSONToCloudObject extends Brick {
      * @return {!Map<Tag, *>}
      */
     parseProperties(model, data) {
-        return Query.from(model).followRecursively(CloudObject.extendRel, true).executeFromCache()
-            .filter((model) => !model.equals(CloudObject.asInstance()))
-            .flatMap((model) => model.follow(CloudObject.propertyRel).executeFromCache().toArray())
-            .reduce((map, property) => {
-                const value = data[property.name()];
-                if (value !== undefined && (!(value instanceof Array) && !(value instanceof Object))) {
-                    map.set(property, this.formatValue(value, property));
-                }
-                return map;
-            }, new Map());
+        let props = modelPropsMap.get(model);
+        // Fill in the map if not already filled
+        if (!props) {
+            props = Query.from(model)
+                .followRecursively(CloudObject.extendRel, true)
+                .executeFromCache()
+                .filter((m) => !m.equals(CloudObject.asInstance()))
+                .flatMap((m) => m.follow(CloudObject.propertyRel).executeFromCache().toArray());
+            modelPropsMap.set(model, props);
+        }
+
+        return props.reduce((map, property) => {
+            const value = data[property.name()];
+            if (value !== undefined && (!(value instanceof Array) && !(value instanceof Object))) {
+                map.set(property, this.formatValue(value, property));
+            }
+            return map;
+        }, new Map());
     }
 
     /**
@@ -106,17 +119,40 @@ export default class JSONToCloudObject extends Brick {
      * @return {*}
      */
     formatValue(value, property) {
-        const propType = property.followSingle(PropertyModel.typeRel).executeFromCache();
-        switch (true) {
-            case propType === null || value === null:
-                return null;
-            case DBView.get().isExtending(propType, StringModel):
+        let type = propTypesMap.get(property);
+        // Fill in the map if not already filled
+        if (type === undefined) {
+            const propType = property.followSingle(PropertyModel.typeRel).executeFromCache();
+            switch (true) {
+                case propType === null:
+                    type = null;
+                    break;
+                case DBView.get().isExtending(propType, StringModel):
+                    type = TYPES.STRING;
+                    break;
+                case propType.equals(NumberModel.asInstance()):
+                    type = TYPES.NUMBER;
+                    break;
+                case propType.equals(DatetimeModel.asInstance()):
+                    type = TYPES.DATETIME;
+                    break;
+                case propType.equals(BooleanModel.asInstance()):
+                    type = TYPES.BOOLEAN;
+                    break;
+                default:
+                    type = null;
+            }
+            propTypesMap.set(property, type);
+        }
+
+        switch (type) {
+            case TYPES.STRING:
                 return String(value);
-            case propType.equals(NumberModel.asInstance()):
+            case TYPES.NUMBER:
                 return Number(value);
-            case propType.equals(DatetimeModel.asInstance()):
+            case TYPES.DATETIME:
                 return value instanceof Date ? value : new Date(value);
-            case propType.equals(BooleanModel.asInstance()):
+            case TYPES.BOOLEAN:
                 return !!value;
             default:
                 return null;
