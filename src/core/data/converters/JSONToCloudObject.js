@@ -145,6 +145,11 @@ export default class JSONToCloudObject extends Brick {
             propTypesMap.set(property, type);
         }
 
+        // null case
+        if(value === null) {
+            return null;
+        }
+
         switch (type) {
             case TYPES.STRING:
                 return String(value);
