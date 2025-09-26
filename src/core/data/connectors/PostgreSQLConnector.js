@@ -1,4 +1,4 @@
-import {DataSource, register, tagToString, File as OFile} from 'olympe';
+import {DataSource, register, tagToString, File as OFile, EventMonitor, Config} from 'olympe';
 import {knex, Knex} from 'knex';
 import {getLogger} from "logging";
 import SQLQueryExecutor, {COLUMNS} from "./sql/SQLQueryExecutor";
@@ -48,6 +48,12 @@ export default class PostgreSQLConnector extends DataSource {
          * @type {?FileConnector}
          */
         this.fileConnector = null;
+
+        /**
+         * @private
+         * @type {Object}
+         */
+        this.eventTrackData = {};
     }
 
     /**
@@ -96,6 +102,11 @@ export default class PostgreSQLConnector extends DataSource {
         this.fileConnector = fileConnectorId
             ? FileConnectorsRegistry.get(fileConnectorId, this.getConfig.bind(this))
             : null;
+
+        // Set data tracking
+        this.eventTrackData = {
+            dataSourceName: this.name(),
+        }
 
         // Check the connection to SQL database is established
         await this.healthCheck();
@@ -175,6 +186,11 @@ export default class PostgreSQLConnector extends DataSource {
      * @override
      */
     async executeQuery(query) {
+        if(EventMonitor.isEnabled()) {
+            EventMonitor.track('Data Source', 'Query', {
+                serviceAppName: this.eventTrackData.dataSourceName,
+            });
+        }
         const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaProvider);
         return await executor.executeQuery(query);
     }
@@ -183,6 +199,11 @@ export default class PostgreSQLConnector extends DataSource {
      * @override
      */
     applyTransaction(operations, { batch = false }) {
+        if(EventMonitor.isEnabled()) {
+            EventMonitor.track('Data Source', 'Transaction', {
+                serviceAppName: this.eventTrackData.dataSourceName,
+            });
+        }
         return this.writer ? this.writer.applyOperations(operations, batch) : Promise.reject('Writer is not ready, you probably need to call init() first');
     }
 
