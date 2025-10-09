@@ -1,4 +1,4 @@
-import { DataSource, register, EventMonitor, Config } from 'olympe';
+import { DataSource, register, EventMonitor } from 'olympe';
 import {knex, Knex} from 'knex';
 import {getLogger} from "logging";
 import SchemaReader from "./sql/schema/SchemaReader";
@@ -61,12 +61,6 @@ export default class SQLConnectorOverHTTP extends DataSource {
          * @type {?FileConnector}
          */
         this.fileConnector = null;
-
-        /**
-         * @private
-         * @type {Object}
-         */
-        this.eventTrackData = {};
     }
 
     /**
@@ -116,11 +110,6 @@ export default class SQLConnectorOverHTTP extends DataSource {
             ? FileConnectorsRegistry.get(fileConnectorId, this.getConfig.bind(this))
             : null;
 
-        // Set data tracking
-        this.eventTrackData = {
-            dataSourceName: this.name(),
-        }
-
         // Initialize the schema observer that fulfill the cache
         // with all the existing tables with their associated data types.
         await this.schemaReader.init(this.knex, schema, schemaDesc);
@@ -145,9 +134,7 @@ export default class SQLConnectorOverHTTP extends DataSource {
      */
     async executeQuery(query) {
         if(EventMonitor.isEnabled()) {
-            EventMonitor.track('Data Source', 'Query', {
-                serviceAppName: this.eventTrackData.dataSourceName,
-            });
+            EventMonitor.track('Data Source Query', this.getLowerName());
         }
         const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaReader).delegateExecution((builder) => {
             return this.sendHTTPRequest('POST', 'query', builder.toString()).then((response) => response.json());
@@ -160,9 +147,7 @@ export default class SQLConnectorOverHTTP extends DataSource {
      */
     applyTransaction(operations, options) {
         if(EventMonitor.isEnabled()) {
-            EventMonitor.track('Data Source', 'Transaction', {
-                serviceAppName: this.eventTrackData.dataSourceName,
-            });
+            EventMonitor.track('Data Source Transaction', this.getLowerName());
         }
         return this.writer ? this.writer.applyOperations(operations, false, true) : Promise.reject('Writer is not ready, you probably need to call init() first');
     }

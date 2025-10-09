@@ -42,12 +42,6 @@ export default class MSSQLConnector extends DataSource {
          * @type {?FileConnector}
          */
         this.fileConnector = null;
-
-        /**
-         * @private
-         * @type {Object}
-         */
-        this.eventTrackData = {};
     }
 
     /**
@@ -102,11 +96,6 @@ export default class MSSQLConnector extends DataSource {
             ? FileConnectorsRegistry.get(fileConnectorId, this.getConfig.bind(this))
             : null;
 
-        // Set data tracking
-        this.eventTrackData = {
-            dataSourceName: this.name(),
-        }
-
         // Check the connection to SQL database is established
         await this.healthCheck();
         this.logger.info(`MSSQL Connector ${this.getId()} started with host ${host},
@@ -151,9 +140,7 @@ export default class MSSQLConnector extends DataSource {
      */
     async executeQuery(query) {
         if(EventMonitor.isEnabled()) {
-            EventMonitor.track('Data Source', 'Query', {
-                serviceAppName: this.eventTrackData.dataSourceName,
-            });
+            EventMonitor.track('Data Source Query', this.getLowerName());
         }
         const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaProvider);
         return await executor.executeQuery(query);
@@ -164,9 +151,7 @@ export default class MSSQLConnector extends DataSource {
      */
     applyTransaction(operations, { batch = false }) {
         if(EventMonitor.isEnabled()) {
-            EventMonitor.track('Data Source', 'Transaction', {
-                serviceAppName: this.eventTrackData.dataSourceName,
-            });
+            EventMonitor.track('Data Source Transaction', this.getLowerName());
         }
         return this.writer ? this.writer.applyOperations(operations, batch) : Promise.reject('Writer is not ready, you probably need to call init() first');
     }
