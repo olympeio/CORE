@@ -1,4 +1,4 @@
-import {DataSource, register, tagToString, File as OFile} from 'olympe';
+import {DataSource, register, tagToString, File as OFile, EventMonitor, Config} from 'olympe';
 import {knex, Knex} from 'knex';
 import {getLogger} from "logging";
 import SQLQueryExecutor, {COLUMNS} from "./sql/SQLQueryExecutor";
@@ -175,6 +175,9 @@ export default class PostgreSQLConnector extends DataSource {
      * @override
      */
     async executeQuery(query) {
+        if(EventMonitor.isEnabled()) {
+            EventMonitor.track('Data Source Query', this.getLowerName());
+        }
         const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaProvider);
         return await executor.executeQuery(query);
     }
@@ -183,6 +186,9 @@ export default class PostgreSQLConnector extends DataSource {
      * @override
      */
     applyTransaction(operations, { batch = false }) {
+        if(EventMonitor.isEnabled()) {
+            EventMonitor.track('Data Source Transaction', this.getLowerName());
+        }
         return this.writer ? this.writer.applyOperations(operations, batch) : Promise.reject('Writer is not ready, you probably need to call init() first');
     }
 

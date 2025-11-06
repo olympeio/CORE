@@ -1,4 +1,4 @@
-import { DataSource, register } from 'olympe';
+import { DataSource, register, EventMonitor } from 'olympe';
 import {knex, Knex} from 'knex';
 import {getLogger} from "logging";
 import SchemaReader from "./sql/schema/SchemaReader";
@@ -133,6 +133,9 @@ export default class SQLConnectorOverHTTP extends DataSource {
      * @override
      */
     async executeQuery(query) {
+        if(EventMonitor.isEnabled()) {
+            EventMonitor.track('Data Source Query', this.getLowerName());
+        }
         const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaReader).delegateExecution((builder) => {
             return this.sendHTTPRequest('POST', 'query', builder.toString()).then((response) => response.json());
         });
@@ -143,6 +146,9 @@ export default class SQLConnectorOverHTTP extends DataSource {
      * @override
      */
     applyTransaction(operations, options) {
+        if(EventMonitor.isEnabled()) {
+            EventMonitor.track('Data Source Transaction', this.getLowerName());
+        }
         return this.writer ? this.writer.applyOperations(operations, false, true) : Promise.reject('Writer is not ready, you probably need to call init() first');
     }
 

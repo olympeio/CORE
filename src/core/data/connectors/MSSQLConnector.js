@@ -1,4 +1,4 @@
-import {DataSource, register} from 'olympe';
+import {DataSource, register, EventMonitor, Config} from 'olympe';
 import {getLogger} from 'logging';
 import {knex, Knex} from 'knex';
 import {HEALTH_CHECK_QUERY, config} from './sql/_statics';
@@ -139,6 +139,9 @@ export default class MSSQLConnector extends DataSource {
      * @override
      */
     async executeQuery(query) {
+        if(EventMonitor.isEnabled()) {
+            EventMonitor.track('Data Source Query', this.getLowerName());
+        }
         const executor = new SQLQueryExecutor(this.logger, this.knex, this.schemaProvider);
         return await executor.executeQuery(query);
     }
@@ -147,6 +150,9 @@ export default class MSSQLConnector extends DataSource {
      * @override
      */
     applyTransaction(operations, { batch = false }) {
+        if(EventMonitor.isEnabled()) {
+            EventMonitor.track('Data Source Transaction', this.getLowerName());
+        }
         return this.writer ? this.writer.applyOperations(operations, batch) : Promise.reject('Writer is not ready, you probably need to call init() first');
     }
 
